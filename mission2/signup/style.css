@@ -1,0 +1,271 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: pretendard;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 60px;
+}
+
+
+.signup-head {
+    width: 396px;
+    height: 132px;
+    padding-left: 122px;
+    padding-right: 122px;
+    padding-bottom: 40px;
+    padding-top: 0px;
+    display: flex;
+    /* flex-direction: column;
+    align-items: center; */ 
+    justify-content: center;
+}
+
+.signup-icon {
+    width: 103.53px;
+    height: 103.88px;
+    padding-top: 12.98px;
+    padding-bottom: 15.14px;
+    padding-right: 22.24px;;
+}
+
+.signup-title {
+/*font-family: ROKAF Sans;
+    font-size: 66.34px;
+    font-weight: 700;
+    line-height: 89.56px;
+    color: #3692FF;
+    padding-right: 4.23px;
+    padding-bottom: 18.02px;
+    */
+    padding-top: 33px;
+    width: 266px; 
+    height: 90px;
+}
+
+.contents {
+    width: 640px;
+    height: 670px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.signup-body {
+
+}
+
+
+.email {
+    width: 640px;
+    height:98px;
+    padding: 0px;
+}
+
+.email-text {
+    width: 47px;
+    height: 26px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 26px;
+    padding-bottom: 16px;
+    padding-right: 593px;
+}
+
+.email-box {
+    background-color: #F3F4F6;
+    width: 640px;
+    height: 56px;
+}
+
+input:focus {
+    border-color: #3692FF;
+    border-width: 1px;
+    outline: none;
+}
+
+.input-email, .input-nickname, .input-password, .input-checkpassword {
+    width: 640px;
+    height: 56px;
+    background-color: #F3F4F6;
+    color: color="#9CA3AF";
+    border-radius: 10px;
+    border-width: 0;
+    padding-left: 20px;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+
+}
+
+.nickname {
+    width: 640px;
+    height:98px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.nickname-text {
+    width: 63px;
+    height: 26px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 26px;
+    padding-bottom: 16px;
+    padding-right: 577px;
+}
+
+.nickname-box {
+    background-color: #F3F4F6;
+    width: 640px;
+    height: 56px;
+}
+
+.password {
+    width: 640px;
+    height:98px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+
+.password-text {
+    width: 63px;
+    height: 26px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 26px;
+    padding-bottom: 16px;
+    padding-right: 577px;
+}
+
+.password-box {
+    background-color: #F3F4F6;
+    width: 640px;
+    height: 56px;
+}
+
+.checkpassword {
+    width: 640px;
+    height:98px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.checkpassword-text {
+    width: 98px;
+    height: 21px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 26px;
+    padding-bottom: 16px;
+    padding-right: 577px;
+}
+
+.checkpassword-box {
+    background-color: #F3F4F6;
+    width: 640px;
+    height: 56px;
+}
+
+.eye-con1, .eye-con2{
+    position: relative;
+    top: -40px;
+    left: 620px;
+}
+
+.signup-button {
+    color: #F3F4F6;
+    background-color: #9CA3AF;
+    width: 640px;
+    height: 56px;
+    border-radius: 40px;
+    border-width: 0px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+
+.loginbodylower-main {
+    width: 640px;
+    height: 74px;
+    background-color: #E6F2FF;
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+
+.loginbody-lower {
+    width: 594px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 23px;
+    padding-top: 16px;
+    padding-right: 23px;
+    padding-bottom: 16px;
+
+}
+
+.loginbodylower-box {
+    font-weight: 500px;
+    font-size: 16px;
+    line-height: 26px;
+    width: 101px;
+    height: 26px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+}
+
+.loginbodylower-img {
+    width: 100px;
+    height: 42px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/*
+.loginbody-foot1 .loginbody-foot2 {
+    width: 108px;
+    height: 24px;
+    padding-left: 221.5px;
+    padding-right: 221.5px;
+    padding-top: 24px;
+    font-size: 14px;
+    flex-grow: 1;
+}
+*/
+
+.loginbody-foot {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+    height: 48px;
+}
+
+
+.loginbody-foot1 {
+    width: 108px;
+    height: 24px;
+    font-size: 14px;
+    padding-right: 5px;
+}
+
+.loginbody-foot2 {
+    width: 39px;
+    height: 24px;
+    font-size: 14px;
+}
