@@ -1,0 +1,194 @@
+header {
+  width: 100%;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  height: 70px;
+ padding-top: 10px;
+}
+.box{
+  max-width: 1920px; 
+  margin: 0 auto; /* 중앙 정렬 */
+  display: flex;
+  justify-content: space-between; /* 로고와 버튼 양 끝 배치 */
+  padding: 0px 200px;
+  align-items: center;
+}
+button:hover {
+  cursor: pointer;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logoBox {
+  display: flex;
+  align-items: center;
+}
+.logoImg {
+  background-color: rgba(54, 146, 255, 1);
+  border-radius: 16px;
+  padding: 10px;
+  width: 40px;
+  margin-right: 10px;
+}
+.logoTitle {
+  font-family: ROKAF Sans;
+  font-weight:1000;
+  font-size: 25.63px;
+  line-height: 34.6px;
+  color: rgba(54, 146, 255, 1);
+}
+.loginBtn {
+  background-color: rgba(54, 146, 255, 1);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  width: 128px;
+  height: 48px;
+}
+.boxBlue{
+  width: 100%;
+/* }
+100%로 겉부분을 차지하게 부고 그 안에요소들을 padding을 줘서 고정시키면 됨 */
+}.blueBox {
+  /* max-width: 1920px; */
+  padding: 0 405px;
+  height: 540px;
+  background-color: rgba(207, 229, 255, 1);
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+.goAndSeeBox {
+  width: 357px;
+  height: 260px;
+  margin-bottom: 50px;
+}
+
+.Txt {
+  font-family: Pretendard;
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 56px;
+  color: rgba(55, 65, 81, 1);
+  margin: 0;
+}
+.smallTxt {
+  font-family: Pretendard;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+  text-align: left;
+  color: rgba(55, 65, 81, 1);
+  margin-bottom: 10px;
+}
+.goItemsBtn {
+  width: 357px;
+  height: 56px;
+  border-radius: 40px;
+  background-color: rgba(54, 146, 255, 1);
+  font-size: 20px;
+  color: white;
+  border: none;
+  text-align: center;
+  margin-top: 40px;
+}
+.pandaMainImg {
+  width: 746px;
+}
+.whiteFir,
+.whiteSec,
+.whiteThir {
+  width: 1920px;
+  height: 720px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hotItemBox,
+.searchBox,
+.registerBox {
+  width: 988px;
+  height: 444px;
+  background-color: rgba(252, 252, 252, 1);
+
+  /* //전체 박스안에 컬러를 넣어버렸네 */
+  display: flex;
+}
+.searchBox {
+  flex-direction: row-reverse;
+}
+.hotItemContent,
+.searchContent,
+.registerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 50px;
+}
+.searchContent {
+  align-items: end;
+}
+.searchTxt,
+.searchSmallTxt {
+  text-align: right;
+}
+.hotItemImg,
+.searchImg,
+.registerImg {
+  width: 588px;
+  height: 444px;
+}
+.option {
+  font-family: Pretendard;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(54, 146, 255, 1);
+}
+.blueBottomBox {
+  margin-top: 160px;
+}
+footer{
+    width: 100%;
+    background-color: rgba(17, 24, 39, 1);
+}
+.footer {
+  max-width: 1920px;
+  height: 100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 200px;
+  align-items:first baseline;
+}
+.bottomTxt{
+  width: 295px;
+  height: 172px;
+}
+span {
+  color: rgba(156, 163, 175, 1);
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.09px;
+  margin-bottom: 20px;
+}
+.pri{
+  color: rgba(229, 231, 235, 1);
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.pri:hover,.logoTitle{
+  cursor: pointer;
+}
+.middleSpan {
+  color: rgba(156, 163, 175, 1);
+}
+span >a> img {
+  width: 20px;
+  height: 20px;
+  padding: 6px;
+}
