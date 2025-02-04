@@ -26,13 +26,19 @@
       </div>
       <div class="signupForm__password">
         <p>비밀번호</p>
-        <input class="signupForm__input" type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요"
-          required>
+        <div class="password__container">
+          <input class="signupForm__input" type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요"
+            required>
+          <img src="../img/eyeclose_icon.png" alt="passwordeyes" class="password__icon"> <!-- 비밀번호 아이콘 -->
+        </div>
       </div>
       <div class="signupForm__passwordcheck">
         <p>비밀번호 확인</p>
-        <input class="signupForm__input" type="password" id="passwordcheck" name="passwordcheck"
-          placeholder="비밀번호를 다시 한 번 입력해주세요" required>
+        <div class="password__container">
+          <input class="signupForm__input" type="password" id="passwordcheck" name="passwordcheck"
+            placeholder="비밀번호를 다시 한 번 입력해주세요" required>
+          <img src="../img/eyeclose_icon.png" alt="passwordeyes" class="password__icon"> <!-- 비밀번호 확인 아이콘 -->
+        </div>
       </div>
       <div class="signup_btn">
         <button>회원가입</button>

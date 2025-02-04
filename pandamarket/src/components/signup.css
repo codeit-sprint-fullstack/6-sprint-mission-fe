@@ -46,6 +46,27 @@ body {
   margin-bottom: 16px;
 }
 
+.password__container {
+  position: relative;
+  width: 100%;
+}
+
+.password__icon {
+  position: absolute;
+  right: 19px;
+  top: 50%;
+  transform: translateY(-50%); 
+  cursor: pointer;
+  width: 20px; 
+  height: 20px; 
+}
+
+.signupForm__input {
+  width: 100%;
+  height: 56px;
+  padding: 10px 40px 10px 10px;  
+}
+
 input {
   width: 100%;
   height: 56px;

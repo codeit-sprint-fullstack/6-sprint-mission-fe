@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="./reset.css">
   <link rel="stylesheet" href="./login.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+
   <title>판다마켓 : 로그인</title>
 </head>
 
@@ -22,8 +23,11 @@
       </div>
       <div class="loginForm__password">
         <p>비밀번호</p>
-        <input class="loginForm__input" type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요"
-          required>
+        <div class="password__container">
+          <input class="loginForm__input" type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요"
+            required>
+          <img src="../img/eyeclose_icon.png" alt="passwordeyes" class="password__icon">
+        </div>
       </div>
       <div class="login_btn">
         <button>로그인</button>
