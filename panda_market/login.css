@@ -6,7 +6,6 @@
   --simple-color: #E6F2FF;
   --input-color: #F3F4F6;
   --text-color: #1F2937;    
-  --label-color: #9CA3AF;   
 }
 
 html {
@@ -63,7 +62,7 @@ body {
   box-sizing: border-box; 
   font-size: 16px;
   line-height: 24px; 
-  color: var(--label-color) 
+  color: var(--text-color) 
 }
 
 .password label {
@@ -89,7 +88,7 @@ body {
   box-sizing: border-box; 
   font-size: 16px;
   line-height: 24px; 
-  color: var(--label-color)  
+  color: var(--text-color)  
 }
 
 .password-wrapper button {

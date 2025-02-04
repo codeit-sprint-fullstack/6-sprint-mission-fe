@@ -15,7 +15,7 @@ body {
   font-size: 1rem; 
   line-height: 3.375rem; 
   background-color: white;
-  margin-top: 60px;
+  margin-top: 231px;
   margin-bottom: 178px;
   
 }
@@ -53,7 +53,7 @@ body {
   box-sizing: border-box; 
   font-size: 16px;
   line-height: 24px; 
-  color: var(--label-color)
+  color: var(--text-color)
 }
 
 .nickname label {
@@ -142,7 +142,7 @@ body {
     box-sizing: border-box; 
     font-size: 16px;
     line-height: 24px; 
-    color: var(--label-color);; 
+    color: var(--text-color);; 
   }
   
   .password-check-wrapper button {
