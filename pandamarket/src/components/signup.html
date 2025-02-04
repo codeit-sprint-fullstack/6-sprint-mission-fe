@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./reset.css">
+  <link rel="stylesheet" href="./signup.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <title>판다마켓 : 회원가입</title>
+</head>
+
+<body>
+  <div class="signup__container">
+    <div class="signup__logo">
+      <a href="./"><img src="../img/login logo.png"></a>
+    </div>
+    <div class="signupForm">
+      <div class="signupForm__email">
+        <p>이메일</p>
+        <input class="signupForm__input" type="email" id="email" name="email" placeholder="이메일을 입력해주세요" required>
+      </div>
+      <div class="signupForm__name">
+        <p>닉네임</p>
+        <input class="signupForm__input" type="text" id="name" name="name" placeholder="닉네임을 입력해주세요" required>
+      </div>
+      <div class="signupForm__password">
+        <p>비밀번호</p>
+        <input class="signupForm__input" type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요"
+          required>
+      </div>
+      <div class="signupForm__passwordcheck">
+        <p>비밀번호 확인</p>
+        <input class="signupForm__input" type="password" id="passwordcheck" name="passwordcheck"
+          placeholder="비밀번호를 다시 한 번 입력해주세요" required>
+      </div>
+      <div class="signup_btn">
+        <button>회원가입</button>
+      </div>
+      <div class="easylogin">
+        간편 로그인하기
+        <div class="easylogin__icon">
+          <a href="https://www.google.com/"><img src="../img/google login.png" alt="goolelogin"></a>
+          <a href="https://www.kakaocorp.com/"><img src="../img/kakao login.png" alt="kakaologin"></a>
+        </div>
+      </div>
+    </div>
+    <div class="login">
+      이미 회원이신가요?
+      <a href="./login.html">로그인</a>
+    </div>
+  </div>
+</body>
+
+</html>
