@@ -63,11 +63,8 @@
     height: 520px;
     display: flex;
     align-items: center;
-    justify-content: center; 
-    padding-left: calc((100vw - 1920px) / 2 + 200px); 
-    padding-right: calc((100vw - 1920px) / 2 + 200px); 
-    padding-left: max(200px, calc((100vw - 1920px) / 2)); 
-    padding-right: max(200px, calc((100vw - 1920px) / 2)); 
+    align-content: center;
+    justify-content: center;  
     width: 100%;
     position: relative;
     margin: auto;
@@ -225,9 +222,8 @@
     height: 540px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-left: max(200px, calc((100vw - 1920px) / 2));
-    padding-right: max(200px, calc((100vw - 1920px) / 2)); 
+    align-content: center;
+    justify-content: center; 
     width: 100%;
     margin: auto;
     margin-top: 90px; 

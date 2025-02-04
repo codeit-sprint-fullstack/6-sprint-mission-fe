@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="login_style.css">
+    <link rel="stylesheet" href="signup_style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
           h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
         })(document);
       </script>
-    <title>로그인 페이지</title>
+    <title>회원가입 페이지</title>
 </head>
 <body>
     <div class="container">
@@ -34,13 +34,22 @@
         <div class="content2 box">
             <input type="email" class="email" name="email" placeholder="이메일을 입력해주세요">
         </div>
+        <div class="nick" style='font-family: "pretendard", sans-serif; font-weight: 700; font-style: normal;'>닉네임</div>
+        <div class="nick_khan box">
+            <input type="text" class="name" name="name" placeholder="닉네임을 입력해주세요">
+        </div>
         <div class="content3" style='font-family: "pretendard", sans-serif; font-weight: 700; font-style: normal;'>비밀번호</div>
         <div class="content4 box">
             <input type="password" class="password" name="password" placeholder="비밀번호를 입력해주세요">
             <img class="eye" width="24" height="24" src="eye.png">
         </div>
+        <div class="pw_check" style='font-family: "pretendard", sans-serif; font-weight: 700; font-style: normal;'>비밀번호 확인</div>
+        <div class="pw_c box">
+            <input type="password" class="check" name="check" placeholder="비밀번호를 다시 한 번 입력해주세요">
+            <img class="eye" width="24" height="24" src="eye.png">
+        </div>
         <div class="content5 box"> 
-            <button type="submit" class="login">로그인</button>
+            <button type="submit" class="signup">회원가입</button>
         </div>
         <div class="content6 box">
             <div class="text_6">
@@ -54,7 +63,7 @@
             </div>
         </div>
         <div class="content7 box">
-            판다마켓이 처음이신가요? <a href="signup.html" target="_blank" class="new">회원가입</a>
+            이미 회원이신가요? <a href="login.html" target="_blank" class="login">로그인</a>
         </div>
     </div>
     
