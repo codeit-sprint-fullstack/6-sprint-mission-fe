@@ -1,0 +1,277 @@
+@font-face {
+    font-family: "ROKAF Sans";
+    src: url("./font/ROKAF_Sans_Bold.ttf") format("ttf");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+@media (max-width: 1920px) {
+    .header_style,
+    .top,
+    .bottom,
+    .footer {
+        padding: 0px 200px;
+    }
+  }
+
+body {
+    margin: 0;
+    background-color: #ffffff;
+    font-family: 'Pretendard', sans-serif;
+} 
+
+
+
+
+.layout {
+    display: flex; /* 텍스트 정렬을 위한 Flexbox */
+    flex-direction: column;
+    margin: 0 auto; /* 중앙 정렬 */
+    row-gap: 0px; /* 행 간의 간격 */
+}
+
+.item {
+    width: 100%; /* 박스의 배경색이 브라우저 너비를 100% 채움 */
+    display: flex; /* 내부 콘텐츠를 중앙 정렬 */
+    justify-content: center; /* 콘텐츠를 가로 중앙 정렬 */
+    align-items: center; /* 콘텐츠를 세로 중앙 정렬 */
+}
+
+.box01 {
+    background-color: #ffffff;
+    position: fixed; /* 화면 상단에 고정 */
+    top: 0;          /* 상단에서 0px 위치 */
+    left: 0;         /* 왼쪽에서 0px 위치 */
+    width: 100%;
+    z-index: 1000;
+}
+
+.box02 {
+    background-color: #CFE5FF;
+    margin-top: 70px;
+}
+
+.box04 {
+    margin-top: 138px;
+    background-color: #CFE5FF;
+}
+
+.box05 {
+    background-color: #111827;
+    padding-top: 32px;
+}
+
+.contents {
+    width: 1920px; 
+    max-width: 100%; 
+}
+
+/* header */
+.header_style {
+     height: 70px;
+     min-width: 300px;
+     display: flex;
+     justify-content: space-between; /* 좌우로 요소를 배치 */
+     align-items: center; /* 세로 가운데 정렬 */
+}
+
+.header_style .left {
+    height:40px;
+}
+
+.header_style .left img {
+    vertical-align: middle;
+}
+
+
+.header_style h1 {
+    display: inline;
+    color: #3692ff;
+    font-family: ROKAF Sans;
+    font-size: 26px;
+    margin-left: 2px;
+    vertical-align: middle;
+}
+
+.header_style a:link {
+    text-decoration: none;
+}
+
+.header_style .right {
+    padding: 12px 24px;
+    border-radius: 8px;
+    background-color: #3692ff;
+    color: #f3f4f6;
+    font-weight: 600, normal;
+    display: inline-block;
+    max-width: 128px;
+}
+
+/* top */
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.top img{
+    margin-top: 200px;
+}
+
+.top div {
+    display: flex;
+    padding-top: 240px;
+    flex-direction: column;
+}
+
+.top div h2 {
+    font-size: 40px;
+    line-height: 56px;
+    width: 357px;
+    margin-bottom: 32px;
+    color: #374151;
+}
+
+.top div a span{
+    display: flex;
+    width: 357px;
+    height: 56px;
+    border-radius: 40px;
+    background-color: #3692FF;
+    font-size: 20px;
+    font-weight: 600, normal;
+    color : #F9FAFB;
+    justify-content: center; /* 콘텐츠를 가로 중앙 정렬 */
+    align-items: center; /* 콘텐츠를 세로 중앙 정렬 */
+}
+
+/* home */
+.home01,
+.home02,
+.home03 {
+    background-color: #fcfcfc;
+    margin: 138px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 988px;
+}
+
+.home .text {
+    width: 335px;
+    height: 238px;
+    display: flex;
+    flex-direction: column; 
+}
+
+.home .text span{
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
+    color: #374151;
+    font-weight: normal;
+}
+
+.text span.copy1{
+    font-size: 18px;
+    line-height: 26px;
+    color:#3692FF;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.text .right {
+    text-align: right;
+}
+
+.home02 .left {
+    margin-left: 0px;
+    text-align: right;
+}
+
+.text h3 {
+    font-size: 40px;
+    line-height: 56px;
+    margin-bottom: 24px;
+    letter-spacing: 0.2px;
+    width: auto;
+    color: #374151;
+}
+
+.left span{
+    text-align: left;
+}
+
+.text .sub_title {
+    letter-spacing: -0.2px;
+}
+
+/* bottom */
+.bottom div {
+    height: 540px;
+    display: flex;
+    justify-content: space-between; /* 좌우로 요소를 배치 */
+    min-width: 1110px;
+}
+
+.bottom div h2 {
+    font-size: 40px;
+    line-height: 56px;
+    margin-top: 256px;
+    color: #374151;
+}
+
+.bottom div img {
+    margin-top: 143px;
+}
+
+/* footer */
+.footer {
+    width: 1920px;
+    height: 160px;
+    display: flex;
+    justify-content: space-between;
+    min-width: 500px;
+    font-size: 16px;
+    
+}
+
+.footer .left {
+    text-align: left;
+    color: #9CA3AF;
+    flex: 1;
+}
+
+.footer .right{
+    text-align: right;
+    flex: 1;
+}
+
+.footer .center{
+    text-align: center;
+    flex: 1;
+    color: #E5E7EB;
+}
+
+.footer .m_left15 {
+    margin-left: 15px;
+}
+
+.footer .sns a{
+    margin-right: 13px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+.footer .sns .non_margin {
+    margin-right: 0;
+}
+
+.footer a,
+.footer a:link,
+.footer a:visited,
+.footer a:focus, 
+.footer a:hover, 
+.footer a:active {
+    color: #e5e7eb;
+}
+

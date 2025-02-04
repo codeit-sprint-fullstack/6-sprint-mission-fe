@@ -1,0 +1,149 @@
+body {
+    display: flex;
+    justify-content: center; /* 콘텐츠를 가로 중앙 정렬 */
+    align-items: center; /* 콘텐츠를 세로 중앙 정렬 */
+    margin: 0 auto;
+}
+
+div.login_hug{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 콘텐츠를 가로 중앙 정렬 */
+    align-items: center; /* 콘텐츠를 세로 중앙 정렬 */
+    margin-top: 260px;
+    margin-bottom: 280px;
+    width: 640px;
+    height: 618px;
+}
+
+.login_hug .logo_area{
+    display: flex;
+    width: 396px;
+    height: 132px;
+    justify-content: center; /* 콘텐츠를 가로 중앙 정렬 */
+    align-items: center; /* 콘텐츠를 세로 중앙 정렬 */
+    margin-bottom: 16px;
+}
+
+.logo_area img{
+    width: 104px;
+    height: 104px;
+    margin-right: 23px;
+}
+
+.logo_area h1 {
+    color: #3692FF;
+    font-size: 66px;
+    line-height: 90px;
+    margin-top: 10px;
+    font-weight: 700;
+}
+
+.login_area {
+    width: 640px;
+}
+
+.login_area h2 {
+    margin: 24px 0 16px 0;
+    font-size: 18px;
+    line-height: 26px;
+    color: #1F2937;
+    font-weight: 700;
+}
+
+.login_area input{
+    width: 592px;
+    padding: 16px 24px;
+    font-size: 16px;
+    line-height: 26px; 
+    background: #F3F4F6;
+    border: 0;
+    border-radius: 12px;
+}
+
+div.pwd_input_area {
+    position: relative;
+}
+
+div.pwd_input_area img.input_icon {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 콘텐츠를 가로 중앙 정렬 */
+    width: 640px;
+    height: 56px;
+    padding: 0;
+    margin: 24px 0;
+    font-size: 20px;
+    line-height: 32px; 
+    background: #9CA3AF;
+    border: 0;
+    border-radius: 40px;
+    cursor: pointer;
+    color: #F3F4F6;
+    font-weight: 600;
+}
+
+.btn:hover,
+.btn:active {
+    border: 1px solid #3692ff;
+    background-color: #3692FF;
+}
+
+.social_login {
+    width: 100%;
+    height: 74px;
+    background-color: #E6F2FF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    border-radius: 8px;
+}
+
+.social_login img {
+    width:42px;
+    height: 42px;
+    
+}
+
+.social_login span {
+    margin-left: 23px;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 500;
+}
+
+.social_login .icon_social {
+    margin-right: 23px;
+}
+
+
+
+.social_login .icon_social a.linkto_google {
+    margin-right: 16px;
+}
+
+.signup {
+    color: #1F2937;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+}
+
+.signup span {
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.signup a {
+    line-height: 24px;
+    color: #3692FF;
+    text-decoration: underline;
+}
