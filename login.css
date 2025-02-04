@@ -1,0 +1,132 @@
+@import url("./reset.css");
+
+.midBox {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section {
+  width: 640px;
+  height: 618px;
+  /* border: 1px solid #f00; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: space-between;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-bottom: 40px; */
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+}
+
+article label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+article label input {
+  width: 100%;
+  height: 56px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: #f3f4f6;
+  padding: 15px 24px;
+}
+
+article label input::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+article label input:focus {
+  border: 1px solid #3692ff;
+  outline: none;
+}
+
+.pwLabel {
+  position: relative;
+}
+
+.pwLabel img {
+  position: absolute;
+  top: 55px;
+  right: 24px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.loginBtn {
+  width: 100%;
+  height: 56px;
+  border-radius: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  background: #9ca3af;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 24px;
+}
+
+.loginBtn:hover {
+  transition: all;
+  background: var(--main--color);
+}
+
+.easyLoginBox {
+  width: 100%;
+  height: 74px;
+  border-radius: 8px;
+  background: #e6f2ff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 23px;
+}
+
+.easyLoginBox p {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.easyLoginBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+footer a {
+  color: #3692ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
