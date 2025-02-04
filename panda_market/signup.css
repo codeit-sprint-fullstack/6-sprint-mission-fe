@@ -14,7 +14,7 @@ body {
 body {
   font-size: 1rem; 
   line-height: 3.375rem; 
-  background-color: #ffffff;
+  background-color: white;
   margin-top: 60px;
   margin-bottom: 178px;
   
@@ -39,7 +39,7 @@ body {
 .email label {
   font-size: 18px;
   font-weight: bold;
-  color: #1F2937;
+  color: var(--text-color)
 }
 
 .email-wrapper input {
@@ -48,18 +48,18 @@ body {
   border-radius: 12px;
   padding: 16px 24px; 
   gap: 10px; 
-  background-color: #F3F4F6; 
+  background-color: var(--input-color);
   border: none; 
   box-sizing: border-box; 
   font-size: 16px;
   line-height: 24px; 
-  color: #374151; 
+  color: var(--label-color)
 }
 
 .nickname label {
     font-size: 18px;
     font-weight: bold;
-    color: #1F2937;
+    color: var(--text-color);
   }
   
 .nickname-wrapper input {
@@ -68,18 +68,18 @@ body {
     border-radius: 12px;
     padding: 16px 24px; 
     gap: 10px; 
-    background-color: #F3F4F6; 
+    background-color: var(--input-color);
     border: none; 
     box-sizing: border-box; 
     font-size: 16px;
     line-height: 24px; 
-    color: #374151; 
+    color: var(--text-color);
   }
 
 .password label {
   font-size: 18px;
   font-weight: bold;
-  color: #1F2937;
+  color: var(--text-color);
 }
 
 .password-wrapper {
@@ -94,12 +94,12 @@ body {
   padding: 16px 48px 16px 24px;
   border-radius: 12px; 
   gap: 10px; 
-  background-color: #F3F4F6; 
+  background-color: var(--input-color); 
   border: none; 
   box-sizing: border-box; 
   font-size: 16px;
   line-height: 24px; 
-  color: #374151; 
+  color: var(--text-color); 
 }
 
 .password-wrapper button {
@@ -122,7 +122,7 @@ body {
 .password-check label {
     font-size: 18px;
     font-weight: bold;
-    color: #1F2937;
+    color: var(--text-color);
   }
   
   .password-check-wrapper {
@@ -137,12 +137,12 @@ body {
     padding: 16px 48px 16px 24px;
     border-radius: 12px; 
     gap: 10px; 
-    background-color: #F3F4F6; 
+    background-color: var(--input-color);
     border: none; 
     box-sizing: border-box; 
     font-size: 16px;
     line-height: 24px; 
-    color: #374151; 
+    color: var(--label-color);; 
   }
   
   .password-check-wrapper button {
@@ -166,7 +166,7 @@ body {
   width: 640px; 
   height: 56px; 
   border-radius: 40px; 
-  background-color: #9CA3AF; 
+  background-color: var(--basic-color); 
   color: white; 
   font-size: 16px; 
   font-weight: 500; 
@@ -185,19 +185,19 @@ body {
 
 
 .signupButton:hover {
-  background-color: #3692FF; 
+  background-color: var(--click-color); 
 }
 
 
 .signupButton:active {
-  background-color: #3692FF; 
+  background-color: var(--click-color); 
 }
 
 .simple {
   display: flex;
   justify-self: center;
   align-items: center;
-  background-color: #E6F2FF;
+  background-color: var(--simple-color); ;
   width: 640px; 
   height:74px;
   margin-top: 24px;
@@ -221,7 +221,7 @@ body {
   margin-left: 23px;
   font-size: 16px;
   font-weight: bold;
-  color: #1F2937
+  color: var(--text-color); 
 }
 
 .sign {
@@ -232,5 +232,5 @@ body {
 }
 
 .sign a {
-  color: #3692FF;
+  color: var(--click-color); 
 }

@@ -1,11 +1,21 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
+:root {
+  --click-color: #3692FF;    
+  --basic-color: #9CA3AF;
+  --simple-color: #E6F2FF;
+  --input-color: #F3F4F6;
+  --text-color: #1F2937;    
+  --label-color: #9CA3AF;   
+}
+
 html {
   font-size: 16px;
   margin: 0;
   padding: 0;
   box-sizing: border-box; 
 }
+
 
 body {
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
@@ -14,7 +24,7 @@ body {
 body {
   font-size: 1rem; 
   line-height: 3.375rem; 
-  background-color: #ffffff;
+  background-color: white;
   margin-top: 231px;
   margin-bottom: 284px;
   
@@ -39,7 +49,7 @@ body {
 .email label {
   font-size: 18px;
   font-weight: bold;
-  color: #1F2937;
+  color: var(--text-color);
 }
 
 .email-wrapper input {
@@ -48,18 +58,18 @@ body {
   border-radius: 12px;
   padding: 16px 24px; 
   gap: 10px; 
-  background-color: #F3F4F6; 
+  background-color: var(--input-color); 
   border: none; 
   box-sizing: border-box; 
   font-size: 16px;
   line-height: 24px; 
-  color: #374151; 
+  color: var(--label-color) 
 }
 
 .password label {
   font-size: 18px;
   font-weight: bold;
-  color: #1F2937;
+  color: var(--text-color)
 }
 
 .password-wrapper {
@@ -74,12 +84,12 @@ body {
   padding: 16px 48px 16px 24px;
   border-radius: 12px; 
   gap: 10px; 
-  background-color: #F3F4F6; 
+  background-color: var(--input-color); 
   border: none; 
   box-sizing: border-box; 
   font-size: 16px;
   line-height: 24px; 
-  color: #374151; 
+  color: var(--label-color)  
 }
 
 .password-wrapper button {
@@ -103,7 +113,7 @@ body {
   width: 640px; 
   height: 56px; 
   border-radius: 40px; 
-  background-color: #9CA3AF; 
+  background-color: var(--basic-color); 
   color: white; 
   font-size: 16px; 
   font-weight: 500; 
@@ -122,19 +132,19 @@ body {
 
 
 .loginButton:hover {
-  background-color: #3692FF; 
+  background-color: var(--click-color) ; 
 }
 
 
 .loginButton:active {
-  background-color: #3692FF; 
+  background-color: var(--click-color); 
 }
 
 .simple {
   display: flex;
   justify-self: center;
   align-items: center;
-  background-color: #E6F2FF;
+  background-color: var(--simple-color);
   width: 640px; 
   height:74px;
   margin-top: 24px;
@@ -158,7 +168,7 @@ body {
   margin-left: 23px;
   font-size: 16px;
   font-weight: bold;
-  color: #1F2937
+  color: var(--text-color)
 }
 
 .sign {
@@ -169,5 +179,5 @@ body {
 }
 
 .sign a {
-  color: #3692FF;
+  color: var(--click-color)
 }
