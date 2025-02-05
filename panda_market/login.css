@@ -35,7 +35,7 @@ body {
   justify-self: center;
   align-items: center;
   width: 640px;
-  height: 618px;
+  height: 100vh;
 }
 
 .pandaLogo {
