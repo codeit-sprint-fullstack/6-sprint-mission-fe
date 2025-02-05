@@ -1,14 +1,22 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
+
+:root {
+  --primary-color: #3692FF;  
+  --secondary-color: #F3F4F6; 
+  --text-color: #374151;     
+  --background-color: #FFFFFF; 
+}
+
 * {
     margin: 0;
-    padding: 0;  /* 기본 padding 제거 */
-    box-sizing: border-box; /* 요소 크기 계산 방식 고정 */
+    padding: 0;  
+    box-sizing: border-box; 
     font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
 }
 
 body {
-  margin-top: 70px; /* 헤더 높이만큼 여백 추가 */
+  margin-top: 70px; 
 }
 
 .header {
@@ -16,34 +24,32 @@ body {
   top: 0;
   width: 100%;
   height: 70px;
-  background-color: #FFFFFF;
+  background-color: var(--background-color);
   z-index: 1000;
   display: flex;
 }
 
-/* 로고 스타일 */
 .logo {
   display: flex;
   align-items: center;
-  gap: 8.59px; /* 로고 이미지와 텍스트 간격 추가 */
+  gap: 8.59px; 
 }
 
-/* 내비게이션 바 */
+
 .headnav {
   width: 1120px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto; /* 가운데 정렬 */
+  margin: 0 auto; 
 }
 
-/* 네비게이션 바 내부 요소 */
 .bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; /* 부모 크기에 맞게 설정 */
-  max-width: 1120px; /* 최대 너비 설정 */
+  width: 100%; 
+  max-width: 1120px; 
 }
 
 .logoimg {
