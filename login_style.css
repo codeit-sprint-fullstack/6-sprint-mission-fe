@@ -1,3 +1,8 @@
+/* 심화 요구사항: 색상값 변수로 지정해주기  */
+:root {
+    --maincolor : #3692ff;
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -22,7 +27,7 @@ body {
 }
 
 .panda {
-    color: #3692ff;
+    color: var(--maincolor);
     font-size: 70px;
     padding-top: 20px;
     padding-left: 20px;
@@ -49,7 +54,7 @@ body {
 }
 
 .email:hover {
-    border: 1px solid #3692ff;
+    border: var(--maincolor);
 }
 
 .content3 {
@@ -80,7 +85,7 @@ body {
 }
 
 .password:hover {
-    border: 1px solid #3692ff;
+    border: var(--maincolor);
 }  
 
 .eye {
@@ -107,8 +112,8 @@ body {
 }
 
 .login:hover {
-    background-color: #3692ff;
-    border: 1px solid #3692ff;
+    background-color: var(--maincolor);
+    border: 1px solid var(--maincolor);
 }
 
 .content6 {
