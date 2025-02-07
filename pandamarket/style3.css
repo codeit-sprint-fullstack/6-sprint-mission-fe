@@ -82,8 +82,10 @@ form {
     background-color: #F3F4F6;
     border: none;
 }
+   
 
-.email글자박스:hover, .nickname글자박스:hover, .password글자박스:hover, .passwordConfirm글자박스:hover {
+
+.email글자박스:focus-within, .nickname글자박스:focus-within, .password글자박스:focus-within, .passwordConfirm글자박스:focus-within {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -106,6 +108,15 @@ form {
     border: none;
     background-color: #F3F4F6;
     outline: none;
+}
+
+.password글자박스2, .passwordConfirm글자박스2{
+
+    display: flex;
+    width: 592px;
+    height: 26px;
+    justify-content: space-between;
+    
 }
 
 

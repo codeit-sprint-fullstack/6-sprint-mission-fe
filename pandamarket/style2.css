@@ -5,6 +5,13 @@
     font-weight: normal;
     font-style: normal;
   }
+
+  :root {
+    
+    --background-color: #F3F4F6;
+    --color: #9CA3AF;
+    
+}
   
   body{
     
@@ -139,13 +146,13 @@
     width: 640px;
     height: 56px;
     border-radius: 12px;
-    background-color: #F3F4F6;
+    background-color: var(--background-color); 
     border: none;
     
 
 }
 
-.email글자박스:hover{
+.email글자박스:focus-within{
 
     border: 2px solid #3692FF
 
@@ -156,12 +163,12 @@
     
     width: 592px;
     height: 26px;
-    color: #9CA3AF;
+    color: var(--color);
     font-weight: 400;
     font-size: 16px;
     line-height: 26px;
     border: none;
-    background-color: #F3F4F6;
+    background-color: var(--background-color);
     outline: none;
     
 }
@@ -176,32 +183,49 @@
     width: 640px;
     height: 56px;
     border-radius: 12px;
-    color: #9CA3AF;
-    background-color: #F3F4F6;
+    color: var(--color);
+    background-color: var(--background-color);
     border: none;
+    
 }
 
-.password글자박스:hover{
+.password글자박스:focus-within{
 
-    border: 2px solid #3692FF
+    border: 2px solid #3692FF;
+    
 
+}
+
+.password글자박스2{
+
+    display: flex;
+    width: 592px;
+    height: 26px;
+    
+    
 }
 
 
 #password {
 
 
-    
-    width: 592px;
+    width: 565px;
     height: 26px;
-    color: #9CA3AF;
     font-weight: 400;
     font-size: 16px;
     line-height: 26px;
     border: none;
-    background-color: #F3F4F6;
-    color: #9CA3AF;
+    background-color: var(--background-color);
+    color: var(--color);
     outline: none;
+
+}
+
+#가려진눈{
+
+    width: 24px;
+    height: 24px;
+
 
 }
 
@@ -211,8 +235,8 @@
     height: 56px;
     border-radius: 40px;
     border: none;
-    background-color: #9CA3AF;
-    color: #F3F4F6;
+    color: rgb(243, 244, 246);
+    background-color: rgb(156, 163, 175);
     font-weight: 600;
     font-size: 20px;
     line-height: 32px;

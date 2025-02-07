@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style3.css">
     <title>회원가입</title>
+    <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -32,13 +33,23 @@
                         <div class="비밀번호box">
                             <p id="비밀번호글자">비밀번호</p>
                             <div class="password글자박스">
-                                <input id="password" type="password" name="password" placeholder="비밀번호를 입력해주세요" required>
+                                <div class="password글자박스2">
+                                    <input id="password" type="password" name="password" placeholder="비밀번호를 입력해주세요" required>
+                                    <img src="가려진눈.png" class="가려진눈" alt="가려진눈" onclick="togglePassword(this)">
+                                    </button>
+                                </div>
+                    
                             </div>
                         </div>
                         <div class="비밀번호확인box">
                             <p id="비밀번호확인글자">비밀번호 확인</p>
                             <div class="passwordConfirm글자박스">
-                                <input id="passwordConfirm" type="password" name="passwordConfirm" placeholder="비밀번호를 다시 한 번 입력해주세요" required>
+                                <div class="passwordConfirm글자박스2">
+                                    <input id="passwordConfirm" type="password" name="passwordConfirm" placeholder="비밀번호를 다시 한 번 입력해주세요" required>
+                                    <img src="가려진눈.png" class="가려진눈" alt="가려진눈" onclick="togglePassword(this)">
+                                    </button>
+                                </div>
+                                
                             </div>
                         </div>
                         <button id="회원가입" type="submit">회원가입</button>
