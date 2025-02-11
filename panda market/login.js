@@ -1,16 +1,22 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const emailInput = document.querySelector('input[name="email"]');
-    const passwordInput = document.querySelector('input[name="password"]');
-    const loginBox = document.querySelector(".login_box");
+const emailInput = document.getElementsByName("email")[0];
+const passwordInput = document.querySelector("input[name='password']");
+const loginButton = document.querySelector(".login_box");
 
-    function checkInputs() {
-        if (emailInput.value.trim() !== "" && passwordInput.value.trim() !== "") {
-            loginBox.classList.add("active");
-        } else {
-            loginBox.classList.remove("active");
-        }
+function showErrorMessage(input, message) {
+    let errorMessage = input.nextElementSibling;
+    if (!errorMessage || !errorMessage.classList.contains("error-message")) {
+        errorMessage = document.createElement("div");
+        errorMessage.classList.add("error-Message");
+        input.parentNode.appendChild(errorMessage);
     }
+    errorMessage.textcontent = message;
+    input.classList.add("error-border");
+}
 
-    emailInput.addEventListener("input", checkInputs);
-    passwordInput.addEventListener("input", checkInputs);
-});
+function clearErrorMessage(input) {
+    let errorMessage = input.nextElementSibling;
+    if (errorMessage && errorMessage.classList.contains("error-message")) {
+        errorMessage.remove();
+    }
+    input.classList.remove("error-border")
+}
