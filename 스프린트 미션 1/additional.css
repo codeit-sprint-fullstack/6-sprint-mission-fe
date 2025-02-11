@@ -1,0 +1,343 @@
+html {    font-size: 10px; } 
+body {    font-size: 1.6rem; }
+
+.layer1{        
+    height: 7rem;
+    width: 100%;    
+    border-bottom: 0.1rem;
+    background-color: #FFFFFF;
+    
+    display: flex;
+    justify-content:center;
+    align-items: center;
+
+    position: sticky;
+    top: 0;            
+}
+
+.fixed_layer1{     
+    height: 5.1rem;
+    width: 112rem;
+    background-color: #FFFFFF;
+   
+    margin: 0.95rem 40rem;    
+
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    gap:1rem;
+}
+
+.layer1_logo{
+    
+    float:left;        
+    
+}
+
+.login_button{
+    
+    padding: 1.2rem 2.3rem 1.2rem 2.3rem;
+    gap:1rem;
+    font-size: 1.5rem;
+    width: 12.8rem;
+    height: 4.8rem;
+    background-color:#3692FF;
+    color: white;
+    border: none;    
+    border-radius: 0.8rem;
+    float:right;    
+    cursor:pointer;
+    
+}
+
+
+.layer2{
+    
+    height: 54rem;
+    width: 100%;
+
+    background-color:#CFE5FF;       
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.fixed_layer2{    
+    height: 34rem;
+    width: 111rem;
+    background-color:#CFE5FF;       
+   
+    margin-left: 40.5rem;
+    margin-top: 20rem;
+     
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    gap:0.7rem;
+}
+
+
+.layer2_1{ 
+    height: 34rem;
+    width: 36.4rem; 
+    color:#374151;
+    font-family: Pretendard;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 5.6rem;
+    letter-spacing: 0.02em;
+    text-align: right;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+
+    
+}
+
+.layer2_button{
+    margin-top: 3rem;
+    font-size: 1.5rem;
+    width: 35.7rem;
+    height: 5.6rem;
+    background-color: #3692FF;
+    color: white;
+    border: none;    
+    border-radius: 40px;
+    cursor:pointer;
+}
+
+.layer2_img{
+    height: 34rem;
+    width: 74.6rem;   
+}
+
+.layer3{
+    padding-bottom: 10rem;
+    height: 216rem;
+    width: 100%;
+    
+    background-color:#FCFCFC;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    
+}
+.fixed_layer3{    
+    height: 44.4rem;
+    width: 98.8rem;
+    background-color:#FCFCFC;      
+   
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    gap:6.4rem;    
+}
+
+
+.layer3_1{
+    height: 72rem;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+.layer3_2{
+    height: 72rem;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+    
+}
+
+
+
+
+.layer3_3{
+    height: 72rem;
+    width: 100%;     
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;       
+}
+
+.p1{
+    color:#3692FF;
+    font-family: Pretendard;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2.6rem;    
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+ 
+
+
+.p2{
+    color:#374151;
+    font-family: Pretendard;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 5.6rem;
+    letter-spacing: 0.02em;    
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+
+
+.p3{
+    color:#374151;
+
+    font-family: Pretendard;
+    font-size: 2.4rem;
+    font-weight: 500;
+    line-height: 3.2rem;    
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.layer4{
+    height:54rem;
+    width: 100%;   
+    background-color: #CFE5FF;
+    display: flex;    
+    justify-content:center;
+    align-items: center;
+}
+
+.fixed_layer4{    
+    height: 39.7rem;
+    width: 111rem;
+   
+    margin-left: 40.5rem;
+    margin-top: 14.3rem;
+     
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    gap:6.9rem;
+}
+
+.layer4_1{
+    font-family: Pretendard;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 5.6rem;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    width: 29.5rem;
+    
+    color: #374151;
+}
+.layer4_img{
+    height: 39.7rem;
+    width: 74.6rem;
+}
+
+
+.layer5{    
+    
+    height:16rem;
+    width: 100%;               
+
+    background-color: #111827;
+}
+
+.layer5_1{
+    height:2rem;
+    width: 100%;  
+    background-color: #111827;
+    display: flex;
+    justify-content: space-between;
+}
+
+.layer5_2{    
+    margin-left: 20rem;
+    margin-top: 3.2rem;
+    margin-bottom: 10.8rem;
+    
+    
+    
+    font-family: Pretendard;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.909rem;
+    text-align: center;    
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #9CA3AF;   
+}
+
+
+
+
+
+.layer5_3{   
+    margin-top: 3.2rem;
+    margin-bottom: 10.8rem;
+    width: 15.9rem;
+    font-size: 1.6rem;
+    display:flex;
+    justify-content: space-around;  
+}
+
+
+
+
+
+.PrivacyPlolicy{
+    font-family: Pretendard;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.909rem;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration: none;    
+    color:#E5E7EB;
+}
+
+.FAQ{
+    font-family: Pretendard;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.909rem;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration:none;    
+    color:#E5E7EB;
+}
+
+.layer5_4{
+    margin-right: 20rem;
+    margin-top: 3.2rem;
+    margin-bottom: 10.8rem;
+    
+    width: 11.6rem;
+    display:flex;
+    justify-content: space-around;    
+}
+
+
+
+/* 패딩은 박스를 커지게 만든다다 
+
+맨위에 로그인버튼과 판다마켓 로고 400px에서 
+작아지면 200px로 가변적용 어떻게...?
+
+
+맨아래 @codeit - 2024 두줄 표시 113 > 114?
+
+*/
