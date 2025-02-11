@@ -15,6 +15,22 @@ function updateSubmitButton() {
 emailInput.addEventListener('input', updateSubmitButton);
 passwordInput.addEventListener('input', updateSubmitButton);
 
+const emailErrorMsg = document.createElement('div');
+emailErrorMsg.style.color = 'red';
+emailErrorMsg.style.display = 'none';
+emailErrorMsg.style.marginTop = '1rem';
+emailErrorMsg.textContent = '이메일을 입력해주세요';
+emailInput.parentNode.insertBefore(emailErrorMsg, emailInput.nextSibling);
+
+emailInput.addEventListener('focusout', () => {
+    if (!emailInput.value) {
+        emailInput.style.border='0.0625rem solid var(--panda-border-red)';
+        emailErrorMsg.style.display = 'block';
+    } else {
+        emailInput.style.borderColor = '';
+        emailErrorMsg.style.display = 'none';
+    }
+});
 
 //비밀번호 표시 토글
 const togglePasswordBtn = document.getElementById('togglePassword');
@@ -33,5 +49,3 @@ function togglePasswordVisibility(input, button) {
 
 togglePasswordBtn.addEventListener('click', () => togglePasswordVisibility(passwordInput, togglePasswordBtn));
 toggleCheckPasswordBtn.addEventListener('click', () => togglePasswordVisibility(checkPasswordInput, toggleCheckPasswordBtn));
-
-//PullRequest Change
