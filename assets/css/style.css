@@ -50,7 +50,7 @@ h2 {
   line-height: 2rem;
 }
 
-.nav-bar {
+.nav {
   display: flex;
   position: fixed;
   justify-content: center;
@@ -63,7 +63,8 @@ h2 {
   border-bottom: 0.0625rem solid #DFDFDF;
 }
 
-.nav-bar-container {
+/* index.html */
+.nav__container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -71,33 +72,33 @@ h2 {
   margin: 0.59375rem 25rem;
 }
 
-.logo-container {
+.nav__logo {
   display: flex;
   align-items: center;
   flex-grow: 0;
   flex-shrink: 0;
 }
 
-.logo {
+.nav__image {
   margin-right: 0.625rem;
   width: 2.5rem;
   height: 2.5rem;
 }
 
-.brand-name {
+.nav__brand {
   color: var(--primary-100);
   font-family: var(--font-header);
   font-weight: 700;
   font-size: 1.6rem;
 }
 
-.login-link {
+.nav__login-link {
   display: flex;
   align-items: center;
   flex-shrink: 0;
 }
 
-.login-btn {
+.nav__login-button {
   border-style: none;
   font-family: inherit;
   font-size: 1rem;
@@ -113,36 +114,36 @@ h2 {
 }
 
 @media (max-width: 1920px) {
-  .nav-bar-container {
+  .nav__container {
     margin-left: 12.5rem;
     margin-right: 12.5rem;
   }
 }
 
-.section-top {
+.hero {
   display: flex;
   justify-content: center;
   background: var(--main-bg-color);
   height: 33.75rem;
 }
 
-.section-top-container {
+.hero__container {
   display: flex;
   margin: 12.5rem 25.3125rem 0;
 }
 
-.section-top-left {
+.hero__content {
   display: flex;
   flex-direction: column;
   margin: 2.5rem 0 2.5rem;
 }
 
-.section-top-left h1 {
+.hero__content h1 {
   margin-right: 3.875rem;
   margin-bottom: 2rem;
 }
 
-.cta-btn {
+.hero__cta-button {
   width: 22.3125rem;
   height: 3.5rem;
   color: var(--gray-100);
@@ -158,12 +159,12 @@ h2 {
   padding: 0.75rem 7.75rem;
 }
 
-.section-middle {
+.features {
   display: flex;
   flex-direction: column;
 }
 
-.section-middle-item {
+.features__item {
   height: 45rem;
   display: flex;
   justify-content: center;
@@ -171,7 +172,7 @@ h2 {
   background-color: var(--white);
 }
 
-.section-item-container {
+.features__container {
   display: flex;
   margin: 8.625rem 29.125rem;
   width: 61.75rem;
@@ -179,14 +180,14 @@ h2 {
   background-color: #fcfcfc;
 }
 
-.text-container {
+.features__content {
   display: flex;
   flex-direction: column;
   margin: 6.4375rem 1.9375rem 6.4375rem 4rem;
   width: 17.125rem;
 }
 
-.text-container p {
+.features__tag {
   font-family: inherit;
   font-size: 1.125rem;
   line-height: 1.625rem;
@@ -195,52 +196,52 @@ h2 {
   margin-bottom: 0.75rem;
 }
 
-.text-container h1 {
+.features__title {
   margin-right: 3.25rem;
   margin-bottom: 1.5rem;
 }
 
-.section-middle-item:nth-child(2) .section-item-container {
+.features__item:nth-child(2) .features__container {
   flex-direction: row-reverse;
 }
 
-.section-middle-item:nth-child(2) .text-container {
+.features__item:nth-child(2) .features__content {
   margin: 6.4375rem 4rem 6.4375rem 0.59375rem;
   align-items: end;
   width: 19.8125rem;
 }
 
-.section-middle-item:nth-child(2) .text-container h1,
-.section-middle-item:nth-child(2) .text-container h2 {
+.features__item:nth-child(2) .features__content h1,
+.features__item:nth-child(2) .features__content h2 {
   margin-right: 0;
   margin-left: 1.8125rem;
   text-align: right;
 }
 
-.section-middle-item:nth-child(3) .text-container {
+.features__item:nth-child(3) .features__content {
   width: 20.9375rem;
   margin-right: 0rem;
 }
 
-.section-middle-item:nth-child(3) .text-container h1 {
+.features__item:nth-child(3) .features__content h1 {
   margin-right: 2.625rem;
   margin-bottom: 1.5rem;
 }
 
-.section-bottom {
+.outro {
   display: flex;
   justify-content: center;
   background: var(--main-bg-color);
   height: 33.75rem;
 }
 
-.section-bottom-container {
+.outro__container {
   display: flex;
   align-items: center;
   margin: 8.9375rem 25.3125rem 0 25.3125rem;
 }
 
-.section-bottom-left {
+.outro__content {
   width: 18.4375rem;
   height: 10.75rem;
   margin: 7rem 4.3125rem 7rem 0;
@@ -253,34 +254,35 @@ h2 {
   background-color: #111827;
 }
 
-.footer-container {
+.footer__container {
   display: flex;
   justify-content: space-between;
   margin: 2rem 12.5rem 6.75rem 12.5rem;
 }
 
-.footer-container-left p {
+.footer__copyright p {
   text-align: center;
   color: #9CA3AF;
   font-weight: 400;
 }
 
-.footer-container-middle {
+.footer__links {
   display: flex;
   gap: 1.875rem;
 }
 
-.footer-container-middle p {
+.footer__links p {
   color: #E5E7EB;
   text-align: center;
   font-weight: 400;
 }
 
-.footer-container-right {
+.footer__social {
   width: 7.25rem;
   display: flex;
   gap: 0.75rem;
 }
+
 /* for signup.html and login.html*/
 
 .auth {
