@@ -52,6 +52,11 @@ main {
     text-decoration-skip-ink: none;
 }
 
+.emailerror {
+    visibility: hidden;
+    color: red;
+}
+
 .password_all {
     margin-top: 24px;
 }
@@ -65,13 +70,18 @@ main {
     text-decoration-skip-ink: none;
 }
 
+.passworderror {
+    visibility: hidden;
+    color: red;
+}
+
 .input_text {
     background: #F3F4F6;
     width: 592px;
     height: 26px;
     border-radius: 12px;
     padding: 0px;
-    border: 0px;
+    border: 1px solid #F3F4F6;
     margin-top: 16px;
     gap: 24px;
     padding: 15px 24px;
