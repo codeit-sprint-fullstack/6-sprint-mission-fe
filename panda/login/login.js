@@ -12,8 +12,8 @@ const USER_DATA = [
 const btn = document.querySelector('.btn');
 const email = document.querySelector('#email');
 const password = document.querySelector('#password');
-const eyeIcon = document.querySelectorAll('.eye-icon');
-const errorMsg = document.querySelectorAll('.error-msg');
+const eyeIcons = document.querySelectorAll('.eye-icon');
+const errorMsgs = document.querySelectorAll('.error-msg');
 const form = document.querySelector('#input-form');
 const modal = document.querySelector('.modal');
 const modalBtn = document.querySelector('.modal-popup button');
@@ -23,13 +23,13 @@ const emailRegex = /^[0-9a-zA-Z]*@[0-9a-zA-Z]*\.[a-zA-Z]{2,3}$/i;
 const passwordRegex = /^[a-zA-Z0-9#?!@$%^&*-]{8,20}$/;
 
 // 비밀번호 표시(눈 아이콘)
-eyeIcon[0].addEventListener('click', e => {
-  eyeIcon[1].classList.toggle('off');
+eyeIcons[0].addEventListener('click', e => {
+  eyeIcons[1].classList.toggle('off');
   password.type = 'password';
 });
 
-eyeIcon[1].addEventListener('click', e => {
-  eyeIcon[1].classList.toggle('off');
+eyeIcons[1].addEventListener('click', e => {
+  eyeIcons[1].classList.toggle('off');
   password.type = 'text';
 });
 
@@ -75,36 +75,36 @@ const errMsg = {
 
 email.addEventListener('focusout', e => {
   if (email.value === '') {
-    errorMsg[0].textContent = errMsg.email.empty;
+    errorMsgs[0].textContent = errMsg.email.empty;
     e.target.classList.add('focus-out')
     e.target.classList.remove('focus-in')
   } else if (!emailRegex.test(email.value)) {
-    errorMsg[0].textContent = errMsg.email.invalid;
+    errorMsgs[0].textContent = errMsg.email.invalid;
     e.target.classList.add('focus-out')
     e.target.classList.remove('focus-in')
   } else {
-    errorMsg[0].textContent = '';
+    errorMsgs[0].textContent = '';
     e.target.classList.remove('focus-in')
   }
 })
 
 password.addEventListener('focusout', e => {
   if (password.value === '') {
-    errorMsg[1].textContent = errMsg.pw.empty;
+    errorMsgs[1].textContent = errMsg.pw.empty;
     e.target.classList.add('focus-out')
     e.target.classList.remove('focus-in')
   } else if (!passwordRegex.test(password.value)) {
-    errorMsg[1].textContent = errMsg.pw.invalid;
+    errorMsgs[1].textContent = errMsg.pw.invalid;
     e.target.classList.add('focus-out')
     e.target.classList.remove('focus-in')
   } else {
-    errorMsg[1].textContent = '';
+    errorMsgs[1].textContent = '';
     e.target.classList.remove('focus-in')
   }
 })
 
-email.addEventListener('input', e => errorMsg[0].textContent = '');
-password.addEventListener('input', e => errorMsg[1].textContent = '');
+email.addEventListener('input', e => errorMsgs[0].textContent = '');
+password.addEventListener('input', e => errorMsgs[1].textContent = '');
 
 // 이메일, 비밀번호 체크 & 로그인 경로 설정 & 모달
 const emailCheck = () => {

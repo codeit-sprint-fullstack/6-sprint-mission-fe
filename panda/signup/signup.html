@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html style="min-height: 100%; position: relative;">
+<html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="signup.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css"/>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
-    <link rel="icon" href="image/판다마켓 Favicon.png">
+    <link rel="icon" href="/image/ic_panda_favicon.png">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7HEY5PGKZV"></script>
     <script>
@@ -15,38 +15,38 @@
 
       gtag('config', 'G-7HEY5PGKZV');
     </script>
-    <title>판다마켓 - 로그인</title>
+    <title>판다마켓 - 회원가입</title>
   </head>
   <body style="width: 100%;">
     <header style="width: 24.75rem; height: 8.25rem; margin: 14.4375rem auto auto; padding: 0.8113rem 0 0.9463rem;">
-      <a href="index.html" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between;">
-        <img src="image/판다 로고.svg">
+      <a href="/index.html" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between;">
+        <img src="/image/ic_big_panda_logo.svg">
         <span style="color: var(--href-txt-focus-input-color); font-family: ROKAFSans; font-weight: 700; font-size: 4.1463rem; line-height: 5.5975rem;">
           판다마켓
         </span>
       </a>
     </header>
-    <form id="input-form" style="width: 40rem; margin: 2.5rem auto auto;">
+    <form style="width: 40rem; margin: 2.5rem auto auto;">
       <label class="index" for="email">이메일</label>
       <input class="input-box" id="email" name="email" type="email" placeholder="이메일을 입력해주세요"> 
-      <div class="error-msg"></div>
+      <label class="index" for="nickname">닉네임</label>
+      <input class="input-box" id="nickname" name="nickname" type="text" placeholder="닉네임을 입력해주세요">
       <label class="index" for="password">비밀번호</label>
       <div>
         <input class="input-box" id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요">
-        <img class="eye-icon" src="image/눈 on.svg">
-        <img class="eye-icon" src="image/눈 off.svg">
+        <img class="eye-icon" src="/image/ic_eye_on.svg">
+        <img class="eye-icon" src="/image/ic_eye_off.svg">
       </div>
-      <div class="error-msg"></div>
+      <label class="index" for="passwordCheck">비밀번호 확인</label>
+      <div>
+        <input class="input-box" id="passwordCheck" name="passwordCheck" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요">
+        <img class="eye-icon" src="/image/ic_eye_on.svg">
+        <img class="eye-icon" src="/image/ic_eye_off.svg">
+      </div>
       <button class="btn" style="font-family: Pretendard; font-weight: 600; font-size: 1.25rem; line-height: 2rem; text-align: center;">
-      로그인
+        회원가입
       </button>
     </form>
-    <div class="modal">
-      <div class="modal-popup">
-        <p>비밀번호가 일치하지 않습니다.</p>
-        <button type="button">확인</button>
-      </div>
-    </div>
     <nav class="bottom-box">
       <p style="font-family: Pretendard; font-weight: 500; font-size: 1rem; line-height: 1.625rem; color: var(--basic-txt-color);">
         간편 로그인하기
@@ -54,24 +54,24 @@
       <div class="logo">
         <a href="https://www.google.com/">
           <div class="google-btn">
-            <img src="image/googlebtn.svg">
+            <img src="/image/ic_google.svg">
           </div>
         </a>
         <a href="https://www.kakaocorp.com/page/">
           <div class="kakao-btn">
-            <img src="image/kakaobtn.svg">
+            <img src="/image/ic_kakao.svg">
           </div>
         </a>
       </div>
     </nav>
     <footer class="text">
       <span style="font-family: Pretendard; font-weight: 500; font-size: 0.9375rem; line-height: 1.1187rem; color: var(--basic-txt-color);">
-        판다마켓이 처음이신가요?
+        이미 회원이신가요?
       </span>
-      <a href="signup.html" style="font-family: Pretendard; font-weight: 500; font-size: 0.9375rem; line-height: 1.1187rem; text-decoration: underline solid; color: var(--href-txt-focus-input-color);">
-        회원가입
+      <a href="/panda/login/login.html" style="font-family: Pretendard; font-weight: 500; font-size: 0.9375rem; line-height: 1.1187rem; text-decoration: underline solid; color: var(--href-txt-focus-input-color);">
+        로그인
       </a>
     </footer>
-    <script src="login.js"></script>
+    <script src="signup.js"></script>
   </body>
 </html>
