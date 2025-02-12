@@ -12,22 +12,39 @@ const USER_DATA = [
 let loginSubmitObject = { email: false, password: false };
 
 // 로그인 페이지 로그인 버튼 활성화 함수
-const submitloginButton = document.getElementById("loginButton");
+const submitLoginButton = document.getElementById("loginButton");
 
 function checkPassValidate() {
   const loginSubmitArray = Object.values(loginSubmitObject);
   const isAllTrue = (currentValue) => currentValue === true;
 
   if (loginSubmitArray.every(isAllTrue)) {
-    submitloginButton.disabled = false;
-    submitloginButton.style.backgroundColor = "rgba(54, 146, 255, 1)";
+    submitLoginButton.disabled = false;
+    submitLoginButton.style.backgroundColor = "rgba(54, 146, 255, 1)";
   }
 }
 
 // 로그인 페이지 로그인 버튼 클릭 제출 함수.
-submitloginButton.addEventListener("click", function () {
-  alert("로그인 성공!");
-  window.location.href = "../html/items.html";
+const submitLoginForm = document.getElementById("inputBoxForm");
+
+submitLoginForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  let email = document.getElementById("email").value.trim();
+  let password = document.getElementById("password").value.trim();
+
+  let checkUserEmail = USER_DATA.find((user) => user.email === email);
+  let checkUserPassWord = USER_DATA.find(
+    (user) => user.email === email && user.password === password
+  );
+
+  if (checkUserPassWord) {
+    alert("로그인 성공!");
+    window.location.href = "../html/items.html";
+  } else if (!checkUserEmail) {
+    alert("존재하지 않는 유저입니다.");
+  } else {
+    alert("비밀번호가 일치하지 않습니다.");
+  }
 });
 
 // 로그인 페이지 이메일 입력 유효성 검사

@@ -28,10 +28,20 @@ function checkPassValidate() {
   }
 }
 
+// 유저 존재 확인 함수.
+function isUserExists(email) {
+  return USER_DATA.some((user) => user.email === email);
+}
+
 // 회원가입 페이지 로그인 버튼 클릭 제출 함수.
 submitSignupButton.addEventListener("click", function () {
-  alert("회원가입 성공!");
-  window.location.href = "/login.html";
+  let email = document.getElementById("email").value.trim();
+  if (isUserExists(email)) {
+    alert("이미 존재하는 사용자입니다.");
+  } else {
+    alert("회원가입 성공!");
+    window.location.href = "/login.html";
+  }
 });
 
 // 회원가입 페이지 이메일 입력 유효성 검사
