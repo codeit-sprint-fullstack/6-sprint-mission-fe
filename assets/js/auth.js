@@ -21,3 +21,31 @@ btn.addEventListener("click", ()=>{
 let form = document.querySelector('.auth__form');
 let emailField = document.querySelector('#email');
 let passwordField = document.querySelector('#password');
+let emailError = document.querySelector('#emailError');
+let passwordError = document.querySelector('#passwordError');
+
+
+//email validity function
+function isValidEmail(email) {
+  const emailPattern =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailPattern.test(email);
+}
+
+// if email input focus is out, check emailField value for error
+emailField.addEventListener('focusout', function() {
+  // get the user email from the field
+  let userEmail = emailField.value;
+  if (userEmail === '') {
+    emailError.textContent = '이메일을 입력해주세요.';
+    emailError.classList.add('auth__error--active');
+    emailField.classList.add('auth__form-input--error');
+  } else if (!isValidEmail(emailField)) {
+    emailError.textContent = '잘못된 이메일 형식입니다.';
+    emailError.classList.add('auth__error-active');
+    emailField.classList.add('auth__form-input--error');
+  } else {
+    emailError.classList.remove('auth__error-active');
+    emailField.classList.remove('auth__form-input--error');
+  }
+});
+//need to check email validity again when focuse is back in?
