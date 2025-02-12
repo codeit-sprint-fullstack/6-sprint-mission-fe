@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="min-height: 100%; position: relative;">
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="signup.css">
@@ -26,27 +26,36 @@
         </span>
       </a>
     </header>
-    <form style="width: 40rem; margin: 2.5rem auto auto;">
+    <form id="input-form" style="width: 40rem; margin: 2.5rem auto auto;">
       <label class="index" for="email">이메일</label>
       <input class="input-box" id="email" name="email" type="email" placeholder="이메일을 입력해주세요"> 
+      <div class="error-msg"></div>
       <label class="index" for="nickname">닉네임</label>
-      <input class="input-box" id="nickname" name="nickname" type="text" placeholder="닉네임을 입력해주세요">
+      <input class="input-box" id="nickname" name="nickname" type="text" placeholder="닉네임을 입력해주세요" style="margin-bottom: 1.5rem;">
       <label class="index" for="password">비밀번호</label>
       <div>
         <input class="input-box" id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요">
         <img class="eye-icon" src="/image/ic_eye_on.svg">
         <img class="eye-icon" src="/image/ic_eye_off.svg">
       </div>
-      <label class="index" for="passwordCheck">비밀번호 확인</label>
+      <div class="error-msg"></div>
+      <label class="index" for="password-2nd">비밀번호 확인</label>
       <div>
-        <input class="input-box" id="passwordCheck" name="passwordCheck" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요">
+        <input class="input-box" id="password-2nd" name="password-2nd" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요">
         <img class="eye-icon" src="/image/ic_eye_on.svg">
         <img class="eye-icon" src="/image/ic_eye_off.svg">
       </div>
-      <button class="btn" style="font-family: Pretendard; font-weight: 600; font-size: 1.25rem; line-height: 2rem; text-align: center;">
+      <div class="error-msg"></div>
+      <button class="btn" disabled style="font-family: Pretendard; font-weight: 600; font-size: 1.25rem; line-height: 2rem; text-align: center;">
         회원가입
       </button>
     </form>
+    <div class="modal">
+      <div class="modal-popup">
+        <p>사용 중인 이메일입니다.</p>
+        <button type="button">확인</button>
+      </div>
+    </div>
     <nav class="bottom-box">
       <p style="font-family: Pretendard; font-weight: 500; font-size: 1rem; line-height: 1.625rem; color: var(--basic-txt-color);">
         간편 로그인하기

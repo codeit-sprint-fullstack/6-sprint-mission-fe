@@ -33,7 +33,35 @@ eyeIcons[1].addEventListener('click', e => {
   password.type = 'text';
 });
 
-// input-box focusin, focusout 이벤트
+// 로그인 버튼 활성화
+const btnToggle = e => {
+  if (emailRegex.test(email.value) && passwordRegex.test(password.value)) {
+    btn.classList.add('btnAble');
+    btn.disabled = false;
+    btn.style.cursor = 'pointer';
+  } else {
+    btn.classList.remove('btnAble');
+    btn.disabled = true;
+    btn.style.cursor = 'default';
+  }
+}
+
+email.addEventListener('keyup', btnToggle);
+password.addEventListener('keyup', btnToggle);
+
+// 이메일, 비밀번호 에러 메세지
+const errMsg = {
+  email: { 
+    empty: '이메일을 입력해주세요.',
+    invalid: '잘못된 이메일 형식입니다.',
+  },
+  pw: {
+    empty: '비밀번호를 입력해주세요.',
+    invalid: '비밀번호를 8자 이상 입력해주세요.',
+  },
+}
+
+// focusin 이벤트 : 색상 효과
 const focusIn = e => {
   e.target.classList.add('focus-in');
   e.target.classList.remove('focus-out');
@@ -42,37 +70,7 @@ const focusIn = e => {
 email.addEventListener('focusin', focusIn);
 password.addEventListener('focusin', focusIn);
 
-// 로그인 버튼 활성화
-const btnToggle = e => {
-  if (emailRegex.test(email.value) && passwordRegex.test(password.value)) {
-    btn.classList.add('btnAble');
-    btn.disabled = false;
-    
-  } else {
-    btn.classList.remove('btnAble');
-    btn.disabled = true;
-  }
-}
-
-email.addEventListener('keyup', btnToggle);
-password.addEventListener('keyup', btnToggle);
-
-// 이메일, 비밀번호 유효성 검사
-const errMsg = {
-  email: { 
-    empty: '이메일을 입력해주세요.',
-    invalid: '잘못된 이메일 형식입니다.',
-    success: '사용 가능한 아이디입니다',
-    already: '사용 중인 이메일입니다.'
-  },
-  pw: {
-    empty: '비밀번호를 입력해주세요.',
-    invalid: '비밀번호를 8자 이상 입력해주세요.',
-    success: '비밀번호가 일치합니다',
-    fail: '비밀번호가 일치하지 않습니다.'
-  },
-}
-
+// focusout 이벤트 : 유효성 검증
 email.addEventListener('focusout', e => {
   if (email.value === '') {
     errorMsgs[0].textContent = errMsg.email.empty;
@@ -103,6 +101,7 @@ password.addEventListener('focusout', e => {
   }
 })
 
+// input할 때 errMsgs 초기화
 email.addEventListener('input', e => errorMsgs[0].textContent = '');
 password.addEventListener('input', e => errorMsgs[1].textContent = '');
 
@@ -120,7 +119,7 @@ const passwordCheck = () => {
 form.addEventListener('submit', e => {
   e.preventDefault();
   if (emailCheck() && passwordCheck()) {
-    location.href = 'items.html';
+    location.href = '/panda/items/items.html';
   } else {
     modal.style.display = 'block';
   }

@@ -12,6 +12,7 @@
   --login-txt-input-box-bg-color: #F3F4F6;
   --placeholder-btn-bg-color: #9CA3AF;
   --bottom-box-bg-color: #E6F2FF;
+  --error-color: #F74747;
 }
 
 * {
@@ -30,6 +31,35 @@ form div {
   position: relative;
 }
 
+.input-box {
+  background-color: var(--login-txt-input-box-bg-color);
+  width: 40rem;
+  height: 3.5rem;
+  border: 0.0938rem solid transparent;
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  margin: 1rem auto 0;
+  outline: none;
+}
+
+.input-box.focus-in {
+  border-color: var(--href-txt-focus-input-color);
+}
+
+.input-box.focus-out {
+  border-color : var(--error-color);
+}
+
+.error-msg {
+  color: var(--error-color);
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.1187rem;
+  letter-spacing: 0;
+  margin: 0.5rem auto 1.5rem 1rem;
+}
+
 .eye-icon {
   position: absolute;
   width: 1.2794rem;
@@ -41,20 +71,6 @@ form div {
 
 .eye-icon.off {
   visibility: hidden;
-}
-
-.input-box:focus {
-  outline-color: var(--href-txt-focus-input-color);
-}
-
-.input-box {
-  background-color: var(--login-txt-input-box-bg-color);
-  width: 40rem;
-  height: 3.5rem;
-  border: none;
-  border-radius: 0.75rem;
-  padding: 1rem 1.5rem;
-  margin: 1rem auto 1.5rem;
 }
 
 ::placeholder {
@@ -78,6 +94,49 @@ form div {
 
 .btnAble {
   background-color: var(--href-txt-focus-input-color);
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7)
+}
+
+.modal-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 33.75rem;
+  height: 15.625rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.1931rem;
+  text-align: center;
+  padding: 6.75rem 0 7.6875rem;
+}
+
+.modal-popup button {
+  width: 7.5rem;
+  height: 3rem;
+  margin: 2.9375rem 1.75rem 1.75rem 24.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--href-txt-focus-input-color);
+  color: var(--login-txt-input-box-bg-color);
+  padding: 0.75rem 1.4375rem;
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.1931rem;
   cursor: pointer;
 }
 

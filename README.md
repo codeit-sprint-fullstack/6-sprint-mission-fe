@@ -2,7 +2,7 @@
 
 > ### 판다마켓 대표 이미지
 
-![판다마켓 대표 이미지](image/판다마켓%20대표%20이미지.png)
+![판다마켓 대표 이미지](/image/img_preview.png)
 
 ##### 판다마켓 링크 : [🐼판다마켓](https://been-panda.netlify.app) https://been-panda.netlify.app
 
@@ -46,3 +46,4 @@
     [x] 아이콘 변수이름 수정 : `eyeIcon -> eyeIcons`  
     [x] required 삭제  
       - 필요하지 않아져서 수정이 아니라 삭제했습니다.
+  - 링크 공유시 미리보기 meta 태그 추가, 회원가입 유효성 검사 & 모달 추가
