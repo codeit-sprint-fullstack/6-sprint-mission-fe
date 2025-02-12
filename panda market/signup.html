@@ -18,7 +18,8 @@
                 <div class="in_email">
                     <a class="text">이메일</a><br>
                     <!-- <div class="input_email"> -->
-                        <input class="input_text" type="email" name="email" placeholder="이메일을 입력해주세요">
+                        <input class="input_text emailinput" type="email" name="email" onchange="signupEmChanger()" placeholder="이메일을 입력해주세요">
+                        <span class="emailerror">잘못된 이메일 형식입니다.</span>
                     <!-- </div> -->
                 </div>
             </div>
@@ -31,7 +32,8 @@
             <div class="password">
                 <div class="top_text">
                     <a class="text">비밀번호</a><br>
-                    <input class="input_text" type="password" name="password" placeholder="비밀번호를 입력해주세요">
+                    <input class="input_text passwordinput" type="password" name="password" onchange="passwordchange()" placeholder="비밀번호를 입력해주세요">
+                    <span class="passworderror">비밀번호를 8자 이상 입력해주세요.</span>
                 </div>
             </div>
             <div class="password_check">
@@ -63,5 +65,6 @@
             </div>
         </div>
     </main>
+    <script src="js/signup.js"></script>
 </body>
 </html>

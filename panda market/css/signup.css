@@ -89,6 +89,16 @@ main {
     outline: none;
 }
 
+.emailerror {
+    visibility: hidden;
+    color: red;
+}
+
+.passworderror {
+    visibility: hidden;
+    color: red;
+}
+
 .email {
     width: 640px;
     height: 98px;
