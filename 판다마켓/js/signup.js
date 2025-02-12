@@ -123,3 +123,33 @@ validateconfirmPasswordInput.addEventListener("blur", function () {
     checkPassValidate();
   }
 });
+
+// 비밀번호 보기 기능.
+const togglePassword = () => {
+  let passwordInput = document.getElementById("password");
+  let togglePasswordIcon = document.getElementById("togglePasswordIcon");
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    togglePasswordIcon.src = "../imgs/ic_open_eye.png";
+  } else {
+    passwordInput.type = "password";
+    togglePasswordIcon.src = "../imgs/ic_close_eye.png";
+  }
+};
+
+// 비밀번호 확인 보기 기능.
+const toggleConfirmPassword = () => {
+  let confirmPasswordInput = document.getElementById("confirmPassword");
+  let toggleConfirmPasswordIcon = document.getElementById(
+    "toggleConfirmPasswordIcon"
+  );
+
+  if (confirmPasswordInput.type === "password") {
+    confirmPasswordInput.type = "text";
+    toggleConfirmPasswordIcon.src = "../imgs/ic_open_eye.png";
+  } else {
+    confirmPasswordInput.type = "password";
+    toggleConfirmPasswordIcon.src = "../imgs/ic_close_eye.png";
+  }
+};

@@ -92,3 +92,17 @@ validatePasswordInput.addEventListener("blur", function () {
     checkPassValidate();
   }
 });
+
+// 비밀번호 보기 기능.
+const togglePassword = () => {
+  let passwordInput = document.getElementById("password");
+  let togglePasswordIcon = document.getElementById("togglePasswordIcon");
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    togglePasswordIcon.src = "../imgs/ic_open_eye.png";
+  } else {
+    passwordInput.type = "password";
+    togglePasswordIcon.src = "../imgs/ic_close_eye.png";
+  }
+};
