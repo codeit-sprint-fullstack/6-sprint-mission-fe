@@ -46,7 +46,7 @@ body {
     align-items: center;
     width: 10rem;
     height: 2.5rem;
-    margin-left: 12.5rem;
+    margin-left: 1.5rem;
     text-decoration: none;
     
 }
@@ -83,7 +83,7 @@ body {
     text-align: center;
     line-height: 3rem;
     border: none;
-    margin-right:12.5rem;
+    margin-right:1.5rem;
 }
 
 
@@ -216,19 +216,18 @@ body {
     justify-content: space-between;
     width: 100%;
     max-width: 120rem;
-    padding: 2rem 12.5rem;
+    padding: 2rem                   ; 
 }
 
 #icon{
     display: flex;
     gap: 1rem;
-    margin: 0 2rem;
+    margin-right:1.5rem;
 }
 
 #icon img {
-    width: auto;
-    height: auto;
     cursor: pointer;
+    width: 20px;
 }
 
 .link {
@@ -244,13 +243,13 @@ body {
 
 #info {
     color: var(--secondary-color);
-    margin: 0 2rem;
+    margin-left:2rem;
 }
 
 .text-link{
     display: flex;
     gap: 2rem;
-    margin: 0;
+    margin: 0 2rem;
 }
 
 
@@ -410,8 +409,19 @@ input:focus {
 }
 
 #kakao {
+    width: 40px;
+    height: auto;
     margin-left:0.5rem;
+    z-index: 20;    
 }
+
+#google {
+    width: 40px;
+    height: auto;
+    margin-left:0.5rem;
+    z-index: 20;    
+}
+
 
 
 
@@ -503,6 +513,14 @@ input.error-line {
     #login-title{
         font-size: 2rem;
     }
-
+    .main-image{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .main-image img{
+        width:100%;
+    }
 }
 
