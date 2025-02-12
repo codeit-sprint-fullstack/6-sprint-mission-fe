@@ -19,7 +19,7 @@ body {
   padding: 10% 0;
 }
 
-.signInUpTop {
+.loginSignupTop {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +35,7 @@ body {
   }
 }
 
-.inputBox {
+.inputBoxForm {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -45,8 +45,9 @@ body {
     margin: 10px 0;
     background-color: white;
 
-    p {
-      height: 40px;
+    label {
+      display: block;
+      padding: 10px 0;
       font-weight: bold;
     }
 
@@ -64,7 +65,7 @@ body {
   }
 }
 
-.signInUpButton {
+.activateloginSignupButton {
   height: 56px;
   background-color: var(--mainBlue);
   color: white;
@@ -74,6 +75,15 @@ body {
   cursor: pointer;
 }
 
+.deactivateloginSignupButton {
+  height: 56px;
+  background-color: var(--submitGray);
+  color: white;
+  font-size: 20px;
+  border-radius: 30px;
+  margin: 10px 0;
+}
+
 .snsLoginBox {
   display: flex;
   justify-content: space-between;
@@ -81,7 +91,7 @@ body {
   width: 100%;
   padding: 10px 20px;
   border-radius: 15px;
-  background-color: var(snsBGskyBlue);
+  background-color: var(--snsBGskyBlue);
 }
 
 .snsLogin {
@@ -94,7 +104,7 @@ body {
   }
 }
 
-.signInUpBottomBox {
+.loginSignupBottomBox {
   display: flex;
   align-items: center;
   justify-content: center;
