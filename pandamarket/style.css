@@ -98,14 +98,15 @@ body {
     background-color: #CFE5FF;
 }
 .main-image {
-    position: absolute;
-    bottom: 0; 
-    left: 50%;
-    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    /* margin-top: 0px; */
     background-color: #CFE5FF; 
     max-width: 70rem;
     width: 100%;
-    height: 21.5rem;
+    height: auto;
+    /* margin-top:200px; */
+    margin:auto auto 0px auto;
     
 }
 
@@ -117,21 +118,22 @@ body {
     align-items: flex-start; 
     width: 22.5rem;
     height: 16.5rem;
-    margin-top:2.5rem;
+    margin-bottom:0;
+    margin-top:40px;
 }
 
 #main-text {
     color: var(--background-color);
     font-size: 2.5rem;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 3.5rem;
+    width: 300px;
 }
 
 .button {
-    position: absolute; 
+
     display: inline-block;
-    bottom: 0; 
-    left: 0; 
+    margin-top: 2rem;
     margin-bottom:4rem;
     width: 22.5rem;
     height: 3.5rem;
@@ -149,10 +151,8 @@ body {
 
 
 .main-image img {
-    position: absolute; 
-    bottom: 0; 
-    right: 0; 
-    max-width: 746px; 
+    margin: auto 0 0 auto; 
+    max-width: 47.5rem; 
     width: 100%;
     height: auto; 
 }
@@ -161,34 +161,48 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 
+}
+
+#bottom-text{
+    color: var(--background-color);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 3.5rem;
+    width: 300px;
+    margin-top: 100px;
 }
 
 .sub{
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    width:62rem;
-    height:28rem;
+    max-width: 62rem;
+    width: 100%;
+    
     background-color: var(--sub-background-color);
-    margin: 8.5rem 0;
+    margin: 8.5rem 1.5rem;
 }
 
 .sub img {
+
     width: auto;
     height: auto;
     margin-left:0;
     
 }
 .sub-text{
-    margin:2rem 2.5rem;
+    margin:8rem 2.5rem 2rem 2.5rem;
     z-index:1;
+    height: auto;
     min-width: 19rem;
 }
 #sub-title{
     color:var(--primary-color);
     font-size:1rem;
     font-weight: bold;
-    margin-top:6rem;
+    /* margin-top:6rem; */
 }
 
 #sub-txt{
@@ -501,9 +515,121 @@ input.error-line {
 }
 
 
+@media (max-width: 1200px) {
+    .main {
+        height: auto;
+    }
+    #main-text {
+        margin-top:0px;
+        width: auto;
+        text-align: center;
+    }
+    #bottom-text{
+        margin-top:0px;
+        width: auto;
+        text-align: center;
+    }
+    .main-image{
+        flex-direction: column;
+        height:auto;
+        justify-content: center; /* 가로 가운데 정렬 */
+        align-items: center; /* 가로 가운데 정렬 */
+        margin-top:150px;
+        margin-bottom:0px;
+        gap: 20px; /* 요소 사이 여백 */
+
+    }
+    .main-image img{
+        width:100%;
+        margin: 200px auto 0 auto;
+        
+    }
+    .text-button{
+        margin-top:0px;
+        margin-bottom: 30px;
+        width:auto;
+        align-items: center;
+        height: 136px;
+    }
+    .button{
+        margin:1.5rem auto auto auto;
+    }
+    
+    
+    .sub{
+        flex-direction: column;
+        padding: 26px 3rem;
+        background-color: white;
+        margin: 0px;
+    }
+    .sub img{
+        width: 100%;
+    }
+    #middle{
+        flex-direction:column-reverse;
+        
+    }
+    #middle-text{
+        margin: 1rem 0 0 auto;
+    }
+    .sub-text{
+        margin: 1rem auto 0 0;
+    }
+    
+}
+
 
 
 @media (max-width:744px) {
+    
+    .main-image img{
+        margin: 130px auto auto auto;
+    }
+
+    #main-text {
+        font-size: 2rem;
+    }
+    #bottom-text {
+        width: 240px;
+        font-size: 2rem;
+    }
+    
+    .text-button{
+        width: 240px;
+        height:156px;
+    }
+    .button {
+        width: 240px;
+    }
+
+    .sub-text{
+        margin:2rem 2.5rem;
+        min-width: 19rem;
+    }
+    #sub-title{
+        font-size:1rem;
+    }
+    
+    #sub-txt{
+        margin:0.75rem 0;
+        font-size: 1.5rem;
+    }
+    #sub-ex{
+        margin:1.5rem 0;
+        font-size:1rem;
+    
+    }
+
+    .sub{
+        padding: 20px 3rem;
+    }
+
+    .sub-text{
+        margin: 1rem auto 0 0;
+    }
+
+
+
     .main-login{
         width: 100%;
         height: 100%;
@@ -514,18 +640,6 @@ input.error-line {
         width: 3rem;
     }
     #login-title{
-        font-size: 2rem;
-    }
-    .main-image{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .main-image img{
-        width:100%;
-    }
-    #main-text {
         font-size: 2rem;
     }
 
