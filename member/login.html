@@ -3,15 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
     <link rel="stylesheet" href="./login.css" />
-    <title>회원가입</title>
+    <script defer type="module" src="./login.js"></script>
+    <title>로그인</title>
   </head>
   <body>
     <div class="midBox">
-      <section style="height: 842px">
+      <section>
         <header>
           <a href="/">
-            <img src="./imges/logo.png" alt="logo" />
+            <img src="../imges/logo.png" alt="logo" />
           </a>
         </header>
         <article>
@@ -23,15 +30,7 @@
               name="email"
               placeholder="이메일을 입력해주세요"
             />
-          </label>
-          <label for="nickname">
-            닉네임
-            <input
-              type="text"
-              id="nickname"
-              name="nickname"
-              placeholder="닉네임을 입력해주세요"
-            />
+            <p class="errMessage emailErrMsg">잘못된 이메일 형식입니다.</p>
           </label>
           <label for="pw" class="pwLabel">
             비밀번호
@@ -41,35 +40,38 @@
               name="pw"
               placeholder="비밀번호를 입력해주세요"
             />
-            <img src="./imges/Vector.png" alt="pweye" />
+            <img src="../imges/Vector.png" alt="pwEye" id="pwEye" />
+            <p class="errMessage pwErrMasg">
+              비밀번호를 8자 이상 입력해주세요.
+            </p>
           </label>
-          <label for="checkPw" class="pwLabel checkPw">
-            비밀번호 확인
-            <input
-              type="password"
-              id="checkPw"
-              name="checkPw"
-              placeholder="비밀번호를 다시 한 번 입력해주세요"
-            />
-            <img src="./imges/Vector.png" alt="pweye" />
-          </label>
-          <button class="loginBtn">회원가입</button>
+          <button class="loginBtn">로그인</button>
           <div class="easyLoginBox">
             <p>간편 로그인하기</p>
             <div class="easyLoginBtn">
               <a href="https://www.google.com/">
-                <img src="./imges/Component 2.png" alt="google" />
+                <img src="../imges/Component 2.png" alt="google" />
               </a>
               <a href="https://www.kakaocorp.com/">
-                <img src="./imges/Component 3.png" alt="kako" />
+                <img src="../imges/Component 3.png" alt="kako" />
               </a>
             </div>
           </div>
         </article>
         <footer>
-          <p>이미 회원이신가요? <a href="/login.html">로그인</a></p>
+          <p>
+            판다마켓이 처음이신가요? <a href="./createAccount.html">회원가입</a>
+          </p>
         </footer>
       </section>
+    </div>
+    <div class="alert">
+      <div class="alertBg">
+        <div class="alertBox">
+          <p class="alertText">비밀번호가 일치하지 않습니다.</p>
+          <button class="alertBtn">확인</button>
+        </div>
+      </div>
     </div>
   </body>
 </html>
