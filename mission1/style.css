@@ -1,13 +1,19 @@
 
+/* for reset.css*/
+@import "./reset.css";
 
 * {
     font-family: Pretendard;
+    box-sizing: border-box;
 }
 
 a {
     text-decoration: none;
 }
 
+p {
+    margin: 0;
+}
 body {
     margin: 0px;
 }
@@ -18,6 +24,8 @@ body {
 } 
 
 .main-body {
+    padding: 0;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,22 +43,27 @@ header {
 }
 
 .header-container {
+    width: 100%;
     height: 51px;
-    padding-left: 400px;
-    padding-right: 400px;
     padding-top: 9.5px;
-    justify-content: space-between;
+    justify-content: space-around;
     display: flex;
     align-items: center;
     font-size: 16px;
 }
 
+.face-img {
+    width: 40px;
+    height: 40.14px;
+}
+
 .header-text {
-    color: #3692FF;
     justify-content: space-between;
     cursor: pointer;
-    margin-left: 8.9px;
-    font-size: 1.6em;
+    padding-left: 8.9px;
+    width: 103px;
+    height: 26px;
+
 }
 
 .header-login {
@@ -64,29 +77,32 @@ header {
 }
 
 
-
-
-
-
 .main {
     background-color:#CFE5FF;
-    width: 100%;
     height: 540px;
     margin-top: 70px; 
     display: flex;
     flex-direction: column;
+    justify-content: end;
     align-items: center; 
+    width: 100%;
     font-size: 40px;
 } 
 
 .title {
     width: 1110px;
     height: 340px;
+    /*
+    justify-content: center;
     padding-left: 405px;
     padding-top: 200px;
+    */
     background-image: url("Img_home_top.png");
     background-repeat: no-repeat;
     background-position: right bottom;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .title-text {
@@ -119,17 +135,21 @@ header {
 }
 
 .main-content1, .main-content3 {
+    /*width: 988px; !!!*/
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    /*
     padding-left: 466px;
     padding-right: 466px;
+    */
     padding-top: 138px;
     padding-bottom: 138px;
     background-color: #FCFCFC;
 }
 
 .main-content2 {
+    /*width: */
     display: flex;
     align-items: center;
     padding-left: 466px;
@@ -145,30 +165,29 @@ header {
 }
 
 .text-container1, .text-container3 {
-    width: 274px;
+    width: 335px;
     height: 238px;
-    flex-grow: 1;
-    padding-left: 64px;
+    margin-left: 64px;
     display: flex;
     flex-direction: column;
     font-size: 18px;
 }
 
 .text-container2 {
-    width: 274px;
+    width: 317px;
     height: 238px;
     display: flex;
     flex-direction: column;
-    padding-left: 9.5px;
-    padding-right: 64px;
-    flex-grow: 0;
+    align-items: end;
+    margin-left: 9.5px;
+    margin-right: 64px;
     font-size: 18px;
 }
 
 
 .subtitle1, .subtitle2, .subtitle3 {
+    width: 100px;
     font-weight: 700;
-    font-size: 18px;
     line-height: 26px;
     color:#3692FF;
     margin: 0px;
@@ -176,7 +195,7 @@ header {
     font-size: 1em;
 }
 
-.main-text1, .main-text2, .main-text3{
+.main-text1, .main-text3{
     font-weight: 700;
     font-size: 40px;
     line-height: 56px;
@@ -185,6 +204,22 @@ header {
     width: 317px;
     height: 112px;
     font-size: 2.2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-text2 {
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 56px;
+    margin-top: 0;
+    margin-bottom: 24px;
+    width: 317px;
+    height: 112px;
+    font-size: 2.2em;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
 }
 
 .description1, .description3{
@@ -192,7 +227,7 @@ header {
     font-size: 24px;
     line-height: 32px;
     margin: 0;
-    width: 288px;
+    width: 335px;
     height: 64px;
     font-size: 1.3em;
 }
@@ -209,13 +244,27 @@ header {
 
 .end-title {
     width: 1110px;
-    height: 340px;
+    height: 397px;
+    /*
     padding-left: 405px;
     padding-top: 200px;
+    */    
+    background-color:#CFE5FF;
     background-image: url(Img_home_bottom.png);
     background-repeat: no-repeat;
     background-position: right bottom;
     font-size: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.title-text2 {
+    width: 400px;
+    height: 112px;
+    font-weight: 700;
+    font-size: 1em;
+    line-height: 56px;
+    margin-bottom: 60px;
 }
 
 a {
@@ -227,41 +276,413 @@ a {
     background-color: #111827;
     width: 100%;
     height: 160px;
-    font-size: 16px;
-    
+    font-size: 16px; 
 }
-
-.codeit {
-    padding-left: 200px;
-    font-size: 1em;
-}
-
-.icon {
-    padding-right: 200px;
-}
-
-
 .foot {
-    width: 100%;
+    /*width: 100%;*/
     height: 20px;
-    align-items: center;
-    justify-content: space-between;
-    display: flex;;
-    padding-top: 32px;
-    
-
-}
-
-.footer-space {
+    margin-top: 32px;
+    margin-left: 200px;
+    margin-right: 200px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+.codeit1 {
+    width: 120px;
+    height: 19px;
+    font-size: 1em;
+}
+.codeit2 {
+    display: none;
+}
+
+
+.icon {
+    width:116px;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /*padding-right: 200px;*/
+}
+
+
+.footer-space {
     width: 159px;
     height: 19px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     cursor: pointer;
     font-size: 1em;
 }
 
 .icon {
+    width: 116px;
+    height: 20px;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+
+/*반응형 웹 디자인*/
+
+/* (반응형) PC 사이즈 */
+@media (min-width: 1200px) {
+    /*디버깅*/
+    body {
+        color: blue;
+    }
+    .img1, .img2, .img3{
+        width: 588px;
+        height: 444px;
+    }
+    .main-content1, .main-content2, .main-content3 {
+        width: 100%;
+    }
+
+    /*!!!!!!*/
+    .main-content1, .main-content3 {
+        /*width: 988px; !!!*/
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        /*
+        padding-left: 466px;
+        padding-right: 466px;
+        */
+        padding-top: 138px;
+        padding-bottom: 138px;
+        background-color: #FCFCFC;
+        /*변경*/
+        display: flex;
+        flex-direction: column;
+        width: 1000px;
+
+    }
+}
+
+
+
+
+/* (반응형) Tablet 사이즈 */
+@media (min-width: 744px) and (max-width: 1199px) {
+    /*디버깅*/
+    body {
+        color: orange;
+    }  
+    .img1, .img2, .img3{
+        width: 588px;
+        height: 444px;
+    }
+    .header-container {
+        padding-left: 24px;
+        padding-right: 24px;
+        justify-content: space-between;
+    }
+    .main {
+        width: 100%;
+        height: 771px;
+        display: flex;
+        flex-direction: column;
+    }
+    .title {
+        width: 744px;;
+        height: 700px;
+        margin-top: 84px;
+        background-size:contain;
+        background-position: bottom;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+    }
+    .title-text {
+        width: 630px;
+        height: 60px;
+        font-size: 40px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-bottom: 24px;
+        
+    }
+    .title-button {
+        width: 357px;
+        height: 56px;
+        padding: 0px;
+        margin-top: 10px;
+    }
+    .main-content1, .main-content3 {
+        flex-direction: column;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .main-content2 {
+        flex-direction: column;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        flex-direction: column-reverse;
+        align-items: end;
+    }
+    .image-container1 {
+        width: 696px;
+        height: 524px;
+        padding-top: 24px;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-bottom: 24px;;
+    }
+    .image-container2, .image-container3 {
+        width: 696px;
+        height: 524px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .text-container1, .text-container3 {
+        margin: 0px;
+        margin-bottom: 40px;
+        margin-left: 24px;
+    }
+    .text-container3 {
+        margin: 0px;
+        margin-bottom: 40px;
+        margin-left: 24px;
+        margin-top: 24px;
+    }
+    .text-container2 {
+        height: 238px;
+        display: flex;
+        flex-direction: column;
+        padding-top: 24px;
+        padding-left: 43px;
+        padding-right: 15px;
+        padding-bottom: 40px;
+        font-size: 18px;
+        text-align: right;
+        margin: 0;;
+    }
+    .subtitle1, .subtitle2, .subtitle3 {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+    .main-text1, .main-text2, .main-text3{
+        font-size: 32px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 500px;
+        
+    }
+    .description1, .description3{
+        font-size: 18px;
+        width: 260px;
+        height: 52px;
+    }
+    .description2 {
+        font-size: 18px;
+        width: 220px;
+        height: 52px;
+    }
+    .end-title {
+        width: 744px;
+        height: 927px;
+        background-size: contain;
+        background-position: bottom;
+        display: flex;
+        flex-direction: column;
+        padding-top: 83px;
+    }
+    .title-text2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0px;
+    }
+    .foot {
+        margin-top: 32px;
+        margin-left: 32px;
+        margin-right: 32px;
+        margin-bottom: 108px;
+    }
+    .icon {
+        width: 116px;
+        height: 20px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .codeit2 {
+        display: none;
+    }
+    .codeit1 {
+        display: block;
+    }
+
+}
+
+
+
+
+/* (반응형) Mobile 사이즈 */
+@media (min-width: 375px) and (max-width: 743px) {
+    /*디버깅*/
+    body {
+        color: red;
+    } 
+    p {
+        margin: 0;
+    }
+    span {
+        margin: 0;
+    }
+    html {
+        padding: 0;
+        margin: 0;
+    }
+    .main {
+        width: 100%;
+        height: 540px;
+    }
+    .image-container1 {
+        width: 100%;
+        height: auto;
+        padding-top: 54px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 23.24px;;
+    }
+    .image-container2, .image-container3 {
+        width: 100%;
+        height: auto;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .face-img {
+        display: none;
+    }
+    .header-text {
+        padding-left: 16px;
+    }
+    .header-container {
+        justify-content: space-between;   
+    }
+    .title {
+        width: 100%;
+        height: 540px;
+        background-size:contain;
+        background-position: bottom;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 48px;
+    }
+    .title-text {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .title-button {
+        width: 240px;
+        padding: 0px;
+        margin-top: 10px;
+    }
+    .main-content1, .main-content2, .main-content3 {
+        flex-direction: column;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .text-container1, .text-container3 {
+        margin-left: 15px;
+        margin-top: 24px;
+        margin-bottom: 40px;
+        padding-left: 0px;
+    }
+    .text-container2 {
+        margin: 0px;
+        margin-top: 24px;
+        text-align: right;
+    }
+    .subtitle1, .subtitle2, .subtitle3 {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+    .main-content2 {
+        flex-direction: column-reverse;
+    }
+    .main-text1, .main-text2, .main-text3{
+        width: 400px;
+        font-size: 24px;
+        line-height: 32px;
+        width: 250px;
+        height: auto;
+        margin-top: 0;
+        margin-bottom: 16px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .description1, .description3{
+        font-size: 16px;
+    }
+    
+    .description2 {
+        font-size: 16px;
+        width: 230px;
+    }
+    .description3 {
+        width: 270px;
+    }
+    .end-title {
+        width: 100%;
+        height: 540px;
+        background-size: contain;
+        background-position: bottom;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 83px;
+        font-size: 32px;
+    }
+    .title-text2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .foot {
+        flex-direction: row;
+        height: 63px;;
+        margin-top: 32px;
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-bottom: 65px;
+        flex-wrap: wrap;
+    }
+    .icon {
+        width: 116px;
+        height: 20px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .codeit1 {
+        display: none;
+    }
+    .codeit2 {
+        display: block;
+    }
 }

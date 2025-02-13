@@ -63,16 +63,21 @@
 }
 
 .login-body {
-
+display: flex;
+flex-direction: column;
 }
 
 
 .email {
     width: 640px;
     height:98px;
-    padding: 0px;
+    padding-bottom: 20px;
 }
 
+.form {
+    display: flex;
+    flex-direction: column;
+}
 .email-text {
     width: 47px;
     height: 26px;
@@ -103,15 +108,43 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
+    margin-top: 16px;
     padding-left: 20px;
 
 }
 
-.eye-con {
-    position: relative;
-    top: -40px;
-    left: 600px;
+/*
+.email-error-message, .password-error-message {
+   display: none;
 }
+   */
+
+.error-box {
+    /*width: 154px;*/
+    height: 18px;
+    padding-top: 8px;
+    padding-right: 400px;
+    padding-left: 16px;
+
+    color:#F74747;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 17.9px;   
+}
+
+.error-input {
+    border-color: #F74747;
+    border-width: 2px;
+    border-style: solid;
+    outline: none;
+}
+
+.eye-con {
+    position: absolute;
+    top: 80px;
+    left: 610px;
+}
+
 
 input:focus {
     border-color: #3692FF;
@@ -121,9 +154,9 @@ input:focus {
 
 .password {
     width: 640px;
-    height:98px;
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-top: 20px;
+    padding-bottom: 28px;
+    position: relative;
 }
 
 
@@ -141,10 +174,8 @@ input:focus {
     background-color: #F3F4F6;
     width: 640px;
     height: 56px;
+    padding-bottom: 24px;
 }
-
-
-
 
 .login-button {
     color: #F3F4F6;

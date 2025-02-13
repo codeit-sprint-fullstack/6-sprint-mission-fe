@@ -24,62 +24,52 @@
                 <div class="signup-body">
  
                     <div class="email">
-                        <div class="email-text">
-                            이메일
-                        </div>
                         <form> 
-                            <label class="email-box" for="email-input">
+                            <label class="email-box email-text" for="input-email"> 이메일
                            </label id="email-input">
-                           <input class="input-email"
+                           <input id="input-email" class="input-email"
                            placeholder="이메일을 입력해주세요">
+                           <div class = "error-box" id = "email-error-message"> </div>
                        </form>
                     </div>
 
                     <div class="nickname">
-                        <div class="nickname-text">
-                            닉네임
-                        </div>
                         <form> 
-                            <label class="nickname-box" for="nickname-input">
+                            <label class="nickname-box nickname-text" for="input-nickname"> 닉네임
                            </label id="nickname-input">
-                           <input class="input-nickname"
+                           <input id="input-nickname" class="input-nickname"
                            placeholder="닉네임을 입력해주세요">
                        </form>
                     </div>
 
                     <div class="password">
-                        <div class="password-text">
-                            비밀번호
-                        </div>
                         <form> 
-                            <label class="password-box" for="password-input">
+                            <label class="password-box password-text" for="input-password"> 비밀번호
                            </label id="password-input">
-                           <input class="input-password"
+                           <input id="input-password" class="input-password"
                             placeholder="비밀번호를 입력해주세요"
                             type="password">
-                            <img class="eye-con2" src="btn_visibility_off_24px.png">
-
+                           <img id="eye-con2" class="eye-con2" src="btn_visibility_off_24px.png">
+                            <div class = "error-box" id = "password-error-message"></div>
                        </form>
 
                     </div>
 
                     <div class="checkpassword">
-                        <div class="checkpassword-text">
-                            비밀번호 확인
-                        </div>
                         <form> 
-                            <label class="checkpassword-box" for="checkpassword-input">
+                            <label id="checkpassword-text" class="checkpassword-box checkpassword-text" for="input-checkpassword"> 비밀번호 확인 
                            </label id="checkpassword-input">
-                           <input class="input-checkpassword"
+                           <input id="input-checkpassword" class="input-checkpassword"
                             placeholder="비밀번호를 다시 한 번 입력해주세요"
                             type="password">
-                            <img class="eye-con1" src="btn_visibility_off_24px.png">
+                            <img id="eye-con1" class="eye-con1" src="btn_visibility_off_24px.png">
+                            <div id = "ckpassword-error-message"></div>
                        </form>
 
                     </div>
 
 
-                    <button class="signup-button">
+                    <button id="signup-button" class="signup-button">
                         회원가입
                     </button>
 
@@ -100,13 +90,13 @@
                             이미 회원이신가요? 
                         </div>
                         <div class="loginbody-foot2">
-                            <a color="#3692FF" href="/login"> 로그인 </a>
+                            <a color="#3692FF" href="../login/"> 로그인 </a>
                         </div>
                     </div>
                 </div>
  
             </div>
         </main>
-        
+        <script src="index.js"></script>
     </body>
 </html>

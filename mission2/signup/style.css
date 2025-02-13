@@ -12,7 +12,6 @@
     padding-top: 60px;
 }
 
-
 .signup-head {
     width: 396px;
     height: 132px;
@@ -21,8 +20,6 @@
     padding-bottom: 40px;
     padding-top: 0px;
     display: flex;
-    /* flex-direction: column;
-    align-items: center; */ 
     justify-content: center;
 }
 
@@ -35,14 +32,6 @@
 }
 
 .signup-title {
-/*font-family: ROKAF Sans;
-    font-size: 66.34px;
-    font-weight: 700;
-    line-height: 89.56px;
-    color: #3692FF;
-    padding-right: 4.23px;
-    padding-bottom: 18.02px;
-    */
     padding-top: 33px;
     width: 266px; 
     height: 90px;
@@ -57,15 +46,16 @@
     
 }
 
+/*
 .signup-body {
 
 }
-
+*/
 
 .email {
     width: 640px;
     height:98px;
-    padding: 0px;
+
 }
 
 .email-text {
@@ -79,7 +69,6 @@
 }
 
 .email-box {
-    background-color: #F3F4F6;
     width: 640px;
     height: 56px;
 }
@@ -98,6 +87,7 @@ input:focus {
     border-radius: 10px;
     border-width: 0;
     padding-left: 20px;
+    margin-top: 5px;
 
     font-weight: 400;
     font-size: 16px;
@@ -105,11 +95,34 @@ input:focus {
 
 }
 
+.email-error-message, .password-error-message, .checkpassword-error-message{
+   display: none;
+}
+    
+.error-box {
+    width: 154px;
+    height: 18px;
+    padding-top: 8px;
+    padding-right: 470px;
+    padding-left: 16px;
+
+    color:#F74747;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 17.9px;
+}
+
+.error-input {
+    border-color: #F74747;
+    border-width: 2px;
+    border-style: solid;
+    outline: none;
+}
+
 .nickname {
     width: 640px;
     height:98px;
     padding-top: 24px;
-    padding-bottom: 24px;
 }
 
 .nickname-text {
@@ -123,16 +136,15 @@ input:focus {
 }
 
 .nickname-box {
-    background-color: #F3F4F6;
     width: 640px;
     height: 56px;
 }
 
 .password {
     width: 640px;
-    height:98px;
+    height: 98px;
     padding-top: 24px;
-    padding-bottom: 24px;
+    position: relative;
 }
 
 
@@ -147,7 +159,6 @@ input:focus {
 }
 
 .password-box {
-    background-color: #F3F4F6;
     width: 640px;
     height: 56px;
 }
@@ -157,6 +168,7 @@ input:focus {
     height:98px;
     padding-top: 24px;
     padding-bottom: 24px;
+    position: relative;
 }
 
 .checkpassword-text {
@@ -170,16 +182,22 @@ input:focus {
 }
 
 .checkpassword-box {
-    background-color: #F3F4F6;
     width: 640px;
     height: 56px;
 }
 
-.eye-con1, .eye-con2{
-    position: relative;
-    top: -40px;
-    left: 620px;
+.eye-con1 {
+    position: absolute;
+    top: 69px;
+    left: 610px;
 }
+
+.eye-con2 {
+    position: absolute;
+    top: 69px;
+    left: 610px;
+}
+    
 
 .signup-button {
     color: #F3F4F6;
@@ -236,17 +254,6 @@ input:focus {
     justify-content: space-between;
 }
 
-/*
-.loginbody-foot1 .loginbody-foot2 {
-    width: 108px;
-    height: 24px;
-    padding-left: 221.5px;
-    padding-right: 221.5px;
-    padding-top: 24px;
-    font-size: 14px;
-    flex-grow: 1;
-}
-*/
 
 .loginbody-foot {
     display: flex;
