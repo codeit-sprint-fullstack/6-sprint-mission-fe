@@ -113,12 +113,14 @@ main {
     border-radius: 40px;
     margin-top: 24px;
     margin-bottom: 24px;
+    cursor: not-allowed;
 }
 
 
-.login_box.active {
+.signup_box.active {
     background: #3692FF;
     cursor: pointer;
+
 }
 
 .signup {

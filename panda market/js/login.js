@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const emInput = document.querySelector(".emailinput");
     const emError = document.querySelector(".emailerror");
-    const ipError = document.querySelector(".inputerror");
 
     const pwInput = document.querySelector(".passwordinput");
     const passwordError = document.querySelector(".passworderror");
