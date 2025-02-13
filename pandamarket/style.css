@@ -187,8 +187,8 @@ body {
 
 .sub img {
 
-    width: auto;
-    height: auto;
+    width: 588px;
+    height: 444px;
     margin-left:0;
     
 }
@@ -558,15 +558,18 @@ input.error-line {
     
     .sub{
         flex-direction: column;
-        padding: 26px 3rem;
+        padding: 26px 0;
         background-color: white;
-        margin: 0px;
+        margin: 0 24px;
+        justify-content: center;
+        align-items: center;
+        width: 588px;   
+
     }
-    .sub img{
-        width: 100%;
-    }
+
     #middle{
         flex-direction:column-reverse;
+
         
     }
     #middle-text{
@@ -600,6 +603,15 @@ input.error-line {
     }
     .button {
         width: 240px;
+    }
+    .sub {
+        width: 100%;
+        margin: 0 16px;
+    }
+    .sub img {
+        width: 100%;
+        height: auto;
+        
     }
 
     .sub-text{
