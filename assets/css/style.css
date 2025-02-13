@@ -32,6 +32,8 @@
   --gray-100: #F3F4F6;
   --gray-50: #F9FAFB;
   --white: #ffffff;
+  --red: #F74747;
+
 }
 
 body {
@@ -358,18 +360,36 @@ h2 {
   height: 3.5rem;
   border-radius: 0.75rem; 
   padding: 1rem 1.5rem;
-  border: none;
+  border: 0.0625rem solid transparent;
+  display: flex;  /* Add this for the password input */
+  justify-content: space-between;  /* Add this for the password input */
 }
 
 .auth__form-input:focus {
-  outline: solid 0.0625rem var(--primary-100);
+  border-color: var(--primary-100);
 }
 
 .auth__form-input::placeholder {
   color: var(--gray-400);
 }
 
-.auth__form-password-container {
+.auth__form-input--error {
+  border-color: var(--red);
+}
+
+.auth__error {
+  color: var(--red);
+  font-weight: 600;
+  font-size: 0.938rem;
+  line-height: 1.119rem;
+  letter-spacing: 0%;
+  display: hidden;
+}
+.auth__error--active {
+  display: block;
+}
+
+/* .auth__form-password-container {
   background-color: var(--gray-100);
   font-weight: 400;
   line-height: 1.625rem; 
@@ -377,14 +397,14 @@ h2 {
   height: 3.5rem; 
   border-radius: 0.75rem; 
   padding: 1rem 1.5rem;
-  border: none;
+  border: 0.0625rem solid transparent; 
   display: flex;
   justify-content: space-between;
-}
-
+} */
+/* 
 .auth__form-password-container:focus-within {
-  border: solid 0.0625rem var(--primary-100);
-}
+  border-color: (--primary-100);
+} */
 
 .auth__form-password-input {
   font-weight: inherit;
@@ -392,10 +412,11 @@ h2 {
   background-color: inherit;
   /* min-width: 14.375rem;  */
   width: 100%;
+  outline: none;
 }
 
 .auth__form-password-input:focus {
-  outline: none;
+  border-color: var(--primary-100);
 }
 
 .auth__form-password-input::placeholder {
