@@ -8,6 +8,16 @@ const USER_DATA = [
   { email: "codeit6@codeit.com", password: "codeit606!" },
 ];
 
+// 모달 함수
+function showModal(message) {
+  document.getElementById("modalMessage").textContent = message;
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
 // 로그인 버튼 활성화용 객체.
 let loginSubmitObject = { email: false, password: false };
 
@@ -38,12 +48,12 @@ submitLoginForm.addEventListener("submit", function (e) {
   );
 
   if (checkUserPassWord) {
-    alert("로그인 성공!");
+    showModal("로그인 성공!");
     window.location.href = "../html/items.html";
   } else if (!checkUserEmail) {
-    alert("존재하지 않는 유저입니다.");
+    showModal("존재하지 않는 유저입니다.");
   } else {
-    alert("비밀번호가 일치하지 않습니다.");
+    showModal("비밀번호가 일치하지 않습니다.");
   }
 });
 

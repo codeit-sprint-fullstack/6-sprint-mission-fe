@@ -124,3 +124,46 @@ body {
     text-decoration: underline;
   }
 }
+
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  position: relative;
+  display: flex;
+  background: white;
+  width: 35%;
+  height: 30%;
+  padding: 20px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+.modal button {
+  margin-top: 10px;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 120px;
+  height: 50px;
+  background-color: var(--mainBlue);
+  color: white;
+  font-size: 15px;
+  border-radius: 10px;
+  //cursor: pointer;
+}
+
+// PC: 1200px 이상
+// Tablet: 744px 이상 ~ 1199px 이하
+// Mobile: 375px 이상 ~ 743px 이하
+// 375px 미만 사이즈의 디자인은 고려하지 않습니다

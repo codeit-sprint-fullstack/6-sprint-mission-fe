@@ -8,6 +8,16 @@ const USER_DATA = [
   { email: "codeit6@codeit.com", password: "codeit606!" },
 ];
 
+// 모달 함수
+function showModal(message) {
+  document.getElementById("modalMessage").textContent = message;
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
 // 회원가입 버튼 활성화용 객체.
 let signupSubmitObject = {
   email: false,
@@ -34,12 +44,15 @@ function isUserExists(email) {
 }
 
 // 회원가입 페이지 로그인 버튼 클릭 제출 함수.
-submitSignupButton.addEventListener("click", function () {
+const submitSignupForm = document.getElementById("inputBoxForm");
+
+submitSignupForm.addEventListener("submit", function (e) {
+  e.preventDefault();
   let email = document.getElementById("email").value.trim();
   if (isUserExists(email)) {
-    alert("이미 존재하는 사용자입니다.");
+    showModal("이미 존재하는 사용자입니다.");
   } else {
-    alert("회원가입 성공!");
+    showModal("회원가입 성공!");
     window.location.href = "/login.html";
   }
 });
