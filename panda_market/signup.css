@@ -21,23 +21,23 @@ body {
   min-height: 100vh;
 }
 
-/* ✅ 로그인 폼 */
+
 .signup {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 640px; /* 기본 최대 너비 (PC, Tablet) */
+  max-width: 640px;
   padding: 24px;
 }
 
-/* ✅ 로고 */
+
 .pandaLogo img {
   width: 200px;
   height: auto;
 }
 
-/* ✅ 이메일 & 비밀번호 입력 컨테이너 */
+
 .email,
 .password,
 .nickname,
@@ -105,10 +105,9 @@ body {
   height: 24px;
 }
 
-/* ✅ 로그인 버튼 */
+
 .signupButton {
   width: 100%;
-  max-width: 640px;
   height: 56px;
   border-radius: 40px;
   background-color: var(--basic-color);
@@ -139,7 +138,6 @@ body {
   align-items: center;
   background-color: var(--simple-color);
   width: 100%;
-  max-width: 640px;
   height: 74px;
   margin-top: 24px;
   border-radius: 10px;
@@ -173,20 +171,20 @@ body {
 }
 
 .modal {
-    display: none; /* 기본적으로 숨김 */
+    display: none; 
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* 배경 어둡게 */
+    background-color: rgba(0, 0, 0, 0.4); 
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
-  /* 🔹 모달 내부 컨텐츠 */
+
   .modal-content {
     background-color: white;
     padding: 20px;
@@ -195,7 +193,7 @@ body {
     text-align: center;
   }
   
-  /* 🔹 확인 버튼 */
+  
   #closeModal {
     background-color: #3692FF;
     color: white;
@@ -219,7 +217,7 @@ body {
     align-items: center;
   }
   
-  /* 🔹 모달 내부 컨텐츠 */
+ 
   .modal-content {
     background-color: white;
     padding: 20px;
