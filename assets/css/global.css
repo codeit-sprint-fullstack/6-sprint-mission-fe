@@ -129,10 +129,10 @@ h2 {
 }
 
 .hero {
-  display: flex;
-  justify-content: center;
   background: var(--main-bg-color);
   height: 54rem;
+  display: flex;
+  justify-content: center;
 }
 
 .hero__container {
