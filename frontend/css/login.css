@@ -9,10 +9,10 @@
 
 :root {
   /* 색상 변수 */
-  --focus-color : #3692FF;
-  --input-bg-color : #f3f4f6;
-  --btn-color : #9Ca3af;
-  --sns-bg-color : #e6f2ff;
+  --focus-color: #3692FF;
+  --input-bg-color: #f3f4f6;
+  --btn-color: #9Ca3af;
+  --sns-bg-color: #e6f2ff;
 }
 
 .xl-20px-semibold {
@@ -43,12 +43,8 @@ input::placeholder {
   margin: 0 auto;
 }
 
-/* div {
-  outline : 1px solid red;
-} */
-
 input:focus {
-  outline: 3px solid var(--focus-color);
+  outline: 2px solid var(--focus-color);
 }
 
 #input-email {
@@ -57,7 +53,7 @@ input:focus {
   border-radius: 12px;
   padding: 16px 24px;
   background-color: var(--input-bg-color);
-  border: none;
+  border: 1px solid #ffffff00;
 }
 
 #input-pw {
@@ -66,7 +62,7 @@ input:focus {
   border-radius: 12px;
   padding: 16px 24px;
   background-color: var(--input-bg-color);
-  border: none;
+  border: 1px solid #ffffff00;
 }
 
 #btn-submit {
@@ -101,4 +97,53 @@ input:focus {
 .signup--body {
   display: flex;
   align-items: center;
+}
+
+#logo-wrap {
+  margin-bottom: 20px;
+}
+
+#logo-href {
+  cursor: pointer;
+}
+
+#email--title {
+  margin-bottom: 20px;
+}
+
+#email--body {
+  margin-bottom: 30px;
+}
+
+#email-error {
+  margin-top: 10px;
+}
+
+#pw--title {
+  margin-bottom: 20px;
+}
+
+#pw--body {
+  margin-bottom: 30px;
+}
+
+#pw-error {
+  margin-top: 10px;
+}
+
+#btn-submit {
+  cursor: pointer;
+  background-color: #3691FF;
+}
+
+#login-span-style {
+  color: white;
+}
+
+#sns-google-style {
+  cursor: pointer;
+}
+
+#sns-kakao-style {
+  cursor: pointer;
 }
