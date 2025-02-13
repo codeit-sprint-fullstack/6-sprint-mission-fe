@@ -40,33 +40,32 @@
         placeholder="이메일을 입력해주세요"
         required
         type="email">
+        
 
       </div>
       
+      <p id="email-error" class="error-message"></p>
 
     </div>
 
     <div class="password">
-    
+
       <label for="password">비밀번호</label>
       
       <div class="password-wrapper">
-
-        <input
-        id="password-input"
-        name="비밀번호"
-        placeholder="비밀번호를 입력해주세요"
-        required
-        type="password">
-
-        <button type="button" id="togglePassword" aria-label="비밀번호 보기">
-          <img src="img/btn_visibility_on_24px.png" alt="비밀번호 보기" id="eyeIcon">
-        </button>
+          <input id="password-input" name="비밀번호" placeholder="비밀번호를 입력해주세요" required type="password">
+          
+          <button type="button" id="togglePassword" aria-label="비밀번호 보기">
+              <img src="img/btn_visibility_off_24px.png" alt="비밀번호 보기" id="eyeIcon">
+          </button>
 
       </div>
-      
+  
+      <p id="password-error" class="error-message"></p>
 
     </div>
+      
+      
 
     <button class="loginButton">로그인</button>
 
@@ -96,4 +95,15 @@
 
 
   </div>
+
+  <div id="errorModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <p id="errorMessage">비밀번호가 일치하지 않습니다.</p>
+      <button id="closeModal">확인</button>
+    </div>
+  </div>
+
+  <script src="login.js"></script>
+
+
 </body>

@@ -2,7 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>SignUp</title>
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="signup.css">
@@ -43,7 +43,8 @@
         type="email">
 
       </div>
-      
+
+      <p id="email-error" class="error-message"></p>
 
     </div>
 
@@ -62,6 +63,7 @@
 
         </div>
 
+        <p id="nickname-error" class="error-message"></p>
 
     </div>
 
@@ -79,10 +81,12 @@
         type="password">
 
         <button type="button" id="togglePassword" aria-label="비밀번호 보기">
-          <img src="img/btn_visibility_on_24px.png" alt="비밀번호 보기" id="eyeIcon">
+          <img src="img/btn_visibility_off_24px.png" alt="비밀번호 보기" id="eyeIcon">
         </button>
 
       </div>
+
+      <p id="password-error" class="error-message"></p>
 
     </div>
 
@@ -99,9 +103,12 @@
                 required
                 type="password">
             <button type="button" id="togglePasswordCheck" aria-label="비밀번호 확인 보기">
-                <img src="img/btn_visibility_on_24px.png" alt="비밀번호 확인 보기" id="eyeIconCheck">
+                <img src="img/btn_visibility_off_24px.png" alt="비밀번호 확인 보기" id="eyeIconCheck">
             </button>
         </div>
+
+        <p id="passwordCheck-error" class="error-message"></p>
+
     </div>
 
 
@@ -134,4 +141,14 @@
 
 
   </div>
+
+  <div id="errorModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <p id="errorMessage">사용 중인 이메일입니다.</p>
+      <button id="closeModal">확인</button>
+    </div>
+  </div>
+
+  <script src="signup.js"></script>
+
 </body>

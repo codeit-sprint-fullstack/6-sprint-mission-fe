@@ -1,236 +1,282 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
+
+/* ✅ 기본 스타일 */
 html {
   font-size: 16px;
   margin: 0;
   padding: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 body {
-    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-}
-
-body {
-  font-size: 1rem; 
-  line-height: 3.375rem; 
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue",
+    "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
   background-color: white;
-  margin-top: 231px;
-  margin-bottom: 178px;
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
+/* ✅ 로그인 폼 */
 .signup {
   display: flex;
   flex-direction: column;
-  justify-self: center;
   align-items: center;
-  width: 640px;
-  height: 100vh;
-}
-
-.pandaLogo {
-  width: 396px;
-  height: 132px;
-  gap: 0px;
-  opacity: 0px;
-}
-
-.email label {
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--text-color)
-}
-
-.email-wrapper input {
-  width: 640px; 
-  height: 56px; 
-  border-radius: 12px;
-  padding: 16px 24px; 
-  gap: 10px; 
-  background-color: var(--input-color);
-  border: none; 
-  box-sizing: border-box; 
-  font-size: 16px;
-  line-height: 24px; 
-  color: var(--text-color)
-}
-
-.nickname label {
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--text-color);
-  }
-  
-.nickname-wrapper input {
-    width: 640px; 
-    height: 56px; 
-    border-radius: 12px;
-    padding: 16px 24px; 
-    gap: 10px; 
-    background-color: var(--input-color);
-    border: none; 
-    box-sizing: border-box; 
-    font-size: 16px;
-    line-height: 24px; 
-    color: var(--text-color);
-  }
-
-.password label {
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--text-color);
-}
-
-.password-wrapper {
-  position: relative;
-  width: 640px;
-  height: 56px;
-}
-
-.password-wrapper input {
   width: 100%;
-  height: 100%;
-  padding: 16px 48px 16px 24px;
-  border-radius: 12px; 
-  gap: 10px; 
-  background-color: var(--input-color); 
-  border: none; 
-  box-sizing: border-box; 
-  font-size: 16px;
-  line-height: 24px; 
-  color: var(--text-color); 
+  max-width: 640px; /* 기본 최대 너비 (PC, Tablet) */
+  padding: 24px;
 }
 
-.password-wrapper button {
+/* ✅ 로고 */
+.pandaLogo img {
+  width: 200px;
+  height: auto;
+}
+
+/* ✅ 이메일 & 비밀번호 입력 컨테이너 */
+.email,
+.password,
+.nickname,
+.password-check {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+/* ✅ 입력 필드 */
+.email-wrapper input,
+.nickname-wrapper input,
+.password-wrapper input,
+.password-check-wrapper input {
+  width: 100%;
+  height: 56px;
+  border-radius: 12px;
+  padding: 16px 24px;
+  background-color: var(--input-color);
+  border: none;
+  font-size: 16px;
+  color: var(--text-color);
+  box-sizing: border-box;
+}
+
+/* ✅ 오류 메시지 */
+.error-message {
+  color: red;
+  font-size: 15px;
+  font-weight: bold;
+  margin-left: 16px;
+  margin-bottom: 24px;
+}
+
+/* ✅ 비밀번호 입력 필드와 버튼 */
+.password-wrapper,
+.password-check-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.email label,
+.nickname label,
+.password label,
+.password-check label {
+  font-weight: bold;
+}
+
+.password-wrapper button,
+.password-check-wrapper button {
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
 }
 
-.password-wrapper img {
-  position: absolute; 
-  top: 50%; 
-  right: 16px; 
-  transform: translateY(-50%); 
-  cursor: pointer; 
-  width: 24px; 
+.password-wrapper img,
+.password-check-wrapper img {
+  width: 24px;
   height: 24px;
 }
 
-.password-check label {
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--text-color);
-  }
+/* ✅ 로그인 버튼 */
+.signupButton {
+  width: 100%;
+  max-width: 640px;
+  height: 56px;
+  border-radius: 40px;
+  background-color: var(--basic-color);
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
   
-  .password-check-wrapper {
-    position: relative;
-    width: 640px;
-    height: 56px;
-  }
-  
-  .password-check-wrapper input {
-    width: 100%;
-    height: 100%;
-    padding: 16px 48px 16px 24px;
-    border-radius: 12px; 
-    gap: 10px; 
-    background-color: var(--input-color);
-    border: none; 
-    box-sizing: border-box; 
-    font-size: 16px;
-    line-height: 24px; 
-    color: var(--text-color);; 
-  }
-  
-  .password-check-wrapper button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-  
-  .password-check-wrapper img {
-    position: absolute; 
-    top: 50%; 
-    right: 16px; 
-    transform: translateY(-50%); 
-    cursor: pointer; 
-    width: 24px; 
-    height: 24px;
-  }
-
-.signupButton{
-  width: 640px; 
-  height: 56px; 
-  border-radius: 40px; 
-  background-color: var(--basic-color); 
-  color: white; 
-  font-size: 16px; 
-  font-weight: 500; 
-  line-height: 24px;
-  text-align: center; 
-  padding: 16px 124px; 
-  border: none; 
-  cursor: pointer; 
-  margin-top: 24px;
 }
-
 
 .signupButton:focus {
   outline: none;
 }
 
-
 .signupButton:hover {
-  background-color: var(--click-color); 
+  background-color: var(--click-color);
 }
 
-
 .signupButton:active {
-  background-color: var(--click-color); 
+  background-color: var(--click-color);
 }
 
 .simple {
   display: flex;
-  justify-self: center;
   align-items: center;
-  background-color: var(--simple-color); ;
-  width: 640px; 
-  height:74px;
+  background-color: var(--simple-color);
+  width: 100%;
+  max-width: 640px;
+  height: 74px;
   margin-top: 24px;
   border-radius: 10px;
+  justify-content: space-between; 
 }
+
 
 .textIcon {
   display: flex;
-  justify-self: center;
-  align-items: center;
-  gap: 393px;
+  align-items: center; /* 🔹 세로 중앙 정렬 */
+  flex-grow: 1; 
+  justify-content: space-between; /* ✅ 내부 요소 간격 자동 조정 */
+  padding: 0 23px; /* ✅ 왼쪽과 오른쪽에 24px의 내부 여백 추가 */
 }
 
 .gkIcon {
   display: flex;
-  gap: 16px; 
-  margin-top: 16px;
+  gap: 16px; /* 🔹 아이콘 간 간격 */
 }
 
-.textIcon p {
-  margin-left: 23px;
-  font-size: 16px;
-  font-weight: bold;
-  color: var(--text-color); 
-}
-
+/* ✅ 회원가입 링크 */
 .sign {
   display: flex;
-  justify-self: center;
   align-items: center;
   gap: 4px;
+  margin-top: 24px;
 }
 
 .sign a {
-  color: var(--click-color); 
+  color: var(--click-color);
+}
+
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* 배경 어둡게 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* 🔹 모달 내부 컨텐츠 */
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  /* 🔹 확인 버튼 */
+  #closeModal {
+    background-color: #3692FF;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .modal {
+    display: none; 
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* 배경 어둡게 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* 🔹 모달 내부 컨텐츠 */
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 540px;
+    height: 250px;
+    text-align: center;
+  }
+  
+.modal-content p {
+    margin-top: 108px;
+}
+  /* 🔹 확인 버튼 */
+  #closeModal {
+    background-color: #3692FF;
+    width: 120px;
+    height: 48px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 66px;
+    margin-left: 392px;
+  }
+
+
+@media screen and (max-width: 1199px) {
+  .signup {
+    max-width: 744px;
+  }
+}
+
+/* ✅ Mobile (375px ~ 743px) */
+@media screen and (max-width: 743px) {
+  .signup {
+    max-width: min(400px, 100% - 32px);
+  }
+
+  .simple {
+    max-width: min(400px, 100% - 32px);
+  }
+
+    /* 🔹 입력 필드 크기 고정 */
+    .email-wrapper input,
+    .nickname-wrapper input,
+    .password-wrapper input,
+    .password-check-wrapper input {
+      width: 100%; /* 부모 요소의 크기와 동일하게 설정 */
+      max-width: min(400px, 100% - 32px); /* .signup과 동일한 최대 크기 */
+    }
+}
+
+
+/* ✅ Mobile (375px ~ 743px) - 이미지 */
+@media screen and (max-width: 743px) {
+  .image {
+    width: calc(100% - 32px);
+    height: auto;
+  }
 }
