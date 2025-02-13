@@ -32,8 +32,6 @@
   --gray-100: #F3F4F6;
   --gray-50: #F9FAFB;
   --white: #ffffff;
-  --red: #F74747;
-
 }
 
 body {
@@ -369,22 +367,6 @@ h2 {
 
 .auth__form-input::placeholder {
   color: var(--gray-400);
-}
-
-.auth__form-input--error {
-  border-color: var(--red);
-}
-
-.auth__error {
-  color: var(--red);
-  font-weight: 600;
-  font-size: 0.938rem;
-  line-height: 1.119rem;
-  letter-spacing: 0%;
-  display: hidden;
-}
-.auth__error--active {
-  display: block;
 }
 
 .auth__form-password-container {
