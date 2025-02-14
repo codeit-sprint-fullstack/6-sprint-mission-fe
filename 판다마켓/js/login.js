@@ -49,7 +49,7 @@ submitLoginForm.addEventListener("submit", function (e) {
 
   if (checkUserPassWord) {
     showModal("로그인 성공!");
-    window.location.href = "../html/items.html";
+    window.location.href = "/items.html";
   } else if (!checkUserEmail) {
     showModal("존재하지 않는 유저입니다.");
   } else {
