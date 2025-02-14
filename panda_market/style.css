@@ -402,5 +402,53 @@ main.explain {
 }
 
 
+/* ✅ 태블릿 (744px ~ 1199px) */
+@media screen and (min-width: 744px) and (max-width: 1199px) {
+  .container {
+    max-width: 744px;
+    margin: 0 auto;
+  }
+
+  .top_section {
+    padding: 0 32px;
+  }
+
+  .image-container img {
+    width: 80%;
+    height: auto;
+  }
+
+  .footer-content {
+    gap: 24px;
+  }
+}
+
+/* ✅ 모바일 (375px ~ 743px) */
+@media screen and (max-width: 743px) {
+  .container {
+    width: calc(100% - 32px);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* ✅ 헤더 좌우 여백 줄이기 */
+  .top_section {
+    padding: 0 16px;
+  }
+
+  /* ✅ 이미지 크기 화면에 맞게 조정 */
+  .image-container img {
+    width: calc(100% - 32px);
+    max-width: 400px;
+    height: auto;
+  }
+
+  /* ✅ 푸터 정렬 변경 */
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+}
 
 
