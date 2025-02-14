@@ -13,21 +13,22 @@
   </head>
 
   <body>
-    <div class="loginSignupTop" onclick="document.location.href='index.html'">
+    <a class="loginSignupTop" href="../html/index.html">
       <img src="../imgs/facicon.png" />
       <p>판다마켓</p>
-    </div>
+    </a>
+
     <form id="inputBoxForm" class="inputBoxForm">
-      <div class="nickname box">
+      <div class="nicknameBox">
         <label for="nickname">닉네임</label>
         <input id="nickname" type="text" placeholder="닉네임을 입력해주세요" />
       </div>
-      <div class="email box">
+      <div class="emailBox">
         <label for="email">이메일</label>
         <input id="email" type="email" placeholder="이메일을 입력해주세요" />
         <p id="emailErrorMessage"></p>
       </div>
-      <div class="password box">
+      <div class="passwordBox">
         <label for="password">비밀번호</label>
         <input
           id="password"
@@ -39,7 +40,7 @@
         /></span>
         <p id="passwordErrorMessage"></p>
       </div>
-      <div class="password box">
+      <div class="passwordBox">
         <label for="confirmPassword">비밀번호 확인</label>
         <input
           id="confirmPassword"
@@ -77,7 +78,7 @@
     </div>
 
     <div id="modal" class="modal">
-      <div class="modal-content">
+      <div class="modalContent">
         <p id="modalMessage"></p>
         <button onclick="closeModal()">확인</button>
       </div>
