@@ -54,6 +54,7 @@
   line-height: 2.148rem;
   text-align: left;
   color: var(--gray-800);
+  font-weight: 700;
 }
 
 .auth__form-input {
