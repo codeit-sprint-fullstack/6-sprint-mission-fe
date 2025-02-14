@@ -135,6 +135,10 @@
   border: none;
 }
 
+.auth__password--visible {
+  
+}
+
 .auth__button {
   width: 100%;
   padding: 1.6rem 12.4rem 1.6rem 12.4rem;
