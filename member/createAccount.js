@@ -6,13 +6,19 @@ const pwEye = document.getElementById("pwEye");
 const checkPw = document.getElementById("checkPw");
 const pwEye2 = document.getElementById("pwEye2");
 const registerBtn = document.querySelector(".loginBtn");
+const alert = document.querySelector(".alert");
+const alertBtn = document.querySelector(".alertBtn");
+
+const isValidEmail = (emailValue) => {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailPattern.test(emailValue);
+};
 
 const chEamil = () => {
   const errMessage = document.querySelector(".emailErrMsg");
   const emailValue = email.value;
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (emailPattern.test(emailValue)) {
+  if (isValidEmail(emailValue)) {
     email.classList.remove("invalid");
     email.classList.add("valid");
     errMessage.style.display = "none";
@@ -73,7 +79,30 @@ const chPwEye2 = () => {
 };
 
 const clRegister = () => {
-  console.log(USERDATA);
+  const nickname = document.getElementById("nickname");
+  let userExists = false;
+  const emailValue = email.value;
+
+  USERDATA.forEach((user) => {
+    if (
+      user.email === email.value ||
+      !isValidEmail(emailValue) ||
+      pw.value.length < 8 ||
+      pw.value !== checkPw.value ||
+      !nickname.value
+    ) {
+      userExists = true;
+      alert.style.display = "block";
+    }
+  });
+
+  if (!userExists) {
+    location.href = "/member/login.html";
+  }
+};
+
+const clAlertBtn = () => {
+  alert.style.display = "none";
 };
 
 email.addEventListener("input", chEamil);
@@ -82,3 +111,4 @@ pwEye.addEventListener("click", chPwEye);
 checkPw.addEventListener("input", chCheckPw);
 pwEye2.addEventListener("click", chPwEye2);
 registerBtn.addEventListener("click", clRegister);
+alertBtn.addEventListener("click", clAlertBtn);
