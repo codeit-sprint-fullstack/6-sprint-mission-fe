@@ -233,7 +233,7 @@ form div {
   gap: 0.25rem;
   width: 9.875rem;
   height: 1.125rem;
-  margin: auto auto 14.625rem;
+  margin: auto auto 20%;
   font-family: Pretendard;
   font-weight: 500;
   font-size: 0.9375rem;
@@ -304,6 +304,16 @@ form div {
 
   .btn {
     width: 100%;
+  }
+  
+  .modal-popup {
+    width: 327px;
+    height: 220px;
+    padding: 81px 0 0;
+  }
+
+  .modal-popup button {
+    margin: 49px 103.5px 23px;
   }
 
   .bottom-container {
