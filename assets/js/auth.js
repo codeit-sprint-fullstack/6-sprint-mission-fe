@@ -16,3 +16,14 @@ if (passwordToggleBtn) {
     }
   });
 }
+
+//check email validity 
+function isValidEmail(email) {
+  const emailPattern =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailPattern.test(email);
+}
+// check password validity
+
+function isValidPassword(password) {
+  return password.length >= 8;
+}
