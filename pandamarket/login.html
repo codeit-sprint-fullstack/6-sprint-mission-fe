@@ -3,10 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta property="og:title" content="판다마켓" />
+    <meta property="og:description" content="일상에서 모든 물건을 거래해보세요" />
+    <meta property="og:image" content="https://flexible.img.hani.co.kr/flexible/normal/831/575/imgdb/original/2024/1203/20241203502549.webp" />
+    <meta property="og:url" content="codeitpandn.netlify.app" />
+    <meta name="twitter:title" content="판다마켓" />
+    <meta name="twitter:description" content="일상에서 모든 물건을 거래해보세요" />
+    <meta name="twitter:image" content="https://flexible.img.hani.co.kr/flexible/normal/831/575/imgdb/original/2024/1203/20241203502549.webp" />
+    <meta name="twitter:card" content="codeitpandn.netlify.app" />
+
     <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style-login.css">
     <title>로그인</title>
-    <script src="script.js" defer></script>
+    <script src="login.js" defer></script>
 </head>
 
 <body>
@@ -17,12 +26,13 @@
         <div class="로그인box2">
             <div class="로그인box3">
                 <div>
-                    <form action="/submit" method="post">
+                    <form>
                         <div class="이메일box">
                             <p id="이메일글자">이메일</p>
                             <div class="email글자박스">
                                 <input id="email" type="email" name="email" placeholder="이메일을 입력해주세요" required>
                             </div>
+                            <div class="emailError"></div>
                         </div>
                         <div class="비밀번호box">
                             <p id="비밀번호글자">비밀번호</p>
@@ -33,6 +43,7 @@
                                     </button>
                                 </div>
                             </div>
+                            <div class="passwordError"></div>
                         </div>
                         <button id="로그인" type="submit">로그인</button>
                     </form>
