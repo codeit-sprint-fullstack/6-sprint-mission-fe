@@ -250,7 +250,7 @@ form div {
 }
 
 /* Mobile */
-@media (max-width: 743px) and (min-width: 375px) {
+@media (max-width: 743px) {
   .header {
     width: 198px;
     height: 66px;
