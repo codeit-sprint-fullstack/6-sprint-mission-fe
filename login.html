@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>판다마켓</title>
+    <link rel="stylesheet" href="login_style.css">
+    <link rel="stylesheet" href="reset.css">
+</head>
+
+<body>
+    <main class="container">
+        <section class="loginBox">
+            <header class="logo">
+                <a href="/">
+                    <img src="property 1=lg.png" alt="logo">
+                </a>
+            </header>
+            <article class="login">
+                <form id="loginForm">
+                    <div class="email">
+                        <label for="email">이메일</label>
+                        <input type="text" id="email" name="id" placeholder="이메일을 입력해주세요">
+                    </div>
+                    <div class="password">
+                        <label for="password">비밀번호</label>
+                        <input type="password" id="password" name="pw" placeholder="비밀번호를 입력해주세요">
+                        <img id="togglePassword" src="btn_visibility_off.png" alt="Toggle Password Visibility">
+                    </div>
+                    <button type="submit" id="submitBtn">로그인</button>
+                    <div class="simpleLogin">
+                        <p style="margin-left: 24px;">간편 로그인하기</p>
+                        <div class="simpleLogin_img">
+                            <a href="https://www.google.com/"><img src="google_login.png" alt="google_login"></a>
+                            <a href="https://www.kakaocorp.com/page/"><img src="kakao_login.png" alt="kakao_login"></a>
+                        </div>
+                    </div>
+                    <p class="signupPage">판다마켓이 처음이신가요?&nbsp; <a href="/signup">회원가입</a> </p>
+                </form>
+            </article>
+        </section>
+    </main>
+    <script src="signup.js"></script>
+</body>
+
+</html>
