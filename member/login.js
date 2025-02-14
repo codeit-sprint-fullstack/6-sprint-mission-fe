@@ -49,7 +49,7 @@ export const chPwEye = () => {
 const clLoginBtn = () => {
   USERDATA.forEach((user) => {
     if (user.email === email.value && user.password === pw.value) {
-      location.href = "/items";
+      location.href = "../items.html";
     } else {
       alert.style.display = "block";
     }
