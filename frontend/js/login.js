@@ -1,6 +1,6 @@
 const inputEmail = document.getElementById('input-email');
 const emailError = document.getElementById('email-error');
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // 이메일 정규표현식
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // 이메일 검증 정규표현식
 let isEmailOK = false;
 
 const inputPw = document.getElementById('input-pw');
@@ -9,14 +9,15 @@ let isPwOK = false;
 
 const btnSubmit = document.getElementById('btn-submit');
 
-updateButtonState(); // 최초 실행
+updateButtonState(); // 로드 시 최초 호출
 
-/* ************ Email 이메일 ************* */
+
+// 포커스인 테두리
 inputEmail.addEventListener('focusin', (event) => {
-  // 포커스인 외곽선 설정
   inputEmail.style.borderColor = '#f3f4f6';
 });
 
+// 이메일 유효성 검증
 inputEmail.addEventListener('focusout', (event) => {
   event.preventDefault();
   if (inputEmail.value === '') {
@@ -40,21 +41,20 @@ inputEmail.addEventListener('focusout', (event) => {
     inputEmail.style.borderColor = '#f3f4f6';
     isEmailOK = true;
   }
+
   updateButtonState()
 });
-/* ************************************* */
 
 
-/* ************ Pw 비밀번호 ************* */
+// 비밀번호 유효성 검증
 inputPw.addEventListener('focusin', (event) => {
-  // 포커스인 테두리 설정
-  inputPw.style.borderColor = '#f3f4f6';
+  inputPw.style.borderColor = '#f3f4f6'; // 포커스인 테두리
 });
 
 inputPw.addEventListener('focusout', (event) => {
   event.preventDefault();
   if (inputPw.value === '') {
-    // 비밀번호가 없을 때
+    // 비밀번호가 없는 경우
     console.log('비밀번호 입력 없음.');
     pwError.textContent = '비밀번호를 입력해주세요.';
     pwError.style.color = 'red';
@@ -62,7 +62,7 @@ inputPw.addEventListener('focusout', (event) => {
     inputPw.style.borderWidth = '2px';
     isPwOK = false;
   } else if ((inputPw.value.length < 8) === true) {
-    // 값이 8자 미만일 경우
+    // 값이 8자 미만인 경우
     console.log('비밀번호가 8자 미만임.');
     pwError.textContent = '비밀번호를 8자 이상 입력해주세요.';
     pwError.style.color = 'red';
@@ -74,17 +74,17 @@ inputPw.addEventListener('focusout', (event) => {
     inputPw.style.borderColor = '#f3f4f6';
     isPwOK = true;
   }
+
   updateButtonState()
 });
-/* ************************************* */
 
 
-/* ************* 로그인버튼 ************* */
+// 로그인버튼 클릭 시 폼 제출
 btnSubmit.addEventListener('click', (event) => {
   event.preventDefault();
-  const userForm = document.getElementById('user-form'); // 폼 객체
-  const email = document.getElementById('input-email').value; // 이메일 값
-  const password = document.getElementById('input-pw').value; // 비밀번호 값
+  const userForm = document.getElementById('user-form'); // 유저폼 객체
+  const email = document.getElementById('input-email').value; // 이메일 인풋값
+  const password = document.getElementById('input-pw').value; // 비밀번호 인풋값
 
   const USER_DATA = [
     { email: 'codeit1@codeit.com', password: "codeit101!" },
@@ -95,25 +95,22 @@ btnSubmit.addEventListener('click', (event) => {
     { email: 'codeit6@codeit.com', password: "codeit606!" },
   ];
 
-  const findUser = USER_DATA.find(user => (user.email === email) && (user.password === password)); // 데이터 찾기
-  // console.log(findUser);
+  // 입력값과 일치하는 유저가 있는지 탐색
+  const findUser = USER_DATA.find(user => (user.email === email) && (user.password === password));
+
   if (findUser) {
     console.log('로그인 성공! 폼 제출합니다.');
     userForm.submit();
   } else {
-    // console.log(email);
-    // console.log(password);
-    // console.log(USER_DATA['email']);
     alert('비밀번호가 일치하지 않습니다.')
     isPwOK = false;
     userForm.reset();
     updateButtonState();
   };
 });
-/* ************************************* */
 
 
-/* ************* 버튼 함수 ************* */
+// 버튼 상태 업데이트
 function updateButtonState() {
   btnSubmit.disabled = true;
   if ((isEmailOK && isPwOK) === false) {
@@ -128,4 +125,3 @@ function updateButtonState() {
     btnSubmit.disabled = false;
   }
 }
-/* ************************************* */
