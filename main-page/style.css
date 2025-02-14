@@ -1,5 +1,3 @@
-
-/* for reset.css*/
 @import "./reset.css";
 
 * {
@@ -29,6 +27,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: Pretendard;
 }
 
 header {
@@ -39,7 +38,6 @@ header {
     display: flex;
     flex-direction: column;
     position: center;
-    
 }
 
 .header-container {
@@ -63,7 +61,6 @@ header {
     padding-left: 8.9px;
     width: 103px;
     height: 26px;
-
 }
 
 .header-login {
@@ -92,11 +89,6 @@ header {
 .title {
     width: 1110px;
     height: 340px;
-    /*
-    justify-content: center;
-    padding-left: 405px;
-    padding-top: 200px;
-    */
     background-image: url("Img_home_top.png");
     background-repeat: no-repeat;
     background-position: right bottom;
@@ -129,27 +121,20 @@ header {
     
 .article-main {
     display: flex;
-    position: center;
     flex-direction: column;
     justify-content: center;
 }
 
 .main-content1, .main-content3 {
-    /*width: 988px; !!!*/
     display: flex;
     flex-direction: row;
     align-items: center;
-    /*
-    padding-left: 466px;
-    padding-right: 466px;
-    */
     padding-top: 138px;
     padding-bottom: 138px;
     background-color: #FCFCFC;
 }
 
 .main-content2 {
-    /*width: */
     display: flex;
     align-items: center;
     padding-left: 466px;
@@ -163,7 +148,6 @@ header {
     width: 588px;
     height: 444px;
 }
-
 .text-container1, .text-container3 {
     width: 335px;
     height: 238px;
@@ -244,11 +228,7 @@ header {
 
 .end-title {
     width: 1110px;
-    height: 397px;
-    /*
-    padding-left: 405px;
-    padding-top: 200px;
-    */    
+    height: 397px;  
     background-color:#CFE5FF;
     background-image: url(Img_home_bottom.png);
     background-repeat: no-repeat;
@@ -269,7 +249,6 @@ header {
 
 a {
     color: #9CA3AF;
-    ;
 }
 
 .footer {
@@ -279,14 +258,11 @@ a {
     font-size: 16px; 
 }
 .foot {
-    /*width: 100%;*/
-    height: 20px;
     margin-top: 32px;
     margin-left: 200px;
     margin-right: 200px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
 }
 .codeit1 {
     width: 120px;
@@ -297,14 +273,12 @@ a {
     display: none;
 }
 
-
 .icon {
     width:116px;
     height: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /*padding-right: 200px;*/
 }
 
 
@@ -329,55 +303,60 @@ a {
 }
 
 
+
 /*반응형 웹 디자인*/
 
-/* (반응형) PC 사이즈 */
+/* PC 사이즈 */
 @media (min-width: 1200px) {
-    /*디버깅*/
-    body {
-        color: blue;
+    .main-content2 {
+        padding-left: 0px;
+        padding-right: 0px;
     }
-    .img1, .img2, .img3{
-        width: 588px;
-        height: 444px;
+    .image-container1, .image-container3 {
+        margin-left: 31px;
     }
-    .main-content1, .main-content2, .main-content3 {
-        width: 100%;
+    .image-container2 {
+        margin-right: 31px;
     }
-
-    /*!!!!!!*/
-    .main-content1, .main-content3 {
-        /*width: 988px; !!!*/
+    .text-container2 {
+        width: 350px
+    }
+    .subtitle2 {
+        text-align: right;
+    }
+    .main-text1 {
+        width: 250px;
+        word-break: keep-all;
+    }
+    .main-text2 {
+        width: 300px;
+        word-break: keep-all;
+    }
+    .main-text3 {
+        width: 300px;
+        word-break: keep-all;
+    }
+    .description2 {
+        width: 300px;
+        word-break: keep-all;
+    }
+    .foot {
+        flex-direction: column;
+    }
+    .shadow-foot {
         display: flex;
         flex-direction: row;
-        align-items: center;
-        /*
-        padding-left: 466px;
-        padding-right: 466px;
-        */
-        padding-top: 138px;
-        padding-bottom: 138px;
-        background-color: #FCFCFC;
-        /*변경*/
-        display: flex;
-        flex-direction: column;
-        width: 1000px;
-
+        justify-content: space-between;
     }
 }
 
 
 
 
-/* (반응형) Tablet 사이즈 */
+/* Tablet 사이즈 */
 @media (min-width: 744px) and (max-width: 1199px) {
-    /*디버깅*/
-    body {
-        color: orange;
-    }  
-    .img1, .img2, .img3{
-        width: 588px;
-        height: 444px;
+    .article-main {
+        width:100%;
     }
     .header-container {
         padding-left: 24px;
@@ -402,14 +381,13 @@ a {
         justify-content: start;
     }
     .title-text {
-        width: 630px;
+        width: 520px;
         height: 60px;
         font-size: 40px;
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-between;
         margin-bottom: 24px;
-        
     }
     .title-button {
         width: 357px;
@@ -419,6 +397,7 @@ a {
     }
     .main-content1, .main-content3 {
         flex-direction: column;
+        align-items: baseline;
         padding-left: 0;
         padding-right: 0;
         padding-top: 0;
@@ -433,38 +412,36 @@ a {
         flex-direction: column-reverse;
         align-items: end;
     }
-    .image-container1 {
+    .image-container1, .image-container3 {
         width: 696px;
         height: 524px;
         padding-top: 24px;
-        padding-left: 24px;
-        padding-right: 24px;
+        padding-right: 48px;
         padding-bottom: 24px;;
     }
-    .image-container2, .image-container3 {
+    .image-container2 {
         width: 696px;
         height: 524px;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 24px;
+        padding-right: 24px;
     }
     .text-container1, .text-container3 {
+        height: 175px;
         margin: 0px;
-        margin-bottom: 40px;
+        margin-bottom: 52px;
         margin-left: 24px;
     }
     .text-container3 {
+        height: 175px;
         margin: 0px;
-        margin-bottom: 40px;
+        margin-bottom: 52px;
         margin-left: 24px;
         margin-top: 24px;
     }
     .text-container2 {
-        height: 238px;
-        display: flex;
-        flex-direction: column;
         padding-top: 24px;
         padding-left: 43px;
-        padding-right: 15px;
+        padding-right: 30px;
         padding-bottom: 40px;
         font-size: 18px;
         text-align: right;
@@ -477,20 +454,22 @@ a {
     .main-text1, .main-text2, .main-text3{
         font-size: 32px;
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 500px;
+        width: 490px;
+        height: 42px;
         
     }
-    .description1, .description3{
+    .description1, .description2, .description3{
         font-size: 18px;
-        width: 260px;
+        width: 300px;
         height: 52px;
     }
-    .description2 {
-        font-size: 18px;
-        width: 220px;
-        height: 52px;
+    .description2, .description3 {
+        width: 250px;
+        word-break: keep-all;
+    }
+    .description3 {
+        width: 280px;
+        word-break: keep-all;
     }
     .end-title {
         width: 744px;
@@ -513,6 +492,12 @@ a {
         margin-right: 32px;
         margin-bottom: 108px;
     }
+    .shadow-foot {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
     .icon {
         width: 116px;
         height: 20px;
@@ -533,12 +518,8 @@ a {
 
 
 
-/* (반응형) Mobile 사이즈 */
+/* Mobile 사이즈 */
 @media (min-width: 375px) and (max-width: 743px) {
-    /*디버깅*/
-    body {
-        color: red;
-    } 
     p {
         margin: 0;
     }
@@ -598,23 +579,37 @@ a {
         padding: 0px;
         margin-top: 10px;
     }
-    .main-content1, .main-content2, .main-content3 {
+    .main-content1, .main-content3 {
         flex-direction: column;
+        align-items: baseline;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .main-content2 {
+        flex-direction: column;
+        align-items: end;
         padding-left: 0;
         padding-right: 0;
         padding-top: 0;
         padding-bottom: 0;
     }
     .text-container1, .text-container3 {
-        margin-left: 15px;
+        margin-left: 0px;
         margin-top: 24px;
         margin-bottom: 40px;
-        padding-left: 0px;
+        padding-left: 15px;
+        height: 134px;
     }
     .text-container2 {
-        margin: 0px;
+        height: 134px;
+        margin-right: 15px;
+        margin-top: 24px;
+        margin-bottom: 40px;
         margin-top: 24px;
         text-align: right;
+        align-items: end;
     }
     .subtitle1, .subtitle2, .subtitle3 {
         font-size: 16px;
@@ -623,28 +618,34 @@ a {
     .main-content2 {
         flex-direction: column-reverse;
     }
-    .main-text1, .main-text2, .main-text3{
-        width: 400px;
+    .main-text1  {
+        width: 350px;
         font-size: 24px;
         line-height: 32px;
-        width: 250px;
+        margin-top: 0;
+        margin-bottom: 16px;
+    }
+   .main-text2, .main-text3{
+        width: 400px;
+        font-size: 24px;
+        line-height: 33.6px;
         height: auto;
         margin-top: 0;
         margin-bottom: 16px;
         display: flex;
-        flex-direction: row;
         justify-content: space-between;
     }
     .description1, .description3{
         font-size: 16px;
     }
-    
     .description2 {
         font-size: 16px;
-        width: 230px;
+        width: 210px;
+        word-break: keep-all;
     }
     .description3 {
-        width: 270px;
+        width: 250px;
+        word-break: keep-all;
     }
     .end-title {
         width: 100%;
@@ -663,13 +664,19 @@ a {
         align-items: center;
     }
     .foot {
-        flex-direction: row;
+        flex-direction: column;
         height: 63px;;
         margin-top: 32px;
         margin-left: 16px;
         margin-right: 16px;
         margin-bottom: 65px;
-        flex-wrap: wrap;
+    }
+    .shadow-foot {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 24px;
     }
     .icon {
         width: 116px;
