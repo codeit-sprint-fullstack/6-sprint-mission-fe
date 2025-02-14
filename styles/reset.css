@@ -1,0 +1,130 @@
+@import url('palette.css');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Pretendard', sans-serif;
+  color: var(--gray-700);
+  word-break: keep-all;;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #fff;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 56px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+input,
+textarea,
+select {
+  border: none;
+  outline: none;
+  background: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: none;
+  cursor: pointer;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 160px;
+  background-color: var(--gray-900);
+  color: var(--gray-400);
+}
+
+
+/* 공통 클래스 */
+.footer-menu {
+  display: flex;
+  gap: 30px;
+  color: var(--gray-200);
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.wrap {
+  max-width: 1110px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: var(--blue-100);
+  color: #fff;
+}
+
+.button:hover {
+  background-color: var(--blue-200);;
+}
+
+.button:focus {
+  background-color: var(--blue-300);
+}
+
+.button:disabled {
+  background-color: var(--gray-200);
+  cursor: default;
+  pointer-events: none;
+}
+
+.pill-button {
+  padding: 16px 124px;
+  border-radius: 40px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.hide {
+  display: none;
+}

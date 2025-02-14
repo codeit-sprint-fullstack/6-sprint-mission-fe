@@ -1,0 +1,133 @@
+.auth-box {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.logo-box {
+  text-align: center;
+  margin: 60px 0 40px;
+}
+
+.input-box {
+  margin-bottom: 24px;
+}
+
+.input-box label {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.input-box input {
+  width: 100%;
+  height: 56px;
+  margin-top: 16px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  background-color: var(--gray-100);
+  font-size: 16px;
+  color: var(--gray-800);
+}
+
+input::placeholder {
+  font-weight: 400;
+  color: var(--gray-400);
+}
+
+input:focus {
+  border: 1px solid var(--blue-100);
+}
+
+.input-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.pw-toggle {
+  position: absolute;
+  margin-top: 16px;
+  right: 24px;
+}
+
+.social-login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 24px 0;
+  padding: 16px 23px;
+  border-radius: 8px;
+  background-color: #E6F2FF;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.social-login div {
+  display: flex;
+  gap: 16px;
+}
+
+.social-login img {
+  width: 42px;
+}
+
+.auth-switch {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.auth-switch a {
+  color: var(--blue-100);
+  text-decoration: underline;
+}
+
+.email-msg,
+.email-error,
+.pw-msg,
+.pw-error,
+.pw-check-error {
+  margin: 8px 0 24px 16px;
+  font-size: 15px;
+  color: red;
+}
+
+.modal-box {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  max-width: 540px;
+  width: 100%;
+  height: 250px; 
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.modal p {
+  font-weight: 500;
+  color: var(--gray-800)
+}
+
+.modal button {
+  position: absolute;
+  right: 28px;
+  bottom: 28px;
+  width: 120px;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+}
