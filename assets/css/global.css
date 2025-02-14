@@ -138,7 +138,7 @@ h2 {
   background-position: 80% bottom;
   background-size: 55%;
 }
-/* .wrapper */
+
 .hero__container {
   display: flex;
   flex-direction: column;
@@ -146,12 +146,6 @@ h2 {
   max-width: 120rem;
   width: 100%;
 }
-
-/* .hero__c {
-  display: flex;
-  flex-direction: column;
-  margin: 4rem 0 4rem;
-} */
 
 .hero__heading {
   margin-right: 6.2rem;
@@ -181,6 +175,7 @@ h2 {
 .features {
   display: flex;
   flex-direction: column;
+  padding-bottom: 13.8rem;
 }
 
 .features__item {
