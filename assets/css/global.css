@@ -133,22 +133,33 @@ h2 {
   height: 54rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: 80% bottom;
+  background-size: 55%;
 }
-
+/* .wrapper */
 .hero__container {
   display: flex;
-  margin: 20rem 40.5rem 0;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 120rem;
+  width: 100%;
 }
 
-.hero__content {
+/* .hero__c {
   display: flex;
   flex-direction: column;
   margin: 4rem 0 4rem;
-}
+} */
 
-.hero__content h1 {
+.hero__heading {
   margin-right: 6.2rem;
   margin-bottom: 3.2rem;
+}
+
+#hero__img {
+  background-image: url("../img/landing/Img_home_hero.png");
 }
 
 .hero__cta-button {
