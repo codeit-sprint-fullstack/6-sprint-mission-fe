@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="min-height: 100%; position: relative;">
+<html>
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="signup.css">
@@ -17,21 +17,21 @@
     </script>
     <title>판다마켓 - 회원가입</title>
   </head>
-  <body style="width: 100%;">
-    <header style="width: 24.75rem; height: 8.25rem; margin: 14.4375rem auto auto; padding: 0.8113rem 0 0.9463rem;">
-      <a href="/index.html" style="text-decoration: none; display: flex; align-items: center; justify-content: space-between;">
+  <body>
+    <header class="header">
+      <a href="/index.html" class="logo-btn">
         <img src="/image/ic_big_panda_logo.svg">
-        <span style="color: var(--href-txt-focus-input-color); font-family: ROKAFSans; font-weight: 700; font-size: 4.1463rem; line-height: 5.5975rem;">
+        <h1 class="logo-txt">
           판다마켓
-        </span>
+        </h1>
       </a>
     </header>
-    <form id="input-form" style="width: 40rem; margin: 2.5rem auto auto;">
+    <form id="input-form">
       <label class="index" for="email">이메일</label>
       <input class="input-box" id="email" name="email" type="email" placeholder="이메일을 입력해주세요"> 
       <div class="error-msg"></div>
       <label class="index" for="nickname">닉네임</label>
-      <input class="input-box" id="nickname" name="nickname" type="text" placeholder="닉네임을 입력해주세요" style="margin-bottom: 1.5rem;">
+      <input class="input-box" id="nickname" name="nickname" type="text" placeholder="닉네임을 입력해주세요">
       <label class="index" for="password">비밀번호</label>
       <div>
         <input class="input-box" id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요">
@@ -46,7 +46,7 @@
         <img class="eye-icon" src="/image/ic_eye_off.svg">
       </div>
       <div class="error-msg"></div>
-      <button class="btn" disabled style="font-family: Pretendard; font-weight: 600; font-size: 1.25rem; line-height: 2rem; text-align: center;">
+      <button class="btn" disabled>
         회원가입
       </button>
     </form>
@@ -56,28 +56,30 @@
         <button type="button">확인</button>
       </div>
     </div>
-    <nav class="bottom-box">
-      <p style="font-family: Pretendard; font-weight: 500; font-size: 1rem; line-height: 1.625rem; color: var(--basic-txt-color);">
-        간편 로그인하기
-      </p>
-      <div class="logo">
-        <a href="https://www.google.com/">
-          <div class="google-btn">
-            <img src="/image/ic_google.svg">
-          </div>
-        </a>
-        <a href="https://www.kakaocorp.com/page/">
-          <div class="kakao-btn">
-            <img src="/image/ic_kakao.svg">
-          </div>
-        </a>
+    <nav class="bottom-container">
+      <div class="bottom-box">
+        <p class="bottom-txt">
+          간편 로그인하기
+        </p>
+        <div class="icon">
+          <a href="https://www.google.com/">
+            <div class="google-btn">
+              <img src="/image/ic_google.svg">
+            </div>
+          </a>
+          <a href="https://www.kakaocorp.com/page/">
+            <div class="kakao-btn">
+              <img src="/image/ic_kakao.svg">
+            </div>
+          </a>
+        </div>
       </div>
     </nav>
-    <footer class="text">
-      <span style="font-family: Pretendard; font-weight: 500; font-size: 0.9375rem; line-height: 1.1187rem; color: var(--basic-txt-color);">
+    <footer class="footer">
+      <p class="footer-txt">
         이미 회원이신가요?
-      </span>
-      <a href="/panda/login/login.html" style="font-family: Pretendard; font-weight: 500; font-size: 0.9375rem; line-height: 1.1187rem; text-decoration: underline solid; color: var(--href-txt-focus-input-color);">
+      </p>
+      <a href="/panda/login/login.html" class="footer-link">
         로그인
       </a>
     </footer>

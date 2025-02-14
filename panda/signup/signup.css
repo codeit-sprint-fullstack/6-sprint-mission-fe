@@ -19,6 +19,42 @@
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  width: 100%;
+}
+
+.header {
+  width: 24.75rem;
+  height: 8.25rem;
+  margin: 14.4375rem auto auto;
+  padding: 0.8113rem 0 0.9463rem;
+}
+
+.logo-btn {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-txt {
+  color: var(--href-txt-focus-input-color);
+  font-family: ROKAFSans;
+  font-weight: 700;
+  font-size: 4.1463rem;
+  line-height: 5.5975rem;
+}
+
+#input-form {
+  width: 40rem;
+  margin: 2.5rem auto auto;
+}
+
 .index {
   color: var(--basic-txt-color);
   font-family: Pretendard;
@@ -60,6 +96,10 @@ form div {
   margin: 0.5rem auto 1.5rem 1rem;
 }
 
+#nickname {
+  margin-bottom: 1.5rem;
+}
+
 .eye-icon {
   position: absolute;
   width: 1.2794rem;
@@ -90,9 +130,14 @@ form div {
   align-items: center;
   gap: 0.625rem;
   margin: auto;
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  text-align: center;
 }
 
-.btnAble {
+.btn-able {
   background-color: var(--href-txt-focus-input-color);
   cursor: pointer;
 }
@@ -153,7 +198,15 @@ form div {
   margin: 1.5rem auto;
 }
 
-.logo {
+.bottom-txt {
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: var(--basic-txt-color);
+}
+
+.icon {
   display: flex;
   gap: 1rem;
 }
@@ -174,11 +227,90 @@ form div {
   padding: 0.625rem 0.5rem 0.5rem 0.5rem;
 }
 
-.text {
+.footer {
   display: flex;
   align-items: center;
   gap: 0.25rem;
   width: 9.875rem;
   height: 1.125rem;
   margin: auto auto 14.625rem;
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 1.1187rem;
+}
+
+.footer-txt {
+  color: var(--basic-txt-color);
+}
+
+.footer-link {
+  text-decoration: underline solid;
+  color: var(--href-txt-focus-input-color);
+}
+
+/* Mobile */
+@media (max-width: 743px) and (min-width: 375px) {
+  .header {
+    width: 198px;
+    height: 66px;
+    margin-top: 24px;
+  }
+
+  .logo-btn {
+    justify-self: center;
+    align-items: center;
+    padding: auto;
+    gap: 11.12px;
+  }
+
+  .logo-btn img {
+    width: 51.76px;
+    height: 51.94px;
+  }
+
+  .logo-btn h1 {
+    font-size: 33.17px;
+    line-height: 44.78px;
+  }
+
+  #input-form {
+    width: 100%;
+    padding: 0 16px;
+    margin-top: 24px;
+  }
+
+  .index {
+    font-size: 14px;
+    line-height: 16.71px;
+  }
+
+  .input-box {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  #nickname {
+    margin-bottom: 16px;
+  }
+
+  .error-msg {
+    margin-bottom: 16px;
+  }
+
+  .eye-icon {
+    top: 27.49px
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .bottom-container {
+    padding: 0 16px;
+  }
+
+  .bottom-box {
+    width: 100%;
+  }
 }

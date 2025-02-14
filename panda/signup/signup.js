@@ -51,11 +51,11 @@ const btnToggle = e => {
       && nickname.value 
       && passwordRegex.test(password.value) 
       && (password.value === passwordSecond.value)) {
-    btn.classList.add('btnAble');
+    btn.classList.add('btn-able');
     btn.disabled = false;
     btn.style.cursor = 'pointer';
   } else {
-    btn.classList.remove('btnAble');
+    btn.classList.remove('btn-able');
     btn.disabled = true;
     btn.style.cursor = 'default';
   }

@@ -36,11 +36,11 @@ eyeIcons[1].addEventListener('click', e => {
 // 로그인 버튼 활성화
 const btnToggle = e => {
   if (emailRegex.test(email.value) && passwordRegex.test(password.value)) {
-    btn.classList.add('btnAble');
+    btn.classList.add('btn-able');
     btn.disabled = false;
     btn.style.cursor = 'pointer';
   } else {
-    btn.classList.remove('btnAble');
+    btn.classList.remove('btn-able');
     btn.disabled = true;
     btn.style.cursor = 'default';
   }
