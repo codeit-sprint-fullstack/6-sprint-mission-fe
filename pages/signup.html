@@ -14,6 +14,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles/login.css">
+  <script defer src="../js/login.js"></script>
   <title>판다마켓</title>
 </head>
 <body>
@@ -31,27 +32,23 @@
         <div class="email-form">
           <label for="email" class="label-text">이메일</label>
           <input id="email" name="email" type="email" placeholder="이메일을 입력해주세요" required>
-          <div class="error"></div>
         </div>
         <div class="nickname-form">
           <label for="nickname" class="label-text">닉네임</label>
-          <input class="nickname" name="nickname" type="text" placeholder="닉네임을 입력해주세요" required>
-          <div class="error"></div>
+          <input id="nickname" name="nickname" type="text" placeholder="닉네임을 입력해주세요" required>
         </div>
         <div id="password-form">
           <label for="password" class="label-text">비밀번호</label>
           <input id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요" required>
           <button type="button" class="hide-pw"></button>
-          <div class="error"></div>
         </div>
         <div id="password-check-form">
           <label for="password-check" class="label-text">비밀번호 확인</label>
-          <input class="password-check" name="password-check" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요" required>
+          <input id="password-check" name="password-check" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요" required>
           <button type="button" class="hide-pw-check"></button>
-          <div class="error"></div>
         </div>
       </div>
-        <button type="submit" id="large-submit-button" onclick>회원가입</button>
+      <button type="submit" id="large-submit-button" disabled>회원가입</button>
     </form>
     <section id="easy-login">
       <div id="easy-login-box">

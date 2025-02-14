@@ -121,8 +121,6 @@ input {
   text-align: center;
 }
 
-
-
 /* 동작 스타일 */
 
 input:focus {
@@ -150,4 +148,13 @@ input:focus {
     top: 50px;
   }
 
+}
+
+/* 자바스크립트 연동 스타일 */
+
+.error-massage {
+  position: relative;
+  top: -12px;
+  font-size: 15px;
+  color: #F74747;
 }
