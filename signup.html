@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="signup_style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+    
+    <script>
+        (function(d) {
+          var config = {
+            kitId: 'yhe2oen',
+            scriptTimeout: 3000,
+            async: true
+          },
+          h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+        })(document);
+      </script>
+    <title>회원가입 페이지</title>
+</head>
+<body>
+    <div class="container">
+        <div class="top box">
+            <a href="index.html" target="_blank" class="logo">
+                <img width="103.53" height="103.88" src="판다 얼굴.png">
+            </a>
+            <span class="panda" style='font-family: "Black Han Sans", serif; font-weight: 100; font-style: normal;'>
+                판다마켓 
+            </span>
+        </div>
+        <div class="content1" style='font-family: "pretendard", sans-serif; font-weight: 700; font-style: normal;'>이메일</div>
+        <div class="content2 box">
+            <input type="email" class="email" name="email" placeholder="이메일을 입력해주세요">
+        </div>
+        <div class="nick" style='font-family: "pretendard", sans-serif; font-weight: 700; font-style: normal;'>닉네임</div>
+        <div class="nick_khan box">
+            <input type="text" class="name" name="name" placeholder="닉네임을 입력해주세요">
+        </div>
+        <div class="content3" style='font-family: "pretendard", sans-serif; font-weight: 700; font-style: normal;'>비밀번호</div>
+        <div class="content4 box">
+            <input type="password" class="password" name="password" placeholder="비밀번호를 입력해주세요">
+            <img class="eye" width="24" height="24" src="eye.png">
+        </div>
+        <div class="pw_check" style='font-family: "pretendard", sans-serif; font-weight: 700; font-style: normal;'>비밀번호 확인</div>
+        <div class="pw_c box">
+            <input type="password" class="check" name="check" placeholder="비밀번호를 다시 한 번 입력해주세요">
+            <img class="eye" width="24" height="24" src="eye.png">
+        </div>
+        <div class="content5 box"> 
+            <button type="submit" class="signup">회원가입</button>
+        </div>
+        <div class="content6 box">
+            <div class="text_6">
+                간편 로그인하기
+           </div>
+            <div class="google">
+                <a href="https://www.google.com/" target="_blank"><img src="google.png"></a>
+            </div>
+            <div class="kakaotalk">
+                <a href="https://www.kakaocorp.com/page/" target="_blank"><img src="kakaotalk.png"></a>
+            </div>
+        </div>
+        <div class="content7 box">
+            이미 회원이신가요? <a href="login.html" target="_blank" class="login">로그인</a>
+        </div>
+    </div>
+    
+</body>
+</html>

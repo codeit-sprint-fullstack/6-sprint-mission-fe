@@ -1,0 +1,147 @@
+/* 심화 요구사항: 색상값 변수로 지정해주기  */
+:root {
+    --maincolor : #3692ff;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    margin-top: 800px;
+}
+
+.container {
+    width: 640px;
+    height: 618px;
+    display: flex;
+    flex-direction: column;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top {
+    margin-bottom: 30px;
+}
+
+.panda {
+    color: var(--maincolor);
+    font-size: 70px;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.content1 {
+    font-size: 18px;
+    line-height: 26px;
+}
+
+.content2 {
+    margin-top: 15px;
+}
+
+.email {
+    width: 640px;
+    height: 56px;
+    background-color: #f3f4f6;
+    border: 1px solid #f3f4f6;
+    border-radius: 15px;
+    font-size: 16px;
+    line-height: 26px;
+    padding-left: 20px;
+}
+
+.email:hover {
+    border: var(--maincolor);
+}
+
+.content3 {
+    margin-top: 30px;
+    font-size: 18px;
+    line-height: 26px;
+}
+
+.content4 {
+    background-color: #f3f4f6;
+    border-radius: 15px;
+    margin-top: 15px;
+    position: relative;
+    width: 640px;
+    height: 64px;
+}
+
+.password {
+    background-color: transparent;
+    border: none;
+    border-radius: 15px;
+    width: 605px;
+    height: 56px;
+    font-size: 16px;
+    line-height: 26px;
+    padding-left: 20px ;
+    padding-right: 10px;
+}
+
+.password:hover {
+    border: var(--maincolor);
+}  
+
+.eye {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+}
+
+.content5 {
+    margin: 5px 0;
+    padding: 20px 0;
+}
+
+.login {
+    width: 640px;
+    height: 56px;
+    background-color: #9ca3af;
+    border: 1px solid #9ca3af;
+    border-radius: 30px;
+    font-size: 20px;
+    line-height: 26px;
+    color: #ffffff;
+    padding-left: 20px;
+}
+
+.login:hover {
+    background-color: var(--maincolor);
+    border: 1px solid var(--maincolor);
+}
+
+.content6 {
+    background-color: #e6f2ff;
+    height: 74px;
+    border-radius: 8px;
+}
+
+.text_6 {
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: bold;
+    margin-right: 380px;
+    padding-top: 5px;
+}
+
+.google {
+    margin-right: 15px;
+    padding-top: 5px;
+}
+.kakaotalk {
+    padding-top: 5px;
+}
+
+.content7 {
+    padding-top: 30px;
+}
+
+.signup {
+    padding-left: 5px;
+}
