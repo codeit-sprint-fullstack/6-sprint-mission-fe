@@ -1,4 +1,4 @@
-// handling password visibility 
+// Handling password visibility 
 const passwordToggleBtn = document.querySelector(".auth__form-password-toggle");
 if (passwordToggleBtn) {
   passwordToggleBtn.addEventListener("click", () => {
@@ -32,11 +32,12 @@ function isValidPassword(password) {
 const emailField= document.querySelector("#email");
 const emailError = emailField.nextElementSibling;
 const passwordField = document.querySelector("#password");
-const passwordError = passwordField.parentElement.nextElementSibling; 
+const passwordContainer = document.querySelector(".auth__form-password-container");
+const passwordError = passwordContainer.nextElementSibling; 
 
-console.log(passwordError);
+// Handling emailField 
 emailField.addEventListener("focusout", () => {
-  let userEmail = emailField.value;
+  let userEmail = emailField.value.trim();
   if (!emailField.value) {
     emailError.textContent = "이메일을 입력해주세요.";
     emailError.classList.add("auth__error--active");
@@ -53,5 +54,26 @@ emailField.addEventListener("focusout", () => {
     };
   };
 });
+
+// Handling password input
+// deal with passwordContainer or passwordField?
+passwordField.addEventListener("focusout", () => {
+  userPassword = passwordField.value.trim();
+  if (!userPassword) {
+    passwordError.textContent = "비밀번호를 입력해주세요.";
+    passwordError.classList.add("auth__error--active");
+    // need to add a class to container that deals with red outline 
+  } else {
+    if (isValidPassword(userPassword)) {
+      passwordError.textContent = "";
+      passwordError.classList.remove("auth__error--active");
+    } else {
+      passwordError.textContent = "비밀번호를 8자 이상 입력해주세요.";
+      passwordError.classList.add("auth__error--active");
+    }
+  }
+  
+});
+
 //  비밀번호 input에서 focus out 할 때, 값이 없을 경우 아래에 “비밀번호를 입력해주세요.” 에러 메세지를 보입니다
 //  비밀번호 input에서 focus out 할 때, 값이 8자 미만일 경우 아래에 “비밀번호를 8자« 이상 입력해주세요.” 에러 메세지를 보입니다.
