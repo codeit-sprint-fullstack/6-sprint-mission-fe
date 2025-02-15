@@ -38,22 +38,20 @@ console.log(passwordError);
 emailField.addEventListener("focusout", () => {
   let userEmail = emailField.value;
   if (!emailField.value) {
-    //  make the error message tag to have new class (that will change display: block from hidden)
-    //  add class to the tag that will have red outline - go to auth css to add some - auth__form-input--error
     emailError.textContent = "이메일을 입력해주세요.";
     emailError.classList.add("auth__error--active");
+    emailField.classList.add("auth__form-input--error");
   } else {
-    // check email validity
     if (isValidEmail(userEmail)) {
       emailError.textContent = "";
       emailError.classList.remove("auth__error-active");
+      emailField.classList.remove("auth__form-input--error");
     } else {
       emailError.textContent = "잘못된 이메일 형식입니다.";
       emailError.classList.add("auth__error--active");
+      emailField.classList.add("auth__form-input--error");
     };
   };
-  
 });
-//  이메일 input에서 focus out 할 때, 이메일 형식에 맞지 않는 경우 input에 빨강색 테두리와 아래에 “잘못된 이메일 형식입니다” 빨강색 에러 메세지를 보입니다.
 //  비밀번호 input에서 focus out 할 때, 값이 없을 경우 아래에 “비밀번호를 입력해주세요.” 에러 메세지를 보입니다
 //  비밀번호 input에서 focus out 할 때, 값이 8자 미만일 경우 아래에 “비밀번호를 8자« 이상 입력해주세요.” 에러 메세지를 보입니다.
