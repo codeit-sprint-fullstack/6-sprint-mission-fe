@@ -122,8 +122,25 @@ span {
   display: block;
   margin-bottom: 16px;
 }
-#email, #nickname{
+#nickname{
   margin-bottom: 24px;
+}
+.error-border {
+  border-radius: 12px;
+  border: 1px solid #F74747;
+  outline: none;
+}
+.error-message {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 17.9px;
+  color: #F74747;
+
+  margin-top: 8px;
+  margin-left: 16px;
+}
+.id_pwd_input label[for="nickname"] {
+  margin-top: 24px; /* 비밀번호 라벨과 위 요소 간격 조정 */
 }
 .password-container {
   position: relative;
@@ -153,7 +170,7 @@ span {
   height: 18.07px;
 }
 
-.login-btn {
+.register-btn {
   width: 640px;
   height: 56px;
   border-radius: 40px;
@@ -167,6 +184,10 @@ span {
   text-align: center;
   color: #FFFFFF;
   border: none;
+}
+.register-btn.enabled {
+  background-color: #3692FF;
+  cursor: pointer;
 }
 
 .social-login {

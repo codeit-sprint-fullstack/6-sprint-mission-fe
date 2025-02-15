@@ -122,8 +122,25 @@ span {
   display: block;
   margin-bottom: 16px;
 }
-#email {
+/* #email {
   margin-bottom: 24px;
+} */
+.error-border {
+  border-radius: 12px;
+  border: 1px solid #F74747;
+  outline: none;
+}
+.error-message {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 17.9px;
+  color: #F74747;
+
+  margin-top: 8px;
+  margin-left: 16px;
+}
+.id_pwd_input label[for="password"] {
+  margin-top: 24px; /* 비밀번호 라벨과 위 요소 간격 조정 */
 }
 .password-container {
   position: relative;
@@ -144,7 +161,7 @@ span {
   padding: 16px 124px;
   gap: 10px;
   margin-top: 24px;
-  background-color: #9CA3AF;
+  background-color: #9CA3AF; /* 비활성화 상태 (회색) */
 
   font-weight: 600;
   font-size: 20px;
@@ -152,6 +169,11 @@ span {
   text-align: center;
   color: #F3F4F6;
   border: none;
+  cursor: not-allowed;
+}
+.login-btn.enabled {
+  background-color: #3692FF;
+  cursor: pointer;
 }
 
 .social-login {
