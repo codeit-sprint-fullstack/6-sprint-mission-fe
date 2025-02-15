@@ -115,10 +115,10 @@
   outline-offset: -2px; 
 }
 
-/* .auth__form-password-container--error {
+.auth__form-password-container--error {
   outline: 2px solid var(--red); 
   outline-offset: -2px; 
-} */
+}
 
 .auth__form-password-input {
   font-weight: inherit;

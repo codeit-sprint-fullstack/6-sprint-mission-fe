@@ -58,22 +58,20 @@ emailField.addEventListener("focusout", () => {
 // Handling password input
 // deal with passwordContainer or passwordField?
 passwordField.addEventListener("focusout", () => {
-  userPassword = passwordField.value.trim();
+  let userPassword = passwordField.value.trim();
   if (!userPassword) {
     passwordError.textContent = "비밀번호를 입력해주세요.";
     passwordError.classList.add("auth__error--active");
-    // need to add a class to container that deals with red outline 
+    passwordContainer.classList.add("auth__form-password-container--error");
   } else {
     if (isValidPassword(userPassword)) {
       passwordError.textContent = "";
       passwordError.classList.remove("auth__error--active");
+      passwordContainer.classList.remove("auth__form-password-container--error");
     } else {
       passwordError.textContent = "비밀번호를 8자 이상 입력해주세요.";
       passwordError.classList.add("auth__error--active");
-    }
-  }
-  
+      passwordContainer.classList.add("auth__form-password-container--error");
+    };
+  };
 });
-
-//  비밀번호 input에서 focus out 할 때, 값이 없을 경우 아래에 “비밀번호를 입력해주세요.” 에러 메세지를 보입니다
-//  비밀번호 input에서 focus out 할 때, 값이 8자 미만일 경우 아래에 “비밀번호를 8자« 이상 입력해주세요.” 에러 메세지를 보입니다.
