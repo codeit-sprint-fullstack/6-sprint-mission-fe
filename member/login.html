@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <link rel="stylesheet" href="./login.css" />
+    <script defer type="module" src="./login.js"></script>
+    <title>로그인</title>
+  </head>
+  <body>
+    <div class="midBox">
+      <section>
+        <header>
+          <a href="/">
+            <img src="../imges/logo.png" alt="logo" />
+          </a>
+        </header>
+        <article>
+          <label for="email">
+            이메일
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="이메일을 입력해주세요"
+            />
+            <p class="errMessage emailErrMsg">잘못된 이메일 형식입니다.</p>
+          </label>
+          <label for="pw" class="pwLabel">
+            비밀번호
+            <input
+              type="password"
+              id="pw"
+              name="pw"
+              placeholder="비밀번호를 입력해주세요"
+            />
+            <img src="../imges/Vector.png" alt="pwEye" id="pwEye" />
+            <p class="errMessage pwErrMasg">
+              비밀번호를 8자 이상 입력해주세요.
+            </p>
+          </label>
+          <button class="loginBtn">로그인</button>
+          <div class="easyLoginBox">
+            <p>간편 로그인하기</p>
+            <div class="easyLoginBtn">
+              <a href="https://www.google.com/">
+                <img src="../imges/Component 2.png" alt="google" />
+              </a>
+              <a href="https://www.kakaocorp.com/">
+                <img src="../imges/Component 3.png" alt="kako" />
+              </a>
+            </div>
+          </div>
+        </article>
+        <footer>
+          <p>판다마켓이 처음이신가요? <a href="./signup.html">회원가입</a></p>
+        </footer>
+      </section>
+    </div>
+    <div class="alert">
+      <div class="alertBg">
+        <div class="alertBox">
+          <p class="alertText">비밀번호가 일치하지 않습니다.</p>
+          <button class="alertBtn">확인</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

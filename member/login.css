@@ -1,0 +1,218 @@
+@import url("../reset.css");
+
+.midBox {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+section {
+  width: 640px;
+  height: 618px;
+  /* border: 1px solid #f00; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: space-between;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-bottom: 40px; */
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+}
+
+article label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+article label input {
+  width: 100%;
+  height: 56px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: #f3f4f6;
+  padding: 15px 24px;
+}
+
+article label input::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+article label input:focus {
+  border: 1px solid #3692ff;
+  outline: none;
+}
+.invalid {
+  border: 1px solid #f00;
+}
+.valid {
+  border: 1px solid transparent;
+}
+.errMessage {
+  display: none;
+  font-size: 15px;
+  font-weight: 600;
+  margin-left: 16px;
+  color: #f74747;
+}
+
+.pwLabel {
+  position: relative;
+}
+
+.pwLabel img {
+  position: absolute;
+  top: 55px;
+  right: 24px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.loginBtn {
+  width: 100%;
+  height: 56px;
+  border-radius: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  background: #9ca3af;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 24px;
+}
+
+.loginBtn:hover {
+  transition: all;
+  background: var(--main--color);
+}
+
+.easyLoginBox {
+  width: 100%;
+  height: 74px;
+  border-radius: 8px;
+  background: #e6f2ff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 23px;
+}
+
+.easyLoginBox p {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.easyLoginBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+footer a {
+  color: #3692ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.alert {
+  display: none;
+}
+.alertBg {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #000000b2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alertBox {
+  width: 540px;
+  height: 250px;
+  background: #fff;
+  border-radius: 8px;
+  position: relative;
+}
+.alertText {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1f2937;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.alertBtn {
+  width: 120px;
+  height: 48px;
+  background: var(--main--color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 28px;
+  right: 28px;
+}
+
+@media (max-width: 1200px) {
+  .midBox {
+    margin-top: 48px;
+    padding: 0 52px;
+  }
+}
+
+@media (max-width: 744px) {
+  .midBox {
+    max-width: 400px;
+    margin: 24px auto 0;
+    padding: 16px;
+  }
+  header img {
+    height: 66px;
+  }
+  article label {
+    font-size: 14px;
+  }
+  .alertBox {
+    max-width: 400px;
+    height: 220px;
+  }
+  .alertBtn {
+    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
