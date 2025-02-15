@@ -80,7 +80,8 @@
 }
 
 .auth__form-input--error {
-  border-color: var(--red);
+  outline: 2px solid var(--red);
+  outline-offset: -2px; 
 }
 
 .auth__error {
@@ -89,7 +90,7 @@
   font-size: 1.5rem;
   line-height: 1.79rem;
   letter-spacing: 0%;
-  display: hidden;
+  display: none;
 }
 
 .auth__error--active {
