@@ -1,0 +1,279 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+
+:root {
+  --primary-color: #3692FF;  
+  --secondary-color: #F3F4F6; 
+  --text-color: #374151;     
+  --background-color: #FFFFFF; 
+}
+
+* {
+    margin: 0;
+    padding: 0;  
+    box-sizing: border-box; 
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+body {
+  margin-top: 70px; 
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  background-color: var(--background-color);
+  z-index: 1000;
+  display: flex;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8.59px; 
+}
+
+
+.headnav {
+  width: 1120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto; 
+}
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; 
+  max-width: 1120px; 
+}
+
+.logoimg {
+  width: 40px;
+  height: 40.14px;
+}
+
+.logotext {
+  color: #3692FF;
+  font-size: 25.63px;
+  font-weight: 700;
+  line-height: 34.6px;
+}
+
+a {
+  text-decoration: none;
+
+}
+
+.login {
+  width: 128px;
+  height: 48px;
+  border-radius: 8px;
+  padding: 12px 23px;
+  background-color: #3692FF;
+  color: #F3F4F6;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  border: none;
+}
+
+.adv {
+  width: 100%;
+  height: 540px;
+  background-color: #CFE5FF;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+
+.advcont {
+  display: flex;
+  align-items: center;
+}
+
+.advtext {
+  color: #374151;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 56px;
+}
+
+.advtexts {
+  width: 357px;
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  
+}
+
+.advbutton {
+  height: 56px;
+  border-radius: 40px;
+  border: none;
+  background-color: #3692FF;
+  padding: 16px 124px;
+  color: #F9FAFB;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.advimg {
+  width: 746px;
+  height: 340px;
+}
+
+.cont1 {
+  width: 100%;
+  height: 720px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cont1box {
+  width: 988px;
+  height: 444px;
+  background-color: #FCFCFC;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+}
+
+.cont1img {
+  width: 588px;
+  height: 444px;
+}
+
+.cont1text {
+  display: flex;
+  flex-direction: column;
+  width: 274px;
+  height: 238px;
+  gap: 12px;
+}
+
+.bluetext {
+  color: #3692FF;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.boldtext {
+  color: #374151;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 56px;
+}
+
+.smalltext {
+  color: #374151;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.cont2box {
+ width: 988px;
+ height: 444px;
+ background-color: #FCFCFC;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+}
+
+.cont2text {
+  width: 317px;
+  height: 238px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: right;
+}
+
+.bottom {
+  width: 100%;
+  height: 540px;
+  background-color: #CFE5FF;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.bottombox {
+  width: 1110px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bottomtext {
+  height: 172px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 56px;
+  color: #374151;
+  width: 300px;
+}
+
+.bottomimg {
+  width: 746px;
+  height: 397px;
+}
+
+.footer {
+  width: 100%;
+  height: 160px;
+  background-color: #111827;
+  padding: 32px 200px;
+  display: flex;
+  justify-content: center;
+}
+
+.footertext {
+  display: flex;
+  height: 20px;
+  width: 1520px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.codeit2024 {
+  color: #9CA3AF;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.09px;
+}
+
+.infor {
+  display: flex;
+  gap: 30px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.09px;
+  text-decoration: none;
+}
+
+.footerimg {
+  display: flex;
+  gap: 12px;
+}
+
+.footimg {
+  width: 20px;
+  height: 20px;
+}
+
+.col {
+  color: #E5E7EB;
+}
