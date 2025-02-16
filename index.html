@@ -7,16 +7,37 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
       gtag('config', 'G-RKNRYT1ZL4');
     </script>
     
     <meta charset="UTF-8">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <meta name="viewport" content="width=1920, user-scalable=no">
+    <meta name="description" content="Panda Market">
+    <meta property="og:title" content="Panda Market">
+    <meta property="og:url" content="https://pandamarkets2.netlify.app/">
+    <meta property="og:type" content="Website">
+    <meta property="og:image" content="img/image_pandamarket.png">
+    <meta property="og:description" content="Panda Market을 만들었습니다.">
 
+    <meta name="viewport" content="width=1920, user-scalable=no">
     <title>판다마켓</title>
+  
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css" />
+  
+    <!-- ✅ meta.html을 동적으로 불러옴 -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("meta.html") // meta.html 파일을 불러옴
+          .then(response => response.text())
+          .then(data => {
+            document.head.insertAdjacentHTML("beforeend", data); // 메타 태그를 <head>에 삽입
+          })
+          .catch(error => console.error("메타 태그 로드 실패:", error));
+      });
+    </script>
   </head>
 
   <body>
