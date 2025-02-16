@@ -119,6 +119,7 @@ main {
 
 .signup_box.active {
     background: #3692FF;
+    border-radius: 40px;
     cursor: pointer;
 
 }
