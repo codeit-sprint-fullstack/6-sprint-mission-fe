@@ -30,10 +30,12 @@
         <div class="auth__form-group">
           <label class="auth__form-label" for="email">이메일</label>
           <input class="auth__form-input" id="email" name="email" type="email" placeholder="이메일을 입력해주세요">
+          <div class="auth__error"></div>
         </div>
         <div class="auth__form-group">
           <label class="auth__form-label"for="nickname">닉네임</label>
           <input class="auth__form-input" id="nickname" name="nickname" type="text" placeholder="닉네임을 입력해주세요">
+          <div class="auth__error"></div>
         </div>
         <div class="auth__form-group">
           <label class="auth__form-label" for="password">비밀번호</label>
@@ -43,6 +45,7 @@
               <img src="assets/img/icons/eye-invisible.svg" alt="비밀번호 표시/숨기기 아이콘" class="auth__form-password-toggle-icon">
             </button>
           </div>
+          <div class="auth__error"></div>
         </div>
         <div class="auth__form-group">
           <label class="auth__form-label" for="password-confirmation">비밀번호 확인</label>
@@ -52,6 +55,7 @@
               <img src="assets/img/icons/eye-invisible.svg" alt="비밀번호 표시 아이콘">
             </button>
           </div>
+          <div class="auth__error"></div>
         </div>
         <button class="auth__button">회원가입</button>
       </form>
