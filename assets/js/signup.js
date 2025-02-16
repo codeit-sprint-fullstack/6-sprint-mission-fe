@@ -39,7 +39,7 @@ function isValidEmail(email) {
 }
 
 // check nickname validity
-function isValidPassword(nickname) {
+function isValidNickname(nickname) {
   return nickname.length >= 1;
 }
 
@@ -59,14 +59,16 @@ function isValidForm() {
   const userEmail = emailField.value.trim();
   const userPassword = passwordField.value.trim();
   const userPasswordConfirm = passwordConfirmField.value.trim();
+  const userNickname = nicknameField.value.trim();
   
   return userEmail && 
+  userNickname && // add nickname
   userPassword && 
   userPasswordConfirm &&  // Add password confirmation check
   !emailError.textContent && 
+  !nicknameError.textContent &&
   !passwordError.textContent && 
   !passwordConfirmError.textContent;  // Add confirmation error check
-  // ***need to add nickname confirmation error check
 }
 
 // check form validity and update button status
@@ -93,6 +95,18 @@ emailField.addEventListener("focusout", () => {
     emailField.classList.toggle("auth__form-input--error", !!emailError.textContent);
     updateButtonState();
   });
+
+// handling nicknameField - show error message 
+nicknameField.addEventListener("focusout", () => {
+  const userNickname = nicknameField.value.trim();
+  if (!isValidNickname(userNickname)) {
+    nicknameError.textContent = "닉네임을 입력해주세요.";
+  } else {
+    nicknameError.textContent = "";
+  }
+  nicknameError.classList.toggle("auth__error--active", !!nicknameError.textContent);
+  nicknameField.classList.toggle("auth__form-input--error", !!nicknameError.textContent);
+});
 
 // handling passwordField - show error message
 passwordField.addEventListener("focusout", () => {
