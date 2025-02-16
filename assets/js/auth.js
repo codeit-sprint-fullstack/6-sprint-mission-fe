@@ -40,8 +40,8 @@ function isValidPassword(password) {
 const emailField= document.querySelector("#email");
 const emailError = emailField.nextElementSibling;
 const passwordField = document.querySelector("#password");
-const passwordContainer = document.querySelector(".auth__form-password-container");
-const passwordError = passwordContainer.nextElementSibling; 
+const passwordPrimaryContainer = document.querySelector(".auth__form-password-primary");
+const passwordError = passwordPrimaryContainer.nextElementSibling; 
 const submitButton = document.querySelector(".auth__button");
 const form = document.querySelector(".auth__form");
 
@@ -88,7 +88,7 @@ passwordField.addEventListener("focusout", () => {
     passwordError.textContent = "";
   }
   passwordError.classList.toggle("auth__error--active", !!passwordError.textContent);
-  passwordContainer.classList.toggle("auth__form-password-container--error", !!passwordError.textContent);
+  passwordPrimaryContainer.classList.toggle("auth__form-password-primary--error", !!passwordError.textContent);
   updateButtonState();
 });
 
@@ -122,7 +122,7 @@ emailField.addEventListener("input", () => {
 passwordField.addEventListener("input", () => {
   passwordError.textContent = "";
   passwordError.classList.remove("auth__error--active");
-  passwordContainer.classList.remove("auth__form-password-container--error");
+  passwordPrimaryContainer.classList.remove("auth__form-password-primary--error");
   updateButtonState();
 });
 

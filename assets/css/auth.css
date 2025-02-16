@@ -97,7 +97,8 @@
   display: block;
 }
 
-.auth__form-password-container {
+.auth__form-password-primary,
+.auth__form-password-confirm {
   background-color: var(--gray-100);
   font-weight: 400;
   line-height: 2.6rem;
@@ -110,12 +111,14 @@
   justify-content: space-between;
 }
 
-.auth__form-password-container:focus-within {
+.auth__form-password-primary:focus-within
+.auth__form-password-confirm:focus-within {
   outline: 2px solid var(--primary-100); 
   outline-offset: -2px; 
 }
 
-.auth__form-password-container--error {
+.auth__form-password-primary--error,
+.auth__form-password-confirm--error {
   outline: 2px solid var(--red); 
   outline-offset: -2px; 
 }
