@@ -7,6 +7,8 @@ const USER_DATA = [
   { email: 'codeit6@codeit.com', password: "codeit606!" },
 ];
 
+// codeit1@codeit.com vcodeit101!
+// codeit101!
 const emailField= document.querySelector("#email");
 const emailError = emailField.nextElementSibling;
 const nicknameField = document.querySelector("#nickname");
@@ -175,17 +177,60 @@ passwordConfirmField.addEventListener("input", () => {
   updateButtonState();
 });
 
+// modal elements
+const modal = document.querySelector('#modal');
+const modalMessage = modal.querySelector('.modal__message');
+const modalButton = modal.querySelector('.modal__button');
+
+// show modal with message
+function showModal(message) {
+  modalMessage.textContent = message;
+  modal.style.display = 'flex';
+}
+
+// hide modal
+function hideModal() {
+  modal.style.display = 'none';
+}
+
+// add click event to modal button
+modalButton.addEventListener('click', () => {
+  hideModal();
+});
+
+// close modal when clicking outside
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    hideModal();
+  }
+});
+
 // check email in db
 function isEmailExists(email) {
   return USER_DATA.some(user => user.email === email);
 }
+
+// modal related functions 
+function showModal(message) {
+  modalMessage.textContent = message;
+  modal.classList.add('modal--visible');
+}
+
+function hideModal() {
+  modal.classList.remove('modal--visible');
+}
+
+// Modal button click handler
+modalButton.addEventListener('click', () => {
+  hideModal();
+});
 
 function handleSignupSubmit(event) {
   event.preventDefault();
   const userEmail = emailField.value.trim();
   // Check if email already exists
   if (isEmailExists(userEmail)) {
-    alert('사용 중인 이메일입니다.');
+    showModal('사용 중인 이메일입니다.');
     return;
   }
 
