@@ -1,11 +1,14 @@
-const USER_DATA = [
-  { email: 'codeit1@codeit.com', password: "codeit101!" },
-  { email: 'codeit2@codeit.com', password: "codeit202!" },
-  { email: 'codeit3@codeit.com', password: "codeit303!" },
-  { email: 'codeit4@codeit.com', password: "codeit404!" },
-  { email: 'codeit5@codeit.com', password: "codeit505!" },
-  { email: 'codeit6@codeit.com', password: "codeit606!" },
-];
+const emailField= document.querySelector("#email");
+const emailError = emailField.nextElementSibling;
+const passwordToggles = document.querySelectorAll(".auth_form-password-toggle");
+const passwordField = document.querySelector("#password");
+const passwordConfirmField = document.querySelector("#password-confirmation");
+const passwordPrimaryContainer = document.querySelector(".auth__form-password-primary");
+const passwordConfirmContainer = document.querySelector(".auth__form-password-confirm");
+const passwordError = passwordPrimaryContainer.nextElementSibling; 
+const passwordConfirmError = passwordConfirmContainer.nextElementSibling;
+const submitButton = document.querySelector(".auth__button");
+const form = document.querySelector(".auth__form");
 
 // handling password visibility 
 const passwordToggleBtn = document.querySelector(".auth__form-password-toggle");
@@ -36,14 +39,6 @@ function isValidEmail(email) {
 function isValidPassword(password) {
   return password.length >= 8;
 }
-
-const emailField= document.querySelector("#email");
-const emailError = emailField.nextElementSibling;
-const passwordField = document.querySelector("#password");
-const passwordPrimaryContainer = document.querySelector(".auth__form-password-primary");
-const passwordError = passwordPrimaryContainer.nextElementSibling; 
-const submitButton = document.querySelector(".auth__button");
-const form = document.querySelector(".auth__form");
 
 // check form validity
 function isValidForm() {
