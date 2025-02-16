@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
-  const loginButton = document.getElementById("loginButton"); // form 없이 button을 직접 참조
+  const loginButton = document.getElementById("loginButton");
   const emailError = document.getElementById("email-error");
   const passwordError = document.getElementById("password-error");
 
