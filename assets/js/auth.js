@@ -88,9 +88,50 @@ passwordField.addEventListener("focusout", () => {
   } else {
     passwordError.textContent = "";
   }
-
   passwordError.classList.toggle("auth__error--active", !!passwordError.textContent);
   passwordContainer.classList.toggle("auth__form-password-container--error", !!passwordError.textContent);
   updateButtonState();
 });
  
+// Add form submit handler
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  const userEmail = emailField.value.trim();
+  const userPassword = passwordField.value.trim();
+  
+  // Find user in database
+  const user = USER_DATA.find(user => user.email === userEmail);
+  
+  if (!user) {
+    // User not found
+    alert("비밀번호가 일치하지 않습니다.");
+    return;
+  }
+  
+  if (user.password !== userPassword) {
+    // Password doesn't match
+    alert("비밀번호가 일치하지 않습니다.");
+    return;
+  }
+  // Login successful
+  window.location.href = "/items.html";
+});
+
+// Reset form validation state when input changes
+emailField.addEventListener("input", () => {
+  emailError.textContent = "";
+  emailError.classList.remove("auth__error--active");
+  emailField.classList.remove("auth__form-input--error");
+  updateButtonState();
+});
+
+passwordField.addEventListener("input", () => {
+  passwordError.textContent = "";
+  passwordError.classList.remove("auth__error--active");
+  passwordContainer.classList.remove("auth__form-password-container--error");
+  updateButtonState();
+});
+
+// Initialize button state
+updateButtonState();
