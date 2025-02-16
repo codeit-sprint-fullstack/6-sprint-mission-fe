@@ -152,10 +152,12 @@
   font-weight: 600;
   text-align: center;
   line-height: 2.4rem;
+  cursor: pointer;
 }
 
 .auth__button:disabled {
   background-color: var(--gray-400);
+  cursor: default;
 }
 
 
