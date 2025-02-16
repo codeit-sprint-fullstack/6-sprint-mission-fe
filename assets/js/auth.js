@@ -93,7 +93,7 @@ passwordField.addEventListener("focusout", () => {
 });
 
 // form submission handler
-form.addEventListener("submit", (event) => {
+function handleLoginSubmit(event) {
   event.preventDefault();
   const userEmail = emailField.value.trim();
   const userPassword = passwordField.value.trim();
@@ -109,7 +109,9 @@ form.addEventListener("submit", (event) => {
     return;
   }
   window.location.href = "/items.html";
-});
+}
+//  add form submit event listener
+form.addEventListener('submit', handleLoginSubmit);
 
 // reset email and password field error message after new input detected
 emailField.addEventListener("input", () => {
