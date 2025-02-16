@@ -108,68 +108,89 @@ passwordInput.addEventListener('focusout', () => {
 });
 
 // 비밀번호 확인 오류 메세지 출력
-const checkPasswordErrorMsg = document.createElement('div');
-checkPasswordErrorMsg.style.color = 'red';
-checkPasswordErrorMsg.style.display = 'none';
-checkPasswordErrorMsg.style.marginTop = '1rem';
-checkPasswordErrorMsg.textContent = '비밀번호가 일치하지 않습니다.';
-checkPasswordInput.parentNode.insertBefore(checkPasswordErrorMsg, checkPasswordInput.nextSibling);
+if (checkPasswordInput) { // 비밀번호 확인 input이 존재하는 경우에만 실행 (예외처리)
+    const checkPasswordErrorMsg = document.createElement('div');
+    checkPasswordErrorMsg.style.color = 'red';
+    checkPasswordErrorMsg.style.display = 'none';
+    checkPasswordErrorMsg.style.marginTop = '1rem';
+    checkPasswordErrorMsg.textContent = '비밀번호가 일치하지 않습니다.';
+    checkPasswordInput.parentNode.insertBefore(checkPasswordErrorMsg, checkPasswordInput.nextSibling);
 
-checkPasswordInput.addEventListener('input', () => {
-    if (passwordInput.value !== checkPasswordInput.value) {
-        checkPasswordInput.style.border = '0.0625rem solid var(--panda-border-red)';
-        checkPasswordErrorMsg.style.display = 'block';
-    } else {
-        checkPasswordInput.style.borderColor = '';
-        checkPasswordErrorMsg.style.display = 'none';
-    }
-    updateSignupButton();
-});
+    checkPasswordInput.addEventListener('input', () => {
+        if (passwordInput.value !== checkPasswordInput.value) {
+            checkPasswordInput.style.border = '0.0625rem solid var(--panda-border-red)';
+            checkPasswordErrorMsg.style.display = 'block';
+        } else {
+            checkPasswordInput.style.borderColor = '';
+            checkPasswordErrorMsg.style.display = 'none';
+        }
+        updateSignupButton();
+    });
+}
 
 // 닉네임 오류 메세지 출력
-const nicknameErrorMsg = document.createElement('div');
-nicknameErrorMsg.style.color = 'red';
-nicknameErrorMsg.style.display = 'none';
-nicknameErrorMsg.style.marginTop = '1rem';
-nicknameErrorMsg.textContent = '닉네임을 입력해주세요';
-nicknameInput.parentNode.insertBefore(nicknameErrorMsg, nicknameInput.nextSibling);
+if (nicknameInput) { // 닉네임 input이 존재하는 경우에만 실행 (예외처리)
+    const nicknameErrorMsg = document.createElement('div');
+    nicknameErrorMsg.style.color = 'red';
+    nicknameErrorMsg.style.display = 'none';
+    nicknameErrorMsg.style.marginTop = '1rem';
+    nicknameErrorMsg.textContent = '닉네임을 입력해주세요';
+    nicknameInput.parentNode.insertBefore(nicknameErrorMsg, nicknameInput.nextSibling);
 
-nicknameInput.addEventListener('focusout', () => {
-    if (!nicknameInput.value) {
-        nicknameInput.style.border = '0.0625rem solid var(--panda-border-red)';
-        nicknameErrorMsg.style.display = 'block';
-    } else {
-        nicknameInput.style.borderColor = '';
-        nicknameErrorMsg.style.display = 'none';
-    }
-    updateSignupButton();
-});
+    nicknameInput.addEventListener('focusout', () => {
+        if (!nicknameInput.value) {
+            nicknameInput.style.border = '0.0625rem solid var(--panda-border-red)';
+            nicknameErrorMsg.style.display = 'block';
+        } else {
+            nicknameInput.style.borderColor = '';
+            nicknameErrorMsg.style.display = 'none';
+        }
+        updateSignupButton();
+    });
+}
 
 //회원 가입 여부, 비밀번호 대조 후 페이지 이동
 submitBtn.addEventListener('click', (event) => {
     event.preventDefault();
     const email = emailInput.value;
     const password = passwordInput.value;
-    const user = USER_DATA.find(user => user.email === email);
 
-    if (user) {
-        if (user.password === password) {
-            window.location.href = '/items';
+    if (submitBtn.textContent === '로그인') {
+        const user = USER_DATA.find(user => user.email === email);
+
+        if (user) {
+            if (user.password === password) {
+                window.location.href = '/items';
+            } else {
+                alert('비밀번호가 일치하지 않습니다.');
+            }
         } else {
-            alert('비밀번호가 일치하지 않습니다.');
+            alert('잘못된 이메일입니다.');
         }
-    } else {
-        alert('잘못된 이메일입니다.');
+    }
+    else if (submitBtn.textContent === '회원가입') {
+        const nickname = nicknameInput.value;
+        const checkPassword = checkPasswordInput.value;
+
+        const userExists = USER_DATA.some(user => user.email === email);
+
+        if (userExists) {
+            alert('사용 중인 이메일입니다.');
+        } else if (password === checkPassword) {
+            USER_DATA.push({ email, password });
+            alert('회원가입이 완료되었습니다.');
+            window.location.href = '/login';
+        }
     }
 });
 
 //임시 데이터 베이스
 const USER_DATA = [
     { email: 'codeit1@codeit.com', password: "codeit101!" },
-        { email: 'codeit2@codeit.com', password: "codeit202!" },
-        { email: 'codeit3@codeit.com', password: "codeit303!" },
-        { email: 'codeit4@codeit.com', password: "codeit404!" },
-        { email: 'codeit5@codeit.com', password: "codeit505!" },
-        { email: 'codeit6@codeit.com', password: "codeit606!" },
+    { email: 'codeit2@codeit.com', password: "codeit202!" },
+    { email: 'codeit3@codeit.com', password: "codeit303!" },
+    { email: 'codeit4@codeit.com', password: "codeit404!" },
+    { email: 'codeit5@codeit.com', password: "codeit505!" },
+    { email: 'codeit6@codeit.com', password: "codeit606!" },
 ];
 
