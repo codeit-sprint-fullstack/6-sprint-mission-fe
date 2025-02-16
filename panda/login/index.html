@@ -1,40 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>판다마켓_로그인</title>
     <link rel="stylesheet" href="login.css">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 </head>
+
 <body>
     <header>
-        <a href="../index.html" class="logo">
-            <img src="img/logo.jpg" alt="판다마켓 로고">
+        <a href="/index.html" class="logo">
+            <img src="./img/logo.jpg" alt="판다마켓 로고">
         </a>
-    <header>
+    </header>
 
     <main>
-        <form class="login_form">
+        <form class="login_form" id="loginForm">
             <label for="email">이메일</label>
             <input type="email" id="email" placeholder="이메일을 입력해주세요">
+            <span class="error_message" id="emailError"></span>
 
             <label for="password">비밀번호</label>
-            <div class="password-container">
-            <input type="password" id="password" placeholder="비밀번호를 입력해주세요">
-                <img src="img/btn_visibility_on_24px.png" id="eyepassword" class="eye-password" alt="비밀번호 보기">
+            <div class="password_container">
+                <input type="password" id="password" placeholder="비밀번호를 입력해주세요">
+                <img src="./img/eye_off.png" id="togglePassword" class="eye-icon" alt="비밀번호 보기">
             </div>
-            
-            <button type="submit" class="login_btn">로그인</button>
+            <span class="error_message" id="passwordError"></span>
+
+            <button type="submit" id="loginBtn" class="login_btn">로그인</button>
         </form>
-   
+
+        <div class="modal_overlay" id="modal_overlay"></div>
+        <div class="modal" id="modal">
+            <p id="modal_message">비밀번호가 일치하지 않습니다.</p>
+            <button onclick="modalCloseBtn">확인</button>
+        </div>
+
         <div class="social_login">
             <p>간편 로그인하기</p>
             <div class="sns_buttons">
                 <a href="https://www.google.com/" class="sns_btn">
                     <img src="img/Component 2.png" alt="Google 로그인">
                 </a>
-            
+
                 <a href="https://www.kakaocorp.com/page/" class="sns_btn">
                     <img src="img/Component 3.png" alt="kakao 로그인">
                 </a>
@@ -42,9 +53,11 @@
         </div>
 
         <p class="signup_text">판다마켓이 처음이신가요?
-            <a href="../signup/index.html" class="signup_link">회원가입</a>
+            <a href="/panda/signup/index.html" class="signup_link">회원가입</a>
         </p>
     </main>
 
+    <script src="index.js" defer></script>
 </body>
+
 </html>
