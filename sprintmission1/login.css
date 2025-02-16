@@ -1,0 +1,118 @@
+.header {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.logo-pandamarket {
+    display: block;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+.input-item {
+    margin-bottom: 24px;
+}
+
+.input-item label {
+    display: block;
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.input-item input {
+    padding: 16px 24px;
+    background-color: #f3f4f6; /*뒤는게 심화조건에서 palette에 있는 색상값을 변수로 등록해서 사용하는걸 봤는데 일괄로 바꾸는 방법이 있나요*/
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.input-item input::placeholder {
+    color: #9ca3af;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.input-item input:focus {
+    outline-color: #3692ff;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none; 
+    cursor: pointer;
+    background-color: #3692ff;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+  
+.button:hover {
+    background-color: #1967d6;
+}
+  
+.button:focus {
+    background-color: #1251aa;
+}
+  
+.button:disabled {
+    background-color: #9ca3af;
+    cursor: default;
+    pointer-events: none;
+}
+  
+.pill-button {
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 16px 124px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.social-login {
+    background-color: #e6f2ff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 23px;
+    margin: 24px 0;
+}
+  
+.social-login h1 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+ }
+  
+.social-login-buttons {
+    display: flex;
+    gap: 16px;
+ }
+
+.already {
+    font-weight: 500;
+    font-size: 15px;
+    text-align: center;
+}
+  
+.already a {
+    color: #3182f6;
+    text-decoration: underline;
+}
