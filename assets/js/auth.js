@@ -7,7 +7,7 @@ const USER_DATA = [
   { email: 'codeit6@codeit.com', password: "codeit606!" },
 ];
 
-// Handling password visibility 
+// handling password visibility 
 const passwordToggleBtn = document.querySelector(".auth__form-password-toggle");
 if (passwordToggleBtn) {
   passwordToggleBtn.addEventListener("click", () => {
@@ -49,7 +49,6 @@ const form = document.querySelector(".auth__form");
 function isValidForm() {
   const userEmail = emailField.value.trim();
   const userPassword = passwordField.value.trim();
-  
   return userEmail && userPassword && !emailError.textContent && !passwordError.textContent;
 }
 
@@ -63,7 +62,7 @@ document.querySelectorAll("input").forEach(input => {
   input.addEventListener("input", updateButtonState);
 });
 
-// Handling emailField 
+// handling emailField 
 emailField.addEventListener("focusout", () => {
   const userEmail = emailField.value.trim();
   if (!userEmail) {
@@ -78,7 +77,7 @@ emailField.addEventListener("focusout", () => {
     updateButtonState();
   });
 
-// Handling password input
+// handling password input
 passwordField.addEventListener("focusout", () => {
   const userPassword = passwordField.value.trim();
   if (!userPassword) {
@@ -92,33 +91,27 @@ passwordField.addEventListener("focusout", () => {
   passwordContainer.classList.toggle("auth__form-password-container--error", !!passwordError.textContent);
   updateButtonState();
 });
- 
-// Add form submit handler
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  
+
+// form submission handler
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
   const userEmail = emailField.value.trim();
   const userPassword = passwordField.value.trim();
-  
-  // Find user in database
   const user = USER_DATA.find(user => user.email === userEmail);
   
   if (!user) {
-    // User not found
     alert("비밀번호가 일치하지 않습니다.");
     return;
   }
   
   if (user.password !== userPassword) {
-    // Password doesn't match
     alert("비밀번호가 일치하지 않습니다.");
     return;
   }
-  // Login successful
   window.location.href = "/items.html";
 });
 
-// Reset form validation state when input changes
+// reset email and password field error message after new input detected
 emailField.addEventListener("input", () => {
   emailError.textContent = "";
   emailError.classList.remove("auth__error--active");
@@ -133,5 +126,4 @@ passwordField.addEventListener("input", () => {
   updateButtonState();
 });
 
-// Initialize button state
 updateButtonState();
