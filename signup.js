@@ -1,10 +1,11 @@
-//로그인 버튼 색깔 변경
+//로그인,회원가입 버튼 업데이트
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const checkPasswordInput = document.getElementById('checkpassword');
 const submitBtn = document.getElementById('submitBtn');
+const nicknameInput = document.getElementById('nickname');
 
-function updateSubmitButton() {
+function updateLoginButton() {
     if (emailInput.value && passwordInput.value && emailErrorMsg.style.display === 'none' && passwordErrorMsg.style.display === 'none') {
         submitBtn.style.backgroundColor = 'var(--panda-blue)';
         submitBtn.disabled = false;
@@ -14,8 +15,27 @@ function updateSubmitButton() {
     }
 }
 
-emailInput.addEventListener('input', updateSubmitButton);
-passwordInput.addEventListener('input', updateSubmitButton);
+function updateSignupButton() {
+    if (emailInput.value && passwordInput.value && checkPasswordInput.value && nicknameInput.value && emailErrorMsg.style.display === 'none' && passwordErrorMsg.style.display === 'none' && passwordInput.value === checkPasswordInput.value) {
+        submitBtn.style.backgroundColor = 'var(--panda-blue)';
+        submitBtn.disabled = false;
+    } else {
+        submitBtn.style.backgroundColor = 'var(--panda-dark-gray)';
+        submitBtn.disabled = true;
+    }
+}
+
+emailInput.addEventListener('input', updateLoginButton);
+passwordInput.addEventListener('input', updateLoginButton);
+// 닉네임 input에 대한 이벤트 리스너가 존재하는 경우에만 추가 (예외처리)
+if (nicknameInput) {
+    nicknameInput.addEventListener('input', updateSignupButton);
+}
+
+// 비밀번호 확인 input에 대한 이벤트 리스너가 존재하는 경우에만 추가 (예외처리)
+if (checkPasswordInput) {
+    checkPasswordInput.addEventListener('input', updateSignupButton);
+}
 
 //이메일 오류 메세지 출력
 const emailErrorMsg = document.createElement('div');
@@ -39,7 +59,7 @@ emailInput.addEventListener('focusout', () => {
         emailInput.style.borderColor = '';
         emailErrorMsg.style.display = 'none';
     }
-    updateSubmitButton();
+    updateLoginButton();
 });
 
 
@@ -84,7 +104,45 @@ passwordInput.addEventListener('focusout', () => {
         passwordInput.style.borderColor = '';
         passwordErrorMsg.style.display = 'none';
     }
-    updateSubmitButton();
+    updateLoginButton();
+});
+
+// 비밀번호 확인 오류 메세지 출력
+const checkPasswordErrorMsg = document.createElement('div');
+checkPasswordErrorMsg.style.color = 'red';
+checkPasswordErrorMsg.style.display = 'none';
+checkPasswordErrorMsg.style.marginTop = '1rem';
+checkPasswordErrorMsg.textContent = '비밀번호가 일치하지 않습니다.';
+checkPasswordInput.parentNode.insertBefore(checkPasswordErrorMsg, checkPasswordInput.nextSibling);
+
+checkPasswordInput.addEventListener('input', () => {
+    if (passwordInput.value !== checkPasswordInput.value) {
+        checkPasswordInput.style.border = '0.0625rem solid var(--panda-border-red)';
+        checkPasswordErrorMsg.style.display = 'block';
+    } else {
+        checkPasswordInput.style.borderColor = '';
+        checkPasswordErrorMsg.style.display = 'none';
+    }
+    updateSignupButton();
+});
+
+// 닉네임 오류 메세지 출력
+const nicknameErrorMsg = document.createElement('div');
+nicknameErrorMsg.style.color = 'red';
+nicknameErrorMsg.style.display = 'none';
+nicknameErrorMsg.style.marginTop = '1rem';
+nicknameErrorMsg.textContent = '닉네임을 입력해주세요';
+nicknameInput.parentNode.insertBefore(nicknameErrorMsg, nicknameInput.nextSibling);
+
+nicknameInput.addEventListener('focusout', () => {
+    if (!nicknameInput.value) {
+        nicknameInput.style.border = '0.0625rem solid var(--panda-border-red)';
+        nicknameErrorMsg.style.display = 'block';
+    } else {
+        nicknameInput.style.borderColor = '';
+        nicknameErrorMsg.style.display = 'none';
+    }
+    updateSignupButton();
 });
 
 //회원 가입 여부, 비밀번호 대조 후 페이지 이동
