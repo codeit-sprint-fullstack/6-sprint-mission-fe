@@ -92,27 +92,6 @@ passwordField.addEventListener("focusout", () => {
   updateButtonState();
 });
 
-// form submission handler
-function handleLoginSubmit(event) {
-  event.preventDefault();
-  const userEmail = emailField.value.trim();
-  const userPassword = passwordField.value.trim();
-  const user = USER_DATA.find(user => user.email === userEmail);
-  
-  if (!user) {
-    alert("비밀번호가 일치하지 않습니다.");
-    return;
-  }
-  
-  if (user.password !== userPassword) {
-    alert("비밀번호가 일치하지 않습니다.");
-    return;
-  }
-  window.location.href = "/items.html";
-}
-//  add form submit event listener
-form.addEventListener('submit', handleLoginSubmit);
-
 // reset email and password field error message after new input detected
 emailField.addEventListener("input", () => {
   emailError.textContent = "";
@@ -127,5 +106,55 @@ passwordField.addEventListener("input", () => {
   passwordPrimaryContainer.classList.remove("auth__form-password-primary--error");
   updateButtonState();
 });
+
+// modal elements
+const modal = document.querySelector('#modal');
+const modalMessage = modal.querySelector('.modal__message');
+const modalButton = modal.querySelector('.modal__button');
+
+// show modal with message
+function showModal(message) {
+  modalMessage.textContent = message;
+  modal.style.display = 'flex';
+}
+
+// hide modal
+function hideModal() {
+  modal.style.display = 'none';
+}
+
+// add click event to modal button
+modalButton.addEventListener('click', () => {
+  hideModal();
+});
+
+// close modal when clicking outside
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    hideModal();
+  }
+});
+
+
+// form submission handler
+function handleLoginSubmit(event) {
+  event.preventDefault();
+  const userEmail = emailField.value.trim();
+  const userPassword = passwordField.value.trim();
+  const user = USER_DATA.find(user => user.email === userEmail);
+  
+  if (!user) {
+    showModal("비밀번호가 일치하지 않습니다.");
+    return;
+  }
+  
+  if (user.password !== userPassword) {
+    showModal("비밀번호가 일치하지 않습니다.");
+    return;
+  }
+  window.location.href = "/items.html";
+}
+//  add form submit event listener
+form.addEventListener('submit', handleLoginSubmit);
 
 updateButtonState();
