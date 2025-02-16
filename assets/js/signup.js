@@ -29,6 +29,7 @@ passwordToggles.forEach(toggle => {
   });
 });
 
+// input field validity
 //check email and password validity 
 function isValidEmail(email) {
   const emailPattern =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,11 +40,26 @@ function isValidPassword(password) {
   return password.length >= 8;
 }
 
-// check form validity
+// check password confirm validity
+function isValidPasswordConfirm(password) {
+  const userPassword = passwordField.value.trim();
+  const userPasswordConfirm = password;
+  return userPasswordConfirm === userPassword;
+}
+
+// check form validity - update needed
 function isValidForm() {
   const userEmail = emailField.value.trim();
   const userPassword = passwordField.value.trim();
-  return userEmail && userPassword && !emailError.textContent && !passwordError.textContent;
+  const userPasswordConfirm = passwordConfirmField.value.trim();
+  
+  return userEmail && 
+  userPassword && 
+  userPasswordConfirm &&  // Add password confirmation check
+  !emailError.textContent && 
+  !passwordError.textContent && 
+  !passwordConfirmError.textContent;  // Add confirmation error check
+  // ***need to add nickname confirmation error check
 }
 
 // check form validity and update button status
@@ -56,7 +72,7 @@ document.querySelectorAll("input").forEach(input => {
   input.addEventListener("input", updateButtonState);
 });
 
-// handling emailField 
+// handling emailField - show error message
 emailField.addEventListener("focusout", () => {
   const userEmail = emailField.value.trim();
   if (!userEmail) {
@@ -71,7 +87,7 @@ emailField.addEventListener("focusout", () => {
     updateButtonState();
   });
 
-// handling password input
+// handling passwordField - show error message
 passwordField.addEventListener("focusout", () => {
   const userPassword = passwordField.value.trim();
   if (!userPassword) {
@@ -85,26 +101,19 @@ passwordField.addEventListener("focusout", () => {
   passwordPrimaryContainer.classList.toggle("auth__form-password-primary--error", !!passwordError.textContent);
   updateButtonState();
 });
-
-// form submission handler
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const userEmail = emailField.value.trim();
-  const userPassword = passwordField.value.trim();
-  const user = USER_DATA.find(user => user.email === userEmail);
-  
-  if (!user) {
-    alert("비밀번호가 일치하지 않습니다.");
-    return;
+// **handling passwordConfirmField - show error message
+passwordConfirmField.addEventListener("focusout", () => {
+  const userPasswordConfirm = passwordConfirmField.value.trim();
+  if (!isValidPasswordConfirm(userPasswordConfirm)) {
+    passwordConfirmError.textContent = "비밀번호가 일치하지 않습니다.";
+  } else {
+    passwordConfirmError.textContent = "";
   }
-  
-  if (user.password !== userPassword) {
-    alert("비밀번호가 일치하지 않습니다.");
-    return;
-  }
-  window.location.href = "/items.html";
+  passwordConfirmError.classList.toggle("auth__error--active", !!passwordConfirmError.textContent);
+  passwordConfirmContainer.classList.toggle("auth__form-password-confirm--error", !!passwordConfirmError.textContent);
 });
 
+// reset input fields
 // reset email and password field error message after new input detected
 emailField.addEventListener("input", () => {
   emailError.textContent = "";
@@ -119,5 +128,14 @@ passwordField.addEventListener("input", () => {
   passwordPrimaryContainer.classList.remove("auth__form-password-primary--error");
   updateButtonState();
 });
+
+// reset password confirm field error message
+passwordConfirmField.addEventListener("input", () => {
+  passwordConfirmError.textContent = "";
+  passwordConfirmError.classList.remove("auth__error--active");
+  passwordConfirmContainer.classList.remove("auth__form-password-confirm--error");
+  updateButtonState();
+});
+
 
 updateButtonState();
