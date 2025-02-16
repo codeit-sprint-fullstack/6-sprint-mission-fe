@@ -1,6 +1,6 @@
 const emailField= document.querySelector("#email");
 const emailError = emailField.nextElementSibling;
-const passwordToggles = document.querySelectorAll(".auth_form-password-toggle");
+const passwordToggles = document.querySelectorAll(".auth__form-password-toggle");
 const passwordField = document.querySelector("#password");
 const passwordConfirmField = document.querySelector("#password-confirmation");
 const passwordPrimaryContainer = document.querySelector(".auth__form-password-primary");
@@ -11,11 +11,10 @@ const submitButton = document.querySelector(".auth__button");
 const form = document.querySelector(".auth__form");
 
 // handling password visibility 
-const passwordToggleBtn = document.querySelector(".auth__form-password-toggle");
-if (passwordToggleBtn) {
-  passwordToggleBtn.addEventListener("click", () => {
-    const userInput = passwordToggleBtn.previousElementSibling;
-    const toggleIcon = passwordToggleBtn.querySelector("img");
+passwordToggles.forEach(toggle => {
+  toggle.addEventListener("click", () => {
+    const userInput = toggle.previousElementSibling;
+    const toggleIcon = toggle.querySelector("img");
     if (userInput && userInput.classList.contains("auth__form-password-input")) {
       if (userInput.type === "password") {
         userInput.type = "text";
@@ -28,7 +27,7 @@ if (passwordToggleBtn) {
       }
     }
   });
-}
+});
 
 //check email and password validity 
 function isValidEmail(email) {

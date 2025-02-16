@@ -7,12 +7,20 @@ const USER_DATA = [
   { email: 'codeit6@codeit.com', password: "codeit606!" },
 ];
 
-// handling password visibility 
-const passwordToggleBtn = document.querySelector(".auth__form-password-toggle");
-if (passwordToggleBtn) {
-  passwordToggleBtn.addEventListener("click", () => {
-    const userInput = passwordToggleBtn.previousElementSibling;
-    const toggleIcon = passwordToggleBtn.querySelector("img");
+const emailField= document.querySelector("#email");
+const emailError = emailField.nextElementSibling;
+const passwordToggles = document.querySelectorAll(".auth__form-password-toggle");
+const passwordField = document.querySelector("#password");
+const passwordPrimaryContainer = document.querySelector(".auth__form-password-primary");
+const passwordError = passwordPrimaryContainer.nextElementSibling; 
+const submitButton = document.querySelector(".auth__button");
+const form = document.querySelector(".auth__form");
+
+// handling password visibility - same as in signup.js
+passwordToggles.forEach(toggle => {
+  toggle.addEventListener("click", () => {
+    const userInput = toggle.previousElementSibling;
+    const toggleIcon = toggle.querySelector("img");
     if (userInput && userInput.classList.contains("auth__form-password-input")) {
       if (userInput.type === "password") {
         userInput.type = "text";
@@ -25,7 +33,7 @@ if (passwordToggleBtn) {
       }
     }
   });
-}
+});
 
 //check email and password validity 
 function isValidEmail(email) {
@@ -36,14 +44,6 @@ function isValidEmail(email) {
 function isValidPassword(password) {
   return password.length >= 8;
 }
-
-const emailField= document.querySelector("#email");
-const emailError = emailField.nextElementSibling;
-const passwordField = document.querySelector("#password");
-const passwordPrimaryContainer = document.querySelector(".auth__form-password-primary");
-const passwordError = passwordPrimaryContainer.nextElementSibling; 
-const submitButton = document.querySelector(".auth__button");
-const form = document.querySelector(".auth__form");
 
 // check form validity
 function isValidForm() {
