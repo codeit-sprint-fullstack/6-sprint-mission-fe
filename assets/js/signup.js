@@ -38,6 +38,11 @@ function isValidEmail(email) {
   return emailPattern.test(email);
 }
 
+// check nickname validity
+function isValidPassword(nickname) {
+  return nickname.length >= 1;
+}
+
 function isValidPassword(password) {
   return password.length >= 8;
 }
