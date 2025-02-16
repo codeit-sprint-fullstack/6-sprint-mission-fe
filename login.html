@@ -1,50 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>login</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="login.css" />
+  <title>로그인</title>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="login">
-      <div class="login_wrap">
-        <div class="logo">
-          <a href="index.html" id="PM">
-            <img src="image/logo.png">판다마켓
-          </a>
-        </div>
+  <main>
+    <a class="logo" href="index.html">
+      <img src="img/logo.png">
+    </a>
+    <div id="main-body">
+      <div id="main-input">
 
-        <div class="stress">이메일</div>
-        <input type="email" id="email" placeholder="이메일을 입력해주세요">
-        <div class="stress">비밀번호</div>
-        <div class="password-container">
-          <input type="password" id="password" placeholder="비밀번호를 입력해주세요">
-          <span class="toggle-password material-symbols-outlined" onclick="togglePassword('password')">
-            visibility_off
-          </span>
-        </div>
-        
-        <button class="btnLogin" disabled>로그인</button>
-
-        <div class="emailLogin">
-         <div class="emailLogin_wrap">
-          <p>간편 로그인하기</p>
-          <div class="loginImg">
-            <a href="https://www.google.com"><img src="image/google.png"></a>
-            <a href="https://www.kakaocorp.com/page/"><img src="image/kakao.png"></a>
+        <div>
+          <div class="email-container">
+            <p class="pmain-head">이메일</p>
+              <input id="email" name="email" class="input-email" placeholder="이메일을 입력해주세요" type="email">
+            <p id="email-error" style="color: red;"></p>
           </div>
         </div>
+
+        <div>
+          <div class="password">
+            <p class="pmain-head">비밀번호</p>
+            <div id="login-container" class="login-container">
+              <input id="password" name="pw" class="input-password" placeholder="비밀번호를 입력해주세요" type="password">
+              <img id="toggle-Password" src="img/eye_button.png" alt="eye-icon">
+            </div>
+            <p id="password-error" style="color: red;"></p>
+          </div>
         </div>
 
-        <div class="crossLink">
-          판다마켓이 처음이신가요? <a href="signup.html">회원가입</a>
+        <button id="loginBtn" class="login-btn" disabled>
+          로그인
+        </button>
+
+      </div>
+
+      <div id="easy-login">
+        <div id="goto-login">
+          <p>
+            간편 로그인하기
+          </p>
+          <div id="img-goto">
+            <a class="goto" href="https://www.google.com/">
+              <div>
+                <img src="img/Component 2.png">
+            </a>
+            <a class="goto" href="https://www.kakaocorp.com/page">
+              <img src="img/Component 3.png">
+            </a>
+          </div>
         </div>
       </div>
+
+    </div>
+    <p class="foot">판다마켓이 처음이신가요? <a href="signup.html">회원가입</a></p>
+  
+  </main>
+
+  <div id="alert-modal" class="t" style="display: none;" >
+    <div class="alert-content">
+      <p id="alert-message">알림 메시지</p>
+      <button id="close-alert-btn">확인</button>
     </div>
   </div>
-
+  
   <script src="login.js"></script>
 </body>
 </html>

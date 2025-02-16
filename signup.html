@@ -1,55 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="singup.css">
   <title>signup</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="login">
-      <div class="login_wrap signup">
-        <div class="logo">
-          <a href="index.html" id="PM">
-            <img src="image/logo.png">판다마켓
-          </a>
-        </div>
+  <main>
+    <a href="index.html" class="logo">
+      <img src="img/logo.png">
+    </a>
+    <div id="main-body">
+      <div id="singup-container">
+        <div id="input-group">
 
-        <div class="stress">이메일</div>
-        <input id="email" type="email" placeholder="이메일을 입력해주세요">
-        <div class="stress">닉네임</div>
-        <input id="userName" type="text" placeholder="닉네임을 입력해주세요">
-        <div class="stress">비밀번호</div>
-        <div class="password-container">
-          <input id="password" type="password" placeholder="비밀번호를 입력해주세요">
-          <span class="toggle-password material-symbols-outlined" onclick="togglePassword(this)">visibility_off</span>
-        </div>
-        <div class="stress">비밀번호 확인</div>
-        <div class="password-container">
-          <input id="checkPW" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요">
-          <span class="toggle-password material-symbols-outlined" onclick="togglePassword(this)">visibility_off</span>
-        </div>
-        
-        <button disabled type="submit">회원가입</button>
+          <div id="email-body">
+            <p class="bold">이메일</p>
+            <input id="member-email" name="email" class="member-input" placeholder="이메일을 입력해주세요." type="email">
+            <p id="email-error" style="color: red;"></p>
+          </div>
 
-        <div class="emailLogin">
-         <div class="emailLogin_wrap">
-          <p>간편 로그인하기</p>
-          <div class="loginImg">
-            <a href="https://www.google.com"><img src="image/google.png"></a>
-            <a href="https://www.kakaocorp.com/page/"><img src="image/kakao.png"></a>
+          <div id="nickname-body">
+            <p class="bold">닉네임</p>
+            <input id="member-nickname" name="nickname" class="member-input" placeholder="닉네임을 입력해주세요.">
+          </div>
+
+          <div id="password-body">
+            <p class="bold">비밀번호</p>
+            <div id="password-container" class="input-container">
+              <input id="member-password" name="pw" class="member-input1" placeholder="비밀번호를 입력해주세요." type="password">
+              <img id="togglePassword" src="img/eye_button.png" alt="eye-icon" class="eye-icon">
+            </div>
+            <p id="password-error" style="color: red;"></p>
+          </div>
+
+          <div id="checkpass-body">
+            <p class="bold">비밀번호 확인</p>
+            <div id="chkpassword-container" class="input-container">
+              <input id="member-chkpassword" name="chekpw" class="member-input1" placeholder="비밀번호를 다시 한 번 입력해주세요." type="password">
+              <img id="toggleChkPassword" src="img/eye_button.png" alt="eye-icon" class="eye-icon">
+            </div>
+            <p id="chkpassword-error" style="color: red;"></p>
+          </div>
+
+        </div>
+        <button id="singup-btn" class="singup-btn" disabled>회원가입</button>
+      </div>
+
+      <div>
+        <div class="easy-login">
+          <div class="goto-login">
+            <p>
+              간편 로그인하기
+            </p>
+            <div class="img-goto">
+              <a class="goto" href="https://www.google.com/">
+                <img src="img/Component 2.png">
+              </a>
+              <a class="goto" href="https://www.kakaocorp.com/page">
+                <img src="img/Component 3.png">
+              </a>
+            </div>
           </div>
         </div>
-        </div>
-
-        <div class="crossLink">
-          판다마켓이 처음이신가요? <a href="login.html">로그인</a>
-        </div>
-
-        <script src="signup.js"></script>
       </div>
+
+      <p class="foot">이미 회원이신가요? &nbsp; <a href="login.html">로그인</a></p>
+  </main>
+
+  <div id="alert-modal" class="t" style="display: none;">
+    <div class="alert-content">
+      <p id="alert-message">알림 메시지</p>
+      <button id="close-alert-btn">확인</button>
     </div>
   </div>
+
+  <script src="signup.js"></script>
 </body>
+
 </html>
