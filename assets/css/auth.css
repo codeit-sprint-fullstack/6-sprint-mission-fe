@@ -137,16 +137,12 @@
   border: none;
 }
 
-.auth__password--visible {
-  
-}
-
 .auth__button {
   width: 100%;
   padding: 1.6rem 12.4rem 1.6rem 12.4rem;
   gap: 1rem;
   border-radius: 4rem;
-  background-color: var(--gray-400);
+  background-color: var(--primary-100);
   color: var(--white);
   border: none;
   font-size: 2rem;
@@ -154,6 +150,11 @@
   text-align: center;
   line-height: 2.4rem;
 }
+
+.auth__button:disabled {
+  background-color: var(--gray-400);
+}
+
 
 .auth__social {
   display: flex;

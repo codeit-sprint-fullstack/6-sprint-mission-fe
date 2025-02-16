@@ -18,12 +18,11 @@ if (passwordToggleBtn) {
   });
 }
 
-//check email validity 
+//check email and password validity 
 function isValidEmail(email) {
   const emailPattern =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailPattern.test(email);
 }
-// check password validity
 
 function isValidPassword(password) {
   return password.length >= 8;
@@ -56,7 +55,6 @@ emailField.addEventListener("focusout", () => {
 });
 
 // Handling password input
-// deal with passwordContainer or passwordField?
 passwordField.addEventListener("focusout", () => {
   let userPassword = passwordField.value.trim();
   if (!userPassword) {
