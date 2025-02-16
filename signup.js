@@ -5,10 +5,12 @@ const checkPasswordInput = document.getElementById('checkpassword');
 const submitBtn = document.getElementById('submitBtn');
 
 function updateSubmitButton() {
-    if (emailInput.value && passwordInput.value) {
+    if (emailInput.value && passwordInput.value && emailErrorMsg.style.display === 'none' && passwordErrorMsg.style.display === 'none') {
         submitBtn.style.backgroundColor = 'var(--panda-blue)';
+        submitBtn.disabled = false;
     } else {
         submitBtn.style.backgroundColor = 'var(--panda-dark-gray)';
+        submitBtn.disabled = true;
     }
 }
 
@@ -37,13 +39,13 @@ emailInput.addEventListener('focusout', () => {
         emailInput.style.borderColor = '';
         emailErrorMsg.style.display = 'none';
     }
+    updateSubmitButton();
 });
 
 
 //비밀번호 표시 토글
 const togglePasswordBtn = document.getElementById('togglePassword');
 const toggleCheckPasswordBtn = document.getElementById('toggleCheckPassword');
-
 
 function togglePasswordVisibility(input, button) {
     if (input.type === 'password') {
@@ -56,8 +58,10 @@ function togglePasswordVisibility(input, button) {
 }
 
 togglePasswordBtn.addEventListener('click', () => togglePasswordVisibility(passwordInput, togglePasswordBtn));
-toggleCheckPasswordBtn.addEventListener('click', () => togglePasswordVisibility(checkPasswordInput, toggleCheckPasswordBtn));
-
+// signup.html의 비밀번호 확인 input에 대한 토글 버튼이 존재하는 경우에만 이벤트 리스너를 추가 (예외처리)
+if (toggleCheckPasswordBtn) {
+    toggleCheckPasswordBtn.addEventListener('click', () => togglePasswordVisibility(checkPasswordInput, toggleCheckPasswordBtn));
+}
 
 // 비밀번호 오류 메세지 출력
 const passwordErrorMsg = document.createElement('div');
@@ -80,4 +84,5 @@ passwordInput.addEventListener('focusout', () => {
         passwordInput.style.borderColor = '';
         passwordErrorMsg.style.display = 'none';
     }
+    updateSubmitButton();
 });
