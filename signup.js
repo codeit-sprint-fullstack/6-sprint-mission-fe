@@ -86,3 +86,32 @@ passwordInput.addEventListener('focusout', () => {
     }
     updateSubmitButton();
 });
+
+//회원 가입 여부, 비밀번호 대조 후 페이지 이동
+submitBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    const user = USER_DATA.find(user => user.email === email);
+
+    if (user) {
+        if (user.password === password) {
+            window.location.href = '/items';
+        } else {
+            alert('비밀번호가 일치하지 않습니다.');
+        }
+    } else {
+        alert('잘못된 이메일입니다.');
+    }
+});
+
+//임시 데이터 베이스
+const USER_DATA = [
+    { email: 'codeit1@codeit.com', password: "codeit101!" },
+        { email: 'codeit2@codeit.com', password: "codeit202!" },
+        { email: 'codeit3@codeit.com', password: "codeit303!" },
+        { email: 'codeit4@codeit.com', password: "codeit404!" },
+        { email: 'codeit5@codeit.com', password: "codeit505!" },
+        { email: 'codeit6@codeit.com', password: "codeit606!" },
+];
+
