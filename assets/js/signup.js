@@ -134,8 +134,8 @@ passwordConfirmField.addEventListener("focusout", () => {
   passwordConfirmContainer.classList.toggle("auth__form-password-confirm--error", !!passwordConfirmError.textContent);
 });
 
-// reset input fields
-// reset email and password field error message after new input detected
+// reset input fields error messages
+// reset email error
 emailField.addEventListener("input", () => {
   emailError.textContent = "";
   emailError.classList.remove("auth__error--active");
@@ -143,6 +143,14 @@ emailField.addEventListener("input", () => {
   updateButtonState();
 });
 
+// reset nickname error
+nicknameField.addEventListener("input", () => {
+  nicknameError.textContent = "";
+  nicknameError.classList.remove("auth__error--active");
+  nicknameField.classList.remove("auth__form-input--error");
+  updateButtonState();
+});
+// reset pw error
 passwordField.addEventListener("input", () => {
   passwordError.textContent = "";
   passwordError.classList.remove("auth__error--active");
@@ -150,7 +158,7 @@ passwordField.addEventListener("input", () => {
   updateButtonState();
 });
 
-// reset password confirm field error message
+// reset password confirm field error 
 passwordConfirmField.addEventListener("input", () => {
   passwordConfirmError.textContent = "";
   passwordConfirmError.classList.remove("auth__error--active");
