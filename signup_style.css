@@ -1,7 +1,7 @@
 body {
     display: flex;
     justify-content: center;
-    margin-top: 600px;
+    /* margin-top: 600px; */
 }
 
 .container {
@@ -19,13 +19,6 @@ body {
     margin-bottom: 30px;
 }
 
-.panda {
-    color: #3692ff;
-    font-size: 70px;
-    padding-top: 20px;
-    padding-left: 20px;
-}
-
 .content1 {
     font-size: 18px;
     line-height: 26px;
@@ -35,7 +28,7 @@ body {
     margin-top: 15px;
 }
 
-.email {
+#email {
     width: 640px;
     height: 56px;
     background-color: #f3f4f6;
@@ -44,10 +37,28 @@ body {
     font-size: 16px;
     line-height: 26px;
     padding-left: 20px;
+    outline: none;
 }
 
-.email:hover {
+#email:hover {
     border: 1px solid #3692ff;
+}
+
+#email:focus {
+    border: 1px solid #3692ff;
+    background-color: white;
+}
+
+.error {
+    border: 2px solid red !important;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-left: 5px;
+    margin-top: 5px;
+    display: none;
 }
 
 .nick {
@@ -60,7 +71,7 @@ body {
     margin-top: 15px;
 }
 
-.name {
+#name {
     width: 640px;
     height: 56px;
     background-color: #f3f4f6;
@@ -69,10 +80,28 @@ body {
     font-size: 16px;
     line-height: 26px;
     padding-left: 20px;
+    outline: none;
 }
 
-.name:hover {
+#name:hover {
     border: 1px solid #3692ff;
+}
+
+#name:focus {
+    border: 1px solid #3692ff;
+    background-color: white;
+}
+
+.err {
+    border: 2px solid red !important;
+}
+
+.err-message {
+    color: red;
+    font-size: 14px;
+    margin-left: 5px;
+    margin-top: 5px;
+    display: none;
 }
 
 .content3 {
@@ -82,34 +111,48 @@ body {
 }
 
 .content4 {
-    background-color: #f3f4f6;
-    border-radius: 15px;
     margin-top: 15px;
     position: relative;
-    width: 640px;
-    height: 64px;
 }
 
-.password {
-    background-color: transparent;
+.content4 input {
+    padding: 17px 24px;
+    background-color: #f3f4f6;
     border: none;
+    outline: none;
     border-radius: 15px;
-    width: 605px;
-    height: 56px;
+    width: 640px;
     font-size: 16px;
-    line-height: 26px;
-    padding-left: 20px ;
-    padding-right: 10px;
+    line-height: 24px;
 }
 
-.password:hover {
+.content4 input:hover {
     border: 1px solid #3692ff;
 }  
 
+.content4 input:focus {
+    border: 1px solid #3692ff;
+    background-color: #ffffff;
+}
+
 .eye {
     position: absolute;
-    top: 20px;
-    right: 25px;
+    bottom: 10px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+}
+
+.error1 {
+    border: 2px solid red !important;
+}
+
+.password-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 7px;
+    margin-left: 5px;
+    display: none;
 }
 
 .pw_check {
@@ -119,29 +162,49 @@ body {
 }
 
 .pw_c {
-    background-color: #f3f4f6;
-    border-radius: 15px;
     margin-top: 15px;
     position: relative;
-    width: 640px;
-    height: 64px;
 }
 
-.check {
-    background-color: transparent;
+.pw_c input {
+    padding: 17px 24px;
+    background-color: #f3f4f6;
     border: none;
+    outline: none;
     border-radius: 15px;
-    width: 605px;
-    height: 56px;
+    width: 640px;
     font-size: 16px;
-    line-height: 26px;
-    padding-left: 20px ;
-    padding-right: 10px;
+    line-height: 24px;
 }
 
-.check:hover {
+.pw_c input:hover {
     border: 1px solid #3692ff;
 }  
+
+.pw_c input:focus {
+    border: 1px solid #3692ff;
+    background-color: #ffffff;
+}
+
+.eye {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    background-color: transparent;
+    border: none;
+}
+
+.error2 {
+    border: 2px solid red !important;
+}
+
+.check-message {
+    color: red;
+    font-size: 14px;
+    margin-left: 5px;
+    margin-top: 5px;
+    display: none; 
+}
 
 .content5 {
     margin: 5px 0;
@@ -163,6 +226,63 @@ body {
 .signup:hover {
     background-color: #3692ff;
     border: 1px solid #3692ff;
+}
+
+/* 모달창 배경 */
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* 모달창 스타일 */
+#custom-alert {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    padding-top: 75px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1000;
+    width: 350px;
+    height: 100px;  
+}
+
+/* 메시지 텍스트 스타일 */
+#alert-message {
+    font-size: 13px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 확인 버튼 스타일 */
+#alert-confirm {
+    background-color: #3692ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100px;
+    height: 40px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+#alert-confirm:hover {
+    background-color: #297acc;
 }
 
 .content6 {

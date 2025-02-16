@@ -5,8 +5,9 @@
     width: 100%; 
     background-color: #ffffff;
     display: flex;
+    position: fixed;
     align-items: center;
-    align-content: center;
+    align-content: space-between;
     justify-content: center;  
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     z-index: 1000; 
@@ -27,7 +28,7 @@
 .name {
     color: #3692ff;
     font-weight: bold;
-    font-size: 29px;
+    font-size: 30px;
 }
 
 
@@ -73,13 +74,13 @@
 }
 
 .text1 {
-    max-width: 400px;
     flex-shrink: 0;
-    margin-top: 130px
+    margin-top: 70px;
+    margin-right: 30px;
 }
 
 .trade {
-    font-size: 30px;
+    font-size: 35px;
     font-weight: bold;
     color: #333333; 
 }
@@ -88,11 +89,11 @@
     background-color: #3692ff;
     border: none;
     border-radius: 30px;
-    width: 270px;
+    width: 300px;
     height: 50px;
     color: white;
     font-size: 16px;
-    margin-top: 30px;
+    margin-top: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
