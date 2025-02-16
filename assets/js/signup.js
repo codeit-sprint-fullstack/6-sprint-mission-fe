@@ -1,5 +1,7 @@
 const emailField= document.querySelector("#email");
 const emailError = emailField.nextElementSibling;
+const nicknameField = document.querySelector("#nickname");
+const nicknameError = nicknameField.nextElementSibling;
 const passwordToggles = document.querySelectorAll(".auth__form-password-toggle");
 const passwordField = document.querySelector("#password");
 const passwordConfirmField = document.querySelector("#password-confirmation");
