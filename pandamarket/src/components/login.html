@@ -16,35 +16,38 @@
     <div class="login__logo">
       <a href="./"><img src="../img/login logo.png"></a>
     </div>
-    <div class="loginForm">
+    <form class="loginForm" id="loginForm">
       <div class="loginForm__email">
         <p>이메일</p>
         <input class="loginForm__input" type="email" id="email" name="email" placeholder="이메일을 입력해주세요" required>
+        <div class="error-message" id="email-error"></div>
       </div>
       <div class="loginForm__password">
         <p>비밀번호</p>
         <div class="password__container">
           <input class="loginForm__input" type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요"
             required>
-          <img src="../img/eyeclose_icon.png" alt="passwordeyes" class="password__icon">
+          <img src="../img/eyeclose_icon.png" alt="passwordeyes" class="password__icon" id="togglePassword">
+          <div class="error-message" id="password-error"></div>
         </div>
       </div>
       <div class="login_btn">
-        <button>로그인</button>
+        <button type="submit" id="loginButton">로그인</button>
       </div>
       <div class="easylogin">
         간편 로그인하기
         <div class="easylogin__icon">
-          <a href="https://www.google.com/"><img src="../img/google login.png" alt="goolelogin"></a>
-          <a href="https://www.kakaocorp.com/"><img src="../img/kakao login.png" alt="kakaologin"></a>
+          <a href="https://www.google.com/"><img src="../img/google login.png" alt="google login"></a>
+          <a href="https://www.kakaocorp.com/"><img src="../img/kakao login.png" alt="kakao login"></a>
         </div>
       </div>
-    </div>
+    </form>
     <div class="signup">
       판다마켓이 처음이신가요?
       <a href="./signup.html">회원가입</a>
     </div>
   </div>
+  <script src="login.js"></script>
 </body>
 
 </html>

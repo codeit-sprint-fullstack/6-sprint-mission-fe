@@ -5,6 +5,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .signup__container {
   display: flex;
   justify-content: center;
@@ -23,6 +24,7 @@ body {
   height: 132px;
   margin-bottom: 40px;
 }
+
 .signupForm {
   width: 100%;
 }
@@ -55,16 +57,16 @@ body {
   position: absolute;
   right: 19px;
   top: 50%;
-  transform: translateY(-50%); 
+  transform: translateY(-50%);
   cursor: pointer;
-  width: 20px; 
-  height: 20px; 
+  width: 20px;
+  height: 20px;
 }
 
 .signupForm__input {
   width: 100%;
   height: 56px;
-  padding: 10px 40px 10px 10px;  
+  padding: 10px 40px 10px 10px;
 }
 
 input {
@@ -80,7 +82,7 @@ input {
   cursor: pointer;
 }
 
-input ::placeholder {
+input::placeholder {
   color: #9ca3af;
 }
 
@@ -131,4 +133,14 @@ input:focus::placeholder {
 
 .login a {
   color: #3692ff;
+}
+
+.error-message {
+  font-size: 12px;
+  margin-top: 4px;
+  color: red;
+}
+
+input.error {
+  border: 1px solid red;
 }
