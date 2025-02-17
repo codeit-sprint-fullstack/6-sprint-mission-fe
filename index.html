@@ -1,85 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>판다마켓</title>
-  <link rel="icon" href="favicon.ico">
-  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="images/logo/favicon.ico">
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/style.css">
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6QCFHBJG0B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-6QCFHBJG0B');
+  </script>
+
+  <!-- meta -->
+  <meta property="og:title" content="판다마켓">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/home/tablet_01.png">
+  <meta property="og:description" content="믿을 수 있는 판다마켓 중고 거래">
 </head>
+
 <body>
   <header>
     <a href="index.html">
-      <img src="logo/Property 1=sm.svg" alt="판다마켓 로고">
+      <picture>
+        <source srcset="images/logo/type-logo.svg" media="(max-width: 743px)">
+        <img src="images/logo/sm-logo.svg" alt="판다마켓 로고">
+      </picture>
     </a>
-    <a href="login.html" class="login-btn">로그인</a>
+    <a href="login.html" class="button">로그인</a>
   </header>
-  <section class="lookup">
-    <div>
-      <p>
-        <span>일상의 모든 물건을<br>거래해 보세요</span>
-        <a href="items.html" class="lookup-btn">구경하러 가기</a>
-      </p>
-      <img class="lookup-img" src="img/Img_home_top.svg" alt="판다마켓 구경하기">
-    </div>
-  </section>
-  <section>
-    <div class="description">
-      <img src="img/Img_home_01.svg" alt="인기 상품">
-      <p id="p-1">
-        <span class="category">Hot item</span><br>
-        <span class="maintext">인기 상품을<br>확인해 보세요</span>
-        <span class="subtext">가장 HOT한 중고거래 물품을<br>판다 마켓에서 확인해 보세요</span>
-      </p>
-    </div>
-  </section>
-  <section>
-    <div class="description">
-      <p id="p-2">
-        <span class="category">Search</span><br>
-        <span class="maintext">구매를 원하는<br>상품을 검색하세요</span>
-        <span class="subtext">구매하고 싶은 물품은 검색해서<br>쉽게 찾아보세요</span>
-      </p>
-      <img src="img/Img_home_02.svg" alt="상품 검색">
-    </div> 
-  </section>
-  <section>
-    <div class="description">
-      <img src="img/Img_home_03.svg" alt="상품 등록">
-      <p id="p-3">
-        <span class="category">Register</span><br>
-        <span class="maintext">판매를 원하는<br>상품을 등록하세요</span>
-        <span class="subtext">어떤 물건이든 판매하고 싶은 상품을<br>쉽게 등록하세요</span>
-      </p>
-    </div> 
-  </section>
-  <section class="landing">
-    <div>
-      <p>믿을 수 있는<br>판다마켓 중고 거래</p>
-      <img src="img/Img_home_bottom.svg" alt="판다마켓 중고 거래">
-    </div> 
-  </section>
+
+  <main>
+    <section class="banner top">
+      <div class="wrap">
+        <h1 class="h1">
+          일상의 모든 물건을 <br>거래해 보세요
+        </h1>
+        <a href="items.html" class="button pill-button">구경하러 가기</a>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="feature">
+        <div>
+          <img src="images/home/feature1-img.png" alt="인기 상품">
+        </div>
+        <div class="feature-content">
+          <h2 class="feature-tag">Hot item</h2>
+          <h1 class="h1">인기 상품을 <br>확인해 보세요</h1>
+          <p class="feature-p">가장 HOT한 중고거래 물품을<br>판다 마켓에서 확인해 보세요</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div>
+          <img src="images/home/feature2-img.png" alt="상품 검색">
+        </div>  
+        <div class="feature-content">
+          <h2 class="feature-tag">Search</h2>
+          <h1 class="h1">구매를 원하는 <br>상품을 검색하세요</h1>
+          <p class="feature-p">구매하고 싶은 물품은 검색해서<br>쉽게 찾아보세요</p>
+        </div>
+      </div> 
+
+      <div class="feature">
+        <div>
+          <img src="images/home/feature3-img.png" alt="상품 등록">
+        </div>
+        <div class="feature-content">
+          <h2 class="feature-tag">Register</h2>
+          <h1 class="h1">판매를 원하는 <br>상품을 등록하세요</h1>
+          <p class="feature-p">어떤 물건이든 판매하고 싶은 상품을<br>쉽게 등록하세요</p>
+        </div>
+      </div> 
+    </section>
+
+    <section class="banner bottom">
+      <div class="wrap">
+        <h1>
+          믿을 수 있는<br>판다마켓 중고 거래
+        </h1>
+      </div> 
+    </section>
+  </main>
+
   <footer>
-    <span id="company">©codeit - 2024</span>
-    <span id="privacy-faq">
+    <div class="footer-company">©codeit - 2024</div>
+    <div class="footer-menu">
       <a href="privacy.html">Privacy Policy</a>
       <a href="faq.html">FAQ</a>
-    </span>
-    <span id="sns">
+    </div>
+    <div class="footer-social">
       <a href="https://facebook.com" target="_blank">
-        <img src="icon/ic_facebook.svg">
+        <img src="images/social/facebook-logo.svg" alt="페이스북" width="20">
       </a>
       <a href="https://x.com" target="_blank">
-        <img src="icon/ic_twitter.svg">
+        <img src="images/social/twitter-logo.svg" alt="트위터" width="20">
       </a>
       <a href="https://youtube.com" target="_blank">
-        <img src="icon/ic_youtube.svg">
+        <img src="images/social/instagram-logo.svg" alt="유튜브" width="20">
       </a>
       <a href="https://instagram.com" target="_blank">
-        <img src="icon/ic_instagram.svg">
+        <img src="images/social/youtube-logo.svg" alt="인스타그램" width="20">
       </a>
-    </span>
+    </div>
   </footer>
 </body>
 </html>
