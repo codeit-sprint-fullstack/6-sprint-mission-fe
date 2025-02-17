@@ -1,5 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+  //모달표시함수
+  function showModal(message) {
+    const modal = document.getElementById("errorModal");
+    const errorMsg = document.getElementById("errorMessage");
+
+    errorMsg.textContent = message; //오륲 메시지 설정
+    modal.style.display = "block"; // 모달 표시
+  }
+
+  //모달 닫기 버튼 기능
+  document.getElementById("closeModal").addEventListener("click", () => {
+    document.getElementById("errorModal").style.display = "none";
+  })
+
   const emailInput = document.getElementById("email");
   const pwdInput = document.getElementById("password");
   const confirmPwdInput = document.getElementById("confirmPassword");
@@ -91,11 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // });
 
     if(!user || user.password !== pwd){
-      alert("비밀번호가 일치하지 않습니다.");
+      showModal("비밀번호가 일치하지 않습니다."); //alert에서 모달로.
       return false;
     }
     return true;
-
+ 
   }
 
   function updateLoginBtnState() {
@@ -134,10 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function togglePwdVisibility(inputField, img){
     if(inputField.type === "password") {
       inputField.type = "text";
-      img.src = "../images/Property 1=Variant1.png"
+      img.src = "/images/Property 1=Variant1.png"
     } else {
       inputField.type = "password";
-      img.src = "../images/Property 1=Variant2.png"
+      img.src = "/images/Property 1=Variant2.png"
     }
   }
 

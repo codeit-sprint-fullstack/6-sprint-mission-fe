@@ -11,6 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const pwdError = document.getElementById("pwd-error");
   const confirmPwdError = document.getElementById("confirmPwd-error");
 
+  const togglePwd = document.getElementById("togglePwd");
+  const toggleConfirmPwd = document.getElementById("toggleConfirmPwd");
+
   const USER_DATA = [
     { email: 'codeit1@codeit.com', password: "codeit101!" },
     { email: 'codeit2@codeit.com', password: "codeit202!" },
@@ -156,5 +159,24 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   updateRegisterBtnState();
+
+  function togglePwdVisibility(inputField, img){
+    if(inputField.type === "password"){
+      inputField.type = "text";
+      img.src = "/images/Property 1=Variant1.png";
+    } else {
+      inputField.type = "password";
+      img.src = "/images/Property 1=Variant2.png";
+    }
+  }
+
+  togglePwd.addEventListener("click", () => {
+    togglePwdVisibility(pwdInput, togglePwd)
+  });
+  toggleConfirmPwd.addEventListener("click", () => {
+    togglePwdVisibility(confirmPwdInput, toggleConfirmPwd)
+  });
+
+
 });
 

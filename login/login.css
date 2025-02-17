@@ -144,12 +144,17 @@ span {
 }
 .password-container {
   position: relative;
+  min-height: 56px;
 }
 .password-container img {
   position: absolute;
   right: 18.44px;
-  top: 50%;
-  transform: translateY(-50%);
+  /* top: 50%;
+  transform: translateY(-50%); */
+  top: 0;
+  bottom: 0;
+  margin: auto;
+
   cursor: pointer;
   width: 20.47px;
   height: 18.07px;
@@ -209,4 +214,13 @@ span {
   line-height: 16.71px;
   text-decoration: underline solid;
   color: #3692FF;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFFFF;
 }

@@ -13,7 +13,7 @@
     <a href="/">
       <img 
         class="logo" 
-        src="../images/Property 1=lg.png" alt="판다마켓 로고"
+        src="/images/Property 1=lg.png" alt="판다마켓 로고"
       >
     </a>
 
@@ -29,7 +29,7 @@
           <label for="password">비밀번호</label>
           <div class="password-container">
             <input type="password" id="password" placeholder="비밀번호를 입력해주세요" required>
-            <img src="../images/Property 1=Variant2.png" alt="button visibility off" id="togglePwd">
+            <img src="/images/Property 1=Variant2.png" alt="button visibility off" id="togglePwd">
             <div id="pwd-error" class="error-message"></div>
           </div>
         </div>
@@ -45,10 +45,10 @@
         
         <div class="social-icons">
           <a href="https://www.google.com/">
-            <img src="../images/Component 2.png" alt="Google 로그인">
+            <img src="/images/Component 2.png" alt="Google 로그인">
           </a>
           <a href="https://www.kakaocorp.com/page/">
-            <img src="../images/Component 3.png" alt="카카오 로그인">
+            <img src="/images/Component 3.png" alt="카카오 로그인">
           </a>
         </div>
       </div>
@@ -60,6 +60,15 @@
       </div>
     </div>
   </div>
+
+  <!-- 오류 메시지 모달 추가 -->
+  <div id="errorModal" class="modal">
+    <div class="modal-content">
+      <p id="errorMessage">오류 메시지</p>
+      <button id="closeModal">확인</button>
+    </div>
+  </div>
+
   <script src="login.js" defer></script>
 </body>
 </html>
