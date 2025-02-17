@@ -42,7 +42,7 @@ body {
   font-size: 26px;
   font-weight: 700;
   text-decoration: none;
-  width: 140px;
+  min-width: 140px;
 }
 
 #login {
@@ -321,9 +321,7 @@ a:hover {
 
 /* Media Query for 1920px and smaller screens */
 @media (max-width: 1920px) {
-  .wrap {
-    font-size: 30%; /* Decrease font size slightly */
-  }
+
 
   .banner_wrap {
     height: 480px; /* Reduce banner height */
