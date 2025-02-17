@@ -15,7 +15,7 @@ body {
 }
 
 .wrap {
-
+  height: 100%;
   margin: 0 auto;
 }
 
@@ -186,7 +186,7 @@ a:hover {
   text-align: start;
 }
 
-.side.left {
+.side.second {
   text-align: end;
   padding-left: 0;
   align-items: end;
@@ -231,7 +231,7 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 }
 
 .login_wrap {
@@ -240,11 +240,15 @@ a:hover {
   flex-direction: column;
   align-items: center;
   height: 620px;
-  width: 640px;
+  width: 40%;
+  min-width: 450px;
+  max-width: 700px;
+  padding-top: 50px;
 }
 
 .login_wrap.signup {
-  height: 842px;
+  height: 847px;
+  padding: 20px 0;
 }
 
 .logo {
@@ -266,17 +270,21 @@ a:hover {
 }
 
 .login_wrap input {
-  width: 600px;
+  width: 100%;
   height: 56px;
   outline: none;
   background-color: #f3f4f6;
   border: 2px solid #f3f4f6;
   padding: 0 20px;
   border-radius: 8px;
+  box-sizing: border-box; /* ✅ 패딩을 포함한 전체 너비 계산 */
 }
 
-.login_wrap input:focus {
-  border: 2px solid var(--primary-color);
+.error-message {
+  color: red;
+  text-align: start;
+  width: 100%;
+  margin-top: -20px;
 }
 
 
@@ -289,9 +297,8 @@ a:hover {
 .password-container input {
   width: 100%;
   padding-right: 40px; /* 아이콘 공간 확보 */
-  height: 40px;
-  font-size: 16px;
 }
+
 
 /* 눈 모양 아이콘 스타일 */
 .toggle-password {
@@ -355,61 +362,215 @@ a:hover {
 }
 
 
-
-/* Media Query for 1920px and smaller screens */
-@media (max-width: 1920px) {
+/*Tablet: 744px to 1199px*/
+@media (min-width: 744px) and (max-width: 1199px) {
 
   .banner_wrap {
-    height: 480px; /* Reduce banner height */
-    padding: 0 30px 0 60px;
+    width: 100%;
+    height: 770px;
+    padding: 0 40px;
+  }
+  .banner {
+    position: static;
+    display: flex;
+    justify-content: center; 
+    
+  }
+  .inner {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+  }
+  .inner .big {
+    text-align: center;
+    justify-content: center;
+    bottom: 180px;
+    top: 80px;
+    height: 100px;
   }
 
   .banner img:not(#bottomImg) {
-    width: 70%;
+    width: 100%;
     height: auto;
+    min-width: 340px;
+    position: absolute;
+    right: auto;
   }
   #bottomImg {
-    width: 70%;
+    width: 100%;
     height: auto;
+    position: absolute;
+    right: auto;
   }
 
   .big {
-    font-size: 2.1rem;
-    line-height: 50px;
+    font-size: 32px;
+    line-height: 46px;
   }
 
   .small {
-    font-size: 1.1rem;
+    font-size: 18px;
     line-height: 28px;
   }
 
   .banner a {
-    width: 300px;
+    width: 280px;
     height: 50px;
-    font-size: 1.2rem;
+    font-size: 20px;
+    top: 180px;
+  }
+  
+  .container_wrap{
+    height: auto;
+    padding: 20px;
+  }
+  
+  .content {
+    flex-direction: column;
+    height: auto;
   }
 
-  .side{
-    height: 30%;
-    width: auto;
-    min-width: 380px;
+  .second_content{
+    flex-direction: column-reverse;
+    height: auto;
   }
 
   .content img {
-    width: 30%; /* Scale content images */
+    width: 100%;
     height: auto;
-    min-width: 380px;
+  }
+
+  .side {
+    width: 80%;
+    text-align: center;
+    padding: 20px;
+    height: 230px;
+  }
+  .side:not(.second) .blue,
+  .side:not(.second) .small,
+  .side:not(.second) .big {
+    text-align: start;
+  }
+
+  .login_wrap {
+    width: 60%;
   }
 
 
-  .login_wrap input {
-    width: 90%; /* Scale input fields */
-    height: 50px;
-
-  }
-
-  .login_wrap button {
-    height: 50px; /* Adjust button height */
-    font-size: 0.9rem;
-  }
 }
+
+/* Mobile: 375px to 743px */
+
+@media (max-width: 743px) {
+  .banner_wrap {
+    width: 100%;
+    height: 540px;
+    padding: 0 20px;
+    min-width: 375px;
+  }
+
+  .banner {
+    display: flex;
+    justify-content: center;
+    min-width: 100px;
+  }
+  .inner {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+  }
+  .inner .big {
+    text-align: center;
+    justify-content: center;
+    top: 80px;
+    height: 100px;
+  }
+
+  .side:not(.second) .blue,
+  .side:not(.second) .small,
+  .side:not(.second) .big {
+    text-align: start;
+  }
+
+
+  .banner img:not(#bottomImg) {
+    width: 110%;
+    height: auto;
+    position: absolute;
+    right: auto;
+  }
+  #bottomImg {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    right: auto;
+  }
+
+  .big {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .small {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .banner a {
+    width: 240px;
+    height: 45px;
+    font-size: 18px;
+    top: 180px;
+  }
+
+  .container_wrap{
+    height: auto;
+    padding: 20px;
+  }
+
+  .content {
+    flex-direction: column;
+    height: auto;
+  }
+  .second_content{
+    flex-direction: column-reverse;
+  }
+
+  .content img {
+    width: 100%;
+    height: auto;
+  }
+
+  .side {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    height: 180px;
+  }
+
+  .navWrap {
+    padding: 0 20px;
+  }
+
+  #PM {
+    font-size: 20px;
+  }
+
+  #login {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+
+  .login_wrap {
+    width: 80%;
+    min-width: 300px;
+  }
+
+  .footer_wrap {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  
+} 
+
