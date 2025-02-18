@@ -13,8 +13,9 @@ function togglePassword(inputId, icon) {
 document.addEventListener("DOMContentLoaded", function () {
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
-    const confirmPasswordInput = document.getElementById("confirm-password");
-    const signupBtn = document.querySelector(".signup-btn");
+    const loginBtn = document.querySelector(".login-btn");
+ 
+    // ✅ Custom Alert Elements
     const alertContainer = document.getElementById("alert-container");
     const alertClose = document.getElementById("alert-close");
 
@@ -27,31 +28,24 @@ document.addEventListener("DOMContentLoaded", function () {
         { email: 'codeit6@codeit.com', password: "codeit606!" },
     ];
 
-    function isEmailExists(email) {
-        return USER_DATA.some(user => user.email === email);
-    }
 
-    function showCustomAlert(imageSrc) {
-        const alertImage = document.getElementById("alert-image");
-        alertImage.src = imageSrc;  
-        alertContainer.style.display = "flex";  
-    }
-
+    
     function validateEmail() {
         const emailValue = emailInput.value.trim();
         const emailWrapper = emailInput.closest(".input-wrapper");
         let errorMessage = emailWrapper.querySelector(".error-message");
-
+    
         if (!errorMessage) {
             errorMessage = document.createElement("p");
             errorMessage.classList.add("error-message");
             emailWrapper.appendChild(errorMessage);
         }
-
+    
+        // ✅ 더 엄격한 이메일 정규식 (실제 사용되는 TLD 필터링 추가)
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|net|org|co\.kr|ac\.kr|edu|gov|mil|info|biz|io|ai|gg|tv|me|us|uk|jp|kr)$/;
-
+    
         if (emailValue === "") {
-            emailWrapper.classList.add("error");
+            emailWrapper.classList.add("error"); // 테두리 빨간색으로 변경
             errorMessage.textContent = "이메일을 입력해주세요.";
             return false;
         } else if (!emailRegex.test(emailValue)) {
@@ -64,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return true;
         }
     }
+    
 
     function validatePassword() {
         const passwordValue = passwordInput.value.trim();
@@ -91,83 +86,62 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function validateConfirmPassword() {
-        const confirmPasswordValue = confirmPasswordInput.value.trim(); 
-        const confirmPasswordWrapper = confirmPasswordInput.closest(".password-wrapper"); // 올바르게 가져오기
-        let errorMessage = confirmPasswordWrapper.nextElementSibling; // 기존 에러 메시지 가져오기
-    
-        // 에러 메시지가 없으면 새로 생성하여 password-wrapper 아래에 추가
-        if (!errorMessage || !errorMessage.classList.contains("error-message")) {
-            errorMessage = document.createElement("p");
-            errorMessage.classList.add("error-message");
-            confirmPasswordWrapper.parentNode.insertBefore(errorMessage, confirmPasswordWrapper.nextSibling);
-        }
-    
-        if (confirmPasswordValue === "") {
-            confirmPasswordWrapper.classList.add("error"); // 빨간 테두리 추가
-            errorMessage.textContent = "비밀번호를 다시 입력해주세요."; 
-            return false;
-        } else if (confirmPasswordValue !== passwordInput.value.trim()) {
-            confirmPasswordWrapper.classList.add("error"); // 빨간 테두리 유지
-            errorMessage.textContent = "비밀번호가 일치하지 않습니다."; 
-            return false;
-        } else {
-            confirmPasswordWrapper.classList.remove("error"); // 빨간 테두리 제거
-            errorMessage.remove(); // 에러 메시지 제거
-            return true;
-        }
-    }
-    
 
     function checkFormValidity() {
         const isEmailValid = validateEmail();
         const isPasswordValid = validatePassword();
-        const isConfirmPasswordValid = validateConfirmPassword();
 
-        if (isEmailValid && isPasswordValid && isConfirmPasswordValid) {
-            signupBtn.disabled = false;
-            signupBtn.classList.add("active");
+        if (isEmailValid && isPasswordValid) {
+            loginBtn.disabled = false;
+            loginBtn.classList.add("active");
         } else {
-            signupBtn.disabled = true;
-            signupBtn.classList.remove("active");
+            loginBtn.disabled = true;
+            loginBtn.classList.remove("active");
         }
     }
 
-    signupBtn.addEventListener("click", function (event) {
-        event.preventDefault();
+    // 팝업
+    function showAlert() {
+        alertContainer.style.display = "flex";
+    }
+
+    function authenticateUser(email, password) {
+        const user = USER_DATA.find(user => user.email === email);
+
+        if (!user || user.password !== password) {
+            showAlert();  // 실패 시 이미지 기반 alert 표시
+            return false;
+        } else {
+            setTimeout(() => {
+                window.location.href = "/items"; // 로그인 성공 시 이동
+            }, 2000);
+            return true;
+        }
+    }
+
+
+
+    loginBtn.addEventListener("click", function (event) {
+        event.preventDefault(); // 폼 제출 방지
 
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
-        const confirmPassword = confirmPasswordInput.value.trim();
 
-        if (isEmailExists(email)) {
-            showCustomAlert("img/alert/alert_e.png"); 
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            showCustomAlert("img/alert/alert_pw.png"); 
-            return;
-        }
-
-        USER_DATA.push({ email: email, password: password });
-
-
-        setTimeout(() => {
-            window.location.href = "login.html"; 
-        }, 2000);
+        if (authenticateUser(email, password)) {
+            window.location.href = "/items"; // 로그인 성공 시 이동
+        } 
     });
 
     emailInput.addEventListener("focusout", validateEmail);
     passwordInput.addEventListener("focusout", validatePassword);
-    confirmPasswordInput.addEventListener("focusout", validateConfirmPassword);
-
     emailInput.addEventListener("input", checkFormValidity);
     passwordInput.addEventListener("input", checkFormValidity);
-    confirmPasswordInput.addEventListener("input", checkFormValidity);
 
-    signupBtn.disabled = true;
-
+    // 초기 상태에서 버튼 비활성화
+    loginBtn.disabled = true;
+    
+    
+    // 확인 버튼을 누르면 alert 창 닫기
     alertClose.addEventListener("click", function () {
         alertContainer.style.display = "none";
     });
