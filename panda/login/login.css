@@ -1,0 +1,318 @@
+@import "/reset.css";
+@font-face {
+  font-family: "ROKAFSans";
+  src: url("/font/ROKAF_Sans_Bold.ttf") format("Woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --href-txt-focus-input-color: #3692FF;
+  --basic-txt-color: #1F2937;
+  --login-txt-input-box-bg-color: #F3F4F6;
+  --placeholder-btn-bg-color: #9CA3AF;
+  --bottom-box-bg-color: #E6F2FF;
+  --error-color: #F74747;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  width: 100%;
+}
+
+.header {
+  width: 24.75rem;
+  height: 8.25rem;
+  margin: 14.4375rem auto auto;
+  padding: 0.8113rem 0 0.9463rem;
+}
+
+.logo-btn {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-txt {
+  color: var(--href-txt-focus-input-color);
+  font-family: ROKAFSans;
+  font-weight: 700;
+  font-size: 4.1463rem;
+  line-height: 5.5975rem;
+}
+
+#input-form {
+  width: 40rem;
+  margin: 2.5rem auto auto;
+}
+
+.index {
+  color: var(--basic-txt-color);
+  font-family: Pretendard;
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+}
+
+form div {
+  position: relative;
+}
+
+.input-box {
+  background-color: var(--login-txt-input-box-bg-color);
+  width: 40rem;
+  height: 3.5rem;
+  border: 0.0938rem solid transparent;
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  margin: 1rem auto 0rem;
+  outline: none;
+}
+
+.input-box.focus-in {
+  border-color: var(--href-txt-focus-input-color);
+}
+
+.input-box.focus-out {
+  border-color : var(--error-color);
+}
+
+.error-msg {
+  color: var(--error-color);
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.1187rem;
+  letter-spacing: 0;
+  margin: 0.5rem auto 1.5rem 1rem;
+}
+
+.eye-icon {
+  position: absolute;
+  width: 1.2794rem;
+  height: 1.1294rem;
+  top: 2.2181rem;
+  bottom: 2.6525rem;
+  right: 1.6087rem;
+}
+
+.eye-icon.off {
+  visibility: hidden;
+}
+
+::placeholder {
+  color: var(--placeholder-btn-bg-color);
+}
+
+.btn {
+  background-color: var(--placeholder-btn-bg-color);
+  color: var(--login-txt-input-box-bg-color);
+  width: 40rem;
+  height: 3.5rem;
+  border-radius: 2.5rem;
+  border: none;
+  padding: 1rem 7.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  margin: auto;
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  text-align: center;
+}
+
+.btn-able {
+  background-color: var(--href-txt-focus-input-color);
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7)
+}
+
+.modal-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 33.75rem;
+  height: 15.625rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.1931rem;
+  text-align: center;
+  padding: 6.75rem 0 7.6875rem;
+}
+
+.modal-popup button {
+  width: 7.5rem;
+  height: 3rem;
+  margin: 2.9375rem 1.75rem 1.75rem 24.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--href-txt-focus-input-color);
+  color: var(--login-txt-input-box-bg-color);
+  padding: 0.75rem 1.4375rem;
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.1931rem;
+  cursor: pointer;
+}
+
+.bottom-box {
+  background-color: var(--bottom-box-bg-color);
+  width: 40rem;
+  height: 4.625rem;
+  border-radius: 0.5rem;
+  padding: 1rem 1.4375rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 1.5rem auto;
+}
+
+.bottom-txt {
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: var(--basic-txt-color);
+}
+
+.icon {
+  display: flex;
+  gap: 1rem;
+}
+
+.google-btn {
+  background-color: white;
+  width: 2.625rem;
+  height: 2.625rem;
+  border-radius: 100%;
+  padding: 0.625rem;
+}
+
+.kakao-btn {
+  background-color: #F5E14B;
+  width: 2.625rem;
+  height: 2.625rem;
+  border-radius: 100%;
+  padding: 0.625rem 0.5rem 0.5rem 0.5rem;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  width: 13.125rem;
+  height: 1.125rem;
+  margin: auto auto 20%;
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 1.1187rem;
+}
+
+.footer-txt {
+  color: var(--basic-txt-color);
+}
+
+.footer-link {
+  text-decoration: underline solid;
+  color: var(--href-txt-focus-input-color);
+}
+
+/* Mobile */
+@media (max-width: 743px) {
+  .header {
+    width: 198px;
+    height: 66px;
+    margin-top: 24px;
+  }
+
+  .logo-btn {
+    justify-self: center;
+    align-items: center;
+    padding: auto;
+    gap: 11.12px;
+  }
+
+  .logo-btn img {
+    width: 51.76px;
+    height: 51.94px;
+  }
+
+  .logo-btn h1 {
+    font-size: 33.17px;
+    line-height: 44.78px;
+  }
+
+  #input-form {
+    width: 100%;
+    padding: 0 16px;
+    margin-top: 24px;
+  }
+
+  .index {
+    font-size: 14px;
+    line-height: 16.71px;
+  }
+
+  .input-box {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .error-msg {
+    margin-bottom: 16px;
+  }
+
+  .eye-icon {
+    top: 27.49px
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .modal-popup {
+    width: 327px;
+    height: 220px;
+    padding: 81px 0 0;
+  }
+
+  .modal-popup button {
+    margin: 49px 103.5px 23px;
+  }
+
+  .bottom-container {
+    padding: 0 16px;
+  }
+
+  .bottom-box {
+    width: 100%;
+  }
+}

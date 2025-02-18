@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css"/>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
+    <link rel="icon" href="/image/ic_panda_favicon.png">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7HEY5PGKZV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7HEY5PGKZV');
+    </script>
+    <title>판다마켓 - 로그인</title>
+  </head>
+  <body>
+    <header class="header">
+      <a href="/index.html" class="logo-btn">
+        <img src="/image/ic_big_panda_logo.svg">
+        <h1 class="logo-txt">
+          판다마켓
+        </h1>
+      </a>
+    </header>
+    <form id="input-form">
+      <label class="index" for="email">이메일</label>
+      <input class="input-box" id="email" name="email" type="email" placeholder="이메일을 입력해주세요"> 
+      <div class="error-msg"></div>
+      <label class="index" for="password">비밀번호</label>
+      <div>
+        <input class="input-box" id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요">
+        <img class="eye-icon" src="/image/ic_eye_on.svg">
+        <img class="eye-icon" src="/image/ic_eye_off.svg">
+      </div>
+      <div class="error-msg"></div>
+      <button class="btn" disabled>
+      로그인
+      </button>
+    </form>
+    <div class="modal">
+      <div class="modal-popup">
+        <p>비밀번호가 일치하지 않습니다.</p>
+        <button type="button">확인</button>
+      </div>
+    </div>
+    <nav class="bottom-container">
+      <div class="bottom-box">
+        <p class="bottom-txt">
+          간편 로그인하기
+        </p>
+        <div class="icon">
+          <a href="https://www.google.com/">
+            <div class="google-btn">
+              <img src="/image/ic_google.svg">
+            </div>
+          </a>
+          <a href="https://www.kakaocorp.com/page/">
+            <div class="kakao-btn">
+              <img src="/image/ic_kakao.svg">
+            </div>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <footer class="footer">
+      <p class="footer-txt">
+        판다마켓이 처음이신가요?
+      </p>
+      <a href="/panda/signup/signup.html" class="footer-link">
+        회원가입
+      </a>
+    </footer>
+    <script src="/module.js"></script>
+    <script src="login.js"></script>
+  </body>
+</html>

@@ -2,10 +2,19 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og.title" content="판다마켓">
+    <meta property="og.description" content="일상에서 모든 물건을 거래해보세요">
+    <meta property="og.image" content="/image/img_preview.png">
+    <meta property="og.url" content="https://been-panda.netlify.app">
+    <meta property="twitter:title" content="판다마켓">
+    <meta property="twitter:description" content="일상에서 모든 물건을 거래해보세요">
+    <meta property="twitter:image" content="/image/img_preview.png">
+    <meta property="twitter:card" content="summary">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css"/>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
-    <link rel="icon" href="image/판다마켓 Favicon.png">
+    <link rel="icon" href="image/ic_panda_favicon.png">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7HEY5PGKZV"></script>
     <script>
@@ -19,95 +28,87 @@
   </head>
   <body>
     <header class="header">
-      <div style="display: flex; background-color: white; width: 100%; justify-content: center;">
-        <div class="headericon">
-          <a href="index.html" class="icon logobtn">
-            <img src="image/판다마켓 사각형 로고.svg">
-            <h1 style="margin: 0.61rem 0.0881rem 0.39rem 0.5369rem; width: 6.4375rem; font-family: ROKAFSans; font-weight: 700; font-size: 1.6019rem; line-height: 2.1625rem;">판다마켓</h1>
-          </a>
-          <a href="login.html" class="icon loginbtn">
+      <div class="header-bar">
+        <a href="index.html" class="icon logo-btn">
+          <img src="image/ic_small_panda_logo.svg">
+          <h1>판다마켓</h1>
+        </a>
+        <div>
+          <a href="panda/login/login.html" class="icon login-btn">
             로그인
           </a>
         </div>
       </div>
     </header>
     <section class="start">
-      <div class="startimg">
-        <div style="margin: 2.5rem 0.4375rem 2.5rem auto; display: flex; flex-direction: column; grid-column: 2;">
-          <h1 style="margin: 0 3.875rem 2rem 0;" class="bannertext">일상의 모든 물건을<br>거래해 보세요</h1>
-            <a href="items.html" style="font-family: pretendard; font-weight: 600; font-size: 1.25rem; line-height: 2rem; text-align: center;" class="icon itemsbtn">
-              구경하러 가기
-            </a>
+      <div class="start-img">
+        <div>
+          <h1 class="banner-text">일상의 모든 물건을<span> 거래해 보세요</span></h1>
+          <a href="panda/items/items.html" class="icon items-btn">
+            구경하러 가기
+          </a>
         </div>
-        <div style="grid-column: 3">
-          <img src="image/Img_home_top.png">
+        <div class="img-top">
+          <img src="image/img_home_top.png" id="imgTop">
         </div>
       </div>
     </section>
-    <article>
-      <div class="box">
-        <div style="background-color: #FCFCFC; display: flex; width: 61.75rem;">
-          <div style="margin: 0 0 0 1.9375rem;">
-            <img src="image\Img_home_01.png">
+    <article class="container">
+      <div class="boxes">
+        <div class="box">
+          <div class="img-first-box">
+            <img src="image\img_home_01.png" id="imgFirstBox">
           </div>
-          <div style="text-align: start; margin: 6.4375rem 1.9375rem 6.4375rem 4rem;">
-            <p class="maintext1">Hot item</p>
-            <h1 class="maintext2">인기 상품을<br>확인해 보세요</h1>
-            <p class="maintext3">가장 HOT한 중고거래 물품을<br>판다 마켓에서 확인해 보세요</p>
-          </div>
-        </div>
-      </div>
-      <div class="middlebox">
-        <div style="background-color: #FCFCFC; display: flex; width: 61.75rem;">
-          <div style="width: 19.8125rem; text-align: end; margin: 6.4375rem 4rem 6.4375rem 0.5938rem">
-            <p class="maintext1">Search</p>
-            <h1 class="maintext2">구매를 원하는<br>상품을 검색하세요</h1>
-            <p class="maintext3">구매하고 싶은 물품은 검색해서<br>쉽게 찾아보세요</p>
-          </div>
-          <div style="margin: 0 0.5938rem 0 0">
-            <img src="image\Img_home_02.png">
+          <div class="txt-first-box">
+            <p class="main-text1">Hot item</p>
+            <h1 class="main-text2">인기 상품을<span> 확인해 보세요</span></h1>
+            <p class="main-text3">가장 HOT한 중고거래 물품을<br>판다 마켓에서 확인해 보세요</p>
           </div>
         </div>
-      </div>
-      <div class="box">
-        <div style="background-color: #FCFCFC; display: flex; width: 61.75rem;">
-          <div style="margin: 0 0 0 0.0313rem">
-            <img src="image\Img_home_03.png">
+        <div class="middle-box">
+          <div class="img-second-box">
+            <img src="image\img_home_02.png" id="imgSecondBox">
           </div>
-          <div style="text-align: start; margin: 6.4375rem 0.0313rem 6.4375rem 4rem;">
-            <p class="maintext1">Register</p>
-            <h1 class="maintext2">판매를 원하는<br>상품을 등록하세요</h1>
-            <p class="maintext3">어떤 물건이든 판매하고 싶은 상품을<br>쉽게 등록하세요</p>
+          <div class="txt-second-box">
+            <p class="main-text1">Search</p>
+            <h1 class="main-text2">구매를 원하는<span> 상품을 검색하세요</span></h1>
+            <p class="main-text3">구매하고 싶은 물품은 검색해서<br>쉽게 찾아보세요</p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-third-box">
+            <img src="image\img_home_03.png" id="imgThirdBox">
+          </div>
+          <div class="txt-third-box">
+            <p class="main-text1">Register</p>
+            <h1 class="main-text2">판매를 원하는<span> 상품을 등록하세요</span></h1>
+            <p class="main-text3">어떤 물건이든 판매하고 싶은 상품을<br>쉽게 등록하세요</p>
           </div>
         </div>
       </div>
     </article>
     <section class="end">
-      <div class="endimg">
-        <div style="margin: auto auto auto 0; grid-column: 2;">
-          <h1 style="margin: 7.0313rem 4.3125rem 10.7813rem 0;" class="bannertext">믿을 수 있는<br>판다마켓 중고 거래</h1>
+      <div class="end-img">
+        <div>
+          <h1 class="banner-text">믿을 수 있는<br>판다마켓 중고 거래</h1>
         </div>
-        <div style="grid-column: 3;">
-          <img src="image/Img_home_bottom.png">
+        <div class="img-bottom">
+          <img src="image/img_home_bottom.png" id="imgBottom">
         </div>
       </div>
     </section>
     <footer class="footer">
-      <div style="display: flex; background-color: #111827; width: 100%; justify-content: center;">
-        <div class="footerlink">
-          <span class="codeit">
-            ©codeit - 2025
-          </span>
-          <span>
-            <a href="privacy.html" class="link" style="width: 6.25rem; margin:0 1.875rem 0 0">Privacy Policy</a>
-            <a href="faq.html" class="link" style="width: 1.8125rem;">FAQ</a>
-          </span>
-          <span style="margin-right: auto;">
-            <a target="_black" href="https://www.facebook.com" class="icon"><img src="image/ic_facebook.svg"></a>
-            <a target="_black" href="https://www.x.com" class="icon"><img style="margin-left: 0.75rem;" src="image/ic_twitter.svg"></a>
-            <a target="_black" href="https://www.youtube.com" class="icon"><img style="margin-left: 0.75rem;" src="image/ic_youtube.svg"></a>
-            <a target="_black" href="https://www.instagram.com" class="icon"><img style="margin-left: 0.75rem;" src="image/ic_instagram.svg"></a>
-          </span>
+      <div class="footer-bar">
+        <div class="codeit">©codeit - 2025</div>
+        <div class="footer-link">
+          <a href="panda/privacy/privacy.html" class="link">Privacy Policy</a>
+          <a href="panda/faq/faq.html" class="link">FAQ</a>
+        </div>
+        <div class="footer-icon">
+          <a target="_black" href="https://www.facebook.com" class="icon"><img src="image/ic_facebook.svg"></a>
+          <a target="_black" href="https://www.x.com" class="icon"><img src="image/ic_twitter.svg"></a>
+          <a target="_black" href="https://www.youtube.com" class="icon"><img src="image/ic_youtube.svg"></a>
+          <a target="_black" href="https://www.instagram.com" class="icon"><img src="image/ic_instagram.svg"></a>
         </div>
       </div>
     </footer>

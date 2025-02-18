@@ -1,7 +1,7 @@
-@import "./reset.css";
+@import "/reset.css";
 @font-face {
   font-family: "ROKAFSans";
-  src: url("font/ROKAF\ Sans\ Bold.ttf") format("Woff");
+  src: url("/font/ROKAF_Sans_Bold.ttf") format("Woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -10,8 +10,8 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
+span {
+  display: block;
 }
 
 .icon {
@@ -23,84 +23,60 @@ body {
   color: #E5E7EB;
 }
 
-.bannertext {
-  color: #374151;
-  font-family: "Pretendard";
-  font-weight: 700;
-  font-size: 2.5rem;
-  line-height: 3.5rem; 
-}
-
-.maintext1 {
-  color: #3691FF;
-  font-family: "Pretendard";
-  font-weight: 700;
-  font-size: 1.125rem;
-  line-height: 1.625rem;
-  margin-bottom: 0.75rem;
-}
-
-.maintext2 {
-  color: #374151;
-  font-family: "Pretendard";
-  font-weight: 700;
-  font-size: 2.5rem;
-  line-height: 3.5rem;
-  letter-spacing: 0.0625rem;
-  margin-bottom: 1.5rem;
-}
-
-.maintext3 {
-  color: #374151;
-  font-family: "Pretendard";
-  font-weight: 500;
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
 .header {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 4.375rem;
   margin-top: 0;
   position: sticky;
   top: 0;
   z-index: 1;
 }
 
-.headericon {
+.header-bar {
   background-color: white;
-  display: grid;
-  grid-template: 4.375rem / minmax(22.0625rem, 34.5625rem) minmax(20.5rem, 33rem);
+  display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 0 12.5rem;
   height: 4.375rem;
   width: 100%;
   max-width: 120rem;
 }
 
-.logobtn {
+.logo-btn {
   color: #3692FF;
   display: flex;
-  justify-content: start;
+  justify-content: center;
+  align-items: center;
   width: 9.5625rem;
   height: 3.1875rem;
-  margin: 0.5938rem 0rem 0.5938rem auto;
-  align-items: center;
   font-family: "Pretendard";
   font-weight: 700;
   font-size: 1.7188rem;
 }
 
-.loginbtn {
+.logo-btn h1 {
+  margin: 0.61rem 0.0881rem 0.39rem 0.5369rem;
+  width: 6.4375rem;
+  font-family: ROKAFSans;
+  font-weight: 700;
+  font-size: 1.6019rem;
+  line-height: 2.1625rem;
+}
+
+.login-btn {
   background-color: #3692FF;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 8rem;
   height: 3rem;
   padding: 0.75rem 1.4375rem;
   border-radius: 0.5rem;
   text-align: center;
-  margin: 0.6875rem auto 0.6875rem 0;
   font-family: "Pretendard";
   font-weight: 600;
   font-size: 1rem;
@@ -110,88 +86,453 @@ body {
 .start {
   background-color: #CFE5FF;
   height: 33.75rem;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
 }
 
-.itemsbtn {
+.start-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 120rem;
+  height: 21.25rem;
+}
+
+.start-img div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* banner text랑 items btn 글자 내려가는거 수정(반응형으로 되려나) */
+.start .banner-text {
+  color: #374151;
+  margin-bottom: 2rem;
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3.5rem;
+  width: 100%;
+}
+
+.img-top {
+  padding-top: 0.1875rem;
+}
+
+.items-btn {
   background-color: #3692FF;
   color: white;
   border-radius: 2.5rem;
   width: 22.3125rem;
   height: 3.5rem;
   padding: 0.8438rem 7.75rem;
+  margin: 0 0 3.75rem;
+  font-family: pretendard;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  text-align: center;
+  width: 100%;
 }
 
-.startimg {
-  display: grid;
-  grid-template: 21.25rem / 25.3125rem 22.75rem 46.625rem 25.3125rem;
-  justify-content: center;
+.container {
+  display: flex;
   width: 100%;
-  height: 21.25rem;
-  position: absolute;
-  bottom: 0rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-text1 {
+  color: #3691FF;
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  margin-bottom: 0.75rem;
+}
+
+.main-text2 {
+  color: #374151;
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3.5rem;
+  letter-spacing: 0.0625rem;
+  margin-bottom: 1.5rem;
+}
+
+.main-text3 {
+  color: #374151;
+  font-family: "Pretendard";
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .box {
-  display: grid;
-  grid-template: 27.75rem / 36.75rem 25rem;
+  display: flex;
   justify-content: center;
   width: 100%;
   height: 27.75rem;
   margin: 8.625rem 0;
-  position: relative;
+  max-width: 61.75rem;
+  background-color: #FCFCFC;
 }
 
-.middlebox {
-  display: grid;
-  grid-template: 27.75rem / 25rem 36.75rem;
+.middle-box {
+  display: flex;
+  flex-direction: row-reverse;
   justify-content: center;
   width: 100%;
   height: 27.75rem;
   margin: 17.25rem 0;
-  position: relative;
+  max-width: 61.75rem;
+  background-color: #FCFCFC;
+}
+
+.img-first-box {
+  margin: 0 0 0 1.9375rem;
+}
+
+.txt-first-box {
+  text-align: start;
+  margin: 6.4375rem 1.9375rem 6.4375rem 4rem;
+}
+
+.img-second-box {
+  margin: 0 0.5938rem 0 0;
+}
+
+.txt-second-box {
+  text-align: end;
+  margin: 6.4375rem 4rem 6.4375rem 0.5938rem;
+}
+
+.img-third-box {
+  margin: 0 0 0 0.0313rem;
+}
+
+.txt-third-box {
+  text-align: start;
+  margin: 6.4375rem 0.0313rem 6.4375rem 4rem;
 }
 
 .end {
   background-color: #CFE5FF;
   height: 33.75rem;
-  margin-top: 17.25rem;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
 }
 
-.endimg {
-  display: grid;
-  grid-template: 24.8125rem / 25.3125rem 22.75rem 46.625rem 25.3125rem;
+.end-img {
+  display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
+  max-width: 120rem;
   height: 24.8125rem;
-  position: absolute;
-  bottom: 0rem;
+}
+
+.img-bottom {
+  padding-top: 0.1875rem;
+}
+
+.end .banner-text {
+  color: #374151;
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3.5rem;
+  width: 100%;
+  margin: 7.0313rem 4.3125rem 10.7813rem 0;
 }
 
 .footer {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 10rem;
-  margin-top: 0;
-  position: relative;
-
 }
 
-.footerlink {
-  display: grid;
-  grid-template: 1.25rem / 19.5rem 10.4375rem 19.75rem;
+.footer-bar {
+  display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   max-width: 120rem;
-  height: 1.25rem;
-  position: absolute;
-  top: 2rem;
+  height: 10rem;
+  padding: 2rem 12.5rem 6.75rem;
+  background-color: #111827;
+  font-family: Pretendard;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.1931rem;
+  text-align: center;
 }
 
 .codeit {
   color: #9CA3AF;
-  margin-left: auto;
 }
 
+.codeit2 {
+  color: #9CA3AF;
+  display: none;
+}
+
+.footer-link {
+  display: flex;
+  gap: 1.875rem;
+}
+
+.footer-icon {
+  display: flex;
+  gap: 0.8125rem;
+  height: 1.25rem;
+}
+
+/* Tablet */
+@media (max-width: 1199px) {
+  span {
+    display: inline;
+  }
+  
+  #imgTop {
+    width: 100%;
+    height: 100%;
+  }
+
+  #imgFirstBox {
+    width: 100%;
+    height: 32.75rem;
+  }
+
+  #imgSecondBox {
+    width: 100%;
+    height: 32.75rem;
+  }
+
+  #imgThirdBox {
+    width: 100%;
+    height: 32.75rem;
+  }
+
+  #imgBottom {
+    width: 100%;
+    height: 100%;
+  }
+
+  .header-bar {
+    padding: 0 1.5rem;
+  }
+
+  .start {
+    height: 48.1875rem;
+  }
+
+  .start-img {
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .start-img div {
+    margin-top: 4.375rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .start .banner-text {
+    margin-bottom: 1.5rem;
+  }
+
+  .items-btn {
+    width: 22.3125rem;
+  }
+
+  .start-img .img-top {
+    margin: 0;
+  }
+
+  .boxes {
+    justify-content: center;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.25rem;
+  }
+
+  .boxes div {
+    margin: 0;
+  }
+
+  .box {
+    gap: 1.5rem;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .middle-box {
+    gap: 1.5rem;
+    align-items: flex-end;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .main-text2 {
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 2.625rem;
+  }
+
+  .main-text3 {
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.625rem;
+  }
+
+  .end {
+    height: 57.9375rem;
+  }
+
+  .end-img {
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .end-img div {
+    margin-top: 12.5625rem;
+  }
+
+  .end .banner-text {
+    text-align: center;
+    margin: 0;
+  }
+
+  .end-img .img-bottom {
+    margin: 0;
+  }
+
+  .footer-bar {
+    padding: 2rem 1.5rem 6.75rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 743px) {
+  #imgFirstBox {
+    width: 100%;
+    height: 100%;
+  }
+
+  #imgSecondBox {
+    width: 100%;
+    height: 100%;
+  }
+
+  #imgThirdBox {
+    width: 100%;
+    height: 100%;
+  }
+
+  .header-bar {
+    padding: 0 1rem;
+  }  
+  
+  .logo-btn {
+    width: auto;
+  }
+
+  .logo-btn h1 {
+    margin: 0
+  }
+
+  .logo-btn img {
+    display: none;
+  }
+
+  .start {
+    height: 33.75rem;
+  }
+
+  .start-img div {
+    margin-top: 3rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .start .banner-text {
+    text-align: center;
+    font-size: 2rem;
+    line-height: 2.8rem;
+    margin-bottom: 1.125rem;
+  }
+
+  .start .banner-text span {
+    display: block;
+  }
+  
+  .items-btn {
+    width: 100%;
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    padding: 0.75rem 4.4375rem;
+    height: 3rem;
+    margin: 0;
+  }
+
+  .boxes {
+    padding: 1rem;
+    gap: 2.5rem;
+  }
+
+  .main-text1 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .main-text2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    letter-spacing: 0.0313rem;
+    margin-bottom: 1rem;
+  }
+
+  .main-text3 {
+    font-size: 1rem;
+  }
+
+  .end {
+    height: 33.75rem;
+  }
+
+  .end-img {
+    height: 100%;
+  }
+
+  .end-img div {
+    margin-top: 7.5625rem;
+  }
+
+  .end .banner-text {
+    text-align: center;
+    font-size: 2rem;
+    line-height: 2.8rem;
+  }
+
+  .footer-bar {
+    position: relative;
+    padding: 2rem 1rem 6.75rem;
+  }
+  
+  .codeit {
+    position: absolute;
+    top: 4.75rem;
+    left: 1rem;
+  }
+}
