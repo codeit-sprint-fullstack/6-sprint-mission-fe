@@ -1,14 +1,21 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
+:root {
+  --primary-color: #3692FF;
+  --secondary-color: #cee3f6;
+  --background-color: #f9fafc;
+}
+
+
 body {
-  background-color: #f9fafc;
+  background-color:  var(--background-color);
   margin: 0;
   font-family: "Pretendard", sans-serif !important;
   font-size: 16px; /* 기본 폰트 크기 */
 }
 
 .wrap {
-
+  height: 100%;
   margin: 0 auto;
 }
 
@@ -38,7 +45,7 @@ body {
 #PM {
   display: flex;
   align-items: center;
-  color: #2e9afe;
+  color: var(--primary-color);
   font-size: 26px;
   font-weight: 700;
   text-decoration: none;
@@ -47,7 +54,7 @@ body {
 
 #login {
   color: #ffffff;
-  background-color: #2e9afe;
+  background-color: var(--primary-color);
   padding: 12px 23px;
   border-radius: 8px;
   text-decoration: none;
@@ -73,7 +80,7 @@ a:hover {
 /* main */
 .banner {
   width: 100%;
-  background-color: #cee3f6;
+  background-color: var(--secondary-color);
 }
 
 .banner_wrap {
@@ -122,7 +129,7 @@ a:hover {
 .banner a {
   position: absolute;
   bottom: 100px;
-  background-color: #2e9afe;
+  background-color: var(--primary-color);
   color: white;
   width: 357px;
   height: 56px;
@@ -179,7 +186,7 @@ a:hover {
   text-align: start;
 }
 
-.side.left {
+.side.second {
   text-align: end;
   padding-left: 0;
   align-items: end;
@@ -187,7 +194,7 @@ a:hover {
 }
 
 .blue {
-  color: #2e9afe;
+  color: var(--primary-color);
   font-weight: bold;
 }
 
@@ -224,7 +231,7 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 }
 
 .login_wrap {
@@ -233,11 +240,15 @@ a:hover {
   flex-direction: column;
   align-items: center;
   height: 620px;
-  width: 640px;
+  width: 40%;
+  min-width: 450px;
+  max-width: 700px;
+  padding-top: 50px;
 }
 
 .login_wrap.signup {
-  height: 842px;
+  height: 847px;
+  padding: 20px 0;
 }
 
 .logo {
@@ -248,7 +259,7 @@ a:hover {
   font-size: 66px !important;
   font-weight: 700 !important;
   gap: 20px;
-  color: #3682ff;
+  color: var(--primary-color);
 }
 
 .login_wrap .stress {
@@ -259,18 +270,51 @@ a:hover {
 }
 
 .login_wrap input {
-  width: 600px;
+  width: 100%;
   height: 56px;
   outline: none;
   background-color: #f3f4f6;
   border: 2px solid #f3f4f6;
   padding: 0 20px;
   border-radius: 8px;
+  box-sizing: border-box; /* ✅ 패딩을 포함한 전체 너비 계산 */
 }
 
-.login_wrap input:focus {
-  border: 2px solid #3682ff;
+.error-message {
+  color: red;
+  text-align: start;
+  width: 100%;
+  margin-top: -20px;
 }
+
+
+/* 패스워드 입력 필드 스타일 */
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; /* 아이콘 공간 확보 */
+}
+
+
+/* 눈 모양 아이콘 스타일 */
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 24px; /* 아이콘 크기 */
+  color: #666; /* 기본 색상 */
+}
+
+.toggle-password:hover {
+  color: #333; /* 마우스 올릴 때 색 변경 */
+}
+
 
 .login_wrap button {
   width: 100%;
@@ -285,7 +329,7 @@ a:hover {
 }
 
 .login_wrap button.active {
-  background-color: #3682ff;
+  background-color:var(--primary-color);
   cursor: pointer;
 }
 
@@ -314,66 +358,219 @@ a:hover {
 
 .crossLink a {
   text-decoration: underline;
-  color: #3682ff;
+  color: var(--primary-color);
 }
 
 
-
-/* Media Query for 1920px and smaller screens */
-@media (max-width: 1920px) {
-
+/*Tablet: 744px to 1199px*/
+@media (min-width: 744px) and (max-width: 1199px) {
 
   .banner_wrap {
-    height: 480px; /* Reduce banner height */
-    padding: 0 30px 0 60px;
+    width: 100%;
+    height: 770px;
+    padding: 0 40px;
+  }
+  .banner {
+    position: static;
+    display: flex;
+    justify-content: center; 
+    
+  }
+  .inner {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+  }
+  .inner .big {
+    text-align: center;
+    justify-content: center;
+    bottom: 180px;
+    top: 80px;
+    height: 100px;
   }
 
   .banner img:not(#bottomImg) {
-    width: 70%;
+    width: 100%;
     height: auto;
+    min-width: 340px;
+    position: absolute;
+    right: auto;
   }
   #bottomImg {
-    width: 70%;
+    width: 100%;
     height: auto;
+    position: absolute;
+    right: auto;
   }
 
   .big {
-    font-size: 2.1rem;
-    line-height: 50px;
+    font-size: 32px;
+    line-height: 46px;
   }
 
   .small {
-    font-size: 1.1rem;
+    font-size: 18px;
     line-height: 28px;
   }
 
   .banner a {
-    width: 300px;
+    width: 280px;
     height: 50px;
-    font-size: 1.2rem;
+    font-size: 20px;
+    top: 180px;
+  }
+  
+  .container_wrap{
+    height: auto;
+    padding: 20px;
+  }
+  
+  .content {
+    flex-direction: column;
+    height: auto;
   }
 
-  .side{
-    height: 30%;
-    width: auto;
-    min-width: 380px;
+  .second_content{
+    flex-direction: column-reverse;
+    height: auto;
   }
 
   .content img {
-    width: 30%; /* Scale content images */
+    width: 100%;
     height: auto;
-    min-width: 380px;
+  }
+
+  .side {
+    width: 80%;
+    text-align: center;
+    padding: 20px;
+    height: 230px;
+  }
+  .side:not(.second) .blue,
+  .side:not(.second) .small,
+  .side:not(.second) .big {
+    text-align: start;
+  }
+
+  .login_wrap {
+    width: 60%;
   }
 
 
-  .login_wrap input {
-    width: 90%; /* Scale input fields */
-    height: 50px;
-    font-size: 0,9px;
-  }
-
-  .login_wrap button {
-    height: 50px; /* Adjust button height */
-    font-size: 0.9rem;
-  }
 }
+
+/* Mobile: 375px to 743px */
+
+@media (max-width: 743px) {
+  .banner_wrap {
+    width: 100%;
+    height: 540px;
+    padding: 0 20px;
+    min-width: 375px;
+  }
+
+  .banner {
+    display: flex;
+    justify-content: center;
+    min-width: 100px;
+  }
+  .inner {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+  }
+  .inner .big {
+    text-align: center;
+    justify-content: center;
+    top: 80px;
+    height: 100px;
+  }
+
+  .side:not(.second) .blue,
+  .side:not(.second) .small,
+  .side:not(.second) .big {
+    text-align: start;
+  }
+
+
+  .banner img:not(#bottomImg) {
+    width: 110%;
+    height: auto;
+    position: absolute;
+    right: auto;
+  }
+  #bottomImg {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    right: auto;
+  }
+
+  .big {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  .small {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .banner a {
+    width: 240px;
+    height: 45px;
+    font-size: 18px;
+    top: 180px;
+  }
+
+  .container_wrap{
+    height: auto;
+    padding: 20px;
+  }
+
+  .content {
+    flex-direction: column;
+    height: auto;
+  }
+  .second_content{
+    flex-direction: column-reverse;
+  }
+
+  .content img {
+    width: 100%;
+    height: auto;
+  }
+
+  .side {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    height: 180px;
+  }
+
+  .navWrap {
+    padding: 0 20px;
+  }
+
+  #PM {
+    font-size: 20px;
+  }
+
+  #login {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+
+  .login_wrap {
+    width: 80%;
+    min-width: 300px;
+  }
+
+  .footer_wrap {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  
+} 
+

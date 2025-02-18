@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>signup</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
   <div class="wrap">
@@ -16,13 +17,29 @@
         </div>
 
         <div class="stress">이메일</div>
-        <input class="userEmail" type="email" placeholder="이메일을 입력해주세요">
+        <input id="email" type="email" placeholder="이메일을 입력해주세요">
+        <p id="email-error" class="error-message"></p>
+        
         <div class="stress">닉네임</div>
-        <input class="userName" type="text" placeholder="닉네임을 입력해주세요">
+        <input id="userName" type="text" placeholder="닉네임을 입력해주세요">
+        
         <div class="stress">비밀번호</div>
-        <input class="userPW" type="password" placeholder="비밀번호를 입력해주세요">
+        <div class="password-container">
+          <input id="password" type="password" placeholder="비밀번호를 입력해주세요">
+          <span class="toggle-password material-symbols-outlined">
+            visibility_off
+          </span>
+        </div>
+        <p id="PW-error" class="error-message"></p>
+
         <div class="stress">비밀번호 확인</div>
-        <input class="checkPW" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요">
+        <div class="password-container">
+          <input id="checkPW" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요">
+          <span class="toggle-password material-symbols-outlined">
+            visibility_off
+          </span>
+        </div>
+        <p id="PW-validate-error" class="error-message"></p>
         
         <button disabled type="submit">회원가입</button>
 
@@ -40,7 +57,7 @@
           판다마켓이 처음이신가요? <a href="login.html">로그인</a>
         </div>
 
-        <script src="signup.js"></script>
+        <script type="module" src="signup.js"></script>
       </div>
     </div>
   </div>
