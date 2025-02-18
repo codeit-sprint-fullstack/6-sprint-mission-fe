@@ -7,16 +7,22 @@ const USER_DATA = [
   { email: 'codeit6@codeit.com', password: "codeit606!" },
 ];
 
+// codeit1@codeit.com vcodeit101!
 const emailField= document.querySelector("#email");
 const emailError = emailField.nextElementSibling;
+const nicknameField = document.querySelector("#nickname");
+const nicknameError = nicknameField.nextElementSibling;
 const passwordToggles = document.querySelectorAll(".auth__form-password-toggle");
 const passwordField = document.querySelector("#password");
+const passwordConfirmField = document.querySelector("#password-confirmation");
 const passwordPrimaryContainer = document.querySelector(".auth__form-password-primary");
+const passwordConfirmContainer = document.querySelector(".auth__form-password-confirm");
 const passwordError = passwordPrimaryContainer.nextElementSibling; 
+const passwordConfirmError = passwordConfirmContainer.nextElementSibling;
 const submitButton = document.querySelector(".auth__button");
 const form = document.querySelector(".auth__form");
 
-// handling password visibility - same as in signup.js
+// handling password visibility 
 passwordToggles.forEach(toggle => {
   toggle.addEventListener("click", () => {
     const userInput = toggle.previousElementSibling;
@@ -35,21 +41,44 @@ passwordToggles.forEach(toggle => {
   });
 });
 
+// input field validity
 //check email and password validity 
 function isValidEmail(email) {
   const emailPattern =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailPattern.test(email);
 }
 
+// check nickname validity
+function isValidNickname(nickname) {
+  return nickname.length >= 1;
+}
+
 function isValidPassword(password) {
   return password.length >= 8;
 }
 
-// check form validity
+// check password confirm validity
+function isValidPasswordConfirm(password) {
+  const userPassword = passwordField.value.trim();
+  const userPasswordConfirm = password;
+  return userPasswordConfirm === userPassword;
+}
+
+// check form validity - update needed
 function isValidForm() {
   const userEmail = emailField.value.trim();
   const userPassword = passwordField.value.trim();
-  return userEmail && userPassword && !emailError.textContent && !passwordError.textContent;
+  const userPasswordConfirm = passwordConfirmField.value.trim();
+  const userNickname = nicknameField.value.trim();
+  
+  return userEmail && 
+  userNickname && // add nickname
+  userPassword && 
+  userPasswordConfirm &&  // Add password confirmation check
+  !emailError.textContent && 
+  !nicknameError.textContent &&
+  !passwordError.textContent && 
+  !passwordConfirmError.textContent;  // Add confirmation error check
 }
 
 // check form validity and update button status
@@ -62,7 +91,7 @@ document.querySelectorAll("input").forEach(input => {
   input.addEventListener("input", updateButtonState);
 });
 
-// handling emailField 
+// handling emailField - show error message
 emailField.addEventListener("focusout", () => {
   const userEmail = emailField.value.trim();
   if (!userEmail) {
@@ -77,7 +106,19 @@ emailField.addEventListener("focusout", () => {
     updateButtonState();
   });
 
-// handling password input
+// handling nicknameField - show error message 
+nicknameField.addEventListener("focusout", () => {
+  const userNickname = nicknameField.value.trim();
+  if (!isValidNickname(userNickname)) {
+    nicknameError.textContent = "닉네임을 입력해주세요.";
+  } else {
+    nicknameError.textContent = "";
+  }
+  nicknameError.classList.toggle("auth__error--active", !!nicknameError.textContent);
+  nicknameField.classList.toggle("auth__form-input--error", !!nicknameError.textContent);
+});
+
+// handling passwordField - show error message
 passwordField.addEventListener("focusout", () => {
   const userPassword = passwordField.value.trim();
   if (!userPassword) {
@@ -91,8 +132,20 @@ passwordField.addEventListener("focusout", () => {
   passwordPrimaryContainer.classList.toggle("auth__form-password-primary--error", !!passwordError.textContent);
   updateButtonState();
 });
+// **handling passwordConfirmField - show error message
+passwordConfirmField.addEventListener("focusout", () => {
+  const userPasswordConfirm = passwordConfirmField.value.trim();
+  if (!isValidPasswordConfirm(userPasswordConfirm)) {
+    passwordConfirmError.textContent = "비밀번호가 일치하지 않습니다.";
+  } else {
+    passwordConfirmError.textContent = "";
+  }
+  passwordConfirmError.classList.toggle("auth__error--active", !!passwordConfirmError.textContent);
+  passwordConfirmContainer.classList.toggle("auth__form-password-confirm--error", !!passwordConfirmError.textContent);
+});
 
-// reset email and password field error message after new input detected
+// reset input fields error messages
+// reset email error
 emailField.addEventListener("input", () => {
   emailError.textContent = "";
   emailError.classList.remove("auth__error--active");
@@ -100,10 +153,26 @@ emailField.addEventListener("input", () => {
   updateButtonState();
 });
 
+// reset nickname error
+nicknameField.addEventListener("input", () => {
+  nicknameError.textContent = "";
+  nicknameError.classList.remove("auth__error--active");
+  nicknameField.classList.remove("auth__form-input--error");
+  updateButtonState();
+});
+// reset pw error
 passwordField.addEventListener("input", () => {
   passwordError.textContent = "";
   passwordError.classList.remove("auth__error--active");
   passwordPrimaryContainer.classList.remove("auth__form-password-primary--error");
+  updateButtonState();
+});
+
+// reset password confirm field error 
+passwordConfirmField.addEventListener("input", () => {
+  passwordConfirmError.textContent = "";
+  passwordConfirmError.classList.remove("auth__error--active");
+  passwordConfirmContainer.classList.remove("auth__form-password-confirm--error");
   updateButtonState();
 });
 
@@ -135,26 +204,40 @@ modal.addEventListener('click', (event) => {
   }
 });
 
+// check email in db
+function isEmailExists(email) {
+  return USER_DATA.some(user => user.email === email);
+}
 
-// form submission handler
-function handleLoginSubmit(event) {
+// modal related functions 
+function showModal(message) {
+  modalMessage.textContent = message;
+  modal.classList.add('modal--visible');
+}
+
+function hideModal() {
+  modal.classList.remove('modal--visible');
+}
+
+// Modal button click handler
+modalButton.addEventListener('click', () => {
+  hideModal();
+});
+
+function handleSignupSubmit(event) {
   event.preventDefault();
   const userEmail = emailField.value.trim();
-  const userPassword = passwordField.value.trim();
-  const user = USER_DATA.find(user => user.email === userEmail);
-  
-  if (!user) {
-    showModal("비밀번호가 일치하지 않습니다.");
+  // Check if email already exists
+  if (isEmailExists(userEmail)) {
+    showModal('사용 중인 이메일입니다.');
     return;
   }
-  
-  if (user.password !== userPassword) {
-    showModal("비밀번호가 일치하지 않습니다.");
-    return;
-  }
-  window.location.href = "/items.html";
+
+  // sign up successful, redirect to login page
+  window.location.href = '/login.html';
 }
-//  add form submit event listener
-form.addEventListener('submit', handleLoginSubmit);
+
+// add form submit event listener
+form.addEventListener('submit', handleSignupSubmit);
 
 updateButtonState();

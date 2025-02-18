@@ -10,42 +10,62 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/auth.css">
   <link rel="icon" type="image/png" href="assets/img/icons/favicon.png">
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <script src="assets/js/auth.js" defer></script>
-  <title>로그인</title>
+  
+  <title>판다마켓 - 로그인</title>
 </head>
 <body>
   <main class="auth">
-    <div class="auth__logo-title">
-      <a href="/"><img class="auth__logo" src="assets/img/icons/big-logo.png"></a>
+    <a href="/" class="auth__logo-title">
+      <img class="auth__logo" src="assets/img/icons/big-logo.png">
       <div class="auth__title">
         <p class="auth__title-text">판다마켓</p>
       </div>
-    </div>
+    </a>
     <div class="auth__body">
-      <form class="auth__form">
+      <form class="auth__form" method="get" action="/items.html">
         <div class="auth__form-group">
           <label class="auth__form-label" for="email">이메일</label>
           <input class="auth__form-input" id="email" name="email" type="email" placeholder="이메일을 입력해주세요">
+          <div class="auth__error"></div>
         </div>
         <div class="auth__form-group">
           <label class="auth__form-label" for="password">비밀번호</label>
-          <div class="auth__form-password-container">
+          <div class="auth__form-password-primary">
             <input class="auth__form-password-input" id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요">
             <button type="button" class="auth__form-password-toggle" aria-label="비밀번호 표시">
-              <img src="assets/img/icons/visibility-btn.png" alt="비밀번호 표시/숨기기" class="auth__form-password-toggle-icon">
+              <img src="assets/img/icons/eye-invisible.svg" alt="비밀번호 표시 아이콘">
             </button>
           </div>
+          <div class="auth__error"></div>
         </div>
         <button class="auth__button">로그인</button>
       </form>
       <div class="auth__social">
         <p class="auth__social-text">간편 로그인하기</p>
         <div class="auth__social-links">
-          <a class="auth__social-link" href="https://www.google.com/"><img class="auth__social-logo" src="assets/img/icons/google-logo.png"></a>
-          <a class="auth__social-link" href="https://www.kakaocorp.com/page"><img class="auth__social-logo" src="assets/img/icons/kakaotalk-logo.png"></a>
+          <a
+            class="auth__social-link"
+            href="https://www.google.com/"
+            aria-label="구글 로그인">
+              <img
+                class="auth__social-logo"
+                src="assets/img/icons/google-logo.png"
+                alt="구글 로그인">
+          </a>
+          <a
+            class="auth__social-link"
+            href="https://www.kakaocorp.com/page"
+            aria-label="카카오톡 로그인">
+              <img class="auth__social-logo"
+              src="assets/img/icons/kakao-logo.png"
+              alt="카카오톡 로그인"
+              >
+          </a>
         </div>
       </div>
       <div class="auth__member">
@@ -54,4 +74,10 @@
       </div>
     </div>
   </main>
+  <div id="modal" class="modal">
+    <div class="modal__content">
+      <p class="modal__message"></p>
+      <button class="modal__button">확인</button>
+    </div>
+  </div>
 </body>
