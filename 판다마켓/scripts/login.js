@@ -1,22 +1,4 @@
-// 유저 데이터
-const USER_DATA = [
-  { email: "codeit1@codeit.com", password: "codeit101!" },
-  { email: "codeit2@codeit.com", password: "codeit202!" },
-  { email: "codeit3@codeit.com", password: "codeit303!" },
-  { email: "codeit4@codeit.com", password: "codeit404!" },
-  { email: "codeit5@codeit.com", password: "codeit505!" },
-  { email: "codeit6@codeit.com", password: "codeit606!" },
-];
-
-// 모달 함수
-function showModal(message) {
-  document.getElementById("modalMessage").textContent = message;
-  document.getElementById("modal").style.display = "flex";
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
+import { showModal, USER_DATA } from "./common.js";
 
 // 로그인 버튼 활성화용 객체.
 let loginSubmitObject = { email: false, password: false };
@@ -24,15 +6,20 @@ let loginSubmitObject = { email: false, password: false };
 // 로그인 페이지 로그인 버튼 활성화 함수
 const submitLoginButton = document.getElementById("loginButton");
 
-function checkPassValidate() {
+const checkPassValidate = () => {
   const loginSubmitArray = Object.values(loginSubmitObject);
   const isAllTrue = (currentValue) => currentValue === true;
 
   if (loginSubmitArray.every(isAllTrue)) {
     submitLoginButton.disabled = false;
-    submitLoginButton.style.backgroundColor = "rgba(54, 146, 255, 1)";
+    submitLoginButton.classList.remove("deactivateloginSignupButton");
+    submitLoginButton.classList.add("activateloginSignupButton");
+  } else {
+    submitLoginButton.disabled = true;
+    submitLoginButton.classList.remove("activateloginSignupButton");
+    submitLoginButton.classList.add("deactivateloginSignupButton");
   }
-}
+};
 
 // 로그인 페이지 로그인 버튼 클릭 제출 함수.
 const submitLoginForm = document.getElementById("inputBoxForm");
@@ -67,19 +54,22 @@ validateEmailInput.addEventListener("blur", function () {
   let emailErrorMessage = document.getElementById("emailErrorMessage");
 
   if (inputValue == "") {
-    validateEmailInput.style.outline = "2px solid rgba(247, 71, 71, 1)";
+    validateEmailInput.classList.remove("inputSuccess");
+    validateEmailInput.classList.add("inputError");
     emailErrorMessage.innerHTML =
-      "<p style='color: red; padding: 10px 20px;'>이메일을 입력해주세요.</p>";
+      "<p class='error-text'>이메일을 입력해주세요.</p>";
     loginSubmitObject.email = false;
     checkPassValidate();
   } else if (emailPattern.test(inputValue) === false) {
-    validateEmailInput.style.outline = "2px solid rgba(247, 71, 71, 1)";
+    validateEmailInput.classList.remove("inputSuccess");
+    validateEmailInput.classList.add("inputError");
     emailErrorMessage.innerHTML =
-      "<p style='color: red; padding: 0 20px;'>잘못된 이메일 형식입니다.</p>";
+      "<p class='error-text'>잘못된 이메일 형식입니다.</p>";
     loginSubmitObject.email = false;
     checkPassValidate();
   } else {
-    validateEmailInput.style.outline = "2px solid rgba(54, 146, 255, 1)";
+    validateEmailInput.classList.remove("inputError");
+    validateEmailInput.classList.add("inputSuccess");
     emailErrorMessage.innerHTML = "<p><p>";
     loginSubmitObject.email = true;
     checkPassValidate();
@@ -95,41 +85,31 @@ validatePasswordInput.addEventListener("blur", function () {
   const passwordErrorMessage = document.getElementById("passwordErrorMessage");
 
   if (passwordInputValue == "") {
-    validatePasswordInput.style.outline = "2px solid rgba(247, 71, 71, 1)";
+    validatePasswordInput.classList.remove("inputSuccess");
+    validatePasswordInput.classList.add("inputError");
     passwordErrorMessage.innerHTML =
-      "<p style='color: red; padding: 10px 20px;'>비밀번호를 입력해주세요.</p>";
+      "<p class='error-text'>비밀번호를 입력해주세요.</p>";
     loginSubmitObject.password = false;
     checkPassValidate();
   } else if (passwordInputValue.length !== validatePasswordInput.value.length) {
-    validatePasswordInput.style.outline = "2px solid rgba(247, 71, 71, 1)";
+    validatePasswordInput.classList.remove("inputSuccess");
+    validatePasswordInput.classList.add("inputError");
     passwordErrorMessage.innerHTML =
-      "<p style='color: red; padding: 10px 20px;'>비밀번호에 공백을 사용할 수 없습니다.</p>";
+      "<p class='error-text'>비밀번호에 공백을 사용할 수 없습니다.</p>";
     loginSubmitObject.password = false;
     checkPassValidate();
   } else if (passwordInputValue.length < 8) {
-    validatePasswordInput.style.outline = "2px solid rgba(247, 71, 71, 1)";
+    validatePasswordInput.classList.remove("inputSuccess");
+    validatePasswordInput.classList.add("inputError");
     passwordErrorMessage.innerHTML =
-      "<p style='color: red; padding: 10px 20px;'>비밀번호를 8자 이상 입력해주세요.</p>";
+      "<p class='error-text'>비밀번호를 8자 이상 입력해주세요.</p>";
     loginSubmitObject.password = false;
     checkPassValidate();
   } else {
-    validatePasswordInput.style.outline = "2px solid rgba(54, 146, 255, 1)";
+    validatePasswordInput.classList.remove("inputError");
+    validatePasswordInput.classList.add("inputSuccess");
     passwordErrorMessage.innerHTML = "<p><p>";
     loginSubmitObject.password = true;
     checkPassValidate();
   }
 });
-
-// 비밀번호 보기 기능.
-const togglePassword = () => {
-  let passwordInput = document.getElementById("password");
-  let togglePasswordIcon = document.getElementById("togglePasswordIcon");
-
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    togglePasswordIcon.src = "../imgs/ic_open_eye.png";
-  } else {
-    passwordInput.type = "password";
-    togglePasswordIcon.src = "../imgs/ic_close_eye.png";
-  }
-};

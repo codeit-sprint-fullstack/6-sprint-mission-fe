@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>판다마켓 로그인</title>
-    <link rel="stylesheet" href="/styles/loginSignupPageStyle.css" />
+    <link rel="stylesheet" href="./styles/loginSignupPageStyle.css" />
     <link
       rel="stylesheet"
       as="style"
@@ -13,8 +13,8 @@
   </head>
 
   <body>
-    <a class="loginSignupTop" href="/index.html">
-      <img src="/imgs/facicon.png" />
+    <a class="loginSignupTop" href="./index.html">
+      <img src="./imgs/facicon.png" />
       <p>판다마켓</p>
     </a>
     <form id="inputBoxForm" class="inputBoxForm">
@@ -30,8 +30,8 @@
           type="password"
           placeholder="비밀번호를 입력해주세요"
         />
-        <span class="togglePassword" onclick="togglePassword()"
-          ><img id="togglePasswordIcon" src="/imgs/ic_close_eye.png"
+        <span class="togglePassword" onclick="togglePassword()">
+          <img id="togglePasswordIcon" src="./imgs/ic_close_eye.png"
         /></span>
         <p id="passwordErrorMessage"></p>
       </div>
@@ -48,25 +48,26 @@
       <p>간편 로그인하기</p>
       <div class="snsLogin">
         <a href="https://www.google.com">
-          <img src="/imgs/ic_google.png" />
+          <img src="./imgs/ic_google.png" />
         </a>
         <a href="https://www.kakaocorp.com/page">
-          <img src="/imgs/ic_kakao.png" />
+          <img src="./imgs/ic_kakao.png" />
         </a>
       </div>
     </div>
     <div class="loginSignupBottomBox">
       <span>판다마켓이 처음이신가요?</span>
-      <a href="/signup.html">회원가입</a>
+      <a href="./signup.html">회원가입</a>
     </div>
 
     <div id="modal" class="modal">
       <div class="modalContent">
         <p id="modalMessage"></p>
-        <button onclick="closeModal()">확인</button>
+        <button id="modalButton">확인</button>
       </div>
     </div>
 
-    <script src="/js/login.js"></script>
+    <script type="module" src="./scripts/common.js"></script>
+    <script type="module" src="./scripts/login.js"></script>
   </body>
 </html>
