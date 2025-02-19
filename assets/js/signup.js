@@ -7,7 +7,6 @@ const USER_DATA = [
   { email: 'codeit6@codeit.com', password: "codeit606!" },
 ];
 
-// codeit1@codeit.com vcodeit101!
 const emailField= document.querySelector("#email");
 const emailError = emailField.nextElementSibling;
 const nicknameField = document.querySelector("#nickname");
