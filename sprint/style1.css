@@ -68,19 +68,18 @@ form button {
   padding: 16px 124px;
   font-size: 20px;
   line-height: 32px;
-  background-color: var(--secondary-color-gray400);
+  background-color: var(--primary-color-100);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #F3F4F6;
-  border: 0;
-  
+  border: 0; 
 }
 
-button:hover {
-  background-color: var(--primary-color-100);
+button:disabled {
+  background-color: var(--secondary-color-gray400);
+  cursor: not-allowed;
 }
-
 
 .easy {
   width: 100%;
@@ -110,4 +109,13 @@ button:hover {
 
 .sign a {
   color: var(--primary-color-100);
+}
+
+.error-message {
+  color: red;
+  display: none;
+}
+
+.error-input {
+  border: 1px solid red;
 }
