@@ -26,11 +26,11 @@ const createProductData = {
   name: "상품 이름",
 };
 const createProduct = async () => {
-  const res = await axios.post(createProductURL, productData);
+  const res = await axios.post(createProductURL, createProductData);
   return res.data;
 };
-const createResponse = await createProduct();
-console.log(createResponse);
+const createProductResponse = await createProduct();
+console.log(createProductResponse);
 
 const deleteProductURL =
   "https://panda-market-api-crud.vercel.app/products/495";
@@ -38,8 +38,8 @@ const deleteProduct = async () => {
   const res = await axios.delete(deleteProductURL);
   return res.data;
 };
-const deleteResponse = await deleteProduct();
-console.log(deleteResponse);
+const deleteProductResponse = await deleteProduct();
+console.log(deleteProductResponse);
 
 const patchProductURL = "https://panda-market-api-crud.vercel.app/products/496";
 const patchProductData = {
@@ -50,8 +50,8 @@ const patchProductData = {
   name: "상품 이름",
 };
 const patchProduct = async () => {
-  const res = await axios.post(patchProductURL, patchProductData);
+  const res = await axios.patch(patchProductURL, patchProductData);
   return res.data;
 };
-const patchResponse = await patchProduct();
-console.log(patchResponse);
+const patchProductResponse = await patchProduct();
+console.log(patchProductResponse);
