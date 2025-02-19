@@ -1,25 +1,20 @@
 // need to add export at the bottom of functions export {func1, func2, etc }
-
+import axios from 'axios';
 // getArticleList(): Use the GET method.
 // Use query parameters `page`, `pageSize`, `keyword`.
-// import axios from axios
 async function getArticleList( params = {}) {
   const url = new URL('https://panda-market-api-crud.vercel.app/articles');
-  Object.keys(params).forEach((key) => {
-      url.searchParams.append(key, params[key]);
+  const instance = axios.create({
+    baseURL: 'https://panda-market-api-crud.vercel.app',
   });
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
-    // console.log(data);
-  } catch (error) {
-    console.error('Failed to fetch requested article list:', error);
-    return null;
-  }
-}
 
-// getArticleList({page: 1});
+  const response = await instance.get(
+    '/articles', 
+    { params }
+  ); // already in JSON
+  return response.data;
+}
+// console.log(await getArticleList({page: 1}));
 // async function getArticle() {
 
 // }
