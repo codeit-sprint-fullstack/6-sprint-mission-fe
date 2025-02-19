@@ -10,8 +10,8 @@
     <div class="login">
 
       <div class="logo">
-        <a href="index.html"><img class="pandaimg" src="img/판다 얼굴big.png"></a> 
-        <a href="index.html"><p class="pandatext">판다마켓</p></a>
+        <a href="/"><img class="pandaimg" src="img/판다 얼굴big.png"></a> 
+        <a href="/"><p class="pandatext">판다마켓</p></a>
       </div>
 
       <div class="cont">
@@ -25,7 +25,7 @@
               <p class="p1">비밀번호</p>
               <div class="password-container">
                 <input type="password" class="inputpass" placeholder="비밀번호를 입력해주세요" required>
-                <img src="img/btn_visibility_on_24px.png" alt="비밀번호 보기" class="toggle-password">
+                <img src="img/btn_visibility_off_24px.png" alt="비밀번호 보기" class="toggle-password">
               </div>
 
             </div>
@@ -52,5 +52,14 @@
       </div>
 
     </div>
+
+    <div id="modal" class="modal" style="display: none;">
+      <div class="modal-content">
+          <p id="modal-message"></p> 
+          <button id="close-modal">확인</button>
+      </div>
+  </div>
+
   </body>
+  <script src="login.js"></script>
 </html>
