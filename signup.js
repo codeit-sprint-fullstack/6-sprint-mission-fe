@@ -3,6 +3,7 @@ const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const checkPasswordInput = document.getElementById('checkpassword');
 const submitBtn = document.getElementById('submitBtn');
+
 const nicknameInput = document.getElementById('nickname');
 
 function updateLoginButton() {
@@ -62,10 +63,10 @@ emailInput.addEventListener('focusout', () => {
     updateLoginButton();
 });
 
-
 //비밀번호 표시 토글
 const togglePasswordBtn = document.getElementById('togglePassword');
 const toggleCheckPasswordBtn = document.getElementById('toggleCheckPassword');
+
 
 function togglePasswordVisibility(input, button) {
     if (input.type === 'password') {
@@ -78,6 +79,7 @@ function togglePasswordVisibility(input, button) {
 }
 
 togglePasswordBtn.addEventListener('click', () => togglePasswordVisibility(passwordInput, togglePasswordBtn));
+
 // signup.html의 비밀번호 확인 input에 대한 토글 버튼이 존재하는 경우에만 이벤트 리스너를 추가 (예외처리)
 if (toggleCheckPasswordBtn) {
     toggleCheckPasswordBtn.addEventListener('click', () => togglePasswordVisibility(checkPasswordInput, toggleCheckPasswordBtn));
