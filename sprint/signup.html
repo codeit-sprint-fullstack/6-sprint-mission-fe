@@ -4,38 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>회원가입</title>
-  <link rel="stylesheet" href="style1.css">
+  <link rel="stylesheet" href="/style1.css">
 </head>
 <body>
   <main class="login_pase">
-    <a href="/"><img class="PandaMarket" src="img/PandaLogo.png"></a>
-    <form>
+    <a href="/"><img class="PandaMarket" src="/img/PandaLogo.png"></a>
+    <form id="signup-form">
       <label for="email">이메일</label>
       <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요" required>
+      <div id="email-empty" class="error-message"></div>
       <label for="nickname">닉네임</label>
       <input id="nickname" name="nickname" placeholder="닉네임을 입력해주세요" required>
+      <div id="nickname-empty" class="error-message"></div>
       <label for="password">비밀번호</label>
       <div class="password_box">
         <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요" required>
-        <img src="img/visibility.png">
+        <img class="password-icon" src="/img/invisibility.png">
       </div>
-      <label for="password">비밀번호 확인</label>
+      <div id="password-empty" class="error-message"></div>
+      <label for="passwordConfirm">비밀번호 확인</label>
       <div class="password_box">
-        <input type="password" id="password" name="password" placeholder="비밀번호를 다시 한 번 입력해주세요" required>
-        <img src="img/visibility.png">
+        <input type="password" id="password-confirm" name="password-confirm" placeholder="비밀번호를 다시 한 번 입력해주세요" required>
+        <img class="password-confirm-icon" src="/img/invisibility.png">
       </div>
-      <button>회원가입</button>
+      <div id="password-confirm-empty" class="error-message"></div>
+      <button id="signup-button" type="submit" disabled>회원가입</button>
     </form>
     <div class="easy">
       간편 로그인하기
       <div>
-        <a href="https://google.com"><img src="img/ic_google.png"></a>
-        <a href="https://kakaocorp.com"><img src="img/ic_kakaotalk.png"></a>
+        <a href="https://google.com"><img src="/img/ic_google.png"></a>
+        <a href="https://kakaocorp.com"><img src="/img/ic_kakaotalk.png"></a>
       </div>
     </div>
     <div class="sign">
-      이미 회원이신가요? <a href="/login">로그인</a>
+      이미 회원이신가요? <a href="/login.html">로그인</a>
     </div>
   </main>
+  <script src="/index.js"></script>
 </body>
 </html>
