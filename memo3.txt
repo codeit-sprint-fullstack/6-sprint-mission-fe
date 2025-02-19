@@ -1,0 +1,9 @@
+1. alert design
+5. 에러박스(빨간글씨) 추가시, 눈그림이 내려감. = 반응형취약
+6. 심화
+
+
+# Questions
+2. //const pwd = pwdInput.value.trim(); 이걸 전역?으로 밖에서 불러오는게 맞는지? 어케해야효울적? =>??email 변수도
+4. validateConfirmPwd???? 설명어디?
+* 파일이름? 위치? 정리가 잘된것은 무엇?
