@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>판다마켓</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="css/signup.css">
 </head>
 <body>
     <main>
@@ -18,7 +18,11 @@
                 <div class="in_email">
                     <a class="text">이메일</a><br>
                     <!-- <div class="input_email"> -->
-                        <input class="input_text" type="email" name="email" placeholder="이메일을 입력해주세요">
+                        <input class="input_text emailinput"
+                                type="email"
+                                name="email"
+                                placeholder="이메일을 입력해주세요">
+                        <span class="emailerror">잘못된 이메일 형식입니다.</span>
                     <!-- </div> -->
                 </div>
             </div>
@@ -31,7 +35,11 @@
             <div class="password">
                 <div class="top_text">
                     <a class="text">비밀번호</a><br>
-                    <input class="input_text" type="password" name="password" placeholder="비밀번호를 입력해주세요">
+                    <input class="input_text passwordinput"
+                            type="password"
+                            name="password"
+                            placeholder="비밀번호를 입력해주세요">
+                    <span class="passworderror">비밀번호를 8자 이상 입력해주세요.</span>
                 </div>
             </div>
             <div class="password_check">
@@ -63,5 +71,6 @@
             </div>
         </div>
     </main>
+    <script src="js/signup.js"></script>
 </body>
 </html>

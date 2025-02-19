@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <title>판다마켓</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="stylesheet" href="login.css">
-    <script src="login.js"></script>
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
     <main>
@@ -19,23 +18,30 @@
                 <div class="in_email">
                     <a class="email_text">이메일</a><br>
                     <!-- <div class="input_email"> -->
-                        <input class="input_text" type="email" name="email" placeholder="이메일을 입력해주세요">
+                        <input class="input_text emailinput"
+                                type="email" name="email"
+                                placeholder="이메일을 입력해주세요">
+                        <span class="emailerror"></span>
                     <!-- </div> -->
                 </div>
             </div>
             <div class="password">
                 <div class="password_all">
                     <a class="password_text">비밀번호</a><br>
-                    <input class="input_text" type="password" name="password" placeholder="비밀번호를 입력해주세요">
+                    <input class="input_text passwordinput"
+                            type="password"
+                            name="password"
+                            placeholder="비밀번호를 입력해주세요">
+                    <span class="passworderror">비밀번호를 8자 이상 입력해주세요.</span>
                 </div>
             </div>
             <div>
                 <div class="login_box">
-                    <a class="login" href="/login" style="text-decoration: none;">로그인</a>
+                    <a class="login-button" href="/login" style="text-decoration: none;">로그인</a>
                 </div>
             </div>
-                <div class="simple_login">
-                    <div class="simple_login_all">
+            <div class="simple_login">
+                <div class="simple_login_all">
                         <a>간편 로그인하기</a>
                         <div class="simple_ic">
                             <a href="https://www.google.com/"><img src="img/ic_google.png"></a>
@@ -52,5 +58,6 @@
             </div>
         </div>
     </main>
+    <script src="js/login.js"></script>
 </body>
 </html>

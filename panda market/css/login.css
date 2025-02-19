@@ -52,6 +52,11 @@ main {
     text-decoration-skip-ink: none;
 }
 
+.emailerror {
+    visibility: hidden;
+    color: red;
+}
+
 .password_all {
     margin-top: 24px;
 }
@@ -65,13 +70,18 @@ main {
     text-decoration-skip-ink: none;
 }
 
+.passworderror {
+    visibility: hidden;
+    color: red;
+}
+
 .input_text {
     background: #F3F4F6;
     width: 592px;
     height: 26px;
     border-radius: 12px;
     padding: 0px;
-    border: 0px;
+    border: 1px solid #F3F4F6;
     margin-top: 16px;
     gap: 24px;
     padding: 15px 24px;
@@ -104,15 +114,17 @@ main {
     border-radius: 40px;
     margin-top: 24px;
     margin-bottom: 24px;
+    cursor: not-allowed;
 }
 
 
-.login_box.active {
+.login-button.active {
     background: #3692FF;
+    border-radius: 40px;
     cursor: pointer;
 }
 
-.login {
+.login-button {
     color: white;
     font-family: 'Pretendard';
     font-size: 20px;
@@ -124,6 +136,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    cursor: not-allowed;
 }
 
 .simple_login {
