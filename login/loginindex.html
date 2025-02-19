@@ -3,7 +3,7 @@
     <head>
         <title> 판다마켓 로그인 </title>
         <meta charset utf-8>
-        <link rel="stylesheet" href="loginPanda.style.css">
+        <link rel="stylesheet" href="login.style.css">
         <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     </head>
 
@@ -24,36 +24,30 @@
                 <div class="login-body">
 
                     <div class="email">
-                        <div class="email-text">
-                            이메일
-                        </div>
-
                         <form>  
-                            <label class="email-box" for="email-input">
+                            <label class="email-box, email-text" for="input-email"> 이메일
                            </label id="email-input">
-                           <input class="input-email"
+                           <input id="input-email" class="input-email"
                            type="text"
                            placeholder="이메일을 입력해주세요">
+                           <div id="email-error-message" class="email-error-message"></div>
                        </form>
                     </div>
 
-                    <div class="password">
-                        <div class="password-text">
-                            비밀번호
-                        </div>
-                        
+                    <div class="password">                        
                         <form> 
-                            <label class="password-box" for="password-input">
+                            <label class="password-box, password-text" for="input-password"> 비밀번호
                            </label id="password-input">
-                           <input class="input-password"
+                           <input id="input-password" class="input-password"
                             placeholder="비밀번호를 입력해주세요"
                             type="password">
-                            <img class="eye-con" src="btn_visibility_off_24px.png">
+                           <img id ="eye-con" class="eye-con" src="btn_visibility_off_24px.png">
+                            <div id="password-error-message" class="pssword-error-message"></div>
                        </form>
 
                     </div>
 
-                    <button class="login-button">
+                    <button id="login-button">
                         로그인
                     </button>
 
@@ -71,12 +65,12 @@
 
                     <div class="loginbody-foot">
                         판다마켓이 처음이신가요?
-                        <a color="#3692FF" href="/signup"> 회원가입 </a>
+                        <a color="#3692FF" href="../signup/index.html"> 회원가입 </a>
                     </div>
                 </div>
 
             </div>
         </main>
-        
+        <script src="loginindex.js"></script>
     </body>
 </html>
