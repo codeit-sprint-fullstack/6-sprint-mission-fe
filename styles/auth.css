@@ -1,6 +1,7 @@
 .auth-box {
   max-width: 640px;
   margin: 0 auto;
+  padding: 24px 16px;
 }
 
 .logo-box {
@@ -81,11 +82,7 @@ input:focus {
   text-decoration: underline;
 }
 
-.email-msg,
-.email-error,
-.pw-msg,
-.pw-error,
-.pw-check-error {
+.error-message {
   margin: 8px 0 24px 16px;
   font-size: 15px;
   color: red;
