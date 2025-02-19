@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>signup</title>
   <link rel="stylesheet" href="css/signup.css">
+  <script defer src="js/signup.js"></script>
   
 </head>
 
@@ -17,15 +18,15 @@
     </div>
     <div class="inputBox">
       <p>이메일</p>
-      <input type="text"class="email" placeholder="이메일을 입력해주세요">
+      <input type="text"class="email" placeholder="이메일을 입력해주세요"id="email">
       <p>닉네임</p>
-      <input type="text"class="nickName"placeholder="닉네임을 입력해주세요">
+      <input type="text"class="nickName"placeholder="닉네임을 입력해주세요"id="nickName">
       <p>비밀번호</p>
-      <input type="password"placeholder="비밀번호를 입력해주세요">
+      <input type="password"placeholder="비밀번호를 입력해주세요"id="password">
       <p>비밀번호 확인</p>
-      <input type="password"placeholder="비밀번호를 다시 한 번 입력해 주세요">
+      <input type="password"placeholder="비밀번호를 다시 한 번 입력해 주세요"id="passwordCheck">
     </div>
-    <button>로그인</button>
+    <button class="signupBtn">회원가입</button>
     <div class="loginWayBox">
       <p>간편 로그인하기</p>
       <div class="loginLogo">
@@ -37,6 +38,11 @@
     <div class="ForNew">
       <p>이미 회원이신가요?</p>
       <a class="signupLink"href="login.html">로그인</a>
+    </div>
+
+    <div class="modal"id="modal">
+      <p class="modalText">사용중인 이메일입니다.</p>
+      <button class="modalBtn">확인</button>
     </div>
   </div>
 

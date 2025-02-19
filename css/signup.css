@@ -1,8 +1,50 @@
-button:hover,.logoBox>p:hover,.googleImg:hover,.kakaoImg:hover{
-  cursor: pointer;
+.error {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.modal {
+  position: fixed;
+  top: 50%; /* 화면 중앙 위치 */
+  left: 50%; /* 화면 중앙 위치 */
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #9ca3af;
+  background-color: rgb(255, 255, 255);
+  z-index: 1;
+  width: 600px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  display: none;
+}
+.modalText{
+  text-align: center;
+  margin: 20%;
+}
+.modalBtn {
+  width: 120px;
+  height: 50px;
+  color: white;
+  background-color: rgba(54, 146, 255, 1);
+  border: none;
+  border-radius: 10px;
+align-self: flex-end;
 
 }
-body{
+
+button:hover,
+.logoBox > p:hover,
+.googleImg:hover,
+.kakaoImg:hover {
+  cursor: pointer;
+}
+body {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,21 +57,21 @@ body{
 /* justyfy 가로 방향으로 요소들을 왔다갔다 */
 /* align each element 가 세로 방향으로 요소들을 왔다갔다 */
 /* !each element! 인게 중요 */
-.logoBox{
+.logoBox {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.pandaImg{
+.pandaImg {
   background-color: rgba(54, 146, 255, 1);
   border-radius: 29px;
   width: 69.82px;
   height: 63.3px;
-  padding: 20px 17px;  
+  padding: 20px 17px;
   margin-right: 11px;
 }
 /* img size first, padding next */
-.logoBox>p{
+.logoBox > p {
   color: rgba(54, 146, 255, 1);
   font-family: ROKAF Sans;
   font-size: 66.34px;
@@ -38,80 +80,79 @@ body{
   text-align: left;
   margin-left: 11px;
 }
-.inputBox{
+.inputBox {
   display: flex;
   flex-direction: column;
   margin-bottom: 24px;
 }
-.inputBox>p{
+.inputBox > p {
   font-family: Pretendard;
-font-size: 18px;
-font-weight: 900;
-line-height: 26px;
-text-align: left;
-
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 26px;
+  text-align: left;
 }
-input{
-width: 640px;
-height: 56px;
-gap: 0px;
-border-radius: 12px;
-border: none;
-background-color:rgba(243, 244, 246, 1);
-font-size: 16px;
-padding: 0 24px;
+input {
+  width: 640px;
+  height: 56px;
+  gap: 0px;
+  border-radius: 12px;
+  border: none;
+  background-color: rgba(243, 244, 246, 1);
+  font-size: 16px;
+  padding: 0 24px;
 }
 /* what happened with width... */
-button{
-width: 690px;
-height: Fixed (56px)px;
-border-radius: 40px;
-color: white;
-background-color:rgba(54, 146, 255, 1);
-border: none;
-font-size: 20px;
-padding: 12px 194px;
-font-weight: 600;
-margin-bottom: 24px;
+.signupBtn {
+  width: 690px;
+  height: Fixed (56px) px;
+  border-radius: 40px;
+  color: white;
+  background-color: rgba(54, 146, 255, 1);
+  border: none;
+  font-size: 20px;
+  padding: 12px 194px;
+  font-weight: 600;
+  margin-bottom: 24px;
 }
-.loginWayBox{
+.loginWayBox {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: Fixed (640px)px;
-height: Fixed (74px)px;
-padding: 16px 23px 16px 23px;
-gap: 10px;
-border-radius: 8px;
-opacity: 0px;
-background: rgba(230, 242, 255, 1);
+  width: Fixed (640px) px;
+  height: Fixed (74px) px;
+  padding: 16px 23px 16px 23px;
+  gap: 10px;
+  border-radius: 8px;
+  opacity: 0px;
+  background: rgba(230, 242, 255, 1);
 }
-.googleImg{
+.googleImg {
   width: 22px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 50px;
   margin-right: 16px;
 }
-.kakaoImg{
+.kakaoImg {
   width: 26px;
   padding: 10px 8px 8px;
-  background-color:rgba(245, 225, 75, 1);
+  background-color: rgba(245, 225, 75, 1);
   border-radius: 50px;
 }
-.ForNew{
+.ForNew {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.signupLink{
-color: rgba(54, 146, 255, 1);
-margin-left: 5px;
+.signupLink {
+  color: rgba(54, 146, 255, 1);
+  margin-left: 5px;
 }
-input::placeholder{
-  color:#9CA3AF ;
+input::placeholder {
+  color: #9ca3af;
 }
-input:focus{
-  box-shadow: 0 0 0 2px #3692FF; /* 테두리처럼 보이게 */
+input:focus {
+  box-shadow: 0 0 0 2px #3692ff; /* 테두리처럼 보이게 */
   outline: none;
 }
