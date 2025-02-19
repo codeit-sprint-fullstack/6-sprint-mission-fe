@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     font-family: 'pretendard';
     display: flex;
     flex-direction: column;
@@ -13,11 +13,12 @@ body{
     background-color: #ffffff;
 }
 
-header{
+header {
     width: 100%;
     text-align: center;
-    position: absolute;
-    top: 100px;
+    position: relative;
+    padding: 20px 0;
+    top: 50px;
 }
 
 .logo img {
@@ -25,7 +26,7 @@ header{
     margin: 0 150px;
 }
 
-main{
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,7 +35,7 @@ main{
     margin-top: 40px;
 }
 
-.signup_form{
+.signup_form {
     /* width: 360px; */
     display: flex;
     flex-direction: column;
@@ -56,7 +57,7 @@ main{
     border-radius: 12px;
     border: 1px solid #F3F4F6;
     outline: none;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
     background-color: #F3F4F6;
 }
 
@@ -65,37 +66,102 @@ main{
 }
 
 
-.password-container {
+.password_container {
     position: relative;
-    width: 100%;;
+    width: 100%;
 }
 
-.password-container input {
+.password_container input {
     width: 100%;
     padding-right: 35px;
     box-sizing: border-box;
 }
 
-.eye-password {
+.eye-icon {
     position: absolute;
     top: 12px;
     right: 10px;
     width: 24px;
     height: 24px;
     cursor: pointer;
+    object-fit: contain;
 }
 
-.singup_btn{
+.error {
+    border: 1px solid red !important;
+    /* outline: none; */
+}
+
+.error_message {
+    color: red;
+    font-size: 14px;
+    display: block;
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    width: 400px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.modal p {
+    margin: 60px;
+    font-size: 16px;
+}
+
+.modal button {
+    width: 100px;
+    height: 40px;
+    background-color: #3692FF;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+}
+
+.modal_overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    ;
+}
+
+
+.signup_btn {
+    width: 550px;
     padding: 12px;
     font-size: 18px;
     font-weight: 600;
-    background-color: #9CA3AF;;
+    background-color: #9CA3AF;
+    ;
     color: #fff;
     border: none;
     border-radius: 40px;
     margin-bottom: 25px;
 }
+
 
 .social_login {
     width: 550px;
@@ -115,6 +181,7 @@ main{
     font-weight: 500;
     color: #1F2937
 }
+
 .sns_buttons {
     display: flex;
 }
