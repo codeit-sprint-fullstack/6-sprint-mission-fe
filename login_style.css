@@ -5,6 +5,7 @@
     --panda-light-blue: #E6F2FF;
     --panda-white: #FFFFFF;
     --panda-border-gray: #ccc;
+    --panda-border-red: #F74747;
 }
 
 main.container {
@@ -120,6 +121,6 @@ p.signupPage, p.loginPage {
 
 .password img {
     position: absolute;
-    z-index: 1;
+    z-index: 3;
     transform: translate(-3.75rem, 2rem); /* -60px, 32px / 16 */
 }

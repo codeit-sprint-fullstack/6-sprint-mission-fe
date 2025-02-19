@@ -10,7 +10,7 @@ nav {
 }
 
 nav .login button {
-    background-image: url('login.png');
+    background-image: url('img/login.png');
     background-size: fill;
     background-repeat: no-repeat;
     background-position: center;
@@ -64,7 +64,7 @@ section.home_top h1 {
 }
 
 section.home_top h1 button {
-    background-image: url('lookaround.png');
+    background-image: url('img/lookaround.png');
     background-size: fill;
     background-repeat: no-repeat;
     background-position: center;
