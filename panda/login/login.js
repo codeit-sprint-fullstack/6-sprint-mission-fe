@@ -26,42 +26,43 @@ email.addEventListener('keyup', formBtnToggle);
 password.addEventListener('keyup', formBtnToggle);
 
 // focusin 이벤트 : 색상 효과
-const focusIn = e => {
-  e.target.classList.add('focus-in');
-  e.target.classList.remove('focus-out');
-}
+form.addEventListener('focusin', e => {
+  if (e.target.tagName === 'INPUT') {
+    e.target.classList.add('focus-in');
+    e.target.classList.remove('focus-out');
+  }
+})
 
-email.addEventListener('focusin', focusIn);
-password.addEventListener('focusin', focusIn);
+// focusout 이벤트 : 색상 효과
+form.addEventListener('focusout', e => {
+  if (e.target.tagName === 'INPUT') {
+    if(e.target.nextElementSibling.textContent) {
+      e.target.classList.add('focus-out')
+      e.target.classList.remove('focus-in')
+    } else {
+      e.target.classList.remove('focus-in')
+    }
+  }
+})
 
-// focusout 이벤트 : 유효성 검증
+// 이메일, 비밀번호 유효성 검증
 email.addEventListener('focusout', e => {
   if (email.value === '') {
     errorMsgs[0].textContent = errMsg.email.empty;
-    e.target.classList.add('focus-out')
-    e.target.classList.remove('focus-in')
   } else if (!emailRegex.test(email.value)) {
     errorMsgs[0].textContent = errMsg.email.invalid;
-    e.target.classList.add('focus-out')
-    e.target.classList.remove('focus-in')
   } else {
     errorMsgs[0].textContent = '';
-    e.target.classList.remove('focus-in')
   }
 })
 
 password.addEventListener('focusout', e => {
   if (password.value === '') {
     errorMsgs[1].textContent = errMsg.pw.empty;
-    e.target.classList.add('focus-out')
-    e.target.classList.remove('focus-in')
   } else if (!passwordRegex.test(password.value)) {
     errorMsgs[1].textContent = errMsg.pw.invalid;
-    e.target.classList.add('focus-out')
-    e.target.classList.remove('focus-in')
   } else {
     errorMsgs[1].textContent = '';
-    e.target.classList.remove('focus-in')
   }
 })
 
