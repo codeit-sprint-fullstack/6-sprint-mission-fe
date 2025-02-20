@@ -142,7 +142,7 @@ span {
 .id_pwd_input label[for="nickname"] {
   margin-top: 24px; /* 비밀번호 라벨과 위 요소 간격 조정 */
 }
-.password-container {
+.password-container div {
   position: relative;
 }
 .password-container img {
@@ -157,7 +157,7 @@ span {
 .password-ch {
   margin-top: 24px;
 }
-.password-ch-container {
+.password-ch-container div {
   position: relative;
 }
 .password-ch-container img {

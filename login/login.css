@@ -143,8 +143,10 @@ span {
   margin-top: 24px; /* 비밀번호 라벨과 위 요소 간격 조정 */
 }
 .password-container {
-  position: relative;
   min-height: 56px;
+}
+.password-container div{
+  position: relative;
 }
 .password-container img {
   position: absolute;
