@@ -19,25 +19,25 @@ eyeIcons[2].addEventListener('click', eyeOn);
 eyeIcons[3].addEventListener('click', eyeOff);
 
 // 로그인 버튼 활성화
-const btnToggle = e => {
+const formBtnToggle = e => {
   if (emailRegex.test(email.value) 
       && nickname.value 
       && passwordRegex.test(password.value) 
       && (password.value === passwordSecond.value)) {
-    btn.classList.add('btn-able');
-    btn.disabled = false;
-    btn.style.cursor = 'pointer';
+    formBtn.classList.add('form-btn-able');
+    formBtn.disabled = false;
+    formBtn.style.cursor = 'pointer';
   } else {
-    btn.classList.remove('btn-able');
-    btn.disabled = true;
-    btn.style.cursor = 'default';
+    formBtn.classList.remove('form-btn-able');
+    formBtn.disabled = true;
+    formBtn.style.cursor = 'default';
   }
 }
 
-email.addEventListener('keyup', btnToggle);
-nickname.addEventListener('keyup', btnToggle);
-password.addEventListener('keyup', btnToggle);
-passwordSecond.addEventListener('keyup', btnToggle);
+email.addEventListener('keyup', formBtnToggle);
+nickname.addEventListener('keyup', formBtnToggle);
+password.addEventListener('keyup', formBtnToggle);
+passwordSecond.addEventListener('keyup', formBtnToggle);
 
 // focusin 이벤트 : 색상 효과
 const focusIn = e => {
