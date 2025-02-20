@@ -9,7 +9,7 @@ const requestErrorHandler = (e) => {
   }
 };
 
-// 상품목록
+// 상품목록조회
 const getProductList = async (page, pageSize, orderBy = "recent", keyword) => {
   try {
     if (keyword) {
@@ -28,7 +28,7 @@ const getProductList = async (page, pageSize, orderBy = "recent", keyword) => {
   }
 };
 
-// 상품개별
+// 상품개별조회
 const getProductURL = "https://panda-market-api-crud.vercel.app/products/496";
 const getProduct = async () => {
   try {
