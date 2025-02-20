@@ -1,14 +1,17 @@
 // ** need to add export at the bottom of functions export {func1, func2, etc }
 import axios from 'axios';
-// getArticleList(): Use the GET method.
-// Use query parameters `page`, `pageSize`, `keyword`.
+
+// Create axios instance
 const instance = axios.create({
   baseURL: 'https://panda-market-api-crud.vercel.app/articles',
 });
 
-async function getArticleList( params = {}) {
-  const response = await instance.get('/', { params }); // already in JSON
-  return response.data;
+// getArticleList(): Use the GET method.
+// Use query parameters `page`, `pageSize`, `keyword`. => ** in main.js?
+async function getArticleList(keyword = "", page = 1, pageSize = 100) {
+  const params = { keyword, page, pageSize };
+  const response = await instance.get('/', { params });
+  return response.data
 }
 
 // getArticle(): Use the GET method.
@@ -17,14 +20,16 @@ async function getArticle(id) {
   return response.data;
 }
 // createArticle(): Use the POST method.
+// Include `title`, `content`, and `image` in the request body => in main.js
 async function createArticle(article) {
   const response = await instance.post('/', article);
-  console.log(response.data)
   return response.data;
 }
-// Include `title`, `content`, and `image` in the request body.
 
 // patchArticle(): Use the PATCH method.
+// async function patchArticle() {
+
+// }
 
 // deleteArticle(): Use the DELETE method.
 
