@@ -23,14 +23,25 @@ async function getArticleList(keyword = "", page = 1, pageSize = 100) {
     }) // chaining, so don't use comma
     // handle network errors
     .catch((error) => {
-      console.error('Non-HTTP error occurred:', error);
+      console.error('Request error or HTTP error occurred:', error);
     });
 }
 
 // getArticle(): Use the GET method.
 async function getArticle(id) {
-  const response = await instance.get(`/${id}`); 
-  return response.data;
+  return instance.get(`/${id}`)
+    .then((response) => {
+      if (response.status >= 200 && response.status < 300) {
+        console.log(`Requested article ${id}`, response.data);
+        return response.data;
+      } else {
+        const errorMsg = '게시글을 찾을 수 없음'
+        throw new Error(errorMsg);
+      }
+    })
+    .catch((error) => {
+      console.error('게시글을 찾을 수 없음', response.status);
+    });
 }
 // createArticle(): Use the POST method.
 // Include `title`, `content`, and `image` in the request body => in main.js

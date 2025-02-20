@@ -23,20 +23,20 @@ const articleContent3 = {
 //test code
 async function init() {
   // test getArticleList 
-  try {
-    const list = await getArticleList("Lewis Hamilton");
-  } catch (error) {
-    console.error('Error occurred while fetching article list:', error);
-  }
+  // try {
+  //   const list = await getArticleList("Lewis Hamilton");
+  // } catch (error) {
+  //   console.error('Error occurred while fetching article list:', error);
+  // }
 
   // test getArticle 
-  // try {
-  //   const id = 554
-  //   const article = await getArticle(id);
-  //   console.log(`Article number ${id} was retrieved:`, article);
-  // } catch (error) {
-  //   console.error(`Error occurred while fetching article id #:${id}`, error);
-  // }
+  try {
+    const id = 555;
+    const article = await getArticle(id);
+    // console.log(`Article number ${id} was retrieved:`, article);
+  } catch (error) {
+    // console.error(`Error occurred while fetching article id #:${id}`, error);
+  }
 
   // test createArticle
   // try {
