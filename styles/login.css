@@ -152,9 +152,16 @@ input:focus {
 
 /* 자바스크립트 연동 스타일 */
 
-.error-massage {
-  position: relative;
-  top: -12px;
+.invalid-message {
+  visibility: hidden;
+}
+
+.invalid-form {
   font-size: 15px;
   color: #F74747;
+  border: 1px solid #f74747;
+}
+
+.invalid-form input:invalid + .invalid-message {
+  visibility: visible;
 }
