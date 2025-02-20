@@ -14,10 +14,10 @@ async function getArticleList(keyword = "", page = 1, pageSize = 100) {
   // handle HTTP error response
     .then(response => {
       if (response.status >= 200 && response.status < 300){
-        console.log('Here is the article list requested:', response.data);
+        console.log('Here is the article list requested:', response.data);// *
         return response.data;
       } else {
-        const errorMsg = `HTTP error occurred: ${response.status}`;
+        const errorMsg = `HTTP error occurred: ${response.status}`;// *
         throw new Error(errorMsg);
       }
     }) // chaining, so don't use comma
@@ -32,22 +32,32 @@ async function getArticle(id) {
   return instance.get(`/${id}`)
     .then((response) => {
       if (response.status >= 200 && response.status < 300) {
-        console.log(`Requested article ${id}`, response.data);
+        console.log(`Requested article ${id}:`, response.data);// *
         return response.data;
-      } else {
-        const errorMsg = '게시글을 찾을 수 없음'
+      } else { // ** change it to else if 404 and add else block
+        const errorMsg = '게시글을 찾을 수 없음';
         throw new Error(errorMsg);
       }
     })
     .catch((error) => {
-      console.error('게시글을 찾을 수 없음', response.status);
+      console.error('게시글을 찾을 수 없음', response.status);// ** need to fix this
     });
 }
 // createArticle(): Use the POST method.
 // Include `title`, `content`, and `image` in the request body => in main.js
 async function createArticle(article) {
-  const response = await instance.post('/', article);
-  return response.data;
+  return instance.post('/fefeffe', article)
+    .then((response) => {
+      if (response.status >= 200 && response.status < 300) {
+        console.log('Created an article:', response.data); //*
+        return response.data;
+      } else {
+        throw new Error();
+      }
+    })
+    .catch((error) => {
+      console.error('유효성 검사 오류:',error.response.status);
+    });
 }
 
 // patchArticle(): Use the PATCH method.

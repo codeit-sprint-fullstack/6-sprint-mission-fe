@@ -30,21 +30,16 @@ async function init() {
   // }
 
   // test getArticle 
-  try {
-    const id = 555;
-    const article = await getArticle(id);
-    // console.log(`Article number ${id} was retrieved:`, article);
-  } catch (error) {
-    // console.error(`Error occurred while fetching article id #:${id}`, error);
-  }
+  // try {
+  //   const id = 555;
+  //   const article = await getArticle(id);
+  //   // console.log(`Article number ${id} was retrieved:`, article);
+  // } catch (error) {
+  //   // console.error(`Error occurred while fetching article id #:${id}`, error);
+  // }
 
   // test createArticle
-  // try {
-  //   const newArticle = await createArticle(articleContent3);
-  //   console.log(`A new article created:`, newArticle);
-  // } catch (error) {
-  //   console.error('Error occurred while creating an article:', error);
-  // }
+  const newArticle = await createArticle(articleContent3);
 }
 
 init();
