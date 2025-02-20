@@ -20,26 +20,25 @@ const articleContent3 = {
   "image": "https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/2024Drivers/verstappen" 
 };
 
+const articleContent4 = {
+  "title": "F1 McLaren Driver - Lando Norris", // Different title
+  "content": "It's lights out and away we go!", // Different content
+  "image": "https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/2024Drivers/norris" // Different image
+};
+
+
+// * remove try catch here
 //test code
 async function init() {
   // test getArticleList 
-  // try {
-  //   const list = await getArticleList("Lewis Hamilton");
-  // } catch (error) {
-  //   console.error('Error occurred while fetching article list:', error);
-  // }
+  const list = await getArticleList("Lewis Hamilton");
 
   // test getArticle 
-  // try {
-  //   const id = 555;
-  //   const article = await getArticle(id);
-  //   // console.log(`Article number ${id} was retrieved:`, article);
-  // } catch (error) {
-  //   // console.error(`Error occurred while fetching article id #:${id}`, error);
-  // }
-
+  const id = 555;
+  const article = await getArticle(id);
+  
   // test createArticle
-  const newArticle = await createArticle(articleContent3);
+  const newArticle = await createArticle(articleContent4);
 }
 
 init();

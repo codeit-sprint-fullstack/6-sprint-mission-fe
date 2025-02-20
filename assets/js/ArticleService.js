@@ -17,13 +17,12 @@ async function getArticleList(keyword = "", page = 1, pageSize = 100) {
         console.log('Here is the article list requested:', response.data);// *
         return response.data;
       } else {
-        const errorMsg = `HTTP error occurred: ${response.status}`;// *
-        throw new Error(errorMsg);
+        throw new Error();
       }
     }) // chaining, so don't use comma
     // handle network errors
     .catch((error) => {
-      console.error('Request error or HTTP error occurred:', error);
+      console.error('게시글 리스트 조회 오류', error);
     });
 }
 
@@ -35,18 +34,17 @@ async function getArticle(id) {
         console.log(`Requested article ${id}:`, response.data);// *
         return response.data;
       } else { // ** change it to else if 404 and add else block
-        const errorMsg = '게시글을 찾을 수 없음';
-        throw new Error(errorMsg);
+        throw new Error();
       }
     })
     .catch((error) => {
-      console.error('게시글을 찾을 수 없음', response.status);// ** need to fix this
+      console.error('게시글을 찾을 수 없음', error.response.status);// ** need to fix this
     });
 }
 // createArticle(): Use the POST method.
 // Include `title`, `content`, and `image` in the request body => in main.js
 async function createArticle(article) {
-  return instance.post('/fefeffe', article)
+  return instance.post('/', article)
     .then((response) => {
       if (response.status >= 200 && response.status < 300) {
         console.log('Created an article:', response.data); //*
