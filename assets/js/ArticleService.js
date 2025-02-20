@@ -10,8 +10,21 @@ const instance = axios.create({
 // Use query parameters `page`, `pageSize`, `keyword`. => ** in main.js?
 async function getArticleList(keyword = "", page = 1, pageSize = 100) {
   const params = { keyword, page, pageSize };
-  const response = await instance.get('/', { params });
-  return response.data
+  return instance.get('/', { params }) // returns Promise
+  // handle HTTP error response
+    .then(response => {
+      if (response.status >= 200 && response.status < 300){
+        console.log('Here is the article list requested:', response.data);
+        return response.data;
+      } else {
+        const errorMsg = `HTTP error occurred: ${response.status}`;
+        throw new Error(errorMsg);
+      }
+    }) // chaining, so don't use comma
+    // handle network errors
+    .catch((error) => {
+      console.error('Non-HTTP error occurred:', error);
+    });
 }
 
 // getArticle(): Use the GET method.
