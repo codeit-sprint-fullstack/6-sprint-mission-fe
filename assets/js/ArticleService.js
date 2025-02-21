@@ -107,12 +107,30 @@ async function patchArticle(id, patchContent) {
 }
 
 // deleteArticle(): Use the DELETE method.
-
-// Use fetch or axios for making requests.
-// If the response status code is not 2XX, log the error message to the console.
+async function deleteArticle(id) {
+  return instance.delete(`/${id}`)
+    .then((response) => {
+      if (response.status >= 200 && response.status < 300) {
+        console.log(`요청한 게시글 ${id}번 삭제 완료:`, response.data);
+        return response.data;
+      } else { 
+        throw response;
+      }
+    })
+    .catch((error) => {
+      console.error('게시글 삭제 오류 발생:', error);
+      if (error.response) { 
+        console.error('HTTPS 에러, 게시글을 찾을 수 없음:', error.response.status, error.response.data);
+      } else if (error.request) { 
+        console.error('Request 에러:', error.request);
+      } else {
+        console.error('Setup 에러:', error.message);
+      } 
+    });
+}
 
 // Use .then() for handling asynchronous processing.
 
 // Use .catch() for error handling.
 
-export { getArticle, getArticleList, createArticle, patchArticle };
+export { getArticle, getArticleList, createArticle, patchArticle, deleteArticle };
