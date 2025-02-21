@@ -1,5 +1,4 @@
-//  need to import functions from ArticleService.js and ProductService.js
-import { createArticle, getArticleList, getArticle, patchArticle, deleteArticle  } from './ArticleService.js';
+import { createArticle, getArticleList, getArticle, patchArticle, deleteArticle } from './ArticleService.js';
 import { getProductList, getProduct, createProduct, patchProduct, deleteProduct } from './ProductService.js';
 // test sample to check CRUD functionality of ArticleService.js
 const articleContent1 = {
@@ -53,19 +52,19 @@ async function init() {
   // const list = await getArticleList(undefined, undefined, 'F1');
 
   // test getArticle 
-  // const id = 556;
+  // const id = 559;
   // const article = await getArticle(id);
   
   // test createArticle
   // const newArticle = await createArticle(articleContent3);
 
   // test patchArticle
-  // const patchId = 555;
-  // const patchContent = articleContent5;
+  // const patchId = 558;
+  // const patchContent = articleContent2;
   // const updatedArticle = await patchArticle(patchId, patchContent);
 
   // test deleteArticle
-  // const deleteId = 555;
+  // const deleteId = 561;
   // const deletedArticle = await deleteArticle(deleteId);
 
   // test ProductService functions
@@ -83,7 +82,7 @@ async function init() {
   // const patchedProduct = await patchProduct(555, productContent2);
 
   // test deleteProduct
-  const deletedProduct = await deleteProduct(560);
+  // const deletedProduct = await deleteProduct(560);
   } catch (error) {
     console.error('Error found:', error);
   }

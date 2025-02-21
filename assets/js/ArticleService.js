@@ -5,12 +5,23 @@ const instance = axios.create({
   baseURL: 'https://panda-market-api-crud.vercel.app/articles',
 });
 
+// error handling function
+function handleError(error, customMessage) {
+  console.error(customMessage, error);
+  if (error.response) {
+    console.error('HTTPS 에러:', error.response.status, error.response.data);
+  } else if (error.request) {
+    console.error('Request 에러:', error.request);
+  } else {
+    console.error('Setup 에러:', error.message);
+  }
+}
+
 // getArticleList(): Use the GET method.
 // Use query parameters `page`, `pageSize`, `keyword`. 
 async function getArticleList(page = 1, pageSize = 100, keyword = '') {
   const params = { page, pageSize, keyword };
   return instance.get('/', { params }) // returns Promise
-  // Check HTTP status code range 200-299 - successful
     .then(response => {
       if (response.status >= 200 && response.status < 300){
         console.log('게시글 목록 조회 결과 리스트:', response.data);
@@ -20,18 +31,7 @@ async function getArticleList(page = 1, pageSize = 100, keyword = '') {
       }
     }) // chaining, so don't use comma
     // handle network errors
-    .catch((error) => {
-      console.error('게시글 목록 조회 오류 발생:', error);
-      if (error.response) { 
-        // HTTP response is true (non 2xx responses handled in this block
-        console.error('HTTPS 에러:', error.response.status, error.response.data);
-      } else if (error.request) { 
-        // request error handling
-        console.error('Request 에러:', error.request);
-      } else {
-        console.error('Setup 에러:', error.message);
-      } 
-    });
+    .catch((error) => handleError(error, '게시글 목록 조회 오류 발생:'));
 }
 
 // getArticle(): Use the GET method.
@@ -45,16 +45,7 @@ async function getArticle(id) {
         throw response;
       }
     })
-    .catch((error) => {
-      console.error('게시글 상세 조회 오류 발생:', error);
-      if (error.response) { 
-        console.error('HTTPS 에러, 게시글을 찾을 수 없음:', error.response.status, error.response.data);
-      } else if (error.request) { 
-        console.error('Request 에러:', error.request);
-      } else {
-        console.error('Setup 에러:', error.message);
-      } 
-    });
+    .catch((error) => handleError(error, '게시글 목록 조회 오류 발생:'));
 }
 // createArticle(): Use the POST method.
 // Include `title`, `content`, and `image` in the request body => in main.js
@@ -68,16 +59,7 @@ async function createArticle(article) {
         throw response;
       }
     })
-    .catch((error) => {
-      console.error('게시글 등록 오류 발생:', error);
-      if (error.response) { 
-        console.error('HTTPS 에러, 게시글을 찾을 수 없음:', error.response.status, error.response.data);
-      } else if (error.request) { 
-        console.error('Request 에러:', error.request);
-      } else {
-        console.error('Setup 에러:', error.message);
-      } 
-    });
+    .catch((error) => handleError(error, '게시글 등록 오류 발생:'));
 }
 
 // patchArticle(): Use the PATCH method.
@@ -92,17 +74,7 @@ async function patchArticle(id, patchContent) {
         throw response;
       }
     })
-    .catch((error) => {
-      console.error('게시글 수정 오류 발생:', error);
-      if (error.response) {
-      // HTTPS error handling
-        console.error('HTTPS 에러, 게시글을 찾을 수 없음:', error.response.status, error.response.data);
-      } else if (error.request) { 
-        console.error('Request 에러:', error.request);
-      } else {
-        console.error('Setup 에러:', error.message);
-      } 
-    });
+    .catch((error) => handleError(error, '게시글 수정 오류 발생:'));
 }
 
 // deleteArticle(): Use the DELETE method.
@@ -116,16 +88,6 @@ async function deleteArticle(id) {
         throw response;
       }
     })
-    .catch((error) => {
-      console.error('게시글 삭제 오류 발생:', error);
-      if (error.response) { 
-        console.error('HTTPS 에러, 게시글을 찾을 수 없음:', error.response.status, error.response.data);
-      } else if (error.request) { 
-        console.error('Request 에러:', error.request);
-      } else {
-        console.error('Setup 에러:', error.message);
-      } 
-    });
-}
-
+    .catch((error) => handleError(error, '게시글 삭제 오류 발생:'));
+  }
 export { getArticle, getArticleList, createArticle, patchArticle, deleteArticle };
