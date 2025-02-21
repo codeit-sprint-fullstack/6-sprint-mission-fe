@@ -1,6 +1,6 @@
 //  need to import functions from ArticleService.js and ProductService.js
 import { createArticle, getArticleList, getArticle, patchArticle, deleteArticle  } from './ArticleService.js';
-import { getProductList } from './ProductService.js';
+import { getProductList, getProduct } from './ProductService.js';
 // test sample to check CRUD functionality of ArticleService.js
 const articleContent = {
   'title': 'F1 Ferrari Driver - Lewis Hamilton',
@@ -57,7 +57,11 @@ async function init() {
   // const deletedArticle = await deleteArticle(deleteId);
 
   // test ProductService functions
-  const productList = await getProductList(undefined, 2);
+  // test getProductLIst
+  // const productList = await getProductList(undefined, 2);
+
+  // test getProduct
+  const product = await getProduct(551);
   } catch (error) {
     console.error('Error found:', error);
   }
