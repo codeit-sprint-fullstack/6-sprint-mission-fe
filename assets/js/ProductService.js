@@ -66,6 +66,21 @@ async function createProduct(productContent) {
   }
 }
 // patchProduct(): Use the PATCH method.
-
+async function patchProduct(id, patchContent) {
+  try {
+    const patchedProduct = await instance.patch(`/${id}`, patchContent);
+    console.log('상품이 수정되었습니다:', patchedProduct.data);
+    return patchedProduct.data;
+  } catch(error) {
+    console.error('상품 수정 에러 발생:', error);
+    if (error.response) {
+      console.error('HTTPS 에러:', error.response.status, error.response.data);
+    } else if (error.request) {
+      console.error('Request 에러:', error.request);
+    } else {
+      console.error('Setup 에러:', error.message);
+    }
+  }
+}
 // deleteProduct(): Use the DELETE method.
-export { getProductList, getProduct, createProduct };
+export { getProductList, getProduct, createProduct, patchProduct };

@@ -1,6 +1,6 @@
 //  need to import functions from ArticleService.js and ProductService.js
 import { createArticle, getArticleList, getArticle, patchArticle, deleteArticle  } from './ArticleService.js';
-import { getProductList, getProduct, createProduct } from './ProductService.js';
+import { getProductList, getProduct, createProduct, patchProduct } from './ProductService.js';
 // test sample to check CRUD functionality of ArticleService.js
 const articleContent1 = {
   'title': 'F1 Ferrari Driver - Lewis Hamilton',
@@ -22,27 +22,27 @@ const articleContent3 = {
 
 // sample data for ProductService CRUD functions
 const productContent1 = {
-  "name": "Scuderia Ferrari T-Shirt",
-  "description": "Show your support for the Ferrari F1 team with this stylish T-shirt featuring the team's logo and colors.",
-  "price": 7600,
-  "tags": ["F1", "Formula 1", "Ferrari", "Team T-Shirt"],
-  "images": ["https://f1store.formula1.com/en/images/scuderia-ferrari-2025-team-t-shirt.jpg"]
+  'name': 'Scuderia Ferrari T-Shirt',
+  'description': 'Show your support for the Ferrari F1 team with this stylish T-shirt featuring the team\'s logo and colors.',
+  'price': 7600,
+  'tags': ['F1', 'Formula 1', 'Ferrari', 'Team T-Shirt'],
+  'images': ['https://f1store.formula1.com/en/images/scuderia-ferrari-2025-team-t-shirt.jpg']
 };
 
 const productContent2 = {
-  "name": "Mercedes-AMG Petronas Cap",
-  "description": "Support the Mercedes-AMG Petronas team with this stylish cap, featuring the team's logo.",
-  "price": 5500,
-  "tags": ["F1", "Formula 1", "Mercedes", "Cap"],
-  "images": ["https://f1store.formula1.com/en/images/mercedes-amg-petronas-cap.jpg"]
+  'name': 'Mercedes-AMG Petronas Cap',
+  'description': 'Support the Mercedes-AMG Petronas team with this stylish cap, featuring the team\'s logo.',
+  'price': 5500,
+  'tags': ['F1', 'Formula 1', 'Mercedes', 'Cap'],
+  'images': ['https://f1store.formula1.com/en/images/mercedes-amg-petronas-cap.jpg']
 };
 
 const productContent3 = {
-  "name": "Red Bull Racing Hoodie",
-  "description": "Stay warm and show your allegiance to Red Bull Racing with this comfortable hoodie.",
-  "price": 8500,
-  "tags": ["F1", "Formula 1", "Red Bull", "Hoodie"],
-  "images": ["https://f1store.formula1.com/en/images/red-bull-racing-hoodie.jpg"]
+  'name': 'Red Bull Racing Hoodie',
+  'description': 'Stay warm and show your allegiance to Red Bull Racing with this comfortable hoodie.',
+  'price': 8500,
+  'tags': ['F1', 'Formula 1', 'Red Bull', 'Hoodie'],
+  'images': ['https://f1store.formula1.com/en/images/red-bull-racing-hoodie.jpg']
 };
 
 //test code
@@ -77,11 +77,13 @@ async function init() {
   // const product = await getProduct(551);
 
   // test createProduct
-  const createdProduct = await createProduct(productContent3);
+  // const createdProduct = await createProduct(productContent3);
+
+  // test patchProduct - try fixing item id 555 with productContent3
+  const patchedProduct = await patchProduct(555, productContent2);
   } catch (error) {
     console.error('Error found:', error);
   }
-
 }
 
 init();
