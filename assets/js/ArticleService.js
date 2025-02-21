@@ -82,9 +82,29 @@ async function createArticle(article) {
 }
 
 // patchArticle(): Use the PATCH method.
-// async function patchArticle() {
-
-// }
+async function patchArticle(id, patchContent) {
+  // patch request body patchContent should have  {title,content,image}
+  return instance.patch(`/${id}`, patchContent)
+    .then((response) => {
+      if (response.status >= 200 && response.status < 300) {
+        console.log('게시글 수정 완료:', response.data);
+        return response.data;
+      } else {
+        throw response;
+      }
+    })
+    .catch((error) => {
+      console.error('게시글 수정 오류 발생:', error);
+      if (error.response) {
+      // HTTPS error handling
+        console.error('HTTPS 에러, 게시글을 찾을 수 없음:', error.response.status, error.response.data);
+      } else if (error.request) { 
+        console.error('Request 에러:', error.request);
+      } else {
+        console.error('Setup 에러:', error.message);
+      } 
+    });
+}
 
 // deleteArticle(): Use the DELETE method.
 
@@ -95,4 +115,4 @@ async function createArticle(article) {
 
 // Use .catch() for error handling.
 
-export { getArticle, getArticleList, createArticle };
+export { getArticle, getArticleList, createArticle, patchArticle };

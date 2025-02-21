@@ -1,5 +1,5 @@
 //  need to import functions from ArticleService.js and ProductService.js
-import { createArticle, getArticleList, getArticle } from './ArticleService.js';
+import { createArticle, getArticleList, getArticle, patchArticle  } from './ArticleService.js';
 
 // test articleContent vars for createArticle
 const articleContent = {
@@ -21,25 +21,36 @@ const articleContent3 = {
 };
 
 const articleContent4 = {
-  'title': 'F1 McLaren Driver - Lando Norris', // Different title
-  'content': 'It\'s lights out and away we go!', // Different content
+  'title': 'F1 McLaren Driver - Lando Norris', 
+  'content': 'It\'s lights out and away we go!',
   'image': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/2024Drivers/norris' // Different image
 };
 
+const articleContent5 = {
+  // try to use this for patch test
+  'title': 'F1 Mercedes-AMG Petronas Driver - George Russell',
+  'content': 'The famous T-pose', 
+  'image': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/2024Drivers/russell' // Updated image URL
+};
 
 // * remove try catch here
 //test code
 async function init() {
-  // test getArticleList 
   try {
-  const list = await getArticleList('Lewis Hamilton');
+  // test getArticleList 
+  // const list = await getArticleList('Lewis Hamilton');
 
   // test getArticle 
-  const id = 555;
-  const article = await getArticle(id);
+  // const id = 555;
+  // const article = await getArticle(id);
   
   // test createArticle
   // const newArticle = await createArticle(articleContent4);
+
+  // test patchArticle
+  const patchId = 555;
+  const patchContent = articleContent5;
+  const updatedArticle = await patchArticle(patchId, patchContent);
   } catch (error) {
     console.error('Error found:', error);
   }
