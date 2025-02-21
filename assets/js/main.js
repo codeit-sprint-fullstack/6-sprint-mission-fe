@@ -62,21 +62,20 @@ async function init() {
   // test ProductService functions
 
   // test getProductLIst
-  const productList = await getProductList(undefined, 2);
+  // const productList = await getProductList(undefined, 1, "F1");
 
   // test getProduct
   // const product = await getProduct(551);
 
   // test createProduct
-  // const productContent = {
-  //   "name": "Scuderia Ferrari 2025 Team T-Shirt",
-  //   "description": "Show your support for the Ferrari F1 team with this stylish T-shirt featuring the team's logo and colors.",
-  //   "price": 7600,
-  //   "manufacturer": "Scuderia Ferrari",
-  //   "tags": ["F1", "Formula 1", "Ferrari", "Team T-Shirt"],
-  //   "images": ["https://f1store.formula1.com/en/images/scuderia-ferrari-2025-team-t-shirt.jpg"]
-  // };
-  // const createdProduct = await createProduct(productContent);
+  const productContent = {
+    "name": "Scuderia Ferrari T-Shirt",
+    "description": "Show your support for the Ferrari F1 team with this stylish T-shirt featuring the team's logo and colors.",
+    "price": 7600,
+    "tags": ["F1", "Formula 1", "Ferrari", "Team T-Shirt"],
+    "images": ["https://f1store.formula1.com/en/images/scuderia-ferrari-2025-team-t-shirt.jpg"]
+  };
+  const createdProduct = await createProduct(productContent);
 
   } catch (error) {
     console.error('Error found:', error);

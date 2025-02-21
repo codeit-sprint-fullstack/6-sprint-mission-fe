@@ -16,7 +16,7 @@ async function getProductList(page= 1, pageSize= 100, keyword='') {
     const params = { page, pageSize, keyword }//* too redundant?
     const productList = await instance.get('/', { params });
     console.log('상품 목록 조회 성공:', productList.data);
-    return product.data;
+    return productList.data;
   } catch (error) {
     console.error('상품 목록 조회 에러 발생:', error);
     if (error.response) {
@@ -48,9 +48,24 @@ async function getProduct(id) {
 }
 
 // createProduct(): Use the POST method.
-// Include `name`, `description`, `price`, `tags`, and `images` in the request body.
-
+async function createProduct(productContent) {
+  // productContent has `name`, `description`, `price`, `tags`, and `images` 
+  try {
+    const createdProduct = await instance.post('/', productContent);
+    console.log('상품이 등록되었습니다:', createdProduct.data);
+    return createdProduct.data;
+  } catch(error) {
+    console.error('상품 등록 에러 발생:', error);
+    if (error.response) {
+      console.error('HTTPS 에러:', error.response.status, error.response.data);
+    } else if (error.request) {
+      console.error('Request 에러:', error.request);
+    } else {
+      console.error('Setup 에러:', error.message);
+    }
+  }
+}
 // patchProduct(): Use the PATCH method.
 
 // deleteProduct(): Use the DELETE method.
-export { getProductList, getProduct };
+export { getProductList, getProduct, createProduct };
