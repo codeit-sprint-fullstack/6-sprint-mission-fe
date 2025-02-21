@@ -31,6 +31,7 @@ const articleContent4 = {
 //test code
 async function init() {
   // test getArticleList 
+  try {
   const list = await getArticleList("Lewis Hamilton");
 
   // test getArticle 
@@ -39,6 +40,9 @@ async function init() {
   
   // test createArticle
   const newArticle = await createArticle(articleContent4);
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 init();
