@@ -77,10 +77,13 @@ async function init() {
   // const product = await getProduct(551);
 
   // test createProduct
-  // const createdProduct = await createProduct(productContent3);
+  // const createdProduct = await createProduct(productContent1);
 
   // test patchProduct - try fixing item id 555 with productContent3
-  const patchedProduct = await patchProduct(555, productContent2);
+  // const patchedProduct = await patchProduct(555, productContent2);
+
+  // test deleteProduct
+  const deletedProduct = await deleteProduct(559);
   } catch (error) {
     console.error('Error found:', error);
   }

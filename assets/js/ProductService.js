@@ -81,11 +81,20 @@ async function patchProduct(id, patchContent) {
 }
 
 // deleteProduct(): Use the DELETE method.
-// async function deleteProduct(id) {
-//   try {
-    
-//   } catch(error) {
-
-//   }
-// }
+async function deleteProduct(id) {
+  try {
+    const product = await instance.delete(`/${id}`);
+    console.log('다음 상품이 삭제되었습니다:', product.data);
+    return product.data;
+  } catch(error) {
+    console.error('상품 삭제 에러 발생:', error);
+    if (error.response) {
+      console.error('HTTPS 에러:', error.response.status, error.response.data);
+    } else if (error.request) {
+      console.error('Request 에러:', error.request);
+    } else {
+      console.error('Setup 에러:', error.message);
+    }
+  }
+}
 export { getProductList, getProduct, createProduct, patchProduct, deleteProduct };
