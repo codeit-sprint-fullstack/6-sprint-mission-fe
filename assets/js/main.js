@@ -1,7 +1,7 @@
 //  need to import functions from ArticleService.js and ProductService.js
 import { createArticle, getArticleList, getArticle, patchArticle, deleteArticle  } from './ArticleService.js';
-
-// test articleContent vars for createArticle
+import { getProductList } from './ProductService.js';
+// test sample to check CRUD functionality of ArticleService.js
 const articleContent = {
   'title': 'F1 Ferrari Driver - Lewis Hamilton',
   'content': 'This is part of mission 4',
@@ -33,13 +33,12 @@ const articleContent5 = {
   'image': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/2024Drivers/russell' // Updated image URL
 };
 
-
-// * remove try catch here
 //test code
 async function init() {
   try {
+  // test ArticleService functions
   // test getArticleList 
-  const list = await getArticleList('F1');
+  // const list = await getArticleList(undefined, undefined, 'F1');
 
   // test getArticle 
   // const id = 555;
@@ -54,8 +53,11 @@ async function init() {
   // const updatedArticle = await patchArticle(patchId, patchContent);
 
   // test deleteArticle
-  const deleteId = 555;
-  const deletedArticle = await deleteArticle(deleteId);
+  // const deleteId = 555;
+  // const deletedArticle = await deleteArticle(deleteId);
+
+  // test ProductService functions
+  const productList = await getProductList(undefined, 2);
   } catch (error) {
     console.error('Error found:', error);
   }
