@@ -53,7 +53,7 @@ async function init() {
   // const list = await getArticleList(undefined, undefined, 'F1');
 
   // test getArticle 
-  // const id = 555;
+  // const id = 556;
   // const article = await getArticle(id);
   
   // test createArticle
@@ -71,19 +71,19 @@ async function init() {
   // test ProductService functions
 
   // test getProductLIst
-  // const productList = await getProductList(undefined, 1, "F1");
+  // const productList = await getProductList(undefined, 10, "Petronas");
 
   // test getProduct
-  // const product = await getProduct(551);
+  // const product = await getProduct(553);
 
   // test createProduct
-  // const createdProduct = await createProduct(productContent1);
+  // const createdProduct = await createProduct(productContent2);
 
   // test patchProduct - try fixing item id 555 with productContent3
   // const patchedProduct = await patchProduct(555, productContent2);
 
   // test deleteProduct
-  const deletedProduct = await deleteProduct(559);
+  const deletedProduct = await deleteProduct(560);
   } catch (error) {
     console.error('Error found:', error);
   }

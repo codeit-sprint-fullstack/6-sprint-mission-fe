@@ -5,23 +5,27 @@ const instance = axios.create({
   baseURL: 'https://panda-market-api-crud.vercel.app/products',
 });
 
+// Error handling function
+function handleError(error) {
+  if (error.response) {
+    console.error('HTTPS 에러:', error.response.status, error.response.data);
+  } else if (error.request) {
+    console.error('Request 에러:', error.request);
+  } else {
+    console.error('Setup 에러:', error.message);
+  }
+}
+
 // getProductList(): Use the GET method.
 // Use query parameters `page`, `pageSize`, and `keyword`.
 async function getProductList(page= 1, pageSize= 100, keyword='') {
   try {
-    const params = { page, pageSize, keyword };//* too redundant?
+    const params = { page, pageSize, keyword };
     const product = await instance.get('/', { params });
     console.log('상품 목록 조회 성공:', product.data);
     return product.data;
   } catch (error) {
-    console.error('상품 목록 조회 에러 발생:', error);
-    if (error.response) {
-      console.error('HTTPS 에러:', error.response.status, error.response.data);
-    } else if (error.request) {
-      console.error('Request 에러:', error.request);
-    } else {
-      console.error('Setup 에러:', error.message);
-    }
+    handleError(error);
   }
 }
 
@@ -32,14 +36,7 @@ async function getProduct(id) {
     console.log(`조회한 상품 아이디 ${id} 검색 결과:`, product.data);
     return product.data;
   } catch (error) {
-    console.error('상품 아이디 조회 에러 발생:', error);
-    if (error.response) {
-      console.error('HTTPS 에러:', error.response.status, error.response.data);
-    } else if (error.request) {
-      console.error('Request 에러:', error.request);
-    } else {
-      console.error('Setup 에러:', error.message);
-    }
+    handleError(error);
   }
 }
 
@@ -51,14 +48,7 @@ async function createProduct(productContent) {
     console.log('상품이 등록되었습니다:', product.data);
     return product.data;
   } catch (error) {
-    console.error('상품 등록 에러 발생:', error);
-    if (error.response) {
-      console.error('HTTPS 에러:', error.response.status, error.response.data);
-    } else if (error.request) {
-      console.error('Request 에러:', error.request);
-    } else {
-      console.error('Setup 에러:', error.message);
-    }
+    handleError(error);
   }
 }
 
@@ -69,14 +59,7 @@ async function patchProduct(id, patchContent) {
     console.log('상품이 수정되었습니다:', product.data);
     return product.data;
   } catch (error) {
-    console.error('상품 수정 에러 발생:', error);
-    if (error.response) {
-      console.error('HTTPS 에러:', error.response.status, error.response.data);
-    } else if (error.request) {
-      console.error('Request 에러:', error.request);
-    } else {
-      console.error('Setup 에러:', error.message);
-    }
+    handleError(error);
   }
 }
 
@@ -86,15 +69,9 @@ async function deleteProduct(id) {
     const product = await instance.delete(`/${id}`);
     console.log('다음 상품이 삭제되었습니다:', product.data);
     return product.data;
-  } catch(error) {
-    console.error('상품 삭제 에러 발생:', error);
-    if (error.response) {
-      console.error('HTTPS 에러:', error.response.status, error.response.data);
-    } else if (error.request) {
-      console.error('Request 에러:', error.request);
-    } else {
-      console.error('Setup 에러:', error.message);
-    }
+  } catch (error) {
+    handleError(error);
   }
 }
+
 export { getProductList, getProduct, createProduct, patchProduct, deleteProduct };
