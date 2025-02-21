@@ -2,7 +2,7 @@
 import { createArticle, getArticleList, getArticle, patchArticle, deleteArticle  } from './ArticleService.js';
 import { getProductList, getProduct, createProduct } from './ProductService.js';
 // test sample to check CRUD functionality of ArticleService.js
-const articleContent = {
+const articleContent1 = {
   'title': 'F1 Ferrari Driver - Lewis Hamilton',
   'content': 'This is part of mission 4',
   'image': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/drivers/2025Drivers/hamilton'
@@ -20,21 +20,30 @@ const articleContent3 = {
   'image': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/2024Drivers/verstappen' 
 };
 
-const articleContent4 = {
-  'title': 'F1 McLaren Driver - Lando Norris', 
-  'content': 'It\'s lights out and away we go!',
-  'image': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/2024Drivers/norris' // Different image
+// sample data for ProductService CRUD functions
+const productContent1 = {
+  "name": "Scuderia Ferrari T-Shirt",
+  "description": "Show your support for the Ferrari F1 team with this stylish T-shirt featuring the team's logo and colors.",
+  "price": 7600,
+  "tags": ["F1", "Formula 1", "Ferrari", "Team T-Shirt"],
+  "images": ["https://f1store.formula1.com/en/images/scuderia-ferrari-2025-team-t-shirt.jpg"]
 };
 
-const articleContent5 = {
-  // try to use this for patch test
-  'title': 'F1 Mercedes-AMG Petronas Driver - George Russell',
-  'content': 'The famous T-pose', 
-  'image': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/2024Drivers/russell' // Updated image URL
+const productContent2 = {
+  "name": "Mercedes-AMG Petronas Cap",
+  "description": "Support the Mercedes-AMG Petronas team with this stylish cap, featuring the team's logo.",
+  "price": 5500,
+  "tags": ["F1", "Formula 1", "Mercedes", "Cap"],
+  "images": ["https://f1store.formula1.com/en/images/mercedes-amg-petronas-cap.jpg"]
 };
 
-// sample data for ProductService
-
+const productContent3 = {
+  "name": "Red Bull Racing Hoodie",
+  "description": "Stay warm and show your allegiance to Red Bull Racing with this comfortable hoodie.",
+  "price": 8500,
+  "tags": ["F1", "Formula 1", "Red Bull", "Hoodie"],
+  "images": ["https://f1store.formula1.com/en/images/red-bull-racing-hoodie.jpg"]
+};
 
 //test code
 async function init() {
@@ -48,7 +57,7 @@ async function init() {
   // const article = await getArticle(id);
   
   // test createArticle
-  // const newArticle = await createArticle(articleContent5);
+  // const newArticle = await createArticle(articleContent3);
 
   // test patchArticle
   // const patchId = 555;
@@ -68,15 +77,7 @@ async function init() {
   // const product = await getProduct(551);
 
   // test createProduct
-  const productContent = {
-    "name": "Scuderia Ferrari T-Shirt",
-    "description": "Show your support for the Ferrari F1 team with this stylish T-shirt featuring the team's logo and colors.",
-    "price": 7600,
-    "tags": ["F1", "Formula 1", "Ferrari", "Team T-Shirt"],
-    "images": ["https://f1store.formula1.com/en/images/scuderia-ferrari-2025-team-t-shirt.jpg"]
-  };
-  const createdProduct = await createProduct(productContent);
-
+  const createdProduct = await createProduct(productContent3);
   } catch (error) {
     console.error('Error found:', error);
   }
