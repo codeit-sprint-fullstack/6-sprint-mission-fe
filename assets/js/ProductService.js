@@ -1,4 +1,4 @@
-// need to declare functions with export
+// need to declare functions with export at the bottom once functions are written
 // Use the 'https://sprint-mission-api.vercel.app/products' API to implement the following functions:
 
 // getProductList(): Use the GET method.
@@ -16,3 +16,13 @@
 // Use async/await for handling asynchronous processing.
 
 // Use try/catch for error handling.
+
+
+// example code
+// async function getProduct() {
+//   try {
+//     const response = await 
+//   } catch (error) {
+
+//   }
+// }

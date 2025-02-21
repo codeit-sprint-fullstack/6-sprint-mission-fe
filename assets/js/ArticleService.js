@@ -7,14 +7,14 @@ const instance = axios.create({
 });
 
 // getArticleList(): Use the GET method.
-// Use query parameters `page`, `pageSize`, `keyword`. => ** in main.js?
-async function getArticleList(keyword = "", page = 1, pageSize = 100) {
+// Use query parameters `page`, `pageSize`, `keyword`. 
+async function getArticleList(keyword = '', page = 1, pageSize = 100) {
   const params = { keyword, page, pageSize };
   return instance.get('/', { params }) // returns Promise
-  // handle HTTP error response
+  // Check HTTP status code range 200-299 - successful
     .then(response => {
       if (response.status >= 200 && response.status < 300){
-        console.log('게시글 조회 결과 리스트:', response.data);// *
+        console.log('게시글 목록 조회 결과 리스트:', response.data);
         return response.data;
       } else {
         throw response;
@@ -22,16 +22,16 @@ async function getArticleList(keyword = "", page = 1, pageSize = 100) {
     }) // chaining, so don't use comma
     // handle network errors
     .catch((error) => {
-      console.error('게시글 리스트 조회 오류', error);
+      console.error('게시글 목록 조회 오류 발생:', error);
       if (error.response) { 
         // HTTP response is true (non 2xx responses handled in this block
-        console.error('HTTPS 에러:', error.response.status);
+        console.error('HTTPS 에러:', error.response.status, error.response.data);
       } else if (error.request) { 
         // request error handling
         console.error('Request 에러:', error.request);
       } else {
         console.error('Setup 에러:', error.message);
-      }
+      } 
     });
 }
 
@@ -40,14 +40,21 @@ async function getArticle(id) {
   return instance.get(`/${id}`)
     .then((response) => {
       if (response.status >= 200 && response.status < 300) {
-        console.log(`요청한 게시글 아이디 ${id}번 결과:`, response.data);// *
+        console.log(`요청한 게시글 ${id}번 조회 결과:`, response.data);
         return response.data;
-      } else { // ** change it to else if 404 and add else block
-        throw new Error();
+      } else { 
+        throw response;
       }
     })
     .catch((error) => {
-      console.error('게시글을 찾을 수 없음', error.response.status);// ** need to fix this
+      console.error('게시글 상세 조회 오류 발생:', error);
+      if (error.response) { 
+        console.error('HTTPS 에러, 게시글을 찾을 수 없음:', error.response.status, error.response.data);
+      } else if (error.request) { 
+        console.error('Request 에러:', error.request);
+      } else {
+        console.error('Setup 에러:', error.message);
+      } 
     });
 }
 // createArticle(): Use the POST method.
@@ -56,14 +63,21 @@ async function createArticle(article) {
   return instance.post('/', article)
     .then((response) => {
       if (response.status >= 200 && response.status < 300) {
-        console.log('Created an article:', response.data); //*
+        console.log('게시글 작성 완료:', response.data);
         return response.data;
       } else {
-        throw new Error();
+        throw response;
       }
     })
     .catch((error) => {
-      console.error('유효성 검사 오류:',error.response.status);
+      console.error('게시글 등록 오류 발생:', error);
+      if (error.response) { 
+        console.error('HTTPS 에러, 게시글을 찾을 수 없음:', error.response.status, error.response.data);
+      } else if (error.request) { 
+        console.error('Request 에러:', error.request);
+      } else {
+        console.error('Setup 에러:', error.message);
+      } 
     });
 }
 
