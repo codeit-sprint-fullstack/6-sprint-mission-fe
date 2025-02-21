@@ -1,9 +1,5 @@
-// ** need to declare functions with export at the bottom once functions are written
-// Use the 'https://sprint-mission-api.vercel.app/products' API to implement the following functions:
-// Use async/await for handling asynchronous processing.
-// Use try/catch for error handling.
-
 import axios from 'axios';
+
 // use axios instance for product service api handling
 const instance = axios.create({
   baseURL: 'https://panda-market-api-crud.vercel.app/products',
@@ -13,10 +9,10 @@ const instance = axios.create({
 // Use query parameters `page`, `pageSize`, and `keyword`.
 async function getProductList(page= 1, pageSize= 100, keyword='') {
   try {
-    const params = { page, pageSize, keyword }//* too redundant?
-    const productList = await instance.get('/', { params });
-    console.log('상품 목록 조회 성공:', productList.data);
-    return productList.data;
+    const params = { page, pageSize, keyword };//* too redundant?
+    const product = await instance.get('/', { params });
+    console.log('상품 목록 조회 성공:', product.data);
+    return product.data;
   } catch (error) {
     console.error('상품 목록 조회 에러 발생:', error);
     if (error.response) {
@@ -49,12 +45,12 @@ async function getProduct(id) {
 
 // createProduct(): Use the POST method.
 async function createProduct(productContent) {
-  // productContent has `name`, `description`, `price`, `tags`, and `images` 
+  // productContent has `name`, `description`, `price`, `tags`, and `images`
   try {
-    const createdProduct = await instance.post('/', productContent);
-    console.log('상품이 등록되었습니다:', createdProduct.data);
-    return createdProduct.data;
-  } catch(error) {
+    const product = await instance.post('/', productContent);
+    console.log('상품이 등록되었습니다:', product.data);
+    return product.data;
+  } catch (error) {
     console.error('상품 등록 에러 발생:', error);
     if (error.response) {
       console.error('HTTPS 에러:', error.response.status, error.response.data);
@@ -65,13 +61,14 @@ async function createProduct(productContent) {
     }
   }
 }
+
 // patchProduct(): Use the PATCH method.
 async function patchProduct(id, patchContent) {
   try {
-    const patchedProduct = await instance.patch(`/${id}`, patchContent);
-    console.log('상품이 수정되었습니다:', patchedProduct.data);
-    return patchedProduct.data;
-  } catch(error) {
+    const product = await instance.patch(`/${id}`, patchContent);
+    console.log('상품이 수정되었습니다:', product.data);
+    return product.data;
+  } catch (error) {
     console.error('상품 수정 에러 발생:', error);
     if (error.response) {
       console.error('HTTPS 에러:', error.response.status, error.response.data);
@@ -82,5 +79,13 @@ async function patchProduct(id, patchContent) {
     }
   }
 }
+
 // deleteProduct(): Use the DELETE method.
-export { getProductList, getProduct, createProduct, patchProduct };
+// async function deleteProduct(id) {
+//   try {
+    
+//   } catch(error) {
+
+//   }
+// }
+export { getProductList, getProduct, createProduct, patchProduct, deleteProduct };

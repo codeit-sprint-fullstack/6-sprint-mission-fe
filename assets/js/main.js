@@ -1,6 +1,6 @@
 //  need to import functions from ArticleService.js and ProductService.js
 import { createArticle, getArticleList, getArticle, patchArticle, deleteArticle  } from './ArticleService.js';
-import { getProductList, getProduct, createProduct, patchProduct } from './ProductService.js';
+import { getProductList, getProduct, createProduct, patchProduct, deleteProduct } from './ProductService.js';
 // test sample to check CRUD functionality of ArticleService.js
 const articleContent1 = {
   'title': 'F1 Ferrari Driver - Lewis Hamilton',
