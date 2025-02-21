@@ -39,9 +39,9 @@ async function init() {
   const article = await getArticle(id);
   
   // test createArticle
-  const newArticle = await createArticle(articleContent4);
+  // const newArticle = await createArticle(articleContent4);
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error found:', error);
   }
 }
 

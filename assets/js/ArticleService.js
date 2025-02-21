@@ -14,15 +14,24 @@ async function getArticleList(keyword = "", page = 1, pageSize = 100) {
   // handle HTTP error response
     .then(response => {
       if (response.status >= 200 && response.status < 300){
-        console.log('Here is the article list requested:', response.data);// *
+        console.log('게시글 조회 결과 리스트:', response.data);// *
         return response.data;
       } else {
-        throw new Error();
+        throw response;
       }
     }) // chaining, so don't use comma
     // handle network errors
     .catch((error) => {
       console.error('게시글 리스트 조회 오류', error);
+      if (error.response) { 
+        // HTTP response is true (non 2xx responses handled in this block
+        console.error('HTTPS 에러:', error.response.status);
+      } else if (error.request) { 
+        // request error handling
+        console.error('Request 에러:', error.request);
+      } else {
+        console.error('Setup 에러:', error.message);
+      }
     });
 }
 
@@ -31,7 +40,7 @@ async function getArticle(id) {
   return instance.get(`/${id}`)
     .then((response) => {
       if (response.status >= 200 && response.status < 300) {
-        console.log(`Requested article ${id}:`, response.data);// *
+        console.log(`요청한 게시글 아이디 ${id}번 결과:`, response.data);// *
         return response.data;
       } else { // ** change it to else if 404 and add else block
         throw new Error();
