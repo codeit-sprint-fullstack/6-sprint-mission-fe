@@ -1,6 +1,6 @@
 //  need to import functions from ArticleService.js and ProductService.js
 import { createArticle, getArticleList, getArticle, patchArticle, deleteArticle  } from './ArticleService.js';
-import { getProductList, getProduct } from './ProductService.js';
+import { getProductList, getProduct, createProduct } from './ProductService.js';
 // test sample to check CRUD functionality of ArticleService.js
 const articleContent = {
   'title': 'F1 Ferrari Driver - Lewis Hamilton',
@@ -33,6 +33,9 @@ const articleContent5 = {
   'image': 'https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/drivers/2024Drivers/russell' // Updated image URL
 };
 
+// sample data for ProductService
+
+
 //test code
 async function init() {
   try {
@@ -57,14 +60,28 @@ async function init() {
   // const deletedArticle = await deleteArticle(deleteId);
 
   // test ProductService functions
+
   // test getProductLIst
-  // const productList = await getProductList(undefined, 2);
+  const productList = await getProductList(undefined, 2);
 
   // test getProduct
-  const product = await getProduct(551);
+  // const product = await getProduct(551);
+
+  // test createProduct
+  // const productContent = {
+  //   "name": "Scuderia Ferrari 2025 Team T-Shirt",
+  //   "description": "Show your support for the Ferrari F1 team with this stylish T-shirt featuring the team's logo and colors.",
+  //   "price": 7600,
+  //   "manufacturer": "Scuderia Ferrari",
+  //   "tags": ["F1", "Formula 1", "Ferrari", "Team T-Shirt"],
+  //   "images": ["https://f1store.formula1.com/en/images/scuderia-ferrari-2025-team-t-shirt.jpg"]
+  // };
+  // const createdProduct = await createProduct(productContent);
+
   } catch (error) {
     console.error('Error found:', error);
   }
+
 }
 
 init();
