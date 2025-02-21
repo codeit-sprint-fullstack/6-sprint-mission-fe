@@ -1,4 +1,3 @@
-// ** need to add export at the bottom of functions export {func1, func2, etc }
 import axios from 'axios';
 
 // Create axios instance
@@ -8,8 +7,8 @@ const instance = axios.create({
 
 // getArticleList(): Use the GET method.
 // Use query parameters `page`, `pageSize`, `keyword`. 
-async function getArticleList(keyword = '', page = 1, pageSize = 100) {
-  const params = { keyword, page, pageSize };
+async function getArticleList(page = 1, pageSize = 100, keyword = '') {
+  const params = { page, pageSize, keyword };
   return instance.get('/', { params }) // returns Promise
   // Check HTTP status code range 200-299 - successful
     .then(response => {
@@ -128,9 +127,5 @@ async function deleteArticle(id) {
       } 
     });
 }
-
-// Use .then() for handling asynchronous processing.
-
-// Use .catch() for error handling.
 
 export { getArticle, getArticleList, createArticle, patchArticle, deleteArticle };
