@@ -1,0 +1,151 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+:root {
+  /* Font family */
+  --font-primary: "Pretendard", sans-serif;
+
+  /* Font sizes and line heights in rem (1rem = 10px 기준) */
+  --text-3xl: 3.2rem; /* 32px */
+  --line-height-3xl: 4.2rem; /* 42px */
+
+  --text-2xl: 2.4rem; /* 24px */
+  --line-height-2xl: 3.2rem; /* 32px */
+
+  --text-xl: 2rem; /* 20px */
+  --line-height-xl: 3.2rem; /* 32px */
+
+  --text-2lg: 1.8rem; /* 18px */
+  --line-height-2lg: 2.6rem; /* 26px */
+
+  --text-lg: 1.6rem; /* 16px */
+  --line-height-lg: 2.6rem; /* 26px */
+
+  --text-md: 1.4rem; /* 14px */
+  --line-height-md: 2.4rem; /* 24px */
+
+  --text-sm: 1.3rem; /* 13px */
+  --line-height-sm: 2.2rem; /* 22px */
+
+  --text-xs: 1.2rem; /* 12px */
+  --line-height-xs: 2rem; /* 20px */
+
+  /* Font weights */
+  --font-bold: 700;
+  --font-semibold: 600;
+  --font-medium: 500;
+  --font-regular: 400;
+
+
+  /* Gray scale */
+  --gray-900: #111827;
+  --gray-800: #1F2937;
+  --gray-700: #374151;
+  --gray-600: #4B5563;
+  --gray-500: #6B7280;
+  --gray-400: #9CA3AF;
+  --gray-200: #e5e7eb;
+  --gray-100: #F3F4F6; 
+  --gray-50: #F9FAFB;
+
+  /* Primary color */
+  --primary-100: #3692ff;
+  --primary-200: #1967D6;
+  --primary-300: #1251AA;
+
+  --background-color: #cfe5ff;
+
+  --error-red: #F74747;
+
+  /* Layout dimensions */
+  --header-height: 70px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+}
+
+.text-3xl {
+  font-size: var(--text-3xl);
+  line-height: var(--line-height-3xl);
+}
+.text-2xl {
+  font-size: var(--text-2xl);
+  line-height: var(--line-height-2xl);
+}
+.text-xl {
+  font-size: var(--text-xl);
+  line-height: var(--line-height-xl);
+}
+.text-2lg {
+  font-size: var(--text-2lg);
+  line-height: var(--line-height-2lg);
+}
+.text-lg {
+  font-size: var(--text-lg);
+  line-height: var(--line-height-lg);
+}
+.text-md {
+  font-size: var(--text-md);
+  line-height: var(--line-height-md);
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--line-height-sm);
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--line-height-xs);
+}
