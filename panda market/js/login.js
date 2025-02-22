@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
             loginButton.disabled = true;
             loginButton.classList.remove("active");
         }
-        }
+    }
 
     emInput.addEventListener("blur", function () {
         const emInputData = emInput.value;
