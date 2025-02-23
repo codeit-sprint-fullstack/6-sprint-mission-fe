@@ -7,7 +7,7 @@ function getArticleList(page, pageSize, keyword) {
     url.searchParams.append('pageSize', pageSize);
     url.searchParams.append('keyword', keyword);
 
-    fetch(url, {
+    return fetch(url, {
         method: 'GET'
     })
     .then(response => {
@@ -28,7 +28,7 @@ function getArticleList(page, pageSize, keyword) {
 function getArticle(articleId) {
     const url = new URL(`${BASE_URL}/${articleId}`);
 
-    fetch(url, {
+    return fetch(url, {
         method: 'GET'
     })
     .then(response => {
@@ -55,7 +55,7 @@ function createArticle(title, content, image) {
         image: image
     };
 
-    fetch(url, {
+    return fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -80,7 +80,7 @@ function createArticle(title, content, image) {
 function patchArticle(articleId, updatedData) {
     const url = new URL(`${BASE_URL}/${articleId}`);
 
-    fetch(url, {
+    return fetch(url, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ function patchArticle(articleId, updatedData) {
 function deleteArticle(articleId) {
     const url = new URL(`${BASE_URL}/${articleId}`);
 
-    fetch(url, {
+    return fetch(url, {
         method: 'DELETE'
     })
     .then(response => {
@@ -118,4 +118,12 @@ function deleteArticle(articleId) {
         console.error('게시글을 삭제하지 못했습니다.', error);
     });
 }
+
+export { 
+    getArticleList, 
+    getArticle, 
+    createArticle, 
+    patchArticle, 
+    deleteArticle 
+};
 
