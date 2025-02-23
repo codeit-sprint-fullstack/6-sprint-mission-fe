@@ -2,11 +2,11 @@ import { getArticleList, getArticle, createArticle, patchArticle, deleteArticle 
 import { getProductList, getProduct, createProduct, patchProduct, deleteProduct } from './ProductService.js';
 
 const ID = 4;
-const ARTICLE_ID = '';
+const ARTICLE_ID = 40;
 
 // Article operations
 console.log('Fetching article list...');
-const articles = await getArticleList({ page: 1, pageSize: 5, keyword: 'test' });
+const articles = await getArticleList({ page: 1, pageSize: 5, keyword: '테스트' });
 console.log(articles);
 
 console.log('Fetching a single article...');

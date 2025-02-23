@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export { getArticleList, getArticle, createArticle, patchArticle, deleteArticle };
 
 const ArticleService_URL = 'https://sprint-mission-api.vercel.app/articles';
@@ -5,14 +7,10 @@ const ArticleService_URL = 'https://sprint-mission-api.vercel.app/articles';
 // Get article list
 function getArticleList({ page, pageSize, keyword }) {
   const url = new URL(ArticleService_URL);
-  return fetch(`${url}?page=${page}&pageSize=${pageSize}&keyword=${keyword}`)
+  return axios.get(url, { params: { page, pageSize, keyword }})
     .then(res => {
       console.log(`Status: ${res.status} - Article list fetched successfully.`);
-      return res.json();
-    })
-    .then(data => {
-      console.log(data);
-      return data;
+      return res.data;
     })
     .catch(error => {
       handleError(error);
@@ -21,14 +19,10 @@ function getArticleList({ page, pageSize, keyword }) {
 
 // Get a single article
 function getArticle(articleId) {
-  return fetch(`${ArticleService_URL}/${articleId}`)
+  return axios.get(`${ArticleService_URL}/${articleId}`)
     .then(res => {
       console.log(`Status: ${res.status} - Article fetched successfully.`);
       return res.json();
-    })
-    .then(data => {
-      console.log(data);
-      return data;
     })
     .catch(error => {
       handleError(error);
@@ -37,18 +31,10 @@ function getArticle(articleId) {
 
 // Create an article
 function createArticle({ title, content, tags }) {
-  return fetch(ArticleService_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title, content, tags }),
-  })
+  return axios.post(ArticleService_URL, { title, content, tags })
     .then(res => {
       console.log(`Status: ${res.status} - Article created successfully.`);
       return res.json();
-    })
-    .then(data => {
-      console.log(data);
-      return data;
     })
     .catch(error => {
       handleError(error);
@@ -57,18 +43,10 @@ function createArticle({ title, content, tags }) {
 
 // Update an article
 function patchArticle(articleId, data) {
-  return fetch(`${ArticleService_URL}/${articleId}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
+  return axios.patch(`${ArticleService_URL}/${articleId}`)
     .then(res => {
       console.log(`Status: ${res.status} - Article updated successfully.`);
-      return res.json();
-    })
-    .then(data => {
-      console.log(data);
-      return data;
+      return res.data;
     })
     .catch(error => {
       handleError(error);
@@ -77,18 +55,10 @@ function patchArticle(articleId, data) {
 
 // Delete an article
 function deleteArticle(articleId, password) {
-  return fetch(`${ArticleService_URL}/${articleId}`, {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ password }),
-  })
+  return axios.delete(`${ArticleService_URL}/${articleId}`, { data:{password} })
     .then(res => {
       console.log(`Status: ${res.status} - Article deleted successfully.`);
       return res.json();
-    })
-    .then(data => {
-      console.log(data);
-      return data;
     })
     .catch(error => {
       handleError(error);
