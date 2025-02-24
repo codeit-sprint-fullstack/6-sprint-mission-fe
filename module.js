@@ -9,7 +9,7 @@ const USER_DATA = [
 ];
 
 // 선택자
-const btn = document.querySelector('.btn');
+const formBtn = document.querySelector('.form-btn');
 const email = document.querySelector('#email');
 const nickname = document.querySelector('#nickname');
 const password = document.querySelector('#password');
@@ -21,8 +21,8 @@ const modal = document.querySelector('.modal');
 const modalBtn = document.querySelector('.modal-popup button');
 
 // 이메일, 비밀번호 정규 표현식
-const emailRegex = /^[0-9a-zA-Z]*@[0-9a-zA-Z]*\.[a-zA-Z]{2,3}$/i;
-const passwordRegex = /^[a-zA-Z0-9#?!@$%^&*-]{8,20}$/;
+const emailRegex = /^[0-9a-zA-Z]*@[0-9a-zA-Z][0-9a-zA-Z]*[.]?[0-9a-zA-Z]*\.[a-zA-Z]{2,3}$/i;
+const passwordRegex = /^[a-zA-Z0-9#?!@$%^&*-]{8,}$/;
 
 // 이메일, 비밀번호 에러 메세지
 const errMsg = {

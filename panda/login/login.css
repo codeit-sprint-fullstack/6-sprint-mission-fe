@@ -1,4 +1,3 @@
-@import "/reset.css";
 @font-face {
   font-family: "ROKAFSans";
   src: url("/font/ROKAF_Sans_Bold.ttf") format("Woff");
@@ -113,7 +112,7 @@ form div {
   color: var(--placeholder-btn-bg-color);
 }
 
-.btn {
+.form-btn {
   background-color: var(--placeholder-btn-bg-color);
   color: var(--login-txt-input-box-bg-color);
   width: 40rem;
@@ -133,7 +132,7 @@ form div {
   text-align: center;
 }
 
-.btn-able {
+.form-btn-able {
   background-color: var(--href-txt-focus-input-color);
   cursor: pointer;
 }
@@ -294,7 +293,7 @@ form div {
     top: 27.49px
   }
 
-  .btn {
+  .form-btn {
     width: 100%;
   }
 
