@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-export const BASE_URL = 'https://panda-market-api-crud.vercel.app/articles';
+export const Article_URL = 'https://panda-market-api-crud.vercel.app/articles';
 
 export const getArticleList = (page, pageSize, keyword) => {
   console.log("함수실행중")
-  const res = BASE_URL;
+  const res = Article_URL;
     return axios.get(res, {
     params: {
       page: page,
@@ -20,10 +20,11 @@ export const getArticleList = (page, pageSize, keyword) => {
       console.error("오류 발생:", error.response ? error.response.data : error.message);
     })
 }
+getArticleList()
 
 export const getArticle = (id) => {
   console.log("함수실행중")
-  const res = `BASE_URL/${id}`;
+  const res = `Article_URL/${id}`;
     return axios.get(res)
     .then(response => {
       console.log(response.data);
@@ -36,7 +37,7 @@ export const getArticle = (id) => {
 
 export const createArticle = (title, content, image) => {
   console.log("함수실행중중")
-  const res = BASE_URL;
+  const res = Article_URL;
   const articleData = {
     title: title,
     content: content,
@@ -54,7 +55,7 @@ export const createArticle = (title, content, image) => {
 }
 
 export const patchArticle = (id, title, content, image) => {
-  const res = `${BASE_URL}/${id}`;
+  const res = `${Article_URL}/${id}`;
   const articleData = {
     title: title,
     content: content,
@@ -72,7 +73,7 @@ export const patchArticle = (id, title, content, image) => {
 }
 
 export const deleteArticle = (id) => {
-  const res = `${BASE_URL}/${id}`;
+  const res = `${Article_URL}/${id}`;
   return axios.delete(res)
    .then(response => {
     console.log("응답 데이터", response.data)

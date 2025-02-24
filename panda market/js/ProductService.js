@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export const BASE_URL = 'https://panda-market-api-crud.vercel.app/products';
+export const Product_URL = 'https://panda-market-api-crud.vercel.app/products';
 
 export const getProductList= async (page, pagesize, keyword) => {
     try {
       console.log("함수실행중");
-      const res = BASE_URL;
+      const res = Product_URL;
       const response = await axios.get(res, {
         page: page,
         pageSize: pagesize,
@@ -22,12 +22,12 @@ export const getProductList= async (page, pagesize, keyword) => {
       }
     }
 };
-//   getProductList();
+  getProductList();
 
 export const getProduct = async (id) => {
   try {
         console.log("함수실행중");
-        const res = `${BASE_URL}/${id}`;
+        const res = `${Product_URL}/${id}`;
         const response = await axios.get(res);
         console.log(response.data);
         return response;
@@ -45,7 +45,7 @@ export const getProduct = async (id) => {
 export const createProduct = async (name, description, price, tags, images) => {
     try {
         console.log("함수실행중")
-        const res = BASE_URL;
+        const res = Product_URL;
         const produtsData = {
             name: name,
             description: description,
@@ -71,7 +71,7 @@ export const createProduct = async (name, description, price, tags, images) => {
 export const patchProduct = async (id, name, description, price, tags, images) => {
     try {
         console.log("함수실행중");
-        const res = `${BASE_URL}/${id}`;
+        const res = `${Product_URL}/${id}`;
         const produtsData = {
             name: name,
             description: description,
@@ -96,7 +96,7 @@ export const patchProduct = async (id, name, description, price, tags, images) =
 export const deleteProduct = async (id) => {
     try {
         console.log("함수실행중");
-        const res = `${BASE_URL}/${id}`;
+        const res = `${Product_URL}/${id}`;
         const response = await axios.delete(res);
         console.log(response.data);
         return response;
@@ -110,4 +110,4 @@ export const deleteProduct = async (id) => {
         }}
 }
 
-deleteProduct()
+// deleteProduct()
