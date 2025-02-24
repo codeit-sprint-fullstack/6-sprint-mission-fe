@@ -133,7 +133,7 @@ function toggleModal(show, message = "", redirect = false) {
     if (redirect) {
         modalCloseBtn.onclick = () => {
             toggleModal(false);
-            window.location.href = "/panda/login/index.html";
+            window.location.href = "../login/index.html";
         };
     }
 }

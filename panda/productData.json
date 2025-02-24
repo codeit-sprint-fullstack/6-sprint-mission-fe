@@ -1,0 +1,8 @@
+{
+    "message": "Validation Failed",
+    "details": {
+      "body.content": { "message": "'content' is required" },
+      "body.title": { "message": "invalid string value" }
+    }
+  }
+  
