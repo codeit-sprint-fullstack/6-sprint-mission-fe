@@ -135,7 +135,7 @@ body {
   height: 74px;
   margin-top: 24px;
   border-radius: 10px;
-  justify-content: space-between; /* 🔹 아이콘과 텍스트를 양쪽 끝으로 정렬 */
+  justify-content: space-between; 
 }
 
 
