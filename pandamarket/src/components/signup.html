@@ -19,34 +19,38 @@
       <div class="signupForm__email">
         <p>이메일</p>
         <input class="signupForm__input" type="email" id="email" name="email" placeholder="이메일을 입력해주세요" required>
+        <span id="email-error" class="error-message"></span>
       </div>
       <div class="signupForm__name">
         <p>닉네임</p>
         <input class="signupForm__input" type="text" id="name" name="name" placeholder="닉네임을 입력해주세요" required>
+        <span id="name-error" class="error-message"></span>
       </div>
       <div class="signupForm__password">
         <p>비밀번호</p>
         <div class="password__container">
           <input class="signupForm__input" type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요"
             required>
-          <img src="../img/eyeclose_icon.png" alt="passwordeyes" class="password__icon"> <!-- 비밀번호 아이콘 -->
+          <img src="../img/eyeclose_icon.png" alt="passwordeyes" class="password__icon" id="togglePassword">
         </div>
+        <span id="password-error" class="error-message"></span>
       </div>
       <div class="signupForm__passwordcheck">
         <p>비밀번호 확인</p>
         <div class="password__container">
           <input class="signupForm__input" type="password" id="passwordcheck" name="passwordcheck"
             placeholder="비밀번호를 다시 한 번 입력해주세요" required>
-          <img src="../img/eyeclose_icon.png" alt="passwordeyes" class="password__icon"> <!-- 비밀번호 확인 아이콘 -->
+          <img src="../img/eyeclose_icon.png" alt="passwordeyes" class="password__icon" id="togglePasswordCheck">
         </div>
+        <span id="passwordcheck-error" class="error-message"></span>
       </div>
       <div class="signup_btn">
-        <button>회원가입</button>
+        <button id="signup-btn" disabled>회원가입</button>
       </div>
       <div class="easylogin">
         간편 로그인하기
         <div class="easylogin__icon">
-          <a href="https://www.google.com/"><img src="../img/google login.png" alt="goolelogin"></a>
+          <a href="https://www.google.com/"><img src="../img/google login.png" alt="googlelogin"></a>
           <a href="https://www.kakaocorp.com/"><img src="../img/kakao login.png" alt="kakaologin"></a>
         </div>
       </div>
@@ -56,6 +60,7 @@
       <a href="./login.html">로그인</a>
     </div>
   </div>
+  <script src="./signup.js"></script>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .login__container {
   display: flex;
   justify-content: center;
@@ -23,6 +24,7 @@ body {
   height: 132px;
   margin-bottom: 40px;
 }
+
 .loginForm {
   width: 100%;
 }
@@ -49,11 +51,11 @@ body {
 
 .password__icon {
   position: absolute;
-  right: 19px; 
+  right: 19px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  width: 20px; 
+  width: 20px;
   height: 20px;
 }
 
@@ -62,7 +64,6 @@ body {
   height: 56px;
   padding: 10px 40px 10px 10px;
 }
-
 
 input {
   width: 100%;
@@ -77,7 +78,7 @@ input {
   cursor: pointer;
 }
 
-input ::placeholder {
+input::placeholder {
   color: #9ca3af;
 }
 
@@ -128,4 +129,14 @@ input:focus::placeholder {
 
 .signup a {
   color: #3692ff;
+}
+
+.loginForm__email input.error,
+.loginForm__password input.error {
+  border: 1px solid red;
+}
+
+.error-message {
+  font-size: 12px;
+  margin-top: 4px;
 }
