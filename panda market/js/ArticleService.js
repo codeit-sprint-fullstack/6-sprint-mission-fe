@@ -6,30 +6,32 @@ export const getArticleList = (page, pageSize, keyword) => {
   console.log("함수실행중")
   const res = BASE_URL;
     return axios.get(res, {
-    params: { page: page, pageSize: pageSize, keyword: keyword }
-  })
-  .then(response => {
-    console.log(response.data);
-    return response.data;
-  })
-  .catch(error => {
-    console.log(error.response.status)
-    console.log(error.response.data)
-  })
+    params: {
+      page: page,
+      pageSize: pageSize,
+      keyword: keyword
+      }
+    })
+    .then(response => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch(error => {
+      console.error("오류 발생:", error.response ? error.response.data : error.message);
+    })
 }
 
 export const getArticle = (id) => {
   console.log("함수실행중")
   const res = `BASE_URL/${id}`;
     return axios.get(res)
-  .then(response => {
-    console.log(response.data);
-    return response.data;
-  })
-  .catch(error => {
-    console.log(error.response.status)
-    // console.log(error.response.data)
-  })
+    .then(response => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch(error => {
+      console.error("오류 발생:", error.response ? error.response.data : error.message);
+    })
 }
 
 export const createArticle = (title, content, image) => {
