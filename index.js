@@ -39,12 +39,10 @@ inputName.forEach(input => {
             const parentNextSibling = input.parentElement.nextElementSibling;
             const emailPatterns = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            let allFieldTrue = true;
-
             // 사인업페이지에서만 DB에 있는 이메일 중복검사
             if(input === inputEmail) {
-                if (isSignupPage=== true) {
-                    USER_DATA.some(value => value.email === value)
+                if (isSignupPage === true) {
+                    USER_DATA.some(value => value === value)
                     if(value === true) {
                         blurStyleOn(input, errorMessagePtag);
                         errorMessagePtag.innerText = "사용 중인 이메일입니다.";
@@ -52,16 +50,17 @@ inputName.forEach(input => {
                         blurStyleOff(input, errorMessagePtag);
                         errorMessagePtag.innerText = "";
                     } 
-                } 
-                
-                // 이메일 input에 공백 있으면 에러 출력
-                if(value === "") {
+                }
+             // 이메일 input에 공백 있으면 에러 출력
+
+                if(value=== ""){
                     blurStyleOn(input, errorMessagePtag);
                     errorMessagePtag.innerText = "이메일을 입력해주세요.";
                 }else {
                     blurStyleOff(input, errorMessagePtag);
                     errorMessagePtag.innerText = "";
                 }
+                
 
                 // 이메일 형식 검사
                 if(!emailPatterns.test(value)) {
@@ -72,8 +71,9 @@ inputName.forEach(input => {
                     errorMessagePtag.innerText = "";
                 }
             }
-            else if (input === inputPwd) {
-                if (isSignupPage) {
+            
+            if (input === inputPwd) {
+                if (isSignupPage === true) {
                     // 비밀번호 length가 8 미만일 경우
                     if(value.length < 8) {
                         blurStyleOn(inputPwd, parentNextSibling);
@@ -132,7 +132,7 @@ inputName.forEach(input => {
             if (inputEmail.value && inputPwd.value && inputPwdConfirm.value) {
                 btnSignupEnable();
             } else {
-                btnLoginDisable();
+                btnSignupEnable();
             }
         } else if (isLoginPage) {
             // 입력값 확인 후 버튼 활성화/비활성화 처리
@@ -149,37 +149,38 @@ inputName.forEach(input => {
 function btnSignupEnable () {
     btnSignup.classList.remove("disabled");
     btnSignup.disabled = false;
-    btnSignup.onclick = function () { window.location.href = "/login"; };
+    btnSignup.onclick = function () { 
+        alert ('회원가입 성공');
+        window.location.href = "/login";
+    };
 }
-// [v] input 에 빈 값이 있거나 에러 메세지가 있으면 ‘로그인’ 버튼은 비활성화 됩니다.
-function btnLoginDisable () {
-    btnLogin.classList.add("disabled");
-    btnLogin.disabled = true;
-}
+
 
 // [v] 활성화된 ‘회원가입’ 버튼을 누르면 “/login” 로 이동합니다
 function btnSignupHref () {
     btnLogin.onclick = () => {
+        alert ('회원가입 성공');
         window.location.href = "/login";
     };
 }
 
 // [v] Input 에 유효한 값을 입력하면 ‘로그인' 버튼이 활성화 됩니다.
 function btnLoginEnable () {
-    btnLogin.classList.remove("disabled");
+    // btnLogin.classList.remove("disabled");
     btnLogin.disabled = false;
     btnLoginHref();
 }
 
 // [v] input 에 빈 값이 있거나 에러 메세지가 있으면 ‘로그인’ 버튼은 비활성화 됩니다.
 function btnLoginDisable () {
-    btnLogin.classList.add("disabled");
+    //btnLogin.classList.add("disabled");
     btnLogin.disabled = true;
 }
 
 // [v] 활성화된 ‘로그인’ 버튼을 누르면 “/items” 로 이동합니다
 function btnLoginHref () {
     btnLogin.onclick = () => {
+        alert ('로그인 성공');
         window.location.href = "/items";
     };
 }
