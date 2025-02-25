@@ -121,8 +121,6 @@ input {
   text-align: center;
 }
 
-
-
 /* 동작 스타일 */
 
 input:focus {
@@ -150,4 +148,20 @@ input:focus {
     top: 50px;
   }
 
+}
+
+/* 자바스크립트 연동 스타일 */
+
+.invalid-message {
+  visibility: hidden;
+}
+
+.invalid-form {
+  font-size: 15px;
+  color: #F74747;
+  border: 1px solid #f74747;
+}
+
+.invalid-form input:invalid + .invalid-message {
+  visibility: visible;
 }
