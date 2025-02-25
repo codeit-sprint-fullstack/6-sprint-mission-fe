@@ -47,9 +47,9 @@ function isValidPassword(password) {
 
 // check form validity
 function isValidForm() {
-  const userEmail = emailField.value.trim();
-  const userPassword = passwordField.value.trim();
-  return userEmail && userPassword && !emailError.textContent && !passwordError.textContent;
+  const isEmailValid = isValidEmail(emailField.value.trim());
+  const isPasswordValid = isValidPassword(passwordField.value.trim());
+  return isEmailValid && isPasswordValid && !emailError.textContent && !passwordError.textContent;
 }
 
 // check form validity and update button status
@@ -92,20 +92,20 @@ passwordField.addEventListener("focusout", () => {
   updateButtonState();
 });
 
-// reset email and password field error message after new input detected
-emailField.addEventListener("input", () => {
-  emailError.textContent = "";
-  emailError.classList.remove("auth__error--active");
-  emailField.classList.remove("auth__form-input--error");
+// input field error message reset handler
+function resetError(field, errorElement) {
+  errorElement.textContent = "";
+  errorElement.classList.remove("auth__error--active");
+  field.classList.remove('auth__form-password-primary--error', 'auth__form-password-confirm--error', 'auth__form-input--error');
   updateButtonState();
-});
+}
 
-passwordField.addEventListener("input", () => {
-  passwordError.textContent = "";
-  passwordError.classList.remove("auth__error--active");
-  passwordPrimaryContainer.classList.remove("auth__form-password-primary--error");
-  updateButtonState();
-});
+// reset email and password field error message after new input detected
+// reset email error
+emailField.addEventListener("input", () => resetError(emailField, emailError));
+
+// reset password error
+passwordField.addEventListener("input", () => resetError(passwordField, passwordError));
 
 // modal elements
 const modal = document.querySelector('#modal');
