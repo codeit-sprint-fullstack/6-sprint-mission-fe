@@ -26,13 +26,13 @@
             type="email"
             name="email"
             id="email"
-            class="email"
             autocomplete="off"
             placeholder="이메일을 입력해주세요"
+            required
           />
         </div>
-        <div class="email-msg hide">이메일을 입력해주세요.</div>
-        <div class="email-error hide">잘못된 이메일 형식입니다.</div>
+        <div id="emailEmptyError" class="error-message hide">이메일을 입력해주세요.</div>
+        <div id="emailInvalidError" class="error-message hide">잘못된 이메일 형식입니다.</div>
       </div>
 
       <div class="input-box">
@@ -42,15 +42,15 @@
             type="password" 
             name="password"
             id="password"
-            class="password"
             placeholder="비밀번호를 입력해주세요"
+            required
           />
           <button type="button" class="pw-toggle">
             <img src="images/icon/eye-invisible.svg" alt="비밀번호 보기">
           </button>
         </div>
-        <div class="pw-msg hide">비밀번호를 입력해주세요.</div>
-        <div class="pw-error hide">비밀번호를 8자 이상 입력해주세요.</div>
+        <div id="pwEmptyError" class="error-message hide">비밀번호를 입력해주세요.</div>
+        <div id="pwInvalidError" class="error-message hide">비밀번호를 8자 이상 입력해주세요.</div>
       </div>
       
       <button type="submit" id="loginBtn" class="button pill-button full-width">
@@ -77,11 +77,12 @@
     <div class="modal-box">
       <div class="modal">
         <p class="modal-msg"></p>
-        <button type="submit" class="button modal-btn">확인</button>
+        <button type="button" class="button modal-btn">확인</button>
       </div>
     </div>
   </main>
   
-  <script src="auth.js"></script>
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/login.js"></script>
 </body>
 </html>
