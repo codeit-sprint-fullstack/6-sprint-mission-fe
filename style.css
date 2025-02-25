@@ -1,333 +1,258 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-:root {
-    --text-4xl: 2.5rem;
-    --text-3xl: 2rem;
-    --text-2xl: 1.5rem;
-    --text-xl: 1.25rem;
-    --text-2lg: 1.125rem;
-    --text-lg: 1rem;
-    --text-md: 0.875rem;
-    --text-sm: 0.8125rem;
-    --text-xs: 0.75rem;
-    --primary-color-100: #3692ff;
-    --primary-color-200: #1967d6;
-    --primary-color-300: #1251aa;
-    --error-color: #f74747;
-    --secondary-color-gray900: #111827;
-    --secondary-color-gray800: #1f2937;
-    --secondary-color-gray700: #374151;
-    --secondary-color-gray600: #4b5563;
-    --secondary-color-gray500: #6b7280;
-    --secondary-color-gray400: #9ca3af;
-    --secondary-color-gray200: #e5e7eb;
-    --secondary-color-gray100: #f3f4f6;
-    --secondary-color-gray50: #f9fafb;
-    --background-color: #cfe5ff;
-    --background-color-light-blue: #e6f2ff;
-    --border-color: #dfdfdf;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-html,
-body {
-    font-family: "Pretendard";
-    margin: 0;
-}
-
 h2 {
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 56px;
+  font-weight: var(--font-bold);
+  font-size: 4rem; /* 40px */
+  line-height: 5.6rem; /* 56px */
 }
 h3 {
-    color: #3692ff;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 26px;
+  color: var(--primary-100);
+  font-weight: var(--font-bold);
+  font-size: var(--text-2lg);
+  line-height: var(--line-height-2lg);
 }
 p {
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 32px;
+  font-weight: var(--font-medium);
+  font-size: var(--text-2xl);
+  line-height: var(--line-height-2xl);
 }
 
 header {
-    width: 100%;
-    background-color: #ffffff;
-    position: fixed;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  position: fixed;
 }
 .nav {
-    top: 0;
-    max-width: 1920px;
-    width: 100%;
-    height: 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 9px 200px;
-    gap: 10px;
-    margin: 0 auto; /* 가운데정렬의 의미미*/
-    z-index: 100;
+  top: 0;
+  max-width: 120rem; /* 1920px */
+  width: 100%;
+  height: 7rem; /* 70px */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 20rem; /* 9px 200px */
+  gap: 1rem; /* 10px */
+  margin: 0 auto;
+  z-index: 100;
 }
 .homepage-logo {
-    margin-left: 200px;
-    width: 153px;
-    height: 51px;
+  margin-left: 20rem; /* 200px */
+  width: 15.3rem; /* 153px */
+  height: 5.1rem; /* 51px */
 }
 .homepage-login {
-    width: 128px;
-    height: 48px;
-    border-radius: 8px;
-    margin-right: 200px;
-    text-decoration: none;
-    background-color: #3692ff;
-    color: white;
-    padding: 12px 23px;
-    font-size: 16px;
-    line-height: 26px;
-    font-weight: 600;
-    text-align: center;
-    /* display: inline-block; */
-    cursor: pointer;
+  width: 12.8rem; /* 128px */
+  height: 4.8rem; /* 48px */
+  border-radius: 0.8rem; /* 8px */
+  margin-right: 20rem; /* 200px */
+  text-decoration: none;
+  background-color: var(--primary-100);
+  color: white;
+  padding: 1.2rem 2.3rem; /* 12px 23px */
+  font-size: 1.6rem; /* 16px */
+  line-height: 2.6rem; /* 26px */
+  font-weight: var(--font-semibold);
+  text-align: center;
+  cursor: pointer;
 }
 
 .homepage-tops {
-    background-color: var(--background-color);
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    height: 540px; /* nav 높이를 고려한 값 */
-    width: 100%;
-    padding-top: 70px; /* nav 높이만큼 추가 */
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 54rem; /* 540px */
+  width: 100vw;
+  padding-top: var(--header-height);
 }
 .homepage-top-content {
-    display: grid;
-    grid-template-columns: 357px 746px;
-    justify-content: center;
-    align-items: end;
-    gap: 7px;
-    height: 100%;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 0.7rem; /* 7px */
+  height: 100%;
+  width: 100%;
+  max-width: 120rem;
 }
 .homepage-top-des {
-    padding: 0 0 100px;
+  padding: 0 0 10rem; /* 100px */
 }
 .homepage-top-des h2 {
-    text-align: left;
-    margin: 0 0 32px;
+  text-align: left;
+  margin: 0 0 3.2rem; /* 32px */
 }
 .homepage-btn {
-    text-decoration: none;
-    background-color: #3692ff;
-    width: 357px;
-    height: 56px;
-    border-radius: 40px;
-    color: white;
-    padding: 16px 124px;
-    gap: 10px;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 32px;
-    text-align: center;
-    cursor: pointer;
+  text-decoration: none;
+  background-color: var(--primary-100);
+  width: 35.7rem; /* 357px */
+  height: 5.6rem; /* 56px */
+  border-radius: 4rem; /* 40px */
+  color: white;
+  padding: 1.6rem 12.4rem; /* 16px 124px */
+  font-weight: var(--font-semibold);
+  font-size: 2rem; /* 20px */
+  line-height: 3.2rem; /* 32px */
+  text-align: center;
+  cursor: pointer;
 }
 .homepage-top-img {
-    width: 746px;
-    height: 340px;
+  width: 74.6rem; /* 746px */
+  height: 34rem; /* 340px */
 }
 
 .homepage-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 138px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 13.8rem; /* 138px */
 }
 .section-container {
-    background-color: #fcfcfc;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 988px;
-    height: 444px;
-    gap: 64px;
-    max-width: 1920px;
-    /* width: 100%; 이거 언제 넣어야하는지???*/
+  background-color: #fcfcfc;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* width: 98.8rem; 988px */
+  height: 44.4rem; /*444px*/
+  gap: 6.4rem; /* 64px */
+  max-width: 120rem; /* 1920px */
+  width: 100%;
 }
 .section-img {
-    width: 588px;
-    height: 444px;
-    object-fit: cover;
+  width: 58.8rem; /* 588px */
+  height: 44.4rem; /* 444px */
+  object-fit: cover;
 }
 .section-description {
-    background-color: #fcfcfc;
-    justify-content: center;
-    align-items: center;
-    text-align: left;
-    /* gap: 12px; 왜이게 안되는거죠. 그럼 세개의 사이사이 어떻게 하죵죵*/
+  background-color: #fcfcfc;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
 }
 .section-search .section-description {
-    text-align: right;
+  text-align: right;
 }
 
 .homepage-bottom {
-    margin: 138px 0 0 0;
-    background-color: #cfe5ff;
-    height: 540px;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  margin: 13.8rem 0 0 0; /* 138px */
+  background-color: var(--background-color);
+  height: 54rem; /* 540px */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
 }
 .homepage-bottom-content {
-    display: grid;
-    grid-template-columns: 295px 746px;
-    justify-content: center;
-    align-items: end;
-    gap: 69px;
-    height: 100%;
-    width: 100%;
-    margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  gap: 6.9rem; /* 69px */
+  height: 100%;
+  width: 100%;
+  margin: auto;
 }
 .homepage-bottom-content h2 {
-    margin: 0 0 172.5px;
+  margin: 0 0 17.25rem; /* 172.5px */
 }
 .homepage-bottom-img {
-    width: 746px;
-    height: 397px;
+  width: 74.6rem; /* 746px */
+  height: 39.7rem; /* 397px */
 }
 
 /*privacy 이라인이 가운데정렬말고 위로정렬렬*/
-.plan-card {
-    background-color: var(--secondary-color-gray900);
-    padding: 32px 200px;
-    height: 160px;
-    gap: 10px;
-    display: flex;
-    justify-content: center; /**/
-    align-items: center;
+footer {
+  background-color: var(--gray-900);
+  /* padding: 3.2rem 20rem; 32px */
+  height: 16rem; /* 160px */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    /* position: absolute;
-  bottom: 0;
-  width: 100%; */
-}
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1920px;
-    margin: auto;
+  font-size: 1.6rem;
+  line-height: 19.09px;
+  font-weight: var(--font-regular);
+
+  flex-wrap: wrap;
+  gap: 6rem; /* 60px */
+  width: 100vw;
+  margin: 0 auto;
+  /* max-width: 120rem; 이거 안되는데데? */
 }
 .footer-left {
-    margin-left: 200px;
-    color: var(--secondary-color-gray400);
-    /* margin-top: 32px; */
-
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19.09px;
-    text-align: center;
+  margin-left: 20rem; /* 200px */
+  color: var(--gray-400);
 }
 .footer-center {
-    display: flex;
-    gap: 30px;
-    color: var(--secondary-color-gray200);
-    cursor: pointer;
-    /* text-decoration: none; */
-
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19.09px;
-    text-align: center;
+  display: flex;
+  gap: 3rem; /*30px;*/
+  color: var(--gray-200);
+  cursor: pointer;
+  text-decoration: none;
 }
 .footer-center a {
-    color: var(--secondary-color-gray200);
-    text-decoration: none;
+  color: var(--gray-200);
+  text-decoration: none;
 }
 .footer-right {
-    display: flex;
-    gap: 12px;
-    margin-right: 200px;
+  display: flex;
+  gap: 1.2rem; /*12px;*/
+  margin-right: 20rem; /* 200px */
 }
 .footer-right img {
-    width: 20px;
-    height: 20px;
+  width: 2rem;
+  height: 2rem;
 }
 .footer-right a {
-    cursor: pointer;
-    display: inline-block; /*이게왜필요?*/
-    text-decoration: none;
-    border: none;
-    padding: 5px;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  border: none;
+  padding: 5px;
 }
 
-@media (min-width: 1920px) {
-    .homepage-tops, .homepage-bottom {
-      background-color: var(--background-color);
-      width: 100vw; /* 배경을 화면 전체로 확장 */
-    } 
-    .homepage-top-content, .homepage-bottom-content {
-      max-width: 1920px; /* 내부 요소 크기 고정 */
-      padding: 0 200px; /* 좌우 여백을 200px 유지 */
-      margin: auto; /* 가운데 정렬 */
-    }
-}
-/* 📌 화면 너비가 1920px 이하일 때 여백 유지하면서 두 요소 간 거리 조정 */
+/* === 1920px 이하 반응형 설정 === */
 @media (max-width: 1920px) {
   .nav {
-      padding: 0 10vw; /* 화면이 줄어들수록 여백을 상대적으로 조정 */
+    padding: 0 10vw;
+  }
+  footer {
+    padding: 3.2rem 10vw;
+  }
+
+  .footer-left {
+    margin-left: 10vw;
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .footer-right {
+    margin-right: 10vw;
+  }
+}
+
+/* 모바일 대응 (768px 이하) */
+@media (max-width: 768px) {
+  html {
+    font-size: 55%;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 5vw;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    margin: 0;
+  }
+
+  .footer-center {
+    flex-direction: column;
+    gap: 1.5rem;
   }
 }

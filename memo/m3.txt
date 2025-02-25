@@ -1,0 +1,9 @@
+1. alert design - 미완성
+6. 심화 -못함.
+7. 이메일검증 서드파티불러오기
+
+
+# Questions
+2. //const pwd = pwdInput.value.trim(); 이걸 전역으로? -> 지금이 맞다.
+4. validateConfirmPwd???? 설명어디? 
+* 파일이름? 위치? 정리가 잘된것은 무엇? -> 취향차이

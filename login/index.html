@@ -1,74 +1,99 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>판다마켓 로그인</title>
-  <link rel="stylesheet" href="login.css">
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-</head>
-<body>
-  <div class="login-container">
-    <!-- 로고 -->
-    <a href="/">
-      <img 
-        class="logo" 
-        src="/images/Property 1=lg.png" alt="판다마켓 로고"
-      >
-    </a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>판다마켓 로그인</title>
+    <link rel="stylesheet" href="/global.css" />
+    <link rel="stylesheet" href="/auth.css" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+  </head>
+  <body>
+    <div class="auth-container">
+      <!-- 로고 -->
+      <a href="/">
+        <img class="logo" src="/images/logo/logo.svg" alt="판다마켓 로고" />
+      </a>
 
-    <div class="bottom-container">
-      <!-- 로그인 폼 -->
-      <form class="login-form">
+      <div class="bottom-container">
+        <!-- 로그인 폼 -->
+        <form>
+          <div class="id_pwd_input">
+            <label for="email">이메일</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="이메일을 입력해주세요"
+              autocomplete="on"
+              required
+            />
+            <div id="email-error" class="error-message"></div>
 
-        <div class="id_pwd_input">
-          <label for="email">이메일</label>
-          <input type="email" id="email" placeholder="이메일을 입력해주세요" autocomplete="on" required>
-          <div id="email-error" class="error-message"></div>
-
-          <label for="password">비밀번호</label>
-          <div class="password-container">
-            <input type="password" id="password" placeholder="비밀번호를 입력해주세요" required>
-            <img src="/images/Property 1=Variant2.png" alt="button visibility off" id="togglePwd">
+            <div class="input-item">
+              <label class="login-label" for="password">비밀번호</label>
+              <div class="password-container">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요"
+                  required
+                />
+                <button
+                  type="button"
+                  class="password-toggle-button"
+                  aria-label="비밀번호 표시/숨기기"
+                >
+                  <img
+                    src="/images/icons/eye-invisible.svg"
+                    alt="button visibility off"
+                  />
+                </button>
+              </div>
+            </div>
             <div id="pwd-error" class="error-message"></div>
+          </div>
+          <button type="button" class="auth-btn" disabled>로그인</button>
+        </form>
+
+        <!-- 간편 로그인 -->
+        <div class="social-login">
+          <div>
+            <p>간편 로그인하기</p>
+          </div>
+
+          <div class="social-icons">
+            <a href="https://www.google.com/">
+              <img src="/images/social/Component2.png" alt="Google 로그인" />
+            </a>
+            <a href="https://www.kakaocorp.com/page/">
+              <img src="/images/social/Component3.png" alt="카카오 로그인" />
+            </a>
           </div>
         </div>
 
-        <button type="button" class="login-btn" disabled>로그인</button>
-      </form>
-
-      <!-- 간편 로그인 -->
-      <div class="social-login">
-        <div>
-          <p>간편 로그인하기</p>
-        </div>
-        
-        <div class="social-icons">
-          <a href="https://www.google.com/">
-            <img src="/images/Component 2.png" alt="Google 로그인">
-          </a>
-          <a href="https://www.kakaocorp.com/page/">
-            <img src="/images/Component 3.png" alt="카카오 로그인">
-          </a>
+        <!--회원가입 링크-->
+        <div class="signup-link">
+          <span>판다마켓이 처음이신가요?</span>
+          <a href="/signup">회원가입</a>
         </div>
       </div>
+    </div>
 
-      <!--회원가입 링크-->
-      <div class="signup-link">
-        <span>판다마켓이 처음이신가요?</span>
-        <a href="/signup">회원가입</a>
+    <!-- 오류 메시지 모달 추가 -->
+    <div id="errorModal" class="modal">
+      <div class="modal-content">
+        <p id="errorMessage">오류 메시지</p>
+        <button id="closeModal">확인</button>
       </div>
     </div>
-  </div>
-
-  <!-- 오류 메시지 모달 추가 -->
-  <div id="errorModal" class="modal">
-    <div class="modal-content">
-      <p id="errorMessage">오류 메시지</p>
-      <button id="closeModal">확인</button>
-    </div>
-  </div>
-
-  <script src="login.js" defer></script>
-</body>
+    <script src="/utils.js" defer></script>
+    <script src="login.js" defer></script>
+  </body>
 </html>

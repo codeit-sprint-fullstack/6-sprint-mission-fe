@@ -1,0 +1,5 @@
+1. nav부분 너무 딱붙음. 흩어져!
+2. footer 문제
+  - footer, max-width 하면 배경색이 꽉안채워짐, 내부고정 어케?
+  - footer margin이 왜생기는거지? *margin0이 안되는건가?
+  - footer 이 살짝 위로 가야하는데 안됨. 으아.
