@@ -1,6 +1,3 @@
-//import axios from "axios";
-import axios from "https://cdn.jsdelivr.net/npm/axios@1.5.1/+esm";
-
 import { instance, safeExecute } from "../common";
 
 // getProductList() : GET 메서드를 사용해 주세요.

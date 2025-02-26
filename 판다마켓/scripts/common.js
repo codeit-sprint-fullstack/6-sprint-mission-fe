@@ -1,3 +1,7 @@
+//import axios from "axios";
+//import axios from "./node_modules/axios/dist/esm/axios.min.js";
+import axios from "https://cdn.jsdelivr.net/npm/axios@1.5.1/+esm";
+
 // 유저 데이터
 export const USER_DATA = [
   { email: "codeit1@codeit.com", password: "codeit101!" },
