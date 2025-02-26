@@ -2,9 +2,17 @@ import { instance, safeExecute } from "../common";
 
 // getArticleList() : GET 메서드를 사용해 주세요.
 // page, pageSize, keyword 쿼리 파라미터를 이용해 주세요.
-export const getArticleList = () => {
+export const getArticleList = (page = 1, pageSize = 10, keyword = "") => {
+  const params = new URLSearchParams({
+    page,
+    pageSize,
+    keyword,
+  });
+
   return safeExecute(() => {
-    return instance.get(`/articles`).then((res) => res.data);
+    return instance
+      .get(`/articles?${params.toString()}`)
+      .then((res) => res.data);
   });
 };
 
