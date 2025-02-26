@@ -8,6 +8,11 @@ export const USER_DATA = [
   { email: "codeit6@codeit.com", password: "codeit606!" },
 ];
 
+// 인스턴스
+export const instance = axios.create({
+  baseURL: "https://sprint-mission-api.vercel.app/",
+});
+
 // 모달 열기 함수
 export const showModal = (message) => {
   document.getElementById("modalMessage").textContent = message;

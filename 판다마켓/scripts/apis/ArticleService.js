@@ -2,10 +2,7 @@
 //import axios from "./node_modules/axios/dist/esm/axios.min.js";
 import axios from "https://cdn.jsdelivr.net/npm/axios@1.5.1/+esm";
 
-// 인스턴스
-const instance = axios.create({
-  baseURL: "https://sprint-mission-api.vercel.app/",
-});
+import { instance } from "../common";
 
 // 에러 처리
 const handleError = (func) => {
