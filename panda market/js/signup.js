@@ -16,26 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
         { email: 'codeit5@codeit.com', password: "codeit505!" },
     ];
 
-    // function validateForm() {
-    //     const emailValue = emInput.value.trim();
-    //     const passwordValue = pwInput.value.trim();
-    //     const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
-    //     const passwordValid = passwordValue.length >= 8;
-
-    //     const emailErrorVisible = emError.style.visibility === "visible";
-    //     const passwordErrorVisible = passwordError.style.visibility === "visible";
-
-    //     const isValid = emailValue && passwordValue && emailValid && passwordValid && !emailErrorVisible && !passwordErrorVisible;
-
-    //     if (isValid) {
-    //         signupButton.disabled = false;
-    //         signupButton.classList.add("active");
-    //     } else {
-    //         signupButton.disabled = true;
-    //         signupButton.classList.remove("active");
-    //     }
-    // }
-
     emInput.addEventListener("blur", function () {
         const emInputData = emInput.value;
         const emPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
