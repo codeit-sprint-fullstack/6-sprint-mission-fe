@@ -19,7 +19,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         fetch("meta.html")
-          .then(response => response.text())
+          .then(response => response.text()) // meta.html 파일을 불러옴
           .then(data => {
             document.head.insertAdjacentHTML("beforeend", data); // 메타 태그를 <head>에 삽입
           })
@@ -142,7 +142,5 @@
         /></a>
       </div>
     </footer>
-
-
   </body>
 </html>
