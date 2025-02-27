@@ -1,3 +1,7 @@
+//import axios from "axios";
+//import axios from "./node_modules/axios/dist/esm/axios.min.js";
+import axios from "https://cdn.jsdelivr.net/npm/axios@1.5.1/+esm";
+
 // 유저 데이터
 export const USER_DATA = [
   { email: "codeit1@codeit.com", password: "codeit101!" },
@@ -7,6 +11,30 @@ export const USER_DATA = [
   { email: "codeit5@codeit.com", password: "codeit505!" },
   { email: "codeit6@codeit.com", password: "codeit606!" },
 ];
+
+// 인스턴스
+export const instance = axios.create({
+  baseURL: "https://sprint-mission-api.vercel.app/",
+});
+
+// 에러 처리
+const handleError = (error) => {
+  if (error.response) {
+    console.log(error.response.status);
+    console.log(error.response.data);
+  } else {
+    console.log("request failed");
+  }
+};
+
+// 안전 검사
+export const safeExecute = (func) => {
+  try {
+    return func();
+  } catch (error) {
+    handleError(error);
+  }
+};
 
 // 모달 열기 함수
 export const showModal = (message) => {
