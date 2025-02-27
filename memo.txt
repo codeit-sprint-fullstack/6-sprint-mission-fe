@@ -1,0 +1,3 @@
+//async is used to declare an asynchronous function
+//await pauses the execution of the funcion until the promise is resolved
+//You can use async&await to handle the promise more cleanly
