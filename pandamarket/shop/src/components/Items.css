@@ -1,0 +1,43 @@
+.items-list {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.item {
+  width: 221px;
+  height: 317px;
+  margin-top: 24px;
+}
+.item-img {
+  width: 221px;
+  height: 221px;
+  border-radius: 16px;
+}
+
+.item-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.item-price {
+  font-weight: 700;
+}
+.item-favorite {
+  width: auto;
+  height: 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.heart {
+  width: 18px;
+  height: auto;
+  margin-right: 5px;
+}
+.favorete-count {
+  font-size: 12px;
+}

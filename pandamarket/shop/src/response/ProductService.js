@@ -4,19 +4,30 @@ const instance = axios.create({
   baseURL: "https://sprint-mission-api.vercel.app/products",
 });
 
-export const getProductList = async (
-  params = { page: 1, pageSize: 100, key: "" }
-) => {
+export const getProductList = async ({
+  orderBy = "favoriteCount",
+  page = 1,
+  pageSize = 10,
+  keyword = "",
+} = {}) => {
   try {
-    const res = await instance.get(`/`, { params });
+    const res = await instance.get("/", {
+      params: { orderBy, page, pageSize, keyword }, // params를 활용
+    });
+    // console.log(res.data);
     return res.data;
   } catch (e) {
     if (e.response) {
-      console.log(`${e.response.status}:${e.response.statusText}`);
+      console.error(`${e.response.status}: ${e.response.statusText}`);
     } else {
-      console.log("request failed");
+      console.error("Request failed");
     }
   }
+};
+
+export const getNumProduct = async () => {
+  const res = await instance.get("/");
+  return res.data.length;
 };
 
 export const getProduct = async (id) => {
