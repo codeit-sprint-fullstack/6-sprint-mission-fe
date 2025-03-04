@@ -1,3 +1,26 @@
 {
-  "type":"module"
+  "type": "module",
+  "name": "6-sprint-mission-fe",
+  "version": "1.0.0",
+  "description": "> _이 저장소는 판다마켓 프로젝트의 프론트엔드 코드를 관리하는 곳입니다. 프로젝트를 클론하여 개발 환경을 설정하고, 각 브랜치에서 해당 스프린트 미션을 수행해 주세요!_ 🛠️",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kongduu/6-sprint-mission-fe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kongduu/6-sprint-mission-fe/issues"
+  },
+  "homepage": "https://github.com/kongduu/6-sprint-mission-fe#readme",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.2.0"
+  }
 }
