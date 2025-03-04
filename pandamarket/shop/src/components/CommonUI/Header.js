@@ -1,4 +1,4 @@
-import logo from "../asset/image/ic_logo.png";
+import logo from "../../asset/image/ic_logo.png";
 import "./Header.css";
 export const Header = () => {
   return (

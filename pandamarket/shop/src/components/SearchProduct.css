@@ -1,0 +1,18 @@
+.search-product {
+  background-color: var(--primary-text-color);
+  border: none;
+  width: 325px;
+  height: 42px;
+  border-radius: 12px;
+  margin-right: 12px;
+  padding-left: 10px;
+}
+
+@media (max-width: 1200px) {
+  .search-product {
+    width: 242px;
+  }
+}
+
+@media (max-width: 744px) {
+}

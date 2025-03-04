@@ -1,20 +1,20 @@
 import "./Footer.css";
-import youtube from "../asset/image/ic_youtube.png";
-import twitter from "../asset/image/ic_twitter.png";
-import instagram from "../asset/image/ic_instagram.png";
-import facebook from "../asset/image/ic_facebook.png";
+import youtube from "../../asset/image/ic_youtube.png";
+import twitter from "../../asset/image/ic_twitter.png";
+import instagram from "../../asset/image/ic_instagram.png";
+import facebook from "../../asset/image/ic_facebook.png";
 export const Footer = () => {
   return (
-    <div class="footer">
-      <div class="footer-img">
+    <div className="footer">
+      <div className="footer-img">
         <div>
           <p id="info">@codeit - 2024</p>
         </div>
-        <div class="text-link">
-          <a class="link" href="privacy.html">
+        <div className="text-link">
+          <a className="link" href="privacy.html">
             Privacy Policy
           </a>
-          <a class="link" href="faq.html">
+          <a className="link" href="faq.html">
             FAQ
           </a>
         </div>

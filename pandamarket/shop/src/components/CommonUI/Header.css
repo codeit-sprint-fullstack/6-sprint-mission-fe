@@ -1,7 +1,7 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 @font-face {
   font-family: "ROKAF Sans";
-  src: url("../asset/font/ROKAF Slab Serif Bold.ttf") format("truetype");
+  src: url("../../asset/font/ROKAF Slab Serif Bold.ttf") format("truetype");
 }
 :root {
   --primary-color: #3692ff;
@@ -36,7 +36,7 @@ body {
 
 .header-img {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   width: 100%;
   max-width: 120rem;
@@ -83,7 +83,7 @@ body {
   line-height: 3rem;
   border: none;
   margin-right: 1.5rem;
-  margin-left: 1000px;
+  margin-left: auto;
 }
 
 .header-text {

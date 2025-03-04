@@ -1,21 +1,16 @@
-.items-list {
-  width: 1200px;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 0;
-}
-
 .item {
-  width: 221px;
-  height: 317px;
-  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .item-img {
-  width: 221px;
-  height: 221px;
+  width: 100%;
+  aspect-ratio: 1/1;
   border-radius: 16px;
+}
+.item-text {
+  width: auto;
+  height: auto;
 }
 
 .item-name {
@@ -40,4 +35,19 @@
 }
 .favorete-count {
   font-size: 12px;
+}
+@media (max-width: 1200px) {
+  .items-list {
+    width: 696px;
+    gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 744px) {
+  .items-list {
+    width: 344px;
+    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
