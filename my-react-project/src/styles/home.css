@@ -1,5 +1,3 @@
-/* Mobile styles */
-
 .banner {
   background-color: #cfe5ff;
   height: 60vh;
@@ -7,6 +5,11 @@
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: 130%;
+  margin-top: 10px;
+}
+
+#hero {
+  background-image: url("../../public/images/home/hero-image.png");
 }
 
 .banner h1 {
@@ -17,6 +20,10 @@
   padding-bottom: 18px;
 }
 
+#bottomBanner {
+  background-image: url("../../public/images/home/bottom-banner-image.png");
+}
+
 #loginLink {
   font-size: 16px;
   font-weight: 600;
@@ -25,26 +32,55 @@
 }
 
 #features {
+  display: flex;
+  flex-direction: column; /* 모바일에서 세로 정렬 */
+  align-items: center;
   padding-top: 51px;
+  gap: 64px; /* 요소 간 간격 */
 }
 
 .feature {
-  margin-bottom: 64px;
+  display: flex;
+  flex-direction: column; /* 모바일에서는 세로 정렬 */
+  align-items: center;
+  text-align: center;
+  gap: 20px; /* 이미지와 텍스트 간 간격 */
+  width: 90%;
 }
 
 .feature img {
   width: 100%;
-  margin-bottom: 20px;
-}
-
-.feature:nth-child(2) {
-  text-align: right;
 }
 
 .feature-content {
-  flex: 1;
+  max-width: 400px;
 }
 
+/* 1, 3번째 요소는 오른쪽 정렬 */
+.feature:nth-child(1),
+.feature:nth-child(3) {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.feature:nth-child(1) .feature-content,
+.feature:nth-child(3) .feature-content {
+  text-align: right;
+  align-items: flex-end;
+}
+
+/* 2번째 요소만 왼쪽 정렬 */
+.feature:nth-child(2) {
+  text-align: left;
+  align-items: flex-start;
+}
+
+.feature:nth-child(2) .feature-content {
+  text-align: left;
+  align-items: flex-start;
+}
+
+/* Feature 텍스트 스타일 */
 .feature-content h2 {
   color: var(--blue);
   font-size: 16px;
@@ -68,7 +104,6 @@
 }
 
 /* Tablet styles */
-
 @media (min-width: 744px) {
   .banner {
     height: 90vh;
@@ -89,6 +124,7 @@
   #features {
     padding-top: 24px;
     padding-bottom: 16px;
+    gap: 80px;
   }
 
   .feature-content h2 {
@@ -109,7 +145,6 @@
 }
 
 /* Desktop styles */
-
 @media (min-width: 1200px) {
   .banner {
     text-align: left;
@@ -131,22 +166,29 @@
 
   #features {
     padding: 138px 0;
+    display: flex;
+    flex-direction: column; /* 데스크탑에서도 세로 정렬 유지 */
+    align-items: center;
+    gap: 138px;
   }
 
   .feature {
-    margin-bottom: 138px;
     display: flex;
+    flex-direction: row; /* 데스크탑에서는 가로 정렬 */
+    text-align: left;
+    justify-content: center;
     align-items: center;
     gap: 5%;
+    width: 80%;
   }
 
   .feature:nth-child(2) {
-    flex-direction: row-reverse;
+    flex-direction: row-reverse; /* 두 번째 요소는 반대로 정렬 */
   }
 
   .feature img {
     width: 50%;
-    margin-bottom: 0;
+    max-width: 500px;
   }
 
   .feature-content h1 {
