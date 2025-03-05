@@ -1,0 +1,112 @@
+section {
+  margin: 40px auto 0;
+  max-width: 1200px;
+}
+.saleProductTitle {
+  font-weight: 700;
+  font-size: 20px;
+}
+.saleProductBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.saleProductOption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.searchBox {
+  position: relative;
+}
+.searchBox svg {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+}
+.searchBox input {
+  width: 325px;
+  height: 42px;
+  border-radius: 12px;
+  border: none;
+  background: #f3f4f6;
+  padding-left: 44px;
+  outline: none;
+}
+.searchBox input::placeholder {
+  font-size: 16px;
+  color: #9ca3af;
+}
+.saleProductOption button {
+  width: 133px;
+  height: 42px;
+  background: #3692ff;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+#sortType {
+  width: 130px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 0 20px;
+  outline: none;
+  cursor: pointer;
+}
+.saleItems {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px 24px;
+}
+.saleItem img {
+  width: 221px;
+  height: 221px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+.saleItemPost {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.title {
+  font-size: 14px;
+  font-weight: 500;
+}
+.price {
+  font-size: 16px;
+  font-weight: 700;
+}
+.likeBtn {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.pageNation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 43px;
+}
+.pageNum.active {
+  background: #2f80ed;
+  color: #fff;
+}
+.pageBox {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+}
