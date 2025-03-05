@@ -1,0 +1,33 @@
+.card-frame {
+  border: none;
+  padding: 16px;
+  background-color: #fcfcfc;
+}
+
+.image-container {
+  width: 100%;
+  height: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.product-image {
+  position: absolute;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-frame.best {
+  width: 282px;
+}
+
+.card-frame.normal {
+  width: 221px;
+}
+
+@media (max-width: 1200px) {
+  .card-frame.best {
+    width: 343px;
+  }
+}
