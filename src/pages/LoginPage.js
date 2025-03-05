@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Meta from "./Meta";
-import errors from "../errors";
 import "../styles/auth.css"; // 로그인 스타일 유지
 import "../styles/modal.css"; // 모달 스타일 유지
 
