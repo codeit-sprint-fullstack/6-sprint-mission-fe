@@ -1,11 +1,12 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npm run build",  // Vite로 빌드 명령어 설정
-        "outputDirectory": "dist"  // 빌드 후 생성된 파일 위치
+        "buildCommand": "npm run build",  // 빌드 명령어
+        "outputDirectory": "dist"        // 빌드 후 결과물
       }
     }
   ]
