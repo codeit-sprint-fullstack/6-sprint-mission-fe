@@ -1,0 +1,266 @@
+/* Common */
+:root {
+    --black-color: rgb(55, 65, 81);
+    --blue-color: rgb(54, 146, 255);
+}
+
+/* header */
+#header .navigation{ display: none; }
+
+/* main */
+.intro_section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('../images/home/hero-image.png') no-repeat;
+    background-color: rgb(207, 229, 255);
+    background-size: 55%;
+    background-position-x: 80%;
+    background-position-y: 100%;
+    height: 33.75rem;
+}
+.intro_content {
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    max-width: 75rem;
+    width: 100%;
+    color: var(--black-color);
+}
+.intro_content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 3.5rem;
+    letter-spacing: 0.05rem;
+    padding-bottom: 2rem;
+    color: inherit;
+}
+.intro_content a {
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: 1rem 7.875rem;
+    background-color: var(--blue-color);
+    color: #ffffff;
+    border-radius: 999px;
+}
+.feature_section {
+    padding: 8.625rem 0;
+}
+.feature_items {
+    max-width: 75rem;
+    width: 100%;
+    margin: 0 auto;
+}
+.feature_item {
+    width: 100%;
+    margin-bottom: 8.625rem;
+    display: flex;
+    gap: 5%;
+}
+.feature_item img {
+    width: 50%;
+}
+.feature_item div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.feature_item div h2 {
+    margin-bottom: 0.75rem;
+    color: var(--blue-color);
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+.feature_item div h1 {
+    color: var(--black-color);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 3.5rem;
+}
+.feature_item div p {
+    margin-top: 1.5rem;
+    line-height: 1.8rem;
+    color: var(--black-color);
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+.feature_item.search {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+.trust_section {
+    width: 100%;
+    height: 33.75rem;
+    display: flex;
+    align-items: center;
+    background-image: url('/images/home/bottom-banner-image.png');
+    background-repeat: no-repeat;
+    background-color: rgb(207, 229, 255);
+    background-position: 80% bottom;
+    background-size: 55%;
+}
+.trust_section div {
+    width: 75rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+.trust_section div h1 {
+    padding-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 3.5rem;
+    color: var(--black-color);
+}
+
+
+/* Tablet 화면 (744px ~ 1199px) */
+@media (min-width: 46.5rem) and (max-width: 74.9375rem) {
+    .intro_section {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        background-size: 120%;
+        background-position-x: 50%;
+        height: 29.8125rem;
+    }
+    .intro_content {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        padding-top: 5.25rem;
+        padding-bottom: 1.5rem;
+        max-width: auto;
+    }
+    .intro_content h1 {
+        padding-bottom: 1.5rem;
+    }
+    .feature_section {
+        padding: 1.5rem 1.5rem 1rem 1.5rem;
+    }
+    .feature_item {
+        flex-direction: column;
+        margin-bottom: 4rem;
+        gap: 0;
+    }
+    .feature_item img {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+    .feature_item div h2 {
+        font-size: 1.125rem;
+        line-height: 1.575rem;
+        margin-bottom: 0.75rem;
+    }
+    .feature_item div h1 {
+        font-size: 2rem;
+        line-height: 2.8rem;
+    }
+    .feature_item div p {
+        margin-top: 1.25rem;
+        font-size: 1.125rem;
+        line-height: 1.35rem;
+    }
+    .trust_section {
+        display: block;
+        align-items: none;
+    }
+    .feature_item.search {
+        flex-direction: column;
+    }
+    .trust_section {
+        width: 100%;
+        height: 56.25vh;
+        background-size: 120%;
+        background-position: bottom;
+    }
+    .trust_section div {
+        width: 100%;
+        margin: auto;
+        padding: 0;
+        padding-top: 5.25rem;
+        padding-bottom: 1.5rem;
+    }
+    .trust_section div h1 {
+        text-align: center;
+        padding-bottom: 2rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 3.5rem;
+        color: var(--black-color);
+    }
+  
+}
+
+/* Mobile 화면 (375px ~ 743px) */
+@media (max-width: 46.4375rem) {
+    .intro_section {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        background-size: 120%;
+        background-position-x: 50%;
+        height: 19.875rem;
+    }
+    .intro_content {
+        padding-top: 3rem;
+        padding-bottom: 1.125rem;
+        max-width: auto;
+        text-align: center;
+    }
+    .intro_content h1 {
+        padding-bottom: 1.125rem;
+        font-size: 2rem;
+        line-height: 2.8rem;
+    }
+    .intro_content a {
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 0.90625rem 2.09375rem;
+    }
+    .feature_section {
+        padding: 3.1875rem 1rem 0 1rem;
+    }
+    .feature_item {
+        flex-direction: column;
+        margin-bottom: 4rem;
+    }
+    .feature_item img {
+        margin-bottom: 1.25rem;
+        width: 100%;
+    }
+    .feature_item div h2 {
+        font-size: 1rem;
+        line-height: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+    .feature_item div h1 {
+        font-size: 1.5rem;
+        line-height: 2.8rem;
+    }
+    .feature_item div p {
+        margin-top: 1.25rem;
+        font-size: 1rem;
+        line-height: 1.35rem;
+    }
+    .feature_item.search {
+        flex-direction: column;
+    }
+    .trust_section {
+        display: block;
+        background-color: #cfe5ff;
+        height: 37.5vh;
+        text-align: center;
+        background-position: bottom;
+        background-size: 130%;
+    }
+    .trust_section div {
+        width: auto;
+        margin: auto;
+        padding-top: 3rem;
+        padding-bottom: 1.125rem;
+    }
+    .trust_section div h1 {
+        font-size: 2rem;
+        line-height: 2.8rem;
+    }
+}

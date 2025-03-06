@@ -1,0 +1,222 @@
+.main_container {
+    max-width: 40rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 3rem 0;
+}
+
+/* 로고 스타일 */
+.main_container .main_logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+
+.main_container .logo_img {
+    width: 24.75rem;
+    height: 8.25rem;
+}
+
+/* 폼 스타일 */
+.main_container form .form_group {
+    margin-bottom: 1.5rem;
+}
+
+.main_container form .form_group label {
+    display: block;
+    margin-bottom: 1rem;
+    color: rgb(55, 65, 81);
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.main_container form .form_group input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color: #f3f4f6;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    border : 2px solid rgba(54, 146, 255, 0)
+}
+
+/* 에러 메시지 */
+.main_container form .form_group .form_error {
+    display: none;
+    color: #f74747;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.125rem;
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+}
+
+/* 비밀번호 입력 필드 */
+.main_container form .form_group div.password_group {
+    position: relative;
+}
+
+.main_container form .form_group div.password_group button {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.main_container form .form_group div.password_group button img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* 회원가입 버튼 */
+.main_container form .submit_button {
+    width: 100%;
+    padding: 1rem 7.875rem;
+    background-color:rgb(54, 146, 255);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    border-radius: 999px;
+}
+
+/* 소셜 로그인 */
+.main_container .social_login {
+    background-color: #e6f2ff;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.4375rem;
+    margin: 1.5rem 0;
+}
+
+.main_container .social_login p {
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.main_container .social_login .social_icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.main_container .social_login img {
+    width: 2.625rem;
+    height: 2.625rem;
+}
+
+/* 회원가입 리디렉션 */
+.main_container .signup_redirect p {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    text-align: center;
+    color: rgb(55, 65, 81);
+}
+
+.main_container .signup_redirect a {
+    color: #3182f6;
+    text-decoration: underline;
+    text-underline-offset: 0.125rem;
+}
+
+/* 에러 모델 */
+aside {
+    display : none;
+    position : fixed; top : 0; left : 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+aside .error_modal {
+    background-color: white;
+    width: 54rem;
+    height: 25rem;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border: 0.1rem solid #888;
+    box-shadow: 0px 4px 16px rgba(108, 57, 57, 0.2);
+    border-radius: 8px;
+    display: flex; justify-content: center; align-items: center;
+}
+aside .error_modal .error_message {
+    color : rgb(38, 40, 43);
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+aside .error_modal .error_check {
+    width: 12rem;
+    height: 4.8rem;
+    padding: 1.2rem 2.3rem;
+    border-radius: 5px;
+    position: absolute;
+    right: 2.8rem;
+    bottom: 2.8rem;
+    color: white;
+    cursor: pointer;
+    font-size: 1.6rem;
+    background-color: rgb(54, 146, 255);
+}
+
+/* 반응형 스타일 */
+@media screen and (max-width: 744px) {
+    .main_container {
+        max-width: 27rem;
+        padding: 1.5rem 1rem;
+        margin: 0 auto;
+    }
+
+    .main_container .main_logo {
+        margin-bottom: 1.5rem;
+    }
+
+    .main_container .logo_img {
+        width: 12.375rem;
+        height: 4.125rem;
+    }
+
+    .main_container form .form_group label {
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .main_container form .form_group input {
+        padding: 1rem 1.5rem;
+        border: none;
+        border-radius: 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    .main_container form .submit_button {
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 999px;
+        padding: 0.90625rem 2.09375rem;
+    }
+    
+    aside .error_modal {
+        width: 80%;
+        max-height: 352px;
+        height: 100%;
+    }
+    aside .error_modal .error_message {
+        font-size: 1rem;
+    }
+    aside .error_modal .error_check {
+        width: 8rem;
+        height: 3rem;
+        padding: 1.2rem 2.3rem;
+        transform: translateX(-50%);
+        left : 50%;
+        right: 0;
+        bottom: 2rem;
+        font-size: 1rem;
+    }
+}

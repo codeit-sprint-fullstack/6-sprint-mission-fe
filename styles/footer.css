@@ -1,0 +1,48 @@
+/* footer */
+footer {
+    padding: 2rem 12.5rem 6.75rem 12.5rem;
+    background-color: rgb(17, 24, 39);
+}
+footer ul {
+    display: flex;
+    justify-content: space-between;
+}
+footer ul li {
+    color: rgb(156, 163, 175);
+}
+footer ul li a {
+    color: rgb(229, 231, 235);
+}
+footer ul li:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.875rem;
+}
+footer ul li:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 0.75rem;
+}
+.footer_item_mobile {
+    display: none;
+}
+
+/* Tablet 화면 (744px ~ 1199px) */
+@media (min-width: 46.5rem) and (max-width: 74.9375rem) {
+    footer {
+        padding: 2rem 6.5rem 6.75rem 6.5rem;
+    }
+}
+/* Mobile 화면 (375px ~ 743px) */
+@media (max-width: 46.4375rem) {
+    footer {
+        padding: 2rem;
+        height: 10.1875rem;
+    }
+    footer ul {
+        flex-wrap: wrap;
+        gap: 3.75rem;
+    }
+}

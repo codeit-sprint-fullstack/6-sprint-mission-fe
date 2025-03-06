@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>판다마켓 - 회원가입</title>
+    
+    <!-- SEO 작업 -->
+    <meta name="description" content="판다마켓은 당신의 지역 커뮤니티와 연결되어 중고 거래를 쉽게 할 수 있는 온라인 마켓입니다. 지역 기반으로 상품을 사고팔고, 실시간으로 거래하세요." />
+    <meta name="author" content="HongSungHoon" />
+    <meta name="keywords" content="판다마켓, 중고 거래, 지역 마켓, 당근마켓, 중고 물품, 거래, 지역 소식" />
+    <meta name="robots" content="index, follow" />
+    <link rel="shortcut icon" href="/images/logo/favicon.ico" type="image/x-icon">
+
+    <!-- OG (Open Graph Data) -->
+    <meta property="og:site_name" content="판다마켓">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="(배포후 URL)">
+    <meta property="og:title" content="판다마켓 - 지역 기반 중고 거래">
+    <meta property="og:image" content="https://www.pandamarket.com/images/logo/panda-logo.png">
+    <meta property="og:description" content="판다마켓은 지역 사회의 중고 물품을 거래할 수 있는 온라인 플랫폼입니다. 당근마켓처럼 쉽게 지역 사람들과 소통하고 거래하세요.">
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/14dfbf5c1d.js" crossorigin="anonymous"></script>
+    
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- https://kenwheeler.github.io/slick/ -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- css + js -->
+    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/auth.css">
+    <script src="/scripts/auth.js" defer></script>
+    <script src="/scripts/common.js" defer></script>
+</head>
+<body>
+  <main class="main">
+    <div class="main_container">
+      <h1 class="main_logo">
+        <a href="/index.html">
+          <img src="/images/logo/logo.svg" alt="pando-logo" class="logo_img">
+        </a>
+      </h1>
+      <form action="" class="signup_form">
+        <div class="form_group">
+          <label for="email" class="form_label">이메일</label>
+          <input id="email" name="email" type="email" placeholder="이메일을 입력해 주세요" class="input_email">
+          <span class="form_error">이메일을 입력해주세요</span>
+        </div>
+        <div class="form_group">
+          <label for="nickname" class="form_label">닉네임</label>
+          <input id="nickname" name="nickname" type="text" placeholder="닉네임을 입력해 주세요"  class="input_nickname">
+          <span class="form_error">닉네임을 입력해주세요</span>
+        </div>
+        <div class="form_group">
+          <label for="password" class="form_label">비밀번호</label>
+          <div class="password_group">
+            <input id="password" name="password" type="password" placeholder="비밀번호를 입력해 주세요"  class="input_password">
+            <button type="button" class="password_toggle"><img src="/images/icons/eye-invisible.svg" alt="" class="eye_icon"></button>
+          </div>
+          <span class="form_error">비밀번호를 8자 이상 입력해 주세요</span>
+        </div>
+        <div class="form_group">
+          <label for="passwordConfirmation" class="form_label">비밀번호 확인</label>
+          <div class="password_group">
+            <input id="passwordConfirmation" name="passwordConfirmation" type="password" placeholder="비밀번호를 다시 한 번 입력해 주세요"  class="input_password_confirmation">
+            <button type="button" class="password_toggle"><img src="/images/icons/eye-invisible.svg" alt="" class="eye_icon"></button>
+          </div>
+          <span class="form_error">먼저 조건에 맞는 비밀번호를 입력해 주세요</span>
+        </div>
+        <button type="submit" class="submit_button">회원가입</button>
+      </form>
+      <div class="social_login">
+        <p class="social_login_text">간편 로그인하기</p>
+        <div class="social_icons">
+          <a href="https://www.google.com/" class="social_icon">
+            <img src="/images/social/google-logo.png" alt="구글 로그인" class="google_logo">
+          </a>
+          <a href="https://www.kakaocorp.com/page/" class="social_icon">
+            <img src="/images/social/kakao-logo.png" alt="카카오 로그인" class="kakao_logo">
+          </a>
+        </div>
+      </div>
+      <div class="signup_redirect">
+        <p>이미 회원이신가요? <a href="/pages/login.html" class="login_link">로그인</a></p>
+      </div>
+    </div>
+  </main>
+  
+  <aside>
+    <div class="error_modal">
+        <p class="error_message">사용 중인 이메일입니다.</p>
+        <button type="button" class="error_check">확인</button>
+    </div>
+  </aside>
+
+</body>
+</html>
