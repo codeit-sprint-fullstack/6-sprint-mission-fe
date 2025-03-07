@@ -1,3 +1,10 @@
 {
-    "type" : "module"
+  "scripts": {
+    "dev": "vite",
+    "start": "node App.jsx"
+  },
+  "type": "module",
+  "dependencies": {
+    "react": "^19.0.0"
+  }
 }
