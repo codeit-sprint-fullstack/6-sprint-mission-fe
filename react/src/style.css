@@ -1,0 +1,55 @@
+div {
+  font-family: "Pretendard";
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 1920px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  height: 70px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.navAll {
+  width: 100%;
+  max-width: 1920px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 9.5px 200px;
+}
+
+.img_logo {
+  width: 153px;
+  height: 51px;
+  margin-left: 200px;
+  cursor: pointer;
+}
+
+.login {
+  color: #f3f4f6;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  background: #3692ff;
+  padding: 11px 43px;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  margin-right: 200px;
+  cursor: pointer;
+}
