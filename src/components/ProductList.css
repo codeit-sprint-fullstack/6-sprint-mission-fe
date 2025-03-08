@@ -1,0 +1,155 @@
+.product .heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin: 40px 120px 24px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.product .title {
+  margin-right: auto;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.product .feature {
+  display: flex;
+  position: relative;
+  gap: 12px;
+}
+
+.product .input {
+  width: 325px;
+  height: 42px;
+  padding: 9px 20px 9px 44px;
+  border-radius: 12px;
+  background: url("../assets/images/icon/ic-search.svg") no-repeat left 9px
+    center;
+  background-color: #f3f4f6;
+}
+
+.dropdownBtn {
+  display: flex;
+  align-items: left;
+  padding: 12px 20px;
+  background: url("../assets/images/icon/arrow-down.svg") no-repeat right 17px
+    center;
+}
+
+.dropdownItems {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin-top: 9px;
+}
+
+.dropdownBtn,
+.dropdownItems {
+  width: 130px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background-color: #fff;
+}
+
+.dropdownItem {
+  padding: 12px 20px;
+  border-radius: 12px 12px 0 0;
+}
+
+.dropdownBtn:hover,
+.dropdownItem:hover {
+  background-color: #f3f4f6;
+}
+
+.line {
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 0 12px 12px;
+}
+
+.product .list {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.product .img {
+  max-width: 221px;
+  min-width: 221px;
+  max-height: 221px;
+  min-height: 221px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.price {
+  font-weight: 700;
+}
+
+.favoriteCount {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: #4b5563;
+  gap: 4px;
+}
+
+.hide {
+  display: none;
+}
+
+@media (max-width: 1199px) {
+  .product .heading {
+    margin: 40px 24px 24px;
+  }
+
+  .product .list {
+    margin: 0 24px;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 743px) {
+  .product .heading {
+    margin: 40px 16px 16px;
+  }
+
+  .product .list {
+    gap: 8px;
+  }
+
+  .product .feature {
+    display: flex;
+    justify-content: right;
+    flex-wrap: wrap;
+  }
+
+  .searchBar,
+  .dropdown {
+    order: 4;
+  }
+
+  .dropdownBtn {
+    width: 42px;
+    background: url("../assets/images/icon/ic-sort.svg") no-repeat center;
+    color: transparent;
+  }
+
+  .dropdownItems {
+    right: 0;
+  }
+}
