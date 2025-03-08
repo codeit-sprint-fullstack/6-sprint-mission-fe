@@ -1,3 +1,4 @@
+import "./Footer.css";
 import facebookLogo from "../assets/images/social/facebook-logo.svg";
 import twitterLogo from "../assets/images/social/twitter-logo.svg";
 import youtubeLogo from "../assets/images/social/youtube-logo.svg";
@@ -6,12 +7,12 @@ import instagramLogo from "../assets/images/social/instagram-logo.svg";
 function Footer() {
   return (
     <footer>
-      <div>©codeit - 2024</div>
-      <div>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="faq.html">FAQ</a>
+      <div className="footerInfo">©codeit - 2024</div>
+      <div className="footerLink">
+        <p>Privacy Policy</p>
+        <p>FAQ</p>
       </div>
-      <div>
+      <div className="footerSocial">
         <a href="https://facebook.com" target="_blank">
           <img src={facebookLogo} alt="페이스북" />
         </a>
