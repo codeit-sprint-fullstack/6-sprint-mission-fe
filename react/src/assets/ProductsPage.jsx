@@ -1,26 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { getProducts } from "../Api"; // 수정된 api.js에서 getProducts import
+import { getProducts } from "../api";
+import "./ProductsPage.css";
 
 const ProductsPage = () => {
+  const [bestProducts, setBestProducts] = useState([]); // ✅ 베스트 상품 (4개)
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [sort, setSort] = useState("latest"); // 최신 순 or 좋아요 순
+  const [sort, setSort] = useState("createdAt");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const limit = 10; // 한 페이지에 표시할 상품 개수
+  const limit = 10; // ✅ 한 페이지당 10개
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        // getProducts 함수 호출하여 상품 목록 가져오기
+        // ✅ API에서 4개만 받아오도록 요청 수정
+        const bestData = await getProducts({
+          page: 1,
+          pageSize: 4, // 🔥 4개만 요청
+          orderBy: "favorite",
+        });
+
+        setBestProducts(bestData.slice(0, 4));
+        // ✅ 일반 상품 (5개씩 2줄 -> 10개)
         const data = await getProducts({
           page,
-          pageSize: limit,
-          orderBy: sort === "latest" ? "createdAt" : "likes",
+          pageSize: limit, // ✅ 10개 요청 유지
+          orderBy: sort,
           keyword: search,
         });
-        setProducts(data); // 받아온 상품 데이터로 상태 업데이트
+        setProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -29,72 +39,70 @@ const ProductsPage = () => {
     };
 
     fetchProducts();
-  }, [page, sort, search]); // 페이지, 정렬, 검색어가 변경될 때마다 재호출
-
-  const handleSortChange = (e) => {
-    setSort(e.target.value);
-    setPage(1); // 정렬 변경 시 첫 페이지로 이동
-  };
-
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
-    setPage(1); // 검색어 변경 시 첫 페이지로 이동
-  };
+  }, [page, sort, search]);
 
   return (
-    <div>
-      <h1>상품 목록</h1>
-      <div style={{ marginBottom: "1rem" }}>
+    <div className="products-container">
+      {/* 🔥 베스트 상품 섹션 */}
+      <h2 className="best-title">베스트 상품</h2>
+      <div className="best-products">
+        {bestProducts.map((product) => (
+          <div key={product.id} className="product-card best-card">
+            {product.images?.length > 0 && (
+              <img src={product.images[0]} alt={product.name} />
+            )}
+            <div className="product-info">
+              <h3>{product.name}</h3>
+              <p className="product-price">{product.price}원</p>
+              <div className="product-likes">❤️ {product.likes}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* 🔥 검색 & 정렬 */}
+      <div className="filter-container">
         <input
           type="text"
-          placeholder="검색할 상품을 입력해주세요"
+          placeholder="🔎 검색할 상품을 입력하세요"
           value={search}
-          onChange={handleSearchChange}
-          style={{ marginLeft: "1rem" }}
+          onChange={(e) => setSearch(e.target.value)}
         />
-        <select value={sort} onChange={handleSortChange}>
-          <option value="latest">최신 순</option>
-          <option value="likes">좋아요 순</option>
+        <button className="register-btn">상품 등록하기</button>
+        <select value={sort} onChange={(e) => setSort(e.target.value)}>
+          <option value="createdAt">최신순</option>
+          <option value="likes">좋아요순</option>
         </select>
       </div>
-      {loading ? (
-        <p>로딩 중...</p>
-      ) : (
-        <>
-          <ul>
-            {products.length > 0 ? (
-              products.map((product) => (
-                <li key={product.id}>
-                  <h2>{product.name}</h2>
-                  <p>{product.description}</p>
-                  <p>가격: {product.price} 원</p>
-                  {product.images && product.images.length > 0 && (
-                    <img
-                      src={product.images[0]} // images 배열에서 첫 번째 이미지 사용
-                      alt={product.name}
-                      style={{ maxWidth: "200px", marginTop: "1rem" }}
-                    />
-                  )}
-                  <p>태그: {product.tags.join(", ")}</p>
-                  <p>작성자: {product.ownerNickname}</p>
-                </li>
-              ))
-            ) : (
-              <p>검색 결과가 없습니다.</p>
+
+      {/* 🔥 판매 중인 상품 */}
+      <h2>판매 중인 상품</h2>
+      <div className="product-grid">
+        {products.map((product) => (
+          <div key={product.id} className="product-card">
+            {product.images?.length > 0 && (
+              <img src={product.images[0]} alt={product.name} />
             )}
-          </ul>
-          <div style={{ marginTop: "1rem" }}>
-            <button
-              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-              disabled={page === 1}
-            >
-              이전
-            </button>
-            <span style={{ margin: "0 1rem" }}>페이지: {page}</span>
-            <button onClick={() => setPage((prev) => prev + 1)}>다음</button>
+            <div className="product-info">
+              <h2>{product.name}</h2>
+              <p className="product-price">{product.price}원</p>
+              <div className="product-likes">❤️ {product.likes}</div>
+            </div>
           </div>
-        </>
-      )}
+        ))}
+      </div>
+
+      {/* 🔥 페이지네이션 */}
+      <div className="pagination">
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          disabled={page === 1}
+        >
+          ⬅
+        </button>
+        <span> {page} </span>
+        <button onClick={() => setPage((prev) => prev + 1)}>➡</button>
+      </div>
     </div>
   );
 };

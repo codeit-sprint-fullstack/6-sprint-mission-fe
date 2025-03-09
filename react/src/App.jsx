@@ -8,9 +8,9 @@ function App() {
     <div>
       <nav>
         <div className="navAll">
-          <div>
+          <div className="nav-left">
             <a className="imgLogo">
-              <img src={Logo}></img>
+              <img src={Logo} alt="로고" />
             </a>
             <a href="/">자유게시판</a>
             <a href="/">중고마켓</a>
@@ -20,10 +20,7 @@ function App() {
           </a>
         </div>
       </nav>
-      <p>베스트 상품</p>
-      <a>판매중인 상품</a>
-      <ProductsPage /> {/* 이 부분에서 상품 목록을 불러옴 */}
-      <a href="/">상품등록하기</a>
+      <ProductsPage /> {/* 상품 목록 페이지 */}
       <Footer />
     </div>
   );

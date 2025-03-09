@@ -1,55 +1,53 @@
-div {
-  font-family: "Pretendard";
-  margin: 0;
-  padding: 0;
-  background-color: #ffffff;
-  display: block;
-  justify-content: center;
-  align-items: center;
-}
-
+/* 네비게이션 바 스타일 */
 nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  max-width: 1920px;
+  width: 100%;
   background-color: white;
+  border-bottom: 1px;
+  border-color: #dfdfdf;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 10;
   height: 70px;
-  margin: 0 auto;
-  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* ✅ 그림자 추가 */
+  z-index: 1000; /* ✅ nav가 가장 위에 위치하도록 */
+  padding: 0 50px;
 }
 
+/* 네비게이션 내부 컨테이너 */
 .navAll {
   width: 100%;
-  max-width: 1920px;
+  max-width: 1200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 9.5px 200px;
+  margin: 0 auto;
 }
 
+/* 로고 스타일 */
 .img_logo {
   width: 153px;
   height: 51px;
-  margin-left: 200px;
   cursor: pointer;
 }
 
+/* 로그인 버튼 */
 .login {
-  color: #f3f4f6;
+  color: white;
   font-size: 16px;
   font-weight: 600;
-  line-height: 26px;
   background: #3692ff;
-  padding: 11px 43px;
+  padding: 10px 20px;
   border-radius: 8px;
   text-decoration: none;
   text-align: center;
-  margin-right: 200px;
   cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login:hover {
+  background: #2a78d1;
 }
