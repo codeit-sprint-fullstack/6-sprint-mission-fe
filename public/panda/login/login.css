@@ -251,50 +251,50 @@ form div {
 /* Mobile */
 @media (max-width: 743px) {
   .header {
-    width: 198px;
-    height: 66px;
-    margin-top: 24px;
+    width: 12.375rem;
+    height: 4.125rem;
+    margin-top: 1.5rem;
   }
 
   .logo-btn {
     justify-self: center;
     align-items: center;
     padding: auto;
-    gap: 11.12px;
+    gap: 0.695rem;
   }
 
   .logo-btn img {
-    width: 51.76px;
-    height: 51.94px;
+    width: 3.235rem;
+    height: 3.2462rem;
   }
 
   .logo-btn h1 {
-    font-size: 33.17px;
-    line-height: 44.78px;
+    font-size: 2.0731rem;
+    line-height: 2.7988rem;
   }
 
   #input-form {
     width: 100%;
-    padding: 0 16px;
-    margin-top: 24px;
+    padding: 0 1rem;
+    margin-top: 1.5rem;
   }
 
   .index {
-    font-size: 14px;
-    line-height: 16.71px;
+    font-size: 0.875rem;
+    line-height: 1.0444rem;
   }
 
   .input-box {
     width: 100%;
-    margin-top: 8px;
+    margin-top: 0.5rem;
   }
 
   .error-msg {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
   }
 
   .eye-icon {
-    top: 27.49px;
+    top: 1.7181rem;
   }
 
   .form-btn {
@@ -302,17 +302,17 @@ form div {
   }
 
   .modal-popup {
-    width: 327px;
-    height: 220px;
-    padding: 81px 0 0;
+    width: 20.4375rem;
+    height: 13.75rem;
+    padding: 5.0625rem 0 0;
   }
 
   .modal-popup button {
-    margin: 49px 103.5px 23px;
+    margin: 3.0625rem 6.4688rem 1.4375rem;
   }
 
   .bottom-container {
-    padding: 0 16px;
+    padding: 0 1rem;
   }
 
   .bottom-box {

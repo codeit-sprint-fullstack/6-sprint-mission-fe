@@ -8,7 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 2;
-  border-bottom: 1.25px solid var(--gray-bright4-color-dfdfdf);
+  border-bottom: 0.0781rem solid var(--gray-bright4-color-dfdfdf);
 }
 
 .header-bar {
@@ -37,7 +37,7 @@
   font-family: Pretendard;
   font-weight: 700;
   font-size: 1.7188rem;
-  margin: 8.5px 24px 8.5px 0px;
+  margin: 0.5313rem 1.5rem 0.5313rem 0rem;
 }
 
 .logo-btn h1 {
@@ -51,13 +51,13 @@
 
 .header-txt {
   display: flex;
-  padding: 21px 15px;
+  padding: 1.3125rem 0.9375rem;
   text-decoration: none;
   color: var(--gray-chacole-color-4b5563);
   font-family: Pretendard;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
-  line-height: 26px;
+  line-height: 1.625rem;
 }
 
 .profile-img {
@@ -84,7 +84,7 @@
 /* Tablet */
 @media (max-width: 1199px) {
   .header-bar {
-    padding: 0 24px;
+    padding: 0 1.5rem;
   }
 
   .profile-img {
@@ -105,7 +105,7 @@
   }
 
   .header-left {
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   .logo-btn {
@@ -119,14 +119,14 @@
 
   .logo-btn h1 {
     margin: 0;
-    font-size: 20.2px;
-    line-height: 27.27px;
-    width: 81px;
+    font-size: 1.2625rem;
+    line-height: 1.7044rem;
+    width: 5.0625rem;
   }
 
   .header-txt {
     padding: 0;
-    font-size: 16px;
+    font-size: 1rem;
     text-align: center;
   }
 }
