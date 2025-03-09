@@ -501,7 +501,7 @@ a {
   }
 
   .end {
-    height: 33.75rem;
+    height: 100%;
   }
 
   .end-img {
@@ -510,6 +510,12 @@ a {
 
   .end-img div {
     margin-top: 7.5625rem;
+    margin-bottom: 8.1875rem;
+  }
+
+  .end-img .img-bottom {
+    position: relative;
+    top: 0.1875rem;
   }
 
   .end .banner-text {
