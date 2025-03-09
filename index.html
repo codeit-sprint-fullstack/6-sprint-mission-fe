@@ -1,104 +1,13 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>판다마켓</title>
-    <link rel="stylesheet" href="/styles/style.css" />
-    <link
-      rel="stylesheet"
-      as="style"
-      crossorigin
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
-    />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
   </head>
-
   <body>
-    <nav class="navigationBar">
-      <a class="goHomeButton" href="/html/index.html">
-        <img src="/imgs/facicon.png" />
-        <div>판다마켓</div>
-      </a>
-      <button class="loginButton" onclick="document.location.href='login.html'">
-        로그인
-      </button>
-    </nav>
-
-    <main>
-      <div class="descriptionItems">
-        <div class="itemsLogoItems">
-          <div class="itemsLogoText">
-            <div>일상의 모든 물건을</div>
-            <div>거래해 보세요</div>
-          </div>
-          <button onclick="document.location.href='items.html'">
-            구경하러가기
-          </button>
-        </div>
-        <img src="/imgs/top_logo.png" />
-      </div>
-      <section>
-        <img src="/imgs/section_image 1.png" />
-        <img src="/imgs/section_image 2.png" />
-        <img src="/imgs/section_image 3.png" />
-      </section>
-      <div class="descriptionPandaMarket">
-        <div class="descriptionPandaMarketItems">
-          <div class="descriptionPandaMarketText">
-            <p>믿을 수 있는</p>
-            <p>판다마켓 중고 거래</p>
-          </div>
-        </div>
-        <img src="/imgs/bottom_logo.png" />
-      </div>
-    </main>
-
-    <footer>
-      <div class="codeitItem">ⓒcodeit - 2025</div>
-      <div class="footerCenterItem">
-        <div onclick="document.location.href='privacy.html'">
-          Privacy Policy
-        </div>
-        <div onclick="document.location.href='faq.html'">FAQ</div>
-      </div>
-      <div class="footerSnsItem">
-        <a
-          href="https://www.facebook.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="/imgs/ic_facebook.png" />
-        </a>
-        <a
-          href="https://www.twitter.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="/imgs/ic_twitter.png" />
-        </a>
-        <a
-          href="https://www.youtube.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="/imgs/ic_youtube.png" />
-        </a>
-        <a
-          href="https://www.instagram.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="/imgs/ic_instagram.png" />
-        </a>
-      </div>
-    </footer>
-
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-PZ6K98FX"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

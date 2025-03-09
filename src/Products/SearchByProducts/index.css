@@ -1,0 +1,31 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 10px;
+  padding-left: 40px; /* 돋보기 아이콘을 위해 여백 추가 */
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 16px;
+}
+
+.search-bar .search-btn {
+  position: absolute;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #555;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.search-bar .search-btn:hover {
+  background-color: #f0f0f0;
+}
