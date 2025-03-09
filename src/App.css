@@ -1,0 +1,32 @@
+@font-face {
+  font-family: "ROKAFSans";
+  src: url("/src/assets/font/ROKAF_Sans_Bold.ttf") format("Woff");
+}
+
+:root {
+  --red-color-f74747: #f74747;
+  --blue-color-3692ff: #3692ff;
+  --blue2-color-2f80ed: #2f80ed;
+  --blue-bright-color-e6f2ff: #e6f2ff;
+  --gray-color-9ca3af: #9ca3af;
+  --gray-bright-color-f3f4f6: #f3f4f6;
+  --gray-bright2-color-e5e7eb: #e5e7eb;
+  --gray-bright3-color-f9fafb: #f9fafb;
+  --gray-bright4-color-dfdfdf: #dfdfdf;
+  --gray-chacole-color-4b5563: #4b5563;
+  --gray-chacole2-color-6b7280: #6b7280;
+  --gray-dark-color-1f2937: #1f2937;
+  --gray-deepdark-color-111827: #111827;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Pretendard;
+}
+
+a {
+  text-decoration: none;
+}
