@@ -1,10 +1,10 @@
 # 스프린트 미션 - 판다마켓
 
-### [🐼판다마켓](https://been-panda.netlify.app) : https://been-panda.netlify.app
+### [🐼판다마켓](https://been-panda.vercel.app) : https://been-panda.vercel.app
 
 > ### 판다마켓 대표 이미지
 
-![판다마켓 대표 이미지](/assets/image/img_preview.png)
+![판다마켓 대표 이미지](https://raw.githubusercontent.com/De-cal/6-sprint-mission-fe/refs/heads/basic-%EC%9D%B4%ED%83%9C%EB%B9%88-deploy/image/img_preview.png)
 
 ## 🐼 About
 
