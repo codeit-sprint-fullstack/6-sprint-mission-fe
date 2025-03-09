@@ -4,7 +4,7 @@
 
 > ### 판다마켓 대표 이미지
 
-![판다마켓 대표 이미지](/src/assets/image/img_preview.png)
+![판다마켓 대표 이미지](/assets/image/img_preview.png)
 
 ## 🐼 About
 

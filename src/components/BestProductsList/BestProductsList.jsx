@@ -35,7 +35,7 @@ const BestProductsListItem = ({ bestProduct }) => {
         {bestProduct.price.toLocaleString()}원
       </p>
       <div className="best-product-favorite-container">
-        <img src="/src/assets/image/market/ic_heart.svg" alt="하트" />
+        <img src="/assets/image/market/ic_heart.svg" alt="하트" />
         <p className="best-product-favorite-count">
           {bestProduct.favoriteCount}
         </p>

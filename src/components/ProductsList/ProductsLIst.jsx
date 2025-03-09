@@ -19,7 +19,7 @@ const ProductsListItem = ({ product }) => {
       <p className="product-name">{product.name}</p>
       <p className="product-price">{product.price.toLocaleString()}원</p>
       <div className="product-favorite-container">
-        <img src="/src/assets/image/market/ic_heart.svg" alt="하트" />
+        <img src="/assets/image/market/ic_heart.svg" alt="하트" />
         <p className="product-favorite-count">{product.favoriteCount}</p>
       </div>
     </article>

@@ -24,11 +24,11 @@ export const SelectSort = ({ sortLoad }) => {
   return (
     <div className="select-container">
       <button onClick={sortPopupOn} className="small-select-btn">
-        <img src="/src/assets/image/market/ic_sort.svg" alt="정렬 버튼" />
+        <img src="/assets/image/market/ic_sort.svg" alt="정렬 버튼" />
       </button>
       <button onClick={sortPopupOn} className="select-btn">
         <p>{currentSort}</p>
-        <img src="/src/assets/image/market/ic_arrow_down.svg" alt="선택 버튼" />
+        <img src="/assets/image/market/ic_arrow_down.svg" alt="선택 버튼" />
       </button>
       <div className={`sort-btn-container ${sortBtn ? "modal" : ""}`}>
         <button

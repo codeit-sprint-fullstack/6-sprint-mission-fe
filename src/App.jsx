@@ -1,4 +1,5 @@
 import "./App.css";
+import "./reset.css";
 import { useEffect, useState } from "react";
 import { Header } from "./components/Header/Header.jsx";
 import { Footer } from "./components/Footer/Footer.jsx";

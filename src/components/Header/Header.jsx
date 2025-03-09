@@ -6,7 +6,7 @@ export const Header = () => {
       <div className="header-bar">
         <div className="header-left">
           <a href="/panda/homepage.html" className="logo-btn">
-            <img src="/src/assets/image/ic_small_panda_logo.svg" />
+            <img src="/assets/image/ic_small_panda_logo.svg" />
             <h1>판다마켓</h1>
           </a>
           <a href="/" className="header-txt">
@@ -19,7 +19,7 @@ export const Header = () => {
         <div>
           <a href="/panda/login/login.html">
             <img
-              src="/src/assets/image/market/ic_profile.svg"
+              src="/assets/image/market/ic_profile.svg"
               alt="프로필"
               className="profile-img"
             />

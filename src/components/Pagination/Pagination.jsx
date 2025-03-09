@@ -42,10 +42,7 @@ export const Pagination = ({ pageLoad, params, totalCount }) => {
   return (
     <div className="page-btn-container">
       <button onClick={decreasePage} className="page-btn">
-        <img
-          src="/src/assets/image/market/ic_arrow_left.svg"
-          alt="왼쪽 화살표"
-        />
+        <img src="/assets/image/market/ic_arrow_left.svg" alt="왼쪽 화살표" />
       </button>
       {pages.map((page) => {
         if (page > Math.ceil(totalCount / params.pageSize)) return;
@@ -61,7 +58,7 @@ export const Pagination = ({ pageLoad, params, totalCount }) => {
       })}
       <button onClick={increasePage} className="page-btn">
         <img
-          src="/src/assets/image/market/ic_arrow_right.svg"
+          src="/assets/image/market/ic_arrow_right.svg"
           alt="오른쪽 화살표"
         />
       </button>

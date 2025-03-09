@@ -15,7 +15,7 @@ export const SearchBox = ({ searchLoad }) => {
       <label htmlFor="search">
         <img
           className="search-icon"
-          src="/src/assets/image/market/ic_search.svg"
+          src="/assets/image/market/ic_search.svg"
           alt="돋보기"
         />
       </label>
