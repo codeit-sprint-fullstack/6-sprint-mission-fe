@@ -120,7 +120,7 @@ main {
   gap: 24px;
 }
 
-#singup-container {
+#signup-container {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -192,7 +192,7 @@ p {
   padding-right: 10px;
 }
 
-.singup-btn {
+.signup-btn {
   width: 100%;
   height: 56px;
   background-color: var(--gray-color);
@@ -203,12 +203,12 @@ p {
   color: #F3F4F6;
 }
 
-.singup-btn:disabled:hover {
+.sigbup-btn:disabled:hover {
   background-color: var(--gray-color);
   cursor: auto
 }
 
-.singup-btn:hover {
+.signup-btn:hover {
   background-color: var(--primary-color);
 }
 
