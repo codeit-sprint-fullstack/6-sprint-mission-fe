@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <Nav />
-      <ProductsPage /> {/* 상품 목록 페이지 */}
+      <ProductsPage />
       <Footer />
     </div>
   );

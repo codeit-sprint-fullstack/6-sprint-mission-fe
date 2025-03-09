@@ -5,13 +5,13 @@ export const getProducts = async ({
   pageSize = 10,
   orderBy = "createdAt",
   keyword = "",
-  isBest = false, // 🔥 베스트 상품 여부 추가
+  isBest = false,
 }) => {
   const offset = (page - 1) * pageSize;
   const params = new URLSearchParams({
     offset: offset,
     limit: pageSize,
-    order: isBest ? "favorite" : orderBy, // ✅ 베스트 상품이면 favorite 정렬
+    order: isBest ? "favorite" : orderBy,
   });
 
   if (keyword.trim() !== "") {
@@ -24,7 +24,7 @@ export const getProducts = async ({
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
     const data = await res.json();
-    return data.list || []; // API가 list 배열을 반환한다고 가정
+    return data.list || [];
   } catch (error) {
     console.error("Error fetching products:", error);
     return [];

@@ -1,36 +1,34 @@
-/* 🔥 전체 컨테이너 (가운데 정렬) */
 .products-container {
   width: 90%;
-  max-width: 1200px; /* ✅ 최대 너비 제한 */
-  margin: 100px auto 0; /* ✅ 네비게이션과 겹치지 않게 여백 추가 */
-  text-align: left; /* ✅ 텍스트 가운데 정렬 */
+  max-width: 1200px;
+  margin: 100px auto 0;
+  text-align: left;
   padding: 20px;
   font-family: "Pretendard";
 }
 
-/* 🔥 베스트 상품 (4개씩 가로 정렬) */
 .best-title {
+  font-size: 20px;
   text-align: left;
 }
 
 .best-products {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* ✅ 4개씩 정렬 */
-  gap: 20px; /* ✅ 간격 추가 */
-  margin-bottom: 50px; /* ✅ 여백 조정 */
-  justify-content: center; /* ✅ 가운데 정렬 */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 50px;
+  justify-content: center;
 }
 
-/* 🔥 베스트 상품 카드 */
 .best-card {
-  width: 282px; /* ✅ 가로 크기 */
-  height: 378px; /* ✅ 세로 크기 */
+  width: 282px;
+  height: 378px;
   border-radius: 12px;
   overflow: hidden;
   background: white;
   padding: 15px;
   text-align: center;
-  box-shadow: none; /* ✅ 그림자 제거 */
+  box-shadow: none;
 }
 
 .best-card img {
@@ -40,7 +38,11 @@
   border-radius: 12px;
 }
 
-/* 🔥 판매 중인 상품 (5개씩 2줄, 이미지 크기 221x221) */
+.sell-title {
+  font-size: 20px;
+  text-align: left;
+}
+
 .filter-container {
   display: flex;
   justify-content: space-between;
@@ -48,17 +50,17 @@
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* ✅ 5개씩 정렬 */
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
   margin-top: 20px;
-  justify-content: center; /* ✅ 가운데 정렬 */
+  justify-content: center;
 }
 
 .product-card {
   width: 221px;
   height: auto;
   text-align: center;
-  box-shadow: none; /* ✅ 그림자 제거 */
+  box-shadow: none;
 }
 
 .product-card img {
@@ -73,7 +75,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px; /* 버튼 간격 */
+  gap: 10px;
   margin-top: 30px;
 }
 

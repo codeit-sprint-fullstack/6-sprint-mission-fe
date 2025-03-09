@@ -1,32 +1,31 @@
 import React, { useState, useEffect } from "react";
-import getProducts from "../api";
+import { getProducts } from "../api";
 import "./ProductsPage.css";
 
 const ProductsPage = () => {
-  const [bestProducts, setBestProducts] = useState([]); // ✅ 베스트 상품 (4개)
+  const [bestProducts, setBestProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState("createdAt");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const limit = 10; // ✅ 한 페이지당 10개
+  const limit = 10;
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        // ✅ API에서 4개만 받아오도록 요청 수정
         const bestData = await getProducts({
           page: 1,
-          pageSize: 4, // 🔥 4개만 요청
+          pageSize: 4,
           orderBy: "favorite",
         });
 
         setBestProducts(bestData.slice(0, 4));
-        // ✅ 일반 상품 (5개씩 2줄 -> 10개)
+
         const data = await getProducts({
           page,
-          pageSize: limit, // ✅ 10개 요청 유지
+          pageSize: limit,
           orderBy: sort,
           keyword: search,
         });
@@ -43,8 +42,7 @@ const ProductsPage = () => {
 
   return (
     <div className="products-container">
-      {/* 🔥 베스트 상품 섹션 */}
-      <a className="best-title">베스트 상품</a>
+      <h3 className="best-title">베스트 상품</h3>
       <div className="best-products">
         {bestProducts.map((product) => (
           <div key={product.id} className="product-card best-card">
@@ -54,16 +52,15 @@ const ProductsPage = () => {
             <div className="product-info">
               <h3>{product.name}</h3>
               <p className="product-price">{product.price}원</p>
-              <div className="product-likes">❤️ {product.likes}</div>
+              <div className="product-likes">♡ {product.likes}</div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* 🔥 검색 & 정렬 */}
       <div>
         <div className="filter-container">
-          <a>판매 중인 상품</a>
+          <h3 className="sell-title">판매 중인 상품</h3>
           <div>
             <input
               type="text"
@@ -80,7 +77,6 @@ const ProductsPage = () => {
         </div>
       </div>
 
-      {/* 🔥 판매 중인 상품 */}
       <div className="product-grid">
         {products.map((product) => (
           <div key={product.id} className="product-card">
@@ -90,14 +86,12 @@ const ProductsPage = () => {
             <div className="product-info">
               <h2>{product.name}</h2>
               <p className="product-price">{product.price}원</p>
-              <div className="product-likes">❤️ {product.likes}</div>
+              <div className="product-likes">♡ {product.likes}</div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* 🔥 페이지네이션 */}
-      {/* 🔥 페이지네이션 */}
       <div className="pagination">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
