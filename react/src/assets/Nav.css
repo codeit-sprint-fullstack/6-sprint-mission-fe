@@ -1,5 +1,6 @@
 /* 네비게이션 바 스타일 */
 nav {
+  font-family: "Pretendard";
   position: fixed;
   top: 0;
   left: 0;
@@ -32,6 +33,21 @@ nav {
   width: 153px;
   height: 51px;
   cursor: pointer;
+}
+
+/* 네비게이션 텍스트 (자유게시판, 중고마켓) */
+.navText {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+마우스를 올렸을 때 색상 변경 .navText:hover {
+  color: #007bff; /* ✅ 파란색 (선택사항) */
 }
 
 /* 로그인 버튼 */

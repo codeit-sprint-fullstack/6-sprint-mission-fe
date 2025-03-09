@@ -1,7 +1,28 @@
+/* 전체 푸터 스타일 */
 Footer {
-  background-color: blue;
+  background-color: #111827;
+  font-family: "Pretendard";
+  display: flex;
 }
 
-.taxt {
-  color: white;
+/* "Privacy Policy" & "FAQ" 스타일 */
+.textAll {
+  display: flex;
+  gap: 30px;
+}
+
+.text {
+  text-decoration: none;
+  color: #e5e7eb;
+  font-size: 16px;
+}
+
+.footerAll {
+  color: #9ca3af;
+  width: 100%;
+  max-width: 1920px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32px 200px 108px 200px;
 }

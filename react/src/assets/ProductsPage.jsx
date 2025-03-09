@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getProducts } from "../api";
+import getProducts from "../api";
 import "./ProductsPage.css";
 
 const ProductsPage = () => {
@@ -44,7 +44,7 @@ const ProductsPage = () => {
   return (
     <div className="products-container">
       {/* 🔥 베스트 상품 섹션 */}
-      <h2 className="best-title">베스트 상품</h2>
+      <a className="best-title">베스트 상품</a>
       <div className="best-products">
         {bestProducts.map((product) => (
           <div key={product.id} className="product-card best-card">
@@ -61,22 +61,26 @@ const ProductsPage = () => {
       </div>
 
       {/* 🔥 검색 & 정렬 */}
-      <div className="filter-container">
-        <input
-          type="text"
-          placeholder="🔎 검색할 상품을 입력하세요"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button className="register-btn">상품 등록하기</button>
-        <select value={sort} onChange={(e) => setSort(e.target.value)}>
-          <option value="createdAt">최신순</option>
-          <option value="likes">좋아요순</option>
-        </select>
+      <div>
+        <div className="filter-container">
+          <a>판매 중인 상품</a>
+          <div>
+            <input
+              type="text"
+              placeholder="🔎 검색할 상품을 입력하세요"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button className="register-btn">상품 등록하기</button>
+            <select value={sort} onChange={(e) => setSort(e.target.value)}>
+              <option value="createdAt">최신순</option>
+              <option value="likes">좋아요순</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       {/* 🔥 판매 중인 상품 */}
-      <h2>판매 중인 상품</h2>
       <div className="product-grid">
         {products.map((product) => (
           <div key={product.id} className="product-card">
@@ -93,15 +97,26 @@ const ProductsPage = () => {
       </div>
 
       {/* 🔥 페이지네이션 */}
+      {/* 🔥 페이지네이션 */}
       <div className="pagination">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           disabled={page === 1}
         >
-          ⬅
+          ◀
         </button>
-        <span> {page} </span>
-        <button onClick={() => setPage((prev) => prev + 1)}>➡</button>
+
+        {[...Array(5)].map((_, index) => (
+          <button
+            key={index}
+            className={page === index + 1 ? "active" : ""}
+            onClick={() => setPage(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        <button onClick={() => setPage((prev) => prev + 1)}>▶</button>
       </div>
     </div>
   );

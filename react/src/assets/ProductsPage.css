@@ -3,11 +3,16 @@
   width: 90%;
   max-width: 1200px; /* ✅ 최대 너비 제한 */
   margin: 100px auto 0; /* ✅ 네비게이션과 겹치지 않게 여백 추가 */
-  text-align: center; /* ✅ 텍스트 가운데 정렬 */
+  text-align: left; /* ✅ 텍스트 가운데 정렬 */
   padding: 20px;
+  font-family: "Pretendard";
 }
 
 /* 🔥 베스트 상품 (4개씩 가로 정렬) */
+.best-title {
+  text-align: left;
+}
+
 .best-products {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* ✅ 4개씩 정렬 */
@@ -36,6 +41,11 @@
 }
 
 /* 🔥 판매 중인 상품 (5개씩 2줄, 이미지 크기 221x221) */
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* ✅ 5개씩 정렬 */
@@ -56,4 +66,48 @@
   height: 221px;
   object-fit: cover;
   border-radius: 12px;
+}
+
+/* 페이지네이션 컨테이너 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* 버튼 간격 */
+  margin-top: 30px;
+}
+
+/* 페이지네이션 버튼 */
+.pagination button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: white;
+  color: #333;
+  font-size: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid #ddd;
+}
+
+/* 현재 선택된 페이지 */
+.pagination .active {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+/* 마우스 오버 효과 */
+.pagination button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* 비활성화된 버튼 */
+.pagination button:disabled {
+  background-color: #f0f0f0;
+  color: #ccc;
+  cursor: not-allowed;
 }
