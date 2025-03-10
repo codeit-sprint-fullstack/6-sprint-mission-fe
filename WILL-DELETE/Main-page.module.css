@@ -15,20 +15,21 @@ p {
 body {
   margin: 0px;
 }
-.image {
+
+/* .image {
   display: flex;
   align-items: center;
   cursor: pointer;
-}
+} */
 
-.main-body {
+/* .main-body {
   padding: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: Pretendard;
-}
+} */
 
 /* Nav 모듈 스타일로 옮김
 header {
@@ -64,7 +65,7 @@ Nav 모듈 스타일로 옮김김
     height: 26px;
 } */
 
-.header-login {
+/* .header-login {
   background-color: #3692ff;
   width: 128px;
   height: 48px;
@@ -72,9 +73,9 @@ Nav 모듈 스타일로 옮김김
   border-radius: 10px;
   border-width: 0;
   cursor: pointer;
-}
+} */
 
-.main {
+/* .main {
   background-color: #cfe5ff;
   height: 540px;
   margin-top: 70px;
@@ -231,9 +232,9 @@ Nav 모듈 스타일로 옮김김
   text-align: right;
   width: 288px;
   height: 64px;
-}
+} */
 
-.end-title {
+/* .end-title {
   width: 1110px;
   height: 397px;
   background-color: #cfe5ff;
@@ -252,13 +253,14 @@ Nav 모듈 스타일로 옮김김
   font-size: 1em;
   line-height: 56px;
   margin-bottom: 60px;
-}
+} */
 
-a {
+/* a {
   color: #9ca3af;
-}
+} */
 
-.footer {
+/* <footer /> 스타일로 적용 */
+/* .footer {
   background-color: #111827;
   width: 100%;
   height: 160px;
@@ -305,11 +307,11 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
+} */
 
 /*반응형 웹 디자인*/
 
-/* PC 사이즈 */
+/* PC 사이즈
 @media (min-width: 1200px) {
   .main-content2 {
     padding-left: 0px;
@@ -344,27 +346,19 @@ a {
     width: 300px;
     word-break: keep-all;
   }
-  .foot {
-    flex-direction: column;
-  }
-  .shadow-foot {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-}
+  } */
 
 /* Tablet 사이즈 */
 @media (min-width: 744px) and (max-width: 1199px) {
-  .article-main {
+  /* .article-main {
     width: 100%;
   }
   .header-container {
     padding-left: 24px;
     padding-right: 24px;
     justify-content: space-between;
-  }
-  .main {
+  } */
+  /* .main {
     width: 100%;
     height: 771px;
     display: flex;
@@ -480,8 +474,8 @@ a {
   .description3 {
     width: 280px;
     word-break: keep-all;
-  }
-  .end-title {
+  } */
+  /* .end-title {
     width: 744px;
     height: 927px;
     background-size: contain;
@@ -495,8 +489,8 @@ a {
     flex-direction: column;
     align-items: center;
     margin-bottom: 0px;
-  }
-  .foot {
+  } */
+  /* .foot {
     margin-top: 32px;
     margin-left: 32px;
     margin-right: 32px;
@@ -521,12 +515,12 @@ a {
   }
   .codeit1 {
     display: block;
-  }
+  } */
 }
 
 /* Mobile 사이즈 */
 @media (min-width: 375px) and (max-width: 743px) {
-  p {
+  /* p {
     margin: 0;
   }
   span {
@@ -535,8 +529,8 @@ a {
   html {
     padding: 0;
     margin: 0;
-  }
-  .main {
+  } */
+  /* .main {
     width: 100%;
     height: 540px;
   }
@@ -554,8 +548,8 @@ a {
     height: auto;
     padding-left: 15px;
     padding-right: 15px;
-  }
-  .face-img {
+  } */
+  /* .face-img {
     display: none;
   }
   .header-text {
@@ -563,8 +557,8 @@ a {
   }
   .header-container {
     justify-content: space-between;
-  }
-  .title {
+  } */
+  /* .title {
     width: 100%;
     height: 540px;
     background-size: contain;
@@ -659,8 +653,8 @@ a {
   .description3 {
     width: 250px;
     word-break: keep-all;
-  }
-  .end-title {
+  } */
+  /* .end-title {
     width: 100%;
     height: 540px;
     background-size: contain;
@@ -675,8 +669,8 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  .foot {
+  } */
+  /* .foot {
     flex-direction: column;
     height: 63px;
     margin-top: 32px;
@@ -704,5 +698,5 @@ a {
   }
   .codeit2 {
     display: block;
-  }
+  } */
 }

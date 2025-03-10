@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./components/App.js";
-import HomePage from "./pages/HomePage.js";
-import SignupPage from "./pages/SignupPage.js";
+import App from "./component/App";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 function Main() {
   return (
@@ -12,8 +13,6 @@ function Main() {
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
         </Route>
-
-        {/* <Route path="*" element={<NotFoundPage />} /> */}
       </Routes>
     </BrowserRouter>
   );
