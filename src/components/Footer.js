@@ -3,14 +3,19 @@ import facebookLogo from "../assets/images/social/facebook-logo.svg";
 import twitterLogo from "../assets/images/social/twitter-logo.svg";
 import youtubeLogo from "../assets/images/social/youtube-logo.svg";
 import instagramLogo from "../assets/images/social/instagram-logo.svg";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
     <footer>
       <div className="footerInfo">©codeit - 2024</div>
       <div className="footerLink">
-        <p>Privacy Policy</p>
-        <p>FAQ</p>
+        <Link to="privacy" className="link">
+          <p>Privacy Policy</p>
+        </Link>
+        <Link to="faq" className="link">
+          <p>FAQ</p>
+        </Link>
       </div>
       <div className="footerSocial">
         <a href="https://facebook.com" target="_blank">

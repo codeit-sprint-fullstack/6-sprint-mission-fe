@@ -1,5 +1,6 @@
 import "./ProductList.css";
 import unheartIcon from "../assets/images/icon/ic-unheart.svg";
+import { Link } from "react-router-dom";
 
 function ProductList({
   order,
@@ -24,9 +25,11 @@ function ProductList({
           ></input>
         </div>
         <div className="createBtn">
-          <button className="button" type="button">
-            상품 등록하기
-          </button>
+          <Link to="registration">
+            <button className="button" type="button">
+              상품 등록하기
+            </button>
+          </Link>
         </div>
         <div className="dropdown">
           <button
