@@ -29,10 +29,6 @@ header > div {
   color: #fff;
 }
 
-.profileBtn:hover {
-  background-color: #1967d6;
-}
-
 @media (max-width: 1199px) {
   header {
     padding: 0 24px;

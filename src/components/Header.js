@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/images/logo/sm-logo.svg";
 import typoLogo from "../assets/images/logo/typo-logo.svg";
-import "./Header.css";
+import styles from "./Header.module.css";
 
 const getLinkStyle = ({ isActive }) => {
   return {
@@ -19,18 +19,20 @@ function Header() {
             <img src={logo} alt="판다마켓 로고" />
           </Link>
         </picture>
-        <div className="headerMenu">
-          <NavLink to="/board" style={getLinkStyle} className="link">
+        <div className={styles.headerMenu}>
+          <NavLink to="/board" id="link" style={getLinkStyle}>
             <p>자유게시판</p>
           </NavLink>
-          <NavLink to="/items" style={getLinkStyle} className="link">
+          <NavLink to="/items" id="link" style={getLinkStyle}>
             <p>중고마켓</p>
           </NavLink>
         </div>
       </div>
-      <button className="profileBtn" type="button">
-        로그인
-      </button>
+      <Link to="/login">
+        <button className={styles.profileBtn} type="button">
+          로그인
+        </button>
+      </Link>
     </header>
   );
 }

@@ -1,4 +1,4 @@
-.product .heading {
+.heading {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,19 +8,24 @@
   gap: 8px;
 }
 
-.product .title {
+.title {
   margin-right: auto;
   font-size: 20px;
   font-weight: 700;
 }
 
-.product .feature {
-  display: flex;
-  position: relative;
-  gap: 12px;
+.button {
+  padding: 12px 23px;
+  border-radius: 8px;
+  background-color: #3692ff;
+  color: #fff;
 }
 
-.product .input {
+.button:hover {
+  background-color: #1967d6;
+}
+
+.input {
   width: 325px;
   height: 42px;
   padding: 9px 20px 9px 44px;
@@ -68,14 +73,14 @@
   border-radius: 0 0 12px 12px;
 }
 
-.product .list {
+.list {
   display: flex;
   justify-content: center;
   gap: 24px;
   flex-wrap: wrap;
 }
 
-.product .img {
+.img {
   max-width: 221px;
   min-width: 221px;
   max-height: 221px;
@@ -113,29 +118,23 @@
 }
 
 @media (max-width: 1199px) {
-  .product .heading {
+  .heading {
     margin: 40px 24px 24px;
   }
 
-  .product .list {
+  .list {
     margin: 0 24px;
     gap: 16px;
   }
 }
 
 @media (max-width: 743px) {
-  .product .heading {
+  .heading {
     margin: 40px 16px 16px;
   }
 
-  .product .list {
+  .list {
     gap: 8px;
-  }
-
-  .product .feature {
-    display: flex;
-    justify-content: right;
-    flex-wrap: wrap;
   }
 
   .searchBar,

@@ -1,4 +1,4 @@
-import "./Pagination.css";
+import styles from "./Pagination.module.css";
 import arrowLeft from "../assets/images/icon/arrow-left.svg";
 import arrowRight from "../assets/images/icon/arrow-right.svg";
 import { useState } from "react";
@@ -40,8 +40,8 @@ function Pagination({ totalCount, currentPage, setCurrentPage }) {
   };
 
   return (
-    <div className="pagination">
-      <button type="button" className="prevBtn" onClick={handlePrev}>
+    <div className={styles.pagination}>
+      <button type="button" className={styles.prevBtn} onClick={handlePrev}>
         <img src={arrowLeft} />
       </button>
       {Array.from(
@@ -53,14 +53,16 @@ function Pagination({ totalCount, currentPage, setCurrentPage }) {
               key={page}
               type="button"
               onClick={() => handlePage(page)}
-              className={page === currentPage ? "active" : "hover"}
+              className={
+                page === currentPage ? `${styles.active}` : `${styles.hover}`
+              }
             >
               {page}
             </button>
           );
         }
       )}
-      <button type="button" className="nextBtn" onClick={handleNext}>
+      <button type="button" className={styles.nextBtn} onClick={handleNext}>
         <img src={arrowRight} />
       </button>
     </div>

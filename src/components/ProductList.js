@@ -1,4 +1,4 @@
-import "./ProductList.css";
+import styles from "./ProductList.module.css";
 import unheartIcon from "../assets/images/icon/ic-unheart.svg";
 import { Link } from "react-router-dom";
 
@@ -12,44 +12,48 @@ function ProductList({
   handleDropdown,
 }) {
   return (
-    <main className="product">
-      <div className="heading">
-        <div className="title">판매 중인 상품</div>
-        <div className="searchBar">
+    <main className={styles.product}>
+      <div className={styles.heading}>
+        <div className={styles.title}>판매 중인 상품</div>
+        <div className={styles.searchBar}>
           <input
             type="text"
             value={input}
-            className="input"
+            className={styles.input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="검색할 상품을 입력해주세요"
           ></input>
         </div>
-        <div className="createBtn">
-          <Link to="registration">
-            <button className="button" type="button">
+        <div className={styles.createBtn}>
+          <Link to="/registration">
+            <button className={styles.button} type="button">
               상품 등록하기
             </button>
           </Link>
         </div>
-        <div className="dropdown">
+        <div className={styles.dropdown}>
           <button
             type="button"
-            className="dropdownBtn"
+            className={styles.dropdownBtn}
             onClick={handleDropdown}
           >
             {order === "recent" ? "최신순" : "좋아요순"}
           </button>
-          <div className={dropdownItems ? "dropdownItems" : "hide"}>
+          <div
+            className={
+              dropdownItems ? `${styles.dropdownItems}` : `${styles.hide}`
+            }
+          >
             <button
               type="button"
-              className="dropdownItem"
+              className={styles.dropdownItem}
               onClick={() => setOrder("recent")}
             >
               최신순
             </button>
             <button
               type="button"
-              className="dropdownItem line"
+              className={`${styles.dropdownItem} ${styles.line}`}
               onClick={() => setOrder("favoriteCount")}
             >
               좋아요순
@@ -57,7 +61,7 @@ function ProductList({
           </div>
         </div>
       </div>
-      <div className="list">
+      <div className={styles.list}>
         {currentItems.map((item) => (
           <div key={item.id}>
             <ProductListItem item={item} />
@@ -71,11 +75,11 @@ function ProductList({
 function ProductListItem({ item }) {
   return (
     <div>
-      <img className="img" src={item.images} alt={item.name} />
-      <div className="description">
-        <div className="name">{item.name}</div>
-        <div className="price">{item.price}원</div>
-        <div className="favoriteCount">
+      <img className={styles.img} src={item.images} alt={item.name} />
+      <div className={styles.description}>
+        <div className={styles.name}>{item.name}</div>
+        <div className={styles.price}>{item.price}원</div>
+        <div className={styles.favoriteCount}>
           <img src={unheartIcon} />
           {item.favoriteCount}
         </div>

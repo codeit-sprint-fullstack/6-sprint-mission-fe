@@ -1,4 +1,4 @@
-import "./Footer.css";
+import styles from "./Footer.module.css";
 import facebookLogo from "../assets/images/social/facebook-logo.svg";
 import twitterLogo from "../assets/images/social/twitter-logo.svg";
 import youtubeLogo from "../assets/images/social/youtube-logo.svg";
@@ -8,16 +8,16 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer>
-      <div className="footerInfo">©codeit - 2024</div>
-      <div className="footerLink">
-        <Link to="privacy" className="link">
+      <div className={styles.footerInfo}>©codeit - 2024</div>
+      <div className={styles.footerLink}>
+        <Link to="privacy" id="link">
           <p>Privacy Policy</p>
         </Link>
-        <Link to="faq" className="link">
+        <Link to="faq" id="link">
           <p>FAQ</p>
         </Link>
       </div>
-      <div className="footerSocial">
+      <div className={styles.footerSocial}>
         <a href="https://facebook.com" target="_blank">
           <img src={facebookLogo} alt="페이스북" />
         </a>

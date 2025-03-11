@@ -1,4 +1,4 @@
-// import BestProduct from "./components/BestProduct";
+// import BestProduct from "../components/BestProduct";
 import ProductList from "../components/ProductList";
 import { useEffect, useState } from "react";
 import { getProducts } from "../api/api";

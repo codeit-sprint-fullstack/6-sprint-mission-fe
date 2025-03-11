@@ -1,4 +1,4 @@
-import "./BestProduct.css";
+import styles from "./BestProduct.module.css";
 import unheartIcon from "../assets/images/icon/ic-unheart.svg";
 import { useEffect, useState } from "react";
 
@@ -29,16 +29,16 @@ function BestProduct({ items }) {
     .slice(0, pageSize);
 
   return (
-    <main className="bestProduct">
-      <div className="title">베스트 상품</div>
-      <div className="list">
+    <main>
+      <div className={styles.title}>베스트 상품</div>
+      <div className={styles.list}>
         {bestItems.map((item) => (
           <div key={item.id}>
-            <img className="img" src={item.images} alt={item.name} />
-            <div className="description">
-              <div className="name">{item.name}</div>
-              <div className="price">{item.price}원</div>
-              <div className="favoriteCount">
+            <img className={styles.img} src={item.images} alt={item.name} />
+            <div className={styles.description}>
+              <div className={styles.name}>{item.name}</div>
+              <div className={styles.price}>{item.price}원</div>
+              <div className={styles.favoriteCount}>
                 <img src={unheartIcon} /> {item.favoriteCount}
               </div>
             </div>
