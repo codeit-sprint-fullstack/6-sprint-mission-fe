@@ -1,12 +1,10 @@
 # basic-심유빈-sprint4
 
-스프린트미션 4 작업입니다.
+스프린트미션 5 작업입니다.
 
 ## 주요 변경사항
 
-- main.js 추가
-- ArticleService.js 추가
-- ProductService.js 추가
+- goods 폴더 추가가
 
 ## 요구사항
 
@@ -14,33 +12,36 @@
 
 #### 공통
 
-- [x] Github에 스프린트 미션 PR을 만들어 주세요.
-- [x] 'https://sprint-mission-api.vercel.app/articles' API를 이용하여 아래 함수들을 구현해 주세요.
-  - [x] getArticleList() : GET 메서드를 사용해 주세요.
-    - [x] page, pageSize, keyword 쿼리 파라미터를 이용해 주세요.
-  - [x] getArticle() : GET 메서드를 사용해 주세요.
-  - [x] createArticle() : POST 메서드를 사용해 주세요.
-  - [x] request body에 title, content, image 를 포함해 주세요.
-  - [x] patchArticle() : PATCH 메서드를 사용해 주세요.
-  - [x] deleteArticle() : DELETE 메서드를 사용해 주세요.
-- [x] fetch 혹은 axios 를 이용해 주세요.
-  - [x] 응답의 상태 코드가 2XX가 아닐 경우, 에러메시지를 콘솔에 출력해 주세요.
-- [x] .then() 메서드를 이용하여 비동기 처리를 해주세요.
-- [x] .catch() 를 이용하여 오류 처리를 해주세요.
-- [x] 'https://sprint-mission-api.vercel.app/products' API를 이용하여 아래 함수들을 구현해 주세요.
-  - [x] getProductList() : GET 메서드를 사용해 주세요.
-    - [x] page, pageSize, keyword 쿼리 파라미터를 이용해 주세요.
-  - [x] getProduct() : GET 메서드를 사용해 주세요.
-  - [x] createProduct() : POST 메서드를 사용해 주세요.
-    - [x] request body에 name, description, price, tags, images 를 포함해 주세요.
-  - [x] patchProduct() : PATCH 메서드를 사용해 주세요.
-  - [x] deleteProduct() : DELETE 메서드를 사용해 주세요.
-- [x] async/await 을 이용하여 비동기 처리를 해주세요.
-- [x] try/catch 를 이용하여 오류 처리를 해주세요.
-- [x] 구현한 함수들을 아래와 같이 파일을 분리해 주세요.
-  - [x] export를 활용해 주세요.
-  - [x] ProductService.js 파일 Product API 관련 함수들을 작성해 주세요.
-  - [x] ArticleService.js 파일에 Article API 관련 함수들을 작성해 주세요.
-- [x] 이외의 코드들은 모두 main.js 파일에 작성해 주세요.
-  - [x] import를 활용해 주세요.
-  - [x] 각 함수를 실행하는 코드를 작성하고, 제대로 동작하는지 확인해 주세요.
+- [ ] Github에 스프린트 미션 PR을 만들어 주세요.
+- [ ] React를 사용해 진행합니다.
+
+#### 중고마켓 페이지
+
+- [ ] PC, Tablet, Mobile 디자인에 해당하는 중고마켓 페이지를 만들어 주세요.
+- [ ] 중고마켓 페이지 url path는 별도로 설정하지 않고, '/'에 보이도록 합니다.
+- [ ] 상단 네비게이션 바, 푸터는 랜딩 페이지와 동일한 스타일과 규칙으로 만들어주세요.
+- [ ] 상품 데이터는 https://panda-market-api.vercel.app/docs/에 명세된 GET 메소드 "/products" 를 활용해주세요.
+  - [ ] 상품 목록 페이지네이션 기능을 구현합니다.
+  - [ ] 드롭 다운으로 "최신 순" 또는 "좋아요 순"을 선택해서 정렬을 구현하세요.
+  - [ ] 상품 목록 검색 기능을 구현합니다.
+- [ ] 베스트 상품 데이터는 https://panda-market-api.vercel.app/docs/에 명세된 GET 메소드 "/products"의 정렬 기준 favorite을 사용해주세요.
+
+### 심화 요구사항
+
+#### 공통
+
+- [ ] 커스텀 hook을 만들어 필요한 곳에 활용해 보세요.
+
+#### 중고마켓 페이지
+
+- [ ] 중고 마켓의 카드 컴포넌트 반응형 기준은 다음과 같습니다.
+  - 베스트 상품
+    - Desktop : 4열
+    - Tablet : 2열
+    - Mobile : 1열
+  - 전체 상품
+    - Desktop : 5열
+    - Tablet : 3열
+    - Mobile : 2열
+- 반응형에 따른 페이지 네이션 기능을 구현합니다.
+  - 반응형으로 보여지는 물품들의 개수를 다르게 설정할때 서버에 보내는 pageSize값을 적절하게 설정합니다.

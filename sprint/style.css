@@ -1,19 +1,19 @@
-@import url('reset.css');
+@import url("reset.css");
 
 html {
-  background-color: #CFE5FF;
+  background-color: #cfe5ff;
   margin: 0;
   padding: 0;
   font-size: 16px;
   line-height: 1.5;
 }
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   html {
     font-size: 75%;
     height: auto;
   }
 }
-@media (max-width: 750px) {
+@media (max-width: 743px) {
   html {
     font-size: 50%;
     height: auto;
@@ -29,12 +29,12 @@ body {
   margin: 0 auto;
 }
 
-.paseHeader{
+.pase-header {
   position: sticky;
   top: 0;
   height: 70px;
   background-color: white;
-  border-bottom: 1px solid #DFDFDF;
+  border-bottom: 1px solid #dfdfdf;
   z-index: 100;
   display: flex;
 }
@@ -47,26 +47,26 @@ body {
   width: 1920px;
 }
 
-.PandaLogo {
+.Panda-logo {
   width: 153px;
   height: 51px;
 }
 
 .login {
   font-weight: 600;
-  color: #F3F4F6;
+  color: #f3f4f6;
   width: 8rem;
   height: 3rem;
   border-radius: 8px;
   padding: 12px;
-  background-color: #3692FF;
+  background-color: #3692ff;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .top {
-  background-image: url('img/home_top.png');
+  background-image: url("img/home_top.png");
   background-repeat: no-repeat;
   background-position: bottom 0 right 30%;
   display: flex;
@@ -74,7 +74,7 @@ body {
   justify-content: center;
   height: 540px;
   padding: 200px 200px 0px 200px;
-  background-color: #CFE5FF;
+  background-color: #cfe5ff;
 }
 
 .top_img {
@@ -104,10 +104,10 @@ h2 {
   justify-content: center;
   align-items: center;
   font-weight: 600;
-  color: #F9FAFB;
+  color: #f9fafb;
   padding: 1rem;
   border-radius: 40px;
-  background-color: #3692FF;
+  background-color: #3692ff;
   width: 23.4rem;
   height: 3.5rem;
 }
@@ -124,12 +124,12 @@ h2 {
   flex-direction: column;
   justify-content: center;
   gap: 2rem;
-  background-color: #F9FAFB;
+  background-color: #f9fafb;
 }
 
 h3 {
   font-weight: 700;
-  color: #3692FF;
+  color: #3692ff;
   font-size: 1.125rem;
 }
 
@@ -141,8 +141,7 @@ h3 {
   text-align: right;
 }
 
-
-.section {
+.box {
   max-width: 1920px;
   padding: 8.3rem 21.5rem;
   background-color: white;
@@ -153,7 +152,7 @@ h3 {
   flex-wrap: wrap;
 }
 
-.section.serch {
+.box.serch {
   flex-direction: row-reverse;
 }
 
@@ -163,7 +162,7 @@ h3 {
 }
 
 .bottom {
-  background-image: url('img/Img_home_bottom.png');
+  background-image: url("img/Img_home_bottom.png");
   background-repeat: no-repeat;
   background-position: bottom 0 right 30%;
   display: flex;
@@ -171,7 +170,7 @@ h3 {
   align-items: center;
   height: 540px;
   padding: 200px 200px 0px 200px;
-  background-color: #CFE5FF;
+  background-color: #cfe5ff;
 }
 
 .foot {
@@ -181,7 +180,7 @@ h3 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  color: #9CA3AF;
+  color: #9ca3af;
 }
 
 .icon {
@@ -192,7 +191,7 @@ h3 {
 
 a {
   text-decoration-line: none;
-  color: #E5E7EB;
+  color: #e5e7eb;
   cursor: pointer;
 }
 
@@ -206,7 +205,7 @@ a {
   flex-shrink: 0;
 }
 
-p{
+p {
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 2rem;
