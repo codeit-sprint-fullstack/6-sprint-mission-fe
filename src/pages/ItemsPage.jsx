@@ -1,31 +1,32 @@
-import "./App.css";
-import miniPandeFace from "../main-page/작은 판다 얼굴.png";
-import PandeMarket from "../main-page/판다마켓.png";
-import Group from "../main-page/Group.png";
-import twitter from "../main-page/ic_twitter.png";
-import youtube from "../main-page/ic_youtube.png";
-import instagram from "../main-page/ic_instagram.png";
+import "./ItemsPage.css";
+// import miniPandeFace from "../../main-page/작은 판다 얼굴.png";
+// import PandeMarket from "../../main-page/판다마켓.png";
+// import Group from "../../main-page/Group.png";
+// import twitter from "../../main-page/ic_twitter.png";
+// import youtube from "../../main-page/ic_youtube.png";
+// import instagram from "../../main-page/ic_instagram.png";
+// import profile from "../img/Frame 2609463.png";
 import {
   GetProduct,
   GetProductList,
   CreateProduct,
   PatchProduct,
   DeleteProduct,
-} from "./api/ProductService";
+} from "../api/ProductService";
 import { useState, useEffect } from "react";
-import { BestProductList, SaleProductList } from "./component/ProductList";
-import magnifier from "./img/돋보기.png";
-import profile from "./img/Frame 2609463.png";
-import { useWindowDimensions } from "./component/hooks/useWindowdementions";
+import { BestProductList, SaleProductList } from "../component/ProductList";
+import magnifier from "../img/돋보기.png";
+import { useWindowDimensions } from "../component/hooks/useWindowdementions";
+import { Link, Outlet } from "react-router-dom";
 
-export const App = () => {
-  const [bestItems, setBestItems] = useState([]);
+export const ItemsPage = () => {
+  // const [bestItems, setBestItems] = useState([]);
   const [saleItems, setSaleItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [order, setOrder] = useState();
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(null);
-  const [bestPageSize, setBestPageSize] = useState();
+  // const [bestPageSize, setBestPageSize] = useState();
   const [salePageSize, setSalePageSize] = useState();
   const [totalPage, setTotalPage] = useState(1);
 
@@ -51,15 +52,15 @@ export const App = () => {
     });
   }, [keyword]);
 
-  //베스트아이템을 초기 페이지에 로드
-  useEffect(() => {
-    if (width >= 1200) {
-      setBestPageSize(4);
-    } else if (width >= 744) {
-      setBestPageSize(2);
-    } else setBestPageSize(1);
-    handleBestItems({ pageSize: bestPageSize });
-  }, []);
+  // //베스트아이템을 초기 페이지에 로드
+  // useEffect(() => {
+  //   if (width >= 1200) {
+  //     setBestPageSize(4);
+  //   } else if (width >= 744) {
+  //     setBestPageSize(2);
+  //   } else setBestPageSize(1);
+  //   handleBestItems({ pageSize: bestPageSize });
+  // }, []);
 
   //판매중아이템을 초기 페이지 로드
   useEffect(() => {
@@ -72,29 +73,29 @@ export const App = () => {
   }, []);
 
   //아이템 로드 핸들러
-  const handleBestItems = async (data) => {
-    const result = await GetProductList(data);
-    setBestItems(result.list);
-  };
+  // const handleBestItems = async (data) => {
+  //   const result = await GetProductList(data);
+  //   setBestItems(result.list);
+  // };
   const handleSaleItems = async (data) => {
     const result = await GetProductList(data);
     setSaleItems(result.list);
-    //전체 페이지 확인
+    //전체 페이지 확인. 페이지네이션 오버 방지를 위함.
     const totalItems = result.totalItems;
     setTotalPage(Math.ceil(totalItems / 10));
   };
 
-  //pageSize에 따른 베스트 상품 갯수
-  function getBestPageSize() {
-    const width = window.innerWidth;
-    if (width >= 1200) {
-      return 4; // pc화면
-    } else if (width >= 744) {
-      return 2; // 태블릿 화면
-    } else {
-      return 1; // 모바일 화면
-    }
-  }
+  // //pageSize에 따른 베스트 상품 갯수
+  // function getBestPageSize() {
+  //   const width = window.innerWidth;
+  //   if (width >= 1200) {
+  //     return 4; // pc화면
+  //   } else if (width >= 744) {
+  //     return 2; // 태블릿 화면
+  //   } else {
+  //     return 1; // 모바일 화면
+  //   }
+  // }
 
   //pageSize에 따른 판매중 상품 갯수
   function getSalePageSize() {
@@ -120,11 +121,11 @@ export const App = () => {
   //page가 바뀔때마다 불러오는 상품 갯수 변경
   useEffect(() => {
     const reLoad = async () => {
-      const BestpageSize = getBestPageSize();
+      // const BestpageSize = getBestPageSize();
       const SalepageSize = getSalePageSize();
-      const bestProducts = await GetProductList({ pageSize: BestpageSize });
+      // const bestProducts = await GetProductList({ pageSize: BestpageSize });
       const saleProducts = await GetProductList({ pageSize: SalepageSize });
-      setBestItems(bestProducts.list);
+      // setBestItems(bestProducts.list);
       setSaleItems(saleProducts.list);
     };
     reLoad();
@@ -157,7 +158,7 @@ export const App = () => {
     handleButtonClick(e);
   };
 
-  //페이지네이션 버튼을 클릭 시시'click' css가 추가되는 핸들러
+  //페이지네이션 버튼을 클릭 시'click' css가 추가되는 핸들러
   const handleButtonClick = (e) => {
     e.target.classList.add("clicked");
     //추가된 클래스가 0.2초 뒤에 사라짐
@@ -168,7 +169,7 @@ export const App = () => {
 
   return (
     <div>
-      <header className="header">
+      {/* <header className="header">
         <div className="header-container">
           <div className="header-bundle">
             <a className="image" href="/">
@@ -184,16 +185,16 @@ export const App = () => {
           </a>
           <img className="profile" src={profile} />
         </div>
-      </header>
+      </header> */}
 
       <div className="content">
         <div className="body-content">
-          <div className="body-content-upper">
+          {/* <div className="body-content-upper">
             <p> 베스트 상품 </p>
           </div>
           <div>
             <BestProductList items={bestItems} />
-          </div>
+          </div> */}
 
           <div className="body-content-under1">
             <p> 판매중인 상품 </p>
@@ -206,7 +207,9 @@ export const App = () => {
                 onChange={handleSubmit}
               />
 
-              <button className="regist-product"> 상품 등록하기 </button>
+              <Link to="registration">
+                <button className="regist-product"> 상품 등록하기 </button>
+              </Link>
               <select
                 className="select"
                 value={order}
@@ -250,7 +253,7 @@ export const App = () => {
         </div>
       </div>
 
-      <footer className="footer">
+      {/* <footer className="footer">
         <div className="foot">
           <div className="shadow-foot">
             <p className="codeit1">@codeit - 2024</p>
@@ -278,7 +281,9 @@ export const App = () => {
             <p className="codeit2">@codeit - 2024</p>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 };
+
+export default ItemsPage;

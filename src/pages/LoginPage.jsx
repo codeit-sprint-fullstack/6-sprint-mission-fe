@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import style from "./LoginPage.module.css";
-import { useEffect, useState } from "react";
 
 function LoginPage() {
   return (

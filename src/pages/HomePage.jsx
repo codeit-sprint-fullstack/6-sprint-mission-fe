@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import style from "./HomePage.module.css";
 
 function HomePage() {
@@ -11,9 +12,11 @@ function HomePage() {
               <p>거래해 보세요</p>
             </div>
 
-            <button className={style.titleButton}>
-              <a href="/item">구경하러 가기</a>
-            </button>
+            <Link to="/items">
+              <button className={style.titleButton}>
+                <div>구경하러 가기</div>
+              </button>
+            </Link>
           </div>
         </main>
 

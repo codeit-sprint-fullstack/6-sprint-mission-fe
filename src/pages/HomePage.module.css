@@ -29,7 +29,7 @@ body {
 .main {
   background-color: #cfe5ff;
   height: 540px;
-  margin-top: 70px;
+  padding-top: 70px;
   display: flex;
   flex-direction: column;
   justify-content: end;
