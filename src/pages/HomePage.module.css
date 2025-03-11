@@ -1,0 +1,173 @@
+.wrapper {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  height: 540px;
+  background: #cfe5ff 70% bottom/746px no-repeat;
+}
+
+.button {
+  margin-top: 32px;
+  padding: 16px 124px;
+  border-radius: 40px;
+  background-color: #3692ff;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.button:hover {
+  background-color: #1967d6;
+}
+
+.top {
+  background-image: url("../assets/images/home/home-top.png");
+}
+
+.bottom {
+  margin-top: 138px;
+  background-image: url("../assets/images/home/home-bottom.png");
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  padding: 138px 0;
+  gap: 5%;
+}
+
+.feature:nth-child(2) {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.feature img {
+  max-width: 588px;
+}
+
+.featureTag {
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--blue-100);
+  line-height: 26px;
+}
+
+.featureBody {
+  margin-top: 24px;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--gray-700);
+  line-height: 32px;
+}
+
+@media (max-width: 1199px) {
+  .banner {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    min-width: 744px;
+    background-position: 50% bottom;
+    background-size: 100%;
+  }
+
+  .top {
+    height: 771px;
+    margin-bottom: 24px;
+  }
+
+  .top h1 {
+    margin-top: 84px;
+  }
+
+  .bottom {
+    height: 927px;
+    margin-top: 56px;
+  }
+
+  .bottom h1 {
+    margin-top: 201px;
+  }
+
+  .feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    margin: 0 24px;
+  }
+
+  .feature img {
+    width: 100%;
+  }
+
+  .featureContent {
+    width: 100%;
+    margin-top: 24px;
+    margin-bottom: 52px;
+  }
+
+  .h1 br {
+    display: none;
+  }
+}
+
+@media (max-width: 743px) {
+  .banner {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    min-width: 375px;
+    background-position: 50% bottom;
+    background-size: 100%;
+  }
+
+  .top {
+    height: 540px;
+    margin-bottom: 52px;
+  }
+
+  .top h1 {
+    margin-top: 48px;
+  }
+
+  .bottom {
+    height: 540px;
+    margin-top: 83px;
+  }
+
+  .bottom h1 {
+    margin-top: 121px;
+  }
+
+  .feature {
+    display: flex;
+    flex-direction: column;
+    margin: 0 16px;
+  }
+
+  .featureContent {
+    width: 100%;
+    margin-top: 24px;
+    margin-bottom: 40px;
+  }
+
+  .feature img {
+    max-width: 743px;
+    width: 100%;
+    height: auto;
+  }
+
+  .h1 br {
+    display: none;
+  }
+
+  .h1:nth-child(1) br {
+    display: inline;
+  }
+}
