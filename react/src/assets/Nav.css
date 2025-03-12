@@ -1,0 +1,65 @@
+/* 네비게이션 바 스타일 */
+nav {
+  font-family: "Pretendard";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px;
+  border-color: #dfdfdf;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 0 50px;
+}
+
+/* 네비게이션 내부 컨테이너 */
+.navAll {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* 로고 스타일 */
+.img_logo {
+  width: 153px;
+  height: 51px;
+  cursor: pointer;
+}
+
+/* 네비게이션 텍스트 (자유게시판, 중고마켓) */
+.navText {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* 로그인 버튼 */
+.login {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  background: #3692ff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.login:hover {
+  background: #2a78d1;
+}
