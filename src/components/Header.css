@@ -1,0 +1,56 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 200px;
+  width: 100%;
+  height: 70px;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+header > div {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.headerMenu {
+  display: flex;
+  gap: 21px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #4b5563;
+}
+
+.profileBtn {
+  padding: 12px 23px;
+  border-radius: 8px;
+  background-color: #3692ff;
+  color: #fff;
+}
+
+.profileBtn:hover {
+  background-color: #1967d6;
+}
+
+@media (max-width: 1199px) {
+  header {
+    padding: 0 24px;
+  }
+
+  .profileBtn {
+    color: transparent;
+    background: url("../assets/images/icon/ic-profile.svg") no-repeat right;
+  }
+}
+
+@media (max-width: 743px) {
+  header {
+    padding: 0 16px;
+  }
+
+  .profileBtn {
+    color: transparent;
+    background: url("../assets/images/icon/ic-profile.svg") no-repeat right;
+  }
+}
