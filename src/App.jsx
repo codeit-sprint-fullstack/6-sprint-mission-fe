@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Header } from "./components/Header/Header.jsx";
 import { Footer } from "./components/Footer/Footer.jsx";
 import { ProductsList } from "./components/ProductsList/ProductsLIst.jsx";
-import { getProducts } from "./api.js";
+import { getItems } from "./api.js";
 import { Pagination } from "./components/Pagination/Pagination.jsx";
 import { NavBar } from "./components/NavBar/NavBar.jsx";
 import { BestProductsList } from "./components/BestProductsList/BestProductsList.jsx";
@@ -37,7 +37,7 @@ function App() {
   }, [params]);
 
   const productsLoad = async (params) => {
-    const { list, totalCount } = await getProducts(params);
+    const { list, totalCount } = await getItems(params);
     setProducts(list);
     setTotalCount(totalCount);
   };
@@ -49,7 +49,7 @@ function App() {
   }, [bestParams]);
 
   const bestProductsLoad = async (bestParams) => {
-    const { list } = await getProducts(bestParams);
+    const { list } = await getItems(bestParams);
     setBestProducts(list);
   };
 
