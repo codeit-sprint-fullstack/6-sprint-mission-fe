@@ -1,0 +1,212 @@
+@import url("reset.css");
+
+html {
+  background-color: #cfe5ff;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+@media (max-width: 1199px) {
+  html {
+    font-size: 75%;
+    height: auto;
+  }
+}
+@media (max-width: 743px) {
+  html {
+    font-size: 50%;
+    height: auto;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.pase-header {
+  position: sticky;
+  top: 0;
+  height: 70px;
+  background-color: white;
+  border-bottom: 1px solid #dfdfdf;
+  z-index: 100;
+  display: flex;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 200px;
+  width: 1920px;
+}
+
+.Panda-logo {
+  width: 153px;
+  height: 51px;
+}
+
+.login {
+  font-weight: 600;
+  color: #f3f4f6;
+  width: 8rem;
+  height: 3rem;
+  border-radius: 8px;
+  padding: 12px;
+  background-color: #3692ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top {
+  background-image: url("img/home_top.png");
+  background-repeat: no-repeat;
+  background-position: bottom 0 right 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 540px;
+  padding: 200px 200px 0px 200px;
+  background-color: #cfe5ff;
+}
+
+.top_img {
+  max-width: 100%;
+  width: 746px;
+  height: 340px;
+}
+
+.top_letter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  padding-bottom: 3.75rem;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 56px;
+  color: #374151;
+}
+
+.watch_button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: #f9fafb;
+  padding: 1rem;
+  border-radius: 40px;
+  background-color: #3692ff;
+  width: 23.4rem;
+  height: 3.5rem;
+}
+
+.main_image {
+  width: 36.75rem;
+  height: 27.75rem;
+}
+
+.middle_text {
+  height: 27.75rem;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  background-color: #f9fafb;
+}
+
+h3 {
+  font-weight: 700;
+  color: #3692ff;
+  font-size: 1.125rem;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.box {
+  max-width: 1920px;
+  padding: 8.3rem 21.5rem;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.box.serch {
+  flex-direction: row-reverse;
+}
+
+.devide {
+  padding: 138px;
+  background-color: white;
+}
+
+.bottom {
+  background-image: url("img/Img_home_bottom.png");
+  background-repeat: no-repeat;
+  background-position: bottom 0 right 30%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 540px;
+  padding: 200px 200px 0px 200px;
+  background-color: #cfe5ff;
+}
+
+.foot {
+  height: 160px;
+  padding: 32px 200px;
+  background-color: #111827;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #9ca3af;
+}
+
+.icon {
+  display: flex;
+  gap: 12px;
+  color: white;
+}
+
+a {
+  text-decoration-line: none;
+  color: #e5e7eb;
+  cursor: pointer;
+}
+
+.privacy_faq {
+  display: flex;
+  gap: 30px;
+}
+
+.foot_letter {
+  display: flex;
+  flex-shrink: 0;
+}
+
+p {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 2rem;
+}
