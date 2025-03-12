@@ -1,0 +1,36 @@
+.sub-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 0px;
+}
+
+.best-product {
+  margin: auto;
+  width: 100%; /*auto*/
+  max-width: 1200px;
+}
+
+.best-items {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  flex-wrap: wrap;
+  padding: 0;
+  gap: 24px;
+}
+
+@media (max-width: 1200px) {
+  .best-product {
+    margin: 24px;
+  }
+  .best-items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 744px) {
+  .best-items {
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
