@@ -1,0 +1,24 @@
+.section-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.bestProductGrid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+/* 데스크탑 (1200px 이상) */
+@media (min-width: 1200px) {
+  .bestProductGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 태블릿 (744px ~ 1199px) */
+@media (min-width: 744px) and (max-width: 1199px) {
+  .bestProductGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

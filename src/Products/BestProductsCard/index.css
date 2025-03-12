@@ -1,0 +1,28 @@
+.bestProductCard {
+  width: 500px;
+  height: 800px;
+}
+.bestProductDescription {
+  font-size: 15px;
+}
+
+.bestProductPrice {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.bestProductFavoriteCount {
+  font-size: 15px;
+  color: #4b5563;
+}
+
+.bestProductImageWrapper {
+  width: 300px;
+  height: 300px;
+}
+
+.bestProductImage {
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+}
