@@ -20,7 +20,7 @@
 
 ## 배포 사이트
 
-- https://6-sprint-mission-fe-rust.vercel.app/
+- https://fs-panda-market.vercel.app
 
 ## 멘토에게
 
