@@ -6,8 +6,16 @@ import {
   PatchProduct,
   DeleteProduct,
 } from "../api/ProductService";
+import { useState } from "react";
 
 const RegistrationPage = () => {
+  const [itemTitle, setItemTitle] = useState("");
+
+  const handleiTitleChange = (e) => {
+    setItemTitle(e.target.value);
+    console.log(itemTitle);
+  };
+
   return (
     <div className={style.registrationMain}>
       <div className={style.header}>
@@ -22,6 +30,8 @@ const RegistrationPage = () => {
         <input
           className={style.inputItemTitle}
           placeholder="상품을 입력해주세요"
+          value={itemTitle}
+          onChange={handleiTitleChange}
         />
         <div id="itemTitle-error-message"></div>
       </form>
@@ -34,7 +44,9 @@ const RegistrationPage = () => {
           className={style.inputItemContent}
           placeholder="상품 소개를 입력해주세요"
         />
-        <div id="itemContent-error-message"></div>
+        {itemTitle.trim().length >= 11 && (
+          <div id="itemContent-error-message">10자 이내로 입력해주세요</div>
+        )}
       </form>
 
       <form>

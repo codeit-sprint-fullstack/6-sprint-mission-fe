@@ -24,20 +24,25 @@ body {
   font-size: 16px;
 }
 .foot {
-  margin-top: 32px;
+  padding-top: 32px;
   margin-left: 200px;
   margin-right: 200px;
   display: flex;
   flex-direction: column;
 }
-.foot {
-  flex-direction: column;
+
+.shadowFoot {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .codeit1 {
   width: 120px;
   height: 19px;
   font-size: 1em;
+  color: #9ca3af;
 }
 .codeit2 {
   display: none;
@@ -70,21 +75,14 @@ body {
   justify-content: space-between;
 }
 
-.shadow-foot {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 /* Tablet 사이즈 */
 @media (min-width: 744px) and (max-width: 1199px) {
   .foot {
-    margin-top: 32px;
     margin-left: 32px;
     margin-right: 32px;
     margin-bottom: 108px;
   }
-  .shadow-foot {
+  .shadowFoot {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -111,12 +109,11 @@ body {
   .foot {
     flex-direction: column;
     height: 63px;
-    margin-top: 32px;
     margin-left: 16px;
     margin-right: 16px;
     margin-bottom: 65px;
   }
-  .shadow-foot {
+  .shadowFoot {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -136,5 +133,6 @@ body {
   }
   .codeit2 {
     display: block;
+    color: #9ca3af;
   }
 }

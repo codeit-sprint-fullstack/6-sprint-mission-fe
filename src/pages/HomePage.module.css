@@ -65,6 +65,7 @@ body {
   width: 357px;
   height: 56px;
   background-color: #3692ff;
+  color: white;
   border-radius: 40px;
   border-width: 0;
   margin-top: 32px;
@@ -74,6 +75,7 @@ body {
 .articleMain {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
@@ -206,43 +208,6 @@ body {
   margin-bottom: 60px;
 }
 
-/* PC 사이즈 */
-@media (min-width: 1200px) {
-  .main-content2 {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-  .image-container1,
-  .image-container3 {
-    margin-left: 31px;
-  }
-  .image-container2 {
-    margin-right: 31px;
-  }
-  .text-container2 {
-    width: 350px;
-  }
-  .subtitle2 {
-    text-align: right;
-  }
-  .main-text1 {
-    width: 250px;
-    word-break: keep-all;
-  }
-  .main-text2 {
-    width: 300px;
-    word-break: keep-all;
-  }
-  .main-text3 {
-    width: 300px;
-    word-break: keep-all;
-  }
-  .description2 {
-    width: 300px;
-    word-break: keep-all;
-  }
-}
-
 /* Tablet 사이즈 */
 @media (min-width: 744px) and (max-width: 1199px) {
   .article-main {
@@ -272,7 +237,7 @@ body {
     justify-content: start;
   }
   .titleText {
-    width: 520px;
+    width: 620px;
     height: 60px;
     font-size: 40px;
     display: flex;
@@ -372,7 +337,7 @@ body {
     word-break: keep-all;
   }
 
-  .end-title {
+  .endTitle {
     width: 744px;
     height: 927px;
     background-size: contain;
@@ -381,7 +346,7 @@ body {
     flex-direction: column;
     padding-top: 83px;
   }
-  .title-text2 {
+  .titleText2 {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -422,13 +387,13 @@ body {
     padding-right: 15px;
   }
 
-  .face-img {
+  .faceImg {
     display: none;
   }
-  .header-text {
+  .headerText {
     padding-left: 16px;
   }
-  .header-container {
+  .headerContainer {
     justify-content: space-between;
   }
 
@@ -497,15 +462,15 @@ body {
   .mainContent2 {
     flex-direction: column-reverse;
   }
-  .main-text1 {
+  .mainText1 {
     width: 350px;
     font-size: 24px;
     line-height: 32px;
     margin-top: 0;
     margin-bottom: 16px;
   }
-  .main-text2,
-  .main-text3 {
+  .mainText2,
+  .mainText3 {
     width: 400px;
     font-size: 24px;
     line-height: 33.6px;
@@ -529,7 +494,7 @@ body {
     word-break: keep-all;
   }
 
-  .end-title {
+  .endTitle {
     width: 100%;
     height: 540px;
     background-size: contain;
@@ -540,7 +505,7 @@ body {
     padding-top: 83px;
     font-size: 32px;
   }
-  .title-text2 {
+  .titleText2 {
     display: flex;
     flex-direction: column;
     align-items: center;

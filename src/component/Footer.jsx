@@ -8,8 +8,8 @@ function Footer() {
           <div className={styles.shadowFoot}>
             <p className={styles.codeit1}>@codeit - 2024</p>
             <span className={styles.footerSpace}>
-              <a href="/privacy"> Privacy Policy </a>
-              <a href="/faq">FAQ </a>
+              <a to="/privacy"> Privacy Policy </a>
+              <a to="/faq">FAQ </a>
             </span>
             <span className={styles.icon}>
               <a href="https://ko-kr.facebook.com/">
