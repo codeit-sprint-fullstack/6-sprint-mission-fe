@@ -1,26 +1,57 @@
 ## 기본 요구사항
+### 공통
+- [ ] Github에 스프린트 미션 PR을 만들어 주세요.
+- [ ] React, Express를 사용해 진행합니다.
 
-공통
+### 프론트엔드 구현 요구사항
 
-- [x] Github에 스프린트 미션 PR을 만들어 주세요.
-- [x] React를 사용해 진행합니다.
+랜딩 페이지
+- [ ] HTML과 CSS로 구현한 랜딩페이지를 React로 마이그레이션하세요.
+- [ ] 랜딩 페이지 url path는 "/"로 설정하세요.
 
 중고마켓 페이지
+- [ ] 중고마켓 페이지 url path를 "/items"으로 설정하세요.
+- [ ] 페이지 주소가 "/items" 일 때 상단내비게이션바의 "중고마켓" 버튼의 색상은 "3692FF"입니다.
+- [ ] 중고마켓 페이지 판매 중인 상품은 본인이 만든 GET 메서드를 사용해 주세요.
+    - [ ] 다만 좋아요 순 정렬 기능은 제외해 주세요.
+    - [ ] 사진은 디폴트 이미지로 프론트엔드에서 처리해주세요.
+    - [ ] 베스트 상품 목록 조회는 구현하지 않습니다.
+- [ ] '상품 등록하기' 버튼을 누르면 "/registration" 로 이동합니다. ( 빈 페이지 )
 
-- [x] PC, Tablet, Mobile 디자인에 해당하는 중고마켓 페이지를 만들어 주세요.
-- [x] 중고마켓 페이지 url path는 별도로 설정하지 않고, '/'에 보이도록 합니다.
-- [x] 상단 네비게이션 바, 푸터는 랜딩 페이지와 동일한 스타일과 규칙으로 만들어주세요.
-- [x] 상품 데이터는 [https://panda-market-api.vercel.app/docs/](https://panda-market-api.vercel.app/docs/#/)에 명세된 GET 메소드 "/products" 를 활용해주세요.
+상품 등록 페이지
+- [ ] PC, Tablet, Mobile 디자인에 해당하는 상품 등록 페이지를 만들어 주세요.
+- [ ] 상품 등록 url path는 "/registration"입니다.
+- [ ] 상품 등록은 본인이 만든 POST 메서드를 사용해 주세요.
+- [ ] 등록 성공 시, 해당 상품 상세 페이지로 이동합니다. (빈페이지)
 
-  - [x] 상품 목록 페이지네이션 기능을 구현합니다.
-  - [x] 드롭 다운으로 "최신 순" 또는 "좋아요 순"을 선택해서 정렬을 구현하세요.
-  - [x] 상품 목록 검색 기능을 구현합니다.
+### 백엔드 구현 요구사항
+중고마켓
+- [ ]  Product 스키마를 작성해 주세요.
+    - [ ] id, name, description, price, tags, createdAt, updatedAt필드를 가집니다.
+    - [ ] 필요한 필드가 있다면 자유롭게 추가해 주세요.
+- [ ]  상품 등록 API를 만들어 주세요.
+    - [ ] name, description, price, tags를 입력하여 상품을 등록합니다.
+- [ ]  상품 상세 조회 API를 만들어 주세요.
+    - [ ] id, name, description, price, tags, createdAt를 조회합니다.
+- [ ]  상품 수정 API를 만들어 주세요.
+    - [ ] PATCH 메서드를 사용해 주세요.
+- [ ]  상품 삭제 API를 만들어 주세요.
+- [ ]  상품 목록 조회 API를 만들어 주세요.
+    - [ ] id, name, price, createdAt를 조회합니다.
+    - [ ] offset 방식의 페이지네이션 기능을 포함해 주세요.
+    - [ ] 최신순(recent)으로 정렬할 수 있습니다.
+    - [ ] name, description에 포함된 단어로 검색할 수 있습니다.
+- [ ]  각 API에 적절한 에러 처리를 해 주세요.
+- [ ]  각 API 응답에 적절한 상태 코드를 리턴하도록 해 주세요.
+- [ ]  . env 파일에 환경 변수를 설정해 주세요.
+- [ ]  CORS를 설정해 주세요.
+- [ ]  render.com로 배포해 주세요.
+- [ ]  MongoDB를 활용해 주세요.
 
-- [x] 베스트 상품 데이터는 [https://panda-market-api.vercel.app/docs/](https://panda-market-api.vercel.app/docs/#/)에 명세된 GET 메소드 "/products"의 정렬 기준 favorite을 사용해주세요.
 
 ## 배포 사이트
 
-- https://fs-panda-market.vercel.app
+- https://6-sprint-mission-fe-rust.vercel.app/
 
 ## 멘토에게
 
