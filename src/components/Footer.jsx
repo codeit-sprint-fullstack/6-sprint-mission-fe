@@ -25,7 +25,7 @@ const Footer = () => {
           />
           <img
             src="https://67a1772da019bb307bce76e3--relaxed-puppy-88a9cf.netlify.app/imges/ic_instagram.png"
-            alt="insta"
+            alt="instagrame"
           />
         </div>
       </div>
