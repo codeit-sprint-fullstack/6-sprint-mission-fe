@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import ItemsPage from "./pages/ItemsPage";
 import MarketPage from "./pages/MarketPage";
+import RegisterItemsPage from "./pages/RegisterItems";
 
 function App() {
   return (
@@ -32,6 +33,14 @@ function App() {
           element={
             <Layout>
               <MarketPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/registration"
+          element={
+            <Layout>
+              <RegisterItemsPage />
             </Layout>
           }
         />

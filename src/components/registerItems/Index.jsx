@@ -1,13 +1,13 @@
 import styles from "./Index.module.css";
-import MarketList from "./model/MarketList";
+import AddItems from "./model/AddItems";
 
-const Market = () => {
+const RegisterItems = () => {
   return (
     <section>
       <div className={styles.used_market__container}>
-        <MarketList />
+        <AddItems />
       </div>
     </section>
   );
 };
-export default Market;
+export default RegisterItems;

@@ -73,7 +73,7 @@ const CommonProductList = () => {
           {/* 상품 등록 버튼 */}
           <button
             className={styles.register_button}
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/registration")}
           >
             상품 등록하기
           </button>
