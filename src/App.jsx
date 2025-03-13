@@ -1,5 +1,6 @@
 import "./App.css";
 import BestProduct from "./components/BestProduct";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import SaleProduct from "./components/SaleProduct";
 
@@ -9,6 +10,7 @@ function App() {
       <Header />
       <BestProduct />
       <SaleProduct />
+      <Footer />
     </div>
   );
 }

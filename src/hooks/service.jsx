@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { getProductList } from "../api";
 
-export const useFetchProductList = ({ page, pageSize, orderBy }) => {
+export const useFetchProductList = ({ page, pageSize, orderBy, keyword }) => {
   const options = {
     page,
     pageSize,
     orderBy,
+    keyword,
   };
   const [products, setProducts] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +24,7 @@ export const useFetchProductList = ({ page, pageSize, orderBy }) => {
     };
 
     fetchProductList();
-  }, [page, pageSize, orderBy]);
+  }, [page, pageSize, orderBy, keyword]);
 
   return { products, isLoading };
 };
