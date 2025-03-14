@@ -1,25 +1,29 @@
 import { useState, useEffect } from "react";
 import ItemFetch from "../../api/itemFetch.js";
 import { ItemCard } from "./ItemCard";
-import Search from '/ic_search.png'
-import './SellItem.css'
+import Search from "/ic_search.png";
+import "./SellItem.css";
+import { Pagination } from "../UI/Pagination.jsx";
+import { Dropdown } from "../UI/DropDown.jsx";
 
 export const SellItem = () => {
   const [items, setItems] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [orderBy, setOrderBy] = useState("recent");
   const [page, setPage] = useState(1);
-  const pazeSize = 10;
+  const pageSize = 10;
+  const [totalPage, setTotalPage] = useState(0);
 
   useEffect(() => {
     const fetchItem = async () => {
       const data = await ItemFetch({
         page,
-        pazeSize,
+        pageSize,
         orderBy,
         keyword,
       });
       setItems(data.list);
+      setTotalPage(data.list.length);
     };
     fetchItem();
   }, [keyword, orderBy, page]);
@@ -41,15 +45,21 @@ export const SellItem = () => {
               />
             </div>
             <button className="registration">상품 등록하기</button>
+            <Dropdown orderBy={orderBy} setOrderBy={setOrderBy} /> {/* 드롭다운 추가 */}
           </div>
-          
         </div>
         <div className="sell-list">
           {items.map((item) => (
             <ItemCard key={item.id} item={item} />
           ))}
         </div>
+
+        <Pagination 
+          totalPage={totalPage} // ⚠️ API 응답 데이터에 따라 동적으로 설정해야 함
+          currentPage={page}
+          onPageChange={setPage} // 현재 페이지 변경 함수 전달
+        />
       </div>
     </div>
-  )
+  );
 };

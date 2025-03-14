@@ -1,6 +1,8 @@
 .item-img {
   border-radius: 16px;
   margin-bottom: 16px;
+  aspect-ratio: 1;
+  object-fit: cover;
 }
 
 .item-info {
@@ -31,7 +33,7 @@
 
 .heart-img {
   width: 13.4px;
-  height: 11.65px;
+  height: 13.4px;
 }
 
 .item-p {

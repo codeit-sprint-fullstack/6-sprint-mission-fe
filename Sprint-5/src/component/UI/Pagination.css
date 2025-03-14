@@ -1,0 +1,38 @@
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 140px;
+}
+
+.pagination {
+  display: flex;
+  gap: 12.5px;
+}
+
+.page-img.disabled {
+  opacity: 0.5;
+}
+
+.page-btn.active {
+  background-color: #2F80ED;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  color: #F9FAFB;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.page-btn {
+  background-color: #FFFFFF;
+  border: #E5E7EB 1px solid;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  color: #6B7280;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+}
