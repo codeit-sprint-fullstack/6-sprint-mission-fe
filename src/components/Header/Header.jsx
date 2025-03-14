@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import styles from './Header.module.css'
 import { Link } from "react-router-dom";
 import { CiLogin } from "react-icons/ci";
