@@ -1,0 +1,102 @@
+.header {
+    position: sticky;
+    top: 0rem;
+    left: 0rem;
+    z-index: 100;
+    background-color: var(--white);
+}
+
+.header * {
+    color: var(--gray-dark);
+}
+
+.headerContent {
+    padding: 0rem 12.5rem;
+    min-height: 4.25rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.0625rem solid var(--light-gray);
+}
+
+.h1Logo {
+    margin-right: 1.25rem;
+}
+
+.mobile {
+    display: none;
+}
+
+.logoSection {
+    display: flex;
+    align-items: center;
+}
+
+.logoSection .link {
+    padding: 1.3125rem 0.9375rem;
+    font-weight: bold;
+    font-size: 1.125rem;
+}
+
+.authSection .loginText {
+    color: var(--white);
+    background-color: var(--primary-blue);
+    padding: 0.75rem 1.4375rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.authSection .loginIcon {
+    display: none;
+}
+
+/* Tablet: 744px 이상 ~ 1199px 이하 */
+@media screen and (min-width: 744px) and (max-width: 1199px) {
+    .headerContent {
+        padding: 0rem 1.5rem;
+        min-height: 4.375rem;
+    }
+}
+
+/* Mobile: 320px 이상 ~ 743px 이하 */
+@media screen and (min-width: 320px) and (max-width: 743px) {
+    .headerContent {
+        padding: 0rem 1.5rem;
+        min-height: 4.375rem;
+    }
+
+    .pc {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+
+    .logoSection .link {
+        padding: 1.5625rem 0rem;
+        font-size: 1rem;
+        margin: 0rem 0.3125rem;
+    }
+
+    .authSection .loginLink {
+        display: none;
+    }
+
+    .authSection .loginIcon {
+        display: block;
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: var(--cool-grey);
+        border-radius: 9999px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .authSection .loginIcon svg {
+        fill: var(--white);
+    }
+}

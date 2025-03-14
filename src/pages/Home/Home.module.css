@@ -1,0 +1,256 @@
+.productsSection {
+    max-width: 75rem;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.ProductsTitle {
+    margin-bottom: 1rem;
+    color: var(--dark-blue);
+    font-weight: bold;
+    font-size: 1.25rem;
+    line-height: normal;
+}
+
+.bestProductsList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.sellProductsInner {
+    margin-top: 2.5rem;
+}
+
+.sellProductsHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.sellProductsList {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2.5rem 1.5rem;
+}
+
+.sellProductsTitle {
+    flex: 1 1 auto;
+}
+
+.searchContainer {
+    background-color: var(--gray-light);
+    border-radius: 0.75rem;
+    padding: 0.5625rem 1rem;
+    display: flex;
+    align-items: center;
+    width: 18.0625rem;
+}
+
+.searchContainer svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: var(--blue-gray);
+}
+
+.searchInput {
+    border: none;
+    flex: 1 1;
+    background-color: inherit;
+    margin-left: 0.25rem;
+    width: 100%;
+    height: 100%;
+    color: var(--slate-gray);
+}
+
+.searchInput::placeholder {
+    color: var(--blue-gray);
+}
+
+.pagination {
+    padding-top: 2.5rem;
+    padding-bottom: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.pagination button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    border: 1px solid var(--cool-grey);
+    color: var(--slate-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registerButtonContainer {
+    margin: 0px 0.75rem;
+}
+
+.registerButton {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    padding: 0.5625rem 1.4375rem;
+}
+
+.registerButton:hover {}
+
+.sortButtonsContainer {
+    position: relative;
+    width: 8.125rem;
+    padding: 0.8125rem 1.25rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    cursor: pointer;
+}
+
+.defaultButtons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.defaultButton {
+    color: var(--slate-gray);
+}
+
+.mobileDropDown {
+    display: none;
+}
+
+.dropdownButtons {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 110%;
+    left: 0px;
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    border: 1px solid var(--cool-grey);
+    box-shadow: 0 0.125rem 0.25rem var(--black);
+    z-index: 1;
+}
+
+.dropdownButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2.75rem;
+    text-wrap: nowrap;
+}
+
+.activePage {
+    color: var(--white) !important;
+    background-color: var(--primary-blue);
+    font-weight: bold;
+}
+
+@media screen and (min-width: 744px) and (max-width: 1199px) {
+
+    .productsSection {
+        max-width: 100%;
+        margin: auto;
+        padding: 1.0625rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    .bestProductsList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bestProductsList > li:nth-child(n+3) {
+        display: none;
+    }
+
+    .sellProductsList {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem 1rem;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 743px) {
+
+    .productsSection {
+        max-width: 100%;
+        margin: auto;
+        padding: 1.0625rem 1rem 1.5rem 1rem;
+    }
+
+    .bestProductsList {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 0px;
+    }
+
+    .bestProductsList > li:nth-child(n+2) {
+        display: none;
+    }
+
+    .sellProductsList {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem 0.5rem;
+    }
+
+    .sellProductsHeader {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .sellProductsTitle {
+        order: 1;
+    }
+
+    .searchContainer {
+        order: 3;
+        width: auto;
+        flex: 1 1 auto;
+    }
+
+    .registerButtonContainer {
+        order: 2;
+        margin: 0px;
+    }
+
+    .sortButtonsContainer {
+        order: 4;
+        width: auto;
+        padding: 0.5625rem;
+    }
+
+    .defaultButton {
+        display: none;
+    }
+
+    .pcDropDown {
+        display: none;
+    }
+
+    .mobileDropDown {
+        display: block;
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    .dropdownButtons {
+        width: auto;
+        left: -6.25rem;
+        display: flex;
+        justify-content: center;
+    }
+}
