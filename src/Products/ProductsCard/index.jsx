@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import "./index.css";
+import defaultImage from "../../assets/images/logo/defaultImage.png";
 
 export const ProductsCard = ({ product }) => {
   return (
@@ -7,7 +8,7 @@ export const ProductsCard = ({ product }) => {
       <div className="productImageWrapper">
         <img
           className="productImage"
-          src={product.images[0]}
+          src={product.images?.[0] || defaultImage}
           alt={product.name}
         />
       </div>
