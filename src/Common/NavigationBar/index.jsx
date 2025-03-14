@@ -3,7 +3,7 @@ import favicon from "../../assets/favicon.png";
 
 const NavigationBar = () => {
   return (
-    <nav className="navigationBar">
+    <header className="navigationBar">
       <div className="leftNav">
         <a className="goHomeButton" href="/">
           <img src={favicon} alt="Panda Market Logo" />
@@ -20,7 +20,7 @@ const NavigationBar = () => {
       >
         로그인
       </button>
-    </nav>
+    </header>
   );
 };
 

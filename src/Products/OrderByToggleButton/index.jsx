@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import "./index.css";
 import { useState } from "react";
 
 export const OrderByToggleButton = ({ orderByState, setOrderByState }) => {

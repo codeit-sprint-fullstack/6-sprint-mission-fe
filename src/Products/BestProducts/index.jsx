@@ -8,7 +8,17 @@ export const BestProducts = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const newBestProducts = await getProductsList(1, 4, "favorite", "");
+      const page = 1;
+      const pageSize = 4;
+      const orderBy = "favorite";
+      const keyword = "";
+
+      const newBestProducts = await getProductsList(
+        page,
+        pageSize,
+        orderBy,
+        keyword
+      );
       setBestProductsState(newBestProducts);
     };
 

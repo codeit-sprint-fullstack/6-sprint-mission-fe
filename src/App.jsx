@@ -1,4 +1,4 @@
-import "./App.css";
+import "./global.css";
 import { BestProductsPage } from "./Pages/BestProductsPage";
 
 function App() {
