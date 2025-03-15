@@ -3,6 +3,8 @@ Footer {
   background-color: #111827;
   font-family: "Pretendard";
   display: flex;
+  width: 100%;
+  margin: 0px;
 }
 
 /* "Privacy Policy" & "FAQ" 스타일 */
