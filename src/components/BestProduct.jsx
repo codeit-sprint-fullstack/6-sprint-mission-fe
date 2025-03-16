@@ -1,26 +1,27 @@
 import styles from "./BestProduct.module.css";
 import unheartIcon from "../assets/images/icon/ic-unheart.svg";
 import { useEffect, useState } from "react";
+import { BEST_PAGE_SIZE } from "../constants";
 
 function BestProduct({ items }) {
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(BEST_PAGE_SIZE.desktop);
 
   useEffect(() => {
-    const updateBestItemCount = () => {
+    const updatePageSize = () => {
       if (window.matchMedia("(max-width: 743px)").matches) {
-        setPageSize(1);
+        setPageSize(BEST_PAGE_SIZE.mobile);
       } else if (window.matchMedia("(max-width: 1199px)").matches) {
-        setPageSize(2);
+        setPageSize(BEST_PAGE_SIZE.tablet);
       } else {
-        setPageSize(4);
+        setPageSize(BEST_PAGE_SIZE.desktop);
       }
     };
 
-    updateBestItemCount();
+    updatePageSize();
 
-    window.addEventListener("resize", updateBestItemCount);
+    window.addEventListener("resize", updatePageSize);
     return () => {
-      window.removeEventListener("resize", updateBestItemCount);
+      window.removeEventListener("resize", updatePageSize);
     };
   }, []);
 
@@ -39,7 +40,8 @@ function BestProduct({ items }) {
               <div className={styles.name}>{item.name}</div>
               <div className={styles.price}>{item.price}원</div>
               <div className={styles.favoriteCount}>
-                <img src={unheartIcon} /> {item.favoriteCount}
+                <img src={unheartIcon} alt="좋아요 아이콘" />{" "}
+                {item.favoriteCount}
               </div>
             </div>
           </div>
