@@ -170,8 +170,7 @@
 
 #### [ 코드리뷰 반영(스프린트 미션 5) ]
 
-- [ ] pagination을 context로 표현하기
-- [ ] select를 custom hook으로 만들기
+- [x] select를 custom hook으로 만들기
 
 #### [ 추가 ]
 
@@ -183,7 +182,7 @@
 
 #### [ 수정 ]
 
--
+- login, signup 공통 데이터 모듈화
 -
 
 - </div>
