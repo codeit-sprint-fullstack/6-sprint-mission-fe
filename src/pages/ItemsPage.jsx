@@ -8,7 +8,7 @@ import {
 } from "../api/ProductService";
 import { useState, useEffect } from "react";
 import { BestProductList, SaleProductList } from "../component/ProductList";
-import magnifier from "../img/돋보기.png";
+import magnifier from "../assets/img/돋보기.png";
 import { useWindowDimensions } from "../component/hooks/useWindowdementions";
 import { Link, Outlet } from "react-router-dom";
 

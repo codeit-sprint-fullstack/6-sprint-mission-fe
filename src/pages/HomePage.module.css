@@ -41,7 +41,7 @@ body {
 .title {
   width: 1110px;
   height: 340px;
-  background-image: url("/main-page/Img_home_top.png");
+  background-image: url("../assets/img/main-page/Img_home_top.png");
   background-repeat: no-repeat;
   background-position: right bottom;
   display: flex;
@@ -191,7 +191,7 @@ body {
   width: 1110px;
   height: 397px;
   background-color: #cfe5ff;
-  background-image: url(/main-page/Img_home_bottom.png);
+  background-image: url(../assets/img/main-page/Img_home_bottom.png);
   background-repeat: no-repeat;
   background-position: right bottom;
   font-size: 1em;

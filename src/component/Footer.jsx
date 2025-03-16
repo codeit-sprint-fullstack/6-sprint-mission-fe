@@ -1,4 +1,8 @@
 import styles from "./Footer.module.css";
+import facebook from "../assets/img/main-page/Group.png";
+import youtube from "../assets/img/main-page/ic_youtube.png";
+import instagram from "../assets/img/main-page/ic_instagram.png";
+import twitter from "../assets/img/main-page/ic_twitter.png";
 
 function Footer() {
   return (
@@ -13,16 +17,16 @@ function Footer() {
             </span>
             <span className={styles.icon}>
               <a href="https://ko-kr.facebook.com/">
-                <img src="/main-page/Group.png" />
+                <img src={facebook} />
               </a>
               <a href="https://x.com/?mx=2">
-                <img src="/main-page/ic_twitter.png" />
+                <img src={twitter} />
               </a>
               <a href="https://www.youtube.com/">
-                <img src="/main-page/ic_youtube.png" />
+                <img src={youtube} />
               </a>
               <a href="https://www.instagram.com/">
-                <img src="/main-page/ic_instagram.png" />
+                <img src={instagram} />
               </a>
             </span>
           </div>

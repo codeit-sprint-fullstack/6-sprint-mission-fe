@@ -1,6 +1,6 @@
-import miniPandeFace from "../../main-page/작은 판다 얼굴.png";
-import PandeMarket from "../../main-page/판다마켓.png";
-import profile from "../img/Frame 2609463.png";
+import miniPandeFace from "../assets/img/main-page/작은 판다 얼굴.png";
+import PandeMarket from "../assets/img/main-page/판다마켓.png";
+import profile from "../assets/img/Frame 2609463.png";
 
 function Nav2() {
   return (

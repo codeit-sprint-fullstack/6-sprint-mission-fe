@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import style from "./HomePage.module.css";
+import homeImg1 from "../assets/img/main-page/Img_home_01.png";
+import homeImg2 from "../assets/img/main-page/Img_home_02.png";
+import homeImg3 from "../assets/img/main-page/Img_home_03.png";
 
 function HomePage() {
   return (
@@ -24,10 +27,7 @@ function HomePage() {
           <div className={style.articleMain}>
             <div className={style.mainContent1}>
               <p>
-                <img
-                  className={style.imageContainer1}
-                  src="/main-page/Img_home_01.png"
-                />
+                <img className={style.imageContainer1} src={homeImg1} />
               </p>
 
               <span className={style.textContainer1}>
@@ -52,19 +52,13 @@ function HomePage() {
               </span>
 
               <span>
-                <img
-                  className={style.imageContainer2}
-                  src="/main-page/Img_home_02.png"
-                />
+                <img className={style.imageContainer2} src={homeImg2} />
               </span>
             </div>
 
             <div className={style.mainContent3}>
               <p>
-                <img
-                  className={style.imageContainer3}
-                  src="/main-page/Img_home_03.png"
-                />
+                <img className={style.imageContainer3} src={homeImg3} />
               </p>
 
               <span className={style.textContainer3}>
