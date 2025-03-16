@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router";
 import { postProduct } from "../../backend/API/productApi";
 import { useEffect, useState } from "react";
+import useValidation from "../../hooks/useValidation";
 
 // 유효성 검증
 const errMsg = {
@@ -20,50 +21,21 @@ const Registration = () => {
   const [tag, setTag] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [registrationBtnOn, setRegistrationBtnOn] = useState(false);
-  const [errVisible, setErrVisible] = useState({
-    name: false,
-    description: false,
-    price: false,
-    tags: false,
-  });
+  const [errVisible, checkValidation] = useValidation();
   const navigate = useNavigate();
 
+  // body 업데이트
   const changeValue = (e) => {
     const { id, value } = e.target;
 
-    // body 업데이트
     if (id === "tags") {
       setTag(value);
     } else {
       setBody((prevBody) => ({ ...prevBody, [id]: value }));
     }
 
-    // 유효성 검사
-    const error = setErrVisible((prevErrVisible) => ({
-      ...prevErrVisible,
-      [id]: true,
-    }));
-
-    if (id === "name" && 10 < value.length) {
-      error;
-    } else if (
-      id === "description" &&
-      (10 > value.length || 100 < value.length)
-    ) {
-      error;
-    } else if (id === "price" && !Number(value)) {
-      if (value === "") {
-        return setErrVisible((prevErrVisible) => ({
-          ...prevErrVisible,
-          [id]: false,
-        }));
-      }
-      error;
-    } else if (id === "tags" && 5 < value.length) {
-      error;
-    } else {
-      setErrVisible((prevErrVisible) => ({ ...prevErrVisible, [id]: false }));
-    }
+    // 유효성 검사 Custom Hook
+    checkValidation(e);
   };
 
   // 등록 버튼 활성화
