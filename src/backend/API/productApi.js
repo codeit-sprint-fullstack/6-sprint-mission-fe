@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/products";
+const BASE_URL = "https://panda-market-agn0.onrender.com/products";
 const instance = axios.create({ baseURL: BASE_URL });
 
 const getProducts = async (params) => {
