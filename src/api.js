@@ -5,28 +5,33 @@ export const getProducts = async ({
   pageSize = 10,
   orderBy = "createdAt",
   keyword = "",
-  isBest = false,
 }) => {
   const offset = (page - 1) * pageSize;
   const params = new URLSearchParams({
-    offset: offset,
+    offset,
     limit: pageSize,
-    order: isBest ? "favorite" : orderBy,
+    order: orderBy,
   });
 
   if (keyword.trim() !== "") {
     params.append("search", keyword);
   }
 
+  const requestUrl = `https://panda-market-api.vercel.app/products?${params.toString()}`;
+  console.log("📡 Fetching products from:", requestUrl);
+
   try {
-    const res = await fetch(`${BASE_URL}?${params.toString()}`);
+    const res = await fetch(requestUrl);
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
-    const data = await res.json();
-    return data.list || [];
+
+    const json = await res.json();
+    console.log("✅ API Response:", json);
+
+    return json || {};
   } catch (error) {
-    console.error("Error fetching products:", error);
-    return [];
+    console.error("❌ API fetch error:", error);
+    return {};
   }
 };

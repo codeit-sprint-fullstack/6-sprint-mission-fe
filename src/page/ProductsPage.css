@@ -1,0 +1,8 @@
+.products-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 100px auto 0;
+  text-align: left;
+  padding: 20px;
+  font-family: "Pretendard";
+}

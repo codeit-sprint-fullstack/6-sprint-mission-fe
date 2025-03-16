@@ -1,0 +1,21 @@
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.product-card {
+  width: 221px;
+  height: auto;
+  text-align: center;
+  box-shadow: none;
+}
+
+.product-card img {
+  width: 221px;
+  height: 221px;
+  object-fit: cover;
+  border-radius: 12px;
+}

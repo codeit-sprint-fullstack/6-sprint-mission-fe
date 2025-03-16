@@ -28,6 +28,12 @@ nav {
   margin: 0 auto;
 }
 
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
 /* 로고 스타일 */
 .img_logo {
   width: 153px;
