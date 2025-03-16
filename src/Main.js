@@ -8,6 +8,7 @@ import MarketPage from "./pages/MarketPage";
 import AddItemPage from "./pages/AddItemPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import FaqPage from "./pages/FaqPage";
+import ProductPage from "./pages/ProductPage";
 
 function Main() {
   return (
@@ -18,7 +19,10 @@ function Main() {
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="board" element={<BoardPage />} />
-          <Route path="items" element={<MarketPage />} />
+          <Route path="items">
+            <Route index element={<MarketPage />} />
+            <Route path=":id" element={<ProductPage />} />
+          </Route>
           <Route path="registration" element={<AddItemPage />} />
           <Route path="privacy" element={<PrivacyPage />} />
           <Route path="faq" element={<FaqPage />} />
