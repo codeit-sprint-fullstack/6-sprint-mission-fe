@@ -12,7 +12,7 @@ const ProductsPage = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState("createdAt");
   const [search, setSearch] = useState("");
-  const [totalPages, setTotalPages] = useState(1); // ✅ totalPages 추가
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const limit = 10;
 
@@ -20,16 +20,14 @@ const ProductsPage = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        // ✅ 베스트 상품 데이터 가져오기
         const bestData = await getProducts({
           page: 1,
           pageSize: 4,
           orderBy: "favorite",
         });
 
-        setBestProducts(bestData); // ✅ slice(0, 4) 제거
+        setBestProducts(bestData);
 
-        // ✅ 일반 상품 목록 가져오기
         const data = await getProducts({
           page,
           pageSize: limit,
@@ -37,10 +35,10 @@ const ProductsPage = () => {
           keyword: search,
         });
 
-        setProducts(data.list); // ✅ API 응답이 list 형태로 올 경우 대응
-        setTotalPages(Math.ceil(data.total / limit)); // ✅ 전체 페이지 계산 추가
+        setProducts(data.list);
+        setTotalPages(Math.ceil(data.total / limit));
       } catch (error) {
-        console.error("❌ Error fetching products:", error);
+        console.error("Error fetching products:", error);
       } finally {
         setLoading(false);
       }
@@ -55,10 +53,8 @@ const ProductsPage = () => {
 
   return (
     <div className="products-container">
-      {/* 🔹 베스트 상품 컴포넌트 */}
       <BestProducts bestProducts={bestProducts} />
 
-      {/* 🔹 검색 & 정렬 필터 */}
       <ProductFilter
         search={search}
         setSearch={setSearch}
@@ -67,15 +63,12 @@ const ProductsPage = () => {
         onRegister={handleRegisterClick}
       />
 
-      {/* 🔹 로딩 중일 때 표시 */}
       {loading ? (
         <p className="loading-text">상품을 불러오는 중입니다...</p>
       ) : (
         <>
-          {/* 🔹 상품 목록 */}
           <ProductList products={products} />
 
-          {/* 🔹 페이지네이션 */}
           <Pagination
             totalPages={totalPages}
             currentPage={page}
