@@ -1,0 +1,52 @@
+.bottomBox {
+  background-color: var(--blue-bright-color-e6f2ff);
+  width: 40rem;
+  height: 4.625rem;
+  border-radius: 0.5rem;
+  padding: 1rem 1.4375rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 1.5rem auto;
+}
+
+.bottomTxt {
+  font-family: Pretendard;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: var(--gray-dark-color-1f2937);
+}
+
+.icon {
+  display: flex;
+  gap: 1rem;
+}
+
+.googleBtn {
+  background-color: white;
+  width: 2.625rem;
+  height: 2.625rem;
+  border-radius: 100%;
+  padding: 0.625rem;
+}
+
+.kakaoBtn {
+  background-color: #f5e14b;
+  width: 2.625rem;
+  height: 2.625rem;
+  border-radius: 100%;
+  padding: 0.625rem 0.5rem 0.5rem 0.5rem;
+}
+
+/* Mobile */
+@media (max-width: 743px) {
+  .bottomContainer {
+    padding: 0 1rem;
+  }
+
+  .bottomBox {
+    width: 100%;
+  }
+}
