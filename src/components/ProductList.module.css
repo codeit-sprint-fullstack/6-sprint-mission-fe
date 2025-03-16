@@ -1,6 +1,6 @@
 .heading {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   position: relative;
   margin: 40px 120px 24px;
@@ -25,7 +25,12 @@
   background-color: #1967d6;
 }
 
-.input {
+.searchBar {
+  display: flex;
+  align-items: center;
+}
+
+.keyword {
   width: 325px;
   height: 42px;
   padding: 9px 20px 9px 44px;
@@ -78,39 +83,6 @@
   justify-content: center;
   gap: 24px;
   flex-wrap: wrap;
-}
-
-.img {
-  max-width: 221px;
-  min-width: 221px;
-  max-height: 221px;
-  min-height: 221px;
-  margin-bottom: 16px;
-  border-radius: 16px;
-}
-
-.description {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.name {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.price {
-  font-weight: 700;
-}
-
-.favoriteCount {
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 500;
-  color: #4b5563;
-  gap: 4px;
 }
 
 .hide {

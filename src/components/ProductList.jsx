@@ -1,26 +1,26 @@
+import ProductListItem from "./ProductListItem";
 import styles from "./ProductList.module.css";
-import unheartIcon from "../assets/images/icon/ic-unheart.svg";
 import { Link } from "react-router-dom";
 
 function ProductList({
   order,
   setOrder,
-  input,
-  setInput,
+  keyword,
+  setKeyword,
   currentItems,
   dropdownItems,
   handleDropdown,
 }) {
   return (
-    <main className={styles.product}>
+    <main>
       <div className={styles.heading}>
         <div className={styles.title}>판매 중인 상품</div>
         <div className={styles.searchBar}>
           <input
             type="text"
-            value={input}
-            className={styles.input}
-            onChange={(e) => setInput(e.target.value)}
+            value={keyword}
+            className={styles.keyword}
+            onChange={(e) => setKeyword(e.target.value)}
             placeholder="검색할 상품을 입력해주세요"
           ></input>
         </div>
@@ -69,22 +69,6 @@ function ProductList({
         ))}
       </div>
     </main>
-  );
-}
-
-function ProductListItem({ item }) {
-  return (
-    <div>
-      <img className={styles.img} src={item.images} alt={item.name} />
-      <div className={styles.description}>
-        <div className={styles.name}>{item.name}</div>
-        <div className={styles.price}>{item.price}원</div>
-        <div className={styles.favoriteCount}>
-          <img src={unheartIcon} />
-          {item.favoriteCount}
-        </div>
-      </div>
-    </div>
   );
 }
 
