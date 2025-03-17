@@ -1,4 +1,4 @@
-import { instance, safeExecute } from "./common";
+import { instance, safeExecute } from "./Common";
 
 export const getProductsList = async (
   page = 1,

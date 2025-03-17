@@ -1,5 +1,5 @@
 import "./index.css";
-import favicon from "../../assets/favicon.png";
+import favicon from "../../assets/images/favicon.png";
 import { Link } from "react-router-dom";
 
 const Header = () => {

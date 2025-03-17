@@ -1,9 +1,0 @@
-#root {
-  display: flex;
-  flex-flow: column wrap;
-  width: 100%;
-}
-
-.termDiv {
-  height: 120px;
-}
