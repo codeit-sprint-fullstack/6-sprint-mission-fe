@@ -1,4 +1,31 @@
-header {
+@import "./reset.css";
+
+* {
+  font-family: Pretendard;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+body {
+  margin: 0px;
+}
+
+.mainBody {
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Pretendard;
+}
+
+.header {
   position: fixed;
   background-color: white;
   width: 100%;
@@ -8,7 +35,7 @@ header {
   position: center;
 }
 
-.header-container {
+.headerContainer {
   width: 100%;
   height: 51px;
   padding-top: 9.5px;
@@ -18,15 +45,33 @@ header {
   font-size: 16px;
 }
 
-.face-img {
+.image {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.faceImg {
   width: 40px;
   height: 40.14px;
 }
 
-.header-text {
+.headerText {
   justify-content: space-between;
   cursor: pointer;
   padding-left: 8.9px;
   width: 103px;
   height: 26px;
+}
+
+.headerLogin {
+  background-color: #3692ff;
+  width: 128px;
+  height: 48px;
+  top: 12px;
+  border-radius: 10px;
+  border-width: 0;
+  cursor: pointer;
+  color: white;
+  font-family: Pretendard;
 }
