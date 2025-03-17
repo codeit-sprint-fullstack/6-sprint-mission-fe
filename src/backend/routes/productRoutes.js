@@ -20,14 +20,13 @@ productRoutes.get("/", async (req, res, next) => {
     // limit
     const pageSize = Number(limit) || 10;
 
-    const products = await Product.find(
-      { $or: [{ name: regex }, { description: regex }] },
-      selectFields
-    )
+    const filter = { $or: [{ name: regex }, { description: regex }] };
+
+    const products = await Product.find(filter, selectFields)
       .sort(sort)
       .skip(skip)
       .limit(pageSize);
-    const totalCount = await Product.countDocuments(products);
+    const totalCount = await Product.countDocuments(filter);
 
     res.send({ list: products, totalCount });
   } catch (e) {

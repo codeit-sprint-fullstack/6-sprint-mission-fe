@@ -13,7 +13,14 @@ mongoose.connect(process.env.DATABASE_URL).then(() => console.log("Connected"));
 
 // 3. 미들웨어 등록
 app.use(express.json()); // json 데이터를 parsing.
-app.use(cors()); // CORS를 허용.
+app.use(
+  cors({
+    origin: [
+      "https://been-panda.vercel.app",
+      "https://been-panda.onrender.com",
+    ],
+  })
+); // CORS를 허용.
 
 // 3-1. routes 등록
 app.use("/products", productRoutes);

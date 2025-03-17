@@ -20,10 +20,21 @@
   gap: 0.5rem;
   background-color: var(--gray-bright-color-f3f4f6);
   border-radius: 1.625rem;
-  padding: 0.375rem 0.75rem 0.375rem 1rem;
+  padding: 5px 12px 5px 16px;
 }
 
 .tagCancelBtn {
   border: none;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gray-color-9ca3af);
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  margin: 3px 2px;
+}
+
+.tagCancelBtn:hover {
+  background-color: var(--blue-color-3692ff);
 }

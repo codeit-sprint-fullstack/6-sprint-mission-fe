@@ -60,6 +60,10 @@
   line-height: 1.625rem;
 }
 
+.headerTxt:hover {
+  color: var(--blue-color-3692ff);
+}
+
 .loginBtn {
   background-color: var(--blue-color-3692ff);
   color: var(--gray-bright-color-f3f4f6);
