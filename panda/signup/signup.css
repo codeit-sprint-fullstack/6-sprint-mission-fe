@@ -1,0 +1,205 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'pretendard';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+}
+
+header {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    padding: 20px 0;
+    top: 50px;
+}
+
+.logo img {
+    width: 340px;
+    margin: 0 150px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.signup_form {
+    /* width: 360px; */
+    display: flex;
+    flex-direction: column;
+}
+
+.signup_form label {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: left;
+    display: block;
+}
+
+.signup_form input {
+    width: 550px;
+    height: 46px;
+    padding-left: 15px;
+    font-size: 14px;
+    border-radius: 12px;
+    border: 1px solid #F3F4F6;
+    outline: none;
+    margin-bottom: 5px;
+    background-color: #F3F4F6;
+}
+
+.signup_form input:focus {
+    border-color: #3692ff;
+}
+
+
+.password_container {
+    position: relative;
+    width: 100%;
+}
+
+.password_container input {
+    width: 100%;
+    padding-right: 35px;
+    box-sizing: border-box;
+}
+
+.eye-icon {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.error {
+    border: 1px solid red !important;
+    /* outline: none; */
+}
+
+.error_message {
+    color: red;
+    font-size: 14px;
+    display: block;
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    width: 400px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.modal p {
+    margin: 60px;
+    font-size: 16px;
+}
+
+.modal button {
+    width: 100px;
+    height: 40px;
+    background-color: #3692FF;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+}
+
+.modal_overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    ;
+}
+
+
+.signup_btn {
+    width: 550px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #9CA3AF;
+    ;
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    margin-bottom: 25px;
+}
+
+
+.social_login {
+    width: 550px;
+    background-color: #E6F2FF;
+    display: flex;
+    align-items: center;
+    /* text-align: center; */
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.social_login p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1F2937
+}
+
+.sns_buttons {
+    display: flex;
+}
+
+.sns_btn {
+    display: flex;
+    margin: 5px;
+}
+
+.sns_btn img {
+    width: 42px;
+}
+
+.signup_text {
+    text-align: center;
+    font-size: 14px;
+}
+
+.signup_link {
+    color: #3692FF;
+}
