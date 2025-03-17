@@ -1,37 +1,24 @@
-//import axios from "axios";
-import axios from "https://cdn.jsdelivr.net/npm/axios@1.5.1/+esm";
-
-// 인스턴스
-const instance = axios.create({
-  baseURL: "https://sprint-mission-api.vercel.app",
-});
-
-// 에러 처리
-const handleError = (func) => {
-  try {
-    return func();
-  } catch (error) {
-    if (error.response) {
-      console.log(error.response.status);
-      console.log(error.response.data);
-    } else {
-      console.log("requset failed");
-    }
-  }
-};
+import { instance, safeExecute } from "../common";
 
 // getProductList() : GET 메서드를 사용해 주세요.
 // page, pageSize, keyword 쿼리 파라미터를 이용해 주세요.
-export const getProductList = async () => {
-  return handleError(async () => {
-    const res = await instance.get(`/products`);
-    return res.data;
+export const getProductList = (page = 1, pageSize = 10, keyword = "") => {
+  const params = new URLSearchParams({
+    page,
+    pageSize,
+    keyword,
+  });
+
+  return safeExecute(() => {
+    return instance
+      .get(`/products?${params.toString()}`)
+      .then((res) => res.data);
   });
 };
 
 // getProduct() : GET 메서드를 사용해 주세요.
 export const getProduct = async (productId) => {
-  return handleError(async () => {
+  return safeExecute(async () => {
     const res = await instance.get(`/products/${productId}`);
     return res.data;
   });
@@ -40,7 +27,7 @@ export const getProduct = async (productId) => {
 // createProduct() : POST 메서드를 사용해 주세요.
 // request body에 name, description, price, tags, images 를 포함해 주세요.
 export const createProduct = async (bodyData) => {
-  return handleError(async () => {
+  return safeExecute(async () => {
     const res = await instance.post(`/products`, bodyData);
     return res.data;
   });
@@ -48,7 +35,7 @@ export const createProduct = async (bodyData) => {
 
 // patchProduct() : PATCH 메서드를 사용해 주세요.
 export const patchProduct = async (productId, bodyData) => {
-  return handleError(async () => {
+  return safeExecute(async () => {
     const res = await instance.patch(`/products/${productId}`, bodyData);
     return res.data;
   });
@@ -56,7 +43,7 @@ export const patchProduct = async (productId, bodyData) => {
 
 // deleteProduct() : DELETE 메서드를 사용해 주세요.
 export const deleteProduct = async (productId) => {
-  return handleError(async () => {
+  return safeExecute(async () => {
     const res = await instance.delete(`/products/${productId}`);
     return res.data;
   });
