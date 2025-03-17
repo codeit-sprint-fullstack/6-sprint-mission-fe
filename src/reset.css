@@ -1,0 +1,56 @@
+/* 문서내 모든 요소를 선택 */
+* {
+    box-sizing : border-box;
+    font-weight: 500;
+    font-size : 16px;
+  }
+  
+  :root {
+    --white: #ffffff;
+    --black: #000000;
+    --slate-gray: rgb(55, 65, 81); /* 슬레이트 그레이 */
+    --slate-blue: rgb(107, 114, 128); /* 슬레이트 블루 */
+    --gray-light: rgba(243, 244, 246, 1); /* 밝은 회색 */
+    --cool-grey: rgba(229, 231, 235, 1);  /* 쿨 그레이 */
+    --blue-gray: rgba(156, 163, 175, 1);   /* 파란 회색 톤 */
+    --dark-blue: rgba(17, 24, 39, 1);     /* 어두운 파란색 */
+    --gray-dark: rgba(75, 85, 99, 1);     /* 어두운 회색 */
+    --light-gray: rgba(223, 223, 223, 1);  /* 연한 회색 */
+    --primary-blue: rgba(54, 146, 255, 1); /* 주요 파란색 */
+    --gunmetal-dark: rgb(31, 41, 55);     /* 어두운 총알색 (Gunmetal) */
+  }
+
+  html, body {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  h1, h2, h3, h4, h5, h6 , p {
+    font-size : 1rem;
+    margin: 0rem;
+    font-weight: normal;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  img {
+    width : auto;
+    height: auto;
+    display: block; /* 이미지 아래 여백 제거 */
+  }
+  button {
+    background: transparent;
+    cursor: pointer;
+    padding: 0; 
+    border: 0rem;
+  }
+  ul,ol,li {
+    list-style: none;
+    margin : 0rem; padding : 0rem;
+  }
+  input {
+    outline : none; 
+  }
+  
