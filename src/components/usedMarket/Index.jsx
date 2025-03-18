@@ -1,6 +1,6 @@
-import styles from './Index.module.css';
-import BestProductList from './model/BestProductList';
-import CommonProductList from './model/CommonProductList';
+import styles from "./Index.module.css";
+import BestProductList from "./model/BestProductList";
+import CommonProductList from "./model/CommonProductList";
 
 const UsedMarket = () => {
   return (

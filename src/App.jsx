@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import ItemsPage from "./pages/ItemsPage";
+import MarketPage from "./pages/MarketPage";
+import RegisterItemsPage from "./pages/RegisterItems";
 
 function App() {
   return (
@@ -26,7 +28,22 @@ function App() {
             </Layout>
           }
         />
-
+        <Route
+          path="/market"
+          element={
+            <Layout>
+              <MarketPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/registration"
+          element={
+            <Layout>
+              <RegisterItemsPage />
+            </Layout>
+          }
+        />
         {/* LoginPage와 SignupPage는 Layout 없이 개별적으로 렌더링 */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />

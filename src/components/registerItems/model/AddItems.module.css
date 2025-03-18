@@ -1,0 +1,107 @@
+.container {
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 40px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  border-radius: 12px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f5f7fa;
+  outline: none;
+}
+
+.textarea {
+  height: 150px;
+  resize: none;
+}
+
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  background: #e0e0e0;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.tag button {
+  background: none;
+  border: none;
+  margin-left: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.submitButton {
+  width: 120px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background-color: #3692ff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  align-self: flex-end;
+}
+
+.submitButton:hover {
+  background-color: #2876cc;
+}
+
+.disabled {
+  background-color: #b0b0b0;
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 1280px) {
+  .container {
+    width: 90%;
+    padding: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .submitButton {
+    width: 100%;
+    align-self: center;
+  }
+}

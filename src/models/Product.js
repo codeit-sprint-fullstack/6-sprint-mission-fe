@@ -21,7 +21,7 @@ export class Product {
     this._name = name;
     this._description = description;
     this._price = price;
-    this._tags = Array.from(tags); // 깊은 복사를 통해, 외부의 배열을 통해 내부 배열을 변경할 수 없도록 합니다.
+    this._tags = Array.from(tags); // 깊은 복사를 통해, 외부의 배열을 통해 내부 배열을 변경할 수 없도록
     this._images = Array.from(images);
     this._favoriteCount = favoriteCount;
   }
@@ -39,7 +39,7 @@ export class Product {
   }
 
   getTags() {
-    return Array.from(this._tags); // 깊은 복사를 통해, 반환된 배열을 통해 내부 배열을 변경할 수 없도록 합니다.
+    return Array.from(this._tags);
   }
 
   getImages() {
