@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const API_URL = "https://panda-market-api.vercel.app/products";
+const API_URL = "https://pandamarket-backend.onrender.com/Products";
 
 const useProducts = (sort, page, pageSize, search = "") => {
   const [allProducts, setAllProducts] = useState([]);
@@ -47,3 +47,4 @@ const useProducts = (sort, page, pageSize, search = "") => {
 };
 
 export default useProducts;
+export { API_URL };

@@ -6,6 +6,8 @@ footer {
   align-items: center;
   padding: 3.2rem 20rem 10.8rem 20rem;
   font-size: 1.6rem;
+  width: 100%;
+  margin-top: auto;
 }
 
 a {
@@ -25,13 +27,13 @@ img {
   vertical-align: bottom;
 }
 
-#footerMenu {
+.footerMenu {
   display: flex;
   gap: 3rem;
   color: #e5e7eb;
 }
 
-#socialMedia {
+.socialMedia {
   display: flex;
   gap: 1.2rem;
 }

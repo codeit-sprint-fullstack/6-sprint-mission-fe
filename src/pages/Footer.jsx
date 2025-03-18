@@ -5,11 +5,11 @@ const Footer = () => {
   return (
     <footer>
       <div>©codeit - 2024</div>
-      <div id="footerMenu">
+      <div className="footerMenu">
         <a href="privacy.html">Privacy Policy</a>
         <a href="faq.html">FAQ</a>
       </div>
-      <div id="socialMedia">
+      <div className="socialMedia">
         <a
           href="https://www.facebook.com/"
           target="_blank"

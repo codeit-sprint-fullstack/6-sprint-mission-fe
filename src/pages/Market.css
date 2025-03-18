@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   margin-top: 26px;
+  gap: 26px;
 }
 
 .best-products {
@@ -19,8 +20,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 24px auto;
+  margin: 0px auto;
   margin-bottom: 4rem;
+  gap: 10px;
 }
 
 .best-products h2 {
