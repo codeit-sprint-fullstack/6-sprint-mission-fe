@@ -15,7 +15,7 @@ nav {
   height: 70px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  padding: 0 50px;
+  padding: 0px;
 }
 
 /* 네비게이션 내부 컨테이너 */
@@ -26,6 +26,12 @@ nav {
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
 /* 로고 스타일 */

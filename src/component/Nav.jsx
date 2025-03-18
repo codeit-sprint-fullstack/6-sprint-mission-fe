@@ -9,10 +9,10 @@ const NavPage = () => {
           <a className="imgLogo" href="/">
             <img src={Logo} alt="로고" />
           </a>
-          <a className="navText" href="/">
+          <a className="navText navBoard" href="/">
             자유게시판
           </a>
-          <a className="navText" href="/">
+          <a className="navText navMarket" href="/">
             중고마켓
           </a>
         </div>
