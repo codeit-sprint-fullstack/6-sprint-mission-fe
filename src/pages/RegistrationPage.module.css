@@ -72,6 +72,7 @@ form {
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
+  margin-bottom: 8px;
 }
 
 .inputItemContent {
@@ -79,8 +80,20 @@ form {
   padding-bottom: 220px;
 }
 
+.itemTagChips {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family: pretenard;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 14px;
+  border-radius: 50px;
+}
+
 .errorMessage {
   color: #f74747;
+  margin-left: 16px;
+  margin-bottom: 14px;
 }
 
 /* Tablet 사이즈 */

@@ -1,4 +1,3 @@
-import { UNSAFE_NavigationContext } from "react-router-dom";
 import productsAPI from "../api/product.api";
 import style from "./RegistrationPage.module.css";
 import { useEffect, useState } from "react";
@@ -10,6 +9,7 @@ const RegistrationPage = () => {
   const [itemPrice, setItemPrice] = useState("");
   const [itemTag, setItemTag] = useState("");
   const [isRegistButtonValid, setIsRegistButtonValid] = useState(false);
+  const [tags, setTags] = useState([]);
 
   //item Title의 input border 핸들러
   const handleChangeItemTitle = (e) => {
@@ -61,6 +61,21 @@ const RegistrationPage = () => {
     }
   };
 
+  //item Tag 칩
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && itemTag.trim()) {
+      if (itemTag.length < 5) {
+        setTags((prevTags) => [itemTag.trim(), ...prevTags]);
+        setItemTag("");
+      }
+    }
+  };
+
+  //item Tag 칩 지우는 핸들러
+  const handleDeleteTag = (tagToDelete) => {
+    setTags(tags.filter((tag) => tag !== tagToDelete));
+  };
+
   //등록 버튼 비활성화/활성화
   useEffect(() => {
     const isButtonValid =
@@ -74,13 +89,13 @@ const RegistrationPage = () => {
 
   //등록 버튼 클릭 핸들러
   const handleClickButton = async () => {
-    //데이터 유효성 체크
     if (
       itemTitle.trim().length < 10 &&
       itemContent.trim().length >= 10 &&
       !isNaN(itemPrice) &&
       itemTag.trim().length < 5
     ) {
+      setIsRegistButtonValid(true);
       try {
         const data = await productsAPI.postProduct({
           name: itemTitle,
@@ -110,6 +125,7 @@ const RegistrationPage = () => {
           className={style.regist}
           type="button"
           onClick={handleClickButton}
+          disabled={isRegistButtonValid}
         >
           등록
         </button>
@@ -160,19 +176,36 @@ const RegistrationPage = () => {
         )}
       </form>
 
-      <form>
+      <form onSubmit={(e) => e.preventDefault()}>
         <label className={style.itemTag} htmlFor="input-itemTag">
           태그
         </label>
         <input
+          type="text"
           className={style.inputItemTag}
           placeholder="태그를 입력해주세요"
           value={itemTag}
           onChange={handleChangeItemTag}
+          onKeyDown={handleKeyDown}
         />
         {itemTag.trim().length > 5 && (
           <div className={style.errorMessage}>5글자 이내로 입력해주세요</div>
         )}
+        <div>
+          {tags.map((tag, index) => (
+            <span className={style.itemTagChips} key={index}>
+              {"# " + tag + " "}
+              <span style={{ backgroundColor: "#9CA3AF", borderRadius: 100 }}>
+                <span
+                  onClick={() => handleDeleteTag(tag)}
+                  style={{ color: "#F9FAFB", cursor: "pointer" }}
+                >
+                  &times;
+                </span>
+              </span>
+            </span>
+          ))}
+        </div>
       </form>
     </div>
   );
