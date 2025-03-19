@@ -43,10 +43,11 @@ productsRouter.get("/:productId", async (req, res, next) => {
  */
 productsRouter.patch("/:productId", async (req, res, next) => {
   try {
-    const { id, name, description, price, tags } = req.body;
+    const productId = Number(req.params.productId);
+    const { name, description, price, tags } = req.body;
 
-    await prisma.product.updateMany({
-      where: { id: id },
+    await prisma.product.update({
+      where: { id: productId },
       data: { name, description, price, tags },
     });
   } catch (e) {

@@ -22,7 +22,7 @@ Content-Type: application/json
   "name": "갤럭시S25",
   "description": "삼성의 갤럭시S25 입니다",
   "price": 1500000,
-  "tags": "삼송"
+  "tags": "샘송"
 }
 
 ### 상품 삭제
