@@ -1,0 +1,28 @@
+.footerBox {
+  height: 160px;
+  margin-top: 140px;
+  background: #111827;
+}
+.footerFrame {
+  max-width: 1520px;
+  margin: 0 auto;
+  padding-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+}
+.footerLeft {
+  color: #9ca3af;
+}
+.footerMid {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: #e5e7eb;
+}
+.footerRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
