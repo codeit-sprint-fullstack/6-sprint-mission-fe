@@ -20,20 +20,14 @@ export const getProducts = async (params = {}) => {
   return handleError(url);
 };
 
-export const addProduct = () => {
+export const addProduct = (productData) => {
   const url = BASE_URL;
   return handleError(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: {
-      name: String,
-      description: String,
-      price: Number,
-      tags: Array[String],
-      images: Array[String],
-    },
+    body: JSON.stringify(productData),
   });
 };
 

@@ -39,6 +39,7 @@ app.get(
   asyncHandler(async (req, res) => {
     const order = req.query.order;
     const limit = Number(req.query.limit) || 10;
+    const page = Number(req.params.page) || 1;
     const keyword = req.query.keyword;
 
     const orderOption = {};
@@ -59,11 +60,16 @@ app.get(
         }
       : {};
 
+    const offset = (page - 1) * limit;
+
     const products = await Product.find(searchQuery)
       .sort(orderOption)
+      .skip(offset)
       .limit(limit);
 
-    res.send(products);
+    const totalCount = await Product.countDocuments(searchQuery);
+
+    res.send({ products, totalCount });
   })
 );
 

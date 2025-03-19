@@ -25,9 +25,9 @@ function MarketPage() {
   };
 
   const fetchSortedData = async ({ page, pageSize, order, keyword }) => {
-    const data = await getProducts({ page, pageSize, order, keyword });
+    const data = await getProducts({ page, limit: pageSize, order, keyword });
     setItems(data);
-    setTotalCount(data.length);
+    setTotalCount(data.totalCount);
   };
 
   const handleSearch = () => {
