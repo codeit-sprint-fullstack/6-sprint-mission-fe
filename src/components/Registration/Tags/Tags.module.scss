@@ -1,0 +1,40 @@
+.tagsContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--gray-bright-color-f3f4f6);
+  border-radius: 1.625rem;
+  padding: 5px 12px 5px 16px;
+}
+
+.tagCancelBtn {
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gray-color-9ca3af);
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  margin: 3px 2px;
+}
+
+.tagCancelBtn:hover {
+  background-color: var(--blue-color-3692ff);
+}

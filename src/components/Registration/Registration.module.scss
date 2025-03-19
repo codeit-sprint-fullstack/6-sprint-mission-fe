@@ -1,0 +1,121 @@
+.registrationForm {
+  margin: 1.625rem 0 10.125rem;
+}
+
+.registrationHeaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registrationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 75rem;
+}
+
+.registrationTxt {
+  height: 2rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 2rem;
+}
+
+.registrationBtn {
+  background-color: var(--gray-color-9ca3af);
+  color: var(--gray-bright-color-f3f4f6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  width: 4.625rem;
+  height: 2.625rem;
+  padding: 0.5rem 1.4375rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.4375rem;
+  cursor: default;
+}
+
+.registrationBtn.on {
+  background-color: var(--blue-color-3692ff);
+  cursor: pointer;
+}
+
+.registrationInputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.inputBox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 75rem;
+  margin-top: 1.5rem;
+}
+
+.inputTitle {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+}
+
+.registrationInput {
+  height: 3.5rem;
+  background-color: var(--gray-bright-color-f3f4f6);
+  border: 0.0938rem solid transparent;
+  border-radius: 0.75rem;
+  outline: none;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-family: Pretendard;
+  font-weight: 400;
+  line-height: 1.625rem;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.errorInput {
+  border-color: var(--red-color-f74747);
+}
+
+.errorMsg {
+  color: var(--red-color-f74747);
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.1187rem;
+  letter-spacing: 0;
+  margin-left: 1rem;
+}
+
+.descriptionBox {
+  resize: none;
+  height: 17.625rem;
+}
+
+::placeholder {
+  color: var(--gray-color-9ca3af);
+}
+
+@media (max-width: 1199px) {
+  .registrationForm {
+    margin: 1.125rem 0 12.125rem;
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 743px) {
+  .registrationForm {
+    margin: 1.5rem 0 11.625rem;
+    padding: 0 1rem;
+  }
+}

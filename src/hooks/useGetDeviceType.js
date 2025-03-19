@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useGetDeviceType = (setParams, setBestParams) => {
+const useGetDeviceType = (setParams) => {
   const [device, setDevice] = useState("");
 
   // 반응형 리퀘스트 - 1. 화면 크기 구하기
@@ -36,25 +36,23 @@ export const useGetDeviceType = (setParams, setBestParams) => {
     };
   }, []);
 
-  // 반응형 리퀘스트 - 2. 화면 크기에 따라 pageSize 구하기
-  const getPageSize = (device) => {
+  // 반응형 리퀘스트 - 2. 화면 크기에 따라 limit 구하기
+  const getLimit = (device) => {
     if (device === "desktop") {
-      return { bestProducts: 4, products: 10 };
+      return { limit: 10 };
     } else if (device === "tablet") {
-      return { bestProducts: 2, products: 6 };
+      return { limit: 6 };
     } else {
-      return { bestProducts: 1, products: 4 };
+      return { limit: 4 };
     }
   };
 
-  // 반응형 리퀘스트 - 3. 추출한 pageSize로 params 변경하기
+  // 반응형 리퀘스트 - 3. 추출한 limit로 params 변경하기
   useEffect(() => {
     if (!device) return;
-    const { bestProducts, products } = getPageSize(device);
-    setParams((prevParams) => ({ ...prevParams, pageSize: products }));
-    setBestParams((prevBestParams) => ({
-      ...prevBestParams,
-      pageSize: bestProducts,
-    }));
+    const { limit } = getLimit(device);
+    setParams((prevParams) => ({ ...prevParams, limit }));
   }, [device]);
 };
+
+export default useGetDeviceType;
