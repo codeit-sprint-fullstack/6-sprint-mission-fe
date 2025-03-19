@@ -1,0 +1,32 @@
+
+GET http://localhost:5000/products
+
+###
+
+GET http://localhost:5000/products?sort=recent&count=3
+
+###
+
+GET http://localhost:5000/products/67ca82ff8205a9e6b9fea2c5
+
+###
+POST http://localhost:5000/products
+Content-Type: application/json
+
+{
+  "title": "강빡산",
+  "description": "매일 30분씩 산책하기"
+}
+
+###
+PATCH http://localhost:5000/products/67ca82ff8205a9e6b9fea2c5
+Content-Type: application/json
+
+{
+  "isComplete": true
+}
+
+
+###
+
+DELETE http://localhost:5000/products/67ca82ff8205a9e6b9fea2c5

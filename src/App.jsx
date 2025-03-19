@@ -1,10 +1,14 @@
-import "./App.css";
-import { BestProductsPage } from "./Pages/BestProductsPage";
+import { Outlet } from "react-router-dom";
+import Footer from "./common/Footer";
+import Header from "./common/Header";
+import "./styles/global.css";
 
 function App() {
   return (
     <>
-      <BestProductsPage />
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   );
 }
