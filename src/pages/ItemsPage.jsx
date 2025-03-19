@@ -1,13 +1,7 @@
 import "./ItemsPage.css";
-import {
-  GetProduct,
-  GetProductList,
-  CreateProduct,
-  PatchProduct,
-  DeleteProduct,
-} from "../api/ProductService";
+import api from "../api/index.api";
 import { useState, useEffect } from "react";
-import { BestProductList, SaleProductList } from "../component/ProductList";
+import { SaleProductList } from "../component/ProductList";
 import magnifier from "../assets/img/돋보기.png";
 import { useWindowDimensions } from "../component/hooks/useWindowdementions";
 import { Link, Outlet } from "react-router-dom";
@@ -18,7 +12,7 @@ export const ItemsPage = () => {
   const [order, setOrder] = useState();
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(null);
-  const [salePageSize, setSalePageSize] = useState();
+  const [salePageSize, setSalePageSize] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
 
   const { width } = useWindowDimensions();
@@ -54,8 +48,8 @@ export const ItemsPage = () => {
   }, []);
 
   const handleSaleItems = async (data) => {
-    const result = await GetProductList(data);
-    setSaleItems(result.list);
+    const result = await api.products.getAllProducts(data);
+    setSaleItems(result);
     //전체 페이지 확인. 페이지네이션 오버 방지를 위함.
     const totalItems = result.totalItems;
     setTotalPage(Math.ceil(totalItems / 10));
@@ -63,7 +57,7 @@ export const ItemsPage = () => {
 
   //pageSize에 따른 판매중 상품 갯수
   function getSalePageSize() {
-    const width = window.innerWidth;
+    // const width = window.innerWidth;
     if (width >= 1200) {
       return 10; // pc화면
     } else if (width >= 744) {
@@ -85,9 +79,11 @@ export const ItemsPage = () => {
   //page가 바뀔때마다 불러오는 상품 갯수 변경
   useEffect(() => {
     const reLoad = async () => {
-      const SalepageSize = getSalePageSize();
-      const saleProducts = await GetProductList({ pageSize: SalepageSize });
-      setSaleItems(saleProducts.list);
+      const salepageSize = getSalePageSize();
+      const saleProducts = await api.products.getAllProducts({
+        pageSize: salepageSize,
+      });
+      setSaleItems(saleProducts);
     };
     reLoad();
   }, [page]);
@@ -134,7 +130,9 @@ export const ItemsPage = () => {
         <div className="body-content">
           <div className="body-content-under1">
             <p> 판매중인 상품 </p>
-            <button className="shadow-regist-product"> 상품 등록하기 </button>
+            <Link to="registration">
+              <button className="shadow-regist-product"> 상품 등록하기 </button>
+            </Link>
             <div className="body-content-under2">
               <img className="magnifier" src={magnifier} />
               <input

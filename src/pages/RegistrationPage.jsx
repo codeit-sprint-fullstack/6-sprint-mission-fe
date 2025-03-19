@@ -1,11 +1,6 @@
+import { UNSAFE_NavigationContext } from "react-router-dom";
+import productsAPI from "../api/product.api";
 import style from "./RegistrationPage.module.css";
-import {
-  GetProductList,
-  GetProduct,
-  CreateProduct,
-  PatchProduct,
-  DeleteProduct,
-} from "../api/ProductService";
 import { useEffect, useState } from "react";
 
 const RegistrationPage = () => {
@@ -14,6 +9,7 @@ const RegistrationPage = () => {
   const [isContentError, setIsError] = useState(false);
   const [itemPrice, setItemPrice] = useState("");
   const [itemTag, setItemTag] = useState("");
+  const [isRegistButtonValid, setIsRegistButtonValid] = useState(false);
 
   //item Title의 input border 핸들러
   const handleChangeItemTitle = (e) => {
@@ -65,11 +61,58 @@ const RegistrationPage = () => {
     }
   };
 
+  //등록 버튼 비활성화/활성화
+  useEffect(() => {
+    const isButtonValid =
+      itemTitle.trim().length < 10 &&
+      itemContent.trim().length >= 10 &&
+      !isNaN(itemPrice) &&
+      itemTag.trim().length < 5;
+
+    setIsRegistButtonValid(isButtonValid);
+  }, [itemTitle, itemContent, itemPrice, itemTag]);
+
+  //등록 버튼 클릭 핸들러
+  const handleClickButton = async () => {
+    //데이터 유효성 체크
+    if (
+      itemTitle.trim().length < 10 &&
+      itemContent.trim().length >= 10 &&
+      !isNaN(itemPrice) &&
+      itemTag.trim().length < 5
+    ) {
+      try {
+        const data = await productsAPI.postProduct({
+          name: itemTitle,
+          description: itemContent,
+          price: Number(itemPrice),
+          tags: itemTag,
+        });
+        console.log(data);
+      } catch (e) {
+        console.error("상품 등록 중 에러 발생...", e);
+      }
+      setItemTitle("");
+      setItemContent("");
+      setItemPrice("");
+      setItemTag("");
+    } else {
+      console.log("올바른 입력이 필요합니다.");
+      alert("올바른 입력이 필요합니다.");
+    }
+  };
+
   return (
     <div className={style.registrationMain}>
       <div className={style.header}>
         <h1 className={style.itemRegist}>상품 등록하기</h1>
-        <button className={style.regist}>등록</button>
+        <button
+          className={style.regist}
+          type="button"
+          onClick={handleClickButton}
+        >
+          등록
+        </button>
       </div>
 
       <form>

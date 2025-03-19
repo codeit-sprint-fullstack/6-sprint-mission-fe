@@ -1,6 +1,7 @@
 import miniPandeFace from "../assets/img/main-page/작은 판다 얼굴.png";
 import PandeMarket from "../assets/img/main-page/판다마켓.png";
 import profile from "../assets/img/Frame 2609463.png";
+import { Link } from "react-router-dom";
 
 function Nav2() {
   return (
@@ -12,7 +13,9 @@ function Nav2() {
               <img className="face-img" src={miniPandeFace} />
               <img className="header-text" src={PandeMarket} />
             </a>
-            <div className="in-header-bundle1"> 자유게시판 </div>
+            <Link to="/items">
+              <div className="in-header-bundle1"> 자유게시판 </div>
+            </Link>
             <div className="in-header-bundle2"> 중고마켓 </div>
           </div>
 
