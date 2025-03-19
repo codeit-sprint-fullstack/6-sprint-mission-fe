@@ -63,9 +63,7 @@ function ItemList({
       </div>
       <div className={styles.list}>
         {currentItems.map((item) => (
-          <div key={item.id}>
-            <ItemCard item={item} />
-          </div>
+          <ItemCard key={item._id} item={item} />
         ))}
       </div>
     </main>

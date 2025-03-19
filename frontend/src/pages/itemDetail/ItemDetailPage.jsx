@@ -2,13 +2,13 @@ import { Navigate, useParams } from "react-router-dom";
 import { getProduct } from "../../api/index";
 
 function ItemDetailPage() {
-  const { productId } = useParams();
-  const product = getProduct(productId);
+  const { id } = useParams();
+  const item = getProduct(id);
 
-  if (!product) {
+  if (!item) {
     return <Navigate to="/items" />;
   }
-  return <div>임시 상품 페이지</div>;
+  return <h1>임시 상품 페이지</h1>;
 }
 
 export default ItemDetailPage;

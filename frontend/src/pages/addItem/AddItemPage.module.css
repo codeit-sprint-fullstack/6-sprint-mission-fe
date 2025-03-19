@@ -14,19 +14,20 @@
   font-weight: 700;
 }
 
-.heading button {
+.button {
   padding: 12px 23px;
   border-radius: 8px;
   background-color: #3692ff;
   color: #fff;
 }
 
-.heading button:hover {
+.button:hover {
   background-color: #1967d6;
 }
 
-button.disabled {
+.button:disabled {
   background-color: var(--gray-400);
+  cursor: not-allowed;
 }
 
 .container {
@@ -49,6 +50,18 @@ button.disabled {
 .container textarea {
   height: 282px;
   resize: none;
+}
+
+.error input,
+.error textarea {
+  margin-bottom: 8px;
+  border: 1px solid var(--red);
+}
+
+.error span {
+  margin-left: 16px;
+  font-size: 14px;
+  color: var(--red);
 }
 
 @media (max-width: 1199px) {

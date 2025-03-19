@@ -1,11 +1,14 @@
 import styles from "./ItemCard.module.css";
 import unheartIcon from "../../../assets/images/icon/ic_unheart.svg";
 import defaultImg from "../../../assets/images/img/img_default.svg";
+import { Link } from "react-router-dom";
 
-function ProductListItem({ item }) {
+function ItemCard({ item }) {
   return (
     <div>
-      <img className={styles.img} src={defaultImg} alt={item.name} />
+      <Link to={`/items/${item._id}`}>
+        <img className={styles.img} src={defaultImg} alt={item.name} />
+      </Link>
       <div className={styles.description}>
         <div className={styles.name}>{item.name}</div>
         <div className={styles.price}>{item.price}원</div>
@@ -18,4 +21,4 @@ function ProductListItem({ item }) {
   );
 }
 
-export default ProductListItem;
+export default ItemCard;
