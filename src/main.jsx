@@ -1,3 +1,4 @@
+
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
@@ -26,4 +27,5 @@ createRoot(document.getElementById("root")).render(
     <GlobalStyle />
     <App />
   </ThemeProvider>
+
 );

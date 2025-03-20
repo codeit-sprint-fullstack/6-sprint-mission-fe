@@ -1,4 +1,5 @@
 import React from "react";
+
 import styled from "styled-components";
 
 const Footer = () => {
@@ -11,6 +12,7 @@ const Footer = () => {
           <p>FAQ</p>
         </FooterMid>
         <FooterRight>
+
           <img
             src="https://67a1772da019bb307bce76e3--relaxed-puppy-88a9cf.netlify.app/imges/ic_facebook.png"
             alt="facebook"
@@ -27,6 +29,7 @@ const Footer = () => {
             src="https://67a1772da019bb307bce76e3--relaxed-puppy-88a9cf.netlify.app/imges/ic_instagram.png"
             alt="insta"
           />
+
         </FooterRight>
       </FooterFrame>
     </FooterBox>
@@ -65,5 +68,6 @@ const FooterRight = styled.div`
   align-items: center;
   gap: 12px;
 `;
+
 
 export default Footer;
