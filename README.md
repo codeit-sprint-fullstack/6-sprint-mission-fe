@@ -1,6 +1,6 @@
 # 스프린트 미션 - 판다마켓
 
-### [🐼판다마켓](https://been-panda.vercel.app) : https://been-panda.vercel.app
+### [🐼판다마켓](https://been-panda.onrender.com) : https://been-panda.onrender.com
 
 > ### 판다마켓 대표 이미지
 
@@ -155,8 +155,8 @@
 - 랜딩 페이지 이미지 모바일 반응형에서 튀어나오는 현상
 - 랜딩 페이지 이미지 위치
 
-- </div>
-  </details>
+</div>
+</details>
 
 ---
 
@@ -188,5 +188,39 @@
 - [x] 태그, nav에 onHover하면 색상 변하도록 효과 주기
 - [x] CORS에 내 웹페이지 주소만 등록
 
-- </div>
-  </details>
+</div>
+</details>
+
+---
+
+### 스프린트 미션 7(SQL 데이터베이스 생성 - Express, PostgreSQL, Prisma 사용)
+
+</summary>
+<div markdown="1">
+
+#### [ 코드리뷰 반영(스프린트 미션 6) ]
+
+- [ ]
+- [ ]
+- [ ]
+
+#### [ 추가 ]
+
+- MongoDB -> PostgreSQL로 마이그레이션
+- 엔드포인트 생성
+- API 생성
+-
+-
+
+#### [ 수정 ]
+
+- [ ] 같은 이름의 태그 삭제 시 한번에 삭제되는 현상
+-
+-
+-
+-
+
+</div>
+</details>
+
+---

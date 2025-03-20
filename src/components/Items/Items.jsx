@@ -4,7 +4,7 @@ import Pagination from "./Pagination/Pagination.jsx";
 import NavBar from "./NavBar/NavBar.jsx";
 import useGetDeviceType from "../../hooks/useGetDeviceType.js";
 import { Helmet } from "react-helmet";
-import { getProducts } from "../../backend/API/productApi.js";
+import { getProducts } from "../../API/productsApi.js";
 
 const Items = () => {
   const [products, setProducts] = useState([]);

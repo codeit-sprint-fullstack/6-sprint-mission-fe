@@ -2,7 +2,7 @@ import Tags from "./Tags/Tags";
 import style from "./Registration.module.scss";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router";
-import { postProduct } from "../../backend/API/productApi";
+import { postProduct } from "../../API/productsApi";
 import { useEffect, useState } from "react";
 import useValidation from "../../hooks/useValidation";
 
