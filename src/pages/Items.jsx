@@ -16,10 +16,6 @@ const Items = () => {
 
   const { item, isLoading } = UseFetchItemList(options);
 
-  const handleSearch = (e) => {
-    setKeyword(e.target.value);
-  };
-
   const handleSortChange = (e) => {
     setSortType(e.target.value);
   };
@@ -49,10 +45,10 @@ const Items = () => {
             <styles.SearchInput
               type="text"
               placeholder="검색할 상품을 입력해주세요"
-              onChange={handleSearch}
+              onChange={(e) => setKeyword(e.target.value)}
             />
           </styles.Search>
-          <styles.SearchBtn onClick={() => navigate("/registraion")}>
+          <styles.SearchBtn onClick={() => navigate("/registration")}>
             상품 등록하기
           </styles.SearchBtn>
           <styles.SearchSelect

@@ -14,3 +14,14 @@ export const getItemsList = async (options) => {
     console.log(e.response.data);
   }
 };
+
+export const postItem = async (data) => {
+  try {
+    const res = await instance.post("/", data);
+    const result = res.data;
+
+    return result;
+  } catch (e) {
+    console.log(e);
+  }
+};
