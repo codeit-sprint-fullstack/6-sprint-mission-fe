@@ -1,23 +1,19 @@
-import { BestProduct } from "./components/BestProduct";
-import { Header } from "./components/Header";
-import { SellProduct } from "./components/SellProduct";
+import { SellProduct } from "../components/SellItem";
 import { useState, useEffect } from "react";
-import { getProductList } from "./response/ProductService";
-import "./App.css";
-import { PageButton } from "./components/PageButton";
-import { Footer } from "./components/Footer";
+import api from "../api/index.api";
+import "./ItemPage.css";
+import { PageButton } from "../components/PageButton";
 
-function App() {
-  const [bestItems, setBestItems] = useState([]);
+function SellProductPage() {
   const [items, setItems] = useState([]);
-  const [orderBy, setOrderBy] = useState("favorite");
+  const [orderBy, setOrderBy] = useState("recent");
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
   const handleLoad = async (options) => {
-    const result = await getProductList(options);
-    setItems(result.list);
+    const result = await api.items.getItemList(options);
+    setItems(result.items);
 
     const calMaxPage = Math.ceil(result.totalCount / options.pageSize);
     setMaxPage(calMaxPage);
@@ -33,15 +29,9 @@ function App() {
       setPageSize(10);
     }
   };
-  const handleBestLoad = async () => {
-    const result = await getProductList({
-      pageSize: pageSize / 2 - 1,
-      orderBy: "favorite",
-    });
-    setBestItems(result.list);
-  };
+
   useEffect(() => {
-    handleLoad({ orderBy, page, pageSize, keyword: "" });
+    handleLoad({ orderBy, page, pageSize, keyWord: "" });
   }, [orderBy, page, pageSize]);
 
   useEffect(() => {
@@ -54,23 +44,16 @@ function App() {
     };
   }, []);
 
-  useEffect(() => {
-    handleBestLoad();
-  }, [page, pageSize]);
-
   return (
     <div className="App">
-      <Header />
       <div className="products">
-        <BestProduct items={bestItems} />
         <SellProduct items={items} order={orderBy} setOrder={setOrderBy} />
         <div className="page-buttons">
           <PageButton page={page} setPage={setPage} maxPage={maxPage} />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
 
-export default App;
+export default SellProductPage;

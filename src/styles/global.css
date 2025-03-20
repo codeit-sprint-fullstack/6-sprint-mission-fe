@@ -1,0 +1,22 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("../asset/font/ROKAF Slab Serif Bold.ttf") format("truetype");
+}
+:root {
+  --primary-color: #3692ff;
+  --secondary-color: #9ca3af;
+  --background-color: #374151;
+  --sub-background-color: #fcfcfc;
+  --primary-text-color: #f3f4f6;
+  --footer-color: #141826;
+  --error-color: #f74747;
+}
+
+body {
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-size: 1rem;
+}

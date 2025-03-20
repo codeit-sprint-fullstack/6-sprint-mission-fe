@@ -1,22 +1,32 @@
+import { Link, useLocation } from "react-router-dom";
 import logo from "../asset/image/ic_logo.png";
-import "./Header.css";
+import styles from "./Header.module.css";
+
 export const Header = () => {
+  const location = useLocation();
+  const isItemPage = location.pathname === "/items";
+
   return (
-    <div className="header">
-      <div className="header-img">
-        <a className="logo-img" href="index.html">
-          <img id="logo" src={logo} />
-          <p className="title">판다마켓</p>
-        </a>
-        <a className="header-text" href="">
+    <div className={styles.header}>
+      <div className={styles["header-img"]}>
+        <Link className={styles["logo-img"]} to="/">
+          <img className={styles.logo} src={logo} />
+          <p className={styles.title}>판다마켓</p>
+        </Link>
+        <a className={styles["header-text"]} href="">
           자유게시판
         </a>
-        <a className="header-text" href="">
+        <Link
+          className={`${styles["header-text"]} ${
+            isItemPage ? styles.active : ""
+          }`}
+          to="/items"
+        >
           중고마켓
-        </a>
-        <a id="login" href="login.html">
+        </Link>
+        <Link className={styles.login} to="/login">
           로그인
-        </a>
+        </Link>
       </div>
     </div>
   );

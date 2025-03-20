@@ -1,4 +1,4 @@
-import "./SearchProduct.css";
+import styles from "./SearchItem.module.css";
 import { useState } from "react";
 export const SearchProduct = ({ onSearch }) => {
   const [keyword, setKeyword] = useState("");
@@ -9,7 +9,7 @@ export const SearchProduct = ({ onSearch }) => {
   return (
     <div>
       <input
-        className="search-product"
+        className={styles["search-product"]}
         type="text"
         placeholder="🔍 검색할 상품을 입력해주세요"
         value={keyword}

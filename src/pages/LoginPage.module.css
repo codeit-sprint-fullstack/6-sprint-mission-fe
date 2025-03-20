@@ -1,0 +1,140 @@
+/* .display-login {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-login {
+  width: 40rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-logo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  text-decoration-color: white;
+  margin-bottom: 2.5rem;
+}
+#login-logo {
+  width: 6.5rem;
+  height: auto;
+}
+#login-title {
+  text-decoration-color: white;
+  font-weight: 700;
+  color: var(--primary-color);
+  display: flex;
+  font-size: 3.75rem;
+  margin-left: 0.5rem;
+  font-family: "ROKAF Sans";
+}
+.login-logo:visited {
+  text-decoration-color: white;
+}
+
+#login-button {
+  display: inline-block;
+  width: 100%;
+  height: 3.5rem;
+  border-radius: 2.5rem;
+  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
+  color: var(--primary-text-color);
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 3.5rem;
+  border: none;
+  cursor: pointer;
+  margin: 0 0 1.5rem 0;
+}
+
+#login-button.active {
+  background-color: var(--primary-color);
+}
+
+label {
+  text-align: left;
+  width: 100%;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+input {
+  background-color: var(--primary-text-color);
+  color: var(--secondary-color);
+  border: none;
+  width: 100%;
+  height: 3.5rem;
+  border-radius: 0.75rem;
+  margin: 0.5rem 0 0.5rem 0;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: 1px solid var(--primary-color);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  margin-top: 1.5rem;
+
+  cursor: pointer;
+  color: gray; 
+  z-index: 500;
+  font-size: 1.5rem;
+}
+
+.simple-login {
+  background-color: #eaf2fe;
+  width: 100%;
+  height: 4.5rem;
+  border-radius: 0.5rem;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.simple-login-img {
+  margin: 0.5rem 0 0.5rem auto;
+  width: 6.5rem;
+  height: 3rem;
+  padding: 0;
+}
+
+#kakao {
+  width: 40px;
+  height: auto;
+  margin-left: 0.5rem;
+  z-index: 20;
+}
+
+#google {
+  width: 40px;
+  height: auto;
+  margin-left: 0.5rem;
+  z-index: 20;
+} */

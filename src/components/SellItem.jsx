@@ -1,7 +1,8 @@
-import "./SellProduct.css";
-import { SearchProduct } from "./SearchProduct";
+import "./SellItem.css";
+import { SearchProduct } from "./SearchItem";
 import { useState } from "react";
 import { Item } from "./Item";
+import { Link } from "react-router-dom";
 
 export const SellProduct = ({ items, order, setOrder }) => {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -18,10 +19,11 @@ export const SellProduct = ({ items, order, setOrder }) => {
         <p className="sub-title">판매 중인 상품</p>
         <div className="sell-product-contents">
           <SearchProduct onSearch={setSearchKeyword} />
-          <button className="product-button">상품 등록하기</button>
+          <Link className="product-button" to="/register">
+            상품 등록하기
+          </Link>
           <select onChange={handleSort} value={order} className="order-button">
             <option value="recent">최신순</option>
-            <option value="favorite">좋아요순</option>
           </select>
         </div>
       </div>
