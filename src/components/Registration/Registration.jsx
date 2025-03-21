@@ -2,9 +2,10 @@ import Tags from "./Tags/Tags";
 import style from "./Registration.module.scss";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router";
-import { postProduct } from "../../API/productsApi";
+import { postProduct } from "../../api/productsApi";
 import { useEffect, useState } from "react";
 import useValidation from "../../hooks/useValidation";
+import throttle from "lodash.throttle";
 
 // 유효성 검증
 const errMsg = {
@@ -82,7 +83,7 @@ const Registration = () => {
 
     if (e.key === "Enter") {
       e.preventDefault();
-      if (value === "" || 5 < value.length) return;
+      if (value === "" || 5 < value.length || body.tags.includes(value)) return;
       setBody((prevBody) => ({ ...prevBody, tags: [...prevBody.tags, value] }));
       setTag("");
     }
@@ -170,7 +171,7 @@ const Registration = () => {
             <p className={style.inputTitle}>태그</p>
             <input
               onChange={changeValue}
-              onKeyDown={createTag}
+              onKeyDown={throttle(createTag, 100)}
               value={tag}
               className={`${style.registrationInput} ${
                 errVisible.tags ? style.errorInput : null

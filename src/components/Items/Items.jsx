@@ -4,7 +4,7 @@ import Pagination from "./Pagination/Pagination.jsx";
 import NavBar from "./NavBar/NavBar.jsx";
 import useGetDeviceType from "../../hooks/useGetDeviceType.js";
 import { Helmet } from "react-helmet";
-import { getProducts } from "../../API/productsApi.js";
+import { getProducts } from "../../api/productsApi.js";
 
 const Items = () => {
   const [products, setProducts] = useState([]);
@@ -15,9 +15,10 @@ const Items = () => {
     orderBy: "recent",
     keyword: "",
   });
+  const [device, setDevice] = useGetDeviceType();
 
   // 반응형 리퀘스트 보내기
-  useGetDeviceType(setParams);
+  setDevice(setParams);
 
   // 렌더링(판매중인 상품)
   useEffect(() => {
@@ -56,7 +57,12 @@ const Items = () => {
       </Helmet>
       <NavBar sortLoad={sortLoad} searchLoad={searchLoad} />
       <ProductsList products={products} />
-      <Pagination pageLoad={pageLoad} params={params} totalCount={totalCount} />
+      <Pagination
+        device={device}
+        pageLoad={pageLoad}
+        params={params}
+        totalCount={totalCount}
+      />
     </div>
   );
 };
