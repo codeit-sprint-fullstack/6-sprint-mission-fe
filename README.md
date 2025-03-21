@@ -193,6 +193,9 @@
 
 ---
 
+<details>
+<summary>
+
 ### 스프린트 미션 7(RDBMS 기반 EndPoint 구축하기 - Express, PostgreSQL, Prisma 사용)
 
 </summary>
