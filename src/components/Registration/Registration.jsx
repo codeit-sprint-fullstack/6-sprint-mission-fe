@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import { postProduct } from "../../api/productsApi";
 import { useEffect, useState } from "react";
 import useValidation from "../../hooks/useValidation";
-import throttle from "lodash.throttle";
 
 // 유효성 검증
 const errMsg = {
@@ -31,6 +30,11 @@ const Registration = () => {
 
     if (id === "tags") {
       setTag(value);
+    } else if (id === "price") {
+      setBody((prevBody) => ({
+        ...prevBody,
+        price: Number(value) ? Number(value) : value,
+      }));
     } else {
       setBody((prevBody) => ({ ...prevBody, [id]: value }));
     }
@@ -74,7 +78,7 @@ const Registration = () => {
 
     const product = await postProduct(body);
     setBody(INITIAL_BODY);
-    navigate(`/items/${product._id}`);
+    navigate(`/items/${product.id}`);
   };
 
   // 태그 등록
@@ -171,7 +175,7 @@ const Registration = () => {
             <p className={style.inputTitle}>태그</p>
             <input
               onChange={changeValue}
-              onKeyDown={throttle(createTag, 100)}
+              onKeyDown={createTag}
               value={tag}
               className={`${style.registrationInput} ${
                 errVisible.tags ? style.errorInput : null
