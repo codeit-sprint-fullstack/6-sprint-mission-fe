@@ -1,0 +1,52 @@
+/*privacy 이라인이 가운데정렬말고 위로정렬렬*/
+footer {
+  background-color: var(--gray-900);
+  padding: 32px 200px;
+  height: 160px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 16px;
+  line-height: 19.09px;
+  font-weight: var(--font-regular);
+  flex-wrap: wrap;
+  gap: 60px;
+  width: 100vw;
+  margin: 0 auto;
+  /* max-width: 1920px; ← 이건 적용 안 되는 구조니까 빼도 OK */
+}
+.footer-left {
+  margin-left: 200px;
+  color: var(--gray-400);
+}
+.footer-center {
+  display: flex;
+  gap: 30px;
+  color: var(--gray-200);
+  cursor: pointer;
+  text-decoration: none;
+  align-items: flex-start;
+}
+.footer-center a {
+  color: var(--gray-200);
+  text-decoration: none;
+}
+.footer-right {
+  display: flex;
+  gap: 12px;
+  margin-right: 200px;
+}
+
+.footer-right img {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-right a {
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  border: none;
+  padding: 5px;
+}
