@@ -1,0 +1,60 @@
+/* .wrapperSection {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+} */
+
+.titleSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.productsTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.controlProducts {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(2, auto);
+}
+
+/* 데스크탑 (1200px 이상) */
+@media (min-width: 1200px) {
+  .productGrid {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, auto);
+  }
+}
+
+/* 태블릿 (744px ~ 1199px) */
+@media (min-width: 744px) and (max-width: 1199px) {
+  .productGrid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+  }
+}
+
+/* 모바일 (375px ~ 743px) */
+@media (max-width: 743px) {
+  .productGrid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
