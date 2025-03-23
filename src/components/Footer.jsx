@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import facebookLogo from "../assets/social/facebook-logo.svg";
-import twitterLogo from "../assets/social/twitter-logo.svg";
-import youtubeLogo from "../assets/social/youtube-logo.svg";
-import instagramLogo from "../assets/social/instagram-logo.svg";
+import '../styles/global.css'
+import './Footer.css'
 
 const Footer = () => {
   return (
@@ -15,16 +13,16 @@ const Footer = () => {
       </div>
       <div className="footer-right">
         <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer">
-          <img src={facebookLogo} alt="Facebook" />
+          <img src="/images/social/facebook-logo.svg" alt="Facebook" />
         </a>
         <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
-          <img src={twitterLogo} alt="Twitter" />
+          <img src="/images/social/twitter-logo.svg" alt="Twitter" />
         </a>
         <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
-          <img src={youtubeLogo} alt="YouTube" />
+          <img src="/images/social/youtube-logo.svg" alt="YouTube" />
         </a>
         <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-          <img src={instagramLogo} alt="Instagram" />
+          <img src="/images/social/instagram-logo.svg" alt="Instagram" />
         </a>
       </div>
     </footer>

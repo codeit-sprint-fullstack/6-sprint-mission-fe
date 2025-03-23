@@ -106,7 +106,7 @@ section {
   display: block;
 }
 body {
-  line-height: 1;
+  /* line-height: 1; */
 }
 ol,
 ul {
@@ -132,30 +132,30 @@ table {
   /* Font family */
   --font-primary: "Pretendard", sans-serif;
 
-  /* Font sizes and line heights in rem (1rem = 10px 기준) */
-  --text-3xl: 3.2rem; /* 32px */
-  --line-height-3xl: 4.2rem; /* 42px */
+  /* Font sizes and line heights in px */
+  --text-3xl: 32px;
+  --line-height-3xl: 42px;
 
-  --text-2xl: 2.4rem; /* 24px */
-  --line-height-2xl: 3.2rem; /* 32px */
+  --text-2xl: 24px;
+  --line-height-2xl: 32px;
 
-  --text-xl: 2rem; /* 20px */
-  --line-height-xl: 3.2rem; /* 32px */
+  --text-xl: 20px;
+  --line-height-xl: 32px;
 
-  --text-2lg: 1.8rem; /* 18px */
-  --line-height-2lg: 2.6rem; /* 26px */
+  --text-2lg: 18px;
+  --line-height-2lg: 26px;
 
-  --text-lg: 1.6rem; /* 16px */
-  --line-height-lg: 2.6rem; /* 26px */
+  --text-lg: 16px;
+  --line-height-lg: 26px;
 
-  --text-md: 1.4rem; /* 14px */
-  --line-height-md: 2.4rem; /* 24px */
+  --text-md: 14px;
+  --line-height-md: 24px;
 
-  --text-sm: 1.3rem; /* 13px */
-  --line-height-sm: 2.2rem; /* 22px */
+  --text-sm: 13px;
+  --line-height-sm: 22px;
 
-  --text-xs: 1.2rem; /* 12px */
-  --line-height-xs: 2rem; /* 20px */
+  --text-xs: 12px;
+  --line-height-xs: 20px;
 
   /* Font weights */
   --font-bold: 700;
@@ -194,11 +194,11 @@ table {
 }
 
 html {
-  font-size: 62.5%; /* 1rem = 10px */
+  font-size: 100%; /* rem 단위 사용 안 하므로 기본값 */
 }
 
 body {
-  font-size: 1.6rem; /* 기본 글자 크기 */
+  font-size: 16px;
   word-break: keep-all;
   font-family: var(--font-primary);
 }
