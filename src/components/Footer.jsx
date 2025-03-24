@@ -1,16 +1,18 @@
 import React from "react";
-import "../styles/Footer.css";
+
+import styled from "styled-components";
 
 const Footer = () => {
   return (
-    <div className="footerBox">
-      <div className="footerFrame">
-        <p className="footerLeft">@codeit - 2024</p>
-        <div className="footerMid">
+    <FooterBox>
+      <FooterFrame>
+        <FooterLeft>@codeit - 2024</FooterLeft>
+        <FooterMid>
           <p>Privacy Policy</p>
           <p>FAQ</p>
-        </div>
-        <div className="footerRight">
+        </FooterMid>
+        <FooterRight>
+
           <img
             src="https://67a1772da019bb307bce76e3--relaxed-puppy-88a9cf.netlify.app/imges/ic_facebook.png"
             alt="facebook"
@@ -27,10 +29,45 @@ const Footer = () => {
             src="https://67a1772da019bb307bce76e3--relaxed-puppy-88a9cf.netlify.app/imges/ic_instagram.png"
             alt="insta"
           />
-        </div>
-      </div>
-    </div>
+
+        </FooterRight>
+      </FooterFrame>
+    </FooterBox>
   );
 };
+
+const FooterBox = styled.div`
+  height: 160px;
+  margin-top: 140px;
+  background: #111827;
+`;
+
+const FooterFrame = styled.div`
+  max-width: 1520px;
+  margin: 0 auto;
+  padding-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+`;
+
+const FooterLeft = styled.p`
+  color: #9ca3af;
+`;
+
+const FooterMid = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: #e5e7eb;
+`;
+
+const FooterRight = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
 
 export default Footer;
