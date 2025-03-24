@@ -3,19 +3,20 @@ import { productFetch } from '../api/productFetch';
 import Product from '../ui/Product';
 import styles from './CommonProductList.module.css';
 import { FaCaretDown, FaSortAmountDown } from 'react-icons/fa';
-import Pagination from './Pagination';
-import useDeviceType from '../../../shared/hooks/useDeviceType';
+import useDeviceType from '@hooks/useDeviceType';
+import PaginationButton from './PaginationButton';
+import { Link } from 'react-router-dom';
 
 const COMMON_ITEM_HEIGHT = 220;
 
 const PAGE_SIZE = 10;
 
-const ORDER_LIST = ['좋아요순', '최신순'];
+const ORDER_LIST = ['최신순', '좋아요순'];
 
 const COMMON_ITEM_DATA_PARAM = {
   page: 1,
   pageSize: PAGE_SIZE,
-  orderBy: 'favorite',
+  orderBy: 'recent',
   keyword: '',
 };
 
@@ -25,7 +26,7 @@ const CommonProductList = () => {
   const [order, setOrder] = useState(ORDER_LIST[0]);
   const [totalPage, setTotalPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [keyword, setKeyword] = useState('');
+  const [keyWord, setKeyWord] = useState('');
 
   const { isMobile } = useDeviceType();
 
@@ -34,49 +35,54 @@ const CommonProductList = () => {
       const response = await productFetch({
         ...COMMON_ITEM_DATA_PARAM,
         page: currentPage,
-        orderBy: order === ORDER_LIST[0] ? 'favorite' : 'recent',
-        keyword: keyword,
+        // orderBy: order === ORDER_LIST[0] ? 'favorite' : 'recent',
+        keyWord: keyWord,
       });
+
       setCommonItems(response.list);
       setTotalPage(Math.ceil(response.totalCount / PAGE_SIZE));
     };
 
     fetchBestItems();
-  }, [currentPage, order, keyword]);
+  }, [currentPage, order, keyWord]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleOrderChange = (order) => {
-    setOrder(order);
-    setCurrentPage(1);
+    // setOrder(order);
+    // setCurrentPage(1);
     setIsOpen(false);
   };
 
   const handleOnChange = (e) => {
-    setKeyword(e.target.value);
+    setKeyWord(e.target.value);
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.header}>
         <div className={isMobile ? styles.mobile_title_wrapper : ''}>
           <span className={styles.title}>판매 중인 상품</span>
           {isMobile && (
-            <button className={styles.register_button}>상품 등록하기</button>
+            <Link to='/registration'>
+              <button className={styles.register_button}>상품 등록하기</button>
+            </Link>
           )}
         </div>
         <div className={styles.actions}>
           <input
             className={styles.search_input}
-            value={keyword}
+            value={keyWord}
             onChange={handleOnChange}
             type='text'
             placeholder='검색어를 입력해주세요.'
           />
           {!isMobile && (
-            <button className={styles.register_button}>상품 등록하기</button>
+            <Link to='/registration'>
+              <button className={styles.register_button}>상품 등록하기</button>
+            </Link>
           )}
           <div>
             <button className={styles.order_dropdown} onClick={toggleDropdown}>
@@ -104,13 +110,15 @@ const CommonProductList = () => {
         </div>
       </div>
 
-      <ul className={styles.list}>
-        {commonItems.map((item) => (
-          <Product key={item.id} height={COMMON_ITEM_HEIGHT} {...item} />
-        ))}
-      </ul>
+      {commonItems && (
+        <ul className={styles.list}>
+          {commonItems.map((item) => (
+            <Product key={item._id} height={COMMON_ITEM_HEIGHT} {...item} />
+          ))}
+        </ul>
+      )}
 
-      <Pagination
+      <PaginationButton
         totalPage={totalPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
