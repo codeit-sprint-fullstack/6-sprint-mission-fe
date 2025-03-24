@@ -12,8 +12,10 @@ dist
 dist-ssr
 *.local
 .env
-.http
+*.http
+HTTP
 temp
+jsconfig.json
 
 # Editor directories and files
 .vscode/*

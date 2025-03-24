@@ -5,7 +5,7 @@ const ProductsList = ({ products }) => {
     <section className={style.productsContainer}>
       <ul className={style.products}>
         {products.map((product) => {
-          return <ProductsListItem key={product._id} product={product} />;
+          return <ProductsListItem key={product.id} product={product} />;
         })}
       </ul>
     </section>

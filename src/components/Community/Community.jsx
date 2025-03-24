@@ -1,7 +1,12 @@
 import "./Community.module.scss";
 
 const Community = () => {
-  return <div>Community</div>;
+  // temp 파일에 옮겨놨으니 필요하게 되면 참고해서 사용하기
+  return (
+    <>
+      <div>Community</div>
+    </>
+  );
 };
 
 export default Community;

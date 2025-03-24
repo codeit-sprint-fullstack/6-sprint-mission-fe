@@ -2,7 +2,7 @@ import Tags from "./Tags/Tags";
 import style from "./Registration.module.scss";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router";
-import { postProduct } from "../../backend/API/productApi";
+import { postProduct } from "../../api/productsApi";
 import { useEffect, useState } from "react";
 import useValidation from "../../hooks/useValidation";
 
@@ -30,6 +30,11 @@ const Registration = () => {
 
     if (id === "tags") {
       setTag(value);
+    } else if (id === "price") {
+      setBody((prevBody) => ({
+        ...prevBody,
+        price: Number(value) ? Number(value) : value,
+      }));
     } else {
       setBody((prevBody) => ({ ...prevBody, [id]: value }));
     }
@@ -73,7 +78,7 @@ const Registration = () => {
 
     const product = await postProduct(body);
     setBody(INITIAL_BODY);
-    navigate(`/items/${product._id}`);
+    navigate(`/items/${product.id}`);
   };
 
   // 태그 등록
@@ -82,7 +87,7 @@ const Registration = () => {
 
     if (e.key === "Enter") {
       e.preventDefault();
-      if (value === "" || 5 < value.length) return;
+      if (value === "" || 5 < value.length || body.tags.includes(value)) return;
       setBody((prevBody) => ({ ...prevBody, tags: [...prevBody.tags, value] }));
       setTag("");
     }

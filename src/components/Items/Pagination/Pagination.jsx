@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import style from "./Pagination.module.scss";
 
-const Pagination = ({ pageLoad, params, totalCount }) => {
+const Pagination = ({ device, pageLoad, params, totalCount }) => {
   const [pages, setPages] = useState([1, 2, 3, 4, 5]);
   const [currentPage, setCurrentPage] = useState(1);
   const [active, setActive] = useState({ 1: true });
@@ -10,7 +10,7 @@ const Pagination = ({ pageLoad, params, totalCount }) => {
   useEffect(() => {
     setCurrentPage(1);
     setPages([1, 2, 3, 4, 5]);
-  }, [params.orderBy, params.keyword]);
+  }, [params.orderBy, params.keyword, device]);
 
   // 렌더링(현재 페이지 변경 시) & 페이지 버튼 액티브 효과
   useEffect(() => {

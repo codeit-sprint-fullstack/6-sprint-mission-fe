@@ -1,6 +1,6 @@
 # 스프린트 미션 - 판다마켓
 
-### [🐼판다마켓](https://been-panda.vercel.app) : https://been-panda.vercel.app
+### [🐼판다마켓](https://been-panda.onrender.com) : https://been-panda.onrender.com
 
 > ### 판다마켓 대표 이미지
 
@@ -155,8 +155,8 @@
 - 랜딩 페이지 이미지 모바일 반응형에서 튀어나오는 현상
 - 랜딩 페이지 이미지 위치
 
-- </div>
-  </details>
+</div>
+</details>
 
 ---
 
@@ -188,5 +188,48 @@
 - [x] 태그, nav에 onHover하면 색상 변하도록 효과 주기
 - [x] CORS에 내 웹페이지 주소만 등록
 
-- </div>
-  </details>
+</div>
+</details>
+
+---
+
+<details>
+<summary>
+
+### 스프린트 미션 7(RDBMS 기반 EndPoint 구축하기 - Express, PostgreSQL, Prisma 사용)
+
+</summary>
+<div markdown="1">
+
+#### [ 코드리뷰 반영(스프린트 미션 6) ]
+
+- 없음
+
+#### [ 추가 ]
+
+- MongoDB -> PostgreSQL로 마이그레이션
+- 자유게시판, 댓글 엔드포인트
+
+#### [ 수정 ]
+
+- 데이터베이스 변경에 따른 제품 렌더링 map에 unique Key 수정
+- useGetDeviceType 커스텀 훅 수정
+- throttle 설정하니까 빠르게 입력하면 폼 제출 이벤트가 안막혀서 삭제
+
+#### [ 디버깅 ]
+
+- 상품이 일부만 렌더린 되는 버그
+  - [x] 백엔드에서 totalCount 코드 수정해서 해결완료
+- 이름이 같은 태그를 삭제할 때 일괄 삭제되는 버그
+  - [x] 이름이 같은 태그를 등록할 수 없도록 막아서 해결완료
+- 화면 너비가 넓어지면서 반응형 API 보낼 때 페이지 수가 줄어들면 페이지네이션이 제대로 렌더링 되지 않는 버그
+  - [x] 첫 페이지로 이동되게 처리해서 해결완료
+- community 페이지에 렌더링 오류
+  - [x] 현재 당장 사용하지 않기 때문에 일단 temp 디렉토리로 옮겨놓고 Community는 초기화해서 해결완료
+- 상품 등록 안되는 버그(path parameter가 undefinde로 나옴)
+  - [x] FE - mongoose에서 사용했던 id를 수정, price를 숫자로 형 변환해서 해결완료
+
+</div>
+</details>
+
+---
