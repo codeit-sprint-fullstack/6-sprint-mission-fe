@@ -3,6 +3,7 @@ import { addProduct } from "../../api/index";
 import { Navigate, useNavigate } from "react-router-dom";
 import styles from "./AddItemPage.module.css";
 import useCheckValidity from "../../hooks/useCheckValidity";
+import Tags from "../../components/ui/Tags";
 
 function AddItemPage() {
   const [name, setName] = useState("");
@@ -27,7 +28,7 @@ function AddItemPage() {
         name,
         description,
         price: Number(price),
-        tags: tags.split(",").map((tag) => tag.trim()),
+        tags: tags.map((tag) => tag.trim()),
       });
       if (item?._id) {
         navigate(`/items/${item._id}`);
@@ -82,12 +83,13 @@ function AddItemPage() {
         </div>
         <div className={isTagsValid ? styles.wrapper : styles.error}>
           <label>태그</label>
-          <input
+          <Tags tags={tags} setTags={setTags} />
+          {/* <input
             type="text"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
             placeholder="태그를 입력해주세요"
-          />
+          /> */}
           {!isTagsValid && <span>5글자 이내로 입력해주세요</span>}
         </div>
       </div>

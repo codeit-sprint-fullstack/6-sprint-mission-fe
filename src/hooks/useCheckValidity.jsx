@@ -4,7 +4,7 @@ const useCheckValidity = (name, description, price, tags) => {
     description === "" ? true : description.length >= 10;
   const isPriceValid =
     price === "" ? true : !isNaN(Number(price)) && Number(price) > 0;
-  const isTagsValid = tags === "" ? true : tags.length <= 5;
+  const isTagsValid = tags.length <= 5;
 
   const isInputValid =
     isNameValid && isDescriptionValid && isPriceValid && isTagsValid;

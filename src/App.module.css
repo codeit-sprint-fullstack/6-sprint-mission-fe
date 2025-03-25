@@ -30,6 +30,11 @@ body {
   word-break: keep-all;
 }
 
+ul,
+ol {
+  list-style: none;
+}
+
 input,
 textarea {
   border: none;
