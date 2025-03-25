@@ -1,39 +1,26 @@
-# 판다마켓 스프린트 미션 5
+# 판다마켓 스프린트 미션 6
 
-React를 사용하여 구현하였습니다.
 
 ## 파일 구조
 
 ```bash
-├── README.md
-├── node_modules
-├── package-lock.json
-├── package.json
-├── public
-│   ├── favicon.ico
-│   └── index.html
-└── src
-    ├── App.js
-    ├── api
-    │   └── api.js
-    ├── assets
-    │   └── images
-    │       ├── home
-    │       ├── icon
-    │       ├── logo
-    │       └── social
-    ├── components
-    │   ├── BestProduct.css
-    │   ├── BestProduct.js
-    │   ├── Footer.css
-    │   ├── Footer.js
-    │   ├── Header.css
-    │   ├── Header.js
-    │   ├── Pagination.css
-    │   ├── Pagination.js
-    │   ├── ProductList.css
-    │   └── ProductList.js
-    ├── index.js
-    └── styles
-        └── global.css
+
 ```
+
+## 코드 리뷰 반영
+
+- 컴포넌트 파일 확장자 .js -> .jsx 변경
+-
+
+## 변경사항
+
+- 각 페이지별 컴포넌트 추가
+- Main.js: 기본 렌더링 파일로 라우트 경로 설정
+- 기존 App.js
+  - Productlist 컴포넌트 관련 props, state 부분 MarketPage.jsx로 이동
+  - Header, Outlet, Footer 컴포넌트로 경로에 해당하는 라우트로 이동 시 Outlet만 변경되도록 수정
+- css module 적용
+  - 기존 global.css -> App.module.css로 변경
+  - color palette 추가
+- Pagination
+  - useMemo 적용

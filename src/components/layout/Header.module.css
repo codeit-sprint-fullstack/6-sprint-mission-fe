@@ -29,10 +29,6 @@ header > div {
   color: #fff;
 }
 
-.profileBtn:hover {
-  background-color: #1967d6;
-}
-
 @media (max-width: 1199px) {
   header {
     padding: 0 24px;
@@ -40,7 +36,7 @@ header > div {
 
   .profileBtn {
     color: transparent;
-    background: url("../assets/images/icon/ic-profile.svg") no-repeat right;
+    background: url("../../assets/images/icon/ic_profile.svg") no-repeat right;
   }
 }
 
@@ -51,6 +47,6 @@ header > div {
 
   .profileBtn {
     color: transparent;
-    background: url("../assets/images/icon/ic-profile.svg") no-repeat right;
+    background: url("../../assets/images/icon/ic_profile.svg") no-repeat right;
   }
 }

@@ -1,0 +1,71 @@
+:root {
+  /* Primary color */
+  --blue-100: #3692ff;
+  --blue-200: #1967d6;
+  --blue-300: #1251aa;
+
+  /* Secondary color */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  /* Error */
+  --red: #f74747;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Pretendard", sans-serif;
+  word-break: keep-all;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+input,
+textarea {
+  border: none;
+  outline: none;
+  background: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+select {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  appearance: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: none;
+  cursor: pointer;
+}
+
+:global(#link) {
+  text-decoration: none;
+  color: inherit;
+}
+
+:global(#link):hover {
+  color: #9ca3af;
+}
