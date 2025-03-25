@@ -1,48 +1,42 @@
 #root {
-	margin: 0 auto;
-	padding: 0rem;
-	width: 100%;
-	background-color: #fcfcfc;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-.layout {
-	display: flex; /* 텍스트 정렬을 위한 Flexbox */
-	flex-direction: column;
-	margin: 0 auto; /* 중앙 정렬 */
-	row-gap: 0px; /* 행 간의 간격 */
-
-	h3 {
-		font-size: 20px;
-		line-height: 32px;
-		display: inline-block;
-	}
-
-	.best {
-		margin-top: 96px;
-	}
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.contents {
-	display: flex;
-	justify-content: space-between; /* 좌우로 요소를 배치 */
-	align-items: center; /* 세로 가운데 정렬 */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-@media (max-width: 744px) {
-	.layout h3 {
-		margin-left: 24px;
-	}
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
 }
-@media (max-width: 376px) {
-	.layout {
-		display: flex;
-	}
 
-	.contents,
-	.top {
-		width: 344px;
-	}
-	.top h3 {
-		margin-left: 16px;
-	}
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
 }

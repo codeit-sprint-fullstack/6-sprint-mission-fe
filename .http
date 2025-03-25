@@ -1,0 +1,28 @@
+POST https://pdmarket.onrender.com/articles
+Content-Type: application/json
+
+{
+    "title": "타이틀",
+    "content": "콘텐츠"
+}
+
+###
+GET http://localhost:7777/articles
+
+
+###
+GET http://localhost:7777/articles/1
+
+
+###
+PATCH http://localhost:7777/articles/1
+Content-Type: application/json
+
+{
+    "title": "타이틀",
+    "content": "콘텐츠"
+}
+
+
+###
+DELETE http://localhost:7777/articles/1
