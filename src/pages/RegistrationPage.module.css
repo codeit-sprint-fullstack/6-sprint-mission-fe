@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Pretendard;
+}
+
+.registrationMain {
+  padding-top: 90px;
+  font-family: Pretendard;
+
+  color: #1f2937;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21.48px;
+
+  padding-top: 94px;
+  margin-bottom: 162px;
+  margin-right: 360px;
+  margin-left: 360px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.itemRegist {
+  font-size: 20px;
+}
+
+.regist {
+  color: #f3f4f6;
+  background-color: #9ca3af;
+
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+
+  width: 74px;
+  height: 42px;
+  border-radius: 8px;
+  border-width: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemTitle,
+.itemContent,
+.itemPrice,
+.itemTag {
+  padding-bottom: 16px;
+  margin-top: 32px;
+}
+
+.inputItemTitle,
+.inputItemContent,
+.inputItemPrice,
+.inputItemTag {
+  height: 56px;
+  background-color: #f3f4f6;
+  color: color= "#9CA3AF";
+  border-radius: 10px;
+  border-width: 0;
+  padding-left: 20px;
+  margin-top: 5px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  margin-bottom: 8px;
+}
+
+.inputItemContent {
+  height: 282px;
+  padding-bottom: 220px;
+}
+
+.itemTagChips {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-family: pretenard;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 14px;
+  border-radius: 50px;
+}
+
+.errorMessage {
+  color: #f74747;
+  margin-left: 16px;
+  margin-bottom: 14px;
+}
+
+/* Tablet 사이즈 */
+@media (min-width: 744px) and (max-width: 1199px) {
+  .registrationMain {
+    padding-top: 86px;
+    margin-right: 24px;
+    margin-left: 24px;
+    margin-bottom: 194px;
+  }
+}
+
+/* Mobile 사이즈 */
+@media (min-width: 375px) and (max-width: 743px) {
+  .registrationMain {
+    margin-right: 16px;
+    margin-left: 16px;
+    margin-bottom: 186px;
+  }
+}
