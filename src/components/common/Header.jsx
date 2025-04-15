@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./Nav.module.css";
 import miniPandaFace from "../../assets/image/header/작은 판다 얼굴.png";
 import pandamarket from "../../assets/image/header/판다마켓.png";
 
