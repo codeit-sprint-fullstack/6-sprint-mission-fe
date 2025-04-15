@@ -1,26 +1,44 @@
+"use client";
+
 import React from "react";
-import { Link } from "react-router-dom";
-import miniPandaFace from "../../assets/image/header/작은 판다 얼굴.png";
-import pandamarket from "../../assets/image/header/판다마켓.png";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Btn from "../ui/Btn";
 
 function Header() {
-  return (
-    <div>
-      {/* 위에서 사용 안하는 듯 className="style.mainBody" */}
-      <header className={styles.header}>
-        <div className={styles.headerContainer}>
-          <div className={styles.image}>
-            <img className={styles.faceImg} src={miniPandaFace} />
-            <img className={styles.headerText} src={pandamarket} />
-          </div>
+  const router = useRouter();
 
-          <Link>
-            {/* 경로는 아직 미정 to="/login" */}
-            <button className={styles.headerLogin}>로그인</button>
-          </Link>
+  return (
+    <header className="fixed bg-white w-full h-[70px] flex flex-col border-b border-gray-200">
+      <div className="w-full h-[51px] pt-[9.5px] flex justify-around items-center text-[16px]">
+        <div className="flex items-center cursor-pointer">
+          <img
+            className="w-[40px] h-[40.14px]"
+            alt="작은 판다 얼굴"
+            src="/image/header/작은 판다 얼굴.png"
+          />
+          <img
+            className="flex justify-between cursor-pointer pl-[8.9px] w-[103px] h-[26px]"
+            src="/image/header/판다마켓.png"
+            alt="판다마켓"
+          />
+
+          <div className="flex justify-between w-[218px] ml-[47px] mr-[23px] font-pretendard font-bold">
+            {/* Nav를 통해 이동 시 스타일 변경 */}
+            <Link href="/">
+              <div className="h-[26px] text-[18px]"> 자유게시판 </div>
+            </Link>
+            <Link href="/">
+              <div className="h-[26px] text-[18px] mr-[30px]">중고마켓</div>
+            </Link>
+          </div>
         </div>
-      </header>
-    </div>
+
+        <Link href="/">
+          <Btn text="로그인" />
+        </Link>
+      </div>
+    </header>
   );
 }
 
