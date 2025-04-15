@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+:root {
+  /* 색상 */
+  --background: #ffffff;
+  --title-gray: #1f2937;
+  --footer: #111827;
+  --dark-gray: #374151;
+  --gray: #4b5563;
+  --medium-gray: #6b7280;
+  --light-gray: #9ca3af;
+  --dark-box: #f3f4f6;
+  --box: #f9fafb;
+  --light-box: #fcfcfc;
+  --line: #e5e7eb;
+  --light-blue: #3692ff;
+  --blue: #1967d6;
+  --dark-blue: #1251aa;
+  --error-red: #f74747;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-theme: var(--light-blue);
+}
+
+body {
+  background: var(--background);
+  font-family: "Pretendard";
+}
+
+@layer utilities {
+  /* 글씨 */
+  .text-18-700 {
+    font-size: 1.125rem; /* 18px */
+    font-weight: 700;
+  }
+
+  .text-16-700 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .text-16-400 {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+}

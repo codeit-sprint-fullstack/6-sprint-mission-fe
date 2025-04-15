@@ -1,0 +1,28 @@
+.button {
+  background-color: var(--light-blue);
+  border-radius: 8px;
+  color: white;
+  // text 정렬
+  display: flex;
+  align-items: center;
+}
+
+// 크기
+.md {
+  width: 88px;
+  height: 42px;
+  padding: 12px 23px;
+  font-weight: 600;
+}
+
+.sm {
+  width: 74px;
+  height: 42px;
+  padding: 12px 23px;
+  font-weight: 600;
+}
+
+// 기타
+.rounded {
+  border-radius: 40px;
+}
