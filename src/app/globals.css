@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+/* :root {
+  --background: #ffffff;
+  --foreground: #171717;
+} */
+
+@theme inline {
+  /* --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono); */
+
+  /* 반응형 */
+  --breakpoint-tablet: 500px;
+  --breakpoint-web: 744px;
+  --breakpoint-pc: 1200px;
+
+  --breakpoint-xs: 375px;
+  --breakpoint-s: 500px;
+  --breakpoint-m: 744px;
+  --breakpoint-l: 1200px;
+
+  /* 색상 */
+  --color-main-blue: #3692ff;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  /* background: var(--background);
+  color: var(--foreground); */
+  font-family: "Pretendard";
+}
