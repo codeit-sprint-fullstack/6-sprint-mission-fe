@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-
-const menuData = [{ id: "1", name: "자유게시판", path: "/" }];
+import { usePathname } from "next/navigation";
 
 function Header() {
+  const pathname = usePathname();
+
   return (
     <header className="flex justify-between items-center w-full h-[70px] border-b border-[#dfdfdf] px-4">
       <div className="flex items-center gap-6">
@@ -24,11 +27,17 @@ function Header() {
           </Link>
         </picture>
         <div className="flex gap-[21px] text-[18px] font-bold text-gray-600">
-          <Link href="/board">
-            <p>자유게시판</p>
+          <Link
+            href="/board"
+            className={pathname.startsWith("/board") ? "text-primary-100" : ""}
+          >
+            자유게시판
           </Link>
-          <Link href="/items">
-            <p>중고마켓</p>
+          <Link
+            href="/items"
+            className={pathname == "/items" ? "text-primary-100" : ""}
+          >
+            중고마켓
           </Link>
         </div>
       </div>
