@@ -54,11 +54,7 @@
 @layer components {
   /* 버튼 컴포넌트 */
   .btn-base {
-    @apply px-[23px] py-3 rounded-lg bg-primary-100 text-white font-semibold cursor-pointer;
-  }
-
-  .btn-base:disabled {
-    @apply bg-gray-400;
+    @apply px-[23px] py-3 rounded-lg bg-primary-100 text-white font-semibold cursor-pointer hover:bg-primary-200 disabled:bg-gray-400 disabled:cursor-not-allowed;
   }
 }
 

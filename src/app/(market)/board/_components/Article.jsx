@@ -49,7 +49,7 @@ function Article({ articles }) {
         />
         <div>
           <button
-            className="p-[9px] border-1 border-gray-100 rounded-lg cursor-pointer"
+            className="p-[9px] border-1 border-gray-100 rounded-lg cursor-pointer hover:bg-gray-100"
             onClick={() => setIsDropdownOpen((prev) => !prev)}
           >
             <Image
