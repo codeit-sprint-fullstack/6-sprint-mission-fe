@@ -2,11 +2,21 @@
 
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import Btn from "../ui/Btn";
+import Button from "../ui/Button";
+import { usePathname, useRouter } from "next/navigation";
+import { useNav } from "@/providers/NavIndexProvider";
 
 function Header() {
   const router = useRouter();
+  const pathName = usePathname();
+  const { activePage, setActivePage } = useNav();
+
+  console.log("activePage", activePage);
+  console.log("pathName", pathName);
+
+  const handelLogin = () => {
+    router.push("/login");
+  };
 
   return (
     <header className="fixed bg-white w-full h-[70px] flex flex-col border-b border-gray-200">
@@ -17,26 +27,46 @@ function Header() {
             alt="작은 판다 얼굴"
             src="/image/header/작은 판다 얼굴.png"
           />
-          <img
-            className="flex justify-between cursor-pointer pl-[8.9px] w-[103px] h-[26px]"
-            src="/image/header/판다마켓.png"
-            alt="판다마켓"
-          />
+          <Link href={"/"}>
+            <img
+              className="flex justify-between cursor-pointer pl-[8.9px] w-[103px] h-[26px]"
+              src="/image/header/판다마켓.png"
+              alt="판다마켓"
+            />
+          </Link>
 
           <div className="flex justify-between w-[218px] ml-[47px] mr-[23px] font-pretendard font-bold">
-            {/* Nav를 통해 이동 시 스타일 변경 */}
-            <Link href="/">
-              <div className="h-[26px] text-[18px]"> 자유게시판 </div>
+            <Link href="/articles" onClick={() => setActivePage("/post")}>
+              <div
+                className={`h-[26px] text-[18px] ${
+                  pathName === "/articles" || pathName === "/posting"
+                    ? "text-primary"
+                    : ""
+                }`}
+              >
+                {" "}
+                자유게시판{" "}
+              </div>
             </Link>
-            <Link href="/">
-              <div className="h-[26px] text-[18px] mr-[30px]">중고마켓</div>
+            <Link href="/market">
+              <div
+                className={`h-[26px] text-[18px] ${
+                  pathName === "/market" ? "text-primary" : ""
+                } mr-[30px]`}
+              >
+                중고마켓
+              </div>
             </Link>
           </div>
         </div>
 
-        <Link href="/">
-          <Btn text="로그인" />
-        </Link>
+        <Button
+          text="로그인"
+          onClick={handelLogin}
+          disabled={false}
+          width={"w-[88px]"}
+          height={"h-[42px]"}
+        />
       </div>
     </header>
   );

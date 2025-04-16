@@ -14,6 +14,17 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@theme {
+  --color-primary: #3692ff;
+  --color-secondary: #111827;
+  --color-third: #f3f4f6;
+  --color-forth: #fcfcfc;
+  --color-fifth: #9ca3af;
+  --color-sixth: #f9fafb;
+  --color-seven: #e5e7eb;
+  --color-eight: #4b5563;
+}
+
 /* 반응형디자인을 위함 */
 @theme {
   /* 브레이크포인트 정의: 기본 반응형 브레이크 포인트를 디자인 요구사항에 따라 변경가능. */

@@ -3,7 +3,7 @@ import React from "react";
 function Dropdown() {
   return (
     <select
-      className="w-[130px] h-[42px] rounded-[12px] border border-[#E5E7EB] px-[20px] mb-[24px] text-[16px]"
+      className="w-[130px] h-[42px] rounded-[12px] border border-[#E5E7EB] px-[20px] text-[16px]"
       //   value={order}
       //   onChange={handleSelectChange}
     >

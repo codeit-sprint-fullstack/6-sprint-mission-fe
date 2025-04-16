@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
   return (
     <div>
-      <footer className="bg-[#111827] w-full h-[160px] text-[16px]">
+      <footer className="bg-secondary w-full h-[160px] text-[16px]">
         <div
           className="pt-[32px] mx-[200px] flex flex-col
   md:mx-[32px] md:mb-[108px]
