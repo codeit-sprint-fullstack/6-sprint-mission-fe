@@ -4,12 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useMemo, useState } from "react";
 import ArticleCard from "./ArticleCard";
-import dayjs from "dayjs";
 import Dropdown from "@/components/ui/Dropdown";
 
 function Article({ articles }) {
+  const sortOption = [
+    { label: "최신순", value: "latest" },
+    { label: "오래된순", value: "oldest" },
+  ];
   const [searchInput, setSearchInput] = useState("");
-  const [sortOption, setSortOption] = useState("latest");
+  const [dropdownOption, setDropdownOption] = useState(sortOption[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const filteredArticles = useMemo(() => {
@@ -17,19 +20,20 @@ function Article({ articles }) {
       article.title.toLowerCase().includes(searchInput.toLowerCase())
     );
 
-    if (sortOption == "latest") {
+    if (dropdownOption.value == "latest") {
       return filtered.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
-    } else if (sortOption == "oldest") {
+    } else if (dropdownOption.value == "oldest") {
       return filtered.sort(
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
       );
     }
-  }, [articles, searchInput, sortOption]);
+  }, [articles, searchInput, dropdownOption]);
 
-  const handleSort = (type) => {
-    setSortOption(type);
+  const handleSort = (value) => {
+    const selected = sortOption.find((item) => item.value === value);
+    setDropdownOption(selected);
     setIsDropdownOpen(false);
   };
 
@@ -59,20 +63,19 @@ function Article({ articles }) {
               height={24}
             />
           </button>
-          {isDropdownOpen && <Dropdown handleSort={handleSort} />}
+          {isDropdownOpen && (
+            <Dropdown items={sortOption} onSelect={handleSort} />
+          )}
         </div>
       </div>
       <article className="mb-[91px]">
         {filteredArticles.map((article) => {
-          const date = article.createdAt;
-          const formattedDate = dayjs(date).format("YYYY. MM. DD");
-
           return (
             <Link key={article.id} href={`/board/${article.id}`}>
               <ArticleCard
                 key={article.id}
                 title={article.title}
-                createdAt={formattedDate}
+                createdAt={article.createdAt}
               />
               <span className="flex border-b-1 border-gray-200 my-6"></span>
             </Link>

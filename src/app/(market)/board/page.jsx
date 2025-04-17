@@ -1,10 +1,10 @@
 import React from "react";
 import BestArticle from "./_components/BestArticle";
 import Article from "./_components/Article";
-import { getArticle } from "@/lib/api/articleApi";
+import { getArticles } from "@/lib/api/articleApi";
 
 async function page() {
-  const articles = await getArticle();
+  const articles = await getArticles();
 
   return (
     <div className="p-4">
