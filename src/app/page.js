@@ -1,6 +1,4 @@
-import ArticleHeader from "@/components/ui/ArticleHeader";
-import Articles from "@/components/ui/Articles";
-import BestList from "@/components/ui/BestList";
+import MoreToggle from "@/components/ui/MoreToggle";
 
 export default function Home() {
   return (
@@ -8,6 +6,7 @@ export default function Home() {
       <div className="flex justify-center pt-[94px] pb-[800px] w-[1200px] font-pretendard text-4xl">
         This will be main page
       </div>
+      <MoreToggle />
     </div>
   );
 }

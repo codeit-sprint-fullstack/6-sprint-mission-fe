@@ -4,7 +4,7 @@ async function Comment({ content }) {
       <div className="h-[104px] mt-[24px] pb-[16px] border-b border-seven">
         <div className="flex flex-row w-[1200px] justify-between">
           <div className="text-[20px]"> {content} </div>
-          <div>...</div>
+          <div>⋮</div>
         </div>
 
         <div className="flex flex-row  items-center gap-[8px] ">

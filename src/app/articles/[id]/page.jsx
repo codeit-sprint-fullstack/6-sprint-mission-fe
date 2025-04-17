@@ -12,10 +12,10 @@ export default async function SpecifiedArticle({ params }) {
   return (
     <div className="flex items-center justify-center font-pretendard">
       <div className="pt-[94px]">
-        <ArticleDetail article={article} />
+        <ArticleDetail articleId={articleId} article={article} />
         <CreateComment />
         <Comments params={params} />
-        <div className="flex justify-center mt-[64px] mb-[193px]">
+        <div className="flex justify-center mt-[64px]">
           <Button
             text={"목록으로 돌아가기"}
             // onClick={handleBackToCommentList}

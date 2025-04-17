@@ -50,3 +50,18 @@ export async function postArticle(postData) {
 
   return res.json();
 }
+
+//게시글 수정하기
+export async function patchArticle(articleId, patchData) {
+  const res = await fetch(`http://localhost:3000/articles/${articleId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(patchData),
+  });
+
+  if (!res.ok) throw new Error("해당 게시글이 존재하지 않습니다.");
+
+  return res.json();
+}

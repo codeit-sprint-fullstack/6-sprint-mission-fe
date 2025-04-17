@@ -28,12 +28,8 @@ export default function Articles() {
   return (
     <div className="flex flex-col">
       {sortedArticles.map((article) => (
-        <Link href={`/articles/${article.id}`}>
-          <Article
-            key={article.id}
-            title={article.title}
-            createdAt={article.createdAt}
-          />
+        <Link href={`/articles/${article.id}`} key={article.id}>
+          <Article title={article.title} createdAt={article.createdAt} />
         </Link>
       ))}
     </div>

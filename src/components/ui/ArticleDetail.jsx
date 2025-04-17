@@ -1,8 +1,12 @@
 "use client";
 
 import React from "react";
+import MoreToggle from "./MoreToggle";
+import { usePathname, useRouter } from "next/navigation";
 
-function ArticleDetail({ article }) {
+function ArticleDetail({ articleId, article }) {
+  const router = useRouter();
+
   // 날짜 prettier
   const formatDate = (iso) => {
     const date = new Date(iso);
@@ -12,12 +16,22 @@ function ArticleDetail({ article }) {
     )}.${String(date.getDate()).padStart(2, "0")}`;
   };
 
+  const onPatch = () => {
+    console.log("수정하러 가기");
+
+    router.push(`/posting/${articleId}`);
+  };
+
+  const onDelete = () => {
+    console.log("삭제하러 가기");
+  };
+
   return (
     <>
       <div className="h-[104px] mt-[24px] pb-[16px] border-b border-seven">
         <div className="flex flex-row w-[1200px] justify-between">
           <div className="font-[700] text-[20px]"> {article.title} </div>
-          <div>...</div>
+          <MoreToggle onPatch={onPatch} onDelete={onDelete} />
         </div>
 
         <div className="flex flex-row justify-between items-center w-[354px] h-[40px] text-[14px] mt-[16px] text-eight">

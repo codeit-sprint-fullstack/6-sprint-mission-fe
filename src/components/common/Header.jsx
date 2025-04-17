@@ -16,7 +16,7 @@ function Header() {
   };
 
   return (
-    <header className="fixed bg-white w-full h-[70px] flex flex-col border-b border-gray-200">
+    <header className="fixed bg-white z-[1] w-full h-[70px] flex flex-col border-b border-gray-200">
       <div className="w-full h-[51px] pt-[9.5px] flex justify-around items-center text-[16px]">
         <div className="flex items-center cursor-pointer">
           <img
