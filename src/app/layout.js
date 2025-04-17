@@ -1,16 +1,19 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import React from "react";
 import "./globals.css";
+import localFont from "next/font/local";
 import Header from "@/components/common/Header/Header";
 import Footer from "@/components/common/Footer/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const pretendard = localFont({
+  src: "../assets/fonts/Pretendard.woff2",
+  weight: "100 900",
+  variable: "--font-pretendard",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const rokafSans = localFont({
+  src: "../assets/fonts/Rokaf-Sans.ttf",
+  weight: "700",
+  variable: "--font-rokafSans",
 });
 
 export const metadata = {
@@ -20,11 +23,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${pretendard.variable} ${rokafSans.variable} min-h-screen flex flex-col`}
       >
-        {children}
+        <Header className="font-pretendard" />
+        <main className="flex-1 font-pretendard">{children}</main>
+        <Footer className="font-pretendard" />
       </body>
     </html>
   );

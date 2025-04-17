@@ -1,0 +1,16 @@
+.create-product-btn {
+  background-color: var(--blue-color-3692ff);
+  color: var(--gray-bright-color-f3f4f6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8.3125rem;
+  height: 2.625rem;
+  padding: 0.5rem 1.4375rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-family: Pretendard;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.625rem;
+}
