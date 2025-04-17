@@ -17,7 +17,7 @@ export default function BoardPage() {
 
   // 게시글 목록 불러오기 + 검색 + 정렬
   useEffect(() => {
-    fetch("http://localhost:3000/articles")
+    fetch("https://fs-next-js-pandamarket.onrender.com/articles")
       .then((res) => res.json())
       .then((data) => {
         let allPosts = data.data;
@@ -43,7 +43,7 @@ export default function BoardPage() {
 
   // 베스트 게시글 (정렬과 관계없이 최신순 상위 3개)
   useEffect(() => {
-    fetch("http://localhost:3000/articles")
+    fetch("https://fs-next-js-pandamarket.onrender.com/articles")
       .then((res) => res.json())
       .then((data) => {
         const allPosts = data.data;
