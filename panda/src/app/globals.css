@@ -1,41 +1,53 @@
-@import "tailwindcss";
-
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 
-:root {
-  /* 색상 */
-  --background: #ffffff;
-  --title-gray: #1f2937;
-  --footer: #111827;
-  --dark-gray: #374151;
-  --gray: #4b5563;
-  --medium-gray: #6b7280;
-  --light-gray: #9ca3af;
-  --dark-box: #f3f4f6;
-  --box: #f9fafb;
-  --light-box: #fcfcfc;
-  --line: #e5e7eb;
-  --light-blue: #3692ff;
-  --blue: #1967d6;
-  --dark-blue: #1251aa;
-  --error-red: #f74747;
-}
+@import "tailwindcss";
 
-@theme inline {
-  --color-background: var(--background);
-  --color-theme: var(--light-blue);
+@theme {
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 745px;
+  --breakpoint-lg: 1200px;
+
+  --color-primary-100: #3692ff;
+  --color-primary-200: #1967d6;
+  --color-primary-300: #1251aa;
+
+  --color-error: #f74747;
+
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374161;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
 }
 
 body {
-  background: var(--background);
   font-family: "Pretendard";
 }
 
 @layer utilities {
   /* 글씨 */
+  .text-20-700 {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 700;
+  }
+
+  .text-20-600 {
+    font-size: 1.25rem; /* 20px */
+    font-weight: 600;
+  }
+
   .text-18-700 {
     font-size: 1.125rem; /* 18px */
     font-weight: 700;
+  }
+
+  .text-18-600 {
+    font-size: 1.125rem; /* 18px */
+    font-weight: 600;
   }
 
   .text-16-700 {
@@ -45,6 +57,11 @@ body {
 
   .text-16-400 {
     font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .text-14-400 {
+    font-size: 0.875rem;
     font-weight: 400;
   }
 }

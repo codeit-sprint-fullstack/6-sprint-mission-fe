@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import "./Header.scss";
 import Button from "./Button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,23 +10,23 @@ function Header() {
 
   return (
     <>
-      <header className="top-bar h-[70px] w-[100vw] fixed">
+      <header className="h-[70px] w-full fixed border-b border-gray-300 top-0 left-0 bg-white z-10">
         {/* 전체 정렬 div */}
-        <div className="header-container flex h-[100%] justify-between items-center">
+        <div className="w-full h-full mx-auto flex justify-between items-center px-[32px] lg:px-[200px]">
           {/* 로고 + 메뉴 정렬 div */}
           <div className="flex gap-[20px] items-center">
             {/* 로고 */}
-            <Link href="/" className="link-align">
-              <picture className="logo inline-block w-[153px] h-[51px]">
+            <Link href="/" className="flex items-center">
+              <picture className="w-[81px] md:w-[153px]">
                 <source
                   srcSet="/assets/pc_logo.png"
                   alt="pc logo"
-                  media="(min-width: 745px)"
+                  media="(width > 744px)"
                 />
                 <source
                   srcSet="/assets/mb_logo.png"
                   alt="mobile logo"
-                  media="(max-width: 744px)"
+                  media="(744px >= width)"
                 />
                 <img src="/assets/pc_logo.png" alt="logo" />
               </picture>
@@ -36,17 +35,17 @@ function Header() {
             <nav className="text-18-700">
               <ul className="flex gap-[20px]">
                 <Link
-                  href="/forum"
-                  className={`link-align ${
-                    pathname === "/forum" ? "active" : ""
+                  href="/articles"
+                  className={`${
+                    pathname === "/articles" ? "text-primary-100" : ""
                   }`}
                 >
                   <li>자유게시판</li>
                 </Link>
                 <Link
                   href="/market"
-                  className={`link-align ${
-                    pathname === "/market" ? "active" : ""
+                  className={`${
+                    pathname === "/market" ? "text-primary-100" : ""
                   }`}
                 >
                   <li>중고마켓</li>

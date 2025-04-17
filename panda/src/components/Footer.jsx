@@ -1,12 +1,11 @@
 import React from "react";
-import "./Footer.scss";
 
 function Footer() {
   return (
-    <footer className="footer h-[160px]">
+    <footer className="h-[160px] bg-gray-900 text-white p-8 lg:px-[200px]">
       <div className="footer-container h-[100%] flex justify-between">
-        <span className="text-[var(--light-gray)]">@codeit - 2024</span>
-        <div className="flex gap-10">
+        <span className="text-gray-400">@codeit - 2024</span>
+        <div className="flex gap-10 text-gray-200">
           <span>Privacy Policy</span>
           <span>FAQ</span>
         </div>
