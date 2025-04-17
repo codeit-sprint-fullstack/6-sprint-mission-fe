@@ -1,6 +1,6 @@
 import React from "react";
-import CommentList from "./_components/CommentList";
-import CommentCreate from "./_components/CommentCreate";
+import CommentList from "./_components/Comments/CommentList";
+import CommentCreate from "./_components/Comments/CommentCreate";
 import ArticleDetail from "./_components/ArticleDetail";
 
 export default function CommunityDetailPage() {

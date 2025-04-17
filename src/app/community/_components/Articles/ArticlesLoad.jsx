@@ -1,63 +1,10 @@
-"use client";
-
-import { getArticles } from "@/lib/api/article.api";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
 import ic_heart from "@/assets/images/common/ic_heart.svg";
 import img_notebook from "@/assets/images/community/img_notebook.svg";
 import ic_profile from "@/assets/images/common/ic_profile.svg";
 import Link from "next/link";
 
-export default function ArticleList() {
-  const articles = [
-    {
-      id: "1",
-      title: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야 하나요?",
-      createdAt: "2025. 04. 16",
-    },
-    {
-      id: "2",
-      title: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야 하나요?",
-      createdAt: "2025. 04. 16",
-    },
-    {
-      id: "3",
-      title: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야 하나요?",
-      createdAt: "2025. 04. 16",
-    },
-  ];
-  // const [articles, setArticles] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [params, setParams] = useState({
-  //   page: 1,
-  //   limit: 5,
-  //   orderBy: "recent",
-  //   keyword: "",
-  // });
-
-  /* 반응형 리퀘스트 추가 */
-
-  // useEffect(() => {
-  //   articlesLoad(params);
-  // }, [params]);
-
-  // const articlesLoad = async (params) => {
-  //   const articles = await getArticles(params);
-  //   setArticles(articles);
-  //   setIsLoading(false);
-  // };
-
-  return (
-    <div className="flex flex-col gap-[24px]">
-      {/* {isLoading ? "게시글 로딩중..." : }*/}
-      {articles.map((article) => (
-        <AriclesLoad key={article.id} article={article} />
-      ))}
-    </div>
-  );
-}
-
-function AriclesLoad({ article }) {
+export default function AriclesLoad({ article }) {
   return (
     <>
       <Link

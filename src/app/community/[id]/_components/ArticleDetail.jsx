@@ -1,13 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ic_profile from "@/assets/images/common/ic_profile.svg";
 import ic_heart from "@/assets/images/common/ic_heart.svg";
 import Image from "next/image";
 import DropDownToggle from "@/components/ui/DropDownToggle";
+import { getArticle } from "@/lib/api/article.api";
+import { useParams } from "next/navigation";
 
 export default function ArticleDetail() {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
+  const [article, setArticle] = useState(null);
+  const articleId = useParams();
+  console.log("articleId:", articleId);
+
+  const articleLoad = async () => {
+    const article = await getArticle(articleId);
+    console.log("article:", article);
+
+    return setArticle(article);
+  };
+
+  useEffect(() => {
+    articleLoad(articleId);
+  }, []);
 
   // 정렬 선택버튼 토글
   const handleDropDownToggle = () => {
@@ -16,13 +32,6 @@ export default function ArticleDetail() {
 
   const handleDropDownClose = () => {
     setIsDropDownVisible(false);
-  };
-
-  const article = {
-    id: "1",
-    title: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야 하나요?",
-    content: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야 하나요?",
-    createdAt: "2025. 04. 16",
   };
 
   return (
