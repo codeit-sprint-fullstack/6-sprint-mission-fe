@@ -1,13 +1,36 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Button from "@/components/ui/Button";
 import InputField from "@/components/ui/posting/InputField";
+import { postArticle } from "@/lib/api/article";
+import { useRouter } from "next/navigation";
 
 function PostingPage() {
-  const handlePost = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const router = useRouter();
+
+  const handlePost = async () => {
     console.log("posting is Done");
+
+    const postData = {
+      title: title,
+      content: content,
+    };
+
+    try {
+      const { id } = await postArticle(postData);
+      setTitle("");
+      setContent("");
+      router.push(`/articles/${id}`);
+    } catch (e) {
+      console.error("게시글 등록 중 에러 발생", e);
+    }
   };
+
+  const handleTitleChange = (e) => setTitle(e.target.value);
+  const handleContentChange = (e) => setContent(e.target.value);
 
   return (
     <div className="flex items-center justify-center">
@@ -19,7 +42,7 @@ function PostingPage() {
           <Button
             text={"등록"}
             onClick={handlePost}
-            disabled={true}
+            disabled={!title || !content}
             width={"w-[74px]"}
             height={"h-[42px]"}
           />
@@ -29,13 +52,20 @@ function PostingPage() {
           <div className="font-pretendard font-bold text-[20px] mb-[12px]">
             * 제목
           </div>
-          <InputField placeholder={"제목을 입력해주세요"} height={"h-[56px]"} />
+          <InputField
+            value={title}
+            onChange={handleTitleChange}
+            placeholder={"제목을 입력해주세요"}
+            height={"h-[56px]"}
+          />
         </div>
         <div>
           <div className="font-pretendard font-bold text-[20px] mb-[12px]">
             * 내용
           </div>
           <InputField
+            value={content}
+            onChange={handleContentChange}
             placeholder={"내용을 입력해주세요"}
             height={"h-[282px]"}
           />

@@ -6,7 +6,7 @@ import Dropdown from "@/components/ui/Dropdown";
 import Search from "@/components/ui/Search";
 import { useRouter } from "next/navigation";
 
-export default function ArticleList() {
+export default function ArticleHeader() {
   const router = useRouter();
 
   //글쓰기 버튼 클릭 시 페이지 이동

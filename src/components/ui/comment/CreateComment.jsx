@@ -1,5 +1,6 @@
+"use client";
+
 import React from "react";
-import Article from "../Article";
 import InputField from "../posting/InputField";
 import Button from "../Button";
 
@@ -9,8 +10,8 @@ function CreateComment() {
   };
 
   return (
-    <>
-      <div className="font-bold text-[20px] mb-[9px] ">댓글달기</div>
+    <div className="pt-[32px] pb-[40px]">
+      <div className="font-[600] text-[20px] mb-[9px] ">댓글달기</div>
       <div className="mb-[16px]">
         <InputField placeholder={"댓글을 입력해주세요."} height={"h-[104px]"} />
       </div>
@@ -23,7 +24,7 @@ function CreateComment() {
           height={"h-[42px]"}
         />
       </div>
-    </>
+    </div>
   );
 }
 

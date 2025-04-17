@@ -13,9 +13,8 @@ export default async function BestList() {
 
       <div className="flex flex-row justify-between mt-[24px] w-[384px] h-[169px] gap-[24px]">
         {bestArticles.map((article) => (
-          <Link href={`/articles/${article.id}`}>
+          <Link href={`/articles/${article.id}`} key={article.id}>
             <BestArticle
-              key={article.id}
               title={article.title}
               imageUrl={article.imageUrl}
               createdAt={article.createdAt}

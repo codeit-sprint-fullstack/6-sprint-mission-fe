@@ -2,9 +2,7 @@
 
 import React from "react";
 
-function BestArticle({ title, imageUrl, createdAt }) {
-  console.log(imageUrl);
-
+function BestArticle({ title, createdAt }) {
   // 날짜 prettier
   const formatDate = (iso) => {
     const date = new Date(iso);
@@ -15,9 +13,9 @@ function BestArticle({ title, imageUrl, createdAt }) {
   };
 
   return (
-    <div className="bg-amber-400 px-[24px] pb-[16px] ">
+    <div className="bg-sixth px-[24px] pb-[16px] ">
       <img src="/image/ui/articleBadge.png" className="w-[102px] h-[30px]" />
-      <div className="w-[336px] h-[72px]">
+      <div className="w-[336px]">
         <div className="flex flex-row justify-between mt-[16px] mb-[18px]">
           <div className="font-bold text-[20px]">{title} </div>
           <img src="/image/ui/macbook.png" />

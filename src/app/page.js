@@ -1,4 +1,4 @@
-import ArticleList from "@/components/ui/ArticleList";
+import ArticleHeader from "@/components/ui/ArticleHeader";
 import Articles from "@/components/ui/Articles";
 import BestList from "@/components/ui/BestList";
 

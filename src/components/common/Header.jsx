@@ -11,9 +11,6 @@ function Header() {
   const pathName = usePathname();
   const { activePage, setActivePage } = useNav();
 
-  console.log("activePage", activePage);
-  console.log("pathName", pathName);
-
   const handelLogin = () => {
     router.push("/login");
   };

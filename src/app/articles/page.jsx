@@ -1,5 +1,5 @@
 import React from "react";
-import ArticleList from "@/components/ui/ArticleList";
+import ArticleHeader from "@/components/ui/ArticleHeader";
 import Articles from "@/components/ui/Articles";
 import BestList from "@/components/ui/BestList";
 
@@ -9,8 +9,10 @@ function articles() {
       <div className="w-[1200px] flex flex-col pt-[94px] font-pretendard">
         <BestList />
 
-        <ArticleList />
-        <Articles />
+        <div>
+          <ArticleHeader />
+          <Articles />
+        </div>
       </div>
     </div>
   );

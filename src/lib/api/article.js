@@ -1,6 +1,5 @@
-// 베스트로 정렬된 게시글 3개 가져옴
+// 게시글 3개 가져옴
 export async function getBestArticles() {
-  const limit = 3;
   const res = await fetch(`http://localhost:3000/articles?take=3`, {
     cache: "no-store",
   });
@@ -12,7 +11,7 @@ export async function getBestArticles() {
   return res.json();
 }
 
-//최신순/좋아요순 정렬된 게시글 목록 가져옴 (3~5개)
+//게시글 목록 가져옴
 export async function getArticles() {
   const res = await fetch(`http://localhost:3000/articles?take=4`, {
     cache: "no-store",
@@ -34,5 +33,20 @@ export async function getArticle(articleId) {
   if (!res.ok) {
     throw new Error("해당 게시글을 가져올 수 없습니다.");
   }
+  return res.json();
+}
+
+//게시글 등록하기
+export async function postArticle(postData) {
+  const res = await fetch("http://localhost:3000/articles", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(postData),
+  });
+
+  if (!res.ok) throw new Error("게시글 등록 실패");
+
   return res.json();
 }
