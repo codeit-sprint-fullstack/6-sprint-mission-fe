@@ -1,41 +1,23 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import img_reply_empty from "@/assets/images/community/img_reply_empty.svg";
 import ic_back from "@/assets/images/community/ic_back.svg";
 import Image from "next/image";
 import Link from "next/link";
 import CommentsLoad from "./CommentsLoad";
 
-export default function CommentList() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  const comments = [
-    {
-      id: "1",
-      content: "혹시 사용기간이 어떻게 되실까요?",
-      createdAt: "1시간 전",
-    },
-    {
-      id: "2",
-      content: "혹시 사용기간이 어떻게 되실까요?",
-      createdAt: "1시간 전",
-    },
-    {
-      id: "3",
-      content: "혹시 사용기간이 어떻게 되실까요?",
-      createdAt: "1시간 전",
-    },
-  ];
-
-  // 댓글 조회
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 2000);
-  }, []);
-
+export default function CommentList({
+  isLoading,
+  comments,
+  updateArticleComment,
+  removeArticleComment,
+}) {
   return (
     <div className="flex flex-col justify-center items-center w-full gap-[40px] sm:gap-[48px]">
       {isLoading ? (
+        "댓글 불러오는 중..."
+      ) : !comments.length ? (
         <div className="flex flex-col gap-[16px]">
           <div className="relative w-[140px] h-[140px]">
             <Image
@@ -54,7 +36,14 @@ export default function CommentList() {
       ) : (
         <div className="flex flex-col gap-y-[16px] w-full sm:gap-y-[24px]">
           {comments.map((comment) => {
-            return <CommentsLoad key={comment.id} comment={comment} />;
+            return (
+              <CommentsLoad
+                key={comment.id}
+                comment={comment}
+                updateArticleComment={updateArticleComment}
+                removeArticleComment={removeArticleComment}
+              />
+            );
           })}
         </div>
       )}

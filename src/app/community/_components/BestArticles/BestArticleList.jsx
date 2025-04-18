@@ -18,7 +18,9 @@ export default function BestArticleList() {
   // 반응형 리퀘스트 보내기
   useGetDeviceType(setParams);
 
-  const bestArticlesLoad = async () => {
+  const bestArticlesLoad = async (params) => {
+    if (!params.limit) return;
+
     const { list } = await getArticles(params);
 
     setIsLoading(false);

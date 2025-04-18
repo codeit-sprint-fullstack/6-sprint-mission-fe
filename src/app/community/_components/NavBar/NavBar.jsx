@@ -5,19 +5,7 @@ import React from "react";
 import SearchBox from "./SearchBox";
 import SelectSort from "./SelectSort";
 
-export default function NavBar() {
-  // 렌더링(정렬 선택)
-  const sortLoad = (orderBy) => {
-    if (params.orderBy === orderBy) return;
-    setParams((prevParams) => ({ ...prevParams, page: 1, orderBy }));
-  };
-
-  // 렌더링(검색)
-  const searchLoad = (keyword) => {
-    if (params.keyword === keyword) return;
-    setParams((prevParams) => ({ ...prevParams, page: 1, keyword }));
-  };
-
+export default function NavBar({ searchLoad, sortLoad }) {
   return (
     <div className="flex justify-center">
       <div className="relative flex flex-col justify-between gap-[16px] items-center w-full mt-[24px] mb-[16px] sm:gap-[24px] sm:mt-[40px] sm:mb-[24px] md:mt-[26px]">

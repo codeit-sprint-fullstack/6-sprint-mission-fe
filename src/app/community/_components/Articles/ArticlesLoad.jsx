@@ -3,6 +3,7 @@ import ic_heart from "@/assets/images/common/ic_heart.svg";
 import img_notebook from "@/assets/images/community/img_notebook.svg";
 import ic_profile from "@/assets/images/common/ic_profile.svg";
 import Link from "next/link";
+import dayjs from "dayjs";
 
 export default function AriclesLoad({ article }) {
   return (
@@ -37,7 +38,9 @@ export default function AriclesLoad({ article }) {
               />
             </div>
             <p className="text-secondary-gray-500">총명한 판다</p>
-            <p className="text-secondary-gray-300">{article.createdAt}</p>
+            <p className="text-secondary-gray-300">
+              {dayjs(article.createdAt).format("YYYY. MM. DD")}
+            </p>
           </div>
           <div className="flex justify-center items-center gap-[8px]">
             <div className="relative w-[24px] h-[24px]">

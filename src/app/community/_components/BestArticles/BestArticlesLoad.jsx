@@ -3,6 +3,7 @@ import ic_heart from "@/assets/images/common/ic_heart.svg";
 import img_badge from "@/assets/images/community/img_badge.svg";
 import img_notebook from "@/assets/images/community/img_notebook.svg";
 import Link from "next/link";
+import dayjs from "dayjs";
 
 export default function BestArticlesLoad({ bestArticle }) {
   return (
@@ -44,7 +45,9 @@ export default function BestArticlesLoad({ bestArticle }) {
               <p className="text-secondary-gray-400">9999+</p>
             </div>
           </div>
-          <p className="text-secondary-gray-300">{bestArticle.createdAt}</p>
+          <p className="text-secondary-gray-300">
+            {dayjs(bestArticle.createdAt).format("YYYY. MM. DD")}
+          </p>
         </div>
       </div>
     </Link>

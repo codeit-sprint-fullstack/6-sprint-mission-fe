@@ -1,16 +1,28 @@
 "use client";
 
-import { postArticle } from "@/lib/api/article.api";
+import { getArticle, patchArticle } from "@/lib/api/article.api";
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const INITIAL_BODY = { title: "", content: "" };
 
-export default function CommunityCreatePage() {
+export default function CommunityEditPage() {
   const [body, setBody] = useState(INITIAL_BODY);
   const [isActive, setIsActive] = useState(false);
+  const { articleId } = useParams();
   const router = useRouter();
+
+  const articleLoad = async (articleId) => {
+    const article = await getArticle(articleId);
+
+    return setBody(article);
+  };
+
+  // 게시글 세부 조회(기존 내용 불러오는 용도)
+  useEffect(() => {
+    articleLoad(articleId);
+  }, []);
 
   // body 업데이트
   const changeValue = (e) => {
@@ -32,22 +44,22 @@ export default function CommunityCreatePage() {
     }
   }, [body]);
 
-  // 게시글 등록
-  const createArticle = async (e, body) => {
+  // 게시글 수정
+  const updateArticle = async (e, articleId, body) => {
     e.preventDefault();
 
-    const article = await postArticle(body);
+    const article = await patchArticle(articleId, body);
     router.push(`/community/${article.id}`);
   };
 
   return (
     <form
-      onSubmit={(e) => createArticle(e, body)}
+      onSubmit={(e) => updateArticle(e, articleId, body)}
       className="p-[16px] sm:p-[24px]"
     >
       <div className="flex justify-center items-center">
         <div className="flex justify-between items-center w-full max-w-[1200px]">
-          <h1 className="h-[32px] font-bold text-[20px]">게시글 작성</h1>
+          <h1 className="h-[32px] font-bold text-[20px]">게시글 수정</h1>
           <button
             type="submit"
             disabled={!isActive}

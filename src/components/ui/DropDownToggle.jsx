@@ -4,14 +4,37 @@ import React from "react";
 import ic_setting from "@/assets/images/community/ic_setting.svg";
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function DropDownToggle({
   article,
+  remove,
+  handleEditMode,
   handleDropDownToggle,
   handleDropDownClose,
   isDropDownVisible,
 }) {
+  const router = useRouter();
+
+  const handleEdit = () => {
+    handleDropDownClose();
+
+    if (article) {
+      router.push(`/community/${article.id}/edit`);
+    } else {
+      handleEditMode();
+    }
+  };
+
+  const handleDelete = () => {
+    handleDropDownClose();
+    remove();
+
+    if (article) {
+      router.push("/community");
+    }
+  };
+
   return (
     <>
       <button
@@ -28,20 +51,18 @@ export default function DropDownToggle({
           "absolute z-1 bg-white border-[1.3px] border-secondary-gray-200 rounded-[8px] right-[5px] top-[28px]"
         )}
       >
-        <Link
-          href={`${article && `/community/${article.id}/edit`}`}
-          onClick={handleDropDownClose}
+        <button
+          onClick={handleEdit}
           className="flex justify-center items-center font-normal text-[14px]/[24px] w-[102px] h-[45px] text-secondary-gray-400 cursor-pointer sm:w-[139px] sm:h-[47px]"
         >
           수정하기
-        </Link>
-        <Link
-          href={`${article && "/community"}`}
-          onClick={handleDropDownClose}
+        </button>
+        <button
+          onClick={handleDelete}
           className="flex justify-center items-center font-normal text-[14px]/[24px] w-[102px] h-[45px] text-secondary-gray-400 cursor-pointer sm:w-[139px] sm:h-[47px]"
         >
           삭제하기
-        </Link>
+        </button>
       </div>
     </>
   );
