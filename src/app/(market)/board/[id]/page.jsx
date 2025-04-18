@@ -8,7 +8,7 @@ import { deleteArticle, getArticle } from "@/lib/api/articleApi";
 import { useParams, useRouter } from "next/navigation";
 import FormatDate from "@/components/ui/FormatDate";
 import Dropdown from "@/components/ui/Dropdown";
-import { createComment, getComments } from "@/lib/api/commentApi";
+import { getComments } from "@/lib/api/commentApi";
 import CommentList from "./_components/CommentList";
 
 export function UserLocation() {
@@ -100,17 +100,18 @@ function page() {
             width={40}
             height={40}
           />
-          <div className="flex gap-0.5">
+          <div className="flex gap-0.5 md:gap-2">
             <div className="font-medium text-gray-600">총명한 판다</div>
             <FormatDate createdAt={article.createdAt} />
           </div>
-          <span className="h-10 border-r-1 border-gray-200"></span>
-          <button className="flex items-center px-3 py-1 border-1 border-gray-200 rounded-[35px] gap-[3px]">
+          <span className="h-10 border-r-1 border-gray-200 md:mx-4"></span>
+          <button className="flex items-center px-3 py-1 border-1 border-gray-200 rounded-[35px] gap-1">
             <Image
               src="/assets/icon/ic_unheart.svg"
               alt="좋아요 아이콘"
-              width={32}
-              height={32}
+              width={24}
+              height={24}
+              className="md:w-8 md:h-8"
             />
             <span className="font-medium text-gray-500">123</span>
           </button>
@@ -127,7 +128,7 @@ function page() {
           getCommentList={getCommentList}
         />
         <Link href="/board" className="flex justify-center">
-          <button className="flex btn-base mt-10 mb-[319px] px-10 rounded-[40px] gap-2">
+          <button className="flex btn-base h-12 mt-10 mb-[234px] px-10 rounded-[40px] gap-2">
             <span className="text-lg font-semibold">목록으로 돌아가기</span>
             <Image
               src="/assets/icon/ic_back.svg"

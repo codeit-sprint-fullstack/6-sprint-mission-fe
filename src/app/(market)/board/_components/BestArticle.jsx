@@ -1,12 +1,9 @@
 import Image from "next/image";
-import React from "react";
 import ArticleCard from "./ArticleCard";
-import dayjs from "dayjs";
+import Link from "next/link";
 
 function BestArticle({ articles }) {
   const article = articles[0];
-  const date = article.createdAt;
-  const formattedDate = dayjs(date).format("YYYY. MM. DD");
 
   return (
     <div>
@@ -17,8 +14,16 @@ function BestArticle({ articles }) {
           alt="베스트 뱃지"
           width={102}
           height={30}
+          className="mb-4"
         />
-        <ArticleCard title={article.title} createdAt={formattedDate} />
+        <Link key={article.id} href={`/board/${article.id}`}>
+          <ArticleCard
+            key={article.id}
+            title={article.title}
+            createdAt={article.createdAt}
+            isBest={true}
+          />
+        </Link>
       </article>
     </div>
   );

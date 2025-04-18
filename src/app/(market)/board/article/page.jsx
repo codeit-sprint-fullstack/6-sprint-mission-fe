@@ -1,4 +1,4 @@
-import ArticleForm from "@/components/common/ArticleForm";
+import ArticleForm from "@/app/(market)/board/[id]/_components/ArticleForm";
 import React from "react";
 
 function page() {

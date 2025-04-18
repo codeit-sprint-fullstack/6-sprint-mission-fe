@@ -24,10 +24,10 @@ function CommentForm({ articleId, getCommentList }) {
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="w-full mt-[9px] mb-4 rounded-xl bg-gray-100 px-6 py-4 resize-none"
+          className="w-full h-[104px] mt-[9px] mb-4 rounded-xl bg-gray-100 px-6 py-4 resize-none"
           placeholder="댓글을 입력해주세요."
         />
-        <div className="flex justify-end">
+        <div className="flex justify-end items-center">
           <button className="btn-base" type="submit" disabled={!content}>
             등록
           </button>

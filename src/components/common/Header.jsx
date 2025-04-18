@@ -8,25 +8,27 @@ function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="flex justify-between items-center w-full h-[70px] border-b border-[#dfdfdf] px-4">
-      <div className="flex items-center gap-6">
-        <picture>
-          <source
-            srcSet="/assets/logo/logo_typo.svg"
-            media="(max-width: 743px)"
+    <header className="flex justify-between items-center w-full h-[70px] border-b border-[#dfdfdf] px-4 md:px-6 lg:px-50">
+      <div className="flex items-center gap-4 md:gap-[35px]">
+        <Link href="/">
+          {/* 모바일 */}
+          <Image
+            src="/assets/logo/logo_typo.svg"
+            alt="판다마켓 로고"
             width={81}
-            height={40}
+            height={27}
+            className="block md:hidden"
           />
-          <Link href="/">
-            <Image
-              src="/assets/logo/logo_sm.svg"
-              alt="판다마켓 로고"
-              width={153}
-              height={51}
-            />
-          </Link>
-        </picture>
-        <div className="flex gap-[21px] text-[18px] font-bold text-gray-600">
+          {/* 태블릿 이상 */}
+          <Image
+            src="/assets/logo/logo_sm.svg"
+            alt="판다마켓 로고"
+            width={153}
+            height={51}
+            className="hidden md:block"
+          />
+        </Link>
+        <div className="flex gap-2 md:gap-[30px] mr-[23px] md:text-[18px] font-bold text-gray-600">
           <Link
             href="/board"
             className={pathname.startsWith("/board") ? "text-primary-100" : ""}

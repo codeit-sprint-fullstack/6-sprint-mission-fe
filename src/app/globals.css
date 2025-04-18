@@ -12,17 +12,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* ===== 테마 정의 ===== */
 @theme {
-  /* 브레이크포인트 정의: 기본 반응형 브레이크 포인트를 디자인 요구사항에 따라 변경가능. */
-  /* className="text-sm md:text-2xl" 면 화면너비 기본 text-sm, 768px부터 text-2xl 의미 */
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
-
-  /* 색상 정의: 디자인 내용에 따라 정의. 실사용 시 className="text-primary-50" */
   /* Primary */
   --color-primary-300: #1251aa;
   --color-primary-200: #1967d6;
@@ -50,11 +40,18 @@
   }
 }
 
-/* ===== 컴포넌트 클래스 ===== */
 @layer components {
   /* 버튼 컴포넌트 */
   .btn-base {
-    @apply px-[23px] py-3 rounded-lg bg-primary-100 text-white font-semibold cursor-pointer hover:bg-primary-200 disabled:bg-gray-400 disabled:cursor-not-allowed;
+    @apply flex justify-center items-center h-[42px] px-[23px] py-3 rounded-lg bg-primary-100 text-white font-semibold cursor-pointer hover:bg-primary-200 disabled:bg-gray-400 disabled:cursor-not-allowed;
+  }
+
+  .text-lg {
+    --tw-leading: 26px;
+  }
+
+  .text-xl {
+    --tw-leading: 32px;
   }
 }
 
@@ -68,7 +65,6 @@ body {
 input,
 textarea {
   border: none;
-  outline: none;
 }
 
 input:focus,

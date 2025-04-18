@@ -17,6 +17,7 @@ function CommentList({
           alt="댓글 없음 이미지"
           width={140}
           height={140}
+          className="mb-4"
         />
         <p>
           아직 댓글이 없어요,
