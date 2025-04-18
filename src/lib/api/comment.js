@@ -13,3 +13,47 @@ export async function getComments(articleId) {
 
   return res.json();
 }
+
+//댓글 등록하기
+export async function postComment(articleId, postData) {
+  const res = await fetch(
+    `http://localhost:3000/articles/${articleId}/comments`,
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    }
+  );
+  if (!res.ok) throw new Error("댓글 등록 실패");
+
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+//댓글 수정하기
+export async function patchComment(commentId, patchData) {
+  const res = await fetch(
+    `http://localhost:3000/articles/comments/${commentId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(patchData),
+    }
+  );
+
+  if (!res.ok) throw new Error("댓글 수정 실패");
+  return res.json();
+}
+
+//댓글 삭제하기
+export async function deleteComment(commentId) {
+  const res = await fetch(`http://localhost:3000/comments/${commentId}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) throw new Error("댓글 삭제 실패");
+}

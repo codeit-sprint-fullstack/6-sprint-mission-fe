@@ -3,6 +3,7 @@
 import React from "react";
 import MoreToggle from "./MoreToggle";
 import { usePathname, useRouter } from "next/navigation";
+import { deleteArticle, getArticles, getBestArticles } from "@/lib/api/article";
 
 function ArticleDetail({ articleId, article }) {
   const router = useRouter();
@@ -17,13 +18,19 @@ function ArticleDetail({ articleId, article }) {
   };
 
   const onPatch = () => {
-    console.log("수정하러 가기");
-
     router.push(`/posting/${articleId}`);
   };
 
-  const onDelete = () => {
-    console.log("삭제하러 가기");
+  const onDelete = async () => {
+    try {
+      await deleteArticle(articleId);
+      await getBestArticles();
+      router.push("/articles");
+
+      console.log("게시글이 정상적으로 삭제되었습니다.");
+    } catch (e) {
+      console.error("게시글 삭제 중 오류 발생", e);
+    }
   };
 
   return (

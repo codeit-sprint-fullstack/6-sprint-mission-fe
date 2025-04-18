@@ -1,12 +1,24 @@
+"use client";
+
 import { getComments } from "@/lib/api/comment";
-import React from "react";
 import Comment from "./Comment";
+import { useEffect, useState } from "react";
 
-async function Comments({ params }) {
-  const { id: articleId } = await params;
+export default function Comments({ articleId, refreshTrigger }) {
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const res = await getComments(articleId);
-  const comments = res.data;
+  const fetchComments = async () => {
+    const res = await getComments(articleId);
+    setComments(res.data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, [articleId, refreshTrigger]);
+
+  if (loading) return <div> 댓글 로딩중... </div>;
 
   if (comments.length === 0)
     return (
@@ -18,10 +30,14 @@ async function Comments({ params }) {
   return (
     <div>
       {comments.map((comment) => (
-        <Comment key={comment.id} content={comment.content} />
+        <Comment
+          key={comment.id}
+          commentId={comment.id}
+          articleId={articleId}
+          content={comment.content}
+          refreshComments={fetchComments}
+        />
       ))}
     </div>
   );
 }
-
-export default Comments;
