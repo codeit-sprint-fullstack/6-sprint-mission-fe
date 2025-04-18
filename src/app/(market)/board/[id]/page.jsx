@@ -8,6 +8,8 @@ import { deleteArticle, getArticle } from "@/lib/api/articleApi";
 import { useParams, useRouter } from "next/navigation";
 import FormatDate from "@/components/ui/FormatDate";
 import Dropdown from "@/components/ui/Dropdown";
+import { createComment, getComments } from "@/lib/api/commentApi";
+import CommentList from "./_components/CommentList";
 
 export function UserLocation() {
   const [location, setLocation] = useState("");
@@ -21,39 +23,54 @@ export function UserLocation() {
 
 function page() {
   const [article, setArticle] = useState();
+  const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const router = useRouter();
   const params = useParams();
+
   const editOption = [
     { label: "수정하기", value: "edit" },
     { label: "삭제하기", value: "delete" },
   ];
 
   useEffect(() => {
-    getArticleById();
+    const fetchData = async () => {
+      await Promise.all([getArticleById(), getCommentList()]);
+      setIsLoading(false);
+    };
+
+    fetchData();
   }, [params.id]);
 
+  // 상세 게시글 불러오는 함수
   const getArticleById = async () => {
     const data = await getArticle(params.id);
     setArticle(data);
-    setIsLoading(false);
   };
 
-  if (isLoading) return;
+  // 게시글 댓글 목록 불러오는 함수
+  const getCommentList = async () => {
+    const data = await getComments(params.id);
+    setComments(data);
+  };
 
-  const handleEdit = (action) => {
+  if (isLoading) return null;
+
+  // 게시글 편집 핸들러
+  const handleEditArticle = (action) => {
     setIsDropdownOpen(true);
     if (action === "edit") {
       router.push(`/board/${params.id}/edit`);
     } else if (action === "delete") {
-      handleDelete();
+      handleDeleteArticle();
       router.push("/board");
     }
   };
 
-  const handleDelete = async () => {
+  // 게시글 삭제 핸들러
+  const handleDeleteArticle = async () => {
     await deleteArticle(params.id);
   };
 
@@ -72,7 +89,7 @@ function page() {
               onClick={() => setIsDropdownOpen((prev) => !prev)}
             />
             {isDropdownOpen && (
-              <Dropdown items={editOption} onSelect={handleEdit} />
+              <Dropdown items={editOption} onSelect={handleEditArticle} />
             )}
           </div>
         </div>
@@ -87,7 +104,7 @@ function page() {
             <div className="font-medium text-gray-600">총명한 판다</div>
             <FormatDate createdAt={article.createdAt} />
           </div>
-          <span className="h-10 border-1 border-gray-200"></span>
+          <span className="h-10 border-r-1 border-gray-200"></span>
           <button className="flex items-center px-3 py-1 border-1 border-gray-200 rounded-[35px] gap-[3px]">
             <Image
               src="/assets/icon/ic_unheart.svg"
@@ -101,7 +118,14 @@ function page() {
       </nav>
       <section>
         <p className="mt-4 mb-8">{article.content}</p>
-        <CommentForm />
+        <CommentForm articleId={params.id} getCommentList={getCommentList} />
+        <CommentList
+          articleId={params.id}
+          comments={comments}
+          setComments={setComments}
+          editOption={editOption}
+          getCommentList={getCommentList}
+        />
         <Link href="/board" className="flex justify-center">
           <button className="flex btn-base mt-10 mb-[319px] px-10 rounded-[40px] gap-2">
             <span className="text-lg font-semibold">목록으로 돌아가기</span>
