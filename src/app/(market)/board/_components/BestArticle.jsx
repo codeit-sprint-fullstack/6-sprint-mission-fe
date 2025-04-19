@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 import { ARTICLE_COUNT, BREAKPOINTS } from "@/const";
 
 function BestArticle({ articles }) {
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);

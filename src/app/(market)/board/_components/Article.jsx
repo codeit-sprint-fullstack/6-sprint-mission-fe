@@ -15,7 +15,9 @@ function Article({ articles }) {
   const [searchInput, setSearchInput] = useState("");
   const [dropdownOption, setDropdownOption] = useState(sortOption[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);

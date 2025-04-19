@@ -13,6 +13,11 @@
 }
 
 @theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 744px;
+  --breakpoint-lg: 1200px;
+
   /* Primary */
   --color-primary-300: #1251aa;
   --color-primary-200: #1967d6;
