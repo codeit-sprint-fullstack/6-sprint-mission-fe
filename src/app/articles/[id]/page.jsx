@@ -34,7 +34,11 @@ export default function SpecifiedArticle({ params }) {
     <div className="flex items-center justify-center font-pretendard">
       <div className="pt-[94px]">
         <ArticleDetail articleId={articleId} article={article} />
-        <CreateComment articleId={articleId} onCommentAdded={refreshComments} />
+        <CreateComment
+          articleId={articleId}
+          onCommentAdded={refreshComments}
+          refreshTrigger={refreshTrigger}
+        />
         <Comments articleId={articleId} refreshTrigger={refreshTrigger} />
         <div className="flex justify-center mt-[64px]">
           <Button

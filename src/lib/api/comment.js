@@ -34,16 +34,13 @@ export async function postComment(articleId, postData) {
 
 //댓글 수정하기
 export async function patchComment(commentId, patchData) {
-  const res = await fetch(
-    `http://localhost:3000/articles/comments/${commentId}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(patchData),
-    }
-  );
+  const res = await fetch(`http://localhost:3000/comments/${commentId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(patchData),
+  });
 
   if (!res.ok) throw new Error("댓글 수정 실패");
   return res.json();
