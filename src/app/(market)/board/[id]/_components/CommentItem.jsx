@@ -75,16 +75,15 @@ function CommentItem({
       </div>
       <div className="text-right mr-5 -translate-y-3">
         {isEdit && (
-          <div className="space-x-1">
+          <div className="flex justify-end gap-1">
             <button
-              className="btn-base text-sm rounded-4xl px-4 py-1 bg-gray-200 text-black"
+              className="btn-base text-sm rounded-4xl px-4 h-8 bg-gray-200 text-black"
               onClick={() => setIsEdit(false)}
             >
               취소
             </button>
-
             <button
-              className="btn-base text-sm rounded-4xl px-4 py-1 bg-gray-400"
+              className="btn-base text-sm rounded-4xl px-4 h-8 bg-gray-400"
               onClick={() => handleUpdateComment(comment.id, updatedContent)}
             >
               저장
