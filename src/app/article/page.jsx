@@ -2,8 +2,11 @@ import React from "react";
 import BestArticle from "./_components/BestArticle";
 import Link from "next/link";
 import Image from "next/image";
+import { getArticle } from "@/lib/api/articleApi";
 
-export default function Article() {
+export default async function Article() {
+  const articles = await getArticle();
+  console.log(articles);
   return (
     <section className="m-[16px] m:m-[24px ]">
       <div className="max-w-[343px] m-auto web:max-w-[696px] pc:max-w-[1200px]">

@@ -14,26 +14,26 @@ export default function Footer() {
           <div className="flex items-center gap-[12px]">
             <Images
               src={"/facebook.png"}
-              w={"20px"}
-              h={"20px"}
+              w={"w-[20px]"}
+              h={"h-[20px]"}
               alt={"facebook"}
             />
             <Images
               src={"/twitter.png"}
-              w={"20px"}
-              h={"20px"}
+              w={"w-[20px]"}
+              h={"h-[20px]"}
               alt={"twitter"}
             />
             <Images
               src={"/youtube.png"}
-              w={"20px"}
-              h={"20px"}
+              w={"w-[20px]"}
+              h={"h-[20px]"}
               alt={"youtube"}
             />
             <Images
               src={"/instagram.png"}
-              w={"20px"}
-              h={"20px"}
+              w={"w-[20px]"}
+              h={"h-[20px]"}
               alt={"instagram"}
             />
           </div>
