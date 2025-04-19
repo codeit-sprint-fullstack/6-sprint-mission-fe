@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useComments } from "@/hooks/useArticle";
+import { useComments } from "@/hooks/Article";
 
 export default function CommentForm({ articleId, onCommentAdded }) {
   const [comment, setComment] = useState("");

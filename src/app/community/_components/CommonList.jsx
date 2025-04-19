@@ -1,35 +1,19 @@
 "use client";
 
 import CommonItem from "./CommonItem";
-import { useEffect, useState } from "react";
-import { useArticles } from "@/hooks/useArticle";
+import { useArticles } from "@/hooks/Article";
 import Link from "next/link";
 import LoadingState from "./LoadingState";
 import SearchSortBar from "./SearchSortBar";
+import Pagination from "./pagination";
 
 export default function CommonList() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const {
-    articles,
-    pagination,
-    loading,
-    error,
-    handleSearchChange,
-    handleOrderChange,
-    loadMore,
-  } = useArticles({
-    limit: 10,
-  });
-
-  // 로컬 검색어 상태 업데이트
-  const updateLocalSearchTerm = (value) => {
-    setSearchTerm(value);
-    // 디바운스 처리는 이미 useArticles 훅 내부에서 이루어짐
-    handleSearchChange(value);
-  };
+  const { articles, loading, error, search, handleOrderChange, pagination } =
+    useArticles();
 
   return (
     <div className="flex w-full flex-col gap-5">
+      {/* 일반 게시글 헤더 */}
       <div className="flex items-center justify-between">
         <span className="text-[18px] font-bold md:text-[20px]">게시글</span>
         <Link href="/community/write">
@@ -41,8 +25,7 @@ export default function CommonList() {
 
       {/* 검색 및 정렬 영역 */}
       <SearchSortBar
-        searchTerm={searchTerm}
-        onSearchChange={updateLocalSearchTerm}
+        onSearchChange={search.handleSearchChange}
         onOrderChange={handleOrderChange}
       />
 
@@ -53,7 +36,7 @@ export default function CommonList() {
         isEmpty={!loading && !error && articles.length === 0}
         emptyMessage="등록된 게시글이 없습니다."
         loadingMessage="게시글을 불러오는 중..."
-        errorMessage="게시글을 불러오는 데 실패했습니다."
+        errorMessage="게시글을 불러오는 데 실패했습다."
       />
 
       {/* 게시글 목록 */}
@@ -68,16 +51,8 @@ export default function CommonList() {
       )}
 
       {/* 페이지네이션 버튼 */}
-      {pagination.hasMore && (
-        <div className="mt-5 text-center">
-          <button
-            onClick={loadMore}
-            disabled={loading}
-            className="inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {loading ? "불러오는 중..." : "더 보기"}
-          </button>
-        </div>
+      {articles.length > 0 && (
+        <Pagination pagination={pagination} loading={loading} />
       )}
     </div>
   );

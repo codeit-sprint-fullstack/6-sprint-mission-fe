@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import { useArticle } from "@/hooks/useArticle";
+import { useArticle } from "@/hooks/Article";
 import ArticleHeader from "./_components/ArticleHeader";
 import ArticleContent from "./_components/ArticleContent";
 import CommentSection from "./_components/CommentSection";

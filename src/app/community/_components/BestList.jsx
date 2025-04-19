@@ -1,7 +1,7 @@
 "use client";
 
 import BestItem from "./BestItem";
-import { useArticles } from "@/hooks/useArticle";
+import { useArticles } from "@/hooks/Article";
 import useDeviceType from "@/hooks/useDeviceType";
 import { useMemo } from "react";
 import LoadingState from "./LoadingState";

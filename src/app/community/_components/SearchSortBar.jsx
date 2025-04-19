@@ -10,19 +10,14 @@ const ORDER_LIST = ["최신순", "좋아요순"];
 
 /**
  * 검색 및 정렬 기능을 제공하는 컴포넌트
- * @param {string} searchTerm - 검색어
  * @param {function} onSearchChange - 검색어 변경 핸들러 (디바운싱은 부모 컴포넌트에서 처리)
  * @param {function} onSearch - 검색 제출 핸들러
  * @param {function} onOrderChange - 정렬 방식 변경 핸들러
  */
-export default function SearchSortBar({
-  searchTerm,
-  onSearchChange,
-  onOrderChange,
-}) {
+export default function SearchSortBar({ onSearchChange, onOrderChange }) {
   const [isOpen, setIsOpen] = useState(false);
   const [order, setOrder] = useState(ORDER_LIST[0]);
-  const [inputValue, setInputValue] = useState(searchTerm);
+  const [inputValue, setInputValue] = useState("");
   const { isMobile } = useDeviceType();
 
   // 입력값 변경 처리
@@ -51,11 +46,6 @@ export default function SearchSortBar({
       onOrderChange(selectedOrder);
     }
   };
-
-  // searchTerm prop이 외부에서 변경될 경우 로컬 상태 동기화
-  useEffect(() => {
-    setInputValue(searchTerm);
-  }, [searchTerm]);
 
   return (
     <form

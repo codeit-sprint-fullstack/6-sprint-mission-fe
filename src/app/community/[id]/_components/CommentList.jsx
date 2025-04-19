@@ -1,6 +1,6 @@
 "use client";
 
-import { useComments } from "@/hooks/useArticle";
+import { useComments } from "@/hooks/Article";
 import CommentItem from "./CommentItem";
 import LoadingState from "./LoadingState";
 import EmptyComments from "./EmptyComments";
