@@ -32,10 +32,6 @@ export default function CommentsLoad({
     setIsDropDownVisible(!isDropDownVisible);
   };
 
-  const handleDropDownClose = () => {
-    setIsDropDownVisible(false);
-  };
-
   // 게시글 댓글 수정모드
   const handleEditMode = () => {
     setIsEditMode(true);
@@ -80,7 +76,6 @@ export default function CommentsLoad({
             <DropDownToggle
               remove={() => removeArticleComment(articleId, comment.id)}
               handleDropDownToggle={handleDropDownToggle}
-              handleDropDownClose={handleDropDownClose}
               isDropDownVisible={isDropDownVisible}
               handleEditMode={handleEditMode}
             />

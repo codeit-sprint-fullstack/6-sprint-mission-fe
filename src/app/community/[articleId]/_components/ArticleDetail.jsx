@@ -37,10 +37,6 @@ export default function ArticleDetail() {
     setIsDropDownVisible(!isDropDownVisible);
   };
 
-  const handleDropDownClose = () => {
-    setIsDropDownVisible(false);
-  };
-
   return (
     <>
       {isLoading ? (
@@ -51,10 +47,9 @@ export default function ArticleDetail() {
             <div className="relative flex justify-between gap-[8px]">
               <h2 className="font-bold text-[20px]/[32px]">{article.title}</h2>
               <DropDownToggle
-                article={article}
+                page="article"
                 remove={() => removeArticle(articleId)}
                 handleDropDownToggle={handleDropDownToggle}
-                handleDropDownClose={handleDropDownClose}
                 isDropDownVisible={isDropDownVisible}
               />
             </div>
