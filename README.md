@@ -1,6 +1,6 @@
 # 스프린트 미션 - 판다마켓
 
-### [🐼판다마켓](https://been-panda.onrender.com) : https://been-panda.onrender.com
+### [🐼판다마켓](https://been-panda.vercel.app) : https://been-panda.vercel.app
 
 > ### 판다마켓 대표 이미지
 
