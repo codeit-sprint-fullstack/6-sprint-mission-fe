@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ArticleCard from "./ArticleCard";
 import Dropdown from "@/components/ui/Dropdown";
+import { BREAKPOINTS } from "@/const";
 
 function Article({ articles }) {
   const sortOption = [
@@ -14,6 +15,14 @@ function Article({ articles }) {
   const [searchInput, setSearchInput] = useState("");
   const [dropdownOption, setDropdownOption] = useState(sortOption[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const filteredArticles = useMemo(() => {
     const filtered = articles.filter((article) =>
@@ -53,18 +62,30 @@ function Article({ articles }) {
         />
         <div>
           <button
-            className="p-[9px] border-1 border-gray-100 rounded-lg cursor-pointer hover:bg-gray-100"
+            className="flex items-center p-[9px] md:py-3 md:px-5 md:w-[130px] md:h-[42px] border-1 border-gray-200 rounded-xl cursor-pointer bg-white hover:bg-gray-100"
             onClick={() => setIsDropdownOpen((prev) => !prev)}
           >
-            <Image
-              src="/assets/icon/ic_sort.svg"
-              alt="정렬 아이콘"
-              width={24}
-              height={24}
-            />
+            {windowWidth >= BREAKPOINTS.md ? (
+              <div className="flex justify-between w-[90px]">
+                {dropdownOption.label}
+                <Image
+                  src="/assets/icon/ic_arrow_down.svg"
+                  alt="아래 화살표 아이콘"
+                  width={24}
+                  height={24}
+                />
+              </div>
+            ) : (
+              <Image
+                src="/assets/icon/ic_sort.svg"
+                alt="정렬 아이콘"
+                width={24}
+                height={24}
+              />
+            )}
           </button>
           {isDropdownOpen && (
-            <Dropdown items={sortOption} onSelect={handleSort} />
+            <Dropdown items={sortOption} onSelect={handleSort} isSort={true} />
           )}
         </div>
       </div>

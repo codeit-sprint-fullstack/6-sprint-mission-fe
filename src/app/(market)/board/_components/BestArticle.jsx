@@ -4,18 +4,7 @@ import Image from "next/image";
 import ArticleCard from "./ArticleCard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-const BREAKPOINTS = {
-  sm: 640,
-  md: 768,
-  lg: 1024,
-};
-
-const ARTICLE_COUNT = {
-  mobile: 1,
-  tablet: 2,
-  pc: 3,
-};
+import { ARTICLE_COUNT, BREAKPOINTS } from "@/const";
 
 function BestArticle({ articles }) {
   const [windowWidth, setWindowWidth] = useState(0);

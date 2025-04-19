@@ -2,9 +2,15 @@
 
 import React from "react";
 
-function Dropdown({ items = [], onSelect }) {
+function Dropdown({ items = [], onSelect, isSort }) {
   return (
-    <ul className="absolute right-[21px] w-[102px] md:w-[139px] border-1 border-gray-200 rounded-lg bg-white cursor-pointer overflow-hidden z-1">
+    <ul
+      className={`absolute border-1 border-gray-200 bg-white cursor-pointer overflow-hidden z-1 ${
+        isSort
+          ? "right-4 mt-1 w-[130px] rounded-xl"
+          : "right-[21px] w-[102px] md:w-[139px] rounded-lg"
+      }`}
+    >
       {items.map(({ label, value }) => (
         <li
           key={value}
