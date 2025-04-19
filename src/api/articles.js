@@ -1,5 +1,6 @@
 // API 기본 URL 설정
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:7777";
+// const API_BASE_URL = "http://localhost:7777";
 
 // 환경 정보 로깅 (개발 중에만 표시)
 if (process.env.NODE_ENV !== "production") {
@@ -206,20 +207,23 @@ export async function createComment(articleId, { content }) {
  * @returns {Promise<Object>} 수정된 댓글 정보
  */
 export async function updateComment(articleId, commentId, { content }) {
+  const url = `${API_BASE_URL}/articles/${articleId}/comments/${commentId}`;
+
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/articles/${articleId}/comments/${commentId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ content }),
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({ content }),
+    });
 
     if (!response.ok) {
-      throw new Error("댓글 수정에 실패했습니다.");
+      const errorText = await response.text();
+      console.error("서버 응답:", response.status, errorText);
+      throw new Error(
+        `댓글 수정 실패: ${response.status} ${response.statusText}`,
+      );
     }
 
     return await response.json();

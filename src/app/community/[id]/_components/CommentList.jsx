@@ -2,11 +2,17 @@
 
 import { useComments } from "@/hooks/Article";
 import CommentItem from "./CommentItem";
-import LoadingState from "./LoadingState";
 import EmptyComments from "./EmptyComments";
+import { useCallback } from "react";
+import LoadingState from "@/components/common/LoadingState";
 
 export default function CommentList({ articleId }) {
-  const { comments, loading, error } = useComments(articleId);
+  const { comments, loading, error, refetch } = useComments(articleId);
+
+  // 댓글 업데이트 후 새로고침
+  const handleCommentUpdated = useCallback(() => {
+    refetch();
+  }, [refetch]);
 
   // 댓글 로딩 상태 처리
   if (loading || error) {
@@ -30,7 +36,12 @@ export default function CommentList({ articleId }) {
   return (
     <ul className="space-y-6">
       {comments.map((comment) => (
-        <CommentItem key={comment.id} comment={comment} />
+        <CommentItem
+          key={comment.id}
+          comment={comment}
+          articleId={articleId}
+          onCommentUpdated={handleCommentUpdated}
+        />
       ))}
     </ul>
   );

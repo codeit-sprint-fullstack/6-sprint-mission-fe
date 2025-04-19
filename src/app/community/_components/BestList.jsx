@@ -4,7 +4,7 @@ import BestItem from "./BestItem";
 import { useArticles } from "@/hooks/Article";
 import useDeviceType from "@/hooks/useDeviceType";
 import { useMemo } from "react";
-import LoadingState from "./LoadingState";
+import LoadingState from "../../../components/common/LoadingState";
 
 export default function BestList() {
   const { isMobile, isTablet } = useDeviceType();

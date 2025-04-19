@@ -17,8 +17,6 @@ export default function LoadingState({
   loadingMessage = "게시글을 불러오는 중...",
   errorMessage = "게시글을 불러오는 데 실패했습니다.",
 }) {
-  console.log("isEmpty", isEmpty);
-
   // 로딩 상태 표시
   if (loading) {
     return (

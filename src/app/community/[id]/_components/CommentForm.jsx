@@ -34,7 +34,7 @@ export default function CommentForm({ articleId, onCommentAdded }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6">
+    <form onSubmit={handleSubmit} className="mb-12">
       <div className="mb-2 rounded-lg bg-gray-100 p-3">
         <textarea
           value={comment}

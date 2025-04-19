@@ -3,13 +3,19 @@
 import CommonItem from "./CommonItem";
 import { useArticles } from "@/hooks/Article";
 import Link from "next/link";
-import LoadingState from "./LoadingState";
+import LoadingState from "../../../components/common/LoadingState";
 import SearchSortBar from "./SearchSortBar";
 import Pagination from "./pagination";
 
 export default function CommonList() {
-  const { articles, loading, error, search, handleOrderChange, pagination } =
-    useArticles();
+  const {
+    articles,
+    loading,
+    error,
+    handleSearch,
+    handleOrderChange,
+    pagination,
+  } = useArticles();
 
   return (
     <div className="flex w-full flex-col gap-5">
@@ -25,7 +31,7 @@ export default function CommonList() {
 
       {/* 검색 및 정렬 영역 */}
       <SearchSortBar
-        onSearchChange={search.handleSearchChange}
+        onSearchChange={handleSearch}
         onOrderChange={handleOrderChange}
       />
 
@@ -40,7 +46,7 @@ export default function CommonList() {
       />
 
       {/* 게시글 목록 */}
-      {!loading && !error && articles.length > 0 && (
+      {articles.length > 0 && (
         <ul className="flex w-full flex-col gap-6 pb-24">
           {articles.map((article) => (
             <div key={article.id}>
