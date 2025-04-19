@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { debounce } from "lodash-es";
 import * as articleApi from "../../api/articles";
+import { scrollToTop } from "@/utils/common/scrollTop";
 
 /**
  * 게시글 목록을 조회하고 검색, 정렬, 페이지네이션 기능을 제공하는 커스텀 훅
@@ -121,6 +122,7 @@ export function useArticles(initialOptions = {}) {
           ...prev,
           offset: newOffset,
         }));
+        scrollToTop();
       }
     },
     [loading, options.limit],
@@ -132,6 +134,7 @@ export function useArticles(initialOptions = {}) {
   const goToNextPage = useCallback(() => {
     if (currentPage < totalPages && !loading) {
       goToPage(currentPage + 1);
+      scrollToTop();
     }
   }, [currentPage, totalPages, loading, goToPage]);
 
@@ -141,6 +144,7 @@ export function useArticles(initialOptions = {}) {
   const goToPrevPage = useCallback(() => {
     if (currentPage > 1 && !loading) {
       goToPage(currentPage - 1);
+      scrollToTop();
     }
   }, [currentPage, loading, goToPage]);
 
