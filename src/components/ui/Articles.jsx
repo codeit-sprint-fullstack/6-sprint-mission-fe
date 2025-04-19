@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useArticles } from "@/providers/ArticlesProvider";
 
 export default function Articles() {
-  const { order, articles, setArticles } = useArticles();
+  const { order, articles, setArticles, searchTerm } = useArticles();
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -17,7 +17,15 @@ export default function Articles() {
     fetchArticles();
   }, [setArticles]);
 
-  const sortedArticles = [...articles].sort((a, b) => {
+  console.log("articles", articles);
+
+  const filtered = articles.filter((article) =>
+    searchTerm
+      ? article.title.toLowerCase().includes(searchTerm.toLowerCase())
+      : true
+  );
+
+  const sortedArticles = [...filtered].sort((a, b) => {
     if (order === "recent") {
       return new Date(b.createdAt) - new Date(a.createdAt);
     }

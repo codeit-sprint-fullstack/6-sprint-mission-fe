@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import { useArticles } from "@/providers/ArticlesProvider";
+import React from "react";
 
 function Search() {
-  const [search, setSearch] = useState("");
+  const { searchTerm, setSearchTerm } = useArticles();
 
   //검색어 입력
-  const handleChange = (e) => setSearch(e.target.value);
+  const handleChange = (e) => setSearchTerm(e.target.value);
 
   return (
     <div>
@@ -21,7 +22,7 @@ function Search() {
           "w-[1054px] h-[42px] border-0 rounded-[12px] bg-third pl-[44px] text-[16px]"
         }
         placeholder="검색할 상품을 입력해주세요"
-        value={search}
+        value={searchTerm}
         onChange={handleChange}
       />
     </div>
