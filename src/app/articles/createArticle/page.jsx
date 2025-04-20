@@ -1,12 +1,10 @@
 import React from "react";
-import CreateArticles from "@/components/createArticle";
+import CreateArticle from "@/components/createArticle";
 
-function CreateArticlePage() {
+export default function CreateArticlePage() {
   return (
     <div className="px-4 py-8">
-      <CreateArticles />
+      <CreateArticle />
     </div>
   );
 }
-
-export default CreateArticlePage;

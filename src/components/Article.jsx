@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { FaHeart } from "react-icons/fa";
+import { CiHeart } from "react-icons/ci";
 import { LuSearch } from "react-icons/lu";
 import { useRouter } from "next/navigation";
 
@@ -120,7 +120,7 @@ export default function Articles() {
               <span className="mr-2">{post.author}</span>
               <span>{post.date}</span>
               <div className="flex items-center ml-auto">
-                <FaHeart className=" mr-1 " />
+                <CiHeart className=" mr-1 " />
                 <span className="mr-2">{post.heartCount}</span>
               </div>
             </div>
