@@ -1,6 +1,5 @@
 import BestPosts from "@/components/BestPosts";
 import PostList from "@/components/PostList";
-import SearchSortBar from "@/components/SearchSortBar";
 
 export default function BoardPage() {
   return (

@@ -1,25 +1,39 @@
 "use client";
 
-import { postArticle } from "@/api/article.api";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { fetchArticleById, updateArticle } from "@/api/article.api";
+import { useParams, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-export default function NewPostPage() {
+export default function EditPostPage() {
   const router = useRouter();
+  const { id } = useParams();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-
   const isValid = title.trim() !== "" && content.trim() !== "";
+
+  useEffect(() => {
+    const loadArticle = async () => {
+      try {
+        const data = await fetchArticleById(id);
+        setTitle(data.title);
+        setContent(data.content);
+      } catch (error) {
+        console.error("게시글 불러오기 실패", error);
+      }
+    };
+    loadArticle();
+  }, [id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // 새로고침 방지
     if (!isValid) return;
 
     try {
-      const created = await postArticle(title, content);
-      router.push(`/board/${created.id}`);
+      await updateArticle(id, title, content); //PATCH 요청
+      router.push(`/board/${id}`);
     } catch (e) {
-      console.error("게시글 등록 실패", e);
+      console.error("게시글 수정정 실패", e);
       alert("등록 중 문제가 발생했습니다.");
     }
   };
@@ -29,7 +43,7 @@ export default function NewPostPage() {
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-bold mb-[37px] text-secondary-800">
-            게시글 쓰기
+            게시글 수정
           </h2>
           <button
             type="submit"
@@ -40,7 +54,7 @@ export default function NewPostPage() {
                 : "bg-gray-400 text-white cursor-not-allowed"
             }`}
           >
-            등록
+            저장
           </button>
         </div>
 

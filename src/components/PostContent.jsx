@@ -4,10 +4,13 @@ import React, { useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import Image from "next/image";
-import { postComment } from "@/api/article.api";
+import { deleteArticle, postComment } from "@/api/article.api";
+import { useRouter } from "next/navigation";
 
 export default function PostContent({ post, onCommentPosted }) {
   const [comment, setComment] = useState("");
+  const [showMenu, setShowMenu] = useState(false); //드롭다운 상태태
+  const router = useRouter();
 
   const isValid = comment.trim() !== "";
 
@@ -22,16 +25,50 @@ export default function PostContent({ post, onCommentPosted }) {
     }
   };
 
+  const handleEdit = () => {
+    router.push(`/board/${post.id}/edit`);
+  };
+
+  const handleDelete = async () => {
+    if (!confirm("정말 삭제하시겠습니까?")) return;
+
+    try {
+      await deleteArticle(post.id);
+      router.push("/board");
+    } catch (e) {
+      console.error("삭제 실패", e);
+      alert("삭제 중 오류가 발생했습니다.");
+    }
+  };
+
+  //TODO: 스타일 수정하기
   return (
     <section className="w-full max-w-[1200px] mx-auto mt-[34px]  relative">
       {/* 점 세 개 버튼 */}
       <button
         className="absolute top-1 right-1 text-secondary-400 hover:text-secondary-600"
-        onClick={() => console.log("옵션 열기")}
+        onClick={() => setShowMenu(!showMenu)}
         aria-label="게시물 옵션"
       >
         <HiOutlineDotsVertical size={24} />
       </button>
+      
+      {showMenu && (
+        <div className="absolute top-8 right-0 bg-white border border-gray-200 rounded-md shadow-md z-10 w-[100px]">
+          <button
+            onClick={handleEdit}
+            className="w-full text-sm px-4 py-2 hover:bg-gray-100 text-left"
+          >
+            수정하기
+          </button>
+          <button
+            onClick={handleDelete}
+            className="w-full text-sm px-4 py-2 hover:bg-gray-100 text-left"
+          >
+            삭제하기
+          </button>
+        </div>
+      )}
 
       {/* 제목 */}
       <h1 className="text-xl font-bold mb-4">{post.title}</h1>

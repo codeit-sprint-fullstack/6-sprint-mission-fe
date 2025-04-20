@@ -79,8 +79,8 @@ export default function PostDetailPage() {
             <CommentItem
               key={comment.id}
               comment={{
-                author: "익명러임임",
-                time: "방금 전",
+                author: "익명러임",
+                time: "1시간 전",
                 content: comment.content,
               }}
             />
