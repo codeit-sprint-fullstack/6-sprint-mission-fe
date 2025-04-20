@@ -17,8 +17,6 @@ export default function Articles() {
     fetchArticles();
   }, [setArticles]);
 
-  console.log("articles", articles);
-
   const filtered = articles.filter((article) =>
     searchTerm
       ? article.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -35,11 +33,17 @@ export default function Articles() {
 
   return (
     <div className="flex flex-col">
-      {sortedArticles.map((article) => (
-        <Link href={`/articles/${article.id}`} key={article.id}>
-          <Article title={article.title} createdAt={article.createdAt} />
-        </Link>
-      ))}
+      {sortedArticles.length === 0 ? (
+        <div className="container mx-auto px-4 py-8 text-center">
+          게시글 로딩 중...
+        </div>
+      ) : (
+        sortedArticles.map((article) => (
+          <Link href={`/articles/${article.id}`} key={article.id}>
+            <Article title={article.title} createdAt={article.createdAt} />
+          </Link>
+        ))
+      )}
     </div>
   );
 }

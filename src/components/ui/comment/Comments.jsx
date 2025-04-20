@@ -10,7 +10,8 @@ export default function Comments({ articleId, refreshTrigger }) {
 
   const fetchComments = async () => {
     const res = await getComments(articleId);
-    setComments(res.data);
+    console.log("res", res);
+    setComments(res);
     setLoading(false);
   };
 
