@@ -1,3 +1,5 @@
+"use client";
+
 import { useArticle } from "@/app/context/article.context";
 import Images from "@/components/ui/Images";
 import React from "react";

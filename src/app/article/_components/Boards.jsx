@@ -1,11 +1,9 @@
 "use client";
 
 import { getArticle } from "@/api/articleApi";
-import { useArticle } from "@/app/context/article.context";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Boards = () => {

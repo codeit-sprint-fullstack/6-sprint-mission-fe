@@ -1,7 +1,4 @@
-"use client";
-
-import Images from "@/components/ui/Images";
-import React, { useState } from "react";
+import React from "react";
 import DetailBoard from "./_components/DetailBoard";
 import CommentForm from "./_components/CommentForm";
 import Comment from "./_components/Comment";

@@ -3,6 +3,8 @@ import BestArticle from "./_components/BestArticle";
 import PostForm from "./_components/PostForm";
 import Boards from "./_components/Boards";
 
+export const dynamic = "force-dynamic";
+
 export default async function Articles() {
   return (
     <section className="m-[16px] m:m-[24px ]">
