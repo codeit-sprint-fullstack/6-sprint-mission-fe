@@ -26,10 +26,10 @@ export const postArticle = async (body) => {
   const res = await fetch(`${BASE_URL}/articles`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    body: JSON.stringify(body), 
   });
+
   if (!res.ok) throw new Error("게시글 작성에 실패했습니다");
-  console.log("요청 URL:", url);
 
   return res.json();
 };
@@ -52,7 +52,6 @@ export const deleteArticle = async (articleId) => {
   });
   if (!res.ok) throw new Error("게시글 삭제에 실패했습니다");
 };
-
 
 // 댓글 작성 (boardType: "market" 또는 "freeboard")
 export const postComment = async (boardType, articleId, body) => {

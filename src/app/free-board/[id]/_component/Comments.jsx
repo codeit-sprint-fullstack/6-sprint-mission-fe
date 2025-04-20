@@ -10,12 +10,24 @@ export default function Comments({ articleId, boardType }) {
   const [nextCursor, setNextCursor] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  function removeDuplicateComments(comments) {
+    const seen = new Set();
+    return comments.filter((comment) => {
+      if (seen.has(comment.id)) return false;
+      seen.add(comment.id);
+      return true;
+    });
+  }
+
   // 댓글 조회 함수
   const loadComments = async (cursor = null) => {
     setLoading(true);
     try {
       const data = await getComments(boardType, articleId, { cursor });
-      setComments((prev) => [...prev, ...data.comments]);
+      setComments((prev) =>
+        removeDuplicateComments([...prev, ...data.comments])
+      );
+
       setNextCursor(data.nextCursor);
     } catch (error) {
       console.error("댓글 목록 불러오기 실패:", error);

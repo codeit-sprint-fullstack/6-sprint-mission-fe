@@ -18,6 +18,7 @@ export default function AddComment({ articleId, boardType }) {
     try {
       await postComment(boardType, articleId, { content: comment });
       setComment("");
+      window.location.reload();
     } catch (error) {
       console.error("댓글 등록 실패:", error);
     } finally {

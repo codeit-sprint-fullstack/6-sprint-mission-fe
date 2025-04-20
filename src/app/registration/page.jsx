@@ -16,7 +16,7 @@ export default function CreateArticlePage() {
     if (!isFormValid) return;
 
     try {
-      const response = await postArticle(title, content);
+      const response = await postArticle({ title, content });
 
       if (response && response.id) {
         setTimeout(() => {
