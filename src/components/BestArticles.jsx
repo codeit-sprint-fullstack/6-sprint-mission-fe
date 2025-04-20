@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaHeart } from "react-icons/fa";
-import { fetchArticles } from "@/api/article.api"; // ✅ API import
+import { fetchArticles } from "@/api/article.api";
 
 export default function BestArticles() {
   const [bestArticles, setBestArticles] = useState([]);
@@ -12,8 +12,6 @@ export default function BestArticles() {
     const loadArticles = async () => {
       try {
         const data = await fetchArticles();
-
-        // 좋아요 높은 순으로 정렬 후 상위 3개 선택
         const sorted = [...data].sort(
           (a, b) => (b.heartCount ?? 0) - (a.heartCount ?? 0)
         );
@@ -57,11 +55,17 @@ export default function BestArticles() {
               </div>
             </div>
             <div className="flex items-center mt-2 text-gray-500 text-sm">
-              <span className="mr-2">{post.author || "작성자"}</span>
+              <span className="mr-2">{post.author || "총명한판다"}</span>
               <FaHeart className="mr-1" />
               <span className="mr-2">{post.heartCount ?? 0}</span>
               <div className="flex items-center ml-auto">
-                <span>{post.date}</span>
+                <span>
+                  {new Date(post.createdAt).toLocaleDateString("ko-KR", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                  })}
+                </span>
               </div>
             </div>
           </div>

@@ -1,14 +1,34 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import axiosInstance from "@/api/axiosInstance";
-import { useRouter } from "next/navigation";
 
-export default function CreateArticle() {
+export default function EditArticlePage() {
+  const { id } = useParams();
+  const router = useRouter();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
-  const router = useRouter();
+
+  // 기존 게시글 내용 불러오기
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const res = await axiosInstance.get(`/articles/${id}`);
+        setTitle(res.data.title);
+        setContent(res.data.content);
+      } catch (error) {
+        console.error(
+          "게시글 불러오기 실패:",
+          error.response?.data || error.message
+        );
+      }
+    };
+
+    if (id) fetchArticle();
+  }, [id]);
 
   useEffect(() => {
     setIsFormValid(!!title && !!content);
@@ -18,23 +38,23 @@ export default function CreateArticle() {
     e.preventDefault();
 
     try {
-      await axiosInstance.post("/articles", {
+      await axiosInstance.patch(`/articles/${id}`, {
         title,
         content,
       });
 
-      alert("게시글이 등록되었습니다.");
-      router.push("/articles");
+      alert("게시글이 수정되었습니다.");
+      router.push(`/articles/${id}`);
     } catch (error) {
-      console.error("게시글 등록 실패:", error);
-      alert("등록에 실패했습니다.");
+      console.error("게시글 수정 실패:", error.response?.data || error.message);
+      alert("게시글 수정 중 오류가 발생했습니다.");
     }
   };
 
   return (
     <div className="max-w-[1200px] mx-auto p-6 bg-white">
       <div className="flex flex-row justify-between pb-[37px]">
-        <h2 className="text-2xl font-semibold mb-4">게시글 쓰기</h2>
+        <h2 className="text-2xl font-semibold mb-4">게시글 수정</h2>
         <button
           type="submit"
           onClick={handleSubmit}
@@ -45,7 +65,7 @@ export default function CreateArticle() {
           }`}
           disabled={!isFormValid}
         >
-          등록
+          저장
         </button>
       </div>
 

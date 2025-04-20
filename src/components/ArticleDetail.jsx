@@ -1,34 +1,77 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import axiosInstance from "@/api/axiosInstance";
+import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import { CiHeart } from "react-icons/ci";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { CiHeart } from "react-icons/ci";
 
-export default function ArticleDetail({ onSubmit }) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+export default function ArticleDetail({ onCommentSubmit }) {
+  const { id } = useParams();
+  const router = useRouter();
+  const [post, setPost] = useState(null);
   const [comment, setComment] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleSubmit = (e) => {
+  // 게시글 불러오기
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const res = await axiosInstance.get(`/articles/${id}`);
+        setPost(res.data);
+      } catch (error) {
+        console.error(
+          "게시글 불러오기 실패:",
+          error.response?.data || error.message
+        );
+      }
+    };
+
+    if (id) fetchArticle();
+  }, [id]);
+
+  // 댓글 등록
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (comment) {
-      onSubmit(comment);
+    if (!comment.trim()) return;
+
+    try {
+      await axiosInstance.post(`/articles/${id}/comments`, {
+        content: comment,
+      });
+      alert("댓글이 등록되었습니다.");
       setComment("");
+
+      if (onCommentSubmit) onCommentSubmit();
+    } catch (error) {
+      console.error("댓글 등록 실패:", error.response?.data || error.message);
+      alert("댓글 등록에 실패했습니다.");
     }
   };
 
-  const post = {
-    id: 1,
-    title: "맥북 16인치 16기가 테라 정도 사양이면 얼마에 팔아야 하나요?",
-    author: "총명한판다",
-    date: "2024.01.02",
-    content: "맥북 16인치 16기가 테라 정도 사양이면 얼마에 팔아야 하나요?",
-    heartCount: "123",
-    usericon: "/images/products/userProfile.png",
+  // 게시글 삭제
+  const handleDelete = async () => {
+    if (!confirm("정말 삭제하시겠습니까?")) return;
+
+    try {
+      await axiosInstance.delete(`/articles/${id}`);
+      alert("게시글이 삭제되었습니다.");
+      router.push("/articles");
+    } catch (error) {
+      console.error(" 삭제 실패:", error.response?.data || error.message);
+      alert("삭제에 실패했습니다.");
+    }
   };
 
+  if (!post)
+    return (
+      <div className="text-center py-10">게시글을 불러오는 중입니다...</div>
+    );
+
   return (
-    <div className="max-w-[1200px] mx-auto mt-9 bg-white rounded-lg">
-      {/* 제목 */}
-      <div className="flex justify-between items-center">
+    <div className="max-w-[1200px] mx-auto mt-9 bg-white rounded-lg p-6">
+      <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold text-gray-800">{post.title}</h2>
         <div className="relative">
           <button
@@ -38,47 +81,57 @@ export default function ArticleDetail({ onSubmit }) {
             <BsThreeDotsVertical className="h-5 w-5 text-gray-400" />
           </button>
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-[140px] bg-white border border-gray-300 rounded-lg">
+            <div className="absolute right-0 mt-2 w-[140px] bg-white border border-gray-300 rounded-lg z-10">
               <ul>
-                <li className="px-4 py-2 text-center text-secondary-500 hover:bg-gray-100">수정하기</li>
-                <li className="px-4 py-2 text-center text-secondary-500 hover:bg-gray-100">삭제하기</li>
+                <li
+                  onClick={() => router.push(`/articles/${id}/edit`)}
+                  className="px-4 py-2 text-center text-secondary-500 hover:bg-gray-100 cursor-pointer"
+                >
+                  수정하기
+                </li>
+                <li
+                  onClick={handleDelete}
+                  className="px-4 py-2 text-center text-secondary-500 hover:bg-gray-100 cursor-pointer"
+                >
+                  삭제하기
+                </li>
               </ul>
             </div>
           )}
         </div>
       </div>
 
-      {/* 작성자 정보 */}
-      <div className="flex items-center mt-4 text-sm text-gray-500 border-b border-gray-200 pb-4">
+      <div className="flex items-center text-sm text-gray-500 border-b border-gray-200 pb-4 mb-4">
         <div className="flex items-center space-x-4">
           <div className="relative w-8 h-8">
             <Image
-              src={post.usericon}
-              alt="Author"
+              src={"/images/products/userProfile.png"}
+              alt="작성자"
               fill
               className="rounded-full object-cover"
             />
           </div>
           <div className="flex space-x-2">
-            <div className="font-semibold">{post.author}</div>
-            <div className="text-secondary-400">{post.date}</div>
+            <span className="font-semibold">총명한판다</span>
+            <span className="text-secondary-400">
+              {new Date(post.createdAt).toLocaleDateString("ko-KR", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })}
+            </span>
           </div>
         </div>
-        <div className="flex items-center space-x-2">
-          <div className="h-8 border-l border-gray-300 mx-4"></div>
-          <div className="flex items-center w-[87px] h-10 px-3 py-2 rounded-[35px] border border-secondary-200">
-            <CiHeart className="h-6 w-6" />
-            <span className="text-base text-gray-500 ml-1">{post.heartCount}</span>
-          </div>
+        <div className="flex items-center ml-auto space-x-2">
+          <CiHeart className="h-6 w-6 text-gray-400" />
+          <span>{post.heartCount ?? 0}</span>
         </div>
       </div>
 
-      {/* 본문 */}
-      <div className="mt-6 text-lg text-gray-700">
-        <p>{post.content}</p>
+      <div className="text-lg text-gray-700 whitespace-pre-wrap mb-10">
+        {post.content}
       </div>
 
-      {/* 댓글 입력창 */}
       <div className="max-w-[1200px] mx-auto mt-6">
         <div className="text-xl font-semibold text-gray-800 mb-2">댓글달기</div>
         <textarea
@@ -97,8 +150,6 @@ export default function ArticleDetail({ onSubmit }) {
           </button>
         </div>
       </div>
-
-      
     </div>
   );
 }

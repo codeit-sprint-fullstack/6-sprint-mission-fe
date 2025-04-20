@@ -5,10 +5,8 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="bg-gray-900 w-full py-8 px-[20px] sm:px-[40px] md:px-[200px] flex justify-between items-center text-[16px] leading-[19.09px] font-normal text-white flex-wrap gap-[60px]">
-      {/* 왼쪽 */}
       <div className="text-gray-400 ml-0">@codeit - 2025</div>
 
-      {/* 가운데 */}
       <div className="flex gap-[30px] text-gray-200 items-start flex-wrap justify-center">
         <Link href="/privacy" className="hover:underline">
           Privacy Policy
@@ -18,7 +16,6 @@ export default function Footer() {
         </Link>
       </div>
 
-      {/* 오른쪽 */}
       <div className="flex gap-3 mr-0">
         <a
           href="https://facebook.com/"

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { CiHeart } from "react-icons/ci";
 import { LuSearch } from "react-icons/lu";
 import { useRouter } from "next/navigation";
-import { fetchArticles } from "@/api/article.api"; // ✅ API 함수 import
+import { fetchArticles } from "@/api/article.api";
 
 export default function Articles() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,7 +17,6 @@ export default function Articles() {
     router.push("/articles/createArticle");
   };
 
-  // ✅ 컴포넌트 마운트 시 API 호출
   useEffect(() => {
     const getArticles = async () => {
       try {
@@ -71,13 +70,19 @@ export default function Articles() {
       {/* 게시글 목록 */}
       <div className="flex flex-col gap-4">
         {articles.map((post) => (
-          <div key={post.id} className="flex flex-col bg-white border-b border-gray-200">
+          <div
+            key={post.id}
+            className="flex flex-col bg-white border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition"
+            onClick={() => router.push(`/articles/${post.id}`)}
+          >
             <div className="flex justify-between items-center mb-3 gap-[6px]">
-              <h3 className="font-semibold text-lg text-gray-900 w-[70%]">{post.title}</h3>
+              <h3 className="font-semibold text-lg text-gray-900 w-[70%]">
+                {post.title}
+              </h3>
               <div className="flex justify-center items-center w-18 h-18 bg-white rounded-[6px] border border-solid border-gray-200">
                 <div className="relative w-12 h-11">
                   <Image
-                    src={post.imgUrl || "/images/products/macbook.png"} // 기본 이미지 fallback
+                    src={post.imgUrl || "/images/products/macbook.png"}
                     alt="Post Image"
                     fill
                     className="object-cover"
@@ -88,14 +93,20 @@ export default function Articles() {
             <div className="flex items-center mt-2 text-gray-500 text-sm pb-[25px]">
               <div className="relative w-6 h-6">
                 <Image
-                  src={post.usericon || "/images/products/userProfile.png"} // 기본 이미지 fallback
+                  src={post.usericon || "/images/products/userProfile.png"}
                   alt="user Image"
                   fill
                   className="object-cover"
                 />
               </div>
-              <span className="mr-2">{post.author || "작성자"}</span>
-              <span>{post.date}</span>
+              <span className="mr-2">{post.author || "똑똑한판다"}</span>
+              <span>
+                {new Date(post.createdAt).toLocaleDateString("ko-KR", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                })}
+              </span>
               <div className="flex items-center ml-auto">
                 <CiHeart className="mr-1" />
                 <span className="mr-2">{post.heartCount ?? 0}</span>
