@@ -15,8 +15,10 @@ export default function PostDetailPage() {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
 
-  const handleCommentPosted = () => {
-    fetchCommentsByArticleId(id).then(setComments);
+  // 댓글 목록 새로고침 함수 (등록/수정/삭제 시 사용)
+  const fetchCommentsAgain = async () => {
+    const newComments = await fetchCommentsByArticleId(id);
+    setComments(newComments);
   };
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function PostDetailPage() {
           likes: Math.floor(Math.random() * 10000),
           date: new Date(post.createdAt).toLocaleDateString(),
         }}
-        onCommentPosted={handleCommentPosted}
+        onCommentPosted={fetchCommentsAgain}
       />
 
       <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-4">
@@ -79,10 +81,11 @@ export default function PostDetailPage() {
             <CommentItem
               key={comment.id}
               comment={{
-                author: "익명러임",
-                time: "1시간 전",
-                content: comment.content,
+                ...comment,
+                author: "귀여운 단이", // 고정된 작성자명
+                time: "방금 전", // 임시 표시
               }}
+              onCommentUpdated={fetchCommentsAgain}
             />
           ))
         )}

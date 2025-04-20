@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 export default function PostContent({ post, onCommentPosted }) {
   const [comment, setComment] = useState("");
-  const [showMenu, setShowMenu] = useState(false); //드롭다운 상태태
+  const [showMenu, setShowMenu] = useState(false); //드롭다운 상태
   const router = useRouter();
 
   const isValid = comment.trim() !== "";
@@ -41,7 +41,7 @@ export default function PostContent({ post, onCommentPosted }) {
     }
   };
 
-  //TODO: 스타일 수정하기
+  //TODO: 게시물 수정/삭제 스타일 수정하기
   return (
     <section className="w-full max-w-[1200px] mx-auto mt-[34px]  relative">
       {/* 점 세 개 버튼 */}
