@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { getComments } from "@/lib/api";
 import Image from "next/image";
 import { getRelativeTime } from "./DateCalculator";
+import DropdownMenu from "./DropdownMenu";
 
 export default function Comments({ articleId, boardType }) {
   const [comments, setComments] = useState([]);
   const [nextCursor, setNextCursor] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editedContent, setEditedContent] = useState("");
 
   function removeDuplicateComments(comments) {
     const seen = new Set();
@@ -18,6 +21,25 @@ export default function Comments({ articleId, boardType }) {
       return true;
     });
   }
+
+  const handleSaveEdit = async (commentId) => {
+    try {
+      setComments((prev) =>
+        prev.map((c) =>
+          c.id === commentId ? { ...c, content: editedContent } : c
+        )
+      );
+      setEditingCommentId(null);
+      setEditedContent("");
+    } catch (error) {
+      alert("댓글 수정에 실패했습니다.");
+    }
+  };
+
+  const handleEditComment = (comment) => {
+    setEditingCommentId(comment.id);
+    setEditedContent(comment.content);
+  };
 
   // 댓글 조회 함수
   const loadComments = async (cursor = null) => {
@@ -36,7 +58,6 @@ export default function Comments({ articleId, boardType }) {
     }
   };
 
-  // 컴포넌트 마운트 시 댓글 목록 불러오기
   useEffect(() => {
     loadComments();
   }, [articleId, boardType]);
@@ -62,13 +83,50 @@ export default function Comments({ articleId, boardType }) {
           {comments.map((comment) => (
             <div
               key={comment.id}
-              className="mb-6 border-b border-primary-300 bg-[#FCFCFC"
+              className="mb-6 border-b border-primary-300 bg-[#FCFCFC] p-2 rounded"
             >
-              <div className="flex justify-between mb-6">
-                <p>{comment.content}</p>
-                <Image src="/ic_kebab.svg" alt="kebab" width={24} height={24} />
+              <div className="flex justify-between mb-3">
+                {editingCommentId === comment.id ? (
+                  <textarea
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                    className="w-full border rounded p-2"
+                  />
+                ) : (
+                  <p>{comment.content}</p>
+                )}
+                <DropdownMenu
+                  id={comment.id}
+                  type="comment"
+                  boardType={boardType}
+                  articleId={articleId}
+                  onEdit={() => handleEditComment(comment)}
+                  onDeleted={() =>
+                    setComments((prev) =>
+                      prev.filter((c) => c.id !== comment.id)
+                    )
+                  }
+                />
               </div>
-              <div className="flex gap-2 items-start mb-3">
+
+              {editingCommentId === comment.id && (
+                <div className="flex gap-2 mb-3">
+                  <button
+                    onClick={() => handleSaveEdit(comment.id)}
+                    className="text-blue-500 text-sm"
+                  >
+                    저장
+                  </button>
+                  <button
+                    onClick={() => setEditingCommentId(null)}
+                    className="text-gray-400 text-sm"
+                  >
+                    취소
+                  </button>
+                </div>
+              )}
+
+              <div className="flex gap-2 items-start mb-2">
                 <Image
                   src="/ic_profile.svg"
                   alt="profile"

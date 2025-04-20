@@ -18,7 +18,8 @@ export async function getArticles(query = "") {
 export const getArticle = async (articleId) => {
   const res = await fetch(`${BASE_URL}/articles/${articleId}`);
   if (!res.ok) throw new Error("게시글을 불러올 수 없습니다");
-  return res.json();
+  const body = await res.json();
+  return body;
 };
 
 // 게시글 작성
@@ -26,7 +27,7 @@ export const postArticle = async (body) => {
   const res = await fetch(`${BASE_URL}/articles`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body), 
+    body: JSON.stringify(body),
   });
 
   if (!res.ok) throw new Error("게시글 작성에 실패했습니다");

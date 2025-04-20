@@ -1,7 +1,7 @@
 export function getRelativeTime(dateString) {
   const date = new Date(dateString);
   const now = new Date();
-  const diff = Math.floor((now - date) / 1000); // 초 차이
+  const diff = Math.floor((now - date) / 1000); 
 
   if (diff < 60) return `${diff}초 전`;
   if (diff < 3600) return `${Math.floor(diff / 60)}분 전`;

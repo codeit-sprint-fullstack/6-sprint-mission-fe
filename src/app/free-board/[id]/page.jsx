@@ -6,14 +6,13 @@ import Link from "next/link";
 import AddCommet from "./_component/AddCommet";
 import Comments from "./_component/Comments";
 import AddComment from "./_component/AddCommet";
+import DropdownMenu from "./_component/DropdownMenu";
 
 export default async function ArticleDetailPage({ params }) {
-  if (!params || !params.id) return notFound();
-
-  const { id } = params;
+  const id = Number(params.id);
 
   try {
-    const article = await getArticle(Number(id));
+    const article = await getArticle(id);
 
     return (
       <div className="max-w-[1200px] mx-auto mt-[32px]">
@@ -23,7 +22,7 @@ export default async function ArticleDetailPage({ params }) {
               <h1 className="text-[20px] font-bold text-primary-800 mb-[16px]">
                 {article.title}
               </h1>
-              <Image src="/ic_kebab.svg" alt="kebab" width={24} height={24} />
+              <DropdownMenu id={id} type="article" />
             </div>
             <div className="flex items-center mb-4">
               <div className="flex items-center gap-4">
