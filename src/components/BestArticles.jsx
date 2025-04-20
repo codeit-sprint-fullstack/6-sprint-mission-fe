@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaHeart } from "react-icons/fa";
-import { fetchArticles } from "@/api/article.api";
+import { fetchArticles } from "@/api/articles.api";
 
 export default function BestArticles() {
   const [bestArticles, setBestArticles] = useState([]);

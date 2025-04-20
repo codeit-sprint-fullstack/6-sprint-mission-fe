@@ -5,7 +5,7 @@ import Image from "next/image";
 import { CiHeart } from "react-icons/ci";
 import { LuSearch } from "react-icons/lu";
 import { useRouter } from "next/navigation";
-import { fetchArticles } from "@/api/article.api";
+import { fetchArticles } from "@/api/articles.api";
 
 export default function Articles() {
   const [searchTerm, setSearchTerm] = useState("");
