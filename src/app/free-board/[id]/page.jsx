@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import AddCommet from "./_component/AddCommet";
 import Comments from "./_component/Comments";
+import AddComment from "./_component/AddCommet";
 
 export default async function ArticleDetailPage({ params }) {
   if (!params || !params.id) return notFound();
@@ -50,7 +51,9 @@ export default async function ArticleDetailPage({ params }) {
                     width={32}
                     height={32}
                   />
-                  <span className="text-[16px] font-medium text-primary-500">123</span>
+                  <span className="text-[16px] font-medium text-primary-500">
+                    123
+                  </span>
                 </div>
               </div>
             </div>
@@ -59,13 +62,14 @@ export default async function ArticleDetailPage({ params }) {
               {article.content}
             </p>
           </div>
-
-          <AddCommet />
-          <Comments />
+          <AddComment articleId={id} boardType="freeboard" />
+          <Comments articleId={id} boardType="freeboard" />
         </div>
-        <Link href="/free-board">
-          <Image src="/btn_medium.svg" alt="btn" width={240} height={48} />
-        </Link>
+        <div className="flex justify-center mt-16 mb-[193px]">
+          <Link href="/free-board">
+            <Image src="/btn_medium.svg" alt="btn" width={240} height={48} />
+          </Link>
+        </div>
       </div>
     );
   } catch (error) {
