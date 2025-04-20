@@ -2,26 +2,28 @@
 
 @import "tailwindcss";
 
-@theme {
-  --breakpoint-sm: 375px;
-  --breakpoint-md: 745px;
-  --breakpoint-lg: 1200px;
+@layer theme {
+  :root {
+    --breakpoint-sm: 375px;
+    --breakpoint-md: 745px;
+    --breakpoint-lg: 1200px;
 
-  --color-primary-100: #3692ff;
-  --color-primary-200: #1967d6;
-  --color-primary-300: #1251aa;
+    --color-primary-100: #3692ff;
+    --color-primary-200: #1967d6;
+    --color-primary-300: #1251aa;
 
-  --color-error: #f74747;
+    --color-error: #f74747;
 
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374161;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
+    --color-gray-50: #f9fafb;
+    --color-gray-100: #f3f4f6;
+    --color-gray-200: #e5e7eb;
+    --color-gray-400: #9ca3af;
+    --color-gray-500: #6b7280;
+    --color-gray-600: #4b5563;
+    --color-gray-700: #374161;
+    --color-gray-800: #1f2937;
+    --color-gray-900: #111827;
+  }
 }
 
 body {
@@ -30,25 +32,6 @@ body {
 
 @layer utilities {
   /* 글씨 */
-  .text-20-700 {
-    font-size: 1.25rem; /* 20px */
-    font-weight: 700;
-  }
-
-  .text-20-600 {
-    font-size: 1.25rem; /* 20px */
-    font-weight: 600;
-  }
-
-  .text-18-700 {
-    font-size: 1.125rem; /* 18px */
-    font-weight: 700;
-  }
-
-  .text-18-600 {
-    font-size: 1.125rem; /* 18px */
-    font-weight: 600;
-  }
 
   .text-16-700 {
     font-size: 1rem;

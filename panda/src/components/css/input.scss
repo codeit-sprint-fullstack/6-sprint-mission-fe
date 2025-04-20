@@ -1,0 +1,11 @@
+.input {
+  background: var(--color-gray-100);
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 12px;
+  color: var(--color-gray-800);
+
+  ::placeholder {
+    color: var(--color-gray-400);
+  }
+}

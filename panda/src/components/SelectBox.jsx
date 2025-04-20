@@ -57,7 +57,7 @@ function SelectBox({ onClick }) {
         className="md:hidden"
         onClick={(event) => {
           event.stopPropagation(); // toggle과 겹치지 않도록 클릭 이벤트 중단
-          changeOptions;
+          changeOptions();
         }}
       >
         <FaSortAmountDown className="scale-x-[-1] text-gray-800" />

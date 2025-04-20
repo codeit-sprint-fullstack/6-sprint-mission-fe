@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import BestArticlesCard from "./_components/BestArticlesCard";
+import { Title20 } from "@/components/text/text";
+import Link from "next/link";
 
 function BestArticles() {
   const [articles, setArticles] = useState([]);
@@ -50,13 +52,16 @@ function BestArticles() {
 
   return (
     <section className="mb-10">
-      <h2 className="text-18-700 md:!text-[20px] text-gray-900 mb-4">
+      <Title20 color="gray900" className="mb-4">
         베스트 게시글
-      </h2>
+      </Title20>
+
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[10px]">
-        {articles.map((article) => {
-          return <BestArticlesCard key={article.id} article={article} />;
-        })}
+        {articles.map((article) => (
+          <Link key={article.id} href={`/articles/${article.id}`}>
+            <BestArticlesCard article={article} />
+          </Link>
+        ))}
       </div>
     </section>
   );

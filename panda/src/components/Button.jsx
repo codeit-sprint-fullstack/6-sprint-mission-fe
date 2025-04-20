@@ -8,12 +8,18 @@ function Button({
   disabled = false,
   reset = false,
   className,
+  onClick,
   ...props
 }) {
-  const buttonClass = `button ${size} ${rounded ? "rounded" : ""}
-  ${disabled ? "disabled" : ""} ${reset ? "reset" : ""} ${className}`.trim();
+  const buttonClass = `button ${size} ${rounded ? "rounded" : ""} ${
+    disabled ? "disabled" : ""
+  } ${reset ? "reset" : ""} ${className}`.trim();
 
-  return <div className={buttonClass}>{children}</div>;
+  return (
+    <button className={buttonClass} onClick={onClick}>
+      {children}
+    </button>
+  );
 }
 
 export default Button;

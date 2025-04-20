@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Button from "./Button";
+import Button from "../Button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -32,7 +32,7 @@ function Header() {
               </picture>
             </Link>
             {/* 메뉴 */}
-            <nav className="text-18-700">
+            <nav className="text-[16px] md:text-[18px] font-[700]">
               <ul className="flex gap-[20px]">
                 <Link
                   href="/articles"
