@@ -1,38 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import SearchSortBar from "./SearchSortBar";
 import { useRouter } from "next/navigation";
+import { fetchArticles } from "@/api/article.api";
 
 function PostList() {
+  const [posts, setPosts] = useState([]);
   const router = useRouter();
-  const posts = [
-    {
-      id: 1,
-      title: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?",
-      author: "홍길동",
-      likes: 9999,
-      date: "2024.04.16",
-      imageUrl: "/images/macbook.png",
-    },
-    {
-      id: 2,
-      title: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?",
-      author: "김코딩",
-      likes: 9999,
-      date: "2024.04.16",
-      imageUrl: "/images/macbook.png",
-    },
-    {
-      id: 3,
-      title: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?",
-      author: "이자바",
-      likes: 9999,
-      date: "2024.04.16",
-      imageUrl: "/images/macbook.png",
-    },
-  ];
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        const data = await fetchArticles();
+        setPosts(data);
+      } catch (e) {
+        console.error("게시글 불러오기 실패:", e);
+      }
+    };
+    loadPosts();
+  }, []);
 
   return (
     <section className="w-full max-w-[1200px] mx-auto mt-10">
@@ -49,7 +37,16 @@ function PostList() {
       <SearchSortBar />
       <div className="flex flex-col gap-6 flex-wrap">
         {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
+          <PostCard
+            key={post.id}
+            post={{
+              ...post,
+              author: "총명한 단이",
+              likes: Math.floor(Math.random() * 10000),
+              date: new Date(post.createdAt).toLocaleDateString(),
+              imageUrl: post.imageUrl || "/images/macbook.png",
+            }}
+          />
         ))}
       </div>
     </section>

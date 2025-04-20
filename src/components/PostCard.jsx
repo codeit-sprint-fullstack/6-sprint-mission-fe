@@ -1,10 +1,21 @@
-import Image from "next/image";
+"use client";
+
 import React from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { AiOutlineHeart } from "react-icons/ai";
 
 function PostCard({ post }) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/board/${post.id}`);
+  };
   return (
-    <article className="w-[1200px] min-h-[138px] bg-gray-50 rounded-lg flex flex-col justify-between border-b border-gray-200">
+    <article
+      onClick={handleClick}
+      className="w-[1200px] min-h-[138px] bg-gray-50 rounded-lg flex flex-col justify-between border-b border-gray-200"
+    >
       {/* 상단: 제목 + 썸네일 */}
       <div className="flex justify-between items-start">
         {/* 제목 */}
@@ -15,8 +26,8 @@ function PostCard({ post }) {
         <div className="flex justify-center items-center w-[72px] h-[72px] rounded-md border border-gray-200 shrink-0 overflow-hidden">
           <div className="relative w-[48px] h-[44.57px]">
             <Image
-              src={post.imageUrl}
-              alt="썸네일"
+              src="/images/macbook.png"
+              alt="기본 썸네일 이미지"
               fill
               className="object-cover"
             />
@@ -43,7 +54,7 @@ function PostCard({ post }) {
         {/* 좋아요 */}
         <span className="flex items-center gap-1 text-base">
           <AiOutlineHeart className="text-secondary-500" />
-          {post.likes.toLocaleString()}+
+          {(post.likes ?? 0).toLocaleString()}+
         </span>
       </div>
     </article>
