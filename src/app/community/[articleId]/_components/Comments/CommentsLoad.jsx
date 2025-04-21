@@ -32,7 +32,7 @@ export default function CommentsLoad({
   };
 
   // 게시글 댓글 수정모드
-  const handleEditMode = () => {
+  const handleEdit = () => {
     setIsEditMode(true);
   };
 
@@ -40,6 +40,13 @@ export default function CommentsLoad({
   const handleCancelEditMode = () => {
     setIsEditMode(false);
     setBody({ content: comment.content });
+  };
+
+  // 게시글 댓글 수정
+  const updateComment = (articleId, commentId, body) => {
+    updateArticleComment(articleId, commentId, body);
+    setIsEditMode(false);
+    setBody({ content: body.content.trim() });
   };
 
   // 수정 버튼 활성화
@@ -73,10 +80,10 @@ export default function CommentsLoad({
               </p>
             )}
             <DropDownToggle
-              remove={() => removeArticleComment(articleId, comment.id)}
+              handleDelete={() => removeArticleComment(articleId, comment.id)}
+              handleEdit={handleEdit}
               handleDropDownToggle={handleDropDownToggle}
               isDropDownVisible={isDropDownVisible}
-              handleEditMode={handleEditMode}
             />
           </div>
           <div className="flex justify-between items-center font-normal text-[12px]/[18px]">
@@ -107,11 +114,7 @@ export default function CommentsLoad({
                 </button>
                 <button
                   type="button"
-                  onClick={() => {
-                    updateArticleComment(articleId, comment.id, body);
-                    setIsEditMode(false);
-                    setBody({ content: body.content.trim() });
-                  }}
+                  onClick={() => updateComment(articleId, comment.id, body)}
                   disabled={!isActive}
                   className={clsx(
                     isActive

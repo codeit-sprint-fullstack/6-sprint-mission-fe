@@ -6,7 +6,7 @@ import ic_heart from "@/assets/images/common/ic_heart.svg";
 import Image from "next/image";
 import DropDownToggle from "@/components/ui/DropDownToggle";
 import { deleteArticle, getArticle } from "@/lib/api/article.api";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import dayjs from "dayjs";
 
 export default function ArticleDetail() {
@@ -14,6 +14,7 @@ export default function ArticleDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const [article, setArticle] = useState(null);
   const { articleId } = useParams();
+  const router = useRouter();
 
   const articleLoad = async (articleId) => {
     const article = await getArticle(articleId);
@@ -27,16 +28,21 @@ export default function ArticleDetail() {
     articleLoad(articleId);
   }, []);
 
-  // 게시글 삭제
-  const removeArticle = async (articleId) => {
-    return await deleteArticle(articleId);
-  };
-
   // 정렬 선택버튼 토글
   const handleDropDownToggle = () => {
     setIsDropDownVisible(!isDropDownVisible);
   };
 
+  const handleEdit = () => {
+    router.push(`/community/${articleId}/edit`);
+  };
+
+  // 게시글 삭제
+  const removeArticle = async (articleId) => {
+    await deleteArticle(articleId);
+
+    router.push("/community");
+  };
   return (
     <>
       {isLoading ? (
@@ -48,7 +54,8 @@ export default function ArticleDetail() {
               <h2 className="font-bold text-[20px]/[32px]">{article.title}</h2>
               <DropDownToggle
                 page="article"
-                remove={() => removeArticle(articleId)}
+                handleDelete={() => removeArticle(articleId)}
+                handleEdit={handleEdit}
                 handleDropDownToggle={handleDropDownToggle}
                 isDropDownVisible={isDropDownVisible}
               />

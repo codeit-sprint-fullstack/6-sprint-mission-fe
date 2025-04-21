@@ -4,34 +4,14 @@ import React from "react";
 import ic_setting from "@/assets/images/community/ic_setting.svg";
 import clsx from "clsx";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
 
 export default function DropDownToggle({
   page,
-  remove,
-  handleEditMode,
+  handleDelete,
+  handleEdit,
   handleDropDownToggle,
   isDropDownVisible,
 }) {
-  const { articleId } = useParams();
-  const router = useRouter();
-
-  const handleEdit = () => {
-    if (page === "article") {
-      router.push(`/community/${articleId}/edit`);
-    } else {
-      handleEditMode();
-    }
-  };
-
-  const handleDelete = () => {
-    remove();
-
-    if (page === "article") {
-      router.push("/community");
-    }
-  };
-
   return (
     <>
       <button
