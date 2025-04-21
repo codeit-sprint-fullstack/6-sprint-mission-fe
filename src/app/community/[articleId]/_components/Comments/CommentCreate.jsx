@@ -52,7 +52,7 @@ export default function CommentCreate({
           disabled={!isActive}
           className={clsx(
             isActive
-              ? "bg-primary-100 cursor-pointer"
+              ? "bg-primary-100 hover:bg-primary-200 active:bg-primary-300 cursor-pointer"
               : "bg-secondary-gray-300 cursor-default",
             "flex justify-center items-center text-secondary-gray-100 border-none w-[74px] h-[42px] py-[8px] px-[23px] rounded-[8px] text-center font-semibold text-[16px]"
           )}

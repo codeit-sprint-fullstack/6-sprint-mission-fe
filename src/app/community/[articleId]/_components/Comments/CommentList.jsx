@@ -50,7 +50,7 @@ export default function CommentList({
 
       <Link
         href="/community"
-        className="flex justify-center items-center rounded-[40px] py-[11px] px-[39.5px] gap-[8px] bg-primary-100 font-semibold text-[18px]/[26px] text-secondary-gray-100"
+        className="flex justify-center items-center rounded-[40px] py-[11px] px-[39.5px] gap-[8px] bg-primary-100 hover:bg-primary-200 active:bg-primary-300 font-semibold text-[18px]/[26px] text-secondary-gray-100"
       >
         목록으로 돌아가기
         <div className="relative w-[24px] h-[24px]">

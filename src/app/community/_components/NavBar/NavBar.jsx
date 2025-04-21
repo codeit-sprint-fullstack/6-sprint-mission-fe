@@ -13,7 +13,7 @@ export default function NavBar({ searchLoad, sortLoad }) {
           <h2 className="font-bold text-[20px]">게시글</h2>
           <Link
             href="/community/create"
-            className="flex justify-center items-center bg-primary-100 h-[42px] w-[88px] rounded-[8px] py-3 px-[21px] text-[16px] font-semibold text-white"
+            className="flex justify-center items-center bg-primary-100 hover:bg-primary-200 active:bg-primary-300 h-[42px] w-[88px] rounded-[8px] py-3 px-[21px] text-[16px] font-semibold text-white"
           >
             글쓰기
           </Link>
