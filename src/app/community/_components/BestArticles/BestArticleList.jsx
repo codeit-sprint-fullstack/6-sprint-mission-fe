@@ -37,7 +37,9 @@ export default function BestArticleList() {
       <h2 className="font-bold text-[20px]">베스트 게시글</h2>
       <div className="grid grid-cols-1 gap-[16px] sm:grid-cols-2 md:grid-cols-3 md:gap-[24px]">
         {isLoading ? (
-          "베스트 게시글 로딩중..."
+          <div className="flex justify-center items-center">
+            베스트 게시글 로딩중...
+          </div>
         ) : !bestArticles.length ? (
           <div className="flex justify-center items-center text-center">
             아직 게시글이 없어요,
