@@ -15,10 +15,9 @@ export default function CommentCreate({
   // 등록 버튼 활성화
   useEffect(() => {
     const { content } = body;
+    if (!content.trim()) return setIsActive(false);
 
-    const validation = content;
-
-    if (validation) {
+    if (content) {
       setIsActive(true);
     } else {
       setIsActive(false);

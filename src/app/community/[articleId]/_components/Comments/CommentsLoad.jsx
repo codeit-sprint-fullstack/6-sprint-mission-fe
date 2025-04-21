@@ -7,7 +7,6 @@ import DropDownToggle from "@/components/ui/DropDownToggle";
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 import clsx from "clsx";
-import { patchArticleComment } from "@/lib/api/articleComment.api";
 
 export default function CommentsLoad({
   comment,
@@ -46,8 +45,8 @@ export default function CommentsLoad({
   // 수정 버튼 활성화
   useEffect(() => {
     const { content } = body;
-
     if (!content.trim()) return setIsActive(false);
+
     if (content) {
       setIsActive(true);
     } else {
@@ -111,6 +110,7 @@ export default function CommentsLoad({
                   onClick={() => {
                     updateArticleComment(articleId, comment.id, body);
                     setIsEditMode(false);
+                    setBody({ content: body.content.trim() });
                   }}
                   disabled={!isActive}
                   className={clsx(

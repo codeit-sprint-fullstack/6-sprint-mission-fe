@@ -36,8 +36,9 @@ export default function ArticleForm({ page }) {
   // 등록 버튼 활성화
   useEffect(() => {
     const { title, content } = body;
-
     const validation = title && content;
+
+    if (!title.trim() || !content.trim()) return setIsActive(false);
 
     if (validation) {
       setIsActive(true);
@@ -48,17 +49,25 @@ export default function ArticleForm({ page }) {
 
   // 게시글 등록
   const createArticle = async (e, body) => {
+    const { title, content } = body;
     e.preventDefault();
 
-    const article = await postArticle(body);
+    const article = await postArticle({
+      title: title.trim(),
+      content: content.trim(),
+    });
     router.push(`/community/${article.id}`);
   };
 
   // 게시글 수정
   const updateArticle = async (e, articleId, body) => {
+    const { title, content } = body;
     e.preventDefault();
 
-    const article = await patchArticle(articleId, body);
+    const article = await patchArticle(articleId, {
+      title: title.trim(),
+      content: content.trim(),
+    });
     router.push(`/community/${article.id}`);
   };
 

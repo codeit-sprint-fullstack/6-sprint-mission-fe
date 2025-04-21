@@ -42,7 +42,11 @@ export default function Comments() {
 
   // 게시글 댓글 작성
   const createArticleComment = async (articleId, body) => {
-    const comment = await postArticleComment(articleId, body);
+    const { content } = body;
+
+    const comment = await postArticleComment(articleId, {
+      content: content.trim(),
+    });
 
     setComments((prevComments) => [...prevComments, comment]);
     setBody(INITIAL_BODY);
@@ -50,7 +54,11 @@ export default function Comments() {
 
   // 게시글 댓글 수정
   const updateArticleComment = async (articleId, commentId, body) => {
-    const updateComment = await patchArticleComment(articleId, commentId, body);
+    const { content } = body;
+
+    const updateComment = await patchArticleComment(articleId, commentId, {
+      content: content.trim(),
+    });
 
     setComments((prevComments) => {
       return prevComments.map((comment) => {
