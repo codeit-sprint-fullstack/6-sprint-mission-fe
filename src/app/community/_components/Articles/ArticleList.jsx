@@ -42,9 +42,11 @@ export default function ArticleList() {
   return (
     <>
       <NavBar sortLoad={sortLoad} searchLoad={searchLoad} />
-      <div className="flex flex-col justify-center items-center gap-[24px]">
+      <div className="flex flex-col gap-[24px]">
         {isLoading ? (
-          "게시글 로딩중..."
+          <div className="flex justify-center items-center">
+            게시글 로딩중...
+          </div>
         ) : !articles.length ? (
           <div className="flex justify-center items-center text-center">
             아직 게시글이 없어요,
