@@ -19,8 +19,8 @@ export default function ArticleDetail() {
   const articleLoad = async (articleId) => {
     const article = await getArticle(articleId);
 
+    setArticle(article);
     setIsLoading(false);
-    return setArticle(article);
   };
 
   // 게시글 상세 조회

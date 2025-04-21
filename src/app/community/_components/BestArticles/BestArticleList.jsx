@@ -23,8 +23,8 @@ export default function BestArticleList() {
 
     const { list } = await getArticles(params);
 
+    setBestArticles(list);
     setIsLoading(false);
-    return setBestArticles(list);
   };
 
   // 베스트 게시글 조회
@@ -36,14 +36,19 @@ export default function BestArticleList() {
     <div className="flex flex-col gap-[16px]">
       <h2 className="font-bold text-[20px]">베스트 게시글</h2>
       <div className="grid grid-cols-1 gap-[16px] sm:grid-cols-2 md:grid-cols-3 md:gap-[24px]">
-        {isLoading
-          ? "베스트 게시글 로딩중..."
-          : bestArticles.map((bestArticle) => (
-              <BestArticlesLoad
-                key={bestArticle.id}
-                bestArticle={bestArticle}
-              />
-            ))}
+        {isLoading ? (
+          "베스트 게시글 로딩중..."
+        ) : !bestArticles.length ? (
+          <div className="flex justify-center items-center text-center">
+            아직 게시글이 없어요,
+            <br />
+            지금 게시글을 작성해보세요!
+          </div>
+        ) : (
+          bestArticles.map((bestArticle) => (
+            <BestArticlesLoad key={bestArticle.id} bestArticle={bestArticle} />
+          ))
+        )}
       </div>
     </div>
   );

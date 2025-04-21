@@ -36,8 +36,8 @@ export default function Comments() {
 
     if (!comments.length) return setIsLoading(false);
 
+    setComments(comments);
     setIsLoading(false);
-    return setComments(comments);
   };
 
   // 게시글 댓글 작성

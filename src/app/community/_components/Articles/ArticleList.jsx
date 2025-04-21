@@ -18,8 +18,8 @@ export default function ArticleList() {
   const articlesLoad = async (params) => {
     const { list } = await getArticles(params);
 
+    setArticles(list);
     setIsLoading(false);
-    return setArticles(list);
   };
 
   // 게시글 전체 조회
@@ -43,11 +43,19 @@ export default function ArticleList() {
     <>
       <NavBar sortLoad={sortLoad} searchLoad={searchLoad} />
       <div className="flex flex-col gap-[24px]">
-        {isLoading
-          ? "게시글 로딩중..."
-          : articles.map((article) => (
-              <AriclesLoad key={article.id} article={article} />
-            ))}
+        {isLoading ? (
+          "게시글 로딩중..."
+        ) : !articles.length ? (
+          <div className="flex justify-center items-center text-center">
+            아직 게시글이 없어요,
+            <br />
+            지금 게시글을 작성해보세요!
+          </div>
+        ) : (
+          articles.map((article) => (
+            <AriclesLoad key={article.id} article={article} />
+          ))
+        )}
       </div>
     </>
   );
