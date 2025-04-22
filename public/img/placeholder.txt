@@ -1,0 +1,14 @@
+이 폴더에 다음 이미지를 저장해야 합니다:
+1. panda_icon_big.png - 판다 아이콘 이미지
+2. user_icon.png - 사용자 아이콘 이미지
+3. ic_facebook.png - 페이스북 아이콘
+4. ic_twitter.png - 트위터 아이콘 
+5. ic_youtube.png - 유튜브 아이콘
+6. ic_instagram.png - 인스타그램 아이콘
+7. Img_home_01.png - 인기 상품 이미지
+8. Img_home_02.png - 검색 이미지
+9. Img_home_03.png - 등록 이미지
+10. Img_home_top.png - 홈 배너 이미지
+11. Img_home_bottom.png - 하단 배너 이미지
+
+실제 프로젝트에서는 이 파일을 삭제하고 실제 이미지를 사용하세요. 
