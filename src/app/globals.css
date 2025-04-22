@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme {
+  /* 색상 정의: 디자인 내용에 따라 정의. 실사용 시 className="text-primary-50" */
+  --color-primary: #3692ff;
+  --color-primary-100: #F3F4F6;
+  --color-primary-200: #e5e7eb;
+  --color-primary-300: #D1D5DB;
+  --color-primary-400: #9ca3af;
+  --color-primary-500: #6B7280;
+  --color-primary-600: #4b5563;
+  --color-primary-800: #1f2937;
+  --color-secondary: #111827;
+  --color-buttonSecondary: #ffffff;
+  --color-primary-50: #F9FAFB;
+  --color-secondary-300: #E5E7EB;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-gray-800);
+  background-color: var(--color-gray-50);
+}
