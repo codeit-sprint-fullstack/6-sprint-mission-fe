@@ -1,6 +1,7 @@
 "use client";
 import Button from "@/components/ui/Button";
 import FormInput from "@/components/ui/FormInput";
+import PasswordInput from "@/components/ui/PasswordInput";
 //find out which part can be separated as client component and keep this main page as server component
 import Image from "next/image";
 
@@ -38,12 +39,12 @@ export default function RegistrationPage() {
             label="닉네임"
             placeholder="닉네임을 입력해주세요"
           />
-          <FormInput
+          <PasswordInput
             id="password"
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요"
           />
-          <FormInput
+          <PasswordInput
             id="password-confirm"
             label="비밀번호 확인"
             placeholder="비밀번호를 다시 한 번 입력해주세요"
