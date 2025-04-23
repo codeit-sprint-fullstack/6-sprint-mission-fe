@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import CommentForm from "./_components/CommentForm";
-import { deleteArticle, getArticle } from "@/lib/api/articleApi";
+import { deleteArticle, getArticle } from "@/lib/articleApi";
 import { useParams, useRouter } from "next/navigation";
-import FormatDate from "@/components/ui/FormatDate";
 import Dropdown from "@/components/ui/Dropdown";
-import { getComments } from "@/lib/api/commentApi";
-import CommentList from "./_components/CommentList";
+import { getComments } from "@/lib/commentApi";
+import CommentForm from "../../_components/CommentForm";
+import CommentList from "../../_components/CommentList";
+import UserInfo from "@/components/ui/UserInfo";
+import GoBackBtn from "@/components/ui/GoBackBtn";
 
 export function UserLocation() {
   const [location, setLocation] = useState("");
@@ -93,29 +93,7 @@ function ArticlePage() {
             )}
           </div>
         </div>
-        <div className="flex items-center my-4 gap-4">
-          <Image
-            src="/assets/icon/ic_profile.svg"
-            alt="기본 프로필 아이콘"
-            width={40}
-            height={40}
-          />
-          <div className="flex gap-0.5 md:gap-2">
-            <div className="font-medium text-gray-600">총명한 판다</div>
-            <FormatDate createdAt={article.createdAt} />
-          </div>
-          <span className="h-10 border-r-1 border-gray-200 md:mx-4"></span>
-          <button className="flex items-center px-3 py-1 border-1 border-gray-200 rounded-[35px] gap-1">
-            <Image
-              src="/assets/icon/ic_unheart.svg"
-              alt="좋아요 아이콘"
-              width={24}
-              height={24}
-              className="md:w-8 md:h-8"
-            />
-            <span className="font-medium text-gray-500">123</span>
-          </button>
-        </div>
+        <UserInfo article={article} />
       </nav>
       <section>
         <p className="mt-4 mb-8">{article.content}</p>
@@ -127,17 +105,7 @@ function ArticlePage() {
           editOption={editOption}
           getCommentList={getCommentList}
         />
-        <Link href="/board" className="flex justify-center">
-          <button className="flex btn-base h-12 mt-10 mb-[234px] px-10 rounded-[40px] gap-2">
-            <span className="text-lg font-semibold">목록으로 돌아가기</span>
-            <Image
-              src="/assets/icon/ic_back.svg"
-              alt="되돌아가기 아이콘"
-              width={24}
-              height={24}
-            />
-          </button>
-        </Link>
+        <GoBackBtn />
       </section>
     </div>
   );

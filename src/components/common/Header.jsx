@@ -37,7 +37,7 @@ function Header() {
           </Link>
           <Link
             href="/items"
-            className={pathname == "/items" ? "text-primary-100" : ""}
+            className={pathname.startsWith("/items") ? "text-primary-100" : ""}
           >
             중고마켓
           </Link>

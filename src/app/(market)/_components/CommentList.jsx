@@ -8,22 +8,37 @@ function CommentList({
   setComments,
   editOption,
   getCommentList,
+  isItemPage,
 }) {
   if (!comments || comments.length === 0) {
     return (
       <div className="flex flex-col items-center text-center text-gray-400">
-        <Image
-          src="/assets/img/img_reply_empty.svg"
-          alt="댓글 없음 이미지"
-          width={140}
-          height={140}
-          className="mb-4"
-        />
-        <p>
-          아직 댓글이 없어요,
-          <br />
-          지금 댓글을 달아보세요!
-        </p>
+        {isItemPage ? (
+          <Image
+            src="/assets/img/img_inquiry_empty.svg"
+            alt="문의 없음 이미지"
+            width={140}
+            height={140}
+            className="mb-2"
+          />
+        ) : (
+          <Image
+            src="/assets/img/img_reply_empty.svg"
+            alt="댓글 없음 이미지"
+            width={140}
+            height={140}
+            className="mb-4"
+          />
+        )}
+        {isItemPage ? (
+          <p>아직 문의가 없어요</p>
+        ) : (
+          <p>
+            아직 댓글이 없어요,
+            <br />
+            지금 댓글을 달아보세요!
+          </p>
+        )}
       </div>
     );
   }

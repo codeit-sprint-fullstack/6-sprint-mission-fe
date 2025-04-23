@@ -1,7 +1,7 @@
 "use client";
 
 import Dropdown from "@/components/ui/Dropdown";
-import { deleteComment, updateComment } from "@/lib/api/commentApi";
+import { deleteComment, updateComment } from "@/lib/commentApi";
 import Image from "next/image";
 import React, { useState } from "react";
 
