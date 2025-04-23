@@ -21,9 +21,7 @@ function SignupPage() {
 
   const router = useRouter();
 
-  //비밀번호 일치 여부
   const isPwMatched = password === ckPassword;
-
   useEffect(() => {
     const isEmailValid = isValidEmail(email);
     const isNicknameValid = nickName.trim().length > 0;
@@ -89,6 +87,16 @@ function SignupPage() {
     setIsCkVisible((prev) => !prev);
   };
 
+  const handleEmailBlur = () => {
+    setIsEmailValid(isValidEmail(email));
+  };
+  const handlePasswordBlur = () => {
+    setIsPasswordValid(isValidPassword(password));
+  };
+  const handleCkPasswordBlur = () => {
+    password === ckPassword;
+  };
+
   return (
     <div className="min-h-screen flex flex-col font-[Pretendard] justify-center">
       <div className="flex flex-col items-center justify-center">
@@ -116,7 +124,13 @@ function SignupPage() {
               placeholder="이메일을 입력해주세요"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onBlur={handleEmailBlur}
             />
+            {isValidEmail(email) ? undefined : (
+              <div className="text-[#f74747] font-semibold text-[15px] mt-2">
+                잘못된 이메일 형식입니다.
+              </div>
+            )}
 
             <InputField
               label="닉네임"
@@ -126,43 +140,60 @@ function SignupPage() {
               onChange={(e) => setNickName(e.target.value)}
             />
 
-            <InputField
-              label="비밀번호"
-              type="password"
-              placeholder="비밀번호를 입력해주세요"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <img
-              src={
-                isVisible
-                  ? "/image/signup/btn_visibility_on_24px.png"
-                  : "/image/signup/btn_visibility_off_24px.png"
-              }
-              alt="비밀번호 보기 아이콘"
-              className="absolute left-[600px] top-[195px] w-6 h-6"
-              onClick={handleVisible}
-            />
+            <div className="relative">
+              <InputField
+                label="비밀번호"
+                type="password"
+                placeholder="비밀번호를 입력해주세요"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onBlur={handlePasswordBlur}
+              />
+              <img
+                src={
+                  isVisible
+                    ? "/image/signup/btn_visibility_on_24px.png"
+                    : "/image/signup/btn_visibility_off_24px.png"
+                }
+                alt="비밀번호 보기 아이콘"
+                className="absolute left-[600px] top-[58px] w-6 h-6"
+                onClick={handleVisible}
+              />
+              {isValidPassword(password) ? undefined : (
+                <div className="text-[#f74747] font-semibold text-[15px] mt-2">
+                  비밀번호를 4자 이상 입력해주세요
+                </div>
+              )}
+            </div>
 
-            <InputField
-              label="비밀번호 확인"
-              type="password"
-              placeholder="비밀번호를 다시 입력해주세요"
-              value={ckPassword}
-              onChange={(e) => setCkPassword(e.target.value)}
-            />
-            <img
-              src={
-                isCkVisible
-                  ? "/image/signup/btn_visibility_on_24px.png"
-                  : "/image/signup/btn_visibility_off_24px.png"
-              }
-              alt="비밀번호 보기 아이콘"
-              className="absolute left-[600px] top-[315px] w-6 h-6"
-              onClick={handleCkVisible}
-            />
+            <div className="relative">
+              <InputField
+                label="비밀번호 확인"
+                type="password"
+                placeholder="비밀번호를 다시 입력해주세요"
+                value={ckPassword}
+                onChange={(e) => setCkPassword(e.target.value)}
+                onBlur={handleCkPasswordBlur}
+                isPwMatched={isPwMatched}
+              />
+              <img
+                src={
+                  isCkVisible
+                    ? "/image/signup/btn_visibility_on_24px.png"
+                    : "/image/signup/btn_visibility_off_24px.png"
+                }
+                alt="비밀번호 보기 아이콘"
+                className="absolute left-[600px] top-[58px] w-6 h-6"
+                onClick={handleCkVisible}
+              />
+              {isPwMatched ? undefined : (
+                <div className="text-[#f74747] font-semibold text-[15px] mt-2">
+                  비밀번호가 일치하지 않아요
+                </div>
+              )}
+            </div>
 
-            <Button text="회원가입" />
+            <Button text="회원가입" disabled={isFormsValid} />
           </form>
 
           <CompactLogin />

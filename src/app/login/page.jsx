@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isValidEmail, isValidPassword } from "../../../utils/isValid";
 import { useRouter } from "next/navigation";
 import InputField from "@/components/ui/login-signup/InputField";
@@ -16,7 +16,17 @@ export default function LoginPage() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
 
+  const [isFormsValid, setIsFormsValid] = useState(false);
+
   const router = useRouter();
+
+  useEffect(() => {
+    const isEmailValid = isValidEmail(email);
+    const isPwValid = isValidPassword(password);
+
+    setIsFormsValid(isEmailValid && isPwValid);
+    console.log("isFormvalid", isFormsValid);
+  }, [email, password]);
 
   const handleEmailBlur = () => {
     setIsEmailValid(isValidEmail(email));
@@ -83,13 +93,14 @@ export default function LoginPage() {
 
         <div className="w-full flex flex-col items-center">
           <div className="flex flex-col items-center">
-            <form className=" relative mb-5" onSubmit={handleLogin}>
+            <form className="mb-5" onSubmit={handleLogin}>
               <InputField
                 label="이메일"
                 type="email"
                 placeholder="이메일을 입력해주세요"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onBlur={handleEmailBlur}
               />
 
               {isEmailValid ? undefined : (
@@ -98,30 +109,33 @@ export default function LoginPage() {
                 </div>
               )}
 
-              <InputField
-                label="비밀번호"
-                type="password"
-                placeholder="비밀번호를 입력해주세요"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <img
-                src={
-                  isVisible
-                    ? "/image/login/btn_visibility_on_24px.png"
-                    : "/image/login/btn_visibility_off_24px.png"
-                }
-                alt="비밀번호 보기 아이콘"
-                className="absolute left-[600px] top-[195px] w-6 h-6"
-                onClick={handleVisible}
-              />
+              <div className=" relative ">
+                <InputField
+                  label="비밀번호"
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onBlur={handlePasswordBlur}
+                />
+                <img
+                  src={
+                    isVisible
+                      ? "/image/login/btn_visibility_on_24px.png"
+                      : "/image/login/btn_visibility_off_24px.png"
+                  }
+                  alt="비밀번호 보기 아이콘"
+                  className="absolute left-[600px] top-[58px] w-6 h-6"
+                  onClick={handleVisible}
+                />
+              </div>
               {!isPasswordValid && (
                 <div className="text-[#f74747] font-semibold text-[15px] mt-2">
                   비밀번호를 확인해주세요.
                 </div>
               )}
 
-              <Button text="로그인" />
+              <Button text="로그인" disabled={isFormsValid} />
             </form>
 
             <CompactLogin />
