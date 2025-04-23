@@ -45,7 +45,7 @@ export default function RegistrationPage() {
           {/* make it as common component */}
           <button className="w-full">회원가입</button>
           {/* social signin wrapper */}
-          <div className="bg-primary px-6 py-4 w-full">
+          <div className="bg-[#E6F2FF] px-6 py-4 w-full">
             <div className="flex items-center justify-between w-full h-full">
               <p>간편 로그인하기</p>
               <div className="flex gap-4">
@@ -53,13 +53,13 @@ export default function RegistrationPage() {
                   src="/icons/ic_google.svg"
                   width={42}
                   height={42}
-                  alt="카카오톡 아이콘"
+                  alt="구글 로그인 아이콘"
                 ></Image>
                 <Image
                   src="/icons/ic_kakaotalk.svg"
                   width={42}
                   height={42}
-                  alt="카카오톡 아이콘"
+                  alt="카카오톡 로그인 아이콘"
                 ></Image>
               </div>
             </div>
