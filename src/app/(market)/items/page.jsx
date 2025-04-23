@@ -1,7 +1,7 @@
 import React from "react";
 
-function page() {
+function MarketPage() {
   return <h1>중고마켓 페이지</h1>;
 }
 
-export default page;
+export default MarketPage;

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ARTICLE_COUNT, BREAKPOINTS } from "@/const";
 
-function BestArticle({ articles }) {
+function BestArticleSection({ articles }) {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
   );
@@ -28,7 +28,7 @@ function BestArticle({ articles }) {
   const bestArticles = articles.slice(0, articleCount);
 
   return (
-    <>
+    <section>
       <h2 className="text-lg font-bold">베스트 게시글</h2>
       <div className="flex justify-center md:gap-4 lg-gap-6">
         {bestArticles.map((article) => (
@@ -54,8 +54,8 @@ function BestArticle({ articles }) {
           </article>
         ))}
       </div>
-    </>
+    </section>
   );
 }
 
-export default BestArticle;
+export default BestArticleSection;

@@ -7,7 +7,7 @@ import ArticleCard from "./ArticleCard";
 import Dropdown from "@/components/ui/Dropdown";
 import { BREAKPOINTS } from "@/const";
 
-function Article({ articles }) {
+function ArticleSection({ articles }) {
   const sortOption = [
     { label: "최신순", value: "latest" },
     { label: "오래된순", value: "oldest" },
@@ -49,14 +49,14 @@ function Article({ articles }) {
   };
 
   return (
-    <div>
-      <div className="flex justify-between items-center">
+    <section>
+      <nav className="flex justify-between items-center">
         <h2 className="text-lg font-bold">게시글</h2>
-        <Link href="/board/article">
+        <Link href="/board/add">
           <button className="btn-base">글쓰기</button>
         </Link>
-      </div>
-      <div className="flex justify-between items-center h-[42px] my-4">
+      </nav>
+      <nav className="flex justify-between items-center h-[42px] my-4">
         <input
           className="w-full mr-[13px] py-[9px] pl-11 rounded-xl bg-gray-100 bg-[url('/assets/icon/ic_search.svg')] bg-no-repeat bg-[center_left_1rem]"
           placeholder="검색할 상품을 입력해주세요"
@@ -90,7 +90,7 @@ function Article({ articles }) {
             <Dropdown items={sortOption} onSelect={handleSort} isSort={true} />
           )}
         </div>
-      </div>
+      </nav>
       <article className="mb-[91px]">
         {filteredArticles.map((article) => {
           return (
@@ -105,8 +105,8 @@ function Article({ articles }) {
           );
         })}
       </article>
-    </div>
+    </section>
   );
 }
 
-export default Article;
+export default ArticleSection;

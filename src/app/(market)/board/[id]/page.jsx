@@ -21,7 +21,7 @@ export function UserLocation() {
   return <div>현재 URL: {location}</div>;
 }
 
-function page() {
+function ArticlePage() {
   const [article, setArticle] = useState();
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -75,7 +75,7 @@ function page() {
   };
 
   return (
-    <div className="flex-col px-4 pt-6">
+    <div className="flex-col">
       <nav className="w-full border-b-1 border-gray-200">
         <div className="flex justify-between gap-2">
           <h2 className="text-xl font-bold text-gray-800">{article.title}</h2>
@@ -143,4 +143,4 @@ function page() {
   );
 }
 
-export default page;
+export default ArticlePage;

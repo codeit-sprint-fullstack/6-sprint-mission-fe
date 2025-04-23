@@ -1,7 +1,7 @@
 import React from "react";
 
-function page() {
+function PrivacyPage() {
   return <h1>privacy 페이지</h1>;
 }
 
-export default page;
+export default PrivacyPage;
