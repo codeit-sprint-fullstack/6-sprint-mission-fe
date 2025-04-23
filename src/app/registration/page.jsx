@@ -1,8 +1,14 @@
+import Image from "next/image";
+
 export default function RegistrationPage() {
   return (
-    <div>
+    <>
       <h1>Registration Page</h1>
-      {/* Your registration form components */}
-    </div>
+      {/* wrapper */}
+      <div>
+        {/* header */}
+        <Image src="/logo/logo-md.svg"></Image>
+      </div>
+    </>
   );
 }

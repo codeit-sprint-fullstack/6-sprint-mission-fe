@@ -6,8 +6,8 @@ import SearchInput from "@/components/ui/SearchInput";
 import DropdownMenu from "@/components/ui/DropdownMenu";
 import { getArticles } from "@/api/articles";
 
-import BestArticles from "./components/BestArticles";
-import Articles from "./components/Articles";
+import BestArticles from "./_components/BestArticles";
+import Articles from "./_components/Articles";
 import Link from "next/link";
 
 export default function CommunityPage() {
