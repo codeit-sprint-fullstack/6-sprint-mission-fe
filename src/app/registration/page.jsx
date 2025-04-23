@@ -1,5 +1,6 @@
 "use client";
 import Button from "@/components/ui/Button";
+import FormInput from "@/components/ui/FormInput";
 //find out which part can be separated as client component and keep this main page as server component
 import Image from "next/image";
 
@@ -23,25 +24,30 @@ export default function RegistrationPage() {
           alt="판다마켓 로고"
           className="hidden md:block"
         ></Image>
-        {/* inputs wrapper  */}
-        <div className="flex flex-col items-center justify-center w-full h-full gap-6 md:gap-">
+        {/* form wrapper  */}
+        <form className="flex flex-col items-center justify-center w-full h-full gap-6 md:gap-">
           {/* each input wrapper */}
-          <div className="">
-            <label>이메일</label>
-            <input></input>
-          </div>
-          <div className="">
-            <label>닉네임</label>
-            <input></input>
-          </div>
-          <div className="">
-            <label>비밀번호</label>
-            <input></input>
-          </div>
-          <div className="">
-            <label>비밀번호 확인</label>
-            <input></input>
-          </div>
+
+          <FormInput
+            id="email"
+            label="이메일"
+            placeholder="이메일을 입력해주세요"
+          />
+          <FormInput
+            id="nickname"
+            label="닉네임"
+            placeholder="닉네임을 입력해주세요"
+          />
+          <FormInput
+            id="password"
+            label="비밀번호"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <FormInput
+            id="password-confirm"
+            label="비밀번호 확인"
+            placeholder="비밀번호를 다시 한 번 입력해주세요"
+          />
           {/* make it as common component */}
           <button className="w-full">회원가입</button>
           {/* social signin wrapper */}
@@ -64,7 +70,7 @@ export default function RegistrationPage() {
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </>
   );
