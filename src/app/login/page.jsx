@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { isValidEmail, isValidPassword } from "../../../utils/isValid";
 
 export default function LoginPage() {
   const [email, setEmail] = useState(null);
@@ -9,26 +10,16 @@ export default function LoginPage() {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
-  const validateEmail = (email) =>
-    /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email);
-
-  const validatePassword = (password) =>
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/.test(
-      password
-    );
-
   const handleEmailBlur = () => {
-    setIsEmailValid(validateEmail(email));
+    setIsEmailValid(isValidEmail(email));
   };
 
   const handlePasswordBlur = () => {
-    setIsPasswordValid(validatePassword(password));
+    setIsPasswordValid(isValidPassword(password));
   };
 
-  const handleClickLogin = () => {
-    if (email === null) {
-      // 로그인 처리 로직
-    }
+  const handleLogin = () => {
+    console.log("로그인 성공");
   };
 
   return (
@@ -37,17 +28,20 @@ export default function LoginPage() {
         <div className="flex flex-row items-center justify-center w-[396px] h-[132px] mb-10">
           <img
             className="w-[103.53px] h-[103.88px] mr-[22.24px] pt-[12.98px] pb-[15.14px]"
-            src="/login/판다 얼굴.png"
+            // src="/login/판다 얼굴.png"
             alt="판다 얼굴"
           />
           <span className="text-[66.34px] font-bold font-[ROKAF Sans] leading-[89.56px] text-[#3692ff] w-[266px] h-[90px] flex items-center justify-center pt-[23.98px] pb-[23.98px]">
-            <img src="/login/판다마켓.png" alt="판다마켓" />
+            <img
+              // src="/login/판다마켓.png"
+              alt="판다마켓"
+            />
           </span>
         </div>
 
         <div className="w-full flex flex-col items-center">
           <div className="flex flex-col w-full">
-            <form className="mb-5">
+            <form className="mb-5" onSubmit={handleLogin}>
               <label
                 htmlFor="input-email"
                 className="block text-[18px] font-bold text-[#1f2937] mb-2"
@@ -56,24 +50,22 @@ export default function LoginPage() {
               </label>
               <input
                 id="input-email"
-                type="text"
+                type="email"
                 placeholder="이메일을 입력해주세요"
-                value={email || ""}
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={handleEmailBlur}
                 className="w-full h-[56px] rounded-lg bg-gray-100 px-4 text-[16px] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#3692ff]"
               />
-              {!isEmailValid && (
+              {isEmailValid && (
                 <div className="text-[#f74747] font-semibold text-[15px] mt-2">
                   잘못된 이메일 형식입니다.
                 </div>
               )}
-            </form>
 
-            <form className="relative mb-7">
               <label
                 htmlFor="input-password"
-                className="block text-[18px] font-bold text-[#1f2937] mb-2"
+                className="relative block text-[18px] font-bold text-[#1f2937] mb-2"
               >
                 비밀번호
               </label>
@@ -87,7 +79,7 @@ export default function LoginPage() {
                 className="w-full h-[56px] rounded-lg bg-gray-100 px-4 text-[16px] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#3692ff]"
               />
               <img
-                src="/login/btn_visibility_off_24px.png"
+                // src="/login/btn_visibility_off_24px.png"
                 alt="비밀번호 보기 아이콘"
                 className="absolute top-[58px] left-[610px] w-6 h-6"
               />
@@ -96,14 +88,11 @@ export default function LoginPage() {
                   비밀번호를 8자 이상 입력해주세요
                 </div>
               )}
-            </form>
 
-            <button
-              onClick={handleClickLogin}
-              className="w-full h-[56px] rounded-full bg-gray-400 text-white font-semibold text-[20px]"
-            >
-              로그인
-            </button>
+              <button className="w-full h-[56px] rounded-full bg-gray-400 text-white font-semibold text-[20px]">
+                로그인
+              </button>
+            </form>
 
             <div className="w-full h-[74px] bg-[#e6f2ff] mt-6 flex justify-center items-center">
               <div className="flex items-center justify-between w-[594px] h-[42px] px-[23px]">
@@ -113,7 +102,7 @@ export default function LoginPage() {
                     <img
                       width="42"
                       height="42"
-                      src="/login/Component 2@3x.png"
+                      // src="/login/Component 2@3x.png"
                       alt="google"
                     />
                   </a>
@@ -121,7 +110,7 @@ export default function LoginPage() {
                     <img
                       width="42"
                       height="42"
-                      src="/login/Component 3@3x.png"
+                      // src="/login/Component 3@3x.png"
                       alt="kakao"
                     />
                   </a>
