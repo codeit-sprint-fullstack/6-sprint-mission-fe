@@ -56,7 +56,7 @@ export default function CommunityPage() {
       if (resetList) {
         setArticles(result.data || []);
       } else {
-        setArticles(prev => [...prev, ...(result.data || [])]);
+        setArticles((prev) => [...prev, ...(result.data || [])]);
       }
 
       setCursor(result.nextCursor);
@@ -81,24 +81,32 @@ export default function CommunityPage() {
     return () => clearTimeout(timer);
   }, [word, orderBy]);
 
-  const handleSearch = e => setWord(e.target.value);
-  const handleSortChange = newSortOrder => setOrderBy(newSortOrder);
+  const handleSearch = (e) => setWord(e.target.value);
+  const handleSortChange = (newSortOrder) => setOrderBy(newSortOrder);
   const handleLoadNext = () => {
     if (!isLoading && hasNext) fetchArticles(false);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full pt-4 pr-4 pb-[91px] pl-4 gap-6 md:p-6 xl:p-0 xl:mt-6 xl:mb-[293px]">
+    <div className="flex flex-col items-center justify-center max-w-[1200px] w-full h-full pt-4 pr-4 pb-[91px] pl-4 gap-6 md:p-6 xl:p-0 xl:mt-6 xl:mb-[293px]">
       <div className="flex flex-col justify-center gap-4 md:gap-6 w-full h-full">
-        <p className="text-lg md:text-xl font-bold text-secondary-800">베스트 게시글</p>
+        <p className="text-lg md:text-xl font-bold text-secondary-800">
+          베스트 게시글
+        </p>
         <div className="flex justify-between gap-4 w-full">
-          <BestArticles articles={bestArticles} isLoading={isLoading} error={bestArticleError} />
+          <BestArticles
+            articles={bestArticles}
+            isLoading={isLoading}
+            error={bestArticleError}
+          />
         </div>
       </div>
 
       <div className="flex flex-col w-full h-full gap-4 md:gap-12 lg:gap-6">
         <div className="flex items-center justify-between">
-          <p className="text-lg md:text-xl font-bold text-secondary-800">게시글</p>
+          <p className="text-lg md:text-xl font-bold text-secondary-800">
+            게시글
+          </p>
           <Link href="community/create">
             <Button>글쓰기</Button>
           </Link>
