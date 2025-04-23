@@ -1,7 +1,15 @@
 import React from "react";
+import AuthContainer from "../_components/AuthContainer";
+import LoginForm from "../_components/LoginForm";
 
 function LoginPage() {
-  return <h1>로그인 페이지</h1>;
+  return (
+    <>
+      <AuthContainer>
+        <LoginForm />
+      </AuthContainer>
+    </>
+  );
 }
 
 export default LoginPage;
