@@ -19,7 +19,9 @@ export default function Header() {
             height={40}
             className="hidden md:block"
           />
-          <p className={`${rokaf.className} font-custom text-xl text-primary md:text-[26px] `}>
+          <p
+            className={`${rokaf.className} font-custom text-xl text-primary md:text-[26px] `}
+          >
             판다마켓
           </p>
         </div>
@@ -45,7 +47,9 @@ export default function Header() {
         </nav>
       </div>
 
-      <Button>로그인</Button>
+      <Link href="/login">
+        <Button>로그인</Button>
+      </Link>
     </header>
   );
 }
