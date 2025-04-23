@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "email": "asdf12345678910@naver.com",
-  "nickname": "qwerasdfzxcv",
+  "nickname": "qwerasdfzxcvㅣㅏㅓㅗㅗ",
   "password": "12345678Aa!",
   "passwordConfirmation": "12345678Aa!"
 }
@@ -17,3 +17,8 @@ Content-Type: application/json
   "email": "asdf12345678@naver.com",
   "password": "12345678Aa!"
 }
+
+# {
+#   "email": "as678@naver.com",
+#   "password": "1238Aa!"
+# }

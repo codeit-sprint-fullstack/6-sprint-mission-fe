@@ -4,6 +4,7 @@ import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import NavIndexProvider from "@/providers/NavIndexProvider";
 import { ArticlesProvider } from "@/providers/ArticlesProvider";
+import EmptyLayout from "@/components/layout/EmptyLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +29,9 @@ export default function RootLayout({ children }) {
       >
         <NavIndexProvider>
           <ArticlesProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <EmptyLayout>
+              <main className="flex-1">{children}</main>
+            </EmptyLayout>
           </ArticlesProvider>
         </NavIndexProvider>
       </body>
