@@ -27,8 +27,6 @@ export default function RegistrationPage() {
         ></Image>
         {/* form wrapper  */}
         <form className="flex flex-col items-center justify-center w-full h-full gap-6 md:gap-">
-          {/* each input wrapper */}
-
           <FormInput
             id="email"
             label="이메일"
@@ -50,7 +48,7 @@ export default function RegistrationPage() {
             placeholder="비밀번호를 다시 한 번 입력해주세요"
           />
           {/* make it as common component */}
-          <button className="w-full">회원가입</button>
+          <button className="w-full bg-secondary-400">회원가입</button>
           {/* social signin wrapper */}
           <div className="bg-[#E6F2FF] px-6 py-4 w-full">
             <div className="flex items-center justify-between w-full h-full">
