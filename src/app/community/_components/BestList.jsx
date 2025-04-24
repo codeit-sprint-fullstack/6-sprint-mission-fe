@@ -2,7 +2,7 @@
 
 import BestItem from "./BestItem";
 import { useArticles } from "@/hooks/Article";
-import useDeviceType from "@/hooks/useDeviceType";
+import useDeviceType from "@/hooks/common/useDeviceType";
 import { useMemo } from "react";
 import LoadingState from "../../../components/common/LoadingState";
 

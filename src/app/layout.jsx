@@ -1,7 +1,11 @@
+"use client"; // ✅ 클라이언트 컴포넌트로 전환
+
+import { usePathname } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/layout/Header";
 import Footer from "@/layout/Footer";
+import AuthProvider from "@/providers/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,20 +17,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "판다마켓",
-  description: "중고 거래 및 커뮤니티 서비스",
-};
-
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+
+  // 로그인/회원가입 경로에서는 헤더, 푸터 제거
+  const isAuthPage = pathname === "/sign-in" || pathname === "/sign-up";
+
   return (
     <html lang="ko">
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
       >
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <AuthProvider>
+          {!isAuthPage && <Header />}
+          <main className="flex-grow">{children}</main>
+          {!isAuthPage && <Footer />}
+        </AuthProvider>
       </body>
     </html>
   );

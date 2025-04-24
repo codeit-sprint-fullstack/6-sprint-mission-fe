@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { debounce } from "lodash-es";
 import * as articleApi from "../../api/articles";
-import { scrollToTop } from "@/utils/common/scrollTop";
+import { scrollToTop } from "@/lib/common/scrollTop";
 
 /**
  * 게시글 목록을 조회하고 검색, 정렬, 페이지네이션 기능을 제공하는 커스텀 훅

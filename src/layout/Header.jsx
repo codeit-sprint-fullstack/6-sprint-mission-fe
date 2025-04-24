@@ -65,7 +65,7 @@ export default function Header() {
         </nav>
 
         <Link
-          href="/login"
+          href="/sign-in"
           className={`ml-auto flex h-10 items-center justify-center rounded-lg text-white ${!isTablet ? "w-[100px] bg-blue-400 transition-colors duration-200 hover:bg-blue-500" : ""}`}
         >
           {isTablet ? (

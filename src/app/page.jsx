@@ -1,6 +1,6 @@
-import HomeBanner from "@/components/ui/HomeBanner";
-import HomeBottom from "@/components/ui/HomeBottom";
-import HomeCard from "@/components/ui/HomeCard";
+import HomeBanner from "./_components/HomeBanner";
+import HomeBottom from "./_components/HomeBottom";
+import HomeCard from "./_components/HomeCard";
 
 const MAIN_SECTION_DATAS = [
   {
