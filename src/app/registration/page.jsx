@@ -4,6 +4,7 @@ import FormInput from "@/components/ui/FormInput";
 import PasswordInput from "@/components/ui/PasswordInput";
 //find out which part can be separated as client component and keep this main page as server component
 import Image from "next/image";
+import Link from "next/link";
 
 export default function RegistrationPage() {
   return (
@@ -48,9 +49,11 @@ export default function RegistrationPage() {
             placeholder="비밀번호를 다시 한 번 입력해주세요"
           />
           {/* make it as common component */}
-          <button className="w-full bg-secondary-400">회원가입</button>
+          <button className="w-full h-14 rounded-[40px] bg-secondary-400 text-white text-xl font-semibold leading-[32px]">
+            회원가입
+          </button>
           {/* social signin wrapper */}
-          <div className="bg-[#E6F2FF] px-6 py-4 w-full">
+          <div className="bg-[#E6F2FF] text-secondary-800 rounded-lg px-6 py-4 w-full font-medium leading-[26px]">
             <div className="flex items-center justify-between w-full h-full">
               <p>간편 로그인하기</p>
               <div className="flex gap-4">
@@ -68,6 +71,17 @@ export default function RegistrationPage() {
                 ></Image>
               </div>
             </div>
+          </div>
+          <div className="flex gap-1 justify-center items-center">
+            <span className="text-secondary-800 text-sm font-medium leading-[24px]">
+              이미 회원이신가요?
+            </span>
+            <Link
+              href="/login"
+              className="text-primary underline text-sm font-medium leading-[24px]"
+            >
+              로그인
+            </Link>
           </div>
         </form>
       </div>
