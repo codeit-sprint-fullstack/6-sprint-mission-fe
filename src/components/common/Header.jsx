@@ -1,11 +1,13 @@
 "use client";
 
+import { useAuth } from "@/providers/AuthProvider";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 function Header() {
   const pathname = usePathname();
+  const { user } = useAuth();
 
   return (
     <header className="flex justify-between items-center w-full h-[70px] border-b border-[#dfdfdf] px-4 md:px-6 lg:px-50">
@@ -43,11 +45,29 @@ function Header() {
           </Link>
         </div>
       </div>
-      <Link href="/login">
-        <button className="btn-base" type="button">
-          로그인
-        </button>
-      </Link>
+      {user ? (
+        <div className="flex items-center">
+          <Link href="/me">
+            <button>
+              <Image
+                src="/assets/icon/ic_profile.svg"
+                alt="프로필"
+                width={40}
+                height={40}
+              />
+            </button>
+          </Link>
+          <span className="hidden lg:block text-lg ml-[6px]">
+            {user.nickname}
+          </span>
+        </div>
+      ) : (
+        <Link href="/login">
+          <button className="btn-base" type="button">
+            로그인
+          </button>
+        </Link>
+      )}
     </header>
   );
 }

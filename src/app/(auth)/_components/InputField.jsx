@@ -1,27 +1,40 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-function InputForm({ label, type, placeholder }) {
-  const [isPassword, setIsPassword] = useState(false);
+function InputField({
+  label,
+  name,
+  type,
+  placeholder,
+  value,
+  onChange,
+  error,
+}) {
   const [showPassword, setShowPassword] = useState(false);
-
-  useEffect(() => {
-    if (type === "password") {
-      setIsPassword(true);
-    }
-  }, [type]);
+  const isPassword = type === "password";
 
   return (
-    <div className="flex flex-col relative">
-      <label className="text-sm font-bold">{label}</label>
+    <div className="flex flex-col relative mb-4">
+      <label className="text-sm font-bold" htmlFor={name}>
+        {label}
+      </label>
       <input
+        name={name}
         type={showPassword ? "text" : type}
         placeholder={placeholder}
-        required
-        className="bg-gray-100 rounded-xl px-6 py-4 mt-2 mb-4"
+        className={`bg-gray-100 rounded-xl px-6 py-4 mt-2 ${
+          error ? "outline !outline-error-red !focus:outline-none" : ""
+        }`}
+        value={value}
+        onChange={onChange}
       />
+      {error && (
+        <div className="text-error-red text-sm font-semibold mt-2 ml-4">
+          {error}
+        </div>
+      )}
       <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
         {isPassword && (
           <Image
@@ -41,4 +54,4 @@ function InputForm({ label, type, placeholder }) {
   );
 }
 
-export default InputForm;
+export default InputField;

@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import PageContainer from "@/components/common/PageContainer";
+import Providers from "./providers";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -19,9 +20,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${pretendard.variable} antialiased`}>
-        <Header />
-        <PageContainer>{children}</PageContainer>
-        <Footer />
+        <Providers>
+          <Header />
+          <PageContainer>{children}</PageContainer>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
