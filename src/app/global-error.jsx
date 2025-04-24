@@ -7,7 +7,7 @@ export default function GlobalErrorPage() {
   return (
     <html>
       <body>
-        <div className="flex justify-center items-center h-lvh">
+        <div className="flex justify-center items-center h-screen">
           <div className="flex justify-center items-center flex-col gap-[18px]">
             <div className="flex justify-center items-center text-2xl text-bold">
               글로벌 에러 발생!
