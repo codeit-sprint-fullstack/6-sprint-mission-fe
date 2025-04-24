@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useRegistrationForm from "@/hooks/useRegistrationForm";
 import AuthSubmitButton from "@/components/ui/AuthSubmitButton";
+import SocialAuthOptions from "./SocialAuthOptions";
 
 export default function RegistrationForm() {
   const {
@@ -80,7 +81,8 @@ export default function RegistrationForm() {
         required
       />
       <AuthSubmitButton label="회원가입" isDisabled={!isFormValid} />
-      <div className="bg-[#E6F2FF] text-secondary-800 rounded-lg px-6 py-4 w-full font-medium leading-[26px]">
+      <SocialAuthOptions />
+      {/* <div className="bg-[#E6F2FF] text-secondary-800 rounded-lg px-6 py-4 w-full font-medium leading-[26px]">
         <div className="flex items-center justify-between w-full h-full">
           <p>간편 로그인하기</p>
           <div className="flex gap-4">
@@ -109,7 +111,7 @@ export default function RegistrationForm() {
         >
           로그인
         </Link>
-      </div>
+      </div> */}
     </form>
   );
 }

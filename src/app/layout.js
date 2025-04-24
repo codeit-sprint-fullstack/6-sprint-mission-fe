@@ -16,9 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${pretendard.variable} ${rokaf.variable}`}>
       <body className={`${pretendard.className}`}>
         <Header />
-        <main className="flex justify-center items-center mx-auto">
-          {children}
-        </main>
+        <main className="flex justify-center mx-auto">{children}</main>
         <Footer />
       </body>
     </html>
