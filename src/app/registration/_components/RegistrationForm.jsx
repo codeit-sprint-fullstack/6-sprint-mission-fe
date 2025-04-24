@@ -1,90 +1,40 @@
 "use client";
-
 import FormInput from "@/components/ui/FormInput";
-import React, { useCallback, useState } from "react";
+import PasswordInput from "@/components/ui/PasswordInput";
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import useRegistrationForm from "@/hooks/useRegistrationForm";
 
 export default function RegistrationForm() {
-  const [email, setEmail] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  // validity check variables
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isNicknameValid, setIsNicknameValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [isPasswordConfirmValid, setIsPasswordConfirmValid] = useState(false);
-
-  // handle each input field changes
-  const handleEmailChange = useCallback(
-    (value, isValid) => {
-      setEmail(value);
-      setIsEmailValid(isValid);
-      checkFormValidity();
-    },
-    [checkFormValidity]
-  );
-
-  const handleNicknameChange = useCallback(
-    (value, isValid) => {
-      setNickname(value);
-      setIsNicknameValid(isValid);
-      checkFormValidity();
-    },
-    [checkFormValidity]
-  );
-
-  const handlePasswordChange = useCallback(
-    (value, isValid) => {
-      setPassword(value);
-      setIsPasswordValid(isValid);
-      checkFormValidity();
-    },
-    [checkFormValidity]
-  );
-
-  const handlePasswordConfirmChange = useCallback(
-    (value, isValid) => {
-      setPasswordConfirm(value);
-      setIsPasswordConfirmValid(isValid);
-      checkFormValidity();
-    },
-    [checkFormValidity]
-  );
-
-  // handle formValidity
-  const checkFormValidity = useCallback(() => {
-    setIsFormValid(
-      isEmailValid &&
-        isNicknameValid &&
-        isPasswordValid &&
-        isPasswordConfirmValid &&
-        password === passwordConfirm
-    );
-  }, [
+  const {
+    email,
+    nickname,
+    password,
+    passwordConfirm,
+    isFormValid,
     isEmailValid,
     isNicknameValid,
     isPasswordValid,
     isPasswordConfirmValid,
-    password,
-    passwordConfirm,
-  ]);
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    if (isFormValid) {
-      console.log("Form submitted with the following data:");
-    }
-  };
+    handleEmailChange,
+    handleNicknameChange,
+    handlePasswordChange,
+    handlePasswordConfirmChange,
+  } = useRegistrationForm();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (isFormValid) {
-      //  call API
-      console.log("Form submitted", { email, nickname, password, password });
+      console.log("Form submitted", {
+        email,
+        nickname,
+        password,
+        passwordConfirm,
+      });
     }
   };
+
   return (
     <form
       className="flex flex-col items-center justify-center w-full h-full gap-6"
@@ -95,10 +45,10 @@ export default function RegistrationForm() {
         label="이메일"
         placeholder="이메일을 입력해주세요"
         value={email}
-        isValid={isEmailValid} // pass down validity state
+        onChange={handleEmailChange}
+        isValid={isEmailValid}
         required
       />
-
       <FormInput
         id="nickname"
         label="닉네임"
@@ -108,24 +58,22 @@ export default function RegistrationForm() {
         isValid={isNicknameValid}
         required
       />
-
       <PasswordInput
         id="password"
         label="비밀번호"
         placeholder="비밀번호를 입력해주세요"
         value={password}
         onChange={handlePasswordChange}
-        isValid={isPasswordValid} // Pass down the validity state
+        isValid={isPasswordValid}
         required
       />
-
       <PasswordInput
         id="password-confirm"
         label="비밀번호 확인"
         placeholder="비밀번호를 다시 한 번 입력해주세요"
         value={passwordConfirm}
         onChange={handlePasswordConfirmChange}
-        isValid={isPasswordConfirmValid} // Pass down the validity state
+        isValid={isPasswordConfirmValid}
         required
       />
       <button

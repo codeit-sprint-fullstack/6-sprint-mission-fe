@@ -15,7 +15,7 @@ export default function FormInput({
   const [inputValue, setInputValue] = useState(propValue || "");
 
   useEffect(() => {
-    if (probValue !== undefined) {
+    if (propValue !== undefined) {
       setInputValue(propValue);
     }
   }, [propValue]);
