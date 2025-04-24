@@ -52,7 +52,7 @@ export default function FormInput({
         id={id}
         type={type}
         placeholder={placeholder}
-        className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 ${className}`}
+        className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 ${!isValid ? "outline-error" : ""} ${className}`}
         value={inputValue}
         onChange={handleChange}
         {...props}

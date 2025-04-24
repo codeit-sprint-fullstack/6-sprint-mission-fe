@@ -15,3 +15,9 @@
   --color-secondary-25: #fcfcfc;
   --color-error: #f74747;
 }
+
+.outline-error {
+  outline-color: var(--color-error);
+  outline-style: auto;
+  outline-width: 1px;
+}
