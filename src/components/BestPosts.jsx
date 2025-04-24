@@ -1,42 +1,45 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import BestPostCard from "./BestPostCard";
+import { fetchArticles } from "@/api/article.api";
 
 function BestPosts() {
-  const bestPosts = [
-    {
-      id: 1,
-      title: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?",
-      author: "홍길동",
-      likes: 9999,
-      date: "2024.04.16",
-      imageUrl: "/images/macbook.png",
-    },
-    {
-      id: 2,
-      title: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?",
-      author: "김코딩",
-      likes: 9999,
-      date: "2024.04.16",
-      imageUrl: "/images/macbook.png",
-    },
-    {
-      id: 3,
-      title: "맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?",
-      author: "이자바",
-      likes: 9999,
-      date: "2024.04.16",
-      imageUrl: "/images/macbook.png",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const data = await fetchArticles();
+        //최신순 정렬 후 상위 3개 추출
+        const sorted = [...data].sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        const top3 = sorted.slice(0, 3).map((post) => ({
+          ...post,
+          author: "총명한 단이",
+          likes: Math.floor(Math.random() * 10000),
+          date: new Date(post.createdAt).toLocaleDateString(),
+          imageUrl: "/images/macbook.png",
+        }));
+        setPosts(top3);
+      } catch (e) {
+        console.error("베스트 게시글 불러오기 실패", e);
+      }
+    };
+    load();
+  }, []);
 
   return (
     <section className="w-full max-w-[1200px] mx-auto mt-6">
-      <h2 className="font-bold text-xl text-secondary-900 mb-6">베스트 게시글</h2>
+      <h2 className="font-bold text-xl text-secondary-900 mb-6">
+        베스트 게시글
+      </h2>
       <div className="flex gap-6 flex-wrap">
-        {bestPosts.map((post) => (
+        {posts.map((post) => (
           <BestPostCard key={post.id} post={post} />
         ))}
-      </div> 
+      </div>
     </section>
   );
 }

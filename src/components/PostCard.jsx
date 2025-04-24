@@ -26,7 +26,7 @@ function PostCard({ post }) {
         <div className="flex justify-center items-center w-[72px] h-[72px] rounded-md border border-gray-200 shrink-0 overflow-hidden">
           <div className="relative w-[48px] h-[44.57px]">
             <Image
-              src="/images/macbook.png"
+              src={post.imageUrl || "/images/macbook.png"}
               alt="기본 썸네일 이미지"
               fill
               className="object-cover"
