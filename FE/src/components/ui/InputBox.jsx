@@ -1,7 +1,10 @@
 "use client";
 
-import searchImage from "@/assets/images/icons/ic_search.png";
 import Image from "next/image";
+import searchImage from "@/assets/images/icons/ic_search.png";
+import closeEyeImage from "@/assets/images/icons/ic_close_eye.png";
+import openEyeImage from "@/assets/images/icons/ic_open_eye.png";
+import { useState } from "react";
 
 export default function InputBox({
   placeHolderText,
@@ -9,6 +12,11 @@ export default function InputBox({
   setInputValueState,
   inputType,
 }) {
+  const [toggleViewPasswordState, setToggleViewPasswordState] = useState(false);
+
+  const handleOnClickTogglePassword = () => {
+    setToggleViewPasswordState(!toggleViewPasswordState);
+  };
   return (
     <div className="bg-gray-100 rounded-xl flex px-4 items-center text-gray-400 gap-[10px] h-full mx-4">
       {inputType === "search" && (
@@ -26,7 +34,16 @@ export default function InputBox({
           className="w-full h-full"
           placeholder={placeHolderText}
           value={inputValueState}
+          type={toggleViewPasswordState ? "text" : "password"}
           onChange={(e) => setInputValueState(e.target.value)}
+        />
+      )}
+      {inputType === "password" && (
+        <Image
+          className="cursor-pointer"
+          src={toggleViewPasswordState ? openEyeImage : closeEyeImage}
+          alt={toggleViewPasswordState ? "openEyeImage" : "closeEyeImage"}
+          onClick={handleOnClickTogglePassword}
         />
       )}
     </div>
