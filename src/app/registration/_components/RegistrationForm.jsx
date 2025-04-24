@@ -23,7 +23,9 @@ export default function RegistrationForm() {
     handlePasswordConfirmChange,
   } = useRegistrationForm();
 
+  console.log("isFormValid", isFormValid);
   const handleSubmit = (event) => {
+    // need to call backend api
     event.preventDefault();
     if (isFormValid) {
       console.log("Form submitted", {
@@ -77,7 +79,7 @@ export default function RegistrationForm() {
         required
       />
       <button
-        className="w-full h-14 rounded-[40px] bg-secondary-400 text-white text-xl font-semibold leading-[32px]"
+        className={`w-full h-14 rounded-[40px] text-white text-xl font-semibold leading-[32px] cursor-pointer ${isFormValid ? "bg-primary" : "bg-secondary-400"}`}
         disabled={!isFormValid}
         type="submit"
       >
