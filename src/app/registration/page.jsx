@@ -27,11 +27,12 @@ export default function RegistrationPage() {
           className="hidden md:block"
         ></Image>
         {/* form wrapper  */}
-        <form className="flex flex-col items-center justify-center w-full h-full gap-6 md:gap-">
+        <form className="flex flex-col items-center justify-center w-full h-full gap-6">
           <FormInput
             id="email"
             label="이메일"
             placeholder="이메일을 입력해주세요"
+            errorMsg=""
           />
           <FormInput
             id="nickname"

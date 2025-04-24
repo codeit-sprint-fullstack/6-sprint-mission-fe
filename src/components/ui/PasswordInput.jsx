@@ -2,9 +2,42 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export default function PasswordInput({ id, label, placeholder }) {
+export default function PasswordInput({
+  id,
+  label,
+  placeholder,
+  type = "password",
+  onChange,
+  value: propValue,
+  isValid,
+  ...props
+}) {
+  const [inputValue, setInputValue] = useState(propValue || "");
   const [visible, setVisible] = useState(false);
 
+  useEffect(() => {
+    if (propValue !== undefined) {
+      setInputValue(propValue);
+    }
+  }, [propValue]);
+
+  const handleChange = (event) => {
+    const newValue = event.target.value;
+    setInputValue(newValue);
+
+    let currentIsValid = true;
+
+    if (newValue.trim().length < 8) {
+      currentIsValid = false;
+    } else if (props.required && newValue.trim() === "") {
+      currentIsValid = false;
+    }
+
+    if (onChange) {
+      // call the onChange function passed by the parent
+      onChange(newValue, currentIsValid);
+    }
+  };
   return (
     <div className="flex flex-col w-full gap-2 md:gap-4">
       {label && (
@@ -20,7 +53,7 @@ export default function PasswordInput({ id, label, placeholder }) {
           id={id}
           type={visible ? "text" : "password"}
           placeholder={placeholder}
-          className="bg-secondary-100 rounded-[12px] h-14 py-4 px-6 placeholder:text-secondary-400 w-full"
+          className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 w-full ${!isValid ? "outline-error" : ""}`}
         />
         <button
           type="button"
@@ -44,6 +77,13 @@ export default function PasswordInput({ id, label, placeholder }) {
           )}
         </button>
       </div>
+      {!isValid && (
+        <p className="text-error text-sm font-semibold leading-6">
+          {id === "password"
+            ? "비밀번호를 8자 이상 입력해주세요."
+            : "비밀번호가 일치하지 않습니다."}
+        </p>
+      )}
     </div>
   );
 }
