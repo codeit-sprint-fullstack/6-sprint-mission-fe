@@ -21,6 +21,7 @@
   --color-primary-100: #3692ff;
   --color-primary-200: #1967d6;
   --color-primary-300: #1251aa;
+  --color-brand-blue: #3182f6;
   --color-error-red: #f74747;
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
@@ -34,6 +35,7 @@
   --color-FF: #ffffff;
   --color-FC: #fcfcfc;
   --color-DF: #dfdfdf;
+  --color-EF: #e6f2ff;
 }
 
 /* ===== 유틸리티 클래스 확장 ===== *
@@ -132,7 +134,7 @@
 }
 
 .btn-sm-48 {
-  @apply w-23 h-[42px] px-[23px] py-3 text-base text-gray-100 rounded-lg;
+  @apply w-23 h-11 px-5 py-3 text-base text-gray-100 rounded-lg;
 }
 
 .btn-md {
@@ -140,7 +142,7 @@
 }
 
 .btn-lg {
-  @apply w-[357px] h-14 p-4 text-xl text-gray-100 rounded-[40px];
+  @apply w-full h-14 p-4 text-xl text-gray-100 rounded-[40px];
 }
 
 /* 좋아요 버튼 하트 미반영 */

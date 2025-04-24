@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import favicon from "../../assets/images/favicon.png";
+import pandaLogoImage from "../../assets/images/logo/panda_logo.png";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 
@@ -34,7 +34,7 @@ export default function Header() {
           >
             <Image
               className="hidden tablet:block web:block"
-              src={favicon}
+              src={pandaLogoImage}
               alt="Panda Market Logo"
               width={40}
               height={40}

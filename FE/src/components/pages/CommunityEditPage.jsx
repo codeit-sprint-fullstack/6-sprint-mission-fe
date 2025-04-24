@@ -6,7 +6,7 @@ import { updateArticle } from "@/lib/services/api/article";
 import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-export default function communityEditPage() {
+export default function CommunityEditPage() {
   const router = useRouter();
   const [titleValueState, setTitleValueState] = useState("");
   const [contentValueState, setContentValueState] = useState("");

@@ -11,10 +11,10 @@ import {
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import CommentLists from "./components/CommentLists";
-import Dropdown from "@/app/components/Dropdown";
+import CommentLists from "./_components/CommentLists";
+import Dropdown from "@/app/(main)/(item)/_components/Dropdown";
 import Link from "next/link";
-import DeleteModal from "@/app/components/DeleteModal";
+import DeleteModal from "@/app/(main)/(item)/_components/DeleteModal";
 
 import backImage from "@/assets/images/icons/ic_back.png";
 import kebabImage from "@/assets/images/icons/ic_kebab.png";

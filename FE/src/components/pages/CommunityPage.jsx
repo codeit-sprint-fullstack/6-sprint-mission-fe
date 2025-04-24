@@ -1,11 +1,11 @@
 "use client";
 
-import TitleSection from "@/components/ui/TitleSection";
 import Link from "next/link";
 import React, { useState } from "react";
-import BestArticleLists from "./components/BestArticleLists";
-import ArticleLists from "./components/ArticleLists";
+import TitleSection from "@/components/ui/TitleSection";
 import SearchBar from "@/components/ui/SearchBar";
+import BestArticleLists from "@/app/(main)/(item)/community/_components/BestArticleLists";
+import ArticleLists from "@/app/(main)/(item)/community/_components/ArticleLists";
 
 export default function CommunityPage() {
   const [searchValueState, setSearchValueState] = useState("");

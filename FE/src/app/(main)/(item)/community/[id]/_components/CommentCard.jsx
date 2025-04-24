@@ -6,9 +6,9 @@ import kebabImage from "@/assets/images/icons/ic_kebab.png";
 import defaultProfileImage from "@/assets/images/logo/defaultProfileImage.png";
 import Image from "next/image";
 import { useState } from "react";
-import Dropdown from "@/app/components/Dropdown";
+import Dropdown from "@/app/(main)/(item)/_components/Dropdown";
 import { useParams, useRouter } from "next/navigation";
-import DeleteModal from "@/app/components/DeleteModal";
+import DeleteModal from "@/app/(main)/(item)/_components/DeleteModal";
 import { deleteArticleCommentById } from "@/lib/services/api/article";
 
 export default function CommentCard({ comment }) {

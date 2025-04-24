@@ -1,12 +1,12 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createArticle } from "@/lib/services/api/article";
 import InputBox from "@/components/ui/InputBox";
 import TitleSection from "@/components/ui/TitleSection";
-import { createArticle } from "@/lib/services/api/article";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
 
-export default function communityCreatePage() {
+export default function CommunityCreatePage() {
   const router = useRouter();
   const [titleValueState, setTitleValueState] = useState("");
   const [contentValueState, setContentValueState] = useState("");
@@ -25,7 +25,7 @@ export default function communityCreatePage() {
   return (
     <>
       <TitleSection
-        titleText={"상품 등록하기"}
+        titleText={"게시글 쓰기"}
         buttonStyle={
           <button
             className={`btn-sm-42 ${
