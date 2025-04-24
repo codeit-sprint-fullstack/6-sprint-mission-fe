@@ -5,7 +5,14 @@ import clsx from "clsx";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
+// body 초기화
 const INITIAL_BODY = { title: "", content: "" };
+
+// 페이지 별 제목 적용
+const TITLE_BY_PAGE = {
+  create: "게시글 작성",
+  edit: "게시글 수정",
+};
 
 export default function ArticleForm({ page }) {
   const [body, setBody] = useState(INITIAL_BODY);
@@ -13,39 +20,11 @@ export default function ArticleForm({ page }) {
   const { articleId } = useParams();
   const router = useRouter();
 
-  // 게시글 세부 조회(기존 내용 불러오는 용도)
-  useEffect(() => {
-    if (page === "create") return;
-
-    articleLoad(articleId);
-  }, []);
-
-  const articleLoad = async (articleId) => {
-    const article = await getArticle(articleId);
-
-    return setBody(article);
+  // 페이지 별 함수 적용
+  const FUNC_BY_PAGE = {
+    create: (e) => createArticle(e, body),
+    edit: (e) => updateArticle(e, articleId, body),
   };
-
-  // body 업데이트
-  const changeValue = (e) => {
-    const { id, value } = e.target;
-
-    setBody((prevBody) => ({ ...prevBody, [id]: value }));
-  };
-
-  // 등록 버튼 활성화
-  useEffect(() => {
-    const { title, content } = body;
-    const validation = title && content;
-
-    if (!title.trim() || !content.trim()) return setIsActive(false);
-
-    if (validation) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  }, [body]);
 
   // 게시글 등록
   const createArticle = async (e, body) => {
@@ -71,24 +50,46 @@ export default function ArticleForm({ page }) {
     router.push(`/community/${article.id}`);
   };
 
-  // 페이지 별 함수 적용
-  const PAGE_BY_FUNC = {
-    create: (e) => createArticle(e, body),
-    edit: (e) => updateArticle(e, articleId, body),
+  // 게시글 세부 조회(수정 시 기존 내용 불러오는 용도)
+  const articleLoad = async (articleId) => {
+    const article = await getArticle(articleId);
+
+    return setBody(article);
   };
 
-  // 페이지 별 제목 적용
-  const PAGE_BY_TITLE = {
-    create: "게시글 작성",
-    edit: "게시글 수정",
+  useEffect(() => {
+    if (page === "create") return;
+
+    articleLoad(articleId);
+  }, []);
+
+  // body 업데이트
+  const changeValue = (e) => {
+    const { id, value } = e.target;
+
+    setBody((prevBody) => ({ ...prevBody, [id]: value }));
   };
+
+  // 등록 버튼 활성화
+  useEffect(() => {
+    const { title, content } = body;
+    const validation = title && content;
+
+    if (!title.trim() || !content.trim()) return setIsActive(false);
+
+    if (validation) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [body]);
 
   return (
-    <form onSubmit={PAGE_BY_FUNC[page]} className="p-[16px] sm:p-[24px]">
+    <form onSubmit={FUNC_BY_PAGE[page]}>
       <div className="flex justify-center items-center">
         <div className="flex justify-between items-center w-full max-w-[1200px]">
           <h1 className="h-[32px] font-bold text-[20px]">
-            {PAGE_BY_TITLE[page]}
+            {TITLE_BY_PAGE[page]}
           </h1>
           <button
             type="submit"

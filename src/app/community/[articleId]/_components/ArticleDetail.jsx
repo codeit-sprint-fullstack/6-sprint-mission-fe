@@ -46,7 +46,9 @@ export default function ArticleDetail() {
   return (
     <>
       {isLoading ? (
-        "게시글 불러오는 중..."
+        <p className="flex justify-center items-center">
+          게시글 불러오는 중...
+        </p>
       ) : (
         <>
           <div className="flex flex-col gap-[16px] w-full">

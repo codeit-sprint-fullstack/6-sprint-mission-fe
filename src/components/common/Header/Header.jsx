@@ -42,9 +42,9 @@ export default function Header() {
               자유게시판
             </Link>
             <Link
-              href="/items"
+              href="/products"
               className={clsx(
-                path.startsWith("/items")
+                path.startsWith("/products")
                   ? "text-primary-100"
                   : "text-secondary-gray-500",
                 "flex no-underline text-[16px]/[26px] font-bold text-center hover:text-primary-100 active:text-primary-200 sm:py-[21px] sm:px-[15px] sm:text-[18px]"
@@ -55,7 +55,7 @@ export default function Header() {
           </div>
         </div>
         <Link
-          href="/login"
+          href="/auth/login"
           className="flex justify-center items-center bg-primary-100 hover:bg-primary-200 active:bg-primary-300 h-[42px] w-[88px] rounded-[8px] py-3 px-[21px] text-[16px] font-semibold text-white"
         >
           로그인
