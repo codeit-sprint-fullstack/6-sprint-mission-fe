@@ -19,9 +19,7 @@ const useRegistrationForm = () => {
       isEmailValid &&
       isNicknameValid &&
       isPasswordValid &&
-      isPasswordConfirmValid &&
-      password === passwordConfirm;
-
+      isPasswordConfirmValid;
     setIsFormValid(isValid);
   }, [
     isEmailValid,
@@ -47,10 +45,13 @@ const useRegistrationForm = () => {
     setIsPasswordValid(isValid);
   }, []);
 
-  const handlePasswordConfirmChange = useCallback((value, isValid) => {
-    setPasswordConfirm(value);
-    setIsPasswordConfirmValid(isValid);
-  }, []);
+  const handlePasswordConfirmChange = useCallback(
+    (value) => {
+      setPasswordConfirm(value);
+      setIsPasswordConfirmValid(value === password);
+    },
+    [password]
+  );
 
   return {
     email,

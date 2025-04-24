@@ -23,7 +23,6 @@ export default function RegistrationForm() {
     handlePasswordConfirmChange,
   } = useRegistrationForm();
 
-  console.log("isFormValid", isFormValid);
   const handleSubmit = (event) => {
     // need to call backend api
     event.preventDefault();
@@ -41,6 +40,7 @@ export default function RegistrationForm() {
     <form
       className="flex flex-col items-center justify-center w-full h-full gap-6"
       onSubmit={handleSubmit}
+      action="submit"
     >
       <FormInput
         id="email"
