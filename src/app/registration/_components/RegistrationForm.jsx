@@ -5,6 +5,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import useRegistrationForm from "@/hooks/useRegistrationForm";
+import AuthSubmitButton from "@/components/ui/AuthSubmitButton";
 
 export default function RegistrationForm() {
   const {
@@ -78,13 +79,7 @@ export default function RegistrationForm() {
         isValid={isPasswordConfirmValid}
         required
       />
-      <button
-        className={`w-full h-14 rounded-[40px] text-white text-xl font-semibold leading-[32px] cursor-pointer ${isFormValid ? "bg-primary" : "bg-secondary-400"}`}
-        disabled={!isFormValid}
-        type="submit"
-      >
-        회원가입
-      </button>
+      <AuthSubmitButton label="회원가입" isDisabled={!isFormValid} />
       <div className="bg-[#E6F2FF] text-secondary-800 rounded-lg px-6 py-4 w-full font-medium leading-[26px]">
         <div className="flex items-center justify-between w-full h-full">
           <p>간편 로그인하기</p>
