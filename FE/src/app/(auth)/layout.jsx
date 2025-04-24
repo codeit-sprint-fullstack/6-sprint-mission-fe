@@ -23,10 +23,10 @@ export default function AuthLayout({ children }) {
   return (
     <html lang="ko">
       <body
-        className={`${geistSans.className} ${geistMono.variable} antialiased flex flex-col justify-center items-center min-h-screen bg-blue-600`}
+        className={`${geistSans.className} ${geistMono.variable} antialiased flex flex-col justify-center items-center h-screen`}
       >
         <Providers>
-          <main className="w-85 h-125 ">
+          <main className="w-85">
             <div className="flex justify-center">
               <AuthHeader />
             </div>
