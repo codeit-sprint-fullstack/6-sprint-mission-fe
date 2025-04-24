@@ -7,7 +7,7 @@ export default function PasswordInput({
   label,
   placeholder,
   type = "password",
-  className ="",
+  className = "",
   onChange,
   value: propValue,
   isValid,
@@ -54,6 +54,7 @@ export default function PasswordInput({
           id={id}
           type={visible ? "text" : "password"}
           placeholder={placeholder}
+          onChange={handleChange}
           className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 w-full ${!isValid ? "outline-error" : ""} ${className}`}
         />
         <button
