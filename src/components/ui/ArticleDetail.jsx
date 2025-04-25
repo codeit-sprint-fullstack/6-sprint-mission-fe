@@ -3,7 +3,7 @@
 import React from "react";
 import MoreToggle from "./common-UI/MoreToggle";
 import { usePathname, useRouter } from "next/navigation";
-import { deleteArticle, getArticles, getBestArticles } from "@/lib/api/article";
+import { deleteArticle, getArticles, getBestArticles } from "@/lib/article";
 
 function ArticleDetail({ articleId, article }) {
   const router = useRouter();

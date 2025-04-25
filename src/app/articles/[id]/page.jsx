@@ -2,9 +2,9 @@
 
 import ArticleDetail from "@/components/ui/ArticleDetail";
 import Button from "@/components/ui/common-UI/Button";
-import Comments from "@/components/ui/comment/Comments";
+import Comments from "@/components/ui/article/Comments";
 import CreateComment from "@/components/ui/comment/CreateComment";
-import { getArticle } from "@/lib/api/article";
+import { getArticle } from "@/lib/article";
 import React, { useEffect, useState } from "react";
 
 export default function SpecifiedArticle({ params }) {

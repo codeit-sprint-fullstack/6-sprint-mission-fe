@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Button from "@/components/ui/common-UI/Button";
 import InputField from "@/components/ui/common-UI/InputField";
-import { postArticle } from "@/lib/api/article";
+import { postArticle } from "@/lib/article";
 import { useRouter } from "next/navigation";
 
 function PostingPage() {

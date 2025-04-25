@@ -2,7 +2,7 @@ import Button from "@/components/ui/common-UI/Button";
 import Dropdown from "@/components/ui/common-UI/Dropdown";
 import Pagination from "@/components/ui/common-UI/Pagination";
 import Search from "@/components/ui/common-UI/Search";
-import { getProducts } from "@/lib/api/product";
+import { getProducts } from "@/lib/product";
 import Link from "next/link";
 
 export const ItemsPage = async () => {

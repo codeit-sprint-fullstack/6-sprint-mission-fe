@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import InputField from "../common-UI/InputField";
 import Button from "../common-UI/Button";
-import { getComments, postComment } from "@/lib/api/comment";
+import { getComments, postComment } from "@/lib/comment";
 import { preconnect } from "react-dom";
 
 function CreateComment({

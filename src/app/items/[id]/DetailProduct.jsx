@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import MoreToggle from "../../../components/ui/common-UI/MoreToggle";
-import { getProduct, getProducts } from "@/lib/api/product";
+import { getProduct, getProducts } from "@/lib/product";
 
 function DetailProduct({ id }) {
   const [productData, setProductData] = useState(null);

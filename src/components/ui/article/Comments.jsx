@@ -1,6 +1,6 @@
 "use client";
 
-import { getComments } from "@/lib/api/comment";
+import { getComments } from "@/lib/comment";
 import Comment from "./Comment";
 import { useEffect, useState } from "react";
 

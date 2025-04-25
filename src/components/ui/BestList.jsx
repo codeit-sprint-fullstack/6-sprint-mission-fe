@@ -1,6 +1,6 @@
 import React from "react";
 import BestArticle from "@/components/ui/BestArticle";
-import { getBestArticles } from "@/lib/api/article";
+import { getBestArticles } from "@/lib/article";
 import Link from "next/link";
 
 export default async function BestList() {
