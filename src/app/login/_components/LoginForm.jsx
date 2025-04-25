@@ -1,10 +1,11 @@
 "use client";
 import SocialAuthOptions from "@/app/registration/_components/SocialAuthOptions";
+import AuthModal from "@/components/ui/AuthModal";
 import AuthSubmitButton from "@/components/ui/AuthSubmitButton";
 import FormInput from "@/components/ui/FormInput";
 import PasswordInput from "@/components/ui/PasswordInput";
 import useLoginForm from "@/hooks/useLoginForm";
-import React from "react";
+import React, { useState } from "react";
 
 export default function LoginForm() {
   const {
@@ -17,38 +18,49 @@ export default function LoginForm() {
     handlePasswordChange,
   } = useLoginForm();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (isFormValid) {
       console.log("Login form submitted");
     }
+    // if the form is valid then start sending request to API
+    // check password - email match and set the modalMessage
   };
   return (
-    <form
-      className="flex flex-col items-center justify-center w-full h-full gap-6"
-      onSubmit={handleSubmit}
-      action="submit"
-    >
-      <FormInput
-        id="email"
-        label="이메일"
-        placeholder="이메일을 입력해주세요"
-        value={email}
-        onChange={handleEmailChange}
-        isValid={isEmailValid}
-        required
-      />
-      <PasswordInput
-        id="password"
-        label="비밀번호"
-        placeholder="비밀번호를 입력해주세요"
-        value={password}
-        onChange={handlePasswordChange}
-        isValid={isPasswordValid}
-        required
-      />
-      <AuthSubmitButton label="로그인" isDisabled={!isFormValid} />
-      <SocialAuthOptions />
-    </form>
+    <>
+      <form
+        className="flex flex-col items-center justify-center w-full h-full gap-6"
+        onSubmit={handleSubmit}
+        action="submit"
+      >
+        <FormInput
+          id="email"
+          label="이메일"
+          placeholder="이메일을 입력해주세요"
+          value={email}
+          onChange={handleEmailChange}
+          isValid={isEmailValid}
+          required
+        />
+        <PasswordInput
+          id="password"
+          label="비밀번호"
+          placeholder="비밀번호를 입력해주세요"
+          value={password}
+          onChange={handlePasswordChange}
+          isValid={isPasswordValid}
+          required
+        />
+        <AuthSubmitButton label="로그인" isDisabled={!isFormValid} />
+        <SocialAuthOptions />
+      </form>
+
+      <AuthModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        {modalMessage}
+      </AuthModal>
+    </>
   );
 }
