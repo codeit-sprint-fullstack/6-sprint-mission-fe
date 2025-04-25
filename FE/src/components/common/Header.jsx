@@ -3,20 +3,23 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import pandaLogoImage from "../../assets/images/logo/panda_logo.png";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
+import pandaLogoImage from "@/assets/images/logo/panda_logo.png";
+
+export function AuthHeader() {
+  return (
+    <div className="flex justify-center items-center w-50 h-17 text-primary-100 text-4xl font-bold gap-2">
+      <Image src={pandaLogoImage} alt="pandaLogoImage" className="w-13" />
+      <p>판다마켓</p>
+    </div>
+  );
+}
 
 export default function Header() {
   const pathname = usePathname();
   const isCommunity = pathname.startsWith("/community");
   const isMarket = pathname.startsWith("/items");
-  const [isClient, setIsClient] = useState(false);
-  // 새로고침 필요. 리팩토링 필요.
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const linkBaseStyle = "text-sm sm:text-base font-bold px-2 cursor-pointer";
   return (
@@ -27,9 +30,7 @@ export default function Header() {
             href="/"
             className={clsx(
               "flex items-center gap-2 w-fit text-primary-100",
-              isClient && window.innerWidth <= 375
-                ? "text-xl-bold"
-                : "text-2xl-bold"
+              "text-xl-bold"
             )}
           >
             <Image
