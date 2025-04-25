@@ -2,81 +2,45 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/providers/AuthProvider";
+import { INPUT_OPTIONS } from "@/const";
 import InputField from "./InputField";
+import Modal from "@/components/ui/Modal";
+import { useAuth } from "@/providers/AuthProvider";
 
 function SignupForm() {
-  const inputOptions = [
-    {
-      label: "이메일",
-      name: "email",
-      type: "email",
-      placeholder: "이메일을 입력해주세요",
-    },
-    {
-      label: "닉네임",
-      name: "nickname",
-      type: "text",
-      placeholder: "닉네임을 입력해주세요",
-    },
-    {
-      label: "비밀번호",
-      name: "password",
-      type: "password",
-      placeholder: "비밀번호를 입력해주세요",
-    },
-    {
-      label: "비밀번호 확인",
-      name: "passwordConfirmation",
-      type: "password",
-      placeholder: "비밀번호를 다시 한 번 입력해주세요",
-    },
-  ];
+  const [isInputValid, setIsInputValid] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [serverError, setServerError] = useState("");
   const [values, setValues] = useState({
     email: "",
     nickname: "",
     password: "",
     passwordConfirmation: "",
   });
-  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({
     email: "",
     nickname: "",
     password: "",
     passwordConfirmation: "",
   });
-  const { signup } = useAuth();
+
   const router = useRouter();
+  const { signup } = useAuth();
 
   // 유효성 검사 함수
-  const checkValidation = ({
-    email,
-    nickname,
-    password,
-    passwordConfirmation,
-  }) => {
+  const checkValidation = ({ email, password, passwordConfirmation }) => {
     const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
     const newErrors = {};
 
-    if (!email) {
-      newErrors.email = "이메일을 입력해주세요.";
-    } else if (!pattern.test(email)) {
+    if (!pattern.test(email)) {
       newErrors.email = "잘못된 이메일 형식입니다.";
     }
 
-    if (!nickname) {
-      newErrors.nickname = "닉네임을 입력해주세요.";
-    }
-
-    if (!password) {
-      newErrors.password = "비밀번호를 입력해주세요.";
-    } else if (password.length < 8) {
+    if (password && password.length < 8) {
       newErrors.password = "비밀번호를 8자 이상 입력해주세요.";
     }
 
-    if (!passwordConfirmation) {
-      newErrors.passwordConfirmation = "비밀번호를 다시 한 번 입력해주세요.";
-    } else if (password !== passwordConfirmation) {
+    if (passwordConfirmation && password !== passwordConfirmation) {
       newErrors.passwordConfirmation = "비밀번호가 일치하지 않습니다.";
     }
 
@@ -88,40 +52,42 @@ function SignupForm() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setValues((prev) => ({ ...prev, [name]: value }));
+    const newValues = { ...values, [name]: value };
+    setValues(newValues);
     setErrors((prev) => ({ ...prev, [name]: "" }));
+
+    const isValid =
+      newValues.email.trim() !== "" &&
+      newValues.nickname.trim() !== "" &&
+      newValues.password.trim() !== "" &&
+      newValues.passwordConfirmation.trim() !== "";
+    setIsInputValid(isValid);
   };
 
-  // 폼 제출 시 실행되는 핸들러
-  async function handleSubmit(e) {
+  // 회원가입 폼 제출 핸들러
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     checkValidation(values);
 
-    try {
-      setLoading(true);
+    const result = await signup(
+      values.email,
+      values.nickname,
+      values.password,
+      values.passwordConfirmation
+    );
 
-      await signup(
-        values.email,
-        values.nickname,
-        values.password,
-        values.passwordConfirmation
-      );
-
-      alert("회원가입에 성공했습니다.");
+    if (result?.success) {
       router.push("/login");
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
+    } else {
+      setServerError(result?.message);
+      setIsModalOpen(true);
     }
-  }
-
-  if (loading) return <div>로딩 중...</div>;
+  };
 
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
-      {inputOptions.map((option) => (
+      {INPUT_OPTIONS.signup.map((option) => (
         <InputField
           key={option.name}
           {...option}
@@ -130,9 +96,13 @@ function SignupForm() {
           error={errors[option.name]}
         />
       ))}
+      {isModalOpen && (
+        <Modal message={serverError} setIsModalOpen={setIsModalOpen} />
+      )}
       <button
         type="submit"
         className="btn-base rounded-[40px] h-[56px] text-xl font-semibold"
+        disabled={!isInputValid}
       >
         회원가입
       </button>

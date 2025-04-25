@@ -1,45 +1,32 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
+import { INPUT_OPTIONS } from "@/const";
+import { useAuth } from "@/providers/AuthProvider";
 import InputField from "./InputField";
+import Modal from "@/components/ui/Modal";
 
 function LoginForm() {
-  const inputOptions = [
-    {
-      label: "이메일",
-      name: "email",
-      type: "email",
-      placeholder: "이메일을 입력해주세요",
-    },
-    {
-      label: "비밀번호",
-      name: "password",
-      type: "password",
-      placeholder: "비밀번호를 입력해주세요",
-    },
-  ];
+  const [isInputValid, setIsInputValid] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [serverError, setServerError] = useState("");
   const [values, setValues] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({ email: "", password: "" });
-  const { login } = useAuth();
+
   const router = useRouter();
+  const { login } = useAuth();
 
   // 유효성 검사 함수
   const checkValidation = ({ email, password }) => {
     const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
     const newErrors = {};
 
-    if (!email) {
-      newErrors.email = "이메일을 입력해주세요.";
-    } else if (!pattern.test(email)) {
+    if (!pattern.test(email)) {
       newErrors.email = "잘못된 이메일 형식입니다.";
     }
 
-    if (!password) {
-      newErrors.password = "비밀번호를 입력해주세요.";
-    } else if (password.length < 8) {
+    if (password && password.length < 8) {
       newErrors.password = "비밀번호를 8자 이상 입력해주세요.";
     }
 
@@ -51,35 +38,36 @@ function LoginForm() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setValues((prev) => ({ ...prev, [name]: value }));
+    const newValues = { ...values, [name]: value };
+    setValues(newValues);
+
     setErrors((prev) => ({ ...prev, [name]: "" }));
+
+    const isValid =
+      newValues.email.trim() !== "" && newValues.password.trim() !== "";
+    setIsInputValid(isValid);
   };
 
-  // 폼 제출 시 실행되는 핸들러
-  async function handleSubmit(e) {
+  // 로그인 폼 제출 핸들러
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     checkValidation(values);
 
-    try {
-      setLoading(true);
+    const result = await login(values.email, values.password);
 
-      await login(values.email, values.password);
-
-      alert("로그인에 성공했습니다.");
+    if (result?.success) {
       router.push("/items");
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
+    } else {
+      setServerError(result?.message);
+      console.log(result);
+      setIsModalOpen(true);
     }
-  }
-
-  if (loading) return <div>로딩 중...</div>;
+  };
 
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
-      {inputOptions.map((option) => (
+      {INPUT_OPTIONS.login.map((option) => (
         <InputField
           key={option.name}
           {...option}
@@ -88,9 +76,13 @@ function LoginForm() {
           error={errors[option.name]}
         />
       ))}
+      {isModalOpen && (
+        <Modal message={serverError} setIsModalOpen={setIsModalOpen} />
+      )}
       <button
         type="submit"
         className="btn-base rounded-[40px] h-[56px] text-xl font-semibold"
+        disabled={isInputValid === false}
       >
         로그인
       </button>

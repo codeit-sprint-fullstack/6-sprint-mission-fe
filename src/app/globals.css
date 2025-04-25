@@ -48,7 +48,7 @@
 @layer components {
   /* 버튼 컴포넌트 */
   .btn-base {
-    @apply flex justify-center items-center h-[42px] px-[23px] py-3 rounded-lg bg-primary-100 text-white font-semibold cursor-pointer hover:bg-primary-200 disabled:bg-gray-400 disabled:cursor-not-allowed;
+    @apply flex justify-center items-center h-[42px] px-[23px] py-3 rounded-lg bg-primary-100 text-white font-semibold cursor-pointer hover:bg-primary-200 disabled:bg-gray-400;
   }
 
   /* line-height 설정 */
@@ -75,4 +75,8 @@ textarea:focus {
 
 button {
   cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }

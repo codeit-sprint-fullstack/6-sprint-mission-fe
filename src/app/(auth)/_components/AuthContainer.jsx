@@ -9,7 +9,7 @@ function AuthContainer({ children }) {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col items-center mt-[80px] mb-[231px]">
+    <div className="flex flex-col items-center mt-[80px] mb-[179]">
       {
         <Image
           src="/assets/logo/logo_md.svg"
