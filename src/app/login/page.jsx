@@ -8,6 +8,7 @@ import InputField from "@/components/ui/login-signup/InputField";
 import Button from "@/components/ui/login-signup/Button";
 import CompactLogin from "@/components/ui/login-signup/CompactLogin";
 import CrossSite from "@/components/ui/login-signup/CrossSite";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -15,17 +16,24 @@ export default function LoginPage() {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
-
   const [isFormsValid, setIsFormsValid] = useState(false);
-
+  const { login } = useAuth();
   const router = useRouter();
+
+  //토큰이 있는 경우 페이지 제한
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+
+    if (token) {
+      router.push("/items");
+    }
+  }, []);
 
   useEffect(() => {
     const isEmailValid = isValidEmail(email);
     const isPwValid = isValidPassword(password);
 
     setIsFormsValid(isEmailValid && isPwValid);
-    console.log("isFormvalid", isFormsValid);
   }, [email, password]);
 
   const handleEmailBlur = () => {
@@ -36,41 +44,44 @@ export default function LoginPage() {
     setIsPasswordValid(isValidPassword(password));
   };
 
+  const handleVisible = () => {
+    setIsVisible((prev) => !prev);
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch(
-        "https://panda-market-api.vercel.app/auth/signIn",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-        }
-      );
+    //디버깅
+    console.log("로그인 버튼 클릭!");
 
-      if (!response.ok) {
+    try {
+      const result = await login(email, password);
+
+      //디버깅
+      console.log("response", result);
+
+      if (!result.accessToken) {
         setIsEmailValid(false);
         setIsPasswordValid(false);
-
         return;
       }
 
+      //로컬 스토리지에 token 저장
+      localStorage.setItem("accessToken", result.accessToken);
+
+      //디버깅
       console.log("로그인 성공");
 
-      router.push("/market");
-      return response.json();
+      router.push("/items");
     } catch (e) {
+      //디버깅깅
+      console.log("로그인 실패");
       alert("실패했습니다.");
     }
   };
 
-  const handleVisible = () => {
-    setIsVisible((prev) => !prev);
-  };
+  //디버깅깅
+  console.log("isEmailValid", isEmailValid);
 
   return (
     <div className="min-h-screen flex flex-col justify-center">

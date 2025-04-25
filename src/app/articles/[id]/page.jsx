@@ -1,7 +1,7 @@
 "use client";
 
 import ArticleDetail from "@/components/ui/ArticleDetail";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/common-UI/Button";
 import Comments from "@/components/ui/comment/Comments";
 import CreateComment from "@/components/ui/comment/CreateComment";
 import { getArticle } from "@/lib/api/article";

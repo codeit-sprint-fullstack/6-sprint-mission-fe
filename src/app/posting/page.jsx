@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Button from "@/components/ui/Button";
-import InputField from "@/components/ui/posting/InputField";
+import Button from "@/components/ui/common-UI/Button";
+import InputField from "@/components/ui/common-UI/InputField";
 import { postArticle } from "@/lib/api/article";
 import { useRouter } from "next/navigation";
 

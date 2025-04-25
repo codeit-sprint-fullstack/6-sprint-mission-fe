@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import InputField from "../posting/InputField";
-import Button from "../Button";
+import InputField from "../common-UI/InputField";
+import Button from "../common-UI/Button";
 import { getComments, postComment } from "@/lib/api/comment";
 import { preconnect } from "react-dom";
 

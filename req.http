@@ -22,3 +22,24 @@ Content-Type: application/json
 #   "email": "as678@naver.com",
 #   "password": "1238Aa!"
 # }
+
+### 상품품 목록 가져오기 
+GET https://panda-market-api.vercel.app/products
+
+### 상품품 하나 가져오기 
+GET https://panda-market-api.vercel.app/products/678
+
+### 상품 등록하기 
+POST https://panda-market-api.vercel.app/products
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTkwLCJzY29wZSI6ImFjY2VzcyIsImlhdCI6MTc0NTQ5NDc0MCwiZXhwIjoxNzQ1NDk2NTQwLCJpc3MiOiJzcC1wYW5kYS1tYXJrZXQifQ.ZBX3lu44K9Snzkb_BoMrkdmtgLkRQcCACkXkfoRRoQg
+
+{
+  "images": [
+    "https://cdn.wccftech.com/wp-content/uploads/2024/05/M4-iPad-Pro-6.jpg"
+  ],
+  "tags":["전자제품"],
+  "price":1000000,
+  "description":"액정에 잔기스랑 주변부 스크래치있습니다. 예민하신 분 아니면 전혀 신경쓰이지 않을 정도입니다. 박스 보관중입니다. 메모용과 넷플릭스용으로만 쓰던거라 뭘 해보질 않아 기능이나 문제점은 못느꼈네요. 잘 안써서 싸게 넘깁니다. 택배거래안합니다.", 
+  "name":"아이패드 미니 팔아요"
+}

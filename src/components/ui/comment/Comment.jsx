@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import MoreToggle from "../MoreToggle";
+import MoreToggle from "../common-UI/MoreToggle";
 import { deleteComment, getComments, patchComment } from "@/lib/api/comment";
 import CreateComment from "./CreateComment";
 

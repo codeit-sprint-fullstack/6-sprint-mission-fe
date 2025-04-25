@@ -2,14 +2,19 @@
 
 import React from "react";
 import Link from "next/link";
-import Button from "../ui/Button";
+import Button from "../ui/common-UI/Button";
 import { usePathname, useRouter } from "next/navigation";
 import { useNav } from "@/providers/NavIndexProvider";
+import { useAuth } from "@/providers/AuthProvider";
+import AuthChecker from "../../../utils/AuthChecker";
 
 function Header() {
   const router = useRouter();
   const pathName = usePathname();
-  const { activePage, setActivePage } = useNav();
+  const { user } = useAuth();
+
+  //디버깅
+  console.log("user", user);
 
   const handelLogin = () => {
     router.push("/login");
@@ -33,7 +38,7 @@ function Header() {
           </Link>
 
           <div className="flex justify-between w-[218px] ml-[47px] mr-[23px] font-pretendard font-bold">
-            <Link href="/articles" onClick={() => setActivePage("/post")}>
+            <Link href="/articles">
               <div
                 className={`h-[26px] text-[18px] ${
                   pathName === "/articles" || pathName === "/posting"
@@ -45,10 +50,10 @@ function Header() {
                 자유게시판{" "}
               </div>
             </Link>
-            <Link href="/market">
+            <Link href="/items">
               <div
                 className={`h-[26px] text-[18px] ${
-                  pathName === "/market" ? "text-primary" : ""
+                  pathName === "/items" ? "text-primary" : ""
                 } mr-[30px]`}
               >
                 중고마켓
@@ -57,13 +62,23 @@ function Header() {
           </div>
         </div>
 
-        <Button
-          text="로그인"
-          onClick={handelLogin}
-          disabled={false}
-          width={"w-[88px]"}
-          height={"h-[42px]"}
-        />
+        {/* 토큰 만료 체크 */}
+        {/* <AuthChecker /> */}
+
+        {user ? (
+          <div className="flex felx-row items-center gap-[6px]">
+            <img src="/image/login/profile.png" />
+            <div>{user.nickname}</div>
+          </div>
+        ) : (
+          <Button
+            text="로그인"
+            onClick={handelLogin}
+            disabled={false}
+            width={"w-[88px]"}
+            height={"h-[42px]"}
+          />
+        )}
       </div>
     </header>
   );

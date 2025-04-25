@@ -14,8 +14,10 @@ function SignupPage() {
   const [nickName, setNickName] = useState("");
   const [password, setPassword] = useState("");
   const [ckPassword, setCkPassword] = useState("");
-  const [isVisible, setIsVisible] = useState(false);
-  const [isCkVisible, setIsCkVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false); //눈 모양 아이콘 토글(비밀번호)
+  const [isCkVisible, setIsCkVisible] = useState(false); //눈 모양 아이콘 토글(비밀번호 확인)
+  const [isEmailErr, setIsEmailErr] = useState(false);
+  const [isPwErr, setIsPwErr] = useState(false);
 
   const [isFormsValid, setIsFormsValid] = useState(false);
 
@@ -88,10 +90,11 @@ function SignupPage() {
   };
 
   const handleEmailBlur = () => {
-    setIsEmailValid(isValidEmail(email));
+    setIsEmailErr(isValidEmail(email));
   };
+
   const handlePasswordBlur = () => {
-    setIsPasswordValid(isValidPassword(password));
+    setIsPwErr(isValidPassword(password));
   };
   const handleCkPasswordBlur = () => {
     password === ckPassword;
@@ -126,7 +129,7 @@ function SignupPage() {
               onChange={(e) => setEmail(e.target.value)}
               onBlur={handleEmailBlur}
             />
-            {isValidEmail(email) ? undefined : (
+            {isEmailErr ? undefined : (
               <div className="text-[#f74747] font-semibold text-[15px] mt-2">
                 잘못된 이메일 형식입니다.
               </div>
@@ -159,7 +162,7 @@ function SignupPage() {
                 className="absolute left-[600px] top-[58px] w-6 h-6"
                 onClick={handleVisible}
               />
-              {isValidPassword(password) ? undefined : (
+              {isPwErr ? undefined : (
                 <div className="text-[#f74747] font-semibold text-[15px] mt-2">
                   비밀번호를 4자 이상 입력해주세요
                 </div>

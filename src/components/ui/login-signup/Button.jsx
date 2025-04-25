@@ -2,7 +2,6 @@ import React from "react";
 
 //로그인과 회원가입 페이지에서만 사용됨
 function Button({ text, disabled }) {
-  console.log("disabled", disabled);
   return (
     <button
       className={`w-full h-[56px] rounded-full font-semibold text-[20px] mt-[24px]

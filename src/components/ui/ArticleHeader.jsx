@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import Button from "@/components/ui/Button";
-import Dropdown from "@/components/ui/Dropdown";
-import Search from "@/components/ui/Search";
+import Button from "@/components/ui/common-UI/Button";
+import Dropdown from "@/components/ui/common-UI/Dropdown";
+import Search from "@/components/ui/common-UI/Search";
 import { useRouter } from "next/navigation";
 
 export default function ArticleHeader() {
