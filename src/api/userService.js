@@ -1,4 +1,4 @@
-import { cookieFetch } from "@/lib/fetchClient";
+import { tokenFetch } from "./fetchClient";
 
 // FormData 전용 fetch 함수 (Content-Type 헤더 없음)
 const formDataFetch = async (url, options = {}) => {
@@ -30,10 +30,7 @@ const formDataFetch = async (url, options = {}) => {
 
 export const userService = {
   // 사용자 정보 요청
-  getMe: () => cookieFetch("/users/me"),
-
-  // 사용자 링크 요청
-  getMyLinks: () => cookieFetch("/users/me/links"),
+  getMe: () => tokenFetch("/users/me"),
 
   // 사용자 정보 업데이트 (multipart/form-data)
   updateMe: (formData) =>
@@ -42,9 +39,17 @@ export const userService = {
       body: formData,
     }),
 
-  // 링크 삭제
-  deleteLink: (linkId) =>
-    cookieFetch(`/users/me/links/${linkId}`, {
-      method: "DELETE",
+  // 비밀번호 변경
+  updatePassword: (password) =>
+    tokenFetch("/users/me/password", {
+      method: "PATCH",
+      body: password,
     }),
+
+  // 내 상품 조회
+  getMyProducts: (page, pageSize, keyword) => tokenFetch("/users/me/products"),
+
+  // 찜한 상품 조회
+  getMyfavorites: (page, pageSize, keyword) =>
+    tokenFetch(`/users/me/favorites`),
 };

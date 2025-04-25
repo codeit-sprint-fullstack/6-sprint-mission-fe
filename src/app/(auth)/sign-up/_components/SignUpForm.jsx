@@ -132,7 +132,7 @@ export default function SignUpForm() {
       return;
 
     try {
-      register(
+      await register(
         form.email,
         form.nickname,
         form.password,
@@ -141,12 +141,14 @@ export default function SignUpForm() {
 
       router.push("/sign-in");
     } catch (error) {
+      console.log("error", error);
       displayPopup(error.message);
     }
   };
 
   // 팝업 표시 함수
   const displayPopup = (message) => {
+    console.log("message", message);
     setPopup({
       isOpen: true,
       message,

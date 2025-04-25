@@ -28,13 +28,13 @@ export const defaultFetch = async (url, options = {}) => {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "로그인에 실패했습니다");
+      throw new Error(data.message || "fetch 요청에 실패했습니다");
     }
 
     return data;
   } catch (error) {
-    console.error("로그인 요청 중 에러:", error.message);
-    throw error; //
+    console.error("fetch 요청 중 에러:", error.message);
+    throw error;
   }
 };
 

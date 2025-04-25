@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { authService } from "@/api/authService";
+import { userService } from "@/api/userService";
 
 const AuthContext = createContext({
   login: () => {},
@@ -24,6 +25,13 @@ export default function AuthProvider({ children }) {
 
   const getUser = async () => {
     try {
+      const acessToken = localStorage.getItem("accessToken");
+      if (!acessToken) {
+        setUser(null);
+        return;
+      }
+
+      const user = await userService.getMe();
       setUser(user);
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);

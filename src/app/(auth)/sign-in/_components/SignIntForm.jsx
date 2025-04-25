@@ -7,18 +7,7 @@ import AuthRedirectMessage from "../../_components/AuthRedirectMessage";
 import Popup from "@/components/common/Popup";
 import FormInput from "../../_components/FormInput";
 import PasswordInput from "../../_components/PasswordInput";
-import { signIn } from "@/api/auth";
 import { useAuth } from "@/providers/AuthProvider";
-
-// 더미 유저 데이터
-const USER_DATA = [
-  { email: "codeit1@codeit.com", password: "codeit101!" },
-  { email: "codeit2@codeit.com", password: "codeit202!" },
-  { email: "codeit3@codeit.com", password: "codeit303!" },
-  { email: "codeit4@codeit.com", password: "codeit404!" },
-  { email: "codeit5@codeit.com", password: "codeit505!" },
-  { email: "codeit6@codeit.com", password: "codeit606!" },
-];
 
 export function SignInForm() {
   const router = useRouter();
