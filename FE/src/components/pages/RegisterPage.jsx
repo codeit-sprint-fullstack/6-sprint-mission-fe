@@ -1,11 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { authService } from "@/lib/services/api/authService";
 import TitleSection from "../ui/TitleSection";
 import InputBox from "../ui/InputBox";
 import SocialLogin from "@/app/(auth)/_components/SocialLogin";
 import useFormInput from "@/hooks/useFormInput";
-import Link from "next/link";
+import ConfirmModal from "@/app/(main)/(item)/_components/ConfirmModal";
 
 // 이메일 유효성 검사
 function isValidEmail(email) {
@@ -28,6 +31,7 @@ function isPasswordMatch(password, confirmPassword) {
 }
 
 export default function RegisterPage() {
+  const router = useRouter();
   const emailInput = useFormInput("", isValidEmail, "잘못된 이메일입니다.");
   const nickNameInput = useFormInput(
     "",
@@ -45,6 +49,48 @@ export default function RegisterPage() {
     "비밀번호를 확인해주세요.",
     passwordInput.value
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalMessage("");
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    let response;
+
+    try {
+      response = await authService.register({
+        email: emailInput.value,
+        nickname: nickNameInput.value,
+        password: passwordInput.value,
+        passwordConfirmation: confirmPasswordInput.value,
+      });
+
+      if (response.status === 201 && response.data) {
+        const { accessToken, refreshToken } = response;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        router.push("/items");
+      } else {
+        console.error(
+          "회원가입 실패:",
+          response.data?.message || "알 수 없는 오류 발생"
+        );
+
+        setModalMessage("회원가입에 실패했습니다.");
+        setIsModalOpen(true);
+      }
+    } catch (error) {
+      console.error("회원가입 요청 중 오류 발생:", error.message);
+      console.log("회원가입 요청 중 오류 발생:", error.message);
+      console.log("회원가입 요청 중 오류 발생 response:", response);
+      setModalMessage("회원가입 요청 중 오류가 발생했습니다.");
+      setIsModalOpen(true);
+    }
+  };
 
   const isActiveSubmitButton =
     emailInput.value !== "" &&
@@ -59,7 +105,7 @@ export default function RegisterPage() {
   return (
     <div>
       <section>
-        <form>
+        <form onSubmit={handleSubmit}>
           <TitleSection titleText={"이메일"} />
           <div>
             <InputBox
@@ -108,6 +154,7 @@ export default function RegisterPage() {
           </div>
           <div className="my-6">
             <button
+              type="submit"
               className={`btn-lg ${
                 isActiveSubmitButton ? "bg-primary-100" : "bg-gray-400"
               }`}
@@ -128,6 +175,17 @@ export default function RegisterPage() {
         >
           로그인
         </Link>
+      </section>
+      <section>
+        {isModalOpen && (
+          <ConfirmModal
+            modalTheme={"blue"}
+            modalType={"confirmOnly"}
+            confirmText={modalMessage}
+            handleOnCloseModal={closeModal}
+            handleOnClick={closeModal}
+          />
+        )}
       </section>
     </div>
   );

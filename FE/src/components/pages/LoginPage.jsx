@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
+import { authService } from "@/lib/services/api/authService";
 import useFormInput from "@/hooks/useFormInput";
 import InputBox from "../ui/InputBox";
 import TitleSection from "../ui/TitleSection";
 import SocialLogin from "@/app/(auth)/_components/SocialLogin";
-import Link from "next/link";
+import ConfirmModal from "@/app/(main)/(item)/_components/ConfirmModal";
 
 // 이메일 유효성 검사
 function isValidEmail(email) {
@@ -23,6 +25,43 @@ export default function LoginPage() {
     isValidPassword,
     "잘못된 비밀번호입니다.(8~20자, 영문+숫자+특수 포함)"
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalMessage("");
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    let response;
+
+    try {
+      response = await authService.login({
+        email: emailInput.value,
+        password: passwordInput.value,
+      });
+
+      if (response.status === 201 && response.data) {
+        const { accessToken, refreshToken } = response;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        router.push("/items");
+      } else {
+        console.error(
+          "로그인 실패:",
+          response.data?.message || "알 수 없는 오류 발생"
+        );
+
+        setModalMessage("로그인에 실패했습니다.");
+        setIsModalOpen(true);
+      }
+    } catch (error) {
+      setModalMessage("로그인 요청 중 오류가 발생했습니다.");
+      setIsModalOpen(true);
+    }
+  };
 
   const isActiveSubmitButton =
     emailInput.value !== "" &&
@@ -33,7 +72,7 @@ export default function LoginPage() {
   return (
     <div>
       <section>
-        <form>
+        <form onSubmit={handleSubmit}>
           <TitleSection titleText={"이메일"} />
           <div>
             <InputBox
@@ -57,11 +96,12 @@ export default function LoginPage() {
               inputClassName="h-14"
             />
           </div>
-          <div className="p-4 container">
+          <div className="py-4 container">
             <button
               className={`btn-lg ${
                 isActiveSubmitButton ? "bg-primary-100" : "bg-gray-400"
               }`}
+              type="submit"
             >
               로그인
             </button>
@@ -79,6 +119,17 @@ export default function LoginPage() {
         >
           회원가입
         </Link>
+      </section>
+      <section>
+        {isModalOpen && (
+          <ConfirmModal
+            modalTheme={"blue"}
+            modalType={"confirmOnly"}
+            confirmText={modalMessage}
+            handleOnCloseModal={closeModal}
+            handleOnClick={closeModal}
+          />
+        )}
       </section>
     </div>
   );
