@@ -7,8 +7,8 @@ import defaultProfileImage from "@/assets/images/logo/defaultProfileImage.png";
 
 export default function ArticleCard({ article }) {
   return (
-    <div className="mx-4 py-4 border-b-2 border-gray-200">
-      <div className="flex justify-between">
+    <div className="py-4 border-b-2 border-gray-200">
+      <div className="flex justify-between text-lg-semibold text-gray-800">
         <p>{article.title}</p>
         <Image
           src={defaultImage}

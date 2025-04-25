@@ -10,7 +10,7 @@ import clsx from "clsx";
 export default function Header() {
   const pathname = usePathname();
   const isCommunity = pathname.startsWith("/community");
-  const isMarket = pathname.startsWith("/products");
+  const isMarket = pathname.startsWith("/items");
   const [isClient, setIsClient] = useState(false);
   // 새로고침 필요. 리팩토링 필요.
 
@@ -52,7 +52,7 @@ export default function Header() {
               자유게시판
             </Link>
             <Link
-              href="/products"
+              href="/items"
               className={`${linkBaseStyle} ${
                 isMarket ? "text-blue-500" : "text-gray-600"
               }`}

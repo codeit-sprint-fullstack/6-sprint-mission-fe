@@ -1,20 +1,15 @@
 "use client";
 
-import InputBox from "@/components/ui/InputBox";
-import TitleSection from "@/components/ui/TitleSection";
-import {
-  createArticleComment,
-  deleteArticleById,
-  getArticleById,
-  getArticleCommentListsById,
-} from "@/lib/services/api/article";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import CommentLists from "./_components/CommentLists";
-import Dropdown from "@/app/(main)/(item)/_components/Dropdown";
 import Link from "next/link";
-import DeleteModal from "@/app/(main)/(item)/_components/DeleteModal";
+import InputBox from "@/components/ui/InputBox";
+import TitleSection from "@/components/ui/TitleSection";
+import { articleService } from "@/lib/services/api/articleService";
+import ConfirmModal from "@/app/(main)/(item)/_components/ConfirmModal";
+import CommentLists from "@/app/(main)/(item)/community/[id]/_components/CommentLists";
+import Dropdown from "@/app/(main)/(item)/_components/Dropdown";
 
 import backImage from "@/assets/images/icons/ic_back.png";
 import kebabImage from "@/assets/images/icons/ic_kebab.png";
@@ -28,34 +23,40 @@ export default function CommunityDetailPage() {
   const [articleState, setArticleState] = useState(null);
   const [commentsState, setCommentsState] = useState([]);
   const [commentInputValueState, setCommentInputValueState] = useState("");
-  const [isToggleDropdown, setIsToggleDropdown] = useState(false);
-  const [isToggleDeleteModalState, setIsToggleDeleteModalState] =
-    useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isActive = commentInputValueState !== "";
 
   const handleDelete = async (id) => {
-    const data = await deleteArticleById(id);
+    const data = await articleService.deleteArticle(id);
     // data 가지고 확인 처리.
-    setIsToggleDeleteModalState(false);
+    setIsModalOpen(false);
   };
 
-  const hadleToggleDeleteModal = () => {
-    setIsToggleDeleteModalState(false);
+  const hadleModalClose = () => {
+    setIsModalOpen(false);
   };
 
   const dropdownItems = [
-    { label: "수정하기", onClick: () => router.push(`/community/${id}/edit`) },
-    { label: "삭제하기", onClick: () => setIsToggleDeleteModalState(true) },
+    {
+      label: "수정하기",
+      onClick: () => {
+        router.push(`/community/${id}/edit`);
+        setIsModalOpen(true);
+        return;
+      },
+    },
+    { label: "삭제하기", onClick: () => setIsModalOpen(true) },
   ];
 
-  const hadleToggleDropdown = () => {
-    setIsToggleDropdown(!isToggleDropdown);
+  const hadleDropdownOpen = () => {
+    setIsDropdownOpen(!isToggleDropdown);
   };
 
   const handleOnClickCommentRegist = async () => {
     console.log("댓글 등록");
-    const data = await createArticleComment(id, commentInputValueState);
+    const data = await articleService.createArticle(id, commentInputValueState);
     console.log("data", data);
     // 성공시 코멘트 리스트 다시 받아오는 로직 필요.
     // data.status === 201
@@ -63,9 +64,9 @@ export default function CommunityDetailPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const articleData = await getArticleById(id);
+      const articleData = await articleService.getArticle(id);
       setArticleState(articleData);
-      const commentsData = await getArticleCommentListsById(id);
+      const commentsData = await articleService.getArticles(id);
       setCommentsState(commentsData);
     };
 
@@ -85,9 +86,9 @@ export default function CommunityDetailPage() {
             <Image
               src={kebabImage}
               alt="kebabImage"
-              onClick={hadleToggleDropdown}
+              onClick={hadleDropdownOpen}
             />
-            {isToggleDropdown && (
+            {isDropdownOpen && (
               <Dropdown
                 items={dropdownItems}
                 containerClassName="right-0 top-full"
@@ -127,7 +128,7 @@ export default function CommunityDetailPage() {
         </div>
       </section>
 
-      <section>
+      <section className="p-4">
         <TitleSection titleText={"댓글달기"} />
         <div>
           <InputBox
@@ -175,11 +176,13 @@ export default function CommunityDetailPage() {
           목록으로 돌아가기 <Image src={backImage} alt="backButton" />
         </Link>
       </div>
-      {isToggleDeleteModalState && (
-        <DeleteModal
+      {isModalOpen && (
+        <ConfirmModal
+          modalTheme={"red"}
+          modalType={confirmChoice}
           confirmText={"정말로 게시글을 삭제하시겠어요?"}
-          handleDeleteProps={handleDelete}
-          handleOnCloseProps={hadleToggleDeleteModal}
+          handleOnClick={handleDelete(id)}
+          handleOnCloseModal={hadleModalClose}
         />
       )}
     </div>

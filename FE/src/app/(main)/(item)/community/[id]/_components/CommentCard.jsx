@@ -8,33 +8,32 @@ import Image from "next/image";
 import { useState } from "react";
 import Dropdown from "@/app/(main)/(item)/_components/Dropdown";
 import { useParams, useRouter } from "next/navigation";
-import DeleteModal from "@/app/(main)/(item)/_components/DeleteModal";
-import { deleteArticleCommentById } from "@/lib/services/api/article";
+import ConfirmModal from "@/app/(main)/(item)/_components/ConfirmModal";
+import { articleService } from "@/lib/services/api/articleService";
 
 export default function CommentCard({ comment }) {
   const { id } = useParams();
   const router = useRouter();
-  const [isToggleDropdownState, setIsToggleDropdownState] = useState(false);
-  const [isToggleDeleteModalState, setIsToggleDeleteModalState] =
-    useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDelete = async (id) => {
-    const data = await deleteArticleCommentById(id, comment.id);
+    const data = await articleService.deleteArticleComment(id, comment.id);
     // data 가지고 확인 처리.
-    setIsToggleDeleteModalState(false);
+    setIsModalOpen(false);
   };
 
-  const hadleToggleDeleteModal = () => {
-    setIsToggleDeleteModalState(false);
+  const hadleModalOpen = () => {
+    setIsModalOpen(false);
   };
 
   const dropdownItems = [
     { label: "수정하기", onClick: () => router.push(`/community/${id}/edit`) },
-    { label: "삭제하기", onClick: () => setIsToggleDeleteModalState(true) },
+    { label: "삭제하기", onClick: () => setIsModalOpen(true) },
   ];
 
-  const hadleToggleDropdown = () => {
-    setIsToggleDropdownState(!isToggleDropdownState);
+  const hadleDropdownOpen = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   return (
@@ -45,9 +44,9 @@ export default function CommentCard({ comment }) {
           <Image
             src={kebabImage}
             alt="kebabImage"
-            onClick={hadleToggleDropdown}
+            onClick={hadleDropdownOpen}
           />
-          {isToggleDropdownState && (
+          {isDropdownOpen && (
             <Dropdown
               items={dropdownItems}
               containerClassName="right-0 top-full bg-FF"
@@ -72,11 +71,13 @@ export default function CommentCard({ comment }) {
           </p>
         </div>
       </div>
-      {isToggleDeleteModalState && (
-        <DeleteModal
+      {isModalOpen && (
+        <ConfirmModal
+          modalTheme={"red"}
+          modalType={confirmChoice}
           confirmText={"정말로 댓글을 삭제하시겠어요?"}
-          handleDeleteProps={handleDelete}
-          handleOnCloseProps={hadleToggleDeleteModal}
+          handleOnClick={handleDelete(id)}
+          handleOnCloseModal={hadleModalOpen}
         />
       )}
     </div>

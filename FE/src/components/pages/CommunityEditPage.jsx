@@ -1,10 +1,10 @@
 "use client";
 
+import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import InputBox from "@/components/ui/InputBox";
 import TitleSection from "@/components/ui/TitleSection";
-import { updateArticle } from "@/lib/services/api/article";
-import { useParams, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { articleService } from "@/lib/services/api/articleService";
 
 export default function CommunityEditPage() {
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function CommunityEditPage() {
   const handleCreateArticle = async () => {
     const submitData = { title: titleValueState, content: contentValueState };
 
-    const response = await updateArticle(articleId, submitData);
+    const response = await articleService.updateArticle(articleId, submitData);
     if (response.status === 200) {
       const result = await response.json();
       router.push(`/articles/${result.id}`);

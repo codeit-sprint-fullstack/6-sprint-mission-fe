@@ -1,16 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getArticleLists } from "@/lib/services/api/article";
-import BestArticleCard from "./BestArticleCard";
 import Link from "next/link";
+import BestArticleCard from "./BestArticleCard";
+import { articleService } from "@/lib/services/api/articleService";
 
 export default function BestArticleLists() {
   const [articlesState, setArticlesState] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getArticleLists(1, 1, "likes");
+      const data = await articleService.getArticles(1, 1, "likes");
       setArticlesState(data);
     };
 

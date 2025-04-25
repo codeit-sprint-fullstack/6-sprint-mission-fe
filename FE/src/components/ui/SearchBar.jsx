@@ -8,16 +8,17 @@ export default function SearchBar({
   setSortButtonState,
 }) {
   return (
-    <div className="flex justify-between">
-      <div className="w-full h-[42px]">
+    <div className="flex justify-between gap-2">
+      <div className="w-full">
         <InputBox
           placeHolderText={"검색할 상품을 입력해주세요"}
           inputValueState={inputValueState}
           setInputValueState={setInputValueState}
           inputType="search"
+          inputClassName={"h-[42px]"}
         />
       </div>
-      <div className="btn-sm-square border-gray-200 border-2 text-FF mr-4">
+      <div className="btn-sm-square border-gray-200 border-2 text-FF ">
         <SortButton
           sortButtonState={sortButtonState}
           setSortButtonState={setSortButtonState}
