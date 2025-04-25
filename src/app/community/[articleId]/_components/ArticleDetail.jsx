@@ -1,13 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ic_profile from "@/assets/images/common/ic_profile.svg";
-import ic_heart from "@/assets/images/common/ic_heart.svg";
-import Image from "next/image";
 import DropDownToggle from "@/components/ui/DropDownToggle";
 import { deleteArticle, getArticle } from "@/lib/api/article.api";
 import { useParams, useRouter } from "next/navigation";
-import dayjs from "dayjs";
+import Profile from "@/components/ui/Profile";
 
 export default function ArticleDetail() {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
@@ -16,6 +13,7 @@ export default function ArticleDetail() {
   const { articleId } = useParams();
   const router = useRouter();
 
+  // 게시글 상세 조회
   const articleLoad = async (articleId) => {
     const article = await getArticle(articleId);
 
@@ -23,7 +21,6 @@ export default function ArticleDetail() {
     setIsLoading(false);
   };
 
-  // 게시글 상세 조회
   useEffect(() => {
     articleLoad(articleId);
   }, []);
@@ -33,6 +30,12 @@ export default function ArticleDetail() {
     setIsDropDownVisible(!isDropDownVisible);
   };
 
+  // 정렬 선택버튼 닫기
+  const handleDropDownClose = () => {
+    setIsDropDownVisible(false);
+  };
+
+  // 게시글 수정
   const handleEdit = () => {
     router.push(`/community/${articleId}/edit`);
   };
@@ -43,6 +46,7 @@ export default function ArticleDetail() {
 
     router.push("/community");
   };
+
   return (
     <>
       {isLoading ? (
@@ -59,47 +63,14 @@ export default function ArticleDetail() {
                 handleDelete={() => removeArticle(articleId)}
                 handleEdit={handleEdit}
                 handleDropDownToggle={handleDropDownToggle}
+                handleDropDownClose={handleDropDownClose}
                 isDropDownVisible={isDropDownVisible}
               />
             </div>
-            <div className="flex justify-start items-center gap-[16px]">
-              <div className="flex justify-center items-center">
-                <div className="relative w-[40px] h-[40px]">
-                  <Image
-                    src={ic_profile}
-                    alt="프로필"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="text-[14px] font-medium text-secondary-gray-500 mr-[8px] ml-[16px]">
-                  총명한 판다
-                </p>
-                <p className="text-[14px] font-normal text-secondary-gray-300">
-                  {dayjs(article.createdAt).format("YYYY. MM. DD")}
-                </p>
-              </div>
-              <div className="flex gap-[16px]">
-                <div className="border-l-[1px] border-secondary-gray-200"></div>
-                <div className="flex justify-center items-center rounded-[35px] border-[1.3px] border-secondary-gray-200 py-[4px] px-[12px] gap-[4px]">
-                  <div className="relative w-[24px] h-[24px]">
-                    <Image
-                      src={ic_heart}
-                      alt="하트"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <p className="font-medium text-[16px] text-secondary-gray-400">
-                    123
-                  </p>
-                </div>
-              </div>
-            </div>
+            <Profile article={article} />
             <div className="border-t-[1.3px] border-secondary-gray-200"></div>
           </div>
-
-          <p className="w-full font-normal text-[16px]/[26px] mt-[16px] mb-[32px] sm:mt-[24px] sm:mb-[40px]">
+          <p className="whitespace-pre-line w-full font-normal text-[16px]/[26px] mt-[16px] mb-[32px] sm:mt-[24px] sm:mb-[40px]">
             {article.content}
           </p>
         </>

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import ic_heart from "@/assets/images/common/ic_heart.svg";
+import ic_full_heart from "@/assets/images/common/ic_full_heart.svg";
+import ic_empty_heart from "@/assets/images/common/ic_empty_heart.svg";
 import img_notebook from "@/assets/images/community/img_notebook.svg";
 import ic_profile from "@/assets/images/common/ic_profile.svg";
 import Link from "next/link";
@@ -44,7 +45,7 @@ export default function AriclesLoad({ article }) {
           </div>
           <div className="flex justify-center items-center gap-[8px]">
             <div className="relative w-[24px] h-[24px]">
-              <Image src={ic_heart} alt="하트" fill className="object-cover" />
+              <Image src={ic_empty_heart} alt="하트" fill className="object-cover" />
             </div>
             <p className="text-secondary-gray-400 text-[16px]">9999+</p>
           </div>

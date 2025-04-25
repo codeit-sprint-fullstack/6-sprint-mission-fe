@@ -69,6 +69,7 @@ export default function Signup() {
 
   return (
     <>
+      <AuthModal isModalVisible={isModalVisible} handleModal={handleModal} />
       <form
         onSubmit={checkExistUsers}
         className="flex flex-col gap-y-[16px] sm:gap-y-[24px]"
@@ -95,7 +96,6 @@ export default function Signup() {
         />
         <AuthButton isActive={isActive} type="회원가입" />
       </form>
-      <AuthModal isModalVisible={isModalVisible} handleModal={handleModal} />
     </>
   );
 }

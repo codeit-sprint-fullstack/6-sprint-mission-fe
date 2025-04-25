@@ -10,13 +10,14 @@ export default function DropDownToggle({
   handleDelete,
   handleEdit,
   handleDropDownToggle,
+  handleDropDownClose,
   isDropDownVisible,
 }) {
   return (
     <>
       <button
         onClick={handleDropDownToggle}
-        onBlur={handleDropDownToggle}
+        onBlur={handleDropDownClose}
         className={`relative min-w-[24px] h-[24px] cursor-pointer ${
           page === "article" && "my-[4px]"
         }`}
