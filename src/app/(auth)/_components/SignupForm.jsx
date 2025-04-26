@@ -10,7 +10,8 @@ import { useAuth } from "@/providers/AuthProvider";
 function SignupForm() {
   const [isInputValid, setIsInputValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [serverError, setServerError] = useState("");
+  const [isSignupSuccess, setIsSignupSuccess] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
   const [values, setValues] = useState({
     email: "",
     nickname: "",
@@ -77,11 +78,17 @@ function SignupForm() {
       values.passwordConfirmation
     );
 
-    if (result?.success) {
+    setIsSignupSuccess(result.success);
+    setModalMsg(result.message);
+    setIsModalOpen(true);
+  };
+
+  // 모달 버튼 핸들러
+  const handleClick = async () => {
+    if (isSignupSuccess) {
       router.push("/login");
     } else {
-      setServerError(result?.message);
-      setIsModalOpen(true);
+      setIsModalOpen(false);
     }
   };
 
@@ -96,9 +103,7 @@ function SignupForm() {
           error={errors[option.name]}
         />
       ))}
-      {isModalOpen && (
-        <Modal message={serverError} setIsModalOpen={setIsModalOpen} />
-      )}
+      {isModalOpen && <Modal message={modalMsg} handleClick={handleClick} />}
       <button
         type="submit"
         className="btn-base rounded-[40px] h-[56px] text-xl font-semibold"

@@ -2,18 +2,11 @@ import React from "react";
 import CommentItem from "./CommentItem";
 import Image from "next/image";
 
-function CommentList({
-  articleId,
-  comments,
-  setComments,
-  editOption,
-  getCommentList,
-  isItemPage,
-}) {
+function CommentList({ comments, setComments, getCommentList, type }) {
   if (!comments || comments.length === 0) {
     return (
       <div className="flex flex-col items-center text-center text-gray-400">
-        {isItemPage ? (
+        {type === "product" ? (
           <Image
             src="/assets/img/img_inquiry_empty.svg"
             alt="문의 없음 이미지"
@@ -30,7 +23,7 @@ function CommentList({
             className="mb-4"
           />
         )}
-        {isItemPage ? (
+        {type === "product" ? (
           <p>아직 문의가 없어요</p>
         ) : (
           <p>
@@ -48,10 +41,8 @@ function CommentList({
       {comments.map((comment) => (
         <li key={comment.id}>
           <CommentItem
-            articleId={articleId}
             comment={comment}
             setComments={setComments}
-            editOption={editOption}
             getCommentList={getCommentList}
           />
         </li>

@@ -4,7 +4,14 @@ import React from "react";
 import FormatDate from "./FormatDate";
 import Image from "next/image";
 
-function UserInfo({ article, isItemPage, item }) {
+function UserInfo({
+  nickname,
+  createdAt,
+  favoriteCount,
+  isItemPage,
+  isFavorite,
+  onClick,
+}) {
   return (
     <div
       className={`flex ${
@@ -19,8 +26,8 @@ function UserInfo({ article, isItemPage, item }) {
           height={40}
         />
         <div className={`${isItemPage ? "" : "flex"} gap-0.5 md:gap-2 text-sm`}>
-          <div className="font-medium text-gray-600">총명한 판다</div>
-          <FormatDate createdAt={article?.createdAt} />
+          <div className="font-medium text-gray-600">{nickname}</div>
+          <FormatDate createdAt={createdAt} />
         </div>
       </span>
       <span className="flex">
@@ -29,17 +36,22 @@ function UserInfo({ article, isItemPage, item }) {
             isItemPage ? "" : "md:mx-8"
           } gap-0.5 md:gap-2 text-sm`}
         ></span>
-        <button className="flex items-center px-3 py-1 border-1 border-gray-200 rounded-[35px] gap-1">
+        <button
+          className="flex items-center px-3 py-1 border-1 border-gray-200 rounded-[35px] gap-1"
+          onClick={onClick}
+        >
           <Image
-            src="/assets/icon/ic_unheart.svg"
+            src={
+              isFavorite
+                ? "/assets/icon/ic_heart.svg"
+                : "/assets/icon/ic_unheart.svg"
+            }
             alt="좋아요 아이콘"
             width={24}
             height={24}
-            className="md:w-8 md:h-8"
+            className={isItemPage ? "" : `md:w-8 md:h-8`}
           />
-          <span className="font-medium text-gray-500">
-            {item?.favoriteCount}
-          </span>
+          <span className="font-medium text-gray-500">{favoriteCount}</span>
         </button>
       </span>
     </div>

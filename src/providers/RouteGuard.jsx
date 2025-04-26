@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "./AuthProvider";
 
 const protectedPaths = ["/me", "/items", "/board"];
-
-const publicPaths = ["/", "/login", "/register"];
+const publicPaths = ["/login", "/register"];
 
 function RouteGuard({ children }) {
   const { user, loadingUser } = useAuth();

@@ -1,8 +1,7 @@
 "use server";
 
+import { BASE_URL } from "@/const";
 import { cookies } from "next/headers";
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // 로그인
 export async function loginAction(_, formData) {
@@ -57,7 +56,7 @@ export async function signupAction(_, formData) {
       return data;
     }
 
-    return { success: true };
+    return { success: true, message: "가입이 완료되었습니다." };
   } catch (e) {
     console.error("회원가입 에러:", e);
     return { error: "서버 내부 오류가 발생했습니다." };
@@ -82,7 +81,7 @@ export async function getRefreshToken(_, formData) {
     const data = await res.json();
 
     if (!res.ok) {
-      console.error("refreshToken 갱신 실패", data);
+      console.error("refreshToken 갱신 실패");
       return data;
     }
 

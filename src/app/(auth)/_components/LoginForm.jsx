@@ -10,7 +10,7 @@ import Modal from "@/components/ui/Modal";
 function LoginForm() {
   const [isInputValid, setIsInputValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [serverError, setServerError] = useState("");
+  const [modalMsg, setModalMsg] = useState("");
   const [values, setValues] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
 
@@ -59,8 +59,7 @@ function LoginForm() {
     if (result?.success) {
       router.push("/items");
     } else {
-      setServerError(result?.message);
-      console.log(result);
+      setModalMsg(result?.message);
       setIsModalOpen(true);
     }
   };
@@ -77,7 +76,7 @@ function LoginForm() {
         />
       ))}
       {isModalOpen && (
-        <Modal message={serverError} setIsModalOpen={setIsModalOpen} />
+        <Modal message={modalMsg} handleClick={() => setIsModalOpen(false)} />
       )}
       <button
         type="submit"

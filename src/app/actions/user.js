@@ -1,7 +1,6 @@
 "use server";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
+import { BASE_URL } from "@/const";
 import { cookies } from "next/headers";
 
 // 쿠키에서 accessToken 추출하는 헬퍼 함수

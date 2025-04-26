@@ -5,28 +5,74 @@ import ItemHeader from "./ItemHeader";
 import ItemDetail from "./ItemDetail";
 import UserInfo from "@/components/ui/UserInfo";
 import LineDivider from "@/components/ui/LineDivider";
-import { getProduct } from "@/lib/productApi";
-import { useParams } from "next/navigation";
 import defaultImg from "../../../../../../public/assets/img/img_item_default.svg";
+import { useRouter } from "next/navigation";
+import { createLike, deleteLike, deleteProduct } from "@/app/actions/product";
+import { getProduct } from "@/lib/getApi";
+import Modal from "@/components/ui/Modal";
 
-function ItemContainer() {
+function ItemContainer({ id }) {
   const [item, setItem] = useState();
-  const params = useParams();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const [isDelete, setIsDelete] = useState(true);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    getProductById();
+    console.log(item);
+  }, [id]);
 
   const getProductById = async () => {
-    try {
-      const data = await getProduct(params.id);
-      setItem(data);
-    } catch (error) {
-      console.error("상품 조회 실패:", error);
+    const newData = await getProduct(id);
+    setItem(newData);
+  };
+
+  // 상품 편집 핸들러
+  const handleEditItem = (action) => {
+    setIsDropdownOpen(true);
+    if (action === "edit") {
+      router.push(`/items/${id}/edit`);
+    } else if (action === "delete") {
+      setIsModalOpen(true);
+      setModalMsg("정말로 상품을 삭제하시겠어요?");
     }
   };
 
-  useEffect(() => {
-    if (params?.id) {
-      getProductById();
+  // 상품 삭제 핸들러
+  const handleDeleteItem = async () => {
+    const result = await deleteProduct(id);
+
+    if (!result?.success) {
+      setIsModalOpen(true);
+      setIsDelete(false);
+      setModalMsg(result.message);
+    } else {
+      router.push("/items");
     }
-  }, [params]);
+  };
+
+  // 좋아요 요청 핸들러
+  const handleCreateLike = async () => {
+    const result = await createLike(id);
+    console.log(result);
+    setItem((prev) => ({
+      ...prev,
+      favoriteCount: result.favoriteCount,
+    }));
+  };
+
+  // 좋아요 취소 요청 핸들러
+  const handleDeleteLike = async () => {
+    const result = await deleteLike(id);
+    console.log(result);
+    setItem((prev) => ({
+      ...prev,
+      favoriteCount: result.favoriteCount,
+    }));
+  };
 
   return (
     <section className="md:grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2fr]">
@@ -37,15 +83,35 @@ function ItemContainer() {
             : defaultImg.src
         }
         alt="상품 이미지"
-        className="rounded-xl mb-4 w-full"
+        className="rounded-xl mb-4 w-full aspect-square"
       />
       {item && (
         <div>
-          <ItemHeader item={item} />
+          <ItemHeader
+            item={item}
+            isDropdownOpen={isDropdownOpen}
+            setIsDropdownOpen={setIsDropdownOpen}
+            handleEditItem={handleEditItem}
+          />
           <LineDivider />
           <ItemDetail item={item} />
-          <UserInfo item={item} isItemPage={true} />
+          <UserInfo
+            nickname={item.ownerNickname}
+            createdAt={item.createdAt}
+            favoriteCount={item.favoriteCount}
+            isItemPage={true}
+            isFavorite={item.isFavorite}
+            onClick={!item.isFavorite ? handleCreateLike : handleDeleteLike}
+          />
         </div>
+      )}
+      {isModalOpen && (
+        <Modal
+          message={modalMsg}
+          handleClick={() => setIsModalOpen(false)}
+          isDelete={isDelete}
+          handleDelete={handleDeleteItem}
+        />
       )}
     </section>
   );
