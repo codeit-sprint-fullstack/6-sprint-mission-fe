@@ -17,8 +17,15 @@ export async function getProducts() {
 
 // 상품 상세 조회
 export async function getProduct(productId) {
+  const token = // 브라우저 환경이면 localStorage에 저장된 accessToken 가져옴
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+
   try {
-    const res = await fetch(`${BASE_URL}/products/${productId}`);
+    const res = await fetch(`${BASE_URL}/products/${productId}`, {
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
 
     if (!res.ok) throw new Error("상품을 불러오는데 실패했습니다.");
 
@@ -46,8 +53,13 @@ export async function getArticles() {
 
 // 게시글 상세 조회
 export async function getArticle(articleId) {
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+
   try {
-    const res = await fetch(`${BASE_URL}/articles/${articleId}`);
+    const res = await fetch(`${BASE_URL}/articles/${articleId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     if (!res.ok) throw new Error("게시글을 불러오는데 실패했습니다.");
 

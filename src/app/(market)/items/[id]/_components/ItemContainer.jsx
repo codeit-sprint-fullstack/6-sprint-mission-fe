@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ItemHeader from "./ItemHeader";
 import ItemDetail from "./ItemDetail";
 import UserInfo from "@/components/ui/UserInfo";
@@ -10,25 +10,67 @@ import { useRouter } from "next/navigation";
 import { createLike, deleteLike, deleteProduct } from "@/app/actions/product";
 import { getProduct } from "@/lib/getApi";
 import Modal from "@/components/ui/Modal";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 function ItemContainer({ id }) {
-  const [item, setItem] = useState();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMsg, setModalMsg] = useState("");
   const [isDelete, setIsDelete] = useState(true);
 
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    getProductById();
-    console.log(item);
-  }, [id]);
+  const { data: item } = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => getProduct(id),
+  });
 
-  const getProductById = async () => {
-    const newData = await getProduct(id);
-    setItem(newData);
-  };
+  const likeMutation = useMutation({
+    mutationFn: () => createLike(id),
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["product", id] });
+
+      const previousItem = queryClient.getQueryData(["product", id]);
+
+      queryClient.setQueryData(["product", id], (old) => ({
+        ...old,
+        isFavorite: true,
+        favoriteCount: old.favoriteCount + 1,
+      }));
+
+      return { previousItem };
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(["product", id], context.previousItem);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["product", id] });
+    },
+  });
+
+  const unlikeMutation = useMutation({
+    mutationFn: () => deleteLike(id),
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["product", id] });
+
+      const previousItem = queryClient.getQueryData(["product", id]);
+
+      queryClient.setQueryData(["product", id], (old) => ({
+        ...old,
+        isFavorite: true,
+        favoriteCount: old.favoriteCount - 1,
+      }));
+
+      return { previousItem };
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(["product", id], context.previousItem);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["product", id] });
+    },
+  });
 
   // 상품 편집 핸들러
   const handleEditItem = (action) => {
@@ -54,24 +96,13 @@ function ItemContainer({ id }) {
     }
   };
 
-  // 좋아요 요청 핸들러
-  const handleCreateLike = async () => {
-    const result = await createLike(id);
-    console.log(result);
-    setItem((prev) => ({
-      ...prev,
-      favoriteCount: result.favoriteCount,
-    }));
-  };
-
-  // 좋아요 취소 요청 핸들러
-  const handleDeleteLike = async () => {
-    const result = await deleteLike(id);
-    console.log(result);
-    setItem((prev) => ({
-      ...prev,
-      favoriteCount: result.favoriteCount,
-    }));
+  // 좋아요 토글 핸들러
+  const handleToggleLike = () => {
+    if (item?.isFavorite) {
+      unlikeMutation.mutate();
+    } else {
+      likeMutation.mutate();
+    }
   };
 
   return (
@@ -100,8 +131,8 @@ function ItemContainer({ id }) {
             createdAt={item.createdAt}
             favoriteCount={item.favoriteCount}
             isItemPage={true}
-            isFavorite={item.isFavorite}
-            onClick={!item.isFavorite ? handleCreateLike : handleDeleteLike}
+            isLiked={item.isFavorite}
+            onToggleLike={handleToggleLike}
           />
         </div>
       )}

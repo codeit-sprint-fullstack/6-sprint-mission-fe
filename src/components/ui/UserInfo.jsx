@@ -9,8 +9,8 @@ function UserInfo({
   createdAt,
   favoriteCount,
   isItemPage,
-  isFavorite,
-  onClick,
+  isLiked,
+  onToggleLike,
 }) {
   return (
     <div
@@ -38,11 +38,11 @@ function UserInfo({
         ></span>
         <button
           className="flex items-center px-3 py-1 border-1 border-gray-200 rounded-[35px] gap-1"
-          onClick={onClick}
+          onClick={onToggleLike}
         >
           <Image
             src={
-              isFavorite
+              isLiked
                 ? "/assets/icon/ic_heart.svg"
                 : "/assets/icon/ic_unheart.svg"
             }
