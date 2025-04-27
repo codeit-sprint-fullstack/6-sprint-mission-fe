@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "@/layout/Header";
 import Footer from "@/layout/Footer";
 import AuthProvider from "@/providers/AuthProvider";
+import QueryProvider from "@/providers/QueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,9 +30,11 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
       >
         <AuthProvider>
-          {!isAuthPage && <Header />}
-          <main className="flex-grow">{children}</main>
-          {!isAuthPage && <Footer />}
+          <QueryProvider>
+            {!isAuthPage && <Header />}
+            <main className="flex-grow">{children}</main>
+            {!isAuthPage && <Footer />}
+          </QueryProvider>
         </AuthProvider>
       </body>
     </html>

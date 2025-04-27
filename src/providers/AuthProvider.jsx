@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { authService } from "@/api/authService";
 import { userService } from "@/api/userService";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext({
   login: () => {},
@@ -23,16 +24,53 @@ export const useAuth = () => {
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
+  const [refreshTimeout, setRefreshTimeout] = useState(null);
+
+  const setupRefreshToken = (accessToken) => {
+    console.log("타임아웃 시작");
+
+    if (!accessToken) return;
+    const payload = jwtDecode(accessToken);
+    const now = Date.now() / 1000; // 초 단위
+    const expiresIn = payload.exp - now;
+
+    if (expiresIn <= 0) {
+      logout();
+      return;
+    }
+
+    if (refreshTimeout) clearTimeout(refreshTimeout);
+
+    const timeout = setTimeout(
+      async () => {
+        try {
+          const newAccessToken = await authService.getRefreshToken();
+          setupRefreshToken(newAccessToken);
+        } catch (error) {
+          console.error("토큰 갱신 실패", error);
+          logout();
+        }
+      },
+      // 토큰 만료 29분전에 재발급 신청
+      // 분단위 계산 현재 서버 만료시간은 30분
+      (expiresIn - 1740) * 1000,
+    );
+
+    setRefreshTimeout(timeout);
+  };
+
   const getUser = async () => {
     try {
-      const acessToken = localStorage.getItem("accessToken");
-      if (!acessToken) {
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (!accessToken) {
         setUser(null);
         return;
       }
 
       const user = await userService.getMe();
       setUser(user);
+      setupRefreshToken(accessToken);
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);
       setUser(null);
@@ -48,8 +86,8 @@ export default function AuthProvider({ children }) {
     await getUser();
   };
 
-  const logout = async () => {
-    await authService.logout();
+  const logout = () => {
+    authService.logout();
     setUser(null);
   };
 

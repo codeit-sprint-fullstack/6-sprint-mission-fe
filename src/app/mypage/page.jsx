@@ -1,18 +1,21 @@
 "use client";
 
 import { useAuth } from "@/providers/AuthProvider";
+import Link from "next/link";
 
 export default function MyPage() {
   const { logout } = useAuth();
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-      <button
-        className="w-full cursor-pointer rounded-lg bg-blue-500 p-2 text-white transition-colors duration-200 hover:bg-blue-600"
+      <Link
+        href="/"
+        className="flex w-full cursor-pointer items-center justify-center rounded-lg bg-blue-500 p-2 text-white transition-colors duration-200 hover:bg-blue-600"
         onClick={logout}
       >
-        로그아웃
-      </button>
+        <span>로그아웃</span>
+      </Link>
+
       <button
         className="w-full cursor-pointer rounded-lg bg-blue-500 p-2 text-white transition-colors duration-200 hover:bg-blue-600"
         onClick={() => {

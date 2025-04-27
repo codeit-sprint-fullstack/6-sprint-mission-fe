@@ -1,3 +1,5 @@
+"use client";
+
 const baseURL = "https://panda-market-api.vercel.app";
 // const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -41,9 +43,10 @@ export const defaultFetch = async (url, options = {}) => {
 /**
  * 토큰 인증 fetch 클라이언트 - localStorage의 accessToken을 Authorization 헤더로 전달
  */
-export const tokenFetch = async (url, options = {}) => {
-  const baseURL = "https://panda-market-api.vercel.app";
 
+// 서버 클라이언트에선 로컬에 접속이 불가능함 그런데 클라이언트로 바꾸면
+
+export const tokenFetch = async (url, options = {}) => {
   // 🔐 accessToken 가져오기
   const accessToken = localStorage.getItem("accessToken");
 
@@ -51,7 +54,7 @@ export const tokenFetch = async (url, options = {}) => {
     headers: {
       "Content-Type": "application/json",
       ...(accessToken && {
-        Authorization: `Bearer ${accessToken}`, // ✅ 토큰이 있을 때만 헤더에 포함
+        Authorization: `Bearer ${accessToken}`,
       }),
     },
     cache: "no-store",
@@ -67,38 +70,6 @@ export const tokenFetch = async (url, options = {}) => {
   };
 
   let response = await fetch(`${baseURL}${url}`, mergedOptions);
-
-  // ❗ 401 → refreshToken으로 토큰 재발급 시도 (쿠키로 전송)
-  if (response.status === 401 && url !== "/auth/token/refresh") {
-    try {
-      const refreshResponse = await fetch(`${baseURL}/auth/token/refresh`, {
-        method: "POST",
-        credentials: "include", // ✅ refreshToken은 쿠키로 전송
-        cache: "no-store",
-      });
-
-      if (refreshResponse.ok) {
-        const newData = await refreshResponse.json();
-        const newAccessToken = newData.accessToken;
-
-        // ✅ 새로운 accessToken 저장
-        localStorage.setItem("accessToken", newAccessToken);
-
-        // ✅ Authorization 헤더 다시 설정해서 원래 요청 재시도
-        const retryOptions = {
-          ...mergedOptions,
-          headers: {
-            ...mergedOptions.headers,
-            Authorization: `Bearer ${newAccessToken}`,
-          },
-        };
-
-        response = await fetch(`${baseURL}${url}`, retryOptions);
-      }
-    } catch (error) {
-      console.error("토큰 갱신 실패:", error);
-    }
-  }
 
   if (!response.ok) {
     throw new Error(`API error: ${response.status}`);
