@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/* ===== 테마 정의 ===== */
+@theme inline {
+  /* 브레이크포인트 정의: 기본 반응형 브레이크 포인트를 디자인 요구사항에 따라 변경가능. */
+  /* className="text-sm md:text-2xl" 면 화면너비 기본 text-sm, 768px부터 text-2xl 의미 */
+  --breakpoint-sm: 744px;
+  --breakpoint-md: 1200px;
+
+  /* 색상 정의: 디자인 내용에 따라 정의. 실사용 시 className="text-primary-50" */
+  --color-primary-100: #3692ff;
+  --color-primary-200: #1967d6;
+  --color-primary-300: #1251aa;
+  --color-error-red: #f47474;
+  --color-secondary-gray: #dfdfdf;
+  --color-secondary-gray-50: #f9fafb;
+  --color-secondary-gray-100: #f3f4f6;
+  --color-secondary-gray-200: #e5e7eb;
+  --color-secondary-gray-300: #9ca3af;
+  --color-secondary-gray-400: #6b7280;
+  --color-secondary-gray-500: #4b5563;
+  --color-secondary-gray-600: #374151;
+  --color-secondary-gray-700: #1f2937;
+  --color-secondary-gray-800: #111827;
+  --color-secondary-gray-900: #111827;
+
+  /* 폰트 정의 */
+  --font-pretendard: var(--font-pretendard);
+  --font-rokafSans: var(--font-rokafSans);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
