@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import InputField from "../common-UI/InputField";
-import Button from "../common-UI/Button";
 import { getComments, postComment } from "@/lib/comment";
 import { preconnect } from "react-dom";
+import Button from "./common-UI/Button";
+import InputField from "./common-UI/InputField";
 
 function CreateComment({
   articleId,
@@ -30,10 +30,10 @@ function CreateComment({
         };
         await postComment(articleId, postData);
       }
-      setContent("");
+      // setContent("");
       onCommentAdded?.();
     } catch (e) {
-      console.error("댓글 등록 중 에러 발생", e);
+      console.error("댓글 수정 중 에러 발생", e);
     }
   };
 

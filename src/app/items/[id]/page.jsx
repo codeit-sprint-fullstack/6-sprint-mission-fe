@@ -7,14 +7,23 @@ import { useParams, useRouter } from "next/navigation";
 import { checkTokenExp, ckTokenExp } from "../../../../utils/ckTokenExp";
 import DetailProduct from "./DetailProduct";
 import ProductComments from "@/components/ui/product/productComments";
+import { postProductComment } from "@/lib/commentProduct";
 
 function ItemDetail() {
   const [askContent, setAskContent] = useState("");
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [isTokenChecked, setIsTokenChecked] = useState(false);
+
+  //CUD시 화면 반영을 위한 트리거
+  const refreshComments = () => {
+    setRefreshTrigger((prev) => prev + 1);
+  };
+
   // 미인증은 로그인으로 리다이렉트
   const router = useRouter();
   const { id } = useParams();
 
-  const [isTokenChecked, setIsTokenChecked] = useState(false);
+  const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     const isTokenValid = checkTokenExp();
@@ -32,12 +41,27 @@ function ItemDetail() {
     return <div>상품 불러오는 중...</div>;
   }
 
+  //디버깅깅
   console.log("askContent", askContent);
+
+  const handlePost = async () => {
+    try {
+      await postProductComment(id, accessToken, askContent);
+      setAskContent("");
+      refreshComments();
+    } catch (e) {
+      console.error("댓글 등록 중 에러 발생", e);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center mt-[94px]">
       <div className="flex-1">
-        <DetailProduct id={id} />
+        <DetailProduct
+          id={id}
+          accessToken={accessToken}
+          refreshComments={refreshComments}
+        />
 
         <div className="flex flex-col items-end gap-[10px]">
           <InputField
@@ -51,7 +75,7 @@ function ItemDetail() {
 
           <Button
             text={"등록"}
-            // onClick={handlePost}
+            onClick={handlePost}
             // disabled={!content}
             width={"w-[74px]"}
             height={"h-[42px]"}
@@ -60,8 +84,9 @@ function ItemDetail() {
 
         <ProductComments
           productId={id}
-          // refreshTrigger={}
-          limit={3}
+          accessToken={accessToken}
+          refreshTrigger={refreshTrigger}
+          limit={4}
         />
 
         <div className="flex justify-center mt-[64px]">

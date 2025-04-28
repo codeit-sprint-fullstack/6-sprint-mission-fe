@@ -6,9 +6,9 @@ export async function postProductComment(productId, accessToken, postData) {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        Authorization: Bearer`${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify(postData),
+      body: JSON.stringify({ content: postData }),
     }
   );
 
@@ -32,4 +32,37 @@ export async function getProductComment(productId, limit) {
   if (!res.ok) throw new Error("댓글 조회 실패");
 
   return res.json();
+}
+
+//해당 상품의 댓글 수정하기기
+export async function patchProductComment(commentId, accessToken, patchData) {
+  const res = await fetch(
+    `https://panda-market-api.vercel.app/comments/${commentId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ content: patchData }),
+    }
+  );
+
+  if (!res.ok) throw new Error("댓글 수정 실패");
+  return res.json();
+}
+
+//해당 상품의 댓글 삭제하기
+export async function deleteProductComment(commentId, accessToken) {
+  const res = await fetch(
+    `https://panda-market-api.vercel.app/comments/${commentId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  if (!res.ok) throw new Error("댓글 삭제 실패");
 }

@@ -4,21 +4,26 @@ import { getProductComment } from "@/lib/commentProduct";
 import ProductComment from "./productComment";
 import { useEffect, useState } from "react";
 
-export default function ProductComments({ productId, refreshTrigger, limit }) {
+export default function ProductComments({
+  productId,
+  accessToken,
+  refreshTrigger,
+  limit,
+}) {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const fetchComments = async () => {
+    const res = await getProductComment(productId, limit);
+
+    //디버깅깅
+    console.log("res", res.list);
+
+    setComments(res.list);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const fetchComments = async () => {
-      const res = await getProductComment(productId, limit);
-
-      //디버깅깅
-      console.log("res", res.list);
-
-      setComments(res.list);
-      setLoading(false);
-    };
-
     fetchComments();
   }, [productId, refreshTrigger]);
 
@@ -39,8 +44,9 @@ export default function ProductComments({ productId, refreshTrigger, limit }) {
           productId={productId}
           commentId={comment.id}
           content={comment.content}
+          accessToken={accessToken}
           // patchData={}
-          // refreshComments={}
+          refreshComments={fetchComments}
         />
       ))}
     </div>

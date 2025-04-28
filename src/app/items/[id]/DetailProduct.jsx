@@ -2,11 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import MoreToggle from "../../../components/ui/common-UI/MoreToggle";
-import { getProduct, getProducts } from "@/lib/product";
+import { deleteProduct, getProduct, getProducts } from "@/lib/product";
+import { useRouter } from "next/navigation";
 
-function DetailProduct({ id }) {
+function DetailProduct({ id, accessToken, refreshComments }) {
   const [productData, setProductData] = useState(null);
   const [isPending, setIsPending] = useState(true);
+
+  const router = useRouter();
 
   //디버깅
   console.log("id", id);
@@ -30,6 +33,23 @@ function DetailProduct({ id }) {
     fetchData();
   }, [id]);
 
+  const handleProductPatch = () => {
+    //디버깅
+    console.log("patched");
+    // refreshComments();
+
+    router.push(`items/${id}/edit`);
+  };
+
+  const handleProductDelete = async () => {
+    //디버깅
+    console.log("dleted");
+    alert("정말 삭제하시겠습니까?");
+
+    await deleteProduct(id, accessToken);
+    router.push("/items");
+  };
+
   if (isPending) return <div> 상품 정보 로딩 중...</div>;
 
   return (
@@ -40,7 +60,10 @@ function DetailProduct({ id }) {
         <div>
           <div>
             <div>{productData.name}</div>
-            <MoreToggle />
+            <MoreToggle
+              onPatch={handleProductPatch}
+              onDelete={handleProductDelete}
+            />
           </div>
           <div>{productData.price}원</div>
         </div>
