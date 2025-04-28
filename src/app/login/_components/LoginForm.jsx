@@ -1,4 +1,5 @@
 "use client";
+import { login } from "@/api/auth";
 import SocialAuthOptions from "@/app/registration/_components/SocialAuthOptions";
 import AuthModal from "@/components/ui/AuthModal";
 import AuthSubmitButton from "@/components/ui/AuthSubmitButton";
@@ -24,62 +25,29 @@ export default function LoginForm() {
   // need to improve modal component logic by using Provider later
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // console.log("handleSubmit called");
     if (!isFormValid) return;
 
     try {
-      // console.log("api client called");
       setIsLoading(true);
-      // send POST request to server
-      const response = await fetch(
-        "https://panda-market-api.vercel.app/auth/signIn",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        console.log("login error", errorData.message);
-        setModalMessage("비밀번호가 일치하지 않습니다.");
-        setIsModalOpen(true);
-        throw new Error("Login failed");
-      }
-      // use await again to get to the data
-      const data = await response.json();
-      // get the jwt token info
+      const data = await login({ email, password });
       const accessToken = data.accessToken;
       const refreshToken = data.refreshToken;
-
-      if (accessToken) {
-        // save access token to the user's localStorage
-        // console.log("token received", accessToken);
-        localStorage.setItem("accessToken", accessToken);
-        // console.log("refresh token received:", refreshToken);
-        localStorage.setItem("refreshToken", refreshToken);
-        // redirect user to the market page
-        router.push("/market");
-      } else {
-        // remove this line later
-        console.log("token not received");
-      }
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      router.push("/market");
     } catch (error) {
-      setErrorMsg(error.message);
+      console.error("로그인 실패", error);
+      setModalMessage(error.message);
+      setIsModalOpen(true);
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <>
       <form
@@ -105,7 +73,10 @@ export default function LoginForm() {
           isValid={isPasswordValid}
           required
         />
-        <AuthSubmitButton label="로그인" isDisabled={!isFormValid} />
+        <AuthSubmitButton
+          label="로그인"
+          isDisabled={!isFormValid || isLoading}
+        />
         <SocialAuthOptions />
       </form>
 
