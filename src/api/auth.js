@@ -22,7 +22,25 @@ export async function login({ email, password }) {
   return response.json();
 }
 
-
-export async function register(){
-  const response = await fetch()
+export async function register({ email, nickname, password, passwordConfirm }) {
+  const response = await fetch(
+    "https://panda-market-api.vercel.app/auth/signUp",
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        nickname,
+        password,
+        passwordConfirmation: passwordConfirm,
+      }),
+    }
+  );
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message);
+  }
+  return response.json();
 }
