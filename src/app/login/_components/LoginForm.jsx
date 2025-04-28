@@ -38,7 +38,7 @@ export default function LoginForm() {
       const refreshToken = data.refreshToken;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-      router.push("/market");
+      router.push("/items");
     } catch (error) {
       console.error("로그인 실패", error);
       setModalMessage(error.message);

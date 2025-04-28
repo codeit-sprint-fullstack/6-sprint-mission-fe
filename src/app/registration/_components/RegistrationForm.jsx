@@ -2,8 +2,6 @@
 import FormInput from "@/components/ui/FormInput";
 import PasswordInput from "@/components/ui/PasswordInput";
 import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import useRegistrationForm from "@/hooks/useRegistrationForm";
 import AuthSubmitButton from "@/components/ui/AuthSubmitButton";
 import SocialAuthOptions from "../../../components/ui/SocialAuthOptions";
@@ -49,7 +47,7 @@ export default function RegistrationForm() {
       const refreshToken = data.refreshToken;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
-      router.push("/market");
+      router.push("/items");
     } catch (error) {
       console.error("회원가입 실패:", error);
       setModalMessage(error.message);

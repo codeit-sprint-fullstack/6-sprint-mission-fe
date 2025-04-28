@@ -1,5 +1,3 @@
-import React from "react";
-
 export async function login({ email, password }) {
   const response = await fetch(
     "https://panda-market-api.vercel.app/auth/signIn",

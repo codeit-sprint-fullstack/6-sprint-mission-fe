@@ -88,7 +88,7 @@ export default function CommunityPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center max-w-[1200px] w-full h-full pt-4 pr-4 pb-[91px] pl-4 gap-6 md:p-6 xl:p-0 xl:mt-6 xl:mb-[293px]">
+    <div className="flex flex-col items-center justify-center max-w-[1200px] w-full h-full pt-4 pr-4 pb-[91px] pl-4 gap-6 md:p-6 xl:p-0 xl:mt-6 xl:mb-[293px] xl:mx-auto">
       <div className="flex flex-col justify-center gap-4 md:gap-6 w-full h-full">
         <p className="text-lg md:text-xl font-bold text-secondary-800">
           베스트 게시글
