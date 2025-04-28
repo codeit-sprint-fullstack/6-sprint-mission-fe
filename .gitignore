@@ -1,0 +1,16 @@
+# Node.js dependencies
+node_modules/
+
+# Next.js build output
+.next/
+
+# Environment variable files
+.env
+.env.*
+
+# VS Code or editor-specific
+.vscode/
+
+# HTTP test files (if used with REST clients like Thunder Client or REST Client extension)
+.http
+.http*
