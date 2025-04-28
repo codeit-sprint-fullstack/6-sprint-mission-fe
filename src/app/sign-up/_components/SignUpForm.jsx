@@ -6,10 +6,10 @@ import useRegistrationForm from "@/hooks/useRegistrationForm";
 import AuthSubmitButton from "@/components/ui/AuthSubmitButton";
 import SocialAuthOptions from "../../../components/ui/SocialAuthOptions";
 import { useRouter } from "next/navigation";
-import { register } from "@/api/auth";
+import { signUp } from "@/api/auth";
 import AuthModal from "@/components/ui/AuthModal";
 
-export default function RegistrationForm() {
+export default function SignUpForm() {
   const {
     email,
     nickname,
@@ -37,7 +37,7 @@ export default function RegistrationForm() {
     if (!isFormValid) return;
     try {
       setIsLoading(true);
-      const data = await register({
+      const data = await signUp({
         email,
         nickname,
         password,
