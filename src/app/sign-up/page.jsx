@@ -8,6 +8,8 @@ import CrossSite from "@/components/ui/login-signup/CrossSite";
 import InputField from "@/components/ui/login-signup/InputField";
 import Button from "@/components/ui/login-signup/Button";
 import Link from "next/link";
+import { register } from "@/actions/auth";
+import { useAuth } from "@/providers/AuthProvider";
 
 function SignupPage() {
   const [email, setEmail] = useState("");
@@ -16,12 +18,15 @@ function SignupPage() {
   const [ckPassword, setCkPassword] = useState("");
   const [isVisible, setIsVisible] = useState(false); //눈 모양 아이콘 토글(비밀번호)
   const [isCkVisible, setIsCkVisible] = useState(false); //눈 모양 아이콘 토글(비밀번호 확인)
-  const [isEmailErr, setIsEmailErr] = useState(false);
-  const [isPwErr, setIsPwErr] = useState(false);
+
+  const [isEmailErr, setIsEmailErr] = useState(true);
+  const [isPwErr, setIsPwErr] = useState(true);
 
   const [isFormsValid, setIsFormsValid] = useState(false);
 
   const router = useRouter();
+
+  const { register } = useAuth();
 
   const isPwMatched = password === ckPassword;
   useEffect(() => {
@@ -44,41 +49,45 @@ function SignupPage() {
     console.log("ckPassword", ckPassword);
 
     try {
-      const response = await fetch(
-        "https://panda-market-api.vercel.app/auth/signUp",
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email,
-            nickname: nickName,
-            password: password,
-            passwordConfirmation: ckPassword,
-          }),
-        }
-      );
+      // const response = await fetch(
+      //   "https://panda-market-api.vercel.app/auth/signUp",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       email: email,
+      //       nickname: nickName,
+      //       password: password,
+      //       passwordConfirmation: ckPassword,
+      //     }),
+      //   }
+      // );
+      const result = await register(email, nickName, password, ckPassword);
 
-      if (!response.ok) {
-        console.error(e);
-        //선택 사항
-        // setEmail("")
-        // setNickName("")
-        // setPassword("")
-        // setCkPassword("")
+      // if (!response.ok) {
+      //   //디버깅
+      //   const errorData = await response.json();
 
-        //모달로 구현
-        return alert("회원가입 실패");
+      //   console.error(e, errorData);
+
+      //   //모달로 구현
+      //   return alert("회원가입 실패");
+      // }
+
+      if (!result.accessToken) {
+        alert("회원가입 실패");
+        setIsFormsValid(false);
+        return;
       }
 
-      //디버깅
-      console.log("회원가입 성공");
+      localStorage.setItem("accessToken", result.accessToken);
 
-      router.push("/market");
+      router.push("/items");
     } catch (e) {
       //모달로 구현할 것
-      alert("실패했습니다", e.message);
+      alert("실패했습니다", e);
     }
   };
 
@@ -146,7 +155,7 @@ function SignupPage() {
             <div className="relative">
               <InputField
                 label="비밀번호"
-                type="password"
+                type={isVisible ? "text" : "password"}
                 placeholder="비밀번호를 입력해주세요"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -172,7 +181,7 @@ function SignupPage() {
             <div className="relative">
               <InputField
                 label="비밀번호 확인"
-                type="password"
+                type={isCkVisible ? "text" : "password"}
                 placeholder="비밀번호를 다시 입력해주세요"
                 value={ckPassword}
                 onChange={(e) => setCkPassword(e.target.value)}

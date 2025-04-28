@@ -4,7 +4,7 @@ import Button from "@/components/ui/common-UI/Button";
 import InputField from "@/components/ui/login-signup/InputField";
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { checkTokenExp, ckTokenExp } from "../../../../utils/ckTokenExp";
+import { checkTokenExp, ckTokenExp } from "../../../../utils/checkTokenExp";
 import DetailProduct from "./DetailProduct";
 import ProductComments from "@/components/ui/product/productComments";
 import { postProductComment } from "@/lib/commentProduct";
@@ -30,19 +30,14 @@ function ItemDetail() {
     if (isTokenValid) {
       setIsTokenChecked(true);
     } else {
+      localStorage.removeItem("accessToken");
       router.push("/login");
     }
-
-    //디버깅
-    console.log("isTokenValid", isTokenValid);
   }, []);
 
   if (!id || !isTokenChecked) {
     return <div>상품 불러오는 중...</div>;
   }
-
-  //디버깅깅
-  console.log("askContent", askContent);
 
   const handlePost = async () => {
     try {

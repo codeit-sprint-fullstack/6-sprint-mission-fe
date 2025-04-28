@@ -9,10 +9,10 @@ export const authService = {
     });
   },
 
-  register: (email, nickname, password) => {
-    tokenFetch("/auth/signUp", {
+  register: (email, nickname, password, passwordConfirmation) => {
+    return tokenFetch("/auth/signUp", {
       method: "POST",
-      body: JSON.stringify({ email, nickname, password }),
+      body: JSON.stringify({ email, nickname, password, passwordConfirmation }),
     });
   },
 

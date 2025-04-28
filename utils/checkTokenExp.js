@@ -11,11 +11,6 @@ export const checkTokenExp = () => {
     //토큰의 유효기간
     const expiryToken = JSON.parse(atob(payload)).exp * 1000;
 
-    //디버깅
-    const now = Date.now();
-    console.log("expiryToken", expiryToken);
-    console.log("now", now);
-
     if (Date.now() <= expiryToken) {
       console.log("유효한 토큰입니다.");
       return true;

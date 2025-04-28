@@ -6,7 +6,6 @@ import Link from "next/link";
 export default async function BestList() {
   const res = await getBestArticles();
   const bestArticles = res.data;
-  console.log("bestArticles", bestArticles);
 
   return (
     <div className="flex flex-col font-pretendard">

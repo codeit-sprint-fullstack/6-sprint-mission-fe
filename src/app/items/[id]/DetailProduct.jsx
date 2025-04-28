@@ -1,49 +1,39 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import MoreToggle from "../../../components/ui/common-UI/MoreToggle";
 import { deleteProduct, getProduct, getProducts } from "@/lib/product";
 import { useRouter } from "next/navigation";
+import PatchProduct from "@/components/ui/product/PatchProduct";
 
 function DetailProduct({ id, accessToken, refreshComments }) {
   const [productData, setProductData] = useState(null);
   const [isPending, setIsPending] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
 
   const router = useRouter();
 
-  //디버깅
-  console.log("id", id);
+  const fetchData = async () => {
+    try {
+      const data = await getProduct(id);
+
+      setProductData(data);
+    } catch (e) {
+      console.error("상품 정보 로딩 실패", e);
+    } finally {
+      setIsPending(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getProduct(id);
-
-        //디버깅
-        console.log("data", data);
-
-        setProductData(data);
-      } catch (e) {
-        console.error("상품 정보 로딩 실패", e);
-      } finally {
-        setIsPending(false);
-      }
-    };
-
     fetchData();
   }, [id]);
 
   const handleProductPatch = () => {
-    //디버깅
-    console.log("patched");
-    // refreshComments();
-
-    router.push(`items/${id}/edit`);
+    setIsEdit(true);
   };
 
   const handleProductDelete = async () => {
-    //디버깅
-    console.log("dleted");
     alert("정말 삭제하시겠습니까?");
 
     await deleteProduct(id, accessToken);
@@ -51,6 +41,15 @@ function DetailProduct({ id, accessToken, refreshComments }) {
   };
 
   if (isPending) return <div> 상품 정보 로딩 중...</div>;
+
+  if (isEdit)
+    return (
+      <PatchProduct
+        data={productData}
+        accessToken={accessToken}
+        productId={id}
+      />
+    );
 
   return (
     <div className="pt-[94px] flex flex-row  gap-[24px]">

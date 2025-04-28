@@ -28,9 +28,6 @@ export default function AuthProvider({ children }) {
     try {
       const user = await userService.getMe();
       setUser(user);
-
-      //디버깅
-      console.log("user", user);
     } catch (e) {
       console.error("사용자 정보를 가져오는데 실패했습니다", e);
       setUser(null);
@@ -40,15 +37,20 @@ export default function AuthProvider({ children }) {
   const login = async (email, password) => {
     const result = await authService.login(email, password);
 
-    //디버깅
-    console.log("result", result);
-
     setUser(result.user);
     return result;
   };
 
-  const register = async (name, email, password) => {
-    await authService.register(name, email, password);
+  const register = async (email, nickname, password, passwordConfirmation) => {
+    const result = await authService.register(
+      email,
+      nickname,
+      password,
+      passwordConfirmation
+    );
+
+    setUser(result.user);
+    return result;
   };
 
   const logout = async () => {
@@ -62,9 +64,6 @@ export default function AuthProvider({ children }) {
   //새로고침 시 로그인 상태 유지
   useEffect(() => {
     getUser();
-    console.log("화면 새로 고침");
-    // const storedToken = localStorage.getItem("accessToken");
-    // if (storedToken) setAccessToken(storedToken);
   }, []);
 
   return (

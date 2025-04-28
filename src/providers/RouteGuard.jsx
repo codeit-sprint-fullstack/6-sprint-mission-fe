@@ -31,7 +31,7 @@ export default function RouteGuard({ children }) {
     );
 
     if (isProtectedRoute && !user) {
-      alert("접근할 수 없는 페이지 입니다.");
+      alert("인증되지 않은 사용자 입니다.");
       router.push("/login");
     } else {
       // 인증 확인 전 화면 노출 방지
@@ -39,7 +39,7 @@ export default function RouteGuard({ children }) {
     }
 
     if (user && isPublicRoute) {
-      alert("접근할 수 없는 페이지 입니다.");
+      alert("인증된 사용자 입니다.");
       router.push("/items");
     } else {
       // 인증 확인 전 화면 노출 방지

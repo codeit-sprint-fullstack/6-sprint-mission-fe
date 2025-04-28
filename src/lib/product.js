@@ -1,6 +1,8 @@
 //상품 목록 가져오기
-export async function getProducts() {
-  const res = await fetch(`https://panda-market-api.vercel.app/products`);
+export async function getProducts({ page, pageSize, orderBy, keyword }) {
+  const res = await fetch(
+    `https://panda-market-api.vercel.app/products?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}&keyword=${keyword}`
+  );
 
   if (!res.ok) {
     throw new Error("상품 목록을 가져올 수 없습니다.");

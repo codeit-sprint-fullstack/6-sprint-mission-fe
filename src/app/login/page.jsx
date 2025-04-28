@@ -9,6 +9,7 @@ import Button from "@/components/ui/login-signup/Button";
 import CompactLogin from "@/components/ui/login-signup/CompactLogin";
 import CrossSite from "@/components/ui/login-signup/CrossSite";
 import { useAuth } from "@/providers/AuthProvider";
+import { checkTokenExp } from "../../../utils/checkTokenExp";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -20,11 +21,9 @@ export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
 
-  //토큰이 있는 경우 페이지 제한
+  //토큰이 유효한 경우 페이지 제한
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-
-    if (token) {
+    if (checkTokenExp()) {
       router.push("/items");
     }
   }, []);
@@ -51,14 +50,10 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    //디버깅
-    console.log("로그인 버튼 클릭!");
+    if (!isFormsValid) return;
 
     try {
       const result = await login(email, password);
-
-      //디버깅
-      console.log("response", result);
 
       if (!result.accessToken) {
         setIsEmailValid(false);
@@ -69,19 +64,11 @@ export default function LoginPage() {
       //로컬 스토리지에 token 저장
       localStorage.setItem("accessToken", result.accessToken);
 
-      //디버깅
-      console.log("로그인 성공");
-
       router.push("/items");
     } catch (e) {
-      //디버깅깅
-      console.log("로그인 실패");
-      alert("실패했습니다.");
+      alert("로그인에 실패했습니다.");
     }
   };
-
-  //디버깅깅
-  console.log("isEmailValid", isEmailValid);
 
   return (
     <div className="min-h-screen flex flex-col justify-center">
@@ -123,7 +110,7 @@ export default function LoginPage() {
               <div className=" relative ">
                 <InputField
                   label="비밀번호"
-                  type="password"
+                  type={isVisible ? "text" : "password"}
                   placeholder="비밀번호를 입력해주세요"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

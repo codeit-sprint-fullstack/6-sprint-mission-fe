@@ -3,8 +3,8 @@ POST https://panda-market-api.vercel.app/auth/signUp
 Content-Type: application/json
 
 {
-  "email": "asdf12345678910@naver.com",
-  "nickname": "qwerasdfzxcvㅣㅏㅓㅗㅗ",
+  "email": "11110@naver.com",
+  "nickname": "qwerasdㅗㅗ",
   "password": "12345678Aa!",
   "passwordConfirmation": "12345678Aa!"
 }
@@ -25,7 +25,7 @@ Content-Type: application/json
 #상품 관련
 
 ### 상품품 목록 가져오기 
-GET https://panda-market-api.vercel.app/products
+GET https://panda-market-api.vercel.app/products?page=1&pageSize=2&orderBy=recent&keyword=여러분
 
 ### 상품품 하나 가져오기 
 GET https://panda-market-api.vercel.app/products/678
@@ -33,7 +33,7 @@ GET https://panda-market-api.vercel.app/products/678
 ### 상품 등록하기 
 POST https://panda-market-api.vercel.app/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTkwLCJzY29wZSI6ImFjY2VzcyIsImlhdCI6MTc0NTgwNjk5MCwiZXhwIjoxNzQ1ODA4NzkwLCJpc3MiOiJzcC1wYW5kYS1tYXJrZXQifQ.6Z3R97fw_EuQl85cFxYh3om4eagiL6vscI1aZmrIhd8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTkwLCJzY29wZSI6ImFjY2VzcyIsImlhdCI6MTc0NTgxNDc5MSwiZXhwIjoxNzQ1ODE2NTkxLCJpc3MiOiJzcC1wYW5kYS1tYXJrZXQifQ.p1fYnr1tGuHRzgA842OUZxkaKlTrjx1GI6IGMDleBzI
 
 {
   "images": [
@@ -50,18 +50,12 @@ DELETE https://panda-market-api.vercel.app/products/693
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTkwLCJzY29wZSI6ImFjY2VzcyIsImlhdCI6MTc0NTgwNjk5MCwiZXhwIjoxNzQ1ODA4NzkwLCJpc3MiOiJzcC1wYW5kYS1tYXJrZXQifQ.6Z3R97fw_EuQl85cFxYh3om4eagiL6vscI1aZmrIhd8
 
 ### 상품 수정하기
-PATCH https://panda-market-api.vercel.app/products/694
+PATCH https://panda-market-api.vercel.app/products/702
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTkwLCJzY29wZSI6ImFjY2VzcyIsImlhdCI6MTc0NTgwNjk5MCwiZXhwIjoxNzQ1ODA4NzkwLCJpc3MiOiJzcC1wYW5kYS1tYXJrZXQifQ.6Z3R97fw_EuQl85cFxYh3om4eagiL6vscI1aZmrIhd8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTkwLCJzY29wZSI6ImFjY2VzcyIsImlhdCI6MTc0NTgyMDA2NywiZXhwIjoxNzQ1ODIxODY3LCJpc3MiOiJzcC1wYW5kYS1tYXJrZXQifQ.0YxKdpa_u48_VXcdnr-8UZBq3P0aqSi6ASlNKIAi2HI
 
 {
-  "images": [
-    "https://cdn.wccftech.com/wp-content/uploads/2024/05/M4-iPad-Pro-6.jpg"
-  ],
-  "tags":["전자제품"],
-  "price":1000000,
-  "description":"사기 싫으면 사지 마세요", 
-  "name":"아이패드 미니 팔아요"
+  "name":"아이패드 미니 팔아요...."
 }
 
 #상품 댓글 관련

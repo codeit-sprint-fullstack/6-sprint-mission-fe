@@ -20,8 +20,6 @@ function ProductComment({
   // const [deleteConfirmModal, setDelete]
 
   const onPatch = async () => {
-    //디버깅
-    console.log("click patch");
     try {
       setIsEditing(true);
       await patchProductComment(commentId, accessToken, patchData);

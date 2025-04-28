@@ -12,9 +12,6 @@ export const tokenFetch = async (url, options = {}) => {
     cache: "no-store",
   };
 
-  //디버깅
-  console.log("defaultOptions", defaultOptions);
-
   const mergedOptions = {
     ...defaultOptions,
     ...options,
@@ -25,9 +22,6 @@ export const tokenFetch = async (url, options = {}) => {
   };
 
   const response = await fetch(`${base_URL}${url}`, mergedOptions);
-
-  //디버깅
-  console.log("response", response);
 
   if (!response.ok) {
     throw new Error("API error");

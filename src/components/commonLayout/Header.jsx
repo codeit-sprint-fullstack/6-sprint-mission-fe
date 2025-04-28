@@ -4,17 +4,12 @@ import React from "react";
 import Link from "next/link";
 import Button from "../ui/common-UI/Button";
 import { usePathname, useRouter } from "next/navigation";
-import { useNav } from "@/providers/NavIndexProvider";
 import { useAuth } from "@/providers/AuthProvider";
-import AuthChecker from "../../../utils/AuthChecker";
 
 function Header() {
   const router = useRouter();
   const pathName = usePathname();
   const { user } = useAuth();
-
-  //디버깅
-  console.log("user", user);
 
   const handelLogin = () => {
     router.push("/login");
