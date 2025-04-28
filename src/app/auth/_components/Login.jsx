@@ -4,19 +4,42 @@ import AuthInput from "./AuthInput";
 import AuthButton from "./AuthButton";
 import { useEffect, useState } from "react";
 import AuthModal from "./AuthModal";
+import { authService } from "@/service/auth-service";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function Login() {
   const [isActive, setIsActive] = useState(false);
+  const [isLoginFail, setIsLoginFail] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [validatedValues, setValidatedValues] = useState({
     email: "",
     password: "",
   });
+  const router = useRouter();
+  const { login } = useAuth();
+
+  const { email, password } = validatedValues;
+
+  // 로그인
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoginFail(false);
+      await login(email, password);
+
+      router.push("/products");
+    } catch (e) {
+      setModalMessage(e.message);
+      setIsModalVisible(true);
+      setIsLoginFail(true);
+    }
+  };
 
   // 로그인 버튼 활성화
   useEffect(() => {
-    const { email, password } = validatedValues;
-
     if (email && password) {
       setIsActive(true);
     } else {
@@ -32,57 +55,34 @@ export default function Login() {
   // 모달 닫기
   const handleModal = () => setIsModalVisible(false);
 
-  // 유저 확인(임시)
-  const checkExistUsers = (e) => {
-    e.preventDefault();
-
-    const email = "d@d.com";
-    const password = "dddddddd";
-
-    if (validatedValues.email !== email) {
-      setIsModalVisible(true);
-    }
-  };
-
-  // // 이메일, 비밀번호 여부 체크 & 로그인 경로 설정 & 모달
-  // const emailCheck = () => {
-  //   const compare = USER_DATA.some((data) => data.email === email.value);
-  //   return compare;
-  // };
-
-  // const passwordCheck = () => {
-  //   const compare = USER_DATA.some((data) => data.password === password.value);
-  //   return compare;
-  // };
-
-  // const checkExistUsers = (e) => {
-  //   e.preventDefault();
-
-  //   if (emailCheck() && passwordCheck()) {
-  //     navigate("/");
-  //   } else {
-  //     setModalOn(true);
-  //   }
-  // };
-
   return (
     <>
-      <AuthModal isModalVisible={isModalVisible} handleModal={handleModal} />
+      <AuthModal
+        isModalVisible={isModalVisible}
+        modalMessage={modalMessage}
+        handleModal={handleModal}
+      />
       <form
-        onSubmit={checkExistUsers}
+        onSubmit={handleLogin}
         className="flex flex-col gap-y-[16px] sm:gap-y-[24px]"
       >
         <AuthInput
           type="email"
+          isLoginFail={isLoginFail}
           validatedValues={validatedValues}
           saveValidatedValue={saveValidatedValue}
         />
         <AuthInput
           type="password"
+          isLoginFail={isLoginFail}
           validatedValues={validatedValues}
           saveValidatedValue={saveValidatedValue}
         />
-        <AuthButton isActive={isActive} type="로그인" />
+        <AuthButton
+          type="로그인"
+          isActive={isActive}
+          validatedValues={validatedValues}
+        />
       </form>
     </>
   );

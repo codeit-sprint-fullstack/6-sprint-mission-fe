@@ -1,5 +1,16 @@
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles`;
 
+// // 게시글 댓글 조회
+// export const getArticleComments = async ({articleId = null, productId = null}) => {
+//   const path = articleId ? `articles/${articleId}` : `products/${productId}`
+
+//   const res = await fetch(`${BASE_URL}/${path}/comments`);
+
+//   if (!res) throw new Error("댓글을 불러올 수 없습니다");
+
+//   return res.json();
+// };
+
 // 게시글 댓글 조회
 export const getArticleComments = async (articleId) => {
   const res = await fetch(`${BASE_URL}/${articleId}/comments`);

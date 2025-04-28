@@ -5,7 +5,7 @@ import {
   getArticleComments,
   patchArticleComment,
   postArticleComment,
-} from "@/lib/api/articleComment.api";
+} from "@/service/articleComment-service";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import CommentCreate from "./CommentCreate";

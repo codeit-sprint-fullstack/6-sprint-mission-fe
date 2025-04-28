@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import DropDownToggle from "@/components/ui/DropDownToggle";
-import { deleteArticle, getArticle } from "@/lib/api/article.api";
+import { deleteArticle, getArticle } from "@/service/article-service";
 import { useParams, useRouter } from "next/navigation";
 import Profile from "@/components/ui/Profile";
 

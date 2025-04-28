@@ -1,6 +1,6 @@
 "use client";
 
-import { getArticles } from "@/lib/api/article.api";
+import { getArticles } from "@/service/article-service";
 import React, { useEffect, useState } from "react";
 import AriclesLoad from "./ArticlesLoad";
 import NavBar from "../NavBar/NavBar";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EyeToggle from "./EyeToggle";
 import clsx from "clsx";
 
@@ -49,6 +49,7 @@ const PLACEHOLDER_BY_TYPE = {
 
 export default function AuthInput({
   type,
+  isLoginFail,
   validatedValues,
   saveValidatedValue,
 }) {
@@ -63,7 +64,14 @@ export default function AuthInput({
     passwordCheck: isPasswordVisible ? "text" : "password",
   };
 
-  // 이메일, 비밀번호 유효성 검증
+  // 로그인 실패 시 에러 메시지
+  useEffect(() => {
+    if (isLoginFail) {
+      setErrorMsg(ERROR_MESSAGE[type].fail);
+    }
+  }, [isLoginFail]);
+
+  // 이메일, 비밀번호 에러 메시지
   const checkValidate = (e, type) => {
     const { value } = e.target;
     setInputValue(value);
