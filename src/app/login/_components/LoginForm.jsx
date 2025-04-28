@@ -1,6 +1,6 @@
 "use client";
 import { login } from "@/api/auth";
-import SocialAuthOptions from "@/app/registration/_components/SocialAuthOptions";
+import SocialAuthOptions from "@/components/ui/SocialAuthOptions";
 import AuthModal from "@/components/ui/AuthModal";
 import AuthSubmitButton from "@/components/ui/AuthSubmitButton";
 import FormInput from "@/components/ui/FormInput";

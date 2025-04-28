@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useRegistrationForm from "@/hooks/useRegistrationForm";
 import AuthSubmitButton from "@/components/ui/AuthSubmitButton";
-import SocialAuthOptions from "./SocialAuthOptions";
+import SocialAuthOptions from "../../../components/ui/SocialAuthOptions";
 
 export default function RegistrationForm() {
   const {
