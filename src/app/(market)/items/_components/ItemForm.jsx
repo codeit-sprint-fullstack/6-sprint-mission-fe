@@ -3,6 +3,7 @@
 import { createProduct, updateProduct } from "@/app/actions/product";
 import Modal from "@/components/ui/Modal";
 import { getProduct } from "@/lib/getApi";
+import Image from "next/image";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -103,6 +104,22 @@ function ItemForm() {
         </nav>
         <section className="space-y-4">
           <div>
+            <h3 className="text-sm font-bold mb-3">*상품 이미지</h3>
+            <button
+              type="button"
+              className="flex flex-col justify-center items-center gap-3 w-[168px] aspect-square bg-gray-100 rounded-xl text-gray-400 hover:bg-gray-200"
+            >
+              <Image
+                src="/assets/icon/ic_plus.svg"
+                alt="이미지 등록"
+                width={48}
+                height={48}
+              />
+              이미지 등록
+            </button>
+            <input type="file" multiple accept="image/*" className="hidden" />
+          </div>
+          <div>
             <h3 className="text-sm font-bold mb-3">*상품명</h3>
             <input
               className="w-full px-6 py-4 rounded-xl bg-gray-100 font-normal"
@@ -149,10 +166,6 @@ function ItemForm() {
                 setValues((prev) => ({ ...prev, tags: e.target.value }))
               }
             />
-          </div>
-          <div>
-            <h3 className="text-sm font-bold mb-3">*상품 사진</h3>
-            <input type="file" multiple accept="image/*" />
           </div>
         </section>
       </form>

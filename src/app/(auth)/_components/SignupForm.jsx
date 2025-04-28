@@ -6,6 +6,7 @@ import { INPUT_OPTIONS } from "@/const";
 import InputField from "./InputField";
 import Modal from "@/components/ui/Modal";
 import { useAuth } from "@/providers/AuthProvider";
+import AuthFooter from "./AuthFooter";
 
 function SignupForm() {
   const [isInputValid, setIsInputValid] = useState(false);
@@ -93,7 +94,10 @@ function SignupForm() {
   };
 
   return (
-    <form className="flex flex-col w-full" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col w-full lg:max-w-[640px]"
+      onSubmit={handleSubmit}
+    >
       {INPUT_OPTIONS.signup.map((option) => (
         <InputField
           key={option.name}
@@ -111,6 +115,7 @@ function SignupForm() {
       >
         회원가입
       </button>
+      <AuthFooter />
     </form>
   );
 }

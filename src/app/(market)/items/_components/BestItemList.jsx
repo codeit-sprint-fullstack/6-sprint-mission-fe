@@ -31,7 +31,7 @@ function BestItemList({ items }) {
   return (
     <section>
       <h2 className="text-xl font-bold mb-4">베스트 상품</h2>
-      <div className="flex justify-center md:gap-4 lg-gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-[10px] lg-gap-6">
         {bestItems.map((item) => (
           <article key={item.id}>
             <Link key={item.id} href={`/items/${item.id}`}>

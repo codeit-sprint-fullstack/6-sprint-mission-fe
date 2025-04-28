@@ -6,6 +6,7 @@ import { INPUT_OPTIONS } from "@/const";
 import { useAuth } from "@/providers/AuthProvider";
 import InputField from "./InputField";
 import Modal from "@/components/ui/Modal";
+import AuthFooter from "./AuthFooter";
 
 function LoginForm() {
   const [isInputValid, setIsInputValid] = useState(false);
@@ -65,7 +66,10 @@ function LoginForm() {
   };
 
   return (
-    <form className="flex flex-col w-full" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col w-full lg:max-w-[640px]"
+      onSubmit={handleSubmit}
+    >
       {INPUT_OPTIONS.login.map((option) => (
         <InputField
           key={option.name}
@@ -85,6 +89,7 @@ function LoginForm() {
       >
         로그인
       </button>
+      <AuthFooter />
     </form>
   );
 }

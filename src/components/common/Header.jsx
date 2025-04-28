@@ -30,20 +30,26 @@ function Header() {
             className="hidden md:block"
           />
         </Link>
-        <div className="flex gap-2 md:gap-[30px] mr-[23px] md:text-[18px] font-bold text-gray-600">
-          <Link
-            href="/board"
-            className={pathname.startsWith("/board") ? "text-primary-100" : ""}
-          >
-            자유게시판
-          </Link>
-          <Link
-            href="/items"
-            className={pathname.startsWith("/items") ? "text-primary-100" : ""}
-          >
-            중고마켓
-          </Link>
-        </div>
+        {!(pathname === "/") && (
+          <div className="flex gap-2 md:gap-[30px] mr-[23px] md:text-[18px] font-bold text-gray-600">
+            <Link
+              href="/board"
+              className={
+                pathname.startsWith("/board") ? "text-primary-100" : ""
+              }
+            >
+              자유게시판
+            </Link>
+            <Link
+              href="/items"
+              className={
+                pathname.startsWith("/items") ? "text-primary-100" : ""
+              }
+            >
+              중고마켓
+            </Link>
+          </div>
+        )}
       </div>
       {user ? (
         <div className="flex items-center">

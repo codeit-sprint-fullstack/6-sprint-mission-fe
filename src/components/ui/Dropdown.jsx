@@ -8,7 +8,7 @@ function Dropdown({ items = [], onSelect, isSort }) {
       className={`absolute border-1 border-gray-200 bg-white cursor-pointer overflow-hidden z-1 ${
         isSort
           ? "right-4 mt-1 w-[130px] rounded-xl"
-          : "right-[21px] w-[102px] md:w-[139px] rounded-lg"
+          : "right-[21px] lg:right-[12rem] mt-[10px] w-[102px] md:w-[139px] rounded-lg"
       }`}
     >
       {items.map(({ label, value }) => (

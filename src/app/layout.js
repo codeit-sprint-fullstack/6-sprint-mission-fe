@@ -1,8 +1,5 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "@/components/common/Header";
-import Footer from "@/components/common/Footer";
-import PageContainer from "@/components/common/PageContainer";
 import Providers from "./providers";
 
 const pretendard = localFont({
@@ -20,11 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${pretendard.variable} antialiased`}>
-        <Providers>
-          <Header />
-          <PageContainer>{children}</PageContainer>
-          <Footer />
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
