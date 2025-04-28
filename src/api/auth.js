@@ -21,3 +21,8 @@ export async function login({ email, password }) {
   }
   return response.json();
 }
+
+
+export async function register(){
+  const response = await fetch()
+}

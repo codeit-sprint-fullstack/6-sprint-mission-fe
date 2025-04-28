@@ -10,18 +10,30 @@ export default function SocialAuthOptions() {
         <div className="flex items-center justify-between w-full h-full">
           <p>간편 로그인하기</p>
           <div className="flex gap-4">
-            <Image
-              src="/icons/ic_google.svg"
-              width={42}
-              height={42}
-              alt="구글 로그인 아이콘"
-            />
-            <Image
-              src="/icons/ic_kakaotalk.svg"
-              width={42}
-              height={42}
-              alt="카카오톡 로그인 아이콘"
-            />
+            <a
+              href="https://google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/icons/ic_google.svg"
+                width={42}
+                height={42}
+                alt="구글 로그인 아이콘"
+              />
+            </a>
+            <a
+              href="https://www.kakaocorp.com/page/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/icons/ic_kakaotalk.svg"
+                width={42}
+                height={42}
+                alt="카카오톡 로그인 아이콘"
+              />
+            </a>
           </div>
         </div>
       </div>
