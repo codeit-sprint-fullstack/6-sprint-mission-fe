@@ -1,4 +1,5 @@
 const baseURL = "https://panda-market-api.vercel.app";
+
 export const defaultFetch = async (url, options = {}) => {
   const defaultOptions = {
     headers: {
@@ -19,20 +20,43 @@ export const defaultFetch = async (url, options = {}) => {
   };
 
   const response = await fetch(`${baseURL}${url}`, mergedOptions);
-  
-  // if (!response.ok) {
-  //   throw new Error(`API error: ${await response.json()}`);
-  // }
+
+  if (!response.ok) {
+    const contentType = response.headers.get("content-type");
+    let errorData;
+    if (contentType && contentType.includes("application/json")) {
+      try {
+        errorData = await response.json();
+      } catch (e) {
+        errorData = await response.text();
+        console.error("Error parsing error response as JSON:", e, "Response:", errorData);
+      }
+    } else {
+      errorData = await response.text();
+      console.error("Non-JSON error response:", errorData);
+    }
+    throw new Error(JSON.stringify(errorData));
+  }
 
   const contentType = response.headers.get("content-type");
 
   if (contentType && contentType.includes("application/json")) {
-    const data = await response.json();
-    return {
-      status: response.status,
-      ok: response.ok,
-      ...data,
-    };
+    try {
+      const data = await response.json();
+      return {
+        status: response.status,
+        ok: response.ok,
+        ...data,
+      };
+    } catch (e) {
+      const textData = await response.text();
+      console.error("Error parsing successful response as JSON:", e, "Response:", textData);
+      return {
+        status: response.status,
+        ok: response.ok,
+        data: textData, 
+      };
+    }
   }
 
   return {
@@ -80,7 +104,8 @@ export const cookieFetch = async (url, options = {}) => {
   }
 
   if (!response.ok) {
-    throw new Error(`API error: ${response.status}`);
+    const errorData = await response.json();
+    throw new Error(errorData);
   }
 
   const contentType = response.headers.get("content-type");
