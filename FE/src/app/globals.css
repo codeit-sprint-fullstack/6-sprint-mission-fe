@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+/* 다크 모드 사용 설정: 스타일 적용 시 className="bg-white dark:bg-black" */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono); /* className="font-mono" 로 폰트 적용 */
+}
+
+/* ===== 테마 정의 ===== */
+@theme {
+  /* 브레이크포인트 정의: 기본 반응형 브레이크 포인트를 디자인 요구사항에 따라 변경가능. */
+  /* 375px 미만 모바일, 375~744 태블릿, 744이상 웹페이지. */
+  --breakpoint-tablet: 375px;
+  --breakpoint-web: 744px;
+
+  /* 색상 정의: 디자인 내용에 따라 정의. 실사용 시 className="text-primary-50" */
+  --color-primary-100: #3692ff;
+  --color-primary-200: #1967d6;
+  --color-primary-300: #1251aa;
+  --color-brand-blue: #3182f6;
+  --color-error-red: #f74747;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-FF: #ffffff;
+  --color-FC: #fcfcfc;
+  --color-DF: #dfdfdf;
+  --color-EF: #e6f2ff;
+}
+
+/* ===== 유틸리티 클래스 확장 ===== *
+
+/* 커스텀 유틸리티 클래스 정의. 실사용 시 className="tab-4" */
+@utility tab-4 {
+  tab-size: 4;
+}
+
+/* ===== 컴포넌트 클래스 ===== */
+
+/* ===== 텍스트 스타일 ===== */
+.text-3xl-bold {
+  @apply text-3xl font-bold leading-[42px];
+}
+.text-3xl-semibold {
+  @apply text-3xl font-semibold leading-[42px];
+}
+
+.text-2xl-bold {
+  @apply text-2xl font-bold leading-[32px];
+}
+.text-2xl-semibold {
+  @apply text-2xl font-semibold leading-[32px];
+}
+.text-2xl-medium {
+  @apply text-2xl font-medium leading-[32px];
+}
+.text-2xl-regular {
+  @apply text-2xl font-normal leading-[32px];
+}
+
+.text-xl-bold {
+  @apply text-xl font-bold leading-[32px];
+}
+.text-2xl-semibold {
+  @apply text-xl font-semibold leading-[32px];
+}
+.text-xl-medium {
+  @apply text-xl font-medium leading-[32px];
+}
+.text-xl-regular {
+  @apply text-xl font-normal leading-[32px];
+}
+
+.text-lg-bold {
+  @apply text-lg font-bold leading-[26px];
+}
+.text-lg-semibold {
+  @apply text-lg font-semibold leading-[26px];
+}
+.text-lg-medium {
+  @apply text-lg font-medium leading-[26px];
+}
+.text-lg-regular {
+  @apply text-lg font-normal leading-[26px];
+}
+
+.text-md-bold {
+  @apply text-base font-bold leading-[24px];
+}
+.text-md-semibold {
+  @apply text-base font-semibold leading-[24px];
+}
+.text-md-medium {
+  @apply text-base font-medium leading-[24px];
+}
+.text-md-regular {
+  @apply text-base font-normal leading-[24px];
+}
+
+.text-sm-semibold {
+  @apply text-sm font-semibold leading-[22px];
+}
+.text-sm-medium {
+  @apply text-sm font-medium leading-[22px];
+}
+
+.text-xs-semibold {
+  @apply text-xs font-semibold leading-[18px];
+}
+.text-xs-medium {
+  @apply text-xs font-medium leading-[18px];
+}
+.text-xs-regular {
+  @apply text-xs font-normal leading-[18px];
+}
+
+/* ===== 버튼 스타일 ===== */
+.btn-sm-square {
+  @apply w-[42px] h-[42px] p-[9px] text-gray-100 rounded-xl;
+}
+
+.btn-sm-42 {
+  @apply w-23 h-12  p-3 text-base text-gray-100 rounded-lg;
+}
+
+.btn-sm-48 {
+  @apply w-23 h-11 px-5 py-3 text-base text-gray-100 rounded-lg;
+}
+
+.btn-md {
+  @apply w-60 h-12 p-3 text-lg text-gray-100 rounded-[40px];
+}
+
+.btn-lg {
+  @apply w-full h-14 p-4 text-xl text-gray-100 rounded-[40px];
+}
+
+/* 좋아요 버튼 하트 미반영 */
+.btn-heart-md {
+  @apply w-[87px] h-10 px-4 py-2 bg-FF text-gray-500 text-base rounded-full;
+}
+
+.btn-heart-sm {
+  @apply w-[79px] h-8 px-3 py-2 bg-FF text-gray-500 text-sm rounded-full;
+}
+
+/* 카드 컴포넌트 */
+/* .card {
+  @apply card-base shadow-card p-6;
+} */
+
+/* 일반 HTML 태그에 대한 기본 스타일 */
+body {
+  font-family: var(--font-sans);
+  color: black;
+  background-color: var(--color-FF);
+}
