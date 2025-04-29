@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { getArticle, updateArticle } from "@/lib/api";
+import { getArticle, updateArticle } from "@/lib/api(board)";
 import ArticleForm from "@/components/ArticleForm";
 import clsx from "clsx";
 

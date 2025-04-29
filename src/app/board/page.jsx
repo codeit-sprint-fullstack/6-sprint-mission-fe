@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { getArticles } from "@/lib/api";
+import { getArticles } from "@/lib/api(board)";
 import ArticleCard from "@/components/ArticleCard";
 
 export default function BoardPage() {

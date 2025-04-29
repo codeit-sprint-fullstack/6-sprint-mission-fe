@@ -11,7 +11,7 @@ import {
   deleteArticle,
   deleteComment,
   updateComment,
-} from "@/lib/api";
+} from "@/lib/api(board)";
 
 import ArticleHeader from "@/components/ArticleHeader";
 import ArticleContent from "@/components/ArticleContent";

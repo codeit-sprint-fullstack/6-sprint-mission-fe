@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createArticle } from "@/lib/api";
+import { createArticle } from "@/lib/api(board)";
 import ArticleForm from "@/components/ArticleForm";
 import clsx from "clsx";
 
