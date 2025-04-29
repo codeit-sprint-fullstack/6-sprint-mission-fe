@@ -59,7 +59,9 @@ function SignupPage() {
         return;
       }
 
+      //로컬 스토리지에 token, nickname 저장
       localStorage.setItem("accessToken", result.accessToken);
+      localStorage.setItem("UserId", result.user.id);
 
       router.push("/items");
     } catch (e) {

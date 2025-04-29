@@ -8,48 +8,27 @@ function Pagination({
   currentPage,
   setCurrentPage,
 }) {
-  // const [totalPage, setTotalPage] = useState(1);
   const totalPage = Math.ceil(totalProducts / itemsPerPage);
   const pagesPerGroup = 5;
   const [currentGroup, setCurrentGroup] = useState(0);
 
-  //디버깅
-  console.log("totalProducts", totalProducts);
-  console.log("itemsPerPage", itemsPerPage);
-  console.log("totalPage", totalPage);
-
   const handleClickPrev = () => {
     if (currentPage > 1) setCurrentPage((prevPage) => prevPage - 1);
-    // handleButtonClick(e);
   };
 
   const handleClicknext = () => {
     if (currentPage < totalPage) setCurrentPage((prevPage) => prevPage + 1);
-    // handleButtonClick(e);
   };
-
-  // const handleClickGroupNext = () => {
-  //   if (currentGroup < Math.floor(totalPage / pagesPerGroup)) {
-  //     setCurrentGroup((prevGroup) => prevGroup + 1)
-  //   }
-  // }
-
-  // const handleClickGroupPrev = () => {
-  //   if (currentGroup > 0 ) {
-  //     setCurrentGroup((prevGroup) => prevGroup - 1)
-  //   }
-  // }
 
   const startPage = currentGroup * pagesPerGroup + 1;
   const endPage = Math.min(startPage + pagesPerGroup - 1, totalPage);
 
   const handleClick = (num) => {
     setCurrentPage(num);
-    // handleButtonClick(e);
   };
 
   return (
-    <div className="felx flex-row items-center">
+    <div className="flex flex-row items-center gap-[4px]">
       <button
         onClick={handleClickPrev}
         className="w-10 h-10 rounded-full border border-gray-300 text-gray-600"

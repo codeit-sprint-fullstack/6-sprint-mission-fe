@@ -13,12 +13,15 @@ export async function getProducts({ page, pageSize, orderBy, keyword }) {
 
 //상품 상세정보 가져오기
 export async function getProduct(productId) {
+  const accessToken = localStorage.getItem("accessToken");
+
   const res = await fetch(
     `https://panda-market-api.vercel.app/products/${productId}`,
     {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
     }
   );

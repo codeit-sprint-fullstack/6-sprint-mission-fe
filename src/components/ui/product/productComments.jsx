@@ -29,7 +29,7 @@ export default function ProductComments({
   if (comments.length === 0)
     return (
       <div className="flex flex-row justify-center">
-        <img src="/image/ui/noComment.png" />
+        <img src="/image/ui/noAsk.png" />
       </div>
     );
 

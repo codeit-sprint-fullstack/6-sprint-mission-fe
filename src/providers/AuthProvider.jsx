@@ -23,6 +23,7 @@ export const useAuth = () => {
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getUser = async () => {
     try {
@@ -63,8 +64,19 @@ export default function AuthProvider({ children }) {
 
   //새로고침 시 로그인 상태 유지
   useEffect(() => {
-    getUser();
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (accessToken) {
+      getUser().then(() => {
+        setIsLoading(false);
+      });
+    } else {
+      setIsLoading(false);
+    }
   }, []);
+
+  //인증 상태를 받아오기 전에 렌더링 막기
+  if (isLoading) return <div> 로딩 중 ...</div>;
 
   return (
     <AuthContext.Provider

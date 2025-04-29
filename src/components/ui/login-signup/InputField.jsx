@@ -13,7 +13,7 @@ function InputField({
   height = "h-[56px]",
 }) {
   return (
-    <div className="flex flex-col justify-between mt-[24px] ">
+    <div className="flex flex-col justify-between">
       <label
         htmlFor={`input-${type}`}
         className="text-[18px] font-bold pb-[16px]"

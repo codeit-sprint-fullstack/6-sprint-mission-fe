@@ -13,18 +13,12 @@ function ItemDetail() {
   const [askContent, setAskContent] = useState("");
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [isTokenChecked, setIsTokenChecked] = useState(false);
-
-  //CUD시 화면 반영을 위한 트리거
-  const refreshComments = () => {
-    setRefreshTrigger((prev) => prev + 1);
-  };
-
-  // 미인증은 로그인으로 리다이렉트
   const router = useRouter();
   const { id } = useParams();
 
   const accessToken = localStorage.getItem("accessToken");
 
+  // 미인증은 로그인으로 리다이렉트
   useEffect(() => {
     const isTokenValid = checkTokenExp();
     if (isTokenValid) {
@@ -34,6 +28,14 @@ function ItemDetail() {
       router.push("/login");
     }
   }, []);
+
+  //Author만 UD 기능 사용할 수 있도록
+  const currentUser = localStorage.getItem("userId");
+
+  //CUD시 화면 반영을 위한 트리거
+  const refreshComments = () => {
+    setRefreshTrigger((prev) => prev + 1);
+  };
 
   if (!id || !isTokenChecked) {
     return <div>상품 불러오는 중...</div>;
@@ -56,9 +58,10 @@ function ItemDetail() {
           id={id}
           accessToken={accessToken}
           refreshComments={refreshComments}
+          currentUser={currentUser}
         />
 
-        <div className="flex flex-col items-end gap-[10px]">
+        <div className="flex flex-col items-end gap-[10px] mt-[40px]">
           <InputField
             placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
             height="h-[104px]"
