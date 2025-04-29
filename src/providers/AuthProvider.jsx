@@ -1,6 +1,6 @@
 "use client";
 
-import { authService } from "@/service/auth-service";
+import { authService } from "@/service/authService";
 
 const { createContext, useContext, useState, useEffect } = require("react");
 
@@ -8,6 +8,7 @@ const AuthContext = createContext({
   user: null,
   signUp: () => {},
   login: () => {},
+  // TODO: 시간 되면 로그아웃 구현도 해보기
   // logout: () => {},
 });
 

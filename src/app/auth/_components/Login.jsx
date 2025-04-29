@@ -4,7 +4,7 @@ import AuthInput from "./AuthInput";
 import AuthButton from "./AuthButton";
 import { useEffect, useState } from "react";
 import AuthModal from "./AuthModal";
-import { authService } from "@/service/auth-service";
+import { authService } from "@/service/authService";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 

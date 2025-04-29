@@ -2,7 +2,10 @@ import React from "react";
 import Image from "next/image";
 import ic_check from "@/assets/images/common/ic_check.svg";
 
-export default function ProductModal() {
+export default function ProductModal({
+  handleDeleteModalToggle,
+  handleDeleteConfirm,
+}) {
   return (
     <div className="fixed z-3 top-0 right-0 bottom-0 left-0 min-w-screen min-h-screen">
       <div className="absolute top-[50%] left-[50%] translate-[-50%] flex flex-col justify-center items-center w-[298px] h-[202px] rounded-[12px] gap-[32px] bg-white shadow-2xl">
@@ -17,10 +20,16 @@ export default function ProductModal() {
           </p>
         </div>
         <div className="flex justify-center items-center gap-[8px]">
-          <button className="flex justify-center items-center rounded-[8px] w-[88px] h-[48px] py-[12px] px-[23px] font-semibold text-[16px]/[26px] cursor-pointer text-error-red border-[1px] bg-white">
+          <button
+            onClick={handleDeleteModalToggle}
+            className="flex justify-center items-center rounded-[8px] w-[88px] h-[48px] py-[12px] px-[23px] font-semibold text-[16px]/[26px] cursor-pointer text-error-red border-[1px] bg-white"
+          >
             취소
           </button>
-          <button className="flex justify-center items-center rounded-[8px] w-[88px] h-[48px] py-[12px] px-[23px] font-semibold text-[16px]/[26px] cursor-pointer text-white bg-error-red">
+          <button
+            onClick={handleDeleteConfirm}
+            className="flex justify-center items-center rounded-[8px] w-[88px] h-[48px] py-[12px] px-[23px] font-semibold text-[16px]/[26px] cursor-pointer text-white bg-error-red"
+          >
             네
           </button>
         </div>

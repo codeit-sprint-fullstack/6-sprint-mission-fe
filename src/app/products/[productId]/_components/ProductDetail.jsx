@@ -1,29 +1,57 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import DropDownToggle from "@/components/ui/DropDownToggle";
 import Tags from "./Tags";
 import img_default_product from "@/assets/images/products/img_default_product.svg";
 import Profile from "@/components/ui/Profile";
 import ProductModal from "./ProductModal";
-
-const product = {
-  createdAt: "2025-03-20T14:17:50.554Z",
-  favoriteCount: 123,
-  ownerNickname: "똑똑한 판다",
-  ownerId: 1,
-  images: ["@/assets/images/products/img_default_product.svg"],
-  tags: ["아이패드미니", "애플", "가성비"],
-  price: 500000,
-  description: `액정에 잔기스랑 주변부 스크래치있습니다만 예민하신분아니면 전혀 신경쓰이지않을정도입니다.\n박스 보관중입니다.\n메모용과 넷플릭스용으로만쓰던거라 뭘 해보질 않아 기능이나 문제점을 못느꼈네요.\n잘 안써서 싸게넘깁니다! 택배거래안합니다.`,
-  name: "아이패드 미니 팔아요",
-  id: 1,
-  isFavorite: true,
-};
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useParams, useRouter } from "next/navigation";
+import { postService } from "@/service/postService";
 
 export default function ProductDetail() {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+
+  const { productId } = useParams();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  // 상품 조회
+  const {
+    data: product,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["products", productId],
+    queryFn: () => postService.getPost("products", productId),
+  });
+
+  // 상품 삭제 API
+  const { mutate: deletePost } = useMutation({
+    mutationFn: (productId) => postService.deletePost("products", productId),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["products", productId] }),
+  });
+
+  // 상품 삭제 전 모달 토글
+  const handleDeleteModalToggle = () => {
+    setIsDeleteModalVisible(!isDeleteModalVisible);
+  };
+
+  // 상품 삭제
+  const handleDeleteConfirm = () => {
+    deletePost(productId);
+
+    router.push("/products");
+  };
+
+  // 상품 수정 페이지로 이동
+  const handleEdit = () => {
+    router.push(`/products/${productId}/edit`);
+  };
 
   // 정렬 선택버튼 토글
   const handleDropDownToggle = () => {
@@ -35,23 +63,31 @@ export default function ProductDetail() {
     setIsDropDownVisible(false);
   };
 
-  // // 상품 수정
-  // const handleEdit = () => {
-  //   router.push(`/community/${articleId}/edit`);
-  // };
+  if (isPending || !product) {
+    return (
+      <div className="flex justify-center items-center">
+        상품 불러오는 중...
+      </div>
+    );
+  }
 
-  // // 상품 삭제
-  // const removeArticle = async (articleId) => {
-  //   await deleteArticle(articleId);
-
-  //   router.push("/community");
-  // };
+  if (error) {
+    return (
+      <div className="flex justify-center items-center">{error.message}</div>
+    );
+  }
 
   return (
     <>
-      {/* <ProductModal /> */}
+      {isDeleteModalVisible && (
+        <ProductModal
+          handleDeleteModalToggle={handleDeleteModalToggle}
+          handleDeleteConfirm={handleDeleteConfirm}
+        />
+      )}
       <div className="flex flex-col justify-center items-center gap-y-[16px] sm:flex-row sm:items-start sm:gap-[16px] md:items-center md:gap-[24px]">
         <div className="relative min-w-[343px] min-h-[343px] rounded-[12px] sm:min-w-[340px] sm:min-h-[340px] md:min-w-[486px] md:min-h-[486px]">
+          {/* TODO: 이미지 태그 변경해보기 */}
           <Image
             src={img_default_product}
             alt="상품"
@@ -67,6 +103,8 @@ export default function ProductDetail() {
                   {product.name}
                 </h1>
                 <DropDownToggle
+                  handleEdit={handleEdit}
+                  handleDelete={handleDeleteModalToggle}
                   handleDropDownToggle={handleDropDownToggle}
                   handleDropDownClose={handleDropDownClose}
                   isDropDownVisible={isDropDownVisible}

@@ -3,14 +3,45 @@
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { useParams } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { commentService } from "@/service/commentService";
 
-export default function CommentCreate({
-  body,
-  createArticleComment,
-  changeValue,
-}) {
+const INITIAL_BODY = { content: "" };
+
+export default function CommentCreate() {
+  const [body, setBody] = useState(INITIAL_BODY);
   const [isActive, setIsActive] = useState(false);
+
   const { articleId, productId } = useParams();
+  const queryClient = useQueryClient();
+
+  const type = articleId ? "articles" : "products";
+  const id = articleId || productId;
+
+  // 댓글 작성 API
+  const { mutate: createComment } = useMutation({
+    mutationFn: ({ type, id, body }) =>
+      commentService.createComment(type, id, body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments", id] });
+    },
+  });
+
+  // 댓글 작성
+  const handleCreateComment = async (e) => {
+    e.preventDefault();
+    const { content } = body;
+
+    createComment({ type, id, body: { content: content.trim() } });
+    setBody(INITIAL_BODY);
+  };
+
+  // body 변경
+  const changeValue = (e) => {
+    const { id, value } = e.target;
+
+    setBody((prevBody) => ({ ...prevBody, [id]: value }));
+  };
 
   // 등록 버튼 활성화
   useEffect(() => {
@@ -24,15 +55,11 @@ export default function CommentCreate({
     }
   }, [body]);
 
-  // 게시글 댓글 작성
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    createArticleComment(articleId, body);
-  };
-
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col w-full gap-[16px]">
+    <form
+      onSubmit={handleCreateComment}
+      className="flex flex-col w-full gap-[16px]"
+    >
       <section className="flex flex-col gap-[12px]">
         <p className="font-semibold text-[16px] sm:text-[18px]">
           {articleId ? "댓글 작성하기" : "문의하기"}

@@ -1,99 +1,38 @@
 "use client";
 
-import {
-  deleteArticleComment,
-  getArticleComments,
-  patchArticleComment,
-  postArticleComment,
-} from "@/service/articleComment-service";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CommentCreate from "./CommentCreate";
 import CommentList from "./CommentList";
-
-const INITIAL_BODY = { content: "" };
+import { useQuery } from "@tanstack/react-query";
+import { commentService } from "@/service/commentService";
 
 export default function Comments() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [comments, setComments] = useState([]);
-  const [body, setBody] = useState(INITIAL_BODY);
   const { articleId, productId } = useParams();
 
-  // body 업데이트
-  const changeValue = (e) => {
-    const { id, value } = e.target;
+  const type = articleId ? "articles" : "products";
+  const id = articleId || productId;
 
-    setBody((prevBody) => ({ ...prevBody, [id]: value }));
-  };
+  // 댓글 조회
+  const {
+    data: comments,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["comments", id],
+    queryFn: () => commentService.getComments(type, id),
+  });
 
-  // 게시글 댓글 조회
-  useEffect(() => {
-    commentsLoad(articleId);
-  }, []);
-
-  const commentsLoad = async (articleId) => {
-    const comments = await getArticleComments(articleId);
-
-    if (!comments.length) return setIsLoading(false);
-
-    setComments(comments);
-    setIsLoading(false);
-  };
-
-  // 게시글 댓글 작성
-  const createArticleComment = async (articleId, body) => {
-    const { content } = body;
-
-    const comment = await postArticleComment(articleId, {
-      content: content.trim(),
-    });
-
-    setComments((prevComments) => [...prevComments, comment]);
-    setBody(INITIAL_BODY);
-  };
-
-  // 게시글 댓글 수정
-  const updateArticleComment = async (articleId, commentId, body) => {
-    const { content } = body;
-
-    const updateComment = await patchArticleComment(articleId, commentId, {
-      content: content.trim(),
-    });
-
-    setComments((prevComments) => {
-      return prevComments.map((comment) => {
-        if (comment.id === updateComment.id) {
-          return { ...comment, content: updateComment.content };
-        }
-        return comment;
-      });
-    });
-  };
-
-  // 게시글 댓글 삭제
-  const removeArticleComment = async (articleId, commentId) => {
-    await deleteArticleComment(articleId, commentId);
-
-    const deleteComment = comments.filter(
-      (comment) => comment.id !== commentId
+  if (error) {
+    return (
+      <div className="flex justify-center items-center">{error.message}</div>
     );
-
-    setComments(deleteComment);
-  };
+  }
 
   return (
     <div className="flex flex-col w-full gap-[24px] sm:gap-[32px] md:gap-[40px]">
-      <CommentCreate
-        body={body}
-        createArticleComment={createArticleComment}
-        changeValue={changeValue}
-      />
-      <CommentList
-        isLoading={isLoading}
-        comments={comments}
-        updateArticleComment={updateArticleComment}
-        removeArticleComment={removeArticleComment}
-      />
+      <CommentCreate />
+      <CommentList isPending={isPending} comments={comments} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles`;
 
+// TODO: 내가 만든 API로 연결하게 되면, 이 부분을 미션 9에 만들어둔 commentService에 통합시키기.
 // // 게시글 댓글 조회
 // export const getArticleComments = async ({articleId = null, productId = null}) => {
 //   const path = articleId ? `articles/${articleId}` : `products/${productId}`

@@ -1,25 +1,58 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import ic_profile from "@/assets/images/common/ic_profile.svg";
-import DropDownToggle from "@/components/ui/DropDownToggle";
-import dayjs from "dayjs";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
+import Image from "next/image";
+import { commentService } from "@/service/commentService";
+import DropDownToggle from "@/components/ui/DropDownToggle";
+import ic_profile from "@/assets/images/common/ic_profile.svg";
+import dayjs from "dayjs";
 import clsx from "clsx";
 
-export default function CommentsLoad({
-  comment,
-  updateArticleComment,
-  removeArticleComment,
-}) {
+export default function CommentsLoad({ comment }) {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isActive, setIsActive] = useState(true);
   const [body, setBody] = useState({ content: comment.content });
-  const { articleId, productId } = useParams();
 
-  // body 업데이트
+  const { articleId, productId } = useParams();
+  const queryClient = useQueryClient();
+
+  const id = articleId || productId;
+
+  // 댓글 수정 API
+  const { mutate: updateComment } = useMutation({
+    mutationFn: ({ commentId, body }) =>
+      commentService.updateComment(commentId, body),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["comments", id] }),
+  });
+
+  // 댓글 삭제 API
+  const { mutate: deleteComment } = useMutation({
+    mutationFn: (commentId) => commentService.deleteComment(commentId),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["comments", id] }),
+  });
+
+  // 댓글 수정
+  const handleUpdateComment = () => {
+    updateComment({
+      commentId: comment.id,
+      body: { content: body.content.trim() },
+    });
+
+    setIsEditMode(false);
+    setBody({ content: body.content.trim() });
+  };
+
+  // 댓글 삭제
+  const handleDeleteComment = () => {
+    deleteComment(comment.id);
+  };
+
+  // body 변경
   const changeValue = (e) => {
     const content = e.target.value;
 
@@ -46,13 +79,6 @@ export default function CommentsLoad({
   const handleCancelEditMode = () => {
     setIsEditMode(false);
     setBody({ content: comment.content });
-  };
-
-  // 게시글 댓글 수정
-  const updateComment = (articleId, commentId, body) => {
-    updateArticleComment(articleId, commentId, body);
-    setIsEditMode(false);
-    setBody({ content: body.content.trim() });
   };
 
   // 수정 버튼 활성화
@@ -87,8 +113,8 @@ export default function CommentsLoad({
             )}
             {isEditMode ? null : (
               <DropDownToggle
-                handleDelete={() => removeArticleComment(articleId, comment.id)}
                 handleEdit={handleEdit}
+                handleDelete={handleDeleteComment}
                 handleDropDownToggle={handleDropDownToggle}
                 handleDropDownClose={handleDropDownClose}
                 isDropDownVisible={isDropDownVisible}
@@ -103,6 +129,9 @@ export default function CommentsLoad({
           >
             <div className="flex justify-center items-center gap-[8px]">
               <div className="relative w-[32px] h-[32px]">
+                {/* TODO: 내가 만든 댓글 API로 변경 시, writer는 백엔드 어떻게 만들지 보고 수정 
+                ex) {comment.writer.image ? comment.writer.image : ic_profile}*/}
+                {/* TODO: 외부 이미지 관련해서 HTML 태그 사용하는 것 고려해보기. */}
                 <Image
                   src={ic_profile}
                   alt="프로필"
@@ -111,7 +140,10 @@ export default function CommentsLoad({
                 />
               </div>
               <div className="flex flex-col gap-y-[4px] ">
-                <p className="text-secondary-gray-500">똑똑한 판다</p>
+                <p className="text-secondary-gray-500">
+                  {/* TODO: 내가 만든 댓글 API로 변경 시, writer 백엔드 API 보고 수정 */}
+                  {comment.writer.nickname}
+                </p>
                 <p className="text-secondary-gray-300">
                   {dayjs(comment.createdAt).format("YYYY. MM. DD")}
                 </p>
@@ -128,7 +160,7 @@ export default function CommentsLoad({
                 </button>
                 <button
                   type="button"
-                  onClick={() => updateComment(articleId, comment.id, body)}
+                  onClick={handleUpdateComment}
                   disabled={!isActive}
                   className={clsx(
                     isActive

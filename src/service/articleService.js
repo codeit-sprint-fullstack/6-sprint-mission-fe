@@ -1,5 +1,6 @@
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles`;
 
+// TODO: 상품 API를 내가 만든 API로 연동하게 되면 postService로 통합시키기.
 // 게시글 전체 조회
 export const getArticles = async (params) => {
   const query = new URLSearchParams(params);

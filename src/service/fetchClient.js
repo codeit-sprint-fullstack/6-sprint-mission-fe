@@ -1,3 +1,4 @@
+// const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const BASE_URL = process.env.NEXT_PUBLIC_CODEIT_API_BASE_URL;
 
 export const tokenFetch = async (url, options = {}) => {
@@ -23,7 +24,38 @@ export const tokenFetch = async (url, options = {}) => {
     },
   };
 
-  const res = await fetch(`${BASE_URL}${url}`, mergedOptions);
+  let res = await fetch(`${BASE_URL}${url}`, mergedOptions);
+
+  // 토큰 만료 시(새 토큰 요청)
+  if (res.status === 401 && typeof window !== "undefined") {
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    try {
+      const refreshRes = await fetch(`${BASE_URL}/auth/refresh-token`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refreshToken }),
+      });
+
+      if (refreshRes.ok) {
+        const { accessToken } = await refreshRes.json();
+
+        localStorage.setItem("accessToken", accessToken);
+
+        mergedOptions.headers.Authorization = `Bearer ${accessToken}`;
+
+        return await fetch(`${BASE_URL}${url}`, mergedOptions);
+      } else {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        throw new Error("토큰 갱신에 실패하였습니다.");
+      }
+    } catch (e) {
+      console.error(e.message);
+    }
+  }
 
   if (!res.ok) {
     const errorData = await res.json();
@@ -34,6 +66,7 @@ export const tokenFetch = async (url, options = {}) => {
 
   if (!accessToken) {
     localStorage.setItem("accessToken", data.accessToken);
+    localStorage.setItem("refreshToken", data.refreshToken);
   }
 
   return data;

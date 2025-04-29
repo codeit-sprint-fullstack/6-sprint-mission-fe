@@ -7,8 +7,8 @@ import Image from "next/image";
 
 export default function DropDownToggle({
   page,
-  handleDelete,
   handleEdit,
+  handleDelete,
   handleDropDownToggle,
   handleDropDownClose,
   isDropDownVisible,

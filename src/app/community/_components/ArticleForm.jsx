@@ -4,7 +4,7 @@ import {
   getArticle,
   patchArticle,
   postArticle,
-} from "@/service/article-service";
+} from "@/service/articleService";
 import clsx from "clsx";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";

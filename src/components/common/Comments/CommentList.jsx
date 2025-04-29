@@ -10,25 +10,15 @@ import CommentsLoad from "./CommentsLoad";
 import { useParams } from "next/navigation";
 import clsx from "clsx";
 
-export default function CommentList({
-  isLoading,
-  // comments,
-  updateArticleComment,
-  removeArticleComment,
-}) {
+export default function CommentList({ isPending, comments }) {
   const { articleId, productId } = useParams();
-
-  const comments = [
-    { id: 1, content: "혹시 사용 기간이 어떻게 되실까요?" },
-    { id: 2, content: "혹시 사용 기간이 어떻게 되실까요?" },
-    { id: 3, content: "혹시 사용 기간이 어떻게 되실까요?" },
-  ];
 
   return (
     <div className="flex flex-col justify-center items-center w-full gap-[40px] sm:gap-[48px]">
-      {isLoading ? (
+      {isPending ? (
         "댓글 불러오는 중..."
-      ) : !comments.length ? (
+      ) : // {/* TODO: 내가 만든 댓글 API로 변경 시, list는 제거 */}
+      !comments.list.length ? (
         <div
           className={clsx(
             articleId ? "gap-[16px]" : "gap-[8px]",
@@ -62,15 +52,9 @@ export default function CommentList({
         </div>
       ) : (
         <div className="flex flex-col gap-y-[16px] w-full sm:gap-y-[24px]">
-          {comments.map((comment) => {
-            return (
-              <CommentsLoad
-                key={comment.id}
-                comment={comment}
-                updateArticleComment={updateArticleComment}
-                removeArticleComment={removeArticleComment}
-              />
-            );
+          {/* TODO: 내가 만든 댓글 API로 변경 시, list는 제거 */}
+          {comments.list.map((comment) => {
+            return <CommentsLoad key={comment.id} comment={comment} />;
           })}
         </div>
       )}

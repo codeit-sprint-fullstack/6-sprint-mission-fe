@@ -61,13 +61,14 @@ export default function Header() {
           <Link href="/" className="flex justify-center items-center gap-[6px]">
             <div className="relative w-[40px] h-[40px]">
               <Image
+                // TODO: 외부 이미지 관련해서 HTML 태그 사용하는 것 고려해보기.
                 src={user.image ? user.image : ic_profile}
                 alt="프로필"
                 fill
                 className="object-cover"
               />
             </div>
-            <p className="hidden font-normal text-[18px]/[22px] text-secondary-gray-500 md:block">
+            <p className="hidden font-normal text-[18px]/[22px] text-secondary-gray-500 sm:block">
               {user.nickname}
             </p>
           </Link>

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import DropDownToggle from "@/components/ui/DropDownToggle";
-import { deleteArticle, getArticle } from "@/service/article-service";
+import { deleteArticle, getArticle } from "@/service/articleService";
 import { useParams, useRouter } from "next/navigation";
 import Profile from "@/components/ui/Profile";
 
@@ -60,8 +60,8 @@ export default function ArticleDetail() {
               <h2 className="font-bold text-[20px]/[32px]">{article.title}</h2>
               <DropDownToggle
                 page="article"
-                handleDelete={() => removeArticle(articleId)}
                 handleEdit={handleEdit}
+                handleDelete={() => removeArticle(articleId)}
                 handleDropDownToggle={handleDropDownToggle}
                 handleDropDownClose={handleDropDownClose}
                 isDropDownVisible={isDropDownVisible}
