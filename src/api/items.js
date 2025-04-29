@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getProducts({ orderBy, page, pageSize, keyword } = {}) {
   const queryParams = new URLSearchParams();
@@ -10,7 +10,7 @@ export async function getProducts({ orderBy, page, pageSize, keyword } = {}) {
   if (keyword) queryParams.append("word", keyword);
 
   // 쿼리 파라미터 문자열로 변환
-  const query = params.toString();
+  const query = queryParams.toString();
   console.log(query); // 디버깅을 위한 쿼리 출력
 
   try {
