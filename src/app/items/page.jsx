@@ -11,60 +11,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export const ItemsPage = () => {
-  // const [saleItems, setSaleItems] = useState([]);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [order, setOrder] = useState("recent");
-  // const [keyword, setKeyword] = useState("");
-  // const [page, setPage] = useState(null);
-  // const [salePageSize, setSalePageSize] = useState(0);
-
-  // const handleSelectChange = (e) => setOrder(e.target.value);
-  // const handleSubmit = (e) => setKeyword(e.target.value);
-
-  // useEffect(() => {
-  //   if (width >= 1200) setSalePageSize(10);
-  //   else if (width >= 744) setSalePageSize(6);
-  //   else setSalePageSize(4);
-  //   handleSaleItems({ pageSize: salePageSize });
-  // }, []);
-
-  // const handleSaleItems = async (data) => {
-  //   const result = await api.products.getAllProducts(data);
-  //   setSaleItems(result);
-  //   const totalItems = result.totalItems;
-  //   setTotalPage(Math.ceil(totalItems / 10));
-  // };
-
-  // const getSalePageSize = () => {
-  //   if (width >= 1200) return 10;
-  //   else if (width >= 744) return 6;
-  //   return 4;
-  // };
-
-  // const handleButtonClick = (e) => {
-  //   e.target.classList.add("clicked");
-  //   setTimeout(() => e.target.classList.remove("clicked"), 200);
-  // };
-
-  // useEffect(() => {
-  //   handleSaleItems({ page: 1, pageSize: 10, orderBy: order, keyword: "" });
-  // }, [order]);
-
-  // useEffect(() => {
-  //   handleSaleItems({ page: 1, pageSize: 10, orderBy: "recent", keyword });
-  // }, [keyword]);
-
-  // useEffect(() => {
-  //   const reLoad = async () => {
-  //     const salepageSize = getSalePageSize();
-  //     const saleProducts = await api.products.getAllProducts({
-  //       pageSize: salepageSize,
-  //     });
-  //     setSaleItems(saleProducts);
-  //   };
-  //   reLoad();
-  // }, [page]);
-
   const [page, setPage] = useState(1);
   const [orderBy, setOrderBy] = useState("recent");
   const [keyword, setKeyword] = useState("");
@@ -74,10 +20,6 @@ export const ItemsPage = () => {
 
   //미인증 시 로그인으로 리다이렉트
   useEffect(() => {
-    // 디버깅
-    console.log("아이템 페이지 렌더링");
-    console.log("page", page);
-
     if (!checkTokenExp()) {
       localStorage.removeItem("accessToken");
       router.push("/login");
@@ -95,9 +37,6 @@ export const ItemsPage = () => {
       try {
         const result = await getProducts(options);
 
-        //디버깅
-        console.log("totalItems", result.totalCount);
-
         setProducts(result.list);
         setTotalItems(result.totalCount);
       } catch (e) {
@@ -107,10 +46,6 @@ export const ItemsPage = () => {
 
     getProductsData();
   }, [page, keyword, orderBy]);
-
-  //디버깅
-  console.log("products", products);
-  console.log("totalItems", totalItems);
 
   const itemsPerPage = 10;
 
@@ -126,7 +61,7 @@ export const ItemsPage = () => {
                 text="상품 등록하기"
                 width="w-[133px]"
                 height="h-[42px]"
-                // onClick={() => console.log("상품 등록하기 버튼 클릭")}
+                onClick={() => console.log("상품 등록하기 버튼 클릭")}
               />
             </Link>
             <Dropdown />

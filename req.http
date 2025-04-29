@@ -29,7 +29,7 @@ Content-Type: application/json
 #상품 관련
 
 ### 상품품 목록 가져오기 
-GET https://panda-market-api.vercel.app/products?page=1&pageSize=2&orderBy=recent&keyword=여러분
+GET https://panda-market-api.vercel.app/products?page=1&pageSize=10&orderBy=recent
 
 ### 상품품 하나 가져오기 
 GET https://panda-market-api.vercel.app/products/678
