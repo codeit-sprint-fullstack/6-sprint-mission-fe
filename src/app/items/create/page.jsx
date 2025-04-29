@@ -10,7 +10,6 @@ export default function CreateItemPage() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [tags, setTags] = useState([]);
-  const [images] = useState([]);
   const [errors, setErrors] = useState({});
   const router = useRouter();
 
@@ -64,7 +63,6 @@ export default function CreateItemPage() {
       description,
       price: Number(price),
       tags,
-      // images,
     };
 
     try {
