@@ -23,6 +23,10 @@ Content-Type: application/json
 #상품 관련
 #상품 관련
 #상품 관련
+#상품 관련
+#상품 관련
+#상품 관련
+#상품 관련
 
 ### 상품품 목록 가져오기 
 GET https://panda-market-api.vercel.app/products?page=1&pageSize=2&orderBy=recent&keyword=여러분
@@ -58,6 +62,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTkwLCJzY29wZ
   "name":"아이패드 미니 팔아요...."
 }
 
+### 상품 좋아요 누르기
+POST https://panda-market-api.vercel.app/products/702/favorite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTkwLCJzY29wZSI6ImFjY2VzcyIsImlhdCI6MTc0NTg4NTkyNywiZXhwIjoxNzQ1ODg3NzI3LCJpc3MiOiJzcC1wYW5kYS1tYXJrZXQifQ.p0crfgbPzjdpb8UenMqUNw8q72xhZ5VfVQUNaSEo6gM
+
+
+### 상품 좋아요 취소
+DELETE https://panda-market-api.vercel.app/products/702/favorite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTkwLCJzY29wZSI6ImFjY2VzcyIsImlhdCI6MTc0NTg4NTkyNywiZXhwIjoxNzQ1ODg3NzI3LCJpc3MiOiJzcC1wYW5kYS1tYXJrZXQifQ.p0crfgbPzjdpb8UenMqUNw8q72xhZ5VfVQUNaSEo6gM
+
+
+#상품 댓글 관련
+#상품 댓글 관련
+#상품 댓글 관련
+#상품 댓글 관련
 #상품 댓글 관련
 #상품 댓글 관련
 #상품 댓글 관련

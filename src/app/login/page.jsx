@@ -10,6 +10,7 @@ import CompactLogin from "@/components/ui/login-signup/CompactLogin";
 import CrossSite from "@/components/ui/login-signup/CrossSite";
 import { useAuth } from "@/providers/AuthProvider";
 import { checkTokenExp } from "../../../utils/checkTokenExp";
+import ValidModal from "@/components/ui/login-signup/validModal";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -18,6 +19,7 @@ export default function LoginPage() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const [isFormsValid, setIsFormsValid] = useState(false);
+  const [validModal, setValidModal] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
 
@@ -66,7 +68,8 @@ export default function LoginPage() {
 
       router.push("/items");
     } catch (e) {
-      alert("로그인에 실패했습니다.");
+      console.error("로그인에 실패했습니다.");
+      setValidModal(true);
     }
   };
 
@@ -146,6 +149,12 @@ export default function LoginPage() {
           </div>
         </div>
       </main>
+      {validModal && (
+        <ValidModal
+          text="비밀번호가 잂치하지 않습니다 "
+          onClose={() => setValidModal(false)}
+        />
+      )}
     </div>
   );
 }

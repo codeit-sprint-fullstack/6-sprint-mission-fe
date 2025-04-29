@@ -1,15 +1,21 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MoreToggle from "../../../components/ui/common-UI/MoreToggle";
-import { deleteProduct, getProduct, getProducts } from "@/lib/product";
+import {
+  cancelLikeProduct,
+  deleteProduct,
+  getProduct,
+  likeProduct,
+} from "@/lib/product";
 import { useRouter } from "next/navigation";
 import PatchProduct from "@/components/ui/product/PatchProduct";
 
-function DetailProduct({ id, accessToken, refreshComments }) {
+function DetailProduct({ id, accessToken }) {
   const [productData, setProductData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
+  const [isLike, setIsLike] = useState(false); //좋아요 버튼
 
   const router = useRouter();
 
@@ -38,6 +44,28 @@ function DetailProduct({ id, accessToken, refreshComments }) {
 
     await deleteProduct(id, accessToken);
     router.push("/items");
+  };
+
+  const handleclickLike = async () => {
+    try {
+      if (isLike) {
+        await cancelLikeProduct(id, accessToken);
+        setProductData((prevData) => ({
+          ...prevData,
+          favoriteCount: prevData.favoriteCount - 1,
+        }));
+      } else {
+        await likeProduct(id, accessToken);
+        setProductData((prevData) => ({
+          ...prevData,
+          favoriteCount: prevData.favoriteCount + 1,
+        }));
+      }
+
+      setIsLike((prev) => !prev);
+    } catch (e) {
+      console.log("좋아요 토글 실패", e);
+    }
   };
 
   if (isPending) return <div> 상품 정보 로딩 중...</div>;
@@ -78,7 +106,16 @@ function DetailProduct({ id, accessToken, refreshComments }) {
           <div>{productData.ownerNickname}</div>
           <div>{productData.createdAt}</div>
         </div>
-        <div>{productData.favoriteCount}</div>
+        <div className="flex flex-row justify-center items-center w-[87px] h-[40px] gap-[4px] border border-seven rounded-[35px]">
+          <img
+            className="w-[32px] h-[32px]"
+            src={
+              isLike ? "/image/ui/likedHeart.png" : "/image/ui/likeHeart.png"
+            }
+            onClick={handleclickLike}
+          />
+          <div>{productData.favoriteCount}</div>
+        </div>
       </div>
     </div>
   );

@@ -68,3 +68,37 @@ export async function fetchProduct(productId, accessToken, patchData) {
 
   return res.json();
 }
+
+//상품 좋아요 누르기
+export async function likeProduct(productId, accessToken) {
+  const res = await fetch(
+    `https://panda-market-api.vercel.app/products/${productId}/favorite`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("상품을 좋아할 수 없습니다.");
+  }
+}
+
+//상품 좋아요 취소
+export async function cancelLikeProduct(productId, accessToken) {
+  const res = await fetch(
+    `https://panda-market-api.vercel.app/products/${productId}/favorite`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("상품 좋아요를 취소할 수 없습니다.");
+  }
+}

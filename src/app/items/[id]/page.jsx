@@ -4,7 +4,7 @@ import Button from "@/components/ui/common-UI/Button";
 import InputField from "@/components/ui/login-signup/InputField";
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { checkTokenExp, ckTokenExp } from "../../../../utils/checkTokenExp";
+import { checkTokenExp } from "../../../../utils/checkTokenExp";
 import DetailProduct from "./DetailProduct";
 import ProductComments from "@/components/ui/product/productComments";
 import { postProductComment } from "@/lib/commentProduct";
@@ -71,7 +71,7 @@ function ItemDetail() {
           <Button
             text={"등록"}
             onClick={handlePost}
-            // disabled={!content}
+            disabled={!askContent}
             width={"w-[74px]"}
             height={"h-[42px]"}
           />
@@ -84,13 +84,17 @@ function ItemDetail() {
           limit={4}
         />
 
-        <div className="flex justify-center mt-[64px]">
+        <div className="flex justify-center mt-[64px] mb-[173px]">
           <Button
             text={"목록으로 돌아가기"}
             disabled={false}
+            onClick={() => {
+              router.push("/items");
+            }}
             width={"w-[240px]"}
             height={"h-[48px]"}
             rounded={"rounded-[40px]"}
+            image="/image/ui/goBack.png"
           />
         </div>
       </div>
