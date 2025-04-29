@@ -1,15 +1,16 @@
 import React from "react";
-import BestArticleSection from "./_components/BestArticleSection";
-import ArticleSection from "./_components/ArticleSection";
-import { getArticles } from "@/lib/articleApi";
+import BestArticleList from "./_components/BestArticleList";
+import ArticleList from "./_components/ArticleList";
+import { getArticles } from "@/lib/getApi";
 
 async function BoardPage() {
-  const articles = await getArticles();
+  const data = await getArticles();
+  const articles = data.list;
 
   return (
     <div>
-      <BestArticleSection articles={articles} />
-      <ArticleSection articles={articles} />
+      <BestArticleList articles={articles} />
+      <ArticleList articles={articles} />
     </div>
   );
 }

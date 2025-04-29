@@ -7,13 +7,14 @@ import ArticleCard from "./ArticleCard";
 import Dropdown from "@/components/ui/Dropdown";
 import { BREAKPOINTS } from "@/const";
 
-function ArticleSection({ articles }) {
-  const sortOption = [
+function ArticleList({ articles }) {
+  const sortOptions = [
     { label: "최신순", value: "latest" },
     { label: "오래된순", value: "oldest" },
   ];
+
   const [searchInput, setSearchInput] = useState("");
-  const [dropdownOption, setDropdownOption] = useState(sortOption[0]);
+  const [dropdownOption, setDropdownOption] = useState(sortOptions[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
@@ -43,7 +44,7 @@ function ArticleSection({ articles }) {
   }, [articles, searchInput, dropdownOption]);
 
   const handleSort = (value) => {
-    const selected = sortOption.find((item) => item.value === value);
+    const selected = sortOptions.find((item) => item.value === value);
     setDropdownOption(selected);
     setIsDropdownOpen(false);
   };
@@ -87,7 +88,7 @@ function ArticleSection({ articles }) {
             )}
           </button>
           {isDropdownOpen && (
-            <Dropdown items={sortOption} onSelect={handleSort} isSort={true} />
+            <Dropdown items={sortOptions} onSelect={handleSort} isSort={true} />
           )}
         </div>
       </nav>
@@ -95,11 +96,7 @@ function ArticleSection({ articles }) {
         {filteredArticles.map((article) => {
           return (
             <Link key={article.id} href={`/board/${article.id}`}>
-              <ArticleCard
-                key={article.id}
-                title={article.title}
-                createdAt={article.createdAt}
-              />
+              <ArticleCard key={article.id} article={article} />
               <span className="flex border-b-1 border-gray-200 my-6"></span>
             </Link>
           );
@@ -109,4 +106,4 @@ function ArticleSection({ articles }) {
   );
 }
 
-export default ArticleSection;
+export default ArticleList;

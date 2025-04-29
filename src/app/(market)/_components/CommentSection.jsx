@@ -7,7 +7,7 @@ import { getArticleComments, getProductComments } from "@/lib/getApi";
 import {
   createArticleComment,
   createProductComment,
-} from "@/app/actions/comment";
+} from "@/lib/actions/comment";
 
 const limit = 3;
 

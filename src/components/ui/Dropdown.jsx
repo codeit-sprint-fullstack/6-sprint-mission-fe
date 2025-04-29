@@ -7,7 +7,7 @@ function Dropdown({ items = [], onSelect, isSort }) {
     <ul
       className={`absolute border-1 border-gray-200 bg-white cursor-pointer overflow-hidden z-1 ${
         isSort
-          ? "right-4 mt-1 w-[130px] rounded-xl"
+          ? "right-4 md:right-6 lg:right-[12rem] mt-1 w-[130px] rounded-xl"
           : "right-[21px] lg:right-[12rem] mt-[10px] w-[102px] md:w-[139px] rounded-lg"
       }`}
     >

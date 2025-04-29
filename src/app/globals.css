@@ -51,6 +51,10 @@
     @apply flex justify-center items-center h-[42px] px-[23px] py-3 rounded-lg bg-primary-100 text-white font-semibold cursor-pointer hover:bg-primary-200 disabled:bg-gray-400;
   }
 
+  .page-btn {
+    @apply flex justify-center items-center w-10 h-10 rounded-[40px] border border-gray-200;
+  }
+
   /* line-height 설정 */
   .text-lg {
     --tw-leading: 26px;

@@ -1,7 +1,7 @@
 "use client";
 
 import { BREAKPOINTS } from "@/const";
-import { useViewport } from "@/hooks/useViewport";
+import { useViewport } from "@/lib/hooks/useViewport";
 import React from "react";
 
 function LandingContent({ index, src, alt, tag, title, content }) {

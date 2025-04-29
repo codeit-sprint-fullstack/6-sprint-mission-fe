@@ -2,9 +2,11 @@ import { BASE_URL } from "@/const";
 
 /*********** 중고마켓 ***********/
 // 상품 전체 조회
-export async function getProducts() {
+export async function getProducts(params = {}) {
+  const query = new URLSearchParams(params).toString();
+
   try {
-    const res = await fetch(`${BASE_URL}/products`);
+    const res = await fetch(`${BASE_URL}/products?${query}`);
 
     if (!res.ok) throw new Error("상품 목록을 불러오는데 실패했습니다.");
 

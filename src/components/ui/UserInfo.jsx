@@ -14,9 +14,9 @@ function UserInfo({
 }) {
   return (
     <div
-      className={`flex ${
-        isItemPage ? "justify-between" : ""
-      } items-center my-4`}
+      className={`flex items-center ${
+        isItemPage ? "justify-between" : "my-4"
+      } `}
     >
       <span className="flex items-center gap-4">
         <Image

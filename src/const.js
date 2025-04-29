@@ -18,6 +18,12 @@ export const BEST_ITEM_COUNT = {
   pc: 4,
 };
 
+export const ITEM_COUNT = {
+  mobile: 4,
+  tablet: 6,
+  pc: 10,
+};
+
 export const EDIT_OPTIONS = [
   { label: "수정하기", value: "edit" },
   { label: "삭제하기", value: "delete" },

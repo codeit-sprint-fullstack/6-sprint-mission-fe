@@ -21,7 +21,8 @@ function makeQueryClient() {
     queryCache,
     defaultOptions: {
       queries: {
-        staleTime: 10 * 1000,
+        staleTime: 60 * 1000,
+        gcTime: 60 * 1000 * 10,
         retry: false,
       },
     },

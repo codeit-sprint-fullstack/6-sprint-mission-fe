@@ -2,8 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import { createContext, useContext } from "react";
-import { getRefreshToken, loginAction, signupAction } from "@/app/actions/auth";
-import { getUserAction, updateUserAction } from "@/app/actions/user";
+import {
+  loginAction,
+  signupAction,
+  refreshTokenAction,
+  logoutAction,
+} from "@/lib/actions/auth";
+import { getUserAction, updateUserAction } from "@/lib/actions/user";
+import { useRouter } from "next/navigation";
+import { setTokensToCookie } from "@/lib/utils/authUtils";
 
 const AuthContext = createContext({
   login: () => {},
@@ -24,6 +31,8 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
+
+  const router = useRouter();
 
   const login = async (email, password) => {
     const formData = new FormData();
@@ -51,30 +60,10 @@ export const AuthProvider = ({ children }) => {
     return result;
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await logoutAction();
     localStorage.removeItem("accessToken");
     setUser(null);
-  };
-
-  const refreshAccessToken = async () => {
-    try {
-      const refreshToken = localStorage.getItem("refreshToken");
-      const formData = new FormData();
-      formData.set("refreshToken", refreshToken);
-
-      const data = await getRefreshToken(null, formData);
-
-      if (data?.accessToken) {
-        localStorage.setItem("accessToken", data.accessToken);
-        return data.accessToken;
-      }
-
-      throw new Error("refresh 실패");
-    } catch (error) {
-      console.error("토큰 갱신 실패:", error);
-      logout();
-      return null;
-    }
   };
 
   const getUser = async () => {
@@ -83,16 +72,25 @@ export const AuthProvider = ({ children }) => {
       setUser(user);
     } catch (error) {
       // accessToken 만료된 경우 refresh 요청
-      const newAccessToken = await refreshAccessToken();
-      setUser(null);
+      console.warn("accessToken 만료, refreshToken으로 재발급 시도");
+      const result = await refreshTokenAction();
 
-      if (newAccessToken) {
+      if (result?.accessToken && result?.refreshToken) {
         try {
+          await setTokensToCookie(result.accessToken, result.refreshToken);
+          localStorage.setItem("accessToken", result.accessToken);
+
           const user = await getUserAction();
           setUser(user);
         } catch (error) {
-          console.error("유저 정보를 불러오는데 실패했습니다.", error);
+          console.error("토큰 재발급 후 유저정보 불러오기 실패", error);
+          await logout();
+          router.push("/login");
         }
+      } else {
+        console.error("accessToken 재발급 실패");
+        await logout();
+        router.push("/login");
       }
     } finally {
       setLoadingUser(false);

@@ -3,20 +3,17 @@
 import { BASE_URL } from "@/const";
 import { cookies } from "next/headers";
 
-// 쿠키에서 accessToken 추출하는 헬퍼 함수
-function getTokenFromCookie() {
-  const token = cookies().get("accessToken")?.value;
-  return token;
-}
-
 // 사용자 정보 조회
 export async function getUserAction() {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+
   try {
     const res = await fetch(`${BASE_URL}/users/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${getTokenFromCookie()}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       credentials: "include",
       cache: "no-store",
@@ -33,12 +30,15 @@ export async function getUserAction() {
 
 // 사용자 정보 수정
 export async function updateUserAction(formData) {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+
   try {
     const res = await fetch(`${BASE_URL}/users/me`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${getTokenFromCookie()}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(formData),
       credentials: "include",
@@ -56,12 +56,15 @@ export async function updateUserAction(formData) {
 
 // 비밀번호 변경
 export async function updatePasswordAction(formData) {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+
   try {
     const res = await fetch(`${BASE_URL}/users/me/password`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${getTokenFromCookie()}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(formData),
       credentials: "include",

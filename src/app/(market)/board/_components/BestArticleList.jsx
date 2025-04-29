@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ARTICLE_COUNT, BREAKPOINTS } from "@/const";
 
-function BestArticleSection({ articles }) {
+function BestArticleList({ articles }) {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
   );
@@ -44,12 +44,7 @@ function BestArticleSection({ articles }) {
               className="mb-4"
             />
             <Link key={article.id} href={`/board/${article.id}`}>
-              <ArticleCard
-                key={article.id}
-                title={article.title}
-                createdAt={article.createdAt}
-                isBest={true}
-              />
+              <ArticleCard key={article.id} article={article} isBest={true} />
             </Link>
           </article>
         ))}
@@ -58,4 +53,4 @@ function BestArticleSection({ articles }) {
   );
 }
 
-export default BestArticleSection;
+export default BestArticleList;

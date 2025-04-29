@@ -1,21 +1,24 @@
 "use client";
 
-import { deleteComment, updateComment } from "@/app/actions/comment";
+import { deleteComment, updateComment } from "@/lib/actions/comment";
 import Dropdown from "@/components/ui/Dropdown";
 import Modal from "@/components/ui/Modal";
 import { EDIT_OPTIONS } from "@/const";
-import { formatUpdatedAt } from "@/utils/dateUtils";
+import { formatUpdatedAt } from "@/lib/utils/dateUtils";
 import Image from "next/image";
 import React, { useState } from "react";
+import { useAuth } from "@/providers/AuthProvider";
 
 function CommentItem({ comment, setComments, getCommentList }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [updatedContent, setUpdatedContent] = useState(comment.content);
-  const [error, setError] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMsg, setModalMsg] = useState("");
+  const [isDelete, setIsDelete] = useState(false);
 
   const timestamp = formatUpdatedAt(comment.createdAt);
+  const { user } = useAuth();
 
   // 댓글 편집 핸들러
   const handleEditComment = (action) => {
@@ -23,7 +26,9 @@ function CommentItem({ comment, setComments, getCommentList }) {
       setIsEdit(true);
       setIsDropdownOpen(false);
     } else if (action === "delete") {
-      handleDeleteComment(comment.id);
+      setIsModalOpen(true);
+      setModalMsg("정말로 삭제하시겠어요?");
+      setIsDelete(true);
     }
   };
 
@@ -50,8 +55,8 @@ function CommentItem({ comment, setComments, getCommentList }) {
   const handleDeleteComment = async (commentId) => {
     const result = await deleteComment(commentId);
     if (!result?.success) {
-      setError(result.message);
       setIsModalOpen(true);
+      setModalMsg(result.message);
     } else {
       getCommentList();
     }
@@ -71,14 +76,16 @@ function CommentItem({ comment, setComments, getCommentList }) {
             <p className="text-sm">{comment.content}</p>
           )}
           <div>
-            <Image
-              src="/assets/icon/ic_kebab.svg"
-              alt="편집 아이콘"
-              width={24}
-              height={24}
-              className="cursor-pointer"
-              onClick={() => setIsDropdownOpen((prev) => !prev)}
-            />
+            {user.id === comment.writer.id && (
+              <Image
+                src="/assets/icon/ic_kebab.svg"
+                alt="편집 아이콘"
+                width={24}
+                height={24}
+                className="cursor-pointer"
+                onClick={() => setIsDropdownOpen((prev) => !prev)}
+              />
+            )}
             {isDropdownOpen && (
               <Dropdown items={EDIT_OPTIONS} onSelect={handleEditComment} />
             )}
@@ -118,7 +125,12 @@ function CommentItem({ comment, setComments, getCommentList }) {
         </div>
       </div>
       {isModalOpen && (
-        <Modal message={error} handleClick={() => setIsModalOpen(false)} />
+        <Modal
+          message={modalMsg}
+          handleClick={() => setIsModalOpen(false)}
+          isDelete={isDelete}
+          handleDelete={handleDeleteComment}
+        />
       )}
     </>
   );

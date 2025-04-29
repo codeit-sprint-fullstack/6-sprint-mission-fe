@@ -7,7 +7,7 @@ import UserInfo from "@/components/ui/UserInfo";
 import LineDivider from "@/components/ui/LineDivider";
 import defaultImg from "../../../../../../public/assets/img/img_item_default.svg";
 import { useRouter } from "next/navigation";
-import { createLike, deleteLike, deleteProduct } from "@/app/actions/product";
+import { createLike, deleteLike, deleteProduct } from "@/lib/actions/product";
 import { getProduct } from "@/lib/getApi";
 import Modal from "@/components/ui/Modal";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -44,8 +44,10 @@ function ItemContainer({ id }) {
     onError: (_, __, context) => {
       queryClient.setQueryData(["product", id], context.previousItem);
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["product", id] });
+    onSuccess: () => {
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ["product", id] });
+      }, 300);
     },
   });
 
@@ -58,7 +60,7 @@ function ItemContainer({ id }) {
 
       queryClient.setQueryData(["product", id], (old) => ({
         ...old,
-        isFavorite: true,
+        isFavorite: false,
         favoriteCount: old.favoriteCount - 1,
       }));
 

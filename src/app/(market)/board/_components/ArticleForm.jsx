@@ -1,6 +1,7 @@
 "use client";
 
-import { createArticle, getArticle, updateArticle } from "@/lib/articleApi";
+import { createArticle, updateArticle } from "@/lib/actions/article";
+import { getArticle } from "@/lib/getApi";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 

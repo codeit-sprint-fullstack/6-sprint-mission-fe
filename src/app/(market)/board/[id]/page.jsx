@@ -2,58 +2,37 @@
 
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { deleteArticle, getArticle } from "@/lib/articleApi";
 import { useParams, useRouter } from "next/navigation";
 import Dropdown from "@/components/ui/Dropdown";
-import { getComments } from "@/lib/commentApi";
-import CommentForm from "../../_components/CommentForm";
-import CommentList from "../../_components/CommentList";
 import UserInfo from "@/components/ui/UserInfo";
 import GoBackBtn from "@/components/ui/GoBackBtn";
-
-export function UserLocation() {
-  const [location, setLocation] = useState("");
-
-  useEffect(() => {
-    setLocation(window.location.href);
-  }, []);
-
-  return <div>현재 URL: {location}</div>;
-}
+import CommentSection from "../../_components/CommentSection";
+import { EDIT_OPTIONS } from "@/const";
+import { getArticle } from "@/lib/getApi";
+import { deleteArticle } from "@/lib/actions/article";
 
 function ArticlePage() {
   const [article, setArticle] = useState();
-  const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const router = useRouter();
-  const params = useParams();
-
-  const editOption = [
-    { label: "수정하기", value: "edit" },
-    { label: "삭제하기", value: "delete" },
-  ];
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
-      await Promise.all([getArticleById(), getCommentList()]);
+      await Promise.all([getArticleById()]);
       setIsLoading(false);
     };
 
     fetchData();
-  }, [params.id]);
+  }, [id]);
 
   // 상세 게시글 불러오는 함수
   const getArticleById = async () => {
-    const data = await getArticle(params.id);
+    const data = await getArticle(id);
     setArticle(data);
-  };
-
-  // 게시글 댓글 목록 불러오는 함수
-  const getCommentList = async () => {
-    const data = await getComments(params.id);
-    setComments(data);
+    console.log(article);
   };
 
   if (isLoading) return null;
@@ -62,7 +41,7 @@ function ArticlePage() {
   const handleEditArticle = (action) => {
     setIsDropdownOpen(true);
     if (action === "edit") {
-      router.push(`/board/${params.id}/edit`);
+      router.push(`/board/${id}/edit`);
     } else if (action === "delete") {
       handleDeleteArticle();
       router.push("/board");
@@ -71,7 +50,7 @@ function ArticlePage() {
 
   // 게시글 삭제 핸들러
   const handleDeleteArticle = async () => {
-    await deleteArticle(params.id);
+    await deleteArticle(id);
   };
 
   return (
@@ -89,22 +68,19 @@ function ArticlePage() {
               onClick={() => setIsDropdownOpen((prev) => !prev)}
             />
             {isDropdownOpen && (
-              <Dropdown items={editOption} onSelect={handleEditArticle} />
+              <Dropdown items={EDIT_OPTIONS} onSelect={handleEditArticle} />
             )}
           </div>
         </div>
-        <UserInfo article={article} />
+        <UserInfo
+          nickname={article.writer.nickname}
+          createdAt={article.createdAt}
+          favoriteCount={article.likeCount}
+        />
       </nav>
       <section>
         <p className="mt-4 mb-8">{article.content}</p>
-        <CommentForm articleId={params.id} getCommentList={getCommentList} />
-        <CommentList
-          articleId={params.id}
-          comments={comments}
-          setComments={setComments}
-          editOption={editOption}
-          getCommentList={getCommentList}
-        />
+        <CommentSection id={id} type="article" />
         <GoBackBtn />
       </section>
     </div>

@@ -1,38 +1,21 @@
 "use client";
 
-import { createProduct, updateProduct } from "@/app/actions/product";
+import { createProduct, updateProduct } from "@/lib/actions/product";
 import Modal from "@/components/ui/Modal";
-import { getProduct } from "@/lib/getApi";
+import Tag from "@/components/ui/Tag";
 import Image from "next/image";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-function ItemForm() {
-  const [values, setValues] = useState({
-    name: "",
-    description: "",
-    price: "",
-    tags: [],
-    images: [],
-  });
+function ItemForm({ values, setValues }) {
+  const [tagInput, setTagInput] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState(null);
 
+  const { id } = useParams();
   const router = useRouter();
   const pathname = usePathname();
-  const { id } = useParams();
   const isEditPage = pathname.includes("/edit");
-
-  useEffect(() => {
-    if (isEditPage && id) {
-      getProductById();
-    }
-  }, [pathname, id]);
-
-  const getProductById = async () => {
-    const data = await getProduct(id);
-    setValues({ ...data });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -156,15 +139,12 @@ function ItemForm() {
             />
           </div>
           <div>
-            <h3 className="text-sm font-bold mb-3">*테그</h3>
-            <input
-              className="w-full px-6 py-4 rounded-xl bg-gray-100 font-normal"
-              type="text"
-              placeholder="태그를 입력해주세요"
-              value={values.tags}
-              onChange={(e) =>
-                setValues((prev) => ({ ...prev, tags: e.target.value }))
-              }
+            <h3 className="text-sm font-bold mb-3">*태그</h3>
+            <Tag
+              tags={values.tags}
+              setValues={setValues}
+              tagInput={tagInput}
+              setTagInput={setTagInput}
             />
           </div>
         </section>
