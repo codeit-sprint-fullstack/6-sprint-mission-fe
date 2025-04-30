@@ -17,13 +17,13 @@ const protectedPaths = [
 
 // 미인증 사용자만 접근 가능한 경로
 const publicPaths = [
-  "/",
-  "/login",
-  "/register",
-  "/items",
-  "/items/detail",
-  "/community",
-  "/community/detail",
+  // "/",
+  // "/login",
+  // "/register",
+  // "/items",
+  // "/items/detail",
+  // "/community",
+  // "/community/detail",
   // 추가 공개 경로들...
 ];
 
