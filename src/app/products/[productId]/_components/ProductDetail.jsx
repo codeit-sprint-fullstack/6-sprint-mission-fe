@@ -19,7 +19,7 @@ export default function ProductDetail() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  // 상품 조회
+  // 상품 상세 조회
   const {
     data: product,
     isPending,

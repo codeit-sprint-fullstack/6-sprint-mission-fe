@@ -6,10 +6,8 @@ import { useParams } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { commentService } from "@/service/commentService";
 
-const INITIAL_BODY = { content: "" };
-
 export default function CommentCreate() {
-  const [body, setBody] = useState(INITIAL_BODY);
+  const [body, setBody] = useState({ content: "" });
   const [isActive, setIsActive] = useState(false);
 
   const { articleId, productId } = useParams();
@@ -33,7 +31,7 @@ export default function CommentCreate() {
     const { content } = body;
 
     createComment({ type, id, body: { content: content.trim() } });
-    setBody(INITIAL_BODY);
+    setBody({ content: "" });
   };
 
   // body 변경

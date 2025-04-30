@@ -66,7 +66,7 @@
 
 - [] 비동기 통신에서 try/catch문으로 에러 처리하기
 - [] SearchLoad에서 Props Drilling 리팩터링 해보기
-- [] body 변수에 INITIAL\_... 을 사용하는 곳들은 바로 state에 초기 값을 지정해주기
+- [x] body 변수에 INITIAL\_... 을 사용하는 곳들은 바로 state에 초기 값을 지정해주기
 
 #### [ 추가 ]
 

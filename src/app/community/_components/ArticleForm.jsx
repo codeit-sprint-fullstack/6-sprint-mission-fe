@@ -9,9 +9,6 @@ import clsx from "clsx";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-// body 초기화
-const INITIAL_BODY = { title: "", content: "" };
-
 // 페이지 별 제목 적용
 const TITLE_BY_PAGE = {
   create: "게시글 작성",
@@ -19,7 +16,7 @@ const TITLE_BY_PAGE = {
 };
 
 export default function ArticleForm({ page }) {
-  const [body, setBody] = useState(INITIAL_BODY);
+  const [body, setBody] = useState({ title: "", content: "" });
   const [isActive, setIsActive] = useState(false);
   const { articleId } = useParams();
   const router = useRouter();
@@ -56,9 +53,9 @@ export default function ArticleForm({ page }) {
 
   // 게시글 세부 조회(수정 시 기존 내용 불러오는 용도)
   const articleLoad = async (articleId) => {
-    const article = await getArticle(articleId);
+    const { title, content } = await getArticle(articleId);
 
-    return setBody(article);
+    return setBody({ title, content });
   };
 
   useEffect(() => {
@@ -70,6 +67,7 @@ export default function ArticleForm({ page }) {
   // body 업데이트
   const changeValue = (e) => {
     const { id, value } = e.target;
+    console.log(body);
 
     setBody((prevBody) => ({ ...prevBody, [id]: value }));
   };
@@ -111,6 +109,7 @@ export default function ArticleForm({ page }) {
       </div>
       <main className="flex justify-center items-center">
         <div className="flex justify-center flex-col w-full max-w-[1200px] gap-[16px]">
+          {/* now TODO: 컴포넌트 재활용 가능할 것 같으면 productInput, productTextArea에서 product 빼고 여기에서도 적용 */}
           <section className="flex flex-col mt-[24px] gap-[12px]">
             <p className="font-bold text-[14px] sm:text-[18px]">*제목</p>
             <input
@@ -131,7 +130,7 @@ export default function ArticleForm({ page }) {
               name="content"
               id="content"
               placeholder="내용을 입력해주세요"
-              className="h-[200px] bg-secondary-gray-100 border-transparent rounded-[12px] outline-none py-[16px] px-[24px] text-[16px] font-normal placeholder-secondary-gray-300 resize-none sm:h-[282px]"
+              className="h-[282px] bg-secondary-gray-100 border-transparent rounded-[12px] outline-none py-[16px] px-[24px] text-[16px] font-normal placeholder-secondary-gray-300 resize-none"
             />
           </section>
         </div>
