@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import InputBox from "@/components/ui/InputBox";
@@ -16,9 +16,10 @@ import Dropdown from "@/app/(main)/(item)/_components/Dropdown";
 import backImage from "@/assets/images/icons/ic_back.png";
 import kebabImage from "@/assets/images/icons/ic_kebab.png";
 import emptyHeartImage from "@/assets/images/icons/ic_emptyHeart.png";
+import fillHeartImage from "@/assets/images/icons/ic_fillHeart.png";
 import noCommentImage from "@/assets/images/logo/noCommentImage2.png";
 import defaultImage from "@/assets/images/logo/defaultImage.png";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -68,8 +69,22 @@ export default function ProductDetailPage() {
       },
     });
 
-  const handleDeleteProduct = async () => {
-    await mutateDeleteProduct();
+  const likeMutation = useMutation({
+    mutationFn: () => productService.likeProduct(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["product", id] });
+    },
+  });
+
+  const unlikeMutation = useMutation({
+    mutationFn: () => productService.unlikeProduct(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["product", id] });
+    },
+  });
+
+  const handleDeleteProduct = () => {
+    mutateDeleteProduct();
   };
 
   const hadleDropdownOpen = () => {
@@ -80,8 +95,12 @@ export default function ProductDetailPage() {
     setCommentInputValue(e.target.value);
   };
 
-  const handleCreateComment = async () => {
-    await createProductComment();
+  const handleCreateComment = () => {
+    createProductComment();
+  };
+
+  const handleOnClickLike = () => {
+    product.isFavorite ? unlikeMutation.mutate() : likeMutation.mutate();
   };
 
   const hadleModalClose = () => {
@@ -195,9 +214,10 @@ export default function ProductDetailPage() {
           <div className="border-l-1 border-gray-200 pl-3">
             <div className="flex justify-center items-center w-20 h-8 border-gray-200 border-2 rounded-4xl font-medium  text-gray-500 gap-2">
               <Image
-                src={emptyHeartImage}
-                alt="emptyHeartImage"
+                src={product.isFavorite ? fillHeartImage : emptyHeartImage}
+                alt="likeIcon"
                 className="w-5 h-auto object-cover "
+                onClick={handleOnClickLike}
               />
               <p>{product.favoriteCount}</p>
             </div>
