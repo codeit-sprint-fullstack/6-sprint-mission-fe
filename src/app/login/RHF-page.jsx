@@ -1,32 +1,31 @@
+//react-hook-form을 사용하여 로그인 페이지 제작
+
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-
-import { useAuth } from "@/providers/AuthProvider";
-import { checkTokenExp } from "../../../utils/checkTokenExp";
-import { isValidEmail, isValidPassword } from "../../../utils/isValid";
+import { useEffect, useState } from "react";
 
 import InputField from "@/components/ui/login-signup/InputField";
 import Button from "@/components/ui/login-signup/Button";
 import CompactLogin from "@/components/ui/login-signup/CompactLogin";
 import CrossSite from "@/components/ui/login-signup/CrossSite";
 import ValidModal from "@/components/ui/login-signup/validModal";
-import { useForm } from "react-hook-form";
+
+import { useAuth } from "@/providers/AuthProvider";
+import { checkTokenExp } from "../../../utils/checkTokenExp";
+import { isValidEmail, isValidPassword } from "../../../utils/isValid";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [isFormsValid, setIsFormsValid] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
     watch,
-  } = useForm({ mode: "onBlur" });
+  } = useForm({
+    mode: "onBlur", // or "onChange"
+  });
 
   const [isVisible, setIsVisible] = useState(false);
   const [validModal, setValidModal] = useState(false);
@@ -34,55 +33,34 @@ export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
 
-  //토큰이 유효한 경우 페이지 제한
+  // 로그인한 사용자는 접근 제한
   useEffect(() => {
     if (checkTokenExp()) {
       router.push("/items");
     }
   }, []);
 
-  useEffect(() => {
-    const isEmailValid = isValidEmail(email);
-    const isPwValid = isValidPassword(password);
-
-    setIsFormsValid(isEmailValid && isPwValid);
-  }, [email, password]);
-
-  const handleEmailBlur = () => {
-    setIsEmailValid(isValidEmail(email));
-  };
-
-  const handlePasswordBlur = () => {
-    setIsPasswordValid(isValidPassword(password));
-  };
-
-  const handleVisible = () => {
-    setIsVisible((prev) => !prev);
-  };
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    if (!isFormsValid) return;
-
+  const onSubmit = async (data) => {
     try {
-      const result = await login(email, password);
+      const result = await login(data.email, data.password);
 
       if (!result.accessToken) {
-        setIsEmailValid(false);
-        setIsPasswordValid(false);
+        // 로그인 실패
         return;
       }
 
-      //로컬 스토리지에 token, nickname 저장
       localStorage.setItem("accessToken", result.accessToken);
       localStorage.setItem("userId", result.user.id);
 
       router.push("/items");
     } catch (e) {
-      console.error("로그인에 실패했습니다.");
+      console.error("로그인 실패");
       setValidModal(true);
     }
+  };
+
+  const togglePasswordVisible = () => {
+    setIsVisible((prev) => !prev);
   };
 
   return (
@@ -106,30 +84,35 @@ export default function LoginPage() {
 
         <div className="w-full flex flex-col items-center">
           <div className="flex flex-col items-center">
-            <form className="mb-5" onSubmit={handleLogin}>
+            <form className="mb-5" onSubmit={handleSubmit(onSubmit)}>
+              {/* 이메일 필드 */}
               <InputField
                 label="이메일"
                 type="email"
                 placeholder="이메일을 입력해주세요"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onBlur={handleEmailBlur}
+                {...register("email", {
+                  required: "이메일을 입력해주세요",
+                  validate: (value) =>
+                    isValidEmail(value) || "유효하지 않은 이메일입니다",
+                })}
               />
-
-              {isEmailValid ? undefined : (
+              {errors.email && (
                 <div className="text-[#f74747] font-semibold text-[15px] mt-2">
-                  이메일을 확인해주세요
+                  {errors.email.message}
                 </div>
               )}
 
-              <div className=" relative ">
+              {/* 비밀번호 필드 */}
+              <div className="relative">
                 <InputField
                   label="비밀번호"
                   type={isVisible ? "text" : "password"}
                   placeholder="비밀번호를 입력해주세요"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onBlur={handlePasswordBlur}
+                  {...register("password", {
+                    required: "비밀번호를 입력해주세요",
+                    validate: (value) =>
+                      isValidPassword(value) || "유효하지 않은 비밀번호입니다",
+                  })}
                 />
                 <img
                   src={
@@ -139,20 +122,19 @@ export default function LoginPage() {
                   }
                   alt="비밀번호 보기 아이콘"
                   className="absolute left-[600px] top-[58px] w-6 h-6"
-                  onClick={handleVisible}
+                  onClick={togglePasswordVisible}
                 />
               </div>
-              {!isPasswordValid && (
+              {errors.password && (
                 <div className="text-[#f74747] font-semibold text-[15px] mt-2">
-                  비밀번호를 확인해주세요.
+                  {errors.password.message}
                 </div>
               )}
 
-              <Button text="로그인" disabled={isFormsValid} />
+              <Button text="로그인" disabled={!isValid} />
             </form>
 
             <CompactLogin />
-
             <CrossSite
               text="판다마켓은 처음이신가요?"
               linkTo="/sign-up"
@@ -161,9 +143,10 @@ export default function LoginPage() {
           </div>
         </div>
       </main>
+
       {validModal && (
         <ValidModal
-          text="비밀번호가 잂치하지 않습니다 "
+          text="비밀번호가 일치하지 않습니다"
           onClose={() => setValidModal(false)}
         />
       )}

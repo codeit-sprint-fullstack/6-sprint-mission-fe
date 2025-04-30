@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import Article from "@/components/ui/Article";
-import { getArticles } from "@/lib/api/article";
+import { getArticles } from "@/lib/article";
 import Link from "next/link";
 import { useArticles } from "@/providers/ArticlesProvider";
 

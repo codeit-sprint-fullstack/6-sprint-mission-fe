@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Button from "@/components/ui/Button";
-import InputField from "@/components/ui/posting/InputField";
+import Button from "@/components/ui/common-UI/Button";
+import InputField from "@/components/ui/common-UI/InputField";
 import { useRouter } from "next/navigation";
-import { getArticle, patchArticle } from "@/lib/api/article";
+import { getArticle, patchArticle } from "@/lib/article";
 
 function page({ params }) {
   const [title, setTitle] = useState("");

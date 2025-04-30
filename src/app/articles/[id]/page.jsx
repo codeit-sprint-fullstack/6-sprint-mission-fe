@@ -1,11 +1,11 @@
 "use client";
 
 import ArticleDetail from "@/components/ui/ArticleDetail";
-import Button from "@/components/ui/Button";
-import Comments from "@/components/ui/comment/Comments";
-import CreateComment from "@/components/ui/comment/CreateComment";
-import { getArticle } from "@/lib/api/article";
+import Button from "@/components/ui/common-UI/Button";
+import Comments from "@/components/ui/article/Comments";
+import { getArticle } from "@/lib/article";
 import React, { useEffect, useState } from "react";
+import CreateComment from "@/components/ui/CreateComment";
 
 export default function SpecifiedArticle({ params }) {
   const { id: articleId } = React.use(params);
@@ -37,7 +37,7 @@ export default function SpecifiedArticle({ params }) {
         <CreateComment
           articleId={articleId}
           onCommentAdded={refreshComments}
-          refreshTrigger={refreshTrigger}
+          // refreshTrigger={refreshTrigger}
         />
         <Comments articleId={articleId} refreshTrigger={refreshTrigger} />
         <div className="flex justify-center mt-[64px]">
