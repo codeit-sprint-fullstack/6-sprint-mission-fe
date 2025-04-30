@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 import TitleSection from "../ui/TitleSection";
 import InputBox from "../ui/InputBox";
-import useAuthForm from "@/hooks/useAuthForm";
+import useInputForm from "@/hooks/useInputForm";
 import SocialLogin from "@/app/(auth)/_components/SocialLogin";
 import ConfirmModal from "@/components/ui/ConfirmModal";
 
@@ -33,18 +33,18 @@ function isPasswordMatch(password, confirmPassword) {
 export default function RegisterPage() {
   const router = useRouter();
   const { register } = useAuth();
-  const emailInput = useAuthForm("", isValidEmail, "잘못된 이메일입니다.");
-  const nickNameInput = useAuthForm(
+  const emailInput = useInputForm("", isValidEmail, "잘못된 이메일입니다.");
+  const nickNameInput = useInputForm(
     "",
     isValidNickname,
     "닉네임을 확인해주세요.(2~10자, 한글/영문/숫자만)"
   );
-  const passwordInput = useAuthForm(
+  const passwordInput = useInputForm(
     "",
     isValidPassword,
     "잘못된 비밀번호입니다.(8~20자, 영문+숫자+특수 포함)"
   );
-  const confirmPasswordInput = useAuthForm(
+  const confirmPasswordInput = useInputForm(
     "",
     isPasswordMatch,
     "비밀번호를 확인해주세요.",

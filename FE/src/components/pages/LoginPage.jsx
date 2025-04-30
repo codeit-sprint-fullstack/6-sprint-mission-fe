@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 import InputBox from "../ui/InputBox";
 import TitleSection from "../ui/TitleSection";
-import useAuthForm from "@/hooks/useAuthForm";
+import useInputForm from "@/hooks/useInputForm";
 import SocialLogin from "@/app/(auth)/_components/SocialLogin";
 import ConfirmModal from "@/components/ui/ConfirmModal";
 
@@ -23,8 +23,8 @@ function isValidPassword(password) {
 export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
-  const emailInput = useAuthForm("", isValidEmail, "잘못된 이메일입니다.");
-  const passwordInput = useAuthForm(
+  const emailInput = useInputForm("", isValidEmail, "잘못된 이메일입니다.");
+  const passwordInput = useInputForm(
     "",
     isValidPassword,
     "잘못된 비밀번호입니다.(8~20자, 영문+숫자+특수 포함)"

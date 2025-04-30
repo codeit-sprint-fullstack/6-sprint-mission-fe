@@ -3,7 +3,7 @@ import SortButton from "./SortButton";
 
 export default function SearchBar({
   inputValueState,
-  setInputValueState,
+  onChangeInput,
   sortButtonState,
   setSortButtonState,
 }) {
@@ -13,7 +13,7 @@ export default function SearchBar({
         <InputBox
           placeHolderText={"검색할 상품을 입력해주세요"}
           inputValueState={inputValueState}
-          setInputValueState={setInputValueState}
+          onChangeInput={onChangeInput}
           inputType="search"
           inputClassName={"h-[42px]"}
         />
