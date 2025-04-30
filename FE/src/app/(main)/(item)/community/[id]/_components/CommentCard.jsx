@@ -2,14 +2,14 @@
 
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
-import kebabImage from "@/assets/images/icons/ic_kebab.png";
-import defaultProfileImage from "@/assets/images/logo/defaultProfileImage.png";
-import Image from "next/image";
-import { useState } from "react";
-import Dropdown from "@/app/(main)/(item)/_components/Dropdown";
 import { useParams, useRouter } from "next/navigation";
-import ConfirmModal from "@/app/(main)/(item)/_components/ConfirmModal";
+import { useState } from "react";
+import Image from "next/image";
 import { articleService } from "@/lib/services/api/articleService";
+import ConfirmModal from "@/components/ui/ConfirmModal";
+import ProfileImage from "@/components/ui/ProfileImage";
+import Dropdown from "@/app/(main)/(item)/_components/Dropdown";
+import kebabImage from "@/assets/images/icons/ic_kebab.png";
 
 export default function CommentCard({ comment }) {
   const { id } = useParams();
@@ -56,11 +56,7 @@ export default function CommentCard({ comment }) {
         </div>
       </div>
       <div className="h-15 flex items-center gap-2 border-b border-gray-100 ">
-        <Image
-          src={defaultProfileImage}
-          alt="userProfileImage"
-          className="w-8 h-8"
-        />
+        <ProfileImage className={"w-8 h-8"} />
         <div>
           <p className="text-sm text-gray-600">{comment.user.username}</p>
           <p className="text-xs text-gray-400">
@@ -74,7 +70,7 @@ export default function CommentCard({ comment }) {
       {isModalOpen && (
         <ConfirmModal
           modalTheme={"red"}
-          modalType={confirmChoice}
+          confirmType={"confirm"}
           confirmText={"정말로 댓글을 삭제하시겠어요?"}
           handleOnClick={handleDelete(id)}
           handleOnCloseModal={hadleModalOpen}

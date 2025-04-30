@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function useAuthForm(initialValue, validateFn, errorMessage, dependencyValue) {
+export default function useInputForm(initialValue, validateFn, errorMessage, dependencyValue) {
   const [value, setValue] = useState(initialValue);
   const [touched, setTouched] = useState(false);
   const [error, setError] = useState("");

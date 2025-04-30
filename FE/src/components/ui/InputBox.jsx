@@ -16,6 +16,7 @@ export default function InputBox({
   error,
   isValid,
   inputClassName,
+  onKeyDownInput,
 }) {
   const [toggleViewPasswordState, setToggleViewPasswordState] = useState(false);
 
@@ -24,10 +25,10 @@ export default function InputBox({
   };
 
   return (
-    <div className={`w-full `}>
+    <div>
       <div
         className={clsx(
-          `${inputClassName} bg-gray-100 rounded-xl flex px-4 items-center text-gray-400 gap-[10px] border`,
+          ` bg-gray-100 rounded-xl flex px-4 items-center text-gray-400 gap-[10px] border ${inputClassName}`,
           {
             "border-error-red border-1": error,
             "border-brand-blue border-2": isValid,
@@ -40,11 +41,12 @@ export default function InputBox({
         )}
         {inputType === "textarea" ? (
           <textarea
-            className="w-full h-full py-4 bg-transparent"
+            className="w-full h-full bg-transparent py-4"
             placeholder={placeHolderText}
             value={inputValueState}
             onChange={onChangeInput}
             onBlur={onBlur}
+            onKeyDown={onKeyDownInput}
           />
         ) : (
           <input
@@ -60,8 +62,10 @@ export default function InputBox({
             }
             onChange={onChangeInput}
             onBlur={onBlur}
+            onKeyDown={onKeyDownInput}
           />
         )}
+
         {inputType === "password" && (
           <Image
             className="cursor-pointer"
