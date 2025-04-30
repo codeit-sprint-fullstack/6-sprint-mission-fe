@@ -45,7 +45,9 @@ export default function ProductEditPage() {
     data: product,
     isLoading,
     error,
-  } = useQuery(["product", id], () => productService.getProduct(id), {
+  } = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => productService.getProduct(id),
     enabled: !!id,
   });
 
