@@ -30,7 +30,7 @@ export default function CommunityDetailPage() {
 
   const handleDelete = async (id) => {
     const data = await articleService.deleteArticle(id);
-    // data 가지고 확인 처리.
+    // TODO: data 가지고 확인 처리.
     setIsModalOpen(false);
   };
 
@@ -58,7 +58,7 @@ export default function CommunityDetailPage() {
     console.log("댓글 등록");
     const data = await articleService.createArticle(id, commentInputValue);
     console.log("data", data);
-    // 성공시 코멘트 리스트 다시 받아오는 로직 필요.
+    // TODO: 성공시 코멘트 리스트 다시 받아오는 로직 필요.
     // data.status === 201
   };
 

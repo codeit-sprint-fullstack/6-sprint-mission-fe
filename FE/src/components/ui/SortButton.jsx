@@ -3,7 +3,7 @@ import React from "react";
 import toggleMiniImage from "@/assets/images/icons/ic_toggle_mini.png";
 
 export default function SortButton({ sortButtonState, setSortButtonState }) {
-  //모달 구현 예정.
+  // TODO: 모달 구현 예정.
   return (
     <>
       <Image src={toggleMiniImage} alt="togglebutton" className="w-6 h-6" />

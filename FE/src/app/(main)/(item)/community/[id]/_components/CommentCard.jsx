@@ -19,7 +19,7 @@ export default function CommentCard({ comment }) {
 
   const handleDelete = async (id) => {
     const data = await articleService.deleteArticleComment(id, comment.id);
-    // data 가지고 확인 처리.
+    // TODO: data 가지고 확인 처리.
     setIsModalOpen(false);
   };
 
