@@ -49,17 +49,17 @@ export default function RouteGuard({ children }) {
         path === route || (path.startsWith(route + "/") && route !== "/")
     );
 
-    // 사용자의 인증 상태에 따른 리다이렉트 처리
-    // if (isProtectedRoute && !user) {
-    //   // 인증된 사용자만 접근 가능한 경로에 미인증 사용자가 접근
-    //   router.push("/login");
-    // } else if (isPublicRoute && user) {
-    //   // 미인증 사용자만 접근 가능한 경로에 인증된 사용자가 접근
-    //   router.push("/me");
-    // } else {
-    //   // 접근 가능한 경로
-    //   setIsLoading(false);
-    // }
+    //사용자의 인증 상태에 따른 리다이렉트 처리
+    if (isProtectedRoute && !user) {
+      // 인증된 사용자만 접근 가능한 경로에 미인증 사용자가 접근
+      router.push("/login");
+    } else if (isPublicRoute && user) {
+      // 미인증 사용자만 접근 가능한 경로에 인증된 사용자가 접근
+      router.push("/me");
+    } else {
+      // 접근 가능한 경로
+      setIsLoading(false);
+    }
   }, [user, pathname, router]);
 
   // 리다이렉트 중이거나 인증 확인 중일 때는 컨텐츠를 표시하지 않음
