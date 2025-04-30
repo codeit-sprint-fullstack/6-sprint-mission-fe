@@ -18,7 +18,7 @@ function isValidCreateName(name) {
 
 // 상품 소개 유효성 검사
 function isValidCreateDescription(description) {
-  return description.length <= 100;
+  return description.length >= 10;
 }
 
 // 판매가격 유효성 검사
@@ -102,17 +102,15 @@ export default function ProductCreatePage() {
     setCreateImages(createImages.filter((_, index) => index !== indexToRemove));
   };
 
-  const { mutate, isLoading, isError, error } = useMutation(
-    (newProduct) => productService.createProduct(newProduct),
-    {
-      onSuccess: (data) => {
-        router.push(`/items/${data.id}`);
-      },
-      onError: (error) => {
-        console.error("상품 등록 실패:", error);
-      },
-    }
-  );
+  const { mutate, isPending } = useMutation({
+    mutationFn: (newProduct) => productService.createProduct(newProduct),
+    onSuccess: (data) => {
+      router.push(`/items/${data.id}`);
+    },
+    onError: (error) => {
+      console.error("상품 등록 실패:", error);
+    },
+  });
 
   const handleCreateProduct = async () => {
     if (!isValidCreateImages(createImages)) {
@@ -153,10 +151,10 @@ export default function ProductCreatePage() {
                   ? "bg-primary-100 cursor-pointer"
                   : "bg-gray-400 cursor-not-allowed"
               }`}
-              disabled={!isFormValid || isLoading}
+              disabled={!isFormValid || isPending}
               onClick={handleCreateProduct}
             >
-              {isLoading ? "등록 중..." : "등록"}
+              {isPending ? "등록 중..." : "등록"}
             </button>
           }
         />
