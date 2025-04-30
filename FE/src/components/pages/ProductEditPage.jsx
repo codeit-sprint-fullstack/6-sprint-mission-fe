@@ -9,7 +9,7 @@ import TitleSection from "../ui/TitleSection";
 import SubTitleSection from "../ui/SubTitleSection";
 import TagCard from "../ui/TagCard";
 import ImageCard from "../ui/ImageCard";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 // 상품명 유효성 검사
 function isValidEditName(name) {
