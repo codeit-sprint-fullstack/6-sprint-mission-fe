@@ -17,21 +17,21 @@ export default function BestArticleCard({ article }) {
         <div className="flex justify-between">
           <p className="text-2xl-semibold text-gray-800">{article.title}</p>
           <Image
-            src={defaultImage}
+            src={article.Image || defaultImage}
             alt="articleImage"
             className="w-18 h-auto object-cover "
           />
         </div>
         <div className="flex justify-between">
           <div className="flex gap-3 text-sm-medium">
-            <p className="text-gray-600">{article.user.username}</p>
+            <p className="text-gray-600">{article.writer.nickname}</p>
             <div className="flex gap-1 items-center">
               <Image
                 src={emptyHeartImage}
                 alt="emptyHeartImage"
                 className="w-auto h-3 object-fit"
               />
-              <p className="text-gray-500">{article._count.likes}</p>
+              <p className="text-gray-500">{article.likeCount}</p>
             </div>
           </div>
           <p className="text-gray-400">

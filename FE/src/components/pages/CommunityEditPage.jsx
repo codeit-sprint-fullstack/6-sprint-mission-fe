@@ -46,7 +46,7 @@ export default function CommunityEditPage() {
         <InputBox
           placeHolderText={"제목을 입력해주세요"}
           inputValueState={titleValueState}
-          setInputValueState={setTitleValueState}
+          onChangeInput={setTitleValueState}
         />
       </div>
 
@@ -55,7 +55,7 @@ export default function CommunityEditPage() {
         <InputBox
           placeHolderText={"내용을 입력해주세요"}
           inputValueState={contentValueState}
-          setInputValueState={setContentValueState}
+          onChangeInput={setContentValueState}
           inputType={"textarea"}
         />
       </div>

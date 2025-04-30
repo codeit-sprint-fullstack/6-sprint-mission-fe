@@ -6,12 +6,12 @@ import BestArticleCard from "./BestArticleCard";
 import { articleService } from "@/lib/services/api/articleService";
 
 export default function BestArticleLists() {
-  const [articlesState, setArticlesState] = useState([]);
+  const [articles, setArticles] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await articleService.getArticles(1, 1, "likes");
-      setArticlesState(data);
+      const data = await articleService.getArticles(1, 1, "like", "");
+      setArticles(data.list);
     };
 
     fetchData();
@@ -19,7 +19,7 @@ export default function BestArticleLists() {
 
   return (
     <div className="flex justify-center gap-5">
-      {articlesState?.map((article) => {
+      {articles?.map((article) => {
         return (
           <Link key={article.id} href={`/community/${article.id}`}>
             <BestArticleCard key={article.id} article={article} />
