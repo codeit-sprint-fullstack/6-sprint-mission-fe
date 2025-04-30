@@ -74,18 +74,16 @@ export default function ProductEditPage() {
     "숫자로 입력해주세요"
   );
 
-  const updateProductMutation = useMutation(
-    (productData) => productService.updateProduct(id, productData),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["product", id]);
-        router.push(`/items/${id}`);
-      },
-      onError: (err) => {
-        console.error("수정 실패:", err);
-      },
-    }
-  );
+  const updateProductMutation = useMutation({
+    mutationFn: (productData) => productService.updateProduct(id, productData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["product", id] });
+      router.push(`/items/${id}`);
+    },
+    onError: (error) => {
+      console.error("수정 실패:", error);
+    },
+  });
 
   const handleKeyDownTagInput = (e) => {
     if (e.key === "Enter") {
