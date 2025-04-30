@@ -7,6 +7,8 @@ import ProductCard from "@/app/(main)/(item)/items/_components/ProductCard";
 import TitleSection from "../ui/TitleSection";
 import SearchBar from "../ui/SearchBar";
 
+// TODO: 디테일 페이지를 위해서 임시로 만든 리스트 페이지. 반푼이.
+// 나중에 리액트 쿼리 처리도.
 export default function ProductPage() {
   const [products, setProducts] = useState([]);
   const [searchValueState, setSearchValueState] = useState("");
@@ -35,7 +37,7 @@ export default function ProductPage() {
           }
         />
       </section>
-      <section className="pb-4" Z>
+      <section className="pb-4">
         <SearchBar
           inputValueState={searchValueState}
           onChangeInput={setSearchValueState}

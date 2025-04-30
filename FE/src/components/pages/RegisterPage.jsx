@@ -9,6 +9,7 @@ import InputBox from "../ui/InputBox";
 import useInputForm from "@/hooks/useInputForm";
 import SocialLogin from "@/app/(auth)/_components/SocialLogin";
 import ConfirmModal from "@/components/ui/ConfirmModal";
+import { useMutation } from "@tanstack/react-query";
 
 // 이메일 유효성 검사
 function isValidEmail(email) {
@@ -58,18 +59,12 @@ export default function RegisterPage() {
     setModalMessage("");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      await register({
-        email: emailInput.value,
-        nickname: nickNameInput.value,
-        password: passwordInput.value,
-        passwordConfirmation: confirmPasswordInput.value,
-      });
+  const { mutate: mutateRegister, isPending } = useMutation({
+    mutationFn: register,
+    onSuccess: () => {
       router.push("/items");
-    } catch (error) {
+    },
+    onError: (error) => {
       let errorMessage = "회원가입에 실패했습니다.";
       errorMessage = error.message;
       if (error instanceof Error) {
@@ -89,8 +84,23 @@ export default function RegisterPage() {
       }
       setModalMessage(errorMessage);
       setIsModalOpen(true);
-    }
+    },
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    mutateRegister({
+      email: emailInput.value,
+      nickname: nickNameInput.value,
+      password: passwordInput.value,
+      passwordConfirmation: confirmPasswordInput.value,
+    });
   };
+
+  if (isPending) {
+    return <div>회원가입중..</div>;
+  }
 
   const isActiveSubmitButton =
     emailInput.value !== "" &&

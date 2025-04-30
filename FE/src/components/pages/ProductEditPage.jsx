@@ -9,6 +9,7 @@ import TitleSection from "../ui/TitleSection";
 import SubTitleSection from "../ui/SubTitleSection";
 import TagCard from "../ui/TagCard";
 import ImageCard from "../ui/ImageCard";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 // 상품명 유효성 검사
 function isValidEditName(name) {
@@ -38,7 +39,16 @@ function isValidEditImages(images) {
 export default function ProductEditPage() {
   const { id } = useParams();
   const router = useRouter();
-  const [product, setProduct] = useState(null);
+  const queryClient = useQueryClient();
+
+  const {
+    data: product,
+    isLoading,
+    error,
+  } = useQuery(["product", id], () => productService.getProduct(id), {
+    enabled: !!id,
+  });
+
   const [editTags, setEditTags] = useState([]);
   const newTagInput = useInputForm(
     "",
@@ -62,6 +72,20 @@ export default function ProductEditPage() {
     0,
     isValidEditPrice,
     "숫자로 입력해주세요"
+  );
+
+  const updateProductMutation = useMutation(
+    (productData) => productService.updateProduct(id, productData),
+    {
+      onSuccess: () => {
+        // 상품 수정 성공 후, 상품 상세 페이지로 이동
+        queryClient.invalidateQueries(["product", id]);
+        router.push(`/items/${id}`);
+      },
+      onError: (err) => {
+        console.error("수정 실패:", err);
+      },
+    }
   );
 
   const handleKeyDownTagInput = (e) => {
@@ -103,34 +127,15 @@ export default function ProductEditPage() {
     setEditImages(editImages.filter((_, index) => index !== indexToRemove));
   };
 
-  const fetchData = async () => {
-    const productData = await productService.getProduct(id);
-    setProduct(productData);
+  const handleUpdateProduct = () => {
+    updateProductMutation.mutate({
+      name: editNameInput.value,
+      description: editDescriptionInput.value,
+      price: editPriceInput.value,
+      tags: editTags,
+      images: editImages,
+    });
   };
-
-  const handleUpdateProduct = async () => {
-    try {
-      const response = await productService.updateProduct(id, {
-        name: editNameInput.value,
-        description: editDescriptionInput.value,
-        price: editPriceInput.value,
-        tags: editTags,
-        images: editImages,
-      });
-
-      if (response.ok) {
-        router.push(`/items/${id}`);
-      } else {
-        console.error("수정 실패:", response);
-      }
-    } catch (error) {
-      console.error("수정 중 오류 발생:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [id]);
 
   useEffect(() => {
     if (product) {
@@ -142,8 +147,12 @@ export default function ProductEditPage() {
     }
   }, [product]);
 
-  if (!product) {
+  if (isLoading) {
     return <p>로딩 중...</p>;
+  }
+
+  if (error) {
+    return <p>상품을 불러오는 중 오류가 발생했습니다.</p>;
   }
 
   const isFormValid =

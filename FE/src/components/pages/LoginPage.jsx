@@ -9,6 +9,7 @@ import TitleSection from "../ui/TitleSection";
 import useInputForm from "@/hooks/useInputForm";
 import SocialLogin from "@/app/(auth)/_components/SocialLogin";
 import ConfirmModal from "@/components/ui/ConfirmModal";
+import { useMutation } from "@tanstack/react-query";
 
 // 이메일 유효성 검사
 function isValidEmail(email) {
@@ -32,21 +33,12 @@ export default function LoginPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setModalMessage("");
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      await login({
-        email: emailInput.value,
-        password: passwordInput.value,
-      });
+  const { mutate: mutateLogin, isPending } = useMutation({
+    mutationFn: login,
+    onSuccess: () => {
       router.push("/items");
-    } catch (error) {
+    },
+    onError: (error) => {
       let errorMessage = "로그인에 실패했습니다.";
       try {
         const errorObject = JSON.parse(error.message);
@@ -61,7 +53,24 @@ export default function LoginPage() {
       }
       setModalMessage(errorMessage);
       setIsModalOpen(true);
-    }
+    },
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    mutateLogin({
+      email: emailInput.value,
+      password: passwordInput.value,
+    });
+  };
+
+  if (isPending) {
+    return <div>로그인중..</div>;
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalMessage("");
   };
 
   const isActiveSubmitButton =

@@ -18,28 +18,70 @@ import kebabImage from "@/assets/images/icons/ic_kebab.png";
 import emptyHeartImage from "@/assets/images/icons/ic_emptyHeart.png";
 import noCommentImage from "@/assets/images/logo/noCommentImage2.png";
 import defaultImage from "@/assets/images/logo/defaultImage.png";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
   const router = useRouter();
-  const [product, setProduct] = useState(null);
-  const [comments, setComments] = useState([]);
+  const queryClient = useQueryClient();
+
   const [commentInputValue, setCommentInputValue] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleDelete = async () => {
-    try {
-      const response = await await productService.deleteProduct(id);
+  const { data: product, isPending: isProductLoading } = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => productService.getProduct(id),
+  });
 
-      if (response.ok) {
+  const { data: commentData, isPending: isCommentsLoading } = useQuery({
+    queryKey: ["productComments", id],
+    queryFn: () => productService.getProductComments(id, 3, 0),
+  });
+
+  const comments = commentData?.list || [];
+
+  const { mutate: mutateDeleteProduct, isPending: isDeleteProductLoading } =
+    useMutation({
+      mutationFn: () => productService.deleteProduct(id),
+      onSuccess: () => {
         router.push("/items");
-      } else {
-        console.error("댓글 수정 실패:", response);
-      }
-    } catch (error) {
-      console.error("댓글 수정 중 오류 발생:", error);
-    }
+        queryClient.invalidateQueries({ queryKey: ["products", id] });
+      },
+      onError: (error) => {
+        console.error("상품 삭제 중 오류 발생:", error);
+      },
+    });
+
+  const { mutate: createProductComment, isPending: isCreateCommentLoading } =
+    useMutation({
+      mutationFn: () =>
+        productService.createProductComment(id, {
+          content: commentInputValue,
+        }),
+      onSuccess: () => {
+        setCommentInputValue("");
+        queryClient.invalidateQueries({ queryKey: ["productComments", id] });
+      },
+      onError: (error) => {
+        console.error("댓글 생성 중 오류 발생:", error);
+      },
+    });
+
+  const handleDeleteProduct = async () => {
+    await mutateDeleteProduct();
+  };
+
+  const hadleDropdownOpen = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleOnChangeCommentInput = (e) => {
+    setCommentInputValue(e.target.value);
+  };
+
+  const handleCreateComment = async () => {
+    await createProductComment();
   };
 
   const hadleModalClose = () => {
@@ -58,45 +100,23 @@ export default function ProductDetailPage() {
     { label: "삭제하기", onClick: () => setIsModalOpen(true) },
   ];
 
-  const hadleDropdownOpen = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  if (isProductLoading) {
+    return <p>상품 정보 로딩 중...</p>;
+  }
 
-  const handleOnChangeCommentInput = (e) => {
-    setCommentInputValue(e.target.value);
-  };
+  if (isCommentsLoading) {
+    return <p>댓글 정보 로딩 중...</p>;
+  }
 
-  const handleCreateComment = async () => {
-    try {
-      const response = await productService.createProductComment(id, {
-        content: commentInputValue,
-      });
-
-      if (response && (response.status === 201 || response.ok)) {
-        productService.getProductComments(id, 3, 0);
-        setCommentInputValue("");
-        fetchData();
-      } else {
-        console.error("댓글 등록 실패:", response);
-      }
-    } catch (error) {
-      console.error("댓글 등록 중 오류 발생:", error);
-    }
-  };
-
-  const fetchData = async () => {
-    const productData = await productService.getProduct(id);
-    setProduct(productData);
-    const commentsData = await productService.getProductComments(id, 3, 0);
-    setComments(commentsData.list);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [id]);
+  if (isDeleteProductLoading) {
+    return <p>상품 정보 삭제 중...</p>;
+  }
+  if (isCreateCommentLoading) {
+    return <p>댓글 정보 생성 중...</p>;
+  }
 
   if (!product) {
-    return <p>로딩 중...</p>;
+    return <p>상품 정보가 없습니다.</p>;
   }
 
   const isActive = commentInputValue !== "";
@@ -231,7 +251,7 @@ export default function ProductDetailPage() {
                 <CommentCard
                   key={comment.id}
                   comment={comment}
-                  fetchData={fetchData}
+                  productId={id}
                 />
               );
             })}
@@ -252,7 +272,7 @@ export default function ProductDetailPage() {
           modalTheme={"red"}
           confirmType={"confirm"}
           confirmText={"정말로 상품을 삭제하시겠어요?"}
-          handleOnClick={handleDelete}
+          handleOnClick={handleDeleteProduct}
           handleOnCloseModal={hadleModalClose}
         />
       )}

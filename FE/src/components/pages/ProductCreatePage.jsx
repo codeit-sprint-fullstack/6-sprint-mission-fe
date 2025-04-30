@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { productService } from "@/lib/services/api/productService";
 import { useRouter } from "next/navigation";
 import useInputForm from "@/hooks/useInputForm";
@@ -101,29 +102,35 @@ export default function ProductCreatePage() {
     setCreateImages(createImages.filter((_, index) => index !== indexToRemove));
   };
 
-  const handleCreateProduct = async () => {
-    try {
-      if (!isValidCreateImages(createImages)) {
-        setImagesError("이미지를 3개 이하로 등록해주세요.");
-        return;
-      }
-      // TODO: 이미지 업로드 안됨. 폼데이터 로직 필요.
+  const { mutate, isLoading, isError, error } = useMutation(
+    (newProduct) => productService.createProduct(newProduct),
+    {
+      onSuccess: (data) => {
+        router.push(`/items/${data.id}`);
+      },
+      onError: (error) => {
+        console.error("상품 등록 실패:", error);
+      },
+    }
+  );
 
-      const response = await productService.createProduct({
+  const handleCreateProduct = async () => {
+    if (!isValidCreateImages(createImages)) {
+      setImagesError("이미지를 3개 이하로 등록해주세요.");
+      return;
+    }
+
+    // TODO: 이미지 업로드 안됨. 폼데이터 로직 필요.
+    try {
+      mutate({
         name: createNameInput.value,
         description: createDescriptionInput.value,
         price: createPriceInput.value,
         tags: createTags,
         images: createImages,
       });
-
-      if (response.ok) {
-        router.push(`/items/${response.id}`);
-      } else {
-        console.error("등록 실패:", response);
-      }
     } catch (error) {
-      console.error("등록 중 오류 발생:", error);
+      console.error("상품 등록 중 오류 발생:", error);
     }
   };
 
@@ -146,17 +153,16 @@ export default function ProductCreatePage() {
                   ? "bg-primary-100 cursor-pointer"
                   : "bg-gray-400 cursor-not-allowed"
               }`}
-              disabled={!isFormValid}
+              disabled={!isFormValid || isLoading}
               onClick={handleCreateProduct}
             >
-              등록
+              {isLoading ? "등록 중..." : "등록"}
             </button>
           }
         />
 
         <section>
           <SubTitleSection titleText={"상품 이미지"} />
-
           <div className="py-4 gap-4 gap-y-2 flex flex-wrap items-center">
             <InputBox
               placeHolderText={"이미지 등록 (최대 3개)"}

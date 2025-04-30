@@ -9,11 +9,41 @@ import Dropdown from "../../_components/Dropdown";
 import kebabImage from "@/assets/images/icons/ic_kebab.png";
 import InputBox from "@/components/ui/InputBox";
 import { productService } from "@/lib/services/api/productService";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function CommentCard({ comment, fetchData }) {
+export default function CommentCard({ comment, productId }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isOpenEditBox, setIsOpenEditBox] = useState(false);
   const [editCommentContent, setEditCommentContent] = useState(comment.content);
+
+  const queryClient = useQueryClient();
+
+  const editCommentMutation = useMutation({
+    mutationFn: (newContent) =>
+      productService.updateProductComment(comment.id, { content: newContent }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["comments", productId]);
+      handleCloseEditBox();
+      setIsDropdownOpen(false);
+    },
+  });
+
+  const deleteCommentMutation = useMutation({
+    mutationFn: () => productService.deleteProductComment(comment.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["comments", productId]);
+      setIsDropdownOpen(false);
+    },
+  });
+
+  const handleSubmitEditComment = (e) => {
+    e.preventDefault();
+    editCommentMutation.mutate(editCommentContent);
+  };
+
+  const handleDeleteComment = () => {
+    deleteCommentMutation.mutate();
+  };
 
   const handleOnChangeCommentInput = (e) => {
     setEditCommentContent(e.target.value);
@@ -26,42 +56,6 @@ export default function CommentCard({ comment, fetchData }) {
   const handleCloseEditBox = () => {
     setIsOpenEditBox(false);
     setEditCommentContent(comment.content);
-  };
-
-  const handleSubmitEditComment = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await productService.updateProductComment(comment.id, {
-        content: editCommentContent,
-      });
-
-      if (response.ok) {
-        fetchData();
-        handleCloseEditBox();
-        setIsDropdownOpen(false);
-      } else {
-        console.error("댓글 수정 실패:", response);
-      }
-    } catch (error) {
-      console.error("댓글 수정 중 오류 발생:", error);
-    }
-  };
-
-  const handleDeleteComment = async () => {
-    try {
-      const response = await productService.deleteProductComment(comment.id);
-
-      if (response.ok) {
-        fetchData();
-        handleCloseEditBox();
-        setIsDropdownOpen(false);
-      } else {
-        console.error("댓글 삭제 실패:", response);
-      }
-    } catch (error) {
-      console.error("댓글 삭제 중 오류 발생:", error);
-    }
   };
 
   const dropdownItems = [
