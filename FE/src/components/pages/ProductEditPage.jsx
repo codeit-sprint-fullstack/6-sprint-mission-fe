@@ -78,7 +78,6 @@ export default function ProductEditPage() {
     (productData) => productService.updateProduct(id, productData),
     {
       onSuccess: () => {
-        // 상품 수정 성공 후, 상품 상세 페이지로 이동
         queryClient.invalidateQueries(["product", id]);
         router.push(`/items/${id}`);
       },
