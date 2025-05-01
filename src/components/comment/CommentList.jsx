@@ -11,6 +11,7 @@ export default function CommentList({
   onUpdateComment,
   onDeleteComment,
   onSuccess,
+  user,
 }) {
   if (loading && comments.length === 0) return <LoadingState loading={true} />;
   if (error) return <LoadingState error={error} />;
@@ -25,6 +26,7 @@ export default function CommentList({
           onUpdateComment={onUpdateComment}
           onDeleteComment={onDeleteComment}
           onSuccess={onSuccess}
+          user={user}
         />
       ))}
     </ul>

@@ -27,8 +27,6 @@ export default function AuthProvider({ children }) {
   const [refreshTimeout, setRefreshTimeout] = useState(null);
 
   const setupRefreshToken = (accessToken) => {
-    console.log("타임아웃 시작");
-
     if (!accessToken) return;
     const payload = jwtDecode(accessToken);
     const now = Date.now() / 1000; // 초 단위
@@ -51,9 +49,9 @@ export default function AuthProvider({ children }) {
           logout();
         }
       },
-      // 토큰 만료 29분전에 재발급 신청
+      // 토큰 만료 1분전에 재발급 신청
       // 분단위 계산 현재 서버 만료시간은 30분
-      (expiresIn - 1740) * 1000,
+      (expiresIn - 60) * 1000,
     );
 
     setRefreshTimeout(timeout);

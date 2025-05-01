@@ -6,9 +6,7 @@ import { FaRegHeart, FaHeart, FaEllipsisV } from "react-icons/fa";
 import { formatPrice, formatDate } from "@/utils/format";
 import { productsSevice } from "@/api/products";
 
-export default function ProductOverview({ product }) {
-  console.log("product", product);
-
+export default function ProductOverview({ product, user }) {
   const [showOptions, setShowOptions] = useState(false);
   const [isLiked, setIsLiked] = useState(product?.isFavorite || false);
 
@@ -18,7 +16,6 @@ export default function ProductOverview({ product }) {
     // setShowDeleteModal(true);
   };
 
-  // 이부분 본인이 좋아요 한건지 어떻게 판단 가능한건지?
   const handleToggleLike = () => {
     try {
       if (isLiked) {
@@ -62,33 +59,35 @@ export default function ProductOverview({ product }) {
             <span className="text-xl font-bold">{product.name}</span>
 
             {/* TODO: 추후 컴포넌트 화 필요 */}
-            <div className="relative">
-              <button
-                onClick={() => setShowOptions(!showOptions)}
-                className="cursor-pointer text-[#9ca3af]"
-              >
-                <FaEllipsisV />
-              </button>
-              {showOptions && (
-                <div className="absolute right-0 z-10 w-[100px] rounded-md border-2 border-[#e5e7eb] bg-white py-1 md:w-[140px]">
-                  <button
-                    onClick={() => {
-                      // setIsEditing(true);
-                      setShowOptions(false);
-                    }}
-                    className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-blue-500"
-                  >
-                    수정하기
-                  </button>
-                  <button
-                    onClick={openDeleteModal}
-                    className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-red-500"
-                  >
-                    삭제하기
-                  </button>
-                </div>
-              )}
-            </div>
+            {user?.id === product.ownerId && (
+              <div className="relative">
+                <button
+                  onClick={() => setShowOptions(!showOptions)}
+                  className="cursor-pointer text-[#9ca3af]"
+                >
+                  <FaEllipsisV />
+                </button>
+                {showOptions && (
+                  <div className="absolute right-0 z-10 w-[100px] rounded-md border-2 border-[#e5e7eb] bg-white py-1 md:w-[140px]">
+                    <button
+                      onClick={() => {
+                        // setIsEditing(true);
+                        setShowOptions(false);
+                      }}
+                      className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-blue-500"
+                    >
+                      수정하기
+                    </button>
+                    <button
+                      onClick={openDeleteModal}
+                      className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-red-500"
+                    >
+                      삭제하기
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           <span className="text-3xl font-bold">
             {formatPrice(product.price)}원

@@ -62,7 +62,7 @@ const CommonProductList = () => {
           )}
           <div className="relative">
             <button
-              className="flex h-full w-[60px] cursor-pointer items-center justify-center rounded-lg border border-[#e5e7eb] bg-[#ffffff] p-5 md:w-[120px] md:justify-between"
+              className="flex h-full w-[60px] cursor-pointer items-center justify-center rounded-lg border border-[#e5e7eb] bg-[#ffffff] p-5 md:w-[130px] md:justify-between"
               onClick={toggleDropdown}
             >
               {isMobile ? (
@@ -80,13 +80,13 @@ const CommonProductList = () => {
               <ul className="absolute right-0 z-10 mt-2.5 rounded-xl border border-[#e5e7eb] bg-[#ffffff]">
                 <li
                   onClick={() => handleOrderChange("recent")}
-                  className="flex h-[42px] w-[120px] cursor-pointer items-center justify-center border-b border-[#e5e7eb]"
+                  className="flex h-[42px] w-[130px] cursor-pointer items-center justify-center border-b border-[#e5e7eb]"
                 >
                   최신순
                 </li>
                 <li
                   onClick={() => handleOrderChange("favorite")}
-                  className="flex h-[42px] w-[120px] cursor-pointer items-center justify-center"
+                  className="flex h-[42px] w-[130px] cursor-pointer items-center justify-center"
                 >
                   좋아요순
                 </li>

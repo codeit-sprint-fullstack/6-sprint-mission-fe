@@ -5,7 +5,7 @@ import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import BackToList from "./BackToList";
 
-export default function CommentSection({ type, parentId }) {
+export default function CommentSection({ type, parentId, user }) {
   const {
     comments,
     loading,
@@ -26,6 +26,7 @@ export default function CommentSection({ type, parentId }) {
         onUpdateComment={updateComment}
         onDeleteComment={deleteComment}
         onSuccess={refetch}
+        user={user}
       />
       <BackToList />
     </div>

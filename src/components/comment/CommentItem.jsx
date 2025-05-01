@@ -11,6 +11,7 @@ export default function CommentItem({
   onUpdateComment,
   onDeleteComment,
   onSuccess,
+  user,
 }) {
   const [showOptions, setShowOptions] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -133,7 +134,7 @@ export default function CommentItem({
         </div>
 
         {/* 옵션 버튼 */}
-        {!isEditing && (
+        {user?.id === comment.writer.id && !isEditing && (
           <div className="relative">
             <button
               onClick={() => setShowOptions(!showOptions)}

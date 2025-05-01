@@ -5,10 +5,13 @@ import { useParams } from "next/navigation"; // ✅ 추가
 import CommentSection from "@/components/comment/CommentSection";
 import ProductOverview from "./_components/ProductOverview";
 import { productsSevice } from "@/api/products";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function ItemDetailPage() {
   const params = useParams(); // ✅ URL 파라미터 읽기
   const { id } = params;
+
+  const { user } = useAuth();
 
   const [productDetail, setProductDetail] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -59,8 +62,8 @@ export default function ItemDetailPage() {
   return (
     <section className="flex items-center justify-center">
       <div className="flex w-full max-w-[1200px] flex-col px-6 py-6">
-        <ProductOverview product={productDetail} />
-        <CommentSection type="products" parentId={id} />
+        <ProductOverview product={productDetail} user={user} />
+        <CommentSection type="products" parentId={id} user={user} />
       </div>
     </section>
   );

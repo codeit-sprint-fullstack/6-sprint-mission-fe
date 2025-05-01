@@ -42,8 +42,6 @@ export const authService = {
       throw new Error("리프레시 토큰이 존재하지 않습니다.");
     }
 
-    console.log("refreshToken", refreshToken);
-
     const response = await fetch(`${baseURL}/auth/refresh-token`, {
       method: "POST",
       headers: {
@@ -58,7 +56,6 @@ export const authService = {
     }
 
     const data = await response.json(); // ✅ 먼저 json 파싱
-    console.log("리프레쉬 토큰 요청 성공!", data.accessToken); // ✅ 그다음 콘솔 찍기
     localStorage.setItem("accessToken", data.accessToken); // ✅ accessToken 갱신
 
     return data.accessToken;

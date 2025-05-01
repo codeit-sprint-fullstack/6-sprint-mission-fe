@@ -1,12 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
+import { useState } from "react";
 
-const Product = ({ id, height, name, price, likes = 240, images }) => {
-  function formatNumberWithComma(number) {
-    return number.toLocaleString();
-  }
+const FALLBACK_IMAGE = "/img/product_skeleton_img.png";
+
+const Product = ({ id, height, name, price, favoriteCount = 0, images }) => {
+  const [imgSrc, setImgSrc] = useState(images?.[0] || FALLBACK_IMAGE);
+
+  const formatNumberWithComma = (number) => number.toLocaleString();
 
   return (
     <Link href={`/items/${id}`}>
@@ -15,29 +19,28 @@ const Product = ({ id, height, name, price, likes = 240, images }) => {
           className="flex h-full items-center justify-center overflow-hidden rounded-[10px]"
           style={{ height: `${height}px` }}
         >
-          {images ? (
-            <img
-              className="h-full w-full rounded-[10px] object-cover transition-transform duration-200 ease-in-out hover:scale-110"
-              src={images[0]}
+          <figure className="relative h-full w-full">
+            <Image
+              src={imgSrc}
               alt={name}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority
+              fill
+              onError={() => setImgSrc(FALLBACK_IMAGE)}
+              className="object-cover transition-transform duration-200 ease-in-out hover:scale-110"
             />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-[#f3f4f6]">
-              <span className="text-[#9ca3af]">이미지 없음</span>
-            </div>
-          )}
+          </figure>
         </div>
         <div className="mt-5 flex flex-col gap-5">
           <span className="line-clamp-2 h-8 overflow-hidden text-base text-ellipsis text-[#1f2937]">
             {name}
           </span>
-          {/* <span className="h-8 overflow-hidden text-ellipsis line-clamp-2 text-base text-[#1f2937]">{description}</span> */}
           <span className="text-[1.4rem] font-bold">
             {formatNumberWithComma(price)} 원
           </span>
           <div className="flex items-center gap-2.5">
             <FaRegHeart className="text-[1.2rem]" />
-            <span>{likes}</span>
+            <span>{favoriteCount}</span>
           </div>
         </div>
       </li>

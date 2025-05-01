@@ -12,16 +12,16 @@ export const productsSevice = {
     ),
 
   getDetailProdut: async (productId) =>
-    await defaultFetch(`/products/${productId}`),
+    await tokenFetch(`/products/${productId}`),
 
   updateProduct: async (productId, editProductForm) =>
-    await defaultFetch(`/products/${productId}`, {
+    await tokenFetch(`/products/${productId}`, {
       method: "PATCH",
       editProductForm,
     }),
 
   deleteProduct: async (productId) =>
-    await defaultFetch(`/products/${productId}`, {
+    await tokenFetch(`/products/${productId}`, {
       method: "DELETE",
     }),
 
