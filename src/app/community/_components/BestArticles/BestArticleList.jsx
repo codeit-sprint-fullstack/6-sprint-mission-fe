@@ -2,7 +2,7 @@
 
 import { getArticles } from "@/service/articleService";
 import React, { useEffect, useState } from "react";
-import { useGetDeviceType } from "@/hooks/useGetDeviceType";
+import useGetDeviceType from "@/hooks/useGetDeviceType";
 import BestArticlesLoad from "./BestArticlesLoad";
 
 export default function BestArticleList() {
@@ -21,10 +21,15 @@ export default function BestArticleList() {
   const bestArticlesLoad = async (params) => {
     if (!params.limit) return;
 
-    const { list } = await getArticles(params);
+    try {
+      const { list } = await getArticles(params);
 
-    setBestArticles(list);
-    setIsLoading(false);
+      setBestArticles(list);
+    } catch (e) {
+      console.error(e.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // 베스트 게시글 조회

@@ -5,7 +5,10 @@ import React from "react";
 import SearchBox from "./SearchBox";
 import SelectSort from "./SelectSort";
 
-export default function NavBar({ searchLoad, sortLoad }) {
+export default function NavBar({
+  changeKeywordInParams,
+  changeOrderByInParams,
+}) {
   return (
     <div className="flex justify-center">
       <div className="relative flex flex-col justify-between gap-[16px] items-center w-full mt-[24px] mb-[16px] sm:gap-[24px] sm:mt-[40px] sm:mb-[24px] md:mt-[26px]">
@@ -19,8 +22,8 @@ export default function NavBar({ searchLoad, sortLoad }) {
           </Link>
         </div>
         <nav className="flex justify-between items-center w-full gap-[13px] sm:gap-[12px]">
-          <SearchBox searchLoad={searchLoad} />
-          <SelectSort sortLoad={sortLoad} />
+          <SearchBox changeKeywordInParams={changeKeywordInParams} />
+          <SelectSort changeOrderByInParams={changeOrderByInParams} />
         </nav>
       </div>
     </div>

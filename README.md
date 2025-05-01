@@ -64,8 +64,9 @@
 
 #### [ 코드리뷰 반영(스프린트 미션 8) ]
 
-- [] 비동기 통신에서 try/catch문으로 에러 처리하기
+- [x] 비동기 통신에서 try/catch문으로 에러 처리하기
 - [] SearchLoad에서 Props Drilling 리팩터링 해보기
+- [x] 변수명 직관적으로 수정하기(searchLoad => changeKeywordInParams)
 - [x] body 변수에 INITIAL\_... 을 사용하는 곳들은 바로 state에 초기 값을 지정해주기
 
 #### [ 추가 ]
