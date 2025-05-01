@@ -1,8 +1,7 @@
 "use server";
 
+import { BASE_URL } from "@/const";
 import { cookies } from "next/headers";
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // 상품 등록
 export async function createProduct(params) {

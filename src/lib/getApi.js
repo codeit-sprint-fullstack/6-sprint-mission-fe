@@ -1,4 +1,7 @@
-import { BASE_URL } from "@/const";
+const BASE_URL =
+  typeof window !== "undefined"
+    ? process.env.NEXT_PUBLIC_API_URL
+    : process.env.API_URL;
 
 /*********** 중고마켓 ***********/
 // 상품 전체 조회
