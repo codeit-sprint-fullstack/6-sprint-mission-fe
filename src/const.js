@@ -32,21 +32,21 @@ export const EDIT_OPTIONS = [
 
 export const FEATURE_OPTIONS = [
   {
-    src: "/assets/img/img_home_01.svg",
+    src: "/assets/img/home_01.svg",
     alt: "인기 상품",
     tag: "Hot item",
     title: ["인기 상품을 ", "확인해 보세요"],
     content: ["가장 HOT한 중고거래 물품을", "판다 마켓에서 확인해 보세요"],
   },
   {
-    src: "/assets/img/img_home_02.svg",
+    src: "/assets/img/home_02.svg",
     alt: "상품 검색",
     tag: "Search",
     title: ["구매를 원하는 ", "상품을 검색하세요"],
     content: ["구매하고 싶은 물품은 검색해서", "쉽게 찾아보세요"],
   },
   {
-    src: "/assets/img/img_home_03.svg",
+    src: "/assets/img/home_03.svg",
     alt: "상품 등록",
     tag: "Register",
     title: ["판매를 원하는 ", "상품을 등록하세요"],

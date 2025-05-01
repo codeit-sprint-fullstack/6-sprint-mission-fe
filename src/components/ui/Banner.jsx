@@ -26,7 +26,7 @@ function Banner({ isTop }) {
             </Link>
           </div>
           <Image
-            src="/assets/img/img_home_top.svg"
+            src="/assets/img/home_top.svg"
             alt="상단 배너"
             width={448}
             height={204}
@@ -39,7 +39,7 @@ function Banner({ isTop }) {
             믿을 수 있는 <br /> 판다마켓 중고 거래
           </h1>
           <Image
-            src="/assets/img/img_home_bottom.svg"
+            src="/assets/img/home_bottom.svg"
             alt="하단 배너"
             width={448}
             height={204}

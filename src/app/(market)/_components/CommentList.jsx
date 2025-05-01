@@ -8,7 +8,7 @@ function CommentList({ comments, setComments, getCommentList, type }) {
       <div className="flex flex-col items-center text-center text-gray-400">
         {type === "product" ? (
           <Image
-            src="/assets/img/img_inquiry_empty.svg"
+            src="/assets/img/inquiry_empty.svg"
             alt="문의 없음 이미지"
             width={140}
             height={140}
@@ -16,7 +16,7 @@ function CommentList({ comments, setComments, getCommentList, type }) {
           />
         ) : (
           <Image
-            src="/assets/img/img_reply_empty.svg"
+            src="/assets/img/reply_empty.svg"
             alt="댓글 없음 이미지"
             width={140}
             height={140}
