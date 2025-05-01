@@ -6,7 +6,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // 상품 등록
 export async function createProduct(params) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/products`, {
@@ -31,7 +31,7 @@ export async function createProduct(params) {
 
 // 상품 수정
 export async function updateProduct(productId, params) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/products/${productId}`, {
@@ -56,7 +56,7 @@ export async function updateProduct(productId, params) {
 
 // 상품 삭제
 export async function deleteProduct(productId) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/products/${productId}`, {
@@ -79,7 +79,7 @@ export async function deleteProduct(productId) {
 
 // 상품 좋아요
 export async function createLike(productId) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/products/${productId}/favorite`, {
@@ -102,7 +102,7 @@ export async function createLike(productId) {
 
 // 상품 좋아요 취소
 export async function deleteLike(productId) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/products/${productId}/favorite`, {

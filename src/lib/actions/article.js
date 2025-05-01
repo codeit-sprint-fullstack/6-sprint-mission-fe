@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 // 게시글 등록
 export async function createArticle(params) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/articles`, {
@@ -30,7 +30,7 @@ export async function createArticle(params) {
 
 // 게시글 수정
 export async function updateArticle(articleId, params) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/articles/${articleId}`, {
@@ -55,7 +55,7 @@ export async function updateArticle(articleId, params) {
 
 // 게시글 삭제
 export async function deleteArticle(articleId) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/articles/${articleId}`, {

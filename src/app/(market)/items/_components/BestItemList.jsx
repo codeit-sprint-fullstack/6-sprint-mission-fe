@@ -27,6 +27,7 @@ function BestItemList() {
   const { data: bestItems } = useQuery({
     queryKey: ["products", { page: 1, pageSize, orderBy: "favorite" }],
     queryFn: () => getProducts({ page: 1, pageSize, orderBy: "favorite" }),
+    suspense: true,
   });
 
   return (

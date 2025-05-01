@@ -33,6 +33,8 @@ export async function loginAction(_, formData) {
       httpOnly: true,
     });
 
+    console.log("accessToken, refreshToken 발급");
+
     return {
       success: true,
       accessToken: data.accessToken,
@@ -108,6 +110,12 @@ export async function refreshTokenAction() {
       path: "/",
       httpOnly: true,
     });
+    cookieStore.set("refreshToken", data.refreshToken, {
+      path: "/",
+      httpOnly: true,
+    });
+
+    console.log("accessToken, refreshToken 재발급");
 
     return {
       success: true,

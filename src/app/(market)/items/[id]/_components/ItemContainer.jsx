@@ -24,6 +24,7 @@ function ItemContainer({ id }) {
   const { data: item } = useQuery({
     queryKey: ["product", id],
     queryFn: () => getProduct(id),
+    suspense: true,
   });
 
   const likeMutation = useMutation({

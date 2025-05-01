@@ -19,6 +19,7 @@ function EditItemPage() {
   const { data: item } = useQuery({
     queryKey: ["product", id],
     queryFn: () => getProduct(id),
+    suspense: true,
   });
 
   useEffect(() => {

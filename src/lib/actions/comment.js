@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 // 게시글 댓글 등록
 export async function createArticleComment(articleId, params) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/articles/${articleId}/comments`, {
@@ -30,7 +30,7 @@ export async function createArticleComment(articleId, params) {
 
 // 상품 댓글 등록
 export async function createProductComment(productId, params) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/products/${productId}/comments`, {
@@ -55,7 +55,7 @@ export async function createProductComment(productId, params) {
 
 // 댓글 수정
 export async function updateComment(commentId, params) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/comments/${commentId}`, {
@@ -80,7 +80,7 @@ export async function updateComment(commentId, params) {
 
 // 댓글 삭제
 export async function deleteComment(commentId) {
-  const token = cookies().get("accessToken")?.value;
+  const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/comments/${commentId}`, {

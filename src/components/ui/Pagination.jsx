@@ -38,7 +38,7 @@ function Pagination({ totalCount, currentPage, onPageChange }) {
     <div className="flex justify-center mb-[140px] gap-1">
       <button
         type="button"
-        className="page-btn"
+        className="page-btn hover:bg-gray-200"
         onClick={handlePrev}
         disabled={!paginationData.hasPrev}
       >
@@ -65,7 +65,7 @@ function Pagination({ totalCount, currentPage, onPageChange }) {
       ))}
       <button
         type="button"
-        className="page-btn"
+        className="page-btn hover:bg-gray-200"
         onClick={handleNext}
         disabled={!paginationData.hasNext}
       >

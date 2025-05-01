@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/const";
 import { getServerSideToken, setServerSideTokens } from "@/lib/actions/auth";
 
 /**
@@ -39,4 +40,35 @@ export async function getTokenFromCookie(type = "accessToken") {
  */
 export function isAuthenticated() {
   return !!getTokenFromCookie();
+}
+
+// 클라이언트에서 refreshToken 꺼내는 함수
+export async function refreshAccessTokenClient() {
+  const cookies = document.cookie.split(";").reduce((acc, cur) => {
+    const [key, value] = cur.trim().split("=");
+    acc[key] = value;
+    return acc;
+  }, {});
+
+  const refreshToken = cookies.refreshToken;
+
+  if (!refreshToken) {
+    throw new Error("refreshToken 없음");
+  }
+
+  const res = await fetch(`${BASE_URL}/auth/refresh-token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ refreshToken }),
+    credentials: "include",
+    cache: "no-store",
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "토큰 갱신 실패");
+  }
+
+  return { accessToken: data.accessToken, refreshToken: data.refreshToken };
 }

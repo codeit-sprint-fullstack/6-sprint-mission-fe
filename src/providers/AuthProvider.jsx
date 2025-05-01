@@ -2,15 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { createContext, useContext } from "react";
-import {
-  loginAction,
-  signupAction,
-  refreshTokenAction,
-  logoutAction,
-} from "@/lib/actions/auth";
+import { loginAction, signupAction, logoutAction } from "@/lib/actions/auth";
 import { getUserAction, updateUserAction } from "@/lib/actions/user";
 import { useRouter } from "next/navigation";
-import { setTokensToCookie } from "@/lib/utils/authUtils";
+import {
+  refreshAccessTokenClient,
+  setTokensToCookie,
+} from "@/lib/utils/authUtils";
 
 const AuthContext = createContext({
   login: () => {},
@@ -73,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       // accessToken 만료된 경우 refresh 요청
       console.warn("accessToken 만료, refreshToken으로 재발급 시도");
-      const result = await refreshTokenAction();
+      const result = await refreshAccessTokenClient();
 
       if (result?.accessToken && result?.refreshToken) {
         try {

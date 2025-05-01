@@ -40,6 +40,7 @@ function ItemList() {
   const { data: items } = useQuery({
     queryKey: ["products", { page, pageSize, orderBy, keyword }],
     queryFn: () => getProducts({ page, pageSize, orderBy, keyword }),
+    suspense: true,
   });
 
   const handleSort = (value) => {
