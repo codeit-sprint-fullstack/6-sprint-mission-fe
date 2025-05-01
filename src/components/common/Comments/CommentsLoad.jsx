@@ -113,7 +113,7 @@ export default function CommentsLoad({ comment }) {
                 {comment.content}
               </p>
             )}
-            {user.id === comment.writer.id &&
+            {user?.id === comment.writer.id &&
               (isEditMode ? null : (
                 <DropDownToggle
                   handleEdit={handleEdit}

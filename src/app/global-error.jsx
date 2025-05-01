@@ -7,9 +7,9 @@ export default function GlobalErrorPage() {
   return (
     <html>
       <body>
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center ites-center h-screen">
           <div className="flex justify-center items-center flex-col gap-[18px]">
-            <div className="flex justify-center items-center text-[30px] font-medium text-center">
+            <div className="flex justify-center items-center text-[18px] font-medium text-center">
               예상치 못한 오류가 발생했습니다.
               <br />
               다시 시도해주세요.

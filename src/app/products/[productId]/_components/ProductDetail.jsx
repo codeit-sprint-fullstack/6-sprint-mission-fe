@@ -104,7 +104,7 @@ export default function ProductDetail() {
                 <h1 className="font-semibold text-[16px]/[26px] text-secondary-gray-700 sm:text-[20px]/[32px] md:text-[24px]">
                   {product.name}
                 </h1>
-                {user.id === product.ownerId && (
+                {user?.id === product.ownerId && (
                   <DropDownToggle
                     handleEdit={handleEdit}
                     handleDelete={handleDeleteModalToggle}
