@@ -10,7 +10,7 @@ import { useAuth } from "@/providers/AuthProvider";
 
 export default function Header() {
   const path = usePathname();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <header className="flex justify-center items-center font-pretendard bg-white w-full sticky top-0 z-2 border-b-[1.3px] border-b-secondary-gray">
@@ -58,7 +58,11 @@ export default function Header() {
           </div>
         </div>
         {user ? (
-          <Link href="/" className="flex justify-center items-center gap-[6px]">
+          <Link
+            href="/"
+            onClick={logout}
+            className="flex justify-center items-center gap-[6px] cursor-pointer"
+          >
             <div className="relative w-[40px] h-[40px]">
               <Image
                 // TODO: 외부 이미지 관련해서 HTML 태그 사용하는 것 고려해보기.

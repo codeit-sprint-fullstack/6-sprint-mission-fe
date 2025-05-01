@@ -67,7 +67,6 @@ export default function ArticleForm({ page }) {
   // body 업데이트
   const changeValue = (e) => {
     const { id, value } = e.target;
-    console.log(body);
 
     setBody((prevBody) => ({ ...prevBody, [id]: value }));
   };

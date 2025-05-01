@@ -10,6 +10,7 @@ import ProductModal from "./ProductModal";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { postService } from "@/service/postService";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function ProductDetail() {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
@@ -18,6 +19,7 @@ export default function ProductDetail() {
   const { productId } = useParams();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   // 상품 상세 조회
   const {
@@ -102,13 +104,15 @@ export default function ProductDetail() {
                 <h1 className="font-semibold text-[16px]/[26px] text-secondary-gray-700 sm:text-[20px]/[32px] md:text-[24px]">
                   {product.name}
                 </h1>
-                <DropDownToggle
-                  handleEdit={handleEdit}
-                  handleDelete={handleDeleteModalToggle}
-                  handleDropDownToggle={handleDropDownToggle}
-                  handleDropDownClose={handleDropDownClose}
-                  isDropDownVisible={isDropDownVisible}
-                />
+                {user.id === product.ownerId && (
+                  <DropDownToggle
+                    handleEdit={handleEdit}
+                    handleDelete={handleDeleteModalToggle}
+                    handleDropDownToggle={handleDropDownToggle}
+                    handleDropDownClose={handleDropDownClose}
+                    isDropDownVisible={isDropDownVisible}
+                  />
+                )}
               </div>
               <p className="font-semibold text-[24px]/[32px] text-secondary-gray-700 sm:text-[32px]/[42px] md:text-[40px]/[48px]">
                 {product.price.toLocaleString()}원

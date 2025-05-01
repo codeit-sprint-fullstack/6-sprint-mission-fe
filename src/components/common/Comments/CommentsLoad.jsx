@@ -9,6 +9,7 @@ import DropDownToggle from "@/components/ui/DropDownToggle";
 import ic_profile from "@/assets/images/common/ic_profile.svg";
 import dayjs from "dayjs";
 import clsx from "clsx";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function CommentsLoad({ comment }) {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
@@ -18,6 +19,7 @@ export default function CommentsLoad({ comment }) {
 
   const { articleId, productId } = useParams();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   const id = articleId || productId;
 
@@ -111,15 +113,16 @@ export default function CommentsLoad({ comment }) {
                 {comment.content}
               </p>
             )}
-            {isEditMode ? null : (
-              <DropDownToggle
-                handleEdit={handleEdit}
-                handleDelete={handleDeleteComment}
-                handleDropDownToggle={handleDropDownToggle}
-                handleDropDownClose={handleDropDownClose}
-                isDropDownVisible={isDropDownVisible}
-              />
-            )}
+            {user.id === comment.writer.id &&
+              (isEditMode ? null : (
+                <DropDownToggle
+                  handleEdit={handleEdit}
+                  handleDelete={handleDeleteComment}
+                  handleDropDownToggle={handleDropDownToggle}
+                  handleDropDownClose={handleDropDownClose}
+                  isDropDownVisible={isDropDownVisible}
+                />
+              ))}
           </div>
           <div
             className={clsx(

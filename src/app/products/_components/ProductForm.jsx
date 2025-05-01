@@ -36,6 +36,7 @@ export default function ProductForm({ title }) {
   } = useQuery({
     queryKey: ["products", productId],
     queryFn: () => postService.getPost("products", productId),
+    enabled: !!productId,
   });
 
   // 상품 생성 API

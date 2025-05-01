@@ -8,8 +8,7 @@ const AuthContext = createContext({
   user: null,
   signUp: () => {},
   login: () => {},
-  // TODO: 시간 되면 로그아웃 구현도 해보기
-  // logout: () => {},
+  logout: () => {},
 });
 
 export const useAuth = () => {
@@ -44,12 +43,19 @@ export default function AuthProvider({ children }) {
     await getUser();
   };
 
+  // 로그아웃
+  const logout = async () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    setUser(null);
+  };
+
   useEffect(() => {
     getUser();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, signUp, login }}>
+    <AuthContext.Provider value={{ user, signUp, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
