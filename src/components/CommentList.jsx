@@ -1,125 +1,119 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import axiosInstance from "@/api/axiosInstance";
 import Image from "next/image";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import axiosInstance from "@/api/axiosInstance";
+import { useState } from "react";
 
-export default function CommentList({ articleId, refreshTrigger = 0 }) {
-  const [comments, setComments] = useState([]);
+export default function CommentList({ comments, setComments }) {
   const [editingId, setEditingId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
   const [dropdownOpenId, setDropdownOpenId] = useState(null);
 
-  const fetchComments = async () => {
-    try {
-      const res = await axiosInstance.get(`/articles/${articleId}/comments`);
-      setComments(res.data.data || []);
-    } catch (error) {
-      console.error(
-        " 댓글 목록 불러오기 실패:",
-        error.response?.data || error.message
-      );
-    }
-  };
-
-  useEffect(() => {
-    if (articleId) fetchComments();
-  }, [articleId, refreshTrigger]);
-
-  const handleDelete = async (commentId) => {
+  /* 삭제 */
+  const handleDelete = async (id) => {
     if (!confirm("댓글을 삭제하시겠습니까?")) return;
-    try {
-      await axiosInstance.delete(`/comments/${commentId}`);
-      await fetchComments();
-    } catch (error) {
-      console.error("댓글 삭제 실패:", error.response?.data || error.message);
-    }
+    await axiosInstance.delete(`/comments/${id}`);
+    setComments((cs) => cs.filter((c) => c.id !== id));
   };
 
-  const handleEdit = (comment) => {
-    setEditingId(comment.id);
-    setEditedContent(comment.content);
+  /* 수정 시작 */
+  const startEdit = (c) => {
+    setEditingId(c.id);
+    setEditedContent(c.content);
     setDropdownOpenId(null);
   };
 
-  const handleSaveEdit = async (commentId) => {
+  /* 수정 저장 */
+  const saveEdit = async (id) => {
+    const trimmed = editedContent.trim();
+    if (!trimmed) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
+
     try {
-      await axiosInstance.patch(`/comments/${commentId}`, {
-        content: editedContent,
-      });
-      await fetchComments();
+      await axiosInstance.patch(`/comments/${id}`, { content: trimmed });
+      setComments((cs) =>
+        cs.map((c) => (c.id === id ? { ...c, content: trimmed } : c))
+      );
       setEditingId(null);
       setEditedContent("");
-    } catch (error) {
-      console.error("댓글 수정 실패:", error.response?.data || error.message);
+    } catch (err) {
+      alert("수정에 실패했습니다.");
+      console.error(err);
     }
   };
 
-  return (
-    <ul className="space-y-4">
-      {comments.map((c) => (
-        <li
-          key={c.id}
-          className="w-full border-b border-gray-200 bg-secondary-100 py-4 px-4 rounded-lg"
-        >
-          <div className="flex justify-between items-start">
-            {editingId === c.id ? (
-              <textarea
-                value={editedContent}
-                onChange={(e) => setEditedContent(e.target.value)}
-                className="w-full p-2 rounded-md bg-white border resize-none"
-                rows={3}
-              />
-            ) : (
-              <p className="text-base font-semibold text-gray-800">
-                {c.content}
-              </p>
-            )}
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditedContent("");
+  };
 
-            <div className="relative ml-2">
+  return (
+    <ul className="space-y-6">
+      {comments.map((c, idx) => (
+        <li key={c.id ?? `tmp-${idx}`} className="relative">
+          {/* ─ ⋯ 메뉴 (오른쪽 상단) ─ */}
+          {editingId !== c.id && (
+            <div className="absolute top-2 right-2">
               <button
                 onClick={() =>
                   setDropdownOpenId((prev) => (prev === c.id ? null : c.id))
                 }
-                className="text-sm text-gray-500"
+                className="p-2 hover:bg-gray-100 rounded-full"
               >
-                <BsThreeDotsVertical className="text-gray-400 h-5 w-5 cursor-pointer" />
+                <BsThreeDotsVertical className="text-gray-400 w-5 h-5" />
               </button>
+
               {dropdownOpenId === c.id && (
-                <div className="absolute right-0 mt-2 w-[140px] bg-white border border-gray-300 rounded-lg z-10">
-                  <ul>
-                    <li
-                      onClick={() => handleEdit(c)}
-                      className="px-4 py-2 text-center text-secondary-500 hover:bg-gray-100 cursor-pointer"
-                    >
-                      수정하기
-                    </li>
-                    <li
-                      onClick={() => handleDelete(c.id)}
-                      className="px-4 py-2 text-center text-secondary-500 hover:bg-gray-100 cursor-pointer"
-                    >
-                      삭제하기
-                    </li>
-                  </ul>
-                </div>
+                <ul className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-lg shadow text-sm z-10">
+                  <li
+                    onClick={() => startEdit(c)}
+                    className="px-4 py-2 text-center hover:bg-gray-100 cursor-pointer"
+                  >
+                    수정하기
+                  </li>
+                  <li
+                    onClick={() => handleDelete(c.id)}
+                    className="px-4 py-2 text-center hover:bg-gray-100 cursor-pointer"
+                  >
+                    삭제하기
+                  </li>
+                </ul>
               )}
             </div>
-          </div>
+          )}
 
-          <div className="flex items-center mt-4 justify-between">
+          {/* ─ 내용 or 편집 박스 ─ */}
+          {editingId === c.id ? (
+            <textarea
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+              placeholder="내용을 수정하세요"
+              rows={4}
+              className="w-full bg-gray-100 rounded-lg p-4 text-sm placeholder-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          ) : (
+            <p className="bg-gray-50 p-4 rounded-lg text-sm font-medium text-gray-800 whitespace-pre-wrap">
+              {c.content}
+            </p>
+          )}
+
+          {/* ─ 작성자 · 날짜 / 편집 버튼 ─ */}
+          <div className="flex items-center justify-between mt-2">
             <div className="flex items-center">
               <div className="relative w-8 h-8 mr-3">
                 <Image
                   src="/images/products/userProfile.png"
-                  alt="작성자 프로필"
                   fill
+                  alt="프로필"
                   className="rounded-full object-cover"
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-medium text-gray-800">
-                  똑똑한판다
+                <span className="text-sm font-semibold text-gray-700">
+                  {c.nickname ?? "익명팬더"}
                 </span>
                 <span className="text-xs text-gray-400">
                   {new Date(c.createdAt).toLocaleString("ko-KR")}
@@ -128,12 +122,20 @@ export default function CommentList({ articleId, refreshTrigger = 0 }) {
             </div>
 
             {editingId === c.id && (
-              <button
-                onClick={() => handleSaveEdit(c.id)}
-                className="bg-blue-500 text-white text-sm px-4 py-1 rounded-md"
-              >
-                저장
-              </button>
+              <div className="flex gap-3">
+                <button
+                  onClick={cancelEdit}
+                  className="text-sm text-gray-400 hover:text-gray-600"
+                >
+                  취소
+                </button>
+                <button
+                  onClick={() => saveEdit(c.id)}
+                  className="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-1 rounded-md"
+                >
+                  수정 완료
+                </button>
+              </div>
             )}
           </div>
         </li>

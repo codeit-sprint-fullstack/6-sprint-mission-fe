@@ -1,0 +1,38 @@
+"use client";
+
+import Link from "next/link";
+import { formatNumber } from "@/components/utils";
+import ImageWithFallback from "@/components/ImageWithFallback";
+
+export default function BestProducts({ products = [] }) {
+  if (products.length === 0) return null;
+
+  return (
+    <section className="mb-10">
+      <h2 className="text-lg font-semibold mb-4">베스트 상품</h2>
+
+      <ul className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {products.slice(0, 4).map((p) => (
+          <li key={p.id}>
+            <Link href={`/products/${p.id}`}>
+              {/* 1) 이미지 */}
+              <div className="relative w-full pb-[100%] rounded-2xl overflow-hidden">
+                <ImageWithFallback
+                  src={p.images?.[0]}
+                  alt={p.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* 2) 상품 정보 */}
+              <p className="mt-2 text-sm text-gray-600 truncate">{p.name}</p>
+              <p className="font-bold">{formatNumber(p.price)}원</p>
+              <p className="text-xs text-gray-400">❤ {p.favoriteCount ?? 0}</p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
