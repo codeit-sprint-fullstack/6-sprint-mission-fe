@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import useDeviceType from "@/hooks/common/useDeviceType";
 

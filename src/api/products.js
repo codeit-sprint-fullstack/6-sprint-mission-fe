@@ -14,6 +14,7 @@ export const productsSevice = {
   getDetailProdut: async (productId) =>
     await tokenFetch(`/products/${productId}`),
 
+  // 에러는 안남 근데 수정이 안됨 왜 그런지 모르겠음 서버쪽 문제?
   updateProduct: async (productId, editProductForm) =>
     await tokenFetch(`/products/${productId}`, {
       method: "PATCH",

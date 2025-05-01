@@ -5,15 +5,40 @@ import { useState } from "react";
 import { FaRegHeart, FaHeart, FaEllipsisV } from "react-icons/fa";
 import { formatPrice, formatDate } from "@/utils/format";
 import { productsSevice } from "@/api/products";
+import ProductEditModal from "./ProductEditModal";
+import { useRouter } from "next/navigation";
+import DeleteConfirmModal from "./DeleteConfirmModal";
 
 export default function ProductOverview({ product, user }) {
+  const router = useRouter();
   const [showOptions, setShowOptions] = useState(false);
   const [isLiked, setIsLiked] = useState(product?.isFavorite || false);
+  const [favoriteCount, setFavoriteCount] = useState(
+    product?.favoriteCount || 0,
+  );
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // 게시글 삭제 모달 열기
-  const openDeleteModal = () => {
+  const handleDelete = () => {
     setShowOptions(false);
-    // setShowDeleteModal(true);
+    setShowDeleteModal(true);
+  };
+
+  // 삭제 확인 처리 함수 추가
+  const handleConfirmDelete = async () => {
+    // 여기에 삭제 로직을 구현할 예정
+    console.log("상품 삭제 확인:", product.id);
+    try {
+      await productsSevice.deleteProduct(product.id);
+      router.push("/items");
+    } catch (error) {
+      console.error("상품 삭제 실패:", error);
+    } finally {
+      setShowDeleteModal(false);
+    }
+
+    setShowDeleteModal(false);
   };
 
   const handleToggleLike = () => {
@@ -21,12 +46,29 @@ export default function ProductOverview({ product, user }) {
       if (isLiked) {
         productsSevice.unLikeProduct(product.id);
         setIsLiked(false);
+        setFavoriteCount(favoriteCount - 1);
       } else {
         productsSevice.likeProduct(product.id);
         setIsLiked(true);
+        setFavoriteCount(favoriteCount + 1);
       }
     } catch (error) {
       console.error("좋아요 상태 변경 실패:", error);
+    }
+  };
+
+  const handleSaveChanges = async (formData) => {
+    console.log("저장할 데이터:", formData);
+    // 여기에 API 호출 로직이 들어갈 예정
+
+    try {
+      const response = await productsSevice.updateProduct(product.id, formData);
+      console.log("수정 응답:", response);
+      router.refresh();
+    } catch (error) {
+      console.error("수정 실패:", error);
+    } finally {
+      setShowEditModal(false);
     }
   };
 
@@ -46,6 +88,7 @@ export default function ProductOverview({ product, user }) {
         <Image
           src={product.images?.[0] || "/img/product_skelenton_img.png"}
           alt={product.name}
+          priority
           fill
           sizes="500px"
           className="object-cove rounded-xl"
@@ -58,7 +101,7 @@ export default function ProductOverview({ product, user }) {
           <div className="flex items-center justify-between">
             <span className="text-xl font-bold">{product.name}</span>
 
-            {/* TODO: 추후 컴포넌트 화 필요 */}
+            {/* 수정 관련 버튼 */}
             {user?.id === product.ownerId && (
               <div className="relative">
                 <button
@@ -71,7 +114,7 @@ export default function ProductOverview({ product, user }) {
                   <div className="absolute right-0 z-10 w-[100px] rounded-md border-2 border-[#e5e7eb] bg-white py-1 md:w-[140px]">
                     <button
                       onClick={() => {
-                        // setIsEditing(true);
+                        setShowEditModal(true);
                         setShowOptions(false);
                       }}
                       className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-blue-500"
@@ -79,7 +122,7 @@ export default function ProductOverview({ product, user }) {
                       수정하기
                     </button>
                     <button
-                      onClick={openDeleteModal}
+                      onClick={handleDelete}
                       className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-red-500"
                     >
                       삭제하기
@@ -150,13 +193,28 @@ export default function ProductOverview({ product, user }) {
                   <FaRegHeart />
                 )}
                 <span className="ml-1 text-[16px] font-medium text-gray-500">
-                  {product.favoriteCount || 0}
+                  {favoriteCount}
                 </span>
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* 수정 모달 */}
+      <ProductEditModal
+        product={product}
+        isOpen={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        onSave={handleSaveChanges}
+      />
+
+      {/* 삭제 확인 모달 */}
+      <DeleteConfirmModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 }

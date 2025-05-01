@@ -83,6 +83,10 @@
   --text-red: #ff585d;
 }
 
+body {
+  font-family: var(--font-noto), sans-serif;
+}
+
 .dark {
   --background: oklch(0.13 0.028 261.692);
   --foreground: oklch(0.985 0.002 247.839);
@@ -124,18 +128,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-@font-face {
-  font-family: "ROKAF Sans";
-  src: url("/fonts/ROKAFSans-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "ROKAF Sans";
-  src: url("/fonts/ROKAFSans-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
 }
