@@ -58,7 +58,7 @@ export default function SignIn() {
 
     try {
       const res = await fetch(
-        "https://panda-market-api.vercel.app/auth/login", // 경로 수정
+        "https://panda-market-api.vercel.app/auth/signIn", // 경로 수정
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

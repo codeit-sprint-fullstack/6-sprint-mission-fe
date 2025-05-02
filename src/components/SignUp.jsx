@@ -15,6 +15,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false); // ⭐ 추가
   const [modalMessage, setModalMessage] = useState("");
 
   const handleSubmit = async (e) => {
@@ -27,7 +28,7 @@ export default function SignUp() {
 
     try {
       const res = await fetch(
-        "https://panda-market-api.vercel.app/auth/register",
+        "https://panda-market-api.vercel.app/auth/signUp",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -42,9 +43,8 @@ export default function SignUp() {
         return;
       }
 
-      // ✅ 회원가입 성공
       alert("회원가입 성공! 로그인 해주세요.");
-      router.push("/signin");
+      router.push("/login");
     } catch (error) {
       console.error("회원가입 에러:", error);
       setModalMessage("에러가 발생했어요.");
@@ -125,14 +125,22 @@ export default function SignUp() {
           <label className="font-bold text-[14px] text-gray-800">
             비밀번호 확인
           </label>
-          <input
-            type="password"
-            value={passwordConfirm}
-            onChange={(e) => setPasswordConfirm(e.target.value)}
-            placeholder="비밀번호를 다시 입력해주세요"
-            required
-            className="w-full h-[56px] px-6 rounded-xl bg-gray-100 border border-transparent focus:ring-2 focus:ring-blue-400 focus:outline-none"
-          />
+          <div className="relative">
+            <input
+              type={showPasswordConfirm ? "text" : "password"} // ⭐ 눈아이콘 상태 반영
+              value={passwordConfirm}
+              onChange={(e) => setPasswordConfirm(e.target.value)}
+              placeholder="비밀번호를 다시 입력해주세요"
+              required
+              className="w-full h-[56px] px-6 rounded-xl bg-gray-100 border border-transparent focus:ring-2 focus:ring-blue-400 focus:outline-none pr-12"
+            />
+            <div
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
+              onClick={() => setShowPasswordConfirm((prev) => !prev)}
+            >
+              {showPasswordConfirm ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+            </div>
+          </div>
         </div>
 
         {/* 회원가입 버튼 */}
@@ -145,7 +153,9 @@ export default function SignUp() {
 
         {/* 로그인 링크 */}
         <div className="flex justify-center items-center mt-6 gap-1 text-[14px]">
-          <span className="text-gray-800 font-medium">이미 가입하셨나요?</span>
+          <span className="text-gray-800 font-medium">
+            이미 가입하셨나요?
+          </span>
           <Link href="/login">
             <span className="text-blue-500 underline font-medium cursor-pointer">
               로그인
