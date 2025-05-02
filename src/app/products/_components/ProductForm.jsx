@@ -13,6 +13,7 @@ import { useParams, useRouter } from "next/navigation";
 
 export default function ProductForm({ title }) {
   const [isActive, setIsActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [tagValue, setTagValue] = useState("");
   // TODO: 내가 만든 API 연동할 때 이미지 초기 값 변경
   const [body, setBody] = useState({
@@ -68,6 +69,7 @@ export default function ProductForm({ title }) {
   const handleCreatePost = (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
     createPost({ type: "products", body });
   };
 
@@ -75,6 +77,7 @@ export default function ProductForm({ title }) {
   const handleUpdatePost = (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
     updatePost({ type: "products", id: productId, body });
   };
 
@@ -152,7 +155,7 @@ export default function ProductForm({ title }) {
           </h1>
           <button
             type="submit"
-            disabled={!isActive}
+            disabled={!isActive || isLoading}
             className={clsx(
               isActive
                 ? "bg-primary-100 hover:bg-primary-200 active:bg-primary-300 cursor-pointer"
@@ -160,7 +163,13 @@ export default function ProductForm({ title }) {
               "text-secondary-gray-100 flex justify-center items-center border-none w-[74px] h-[42px] py-[8px] px-[23px] rounded-[8px] text-center font-semibold text-[16px]"
             )}
           >
-            등록
+            {isLoading ? (
+              <div className="flex justify-center items-center gap-[8px]">
+                <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-300 border-t-white rounded-full animate-spin"></div>
+              </div>
+            ) : (
+              "등록"
+            )}
           </button>
         </div>
         <ProductImageUpload />

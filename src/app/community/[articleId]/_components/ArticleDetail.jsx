@@ -50,9 +50,10 @@ export default function ArticleDetail() {
   return (
     <>
       {isLoading ? (
-        <p className="flex justify-center items-center">
-          게시글 불러오는 중...
-        </p>
+        <div className="flex justify-center items-center gap-[8px]">
+          <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-200 border-t-primary-100 rounded-full animate-spin"></div>
+          <p className="font-medium">불러오는 중</p>
+        </div>
       ) : (
         <>
           <div className="flex flex-col gap-[16px] w-full">

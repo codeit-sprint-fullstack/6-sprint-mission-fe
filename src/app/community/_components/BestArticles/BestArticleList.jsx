@@ -41,8 +41,9 @@ export default function BestArticleList() {
     <div className="flex flex-col gap-[16px]">
       <h2 className="font-bold text-[20px]">베스트 게시글</h2>
       {isLoading ? (
-        <div className="flex justify-center items-center">
-          베스트 게시글 로딩중...
+        <div className="flex justify-center items-center gap-[8px]">
+          <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-200 border-t-primary-100 rounded-full animate-spin"></div>
+          <p className="font-medium">불러오는 중</p>
         </div>
       ) : !bestArticles.length ? (
         <div className="flex justify-center items-center text-center">

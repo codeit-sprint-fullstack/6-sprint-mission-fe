@@ -10,6 +10,7 @@ import { useAuth } from "@/providers/AuthProvider";
 
 export default function Signup() {
   const [isActive, setIsActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [validatedValues, setValidatedValues] = useState({
@@ -28,6 +29,7 @@ export default function Signup() {
     e.preventDefault();
 
     try {
+      setIsLoading(true);
       await signUp(email, nickname, password, passwordCheck);
 
       setModalMessage("가입 완료되었습니다.");
@@ -55,6 +57,10 @@ export default function Signup() {
   // 모달 닫기
   const handleModal = () => {
     setIsModalVisible(false);
+
+    if (!user) {
+      return setIsLoading(false);
+    }
 
     if (user) {
       router.push("/products");
@@ -92,7 +98,7 @@ export default function Signup() {
           validatedValues={validatedValues}
           saveValidatedValue={saveValidatedValue}
         />
-        <AuthButton type="회원가입" isActive={isActive} />
+        <AuthButton type="회원가입" isActive={isActive} isLoading={isLoading} />
       </form>
     </>
   );

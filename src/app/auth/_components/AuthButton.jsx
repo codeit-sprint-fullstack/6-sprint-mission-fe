@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 
-export default function AuthButton({ isActive, type }) {
+export default function AuthButton({ isActive, isLoading, type }) {
   return (
     <button
       className={clsx(
@@ -10,9 +10,15 @@ export default function AuthButton({ isActive, type }) {
           : "bg-secondary-gray-300 cursor-default",
         "flex justify-center items-center w-full h-[56px] py-[16px] px-[124px] rounded-[40px] font-semibold text-[20px]/[32px] text-center text-secondary-gray-100"
       )}
-      disabled={!isActive}
+      disabled={!isActive || isLoading}
     >
-      {type}
+      {isLoading ? (
+        <div className="flex justify-center items-center gap-[8px]">
+          <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-300 border-t-white rounded-full animate-spin"></div>
+        </div>
+      ) : (
+        type
+      )}
     </button>
   );
 }

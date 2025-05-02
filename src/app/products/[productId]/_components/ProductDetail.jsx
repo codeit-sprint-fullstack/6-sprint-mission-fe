@@ -67,8 +67,9 @@ export default function ProductDetail() {
 
   if (isPending || !product) {
     return (
-      <div className="flex justify-center items-center">
-        상품 불러오는 중...
+      <div className="flex justify-center items-center gap-[8px]">
+        <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-200 border-t-primary-100 rounded-full animate-spin"></div>
+        <p className="font-medium">불러오는 중</p>
       </div>
     );
   }

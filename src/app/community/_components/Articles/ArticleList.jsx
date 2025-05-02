@@ -52,8 +52,9 @@ export default function ArticleList() {
       />
       <div className="flex flex-col gap-[24px]">
         {isLoading ? (
-          <div className="flex justify-center items-center">
-            게시글 로딩중...
+          <div className="flex justify-center items-center gap-[8px]">
+            <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-200 border-t-primary-100 rounded-full animate-spin"></div>
+            <p className="font-medium">불러오는 중</p>
           </div>
         ) : !articles.length ? (
           <div className="flex justify-center items-center text-center">

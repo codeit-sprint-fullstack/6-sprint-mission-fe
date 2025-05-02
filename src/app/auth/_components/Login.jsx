@@ -10,6 +10,7 @@ import { useAuth } from "@/providers/AuthProvider";
 
 export default function Login() {
   const [isActive, setIsActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoginFail, setIsLoginFail] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -27,6 +28,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
+      setIsLoading(true);
       setIsLoginFail(false);
       await login(email, password);
 
@@ -53,7 +55,10 @@ export default function Login() {
   };
 
   // 모달 닫기
-  const handleModal = () => setIsModalVisible(false);
+  const handleModal = () => {
+    setIsLoading(false);
+    setIsModalVisible(false);
+  };
 
   return (
     <>
@@ -81,6 +86,7 @@ export default function Login() {
         <AuthButton
           type="로그인"
           isActive={isActive}
+          isLoading={isLoading}
           validatedValues={validatedValues}
         />
       </form>
