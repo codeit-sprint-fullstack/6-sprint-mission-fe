@@ -13,7 +13,15 @@ export default function CommentList({ comments, setComments }) {
   /* 삭제 */
   const handleDelete = async (id) => {
     if (!confirm("댓글을 삭제하시겠습니까?")) return;
-    await axiosInstance.delete(`/comments/${id}`);
+
+    const token = localStorage.getItem("token");
+
+    await axiosInstance.delete(`/comments/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     setComments((cs) => cs.filter((c) => c.id !== id));
   };
 
@@ -32,8 +40,19 @@ export default function CommentList({ comments, setComments }) {
       return;
     }
 
+    const token = localStorage.getItem("token");
+
     try {
-      await axiosInstance.patch(`/comments/${id}`, { content: trimmed });
+      await axiosInstance.patch(
+        `/comments/${id}`,
+        { content: trimmed },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       setComments((cs) =>
         cs.map((c) => (c.id === id ? { ...c, content: trimmed } : c))
       );

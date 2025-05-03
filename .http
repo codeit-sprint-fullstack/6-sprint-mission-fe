@@ -20,17 +20,30 @@ Content-Type: application/json
   "password": "qwer1234"
 }
 
-###
+### 제품 등록
 POST https://panda-market-api.vercel.app/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE5MSwic2NvcGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDYyMDI2OTAsImV4cCI6MTc0NjIwNDQ5MCwiaXNzIjoic3AtcGFuZGEtbWFya2V0In0.KVjE_kBJHLbgjbhkptbKUT3QYrQHUcKslvb91o099zI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEyMSwic2NvcGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDYyNTY3MTMsImV4cCI6MTc0NjI1ODUxMywiaXNzIjoic3AtcGFuZGEtbWFya2V0In0.F_6wAINd9GIs8GXARxt5q6guXe3BXl-Go2PzaR0j1Ik
 
 {
-  "name": "귀여운 햄스터 인형",
-  "price": 15000,
-  "description": "폭신폭신 귀여운 햄스터 인형입니다!",
+  "name": "단비",
+  "price": 777777,
+  "description": "폭신폭신한 단비입니당",
   "images": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/PhodopusSungorus_2.jpg/640px-PhodopusSungorus_2.jpg"
+    "https://i.pinimg.com/474x/5f/1c/92/5f1c9268ed8c4dc83b4534263868cb31.jpg"
   ],
-  "tags": ["장난감", "햄스터", "귀여움"]
+  "tags": ["단비", "캐릭터", "귀여움"]
 }
+
+### 댓글 작성
+POST https://panda-market-api.vercel.app/comments
+Content-Type: application/json
+
+{
+  "productId": 800,
+  "content": "테스트 댓글입니다!",
+  "nickname": "SJ"
+}
+
+### 댓글 목록 가져오기
+GET https://panda-market-api.vercel.app/products/800/comments?limit=20

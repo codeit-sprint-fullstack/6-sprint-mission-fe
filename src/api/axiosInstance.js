@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000",
+  baseURL: "https://panda-market-api.vercel.app", // ✅ 서버 주소
   headers: {
     "Content-Type": "application/json",
   },

@@ -15,10 +15,16 @@ export default function CommentForm({
 }) {
   const [value, setValue] = useState("");
 
+  // ⭐ localStorage에서 nickname 가져오기 (없으면 익명팬더)
+  const nickname =
+    typeof window !== "undefined"
+      ? localStorage.getItem("nickname") || "익명팬더"
+      : "익명팬더";
+
   const handleSubmit = () => {
     const text = value.trim();
     if (!text) return;
-    onSubmit(text);
+    onSubmit(text, nickname); // ⭐ nickname 같이 보냄
     setValue("");
   };
 

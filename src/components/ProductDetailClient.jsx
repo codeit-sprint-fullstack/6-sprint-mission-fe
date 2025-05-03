@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import ProductInfo from "@/components/ProductInfo";
 import CommentForm from "@/components/CommentForm";
 import CommentList from "@/components/CommentList";
+import Image from "next/image";
 
 const BASE = "https://panda-market-api.vercel.app";
 
@@ -25,10 +26,18 @@ export default function ProductDetailClient({ productId }) {
       const product = await res.json();
       setItem(product);
 
-      // 2) 댓글
-      const cRes = await fetch(`${BASE}/Products/${productId}/Comments`);
+      // 2) 댓글 가져오기
+      const cRes = await fetch(
+        `${BASE}/products/${productId}/comments?limit=20`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const cRaw = await cRes.json();
-      const list = cRaw.data ?? cRaw;
+      const list = cRaw.list ?? [];
       setComments(Array.isArray(list) ? list : []);
 
       setLoading(false);
@@ -38,45 +47,70 @@ export default function ProductDetailClient({ productId }) {
 
   /* 댓글 작성 */
   const addComment = async (content) => {
-    // 1) 서버에 등록
-    const res = await fetch(`${BASE}/comments`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ productId, content }),
-    });
-    const raw = await res.json(); // { id, createdAt, nickname, ... }
+    const token = localStorage.getItem("token");
 
-    // 2) 화면에 즉시 보여줄 새 객체 구성
+    if (!token) {
+      alert("로그인이 필요합니다. 먼저 로그인하세요!");
+      return;
+    }
+
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+
+    const res = await fetch(`${BASE}/products/${productId}/comments`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ content }),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      alert(errorData.message || "댓글 작성에 실패했습니다.");
+      return;
+    }
+
+    const raw = await res.json();
+
     const newComment = {
-      id: raw.id ?? Date.now(), // id 없으면 임시 키
+      id: raw.id ?? Date.now(),
       content,
       createdAt: raw.createdAt ?? new Date().toISOString(),
       nickname: raw.nickname ?? "익명팬더",
     };
 
-    // 3) 목록 앞에 추가
     setComments((prev) => [newComment, ...prev]);
   };
 
   if (loading) return <p className="p-8">로딩 중...</p>;
   if (!item) return <p className="p-8">상품을 찾을 수 없습니다.</p>;
 
-  /* 댓글 안내 placeholder */
   const commentPlaceholder =
     "개인정보를 공유 및 요청하거나, 협의 취소, 무단 광고, 불법 정보 유포 시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.";
 
   return (
     <div className="max-w-[900px] mx-auto px-4 pt-6 pb-16">
-      {/* 상품 메인 */}
-      <div className="grid  gap-8 mb-12">
+      <div className="grid gap-8 mb-12">
         <ProductInfo item={item} />
       </div>
 
-      {/* 댓글 입력 + 목록 */}
       <CommentForm onSubmit={addComment} placeholder={commentPlaceholder} />
-      <CommentList comments={comments} setComments={setComments} />
 
-      {/* 목록으로 돌아가기 */}
+      {comments.length > 0 ? (
+        <CommentList comments={comments} setComments={setComments} />
+      ) : (
+        <div className="flex flex-col items-center gap-4 my-16 text-gray-600">
+          <Image
+            src="/images/products/nonecomments.png"
+            alt="댓글 없음"
+            width={160}
+            height={160}
+          />
+          <p className="text-base text-gray-400">아직 문의가 없어요</p>
+        </div>
+      )}
+
       <div className="flex justify-center mt-12">
         <button
           onClick={() => router.push("/products")}
