@@ -19,3 +19,18 @@ Content-Type: application/json
   "email": "qwerqwer@email.com",
   "password": "qwer1234"
 }
+
+###
+POST https://panda-market-api.vercel.app/products
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE5MSwic2NvcGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDYyMDI2OTAsImV4cCI6MTc0NjIwNDQ5MCwiaXNzIjoic3AtcGFuZGEtbWFya2V0In0.KVjE_kBJHLbgjbhkptbKUT3QYrQHUcKslvb91o099zI
+
+{
+  "name": "귀여운 햄스터 인형",
+  "price": 15000,
+  "description": "폭신폭신 귀여운 햄스터 인형입니다!",
+  "images": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/PhodopusSungorus_2.jpg/640px-PhodopusSungorus_2.jpg"
+  ],
+  "tags": ["장난감", "햄스터", "귀여움"]
+}

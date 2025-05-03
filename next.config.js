@@ -19,6 +19,7 @@ module.exports = {
       "via.placeholder.com",
       "cdn.choicenews.co.kr",
       "example.com",
+      "upload.wikimedia.org",
       "sprint-fe-project.s3.ap-northeast-2.amazonaws.com",
       "images.unsplash.com", // 🔹 Unsplash 이미지 호스팅 추가
     ],

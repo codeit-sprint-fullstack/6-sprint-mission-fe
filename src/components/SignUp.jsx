@@ -15,30 +15,65 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false); // ⭐ 추가
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+
+  const validateEmail = (email) => {
+    // 이메일 형식 검사 (aaa@bbb.com)
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // 1️⃣ 보낼 데이터 확인 (디버깅용)
+    console.log("보낼 데이터:", { email, nickname, password });
+
+    // 2️⃣ 비밀번호 일치 검사
     if (password !== passwordConfirm) {
       setModalMessage("비밀번호가 일치하지 않습니다.");
       return;
     }
 
+    // 3️⃣ 비밀번호 길이 검사
+    if (password.length < 8) {
+      setModalMessage("비밀번호는 최소 8자 이상이어야 합니다.");
+      return;
+    }
+
+    // 4️⃣ 이메일 형식 검사
+    if (!validateEmail(email)) {
+      setModalMessage("올바른 이메일 형식을 입력해주세요.");
+      return;
+    }
+
+    // 5️⃣ 닉네임 빈값 검사
+    if (!nickname.trim()) {
+      setModalMessage("닉네임을 입력해주세요.");
+      return;
+    }
+
+    // 6️⃣ 서버에 회원가입 요청
     try {
       const res = await fetch(
         "https://panda-market-api.vercel.app/auth/signUp",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, nickname, password }),
+          body: JSON.stringify({
+            email,
+            nickname,
+            password,
+            passwordConfirmation: passwordConfirm,
+          }),
         }
       );
 
       const result = await res.json();
 
       if (!res.ok) {
+        console.log("서버 응답:", result); // 서버에서 준 에러 메시지 확인
         setModalMessage(result.message || "회원가입에 실패했어요.");
         return;
       }
@@ -127,7 +162,7 @@ export default function SignUp() {
           </label>
           <div className="relative">
             <input
-              type={showPasswordConfirm ? "text" : "password"} // ⭐ 눈아이콘 상태 반영
+              type={showPasswordConfirm ? "text" : "password"}
               value={passwordConfirm}
               onChange={(e) => setPasswordConfirm(e.target.value)}
               placeholder="비밀번호를 다시 입력해주세요"
@@ -138,7 +173,11 @@ export default function SignUp() {
               className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
               onClick={() => setShowPasswordConfirm((prev) => !prev)}
             >
-              {showPasswordConfirm ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+              {showPasswordConfirm ? (
+                <FiEyeOff size={20} />
+              ) : (
+                <FiEye size={20} />
+              )}
             </div>
           </div>
         </div>
@@ -153,9 +192,7 @@ export default function SignUp() {
 
         {/* 로그인 링크 */}
         <div className="flex justify-center items-center mt-6 gap-1 text-[14px]">
-          <span className="text-gray-800 font-medium">
-            이미 가입하셨나요?
-          </span>
+          <span className="text-gray-800 font-medium">이미 가입하셨나요?</span>
           <Link href="/login">
             <span className="text-blue-500 underline font-medium cursor-pointer">
               로그인
