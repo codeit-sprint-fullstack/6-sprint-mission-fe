@@ -7,7 +7,7 @@ import { formatNumber } from "@/components/utils";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import ProductActionMenu from "./ProductActionMenu";
 import { useAuth } from "@/providers/AuthProvider";
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"; // ✅ 추가
 
 const BASE = "https://panda-market-api.vercel.app";
 
@@ -19,7 +19,7 @@ function LikePill({ itemId, initLike = false, initCount = 0 }) {
 
   const toggle = async () => {
     if (!accessToken) {
-      redirect("/login");
+      redirect("/login"); // ✅ 로그인 안 했으면 /login으로
     }
 
     await fetch(`${BASE}/products/${itemId}/favorite`, {
