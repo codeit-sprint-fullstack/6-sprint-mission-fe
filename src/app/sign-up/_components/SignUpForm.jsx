@@ -2,7 +2,7 @@
 import FormInput from "@/components/ui/FormInput";
 import PasswordInput from "@/components/ui/PasswordInput";
 import React, { useState } from "react";
-import useRegistrationForm from "@/hooks/useRegistrationForm";
+import useSignUpForm from "@/hooks/useSignUpForm";
 import AuthSubmitButton from "@/components/ui/AuthSubmitButton";
 import SocialAuthOptions from "../../../components/ui/SocialAuthOptions";
 import { useRouter } from "next/navigation";
@@ -20,11 +20,15 @@ export default function SignUpForm() {
     isNicknameValid,
     isPasswordValid,
     isPasswordConfirmValid,
+    isEmailTouched,
+    isNicknameTouched,
+    isPasswordTouched,
+    isPasswordConfirmTouched,
     handleEmailChange,
     handleNicknameChange,
     handlePasswordChange,
     handlePasswordConfirmChange,
-  } = useRegistrationForm();
+  } = useSignUpForm();
 
   const router = useRouter();
 
@@ -71,6 +75,7 @@ export default function SignUpForm() {
           value={email}
           onChange={handleEmailChange}
           isValid={isEmailValid}
+          isTouched={isEmailTouched}
           required
         />
         <FormInput
@@ -80,6 +85,7 @@ export default function SignUpForm() {
           value={nickname}
           onChange={handleNicknameChange}
           isValid={isNicknameValid}
+          isTouched={isNicknameTouched}
           required
         />
         <PasswordInput
@@ -89,6 +95,7 @@ export default function SignUpForm() {
           value={password}
           onChange={handlePasswordChange}
           isValid={isPasswordValid}
+          isTouched={isPasswordTouched}
           required
         />
         <PasswordInput
@@ -98,6 +105,7 @@ export default function SignUpForm() {
           value={passwordConfirm}
           onChange={handlePasswordConfirmChange}
           isValid={isPasswordConfirmValid}
+          isTouched={isPasswordConfirmTouched}
           required
         />
         <AuthSubmitButton

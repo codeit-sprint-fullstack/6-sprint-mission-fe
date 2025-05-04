@@ -16,6 +16,8 @@ export default function LoginForm() {
     isFormValid,
     isEmailValid,
     isPasswordValid,
+    isEmailTouched,
+    isPasswordTouched,
     handleEmailChange,
     handlePasswordChange,
   } = useLoginForm();
@@ -62,6 +64,7 @@ export default function LoginForm() {
           value={email}
           onChange={handleEmailChange}
           isValid={isEmailValid}
+          isTouched={isEmailTouched}
           required
         />
         <PasswordInput
@@ -71,6 +74,7 @@ export default function LoginForm() {
           value={password}
           onChange={handlePasswordChange}
           isValid={isPasswordValid}
+          isTouched={isPasswordTouched}
           required
         />
         <AuthSubmitButton

@@ -11,6 +11,7 @@ export default function PasswordInput({
   onChange,
   value: propValue,
   isValid,
+  isTouched = false,
   ...props
 }) {
   const [inputValue, setInputValue] = useState(propValue || "");
@@ -55,7 +56,7 @@ export default function PasswordInput({
           type={visible ? "text" : "password"}
           placeholder={placeholder}
           onChange={handleChange}
-          className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 w-full ${!isValid ? "outline-error" : ""} ${className}`}
+          className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 w-full ${!isValid && isTouched ? "outline-error" : ""} ${className}`}
         />
         <button
           type="button"
@@ -79,7 +80,7 @@ export default function PasswordInput({
           )}
         </button>
       </div>
-      {!isValid && (
+      {!isValid && isTouched && (
         <p className="text-error text-sm font-semibold leading-6">
           {id === "password"
             ? "비밀번호를 8자 이상 입력해주세요."
