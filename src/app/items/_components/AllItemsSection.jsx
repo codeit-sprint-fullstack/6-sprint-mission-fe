@@ -9,12 +9,33 @@ import PaginationBar from "@/components/ui/PaginationBar";
 import { getProducts } from "@/api/items";
 
 export default function AllItemsSection() {
-  const [orderBy, setOrderBy] = useState("recent");
+  const [orderBy, setOrderBy] = useState("recent"); // have it fixed for now
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20); // fixed size
+  const [pageSize, setPageSize] = useState(4); // fixed size
   const [totalPageNum, setTotalPageNum] = useState(0);
   const [itemsList, setItemsList] = useState([]);
   const [word, setWord] = useState("");
+
+  useEffect(() => {
+    const setResponsivePageSize = () => {
+      const isLarge = window.matchMedia("(min-width: 1024px)").matches;
+      const isMedium = window.matchMedia("(min-width: 768px)").matches;
+
+      if (isLarge) return 12;
+      if (isMedium) return 6;
+      return 4;
+    };
+
+    const initialPageSize = setResponsivePageSize();
+    setPageSize(initialPageSize);
+
+    const handleResize = () => {
+      setPageSize(setResponsivePageSize());
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const fetchSortedData = async ({ orderBy, page, pageSize, word }) => {
     const skip = (page - 1) * pageSize;
@@ -32,8 +53,10 @@ export default function AllItemsSection() {
   };
 
   useEffect(() => {
-    fetchSortedData({ orderBy, page, pageSize, word });
-  }, [orderBy, page, word]);
+    if (pageSize) {
+      fetchSortedData({ orderBy, page, pageSize, word });
+    }
+  }, [orderBy, page, word, pageSize]);
 
   const onPageChange = (pageNumber) => {
     setPage(pageNumber);
@@ -55,7 +78,7 @@ export default function AllItemsSection() {
         <DropdownMenu orderBy={orderBy} onSortChange={setOrderBy} />
       </div>
 
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 w-full">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
         {itemsList.map((item) => (
           <ItemCard key={item.id} item={item} />
         ))}

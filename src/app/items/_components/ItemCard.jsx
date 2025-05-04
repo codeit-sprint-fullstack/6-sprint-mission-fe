@@ -13,9 +13,9 @@ export default function ItemCard({ item }) {
       />
       <div className="flex flex-col">
         <h2 className="font-medium text-sm leading-6 text-secondary-800 ">
-          로봇청소기
+          {item.name}
         </h2>
-        <p>price</p>
+        <p>{item.price}</p>
         <div className="font-medium text-xs leading-[18px] text-secondary-600">
           <Image
             src="/icons/ic_heart.svg"

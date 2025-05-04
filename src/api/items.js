@@ -11,7 +11,6 @@ export async function getProducts({ orderBy, page, pageSize, keyword } = {}) {
 
   // 쿼리 파라미터 문자열로 변환
   const query = queryParams.toString();
-  console.log(query); // 디버깅을 위한 쿼리 출력
 
   try {
     const response = await fetch(`${API_BASE_URL}/products?${query}`);
