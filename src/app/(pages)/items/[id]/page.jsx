@@ -1,0 +1,191 @@
+"use client";
+
+import Image from "next/image";
+import defaultProfile from "../../../../assets/face.png";
+import defalutItem from "../../../../assets/defalut-item.png";
+import noComment from "../../../../assets/noCommment.png";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import { fetchProduct } from "@/src/api/Product/Product";
+import likebt from "../../../../assets/likebt.png";
+import {
+  getProductComent,
+  postProductComent,
+} from "@/src/api/comment/comments";
+import Coment from "./components/Coment";
+import { useEffect, useRef, useState } from "react";
+import modalopenbt from "../../../../assets/modalopenbt.png";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { userService } from "@/src/app/providers/AuthProvider";
+import { useModal } from "@/src/app/providers/ModalProvider";
+import ButtonModal from "./components/ButtonModal";
+
+export default function ItemsDetailPage() {
+  const router = useRouter();
+  const { user } = userService();
+  const triggerRef = useRef(null);
+  const { openModal, closeModal } = useModal();
+  const { type, setType } = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      router.push("/login"); // 로그인 페이지로 리디렉션
+    }
+  }, []);
+
+  const [inputValue, setInputValue] = useState();
+
+  const { id } = useParams();
+  const {
+    data: item,
+    isPending: itemPending,
+    error: itemError,
+  } = useQuery({
+    queryKey: ["items", id],
+    queryFn: () => fetchProduct(id),
+    meta: { name: "상품 정보 가져오기" },
+  });
+
+  const {
+    data: coments,
+    isPending: comentPending,
+    error: comentError,
+  } = useQuery({
+    queryKey: ["itemsComent", id],
+    queryFn: () => getProductComent(id, { params: { limit: 10 } }),
+    meta: { name: "상품 댓글 가져오기" },
+  });
+
+  const postComent = () => {
+    postProductComent(id, { content: inputValue });
+  };
+
+  if (comentPending) return <p>댓글목록 불러오는 중...</p>;
+  if (comentError) return <p>댓글목록 오류 발생!</p>;
+  if (itemPending) return <p>아이템목록 불러오는 중...</p>;
+  if (itemError) return <p>아이템목록 오류 발생!</p>;
+
+  const handleOpen = () => {
+    const rect = triggerRef.current.getBoundingClientRect();
+    const x = rect.left;
+    const y = rect.bottom + window.scrollY; // 스크롤 보정 포함
+
+    openModal(() => <ButtonModal />, { x, y });
+  };
+
+  return (
+    <div className="w-full max-w-[75rem] mx-auto pb-[5rem] px-[1rem] md:px-[1.5rem] flex flex-col gap-[2.5rem]">
+      <div className="flex flex-col md:flex-row gap-[1rem] md: items-center justify-center  pb-[1.5rem] md:pb-[2rem] lg:pb-[2.5rem] border-b border-gray-200">
+        <div className="w-[21.5rem] h-[21.5rem] md:w-[30.375rem] md:h-[30.375rem] relative">
+          <Image
+            src={item.images?.[0] ?? defalutItem}
+            alt="상품이미지"
+            fill
+            className="object-cover rounded-xl"
+          />
+        </div>
+        <section className="w-full flex flex-col items-center gap-[0.5rem]">
+          <div className="w-full flex flex-row justify-between items-center">
+            <p className="w-full titletext pb-[1rem]">{item.name}</p>
+            {user?.id === item.ownerId ? (
+              <div ref={triggerRef} className="relative inline-block">
+                <button onClick={handleOpen}>
+                  {" "}
+                  <Image
+                    src={modalopenbt}
+                    width={24}
+                    height={24}
+                    alt="모달열기 버튼"
+                  />{" "}
+                </button>
+              </div>
+            ) : null}
+          </div>
+          <div className="w-full titletext border-b text-[2rem] lg:text-[2.5rem] border-gray-200 pb-[1rem] ">
+            <p>{new Intl.NumberFormat("ko-KR").format(item.price)}원</p>
+          </div>
+          <div className="w-full flex flex-col gap-[0.5rem] items-strat justify-center">
+            <p>상품소개</p>
+            <div>{item.description}</div>
+          </div>
+          <div className="w-full flex flex-col gap-[0.5rem] items-strat justify-center">
+            <p>상품태그</p>
+            <div className="flex flex-row items-center justify-start gap-[0.5rem]">
+              {item.tags?.map((tag) => (
+                <button
+                  key={tag}
+                  className="btn-primary bg-[#F3F4F6] rounded-3xl text-[#1F2937]"
+                >
+                  #{tag}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="w-full flex flex-row justify-between items-center ">
+            <div className="w-full flex flex-row justify-start items-center gap-[1rem] mt-[2rem]">
+              <Image
+                src={defaultProfile}
+                width={40}
+                height={40}
+                alt="기본얼굴이미지"
+              />
+              <div className="flex flex-col justify-center items-start gap-0.5">
+                <p>{item.ownerNickname}</p>
+                <p className="text-[#9CA3AF]">{item.createdAt.slice(0, 10)}</p>
+              </div>
+            </div>
+            <div className="border-l-[0.2rem] border-gray-200 h-[2.5rem] ">
+              <button className="flex flex-row gap-[0.25rem] btn-primary bg-white rounded-3xl border border-gray-200 ml-[1.5rem] w-[5.5rem]">
+                <Image src={likebt} alt="좋아요버튼" />
+                <p className="text-[#6B7280]">{item.favoriteCount}</p>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section className="w-full flex flex-col  gap-2">
+        <h1 className="titletext">문의하기</h1>
+        <form className="w-full" onSubmit={postComent}>
+          <textarea
+            placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault(); //
+              }
+            }}
+            className="w-full h-[6.5rem] px-[1.5rem] py-[1rem]  outline-none  text-base leading-[26px] font-normal text-gray-400 resize-none bg-[#F3F4F6] rounded-xl"
+          />
+          <div className="flex items-center justify-end mt-[0.5rem] mb-[2rem]">
+            <button className="btn-primary w-[4.5rem] " type="submit">
+              등록
+            </button>
+          </div>
+        </form>
+        <div className="flex flex-col gap-[1rem] w-full ">
+          {coments.list.length > 0 ? (
+            coments.list.map((coment) => (
+              <Coment key={coment.id} data={coment} />
+            ))
+          ) : (
+            <div className="flex flex-col items-center justify-center gap-[1rem] py-[2rem]">
+              <Image src={noComment} width={140} height={140} alt="댓글없음" />
+              <p className="text-[#9CA3AF]">아직 문의가 없어요...</p>
+            </div>
+          )}
+        </div>
+      </section>
+      <Link href={"./"}>
+        <button className="btn-primary rounded-3xl w-[15rem] h-[3rem] mx-auto">
+          목록으로 돌아가기 ↩
+        </button>
+      </Link>
+    </div>
+  );
+}

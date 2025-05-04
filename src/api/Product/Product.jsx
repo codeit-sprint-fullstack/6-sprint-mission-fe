@@ -1,0 +1,58 @@
+import { defaultFetch, tokenFetch } from "../fetchClient";
+
+//상품 목록 조회 (비회원 가능)
+export const fetchProducts = async (params) => {
+  const query = params ? `?${new URLSearchParams(params)}` : "";
+  return await defaultFetch(`/products${query}`, { cache: "no-store" });
+};
+
+//상품 상세 조회 (비회원 가능)
+export const fetchProduct = async (id) => {
+  return await defaultFetch(`/products/${id}`);
+};
+
+//상품 등록 (회원 전용)
+export const createProducts = async ({
+  images,
+  tags,
+  price,
+  description,
+  name,
+}) => {
+  return await tokenFetch("/products", {
+    method: "POST",
+    body: JSON.stringify({ images, tags, price, description, name }),
+  });
+};
+
+//상품 수정 (회원 전용)
+export const updateProducts = async (
+  id,
+  { images, tags, price, description, name }
+) => {
+  return await tokenFetch(`/products/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify({ images, tags, price, description, name }),
+  });
+};
+
+//상품 삭제 (회원 전용)
+export const deleteProducts = async (id) => {
+  return await tokenFetch(`/products/${id}`, {
+    method: "DELETE",
+  });
+};
+
+//상품 좋아요 (회원 전용)
+export const likeProducts = async (id) => {
+  return await tokenFetch(`/products/${id}/favorite`, {
+    method: "POST",
+  });
+};
+
+//좋아요 취소 (회원 전용)
+export const unlikeProducts = async (id) => {
+  return await tokenFetch(`/products/${id}/favorite`, {
+    method: "DELETE",
+  });
+};
