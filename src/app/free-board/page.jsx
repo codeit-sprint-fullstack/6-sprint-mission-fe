@@ -13,19 +13,39 @@ export default function FreeBoardPage() {
   const [articles, setArticles] = useState([]);
   const [bestArticles, setBestArticles] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [orderBy, setOrderBy] = useState("recent");
 
   useEffect(() => {
     fetchArticles();
+  }, [orderBy]);
+
+  useEffect(() => {
+    fetchBestArticles(); 
   }, []);
 
-  const fetchArticles = async (query = "") => {
+  const fetchBestArticles = async () => {
     try {
-      const data = await getArticles(query);
-      setArticles(data);
+      const data = await getArticles({
+        keyword: "",
+        orderBy: "recent",
+        page: 1,
+        pageSize: 3,
+      });
+      setBestArticles(data.list);
+    } catch (error) {
+      console.error("베스트 게시글을 불러오는 중 오류가 발생했습니다:", error);
+    }
+  };
 
-      if (!query) {
-        setBestArticles(data.slice(0, 3));
-      }
+  const fetchArticles = async () => {
+    try {
+      const data = await getArticles({
+        keyword: searchQuery,
+        orderBy,
+        page: 1,
+        pageSize: 10,
+      });
+      setArticles(data.list);
     } catch (error) {
       console.error("게시글을 불러오는 중 오류가 발생했습니다:", error);
     }
@@ -37,12 +57,16 @@ export default function FreeBoardPage() {
 
   const handleSearchSubmit = (e) => {
     if (e.key === "Enter") {
-      fetchArticles(searchQuery);
+      fetchArticles();
     }
   };
 
   const handleSearchButtonClick = () => {
-    fetchArticles(searchQuery);
+    fetchArticles();
+  };
+
+  const handleOrderChange = (value) => {
+    setOrderBy(value);
   };
 
   return (
@@ -53,7 +77,6 @@ export default function FreeBoardPage() {
           {bestArticles.map((article) => (
             <Link key={article.id} href={`/free-board/${article.id}`}>
               <BestArticle
-                key={article.id}
                 id={article.id}
                 title={article.title}
                 createdAt={article.createdAt}
@@ -64,8 +87,8 @@ export default function FreeBoardPage() {
         <div className="flex flex-col gap-6">
           <div className="flex justify-between items-center">
             <h2 className="text-xl text-secondary font-bold">게시글</h2>
-            <Link href="/registration">
-              <Button buttonText={"글쓰기"} />
+            <Link href="/registration/free-board">
+              <Button className="py-[11.5px]" buttonText={"글쓰기"} />
             </Link>
           </div>
           <div className="flex items-center justify-between">
@@ -84,17 +107,16 @@ export default function FreeBoardPage() {
                 className="text-base text-primary-400 outline-none w-full bg-transparent"
                 value={searchQuery}
                 onChange={handleSearchChange}
-                onKeyPress={handleSearchSubmit}
+                onKeyDown={handleSearchSubmit}
               />
             </div>
-            <Dropdown />
+            <Dropdown onSelectSort={handleOrderChange} />
           </div>
           <div className="flex flex-col gap-6 mb-24">
             {articles.length > 0 ? (
               articles.map((article) => (
                 <Link key={article.id} href={`/free-board/${article.id}`}>
                   <Article
-                    key={article.id}
                     id={article.id}
                     title={article.title}
                     createdAt={article.createdAt}
