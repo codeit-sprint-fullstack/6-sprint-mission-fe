@@ -24,7 +24,7 @@ export default function Market() {
   if (isPending) return <p>불러오는 중...</p>;
   if (error) return <p>오류 발생!</p>;
 
-  // ✅ 1️⃣ 검색 + 정렬
+  //  검색 + 정렬
   const filteredAndSortedItems = data.list
     .filter((item) =>
       item.name.toLowerCase().includes(searchKeyword.toLowerCase())
@@ -38,19 +38,16 @@ export default function Market() {
       return 0;
     });
 
-  // ✅ 2️⃣ 페이지네이션 계산
+  //  페이지네이션 계산
   const totalItems = filteredAndSortedItems.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
   const visibleItems = filteredAndSortedItems.slice(startIndex, endIndex);
-  console.log("현재 sortOption:", sortOption);
-  console.log("정렬 후 데이터 (첫 3개):", filteredAndSortedItems.slice(0, 3));
+
   return (
     <div className="flex flex-col w-full gap-[1rem] mx-auto p-[1rem] max-w-[75rem] justify-center items-center md:gap-[2rem]">
-      {/* ✅ TopSection에 상태 props로 넘기기 */}
+      {/*  TopSection에 상태 props로 넘기기 */}
       <TopSection
         widthSize={width}
         inputValue={searchKeyword}
@@ -65,7 +62,7 @@ export default function Market() {
         }}
       />
 
-      {/* ✅ 상품 리스트 */}
+      {/*  상품 리스트 */}
       <div
         className="grid w-full gap-y-8 md:gap-y-10
                 grid-cols-2                 
@@ -79,7 +76,7 @@ export default function Market() {
         ))}
       </div>
 
-      {/* ✅ 페이지네이션 */}
+      {/*  페이지네이션 */}
       <div className="flex flex-row gap-1 mt-4">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}

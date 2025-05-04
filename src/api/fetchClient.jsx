@@ -7,8 +7,7 @@ export const defaultFetch = async (url, options = {}) => {
         ? {}
         : { "Content-Type": "application/json" }),
     },
-    // Next.js 기본 캐싱 활성화
-    cache: "force-cache",
+    cache: "no-store",
   };
 
   const mergedOptions = {

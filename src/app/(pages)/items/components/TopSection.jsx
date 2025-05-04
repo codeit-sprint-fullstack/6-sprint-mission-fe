@@ -1,6 +1,7 @@
 import React from "react";
 import SerchInputForm from "../../../components/SerchInputForm";
 import SortDropdown from "../../../components/SortDropDown";
+import Link from "next/link";
 
 function TopSection({
   widthSize,
@@ -26,7 +27,11 @@ function TopSection({
               }}
               className="flex-1 min-w-0"
             />
-            <button className="btn-primary flex-shrink-0">상품 등록하기</button>
+            <Link href={"/items/registration"}>
+              <button className="btn-primary flex-shrink-0">
+                상품 등록하기
+              </button>
+            </Link>
             <SortDropdown
               className="flex-shrink-0"
               onChange={(value) => setSortOption(value)}
@@ -40,7 +45,9 @@ function TopSection({
             <h1 className="text-xl font-bold whitespace-nowrap">
               판매 중인 상품
             </h1>
-            <button className="h-full btn-primary">상품 등록하기</button>
+            <Link href="/registratiopn">
+              <button className="h-full btn-primary">상품 등록하기</button>
+            </Link>
           </div>
           <div className="w-full h-[2.625rem] flex items-center justify-between gap-[1rem]">
             <SerchInputForm
