@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 export default function SocialAuthOptions() {
   const pathName = usePathname();
   const isLoginPage = pathName === "/login";
-  const isRegistrationPage = pathName === "/registration";
+  const isSignUpPage = pathName === "/sign-up";
   return (
     <>
       <div className="bg-[#E6F2FF] text-secondary-800 rounded-lg px-6 py-4 w-full font-medium leading-[26px]">
@@ -42,7 +42,7 @@ export default function SocialAuthOptions() {
         </div>
       </div>
 
-      {isRegistrationPage && (
+      {isSignUpPage && (
         <div className="flex gap-1 justify-center items-center">
           <span className="text-secondary-800 text-sm font-medium leading-[24px]">
             이미 회원이신가요?

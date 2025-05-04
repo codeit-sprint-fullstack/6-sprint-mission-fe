@@ -8,8 +8,7 @@ import Button from "@/components/ui/Button";
 
 export default function Header() {
   const pathName = usePathname();
-  const shouldHideHeader =
-    pathName === "/login" || pathName === "/registration";
+  const shouldHideHeader = pathName === "/login" || pathName === "/sign-up";
   if (shouldHideHeader) return null;
   return (
     <header className="flex items-center not-only:justify-between bg-white border-b-1 border-gray-200 h-[70px] px-4 md:px-6 xl:px-[200px]">

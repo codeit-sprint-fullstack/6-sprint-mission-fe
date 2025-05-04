@@ -8,8 +8,10 @@ import PasswordInput from "@/components/ui/PasswordInput";
 import useLoginForm from "@/hooks/useLoginForm";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import useRedirectIfAuthenticated from "@/hooks/useRedirectIfAuthenticated";
 
 export default function LoginForm() {
+  useRedirectIfAuthenticated();
   const {
     email,
     password,

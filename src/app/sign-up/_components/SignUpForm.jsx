@@ -8,8 +8,10 @@ import SocialAuthOptions from "../../../components/ui/SocialAuthOptions";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/api/auth";
 import AuthModal from "@/components/ui/AuthModal";
+import useRedirectIfAuthenticated from "@/hooks/useRedirectIfAuthenticated";
 
 export default function SignUpForm() {
+  useRedirectIfAuthenticated();
   const {
     email,
     nickname,
