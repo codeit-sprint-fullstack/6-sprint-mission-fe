@@ -1,14 +1,14 @@
 "use client";
 
-import PostContent from "@/components/PostContent";
-import CommentItem from "@/components/CommentItem";
+import PostContent from "@/app/board/[id]/_components/PostContent";
+import CommentItem from "@/app/board/[id]/_components/CommentItem";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { fetchArticleById, fetchCommentsByArticleId } from "@/api/article.api";
+import { fetchArticleById, fetchCommentsByArticleId } from "@/api/board.api";
 import Image from "next/image";
 import { RiArrowGoBackLine } from "react-icons/ri";
 
-export default function PostDetailPage() {
+export default function ProductDetail() {
   const router = useRouter();
   const { id } = useParams();
 

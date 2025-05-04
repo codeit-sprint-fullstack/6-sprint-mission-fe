@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import SearchSortBar from "./SearchSortBar";
 import { useRouter } from "next/navigation";
-import { fetchArticles } from "@/api/article.api";
+import { fetchArticles } from "@/api/board.api";
 
 function PostList() {
   const [posts, setPosts] = useState([]);

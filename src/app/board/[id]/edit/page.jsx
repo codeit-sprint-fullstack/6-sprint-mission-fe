@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchArticleById, updateArticle } from "@/api/article.api";
+import { fetchArticleById, updateArticle } from "@/api/board.api";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 

@@ -1,5 +1,5 @@
-import BestPosts from "@/components/BestPosts";
-import PostList from "@/components/PostList";
+import BestPosts from "@/app/board/_components/BestPosts";
+import PostList from "@/app/board/_components/PostList";
 
 export default function BoardPage() {
   return (

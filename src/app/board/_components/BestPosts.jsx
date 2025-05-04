@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import BestPostCard from "./BestPostCard";
-import { fetchArticles } from "@/api/article.api";
+import { fetchArticles } from "@/api/board.api";
 
 function BestPosts() {
   const [posts, setPosts] = useState([]);

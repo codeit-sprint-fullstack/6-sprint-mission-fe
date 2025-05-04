@@ -1,6 +1,6 @@
 "use client";
 
-import { postArticle } from "@/api/article.api";
+import { postArticle } from "@/api/board.api";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
