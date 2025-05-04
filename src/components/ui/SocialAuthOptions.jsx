@@ -62,7 +62,7 @@ export default function SocialAuthOptions() {
             판다마켓이 처음이신가요?
           </span>
           <Link
-            href="/registration"
+            href="/sign-up"
             className="text-primary underline text-sm font-medium leading-[24px]"
           >
             회원가입
