@@ -4,6 +4,17 @@ import { defaultFetch } from "@/api/fetchClient";
 
 const baseURL = "https://panda-market-api.vercel.app";
 
+// 쿠키 저장 (JS에서 접근 가능한 일반 쿠키)
+const setCookie = (name, value, days = 1) => {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${value}; path=/; expires=${expires}; SameSite=Lax`;
+};
+
+// 쿠키 삭제
+const removeCookie = (name) => {
+  document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+};
+
 export const authService = {
   // 로그인
   signIn: async (email, password) => {
@@ -13,8 +24,13 @@ export const authService = {
     });
 
     if (result.accessToken) {
+      // localStorage 저장
       localStorage.setItem("accessToken", result.accessToken);
       localStorage.setItem("refreshToken", result.refreshToken);
+
+      // 쿠키 저장
+      setCookie("accessToken", result.accessToken);
+      setCookie("refreshToken", result.refreshToken);
     }
 
     return result;
@@ -29,6 +45,7 @@ export const authService = {
 
     if (result.accessToken) {
       localStorage.setItem("accessToken", result.accessToken);
+      setCookie("accessToken", result.accessToken);
     }
 
     return result;
@@ -47,7 +64,7 @@ export const authService = {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ refreshToken }), // ✅ body에 담아서 보내기
+      body: JSON.stringify({ refreshToken }),
       cache: "no-store",
     });
 
@@ -55,8 +72,9 @@ export const authService = {
       throw new Error("토큰 갱신 요청 실패");
     }
 
-    const data = await response.json(); // ✅ 먼저 json 파싱
-    localStorage.setItem("accessToken", data.accessToken); // ✅ accessToken 갱신
+    const data = await response.json();
+    localStorage.setItem("accessToken", data.accessToken);
+    setCookie("accessToken", data.accessToken);
 
     return data.accessToken;
   },
@@ -65,5 +83,7 @@ export const authService = {
   logout: () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    removeCookie("accessToken");
+    removeCookie("refreshToken");
   },
 };

@@ -10,6 +10,8 @@ import PasswordInput from "../../_components/PasswordInput";
 import { useAuth } from "@/providers/AuthProvider";
 
 export function SignInForm() {
+  const { login } = useAuth();
+
   const router = useRouter();
   const [form, setForm] = useState({
     email: "",
@@ -27,8 +29,6 @@ export function SignInForm() {
     isOpen: false,
     message: "",
   });
-
-  const { login } = useAuth();
 
   const isFormValid =
     form.email &&
@@ -62,7 +62,7 @@ export function SignInForm() {
     }
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     const isEmailValid = validateEmail();
@@ -71,11 +71,19 @@ export function SignInForm() {
     if (!isEmailValid || !isPasswordValid) return;
 
     try {
-      login(form);
+      await login(form);
       router.push("/items");
     } catch (error) {
       console.log("error", error.message);
       displayPopup(error.message);
+      if (error.message === "존재하지 않는 이메일입니다.") {
+        setErrors({
+          ...errors,
+          email: "존재하지 않는 이메일입니다.",
+        });
+      } else if (error.message === "비밀번호가 일치하지 않습니다.") {
+        setErrors({ ...errors, password: "비밀번호가 일치하지 않습니다." });
+      }
     }
   };
 
