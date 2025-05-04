@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import axiosInstance from "@/api/axiosInstance";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
 
@@ -33,9 +33,62 @@ export default function CommentList({ comments, setComments }) {
   const [editingId, setEditingId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
   const [dropdownOpenId, setDropdownOpenId] = useState(null);
+  const [commentUsers, setCommentUsers] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const { accessToken } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const commentsWithoutWriter = comments.filter(
+        (c) => !c.writer && c.userId
+      );
+
+      if (commentsWithoutWriter.length === 0) return;
+      if (!accessToken) return;
+
+      setIsLoading(true);
+
+      try {
+        const userIds = [
+          ...new Set(commentsWithoutWriter.map((c) => c.userId)),
+        ];
+
+        if (userIds.length === 0) {
+          setIsLoading(false);
+          return;
+        }
+
+        // 각 사용자 정보 가져오기
+        const userData = { ...commentUsers };
+
+        for (const userId of userIds) {
+          if (userData[userId]) continue;
+
+          try {
+            const response = await axiosInstance.get(
+              `/users/profile/${userId}`
+            );
+
+            if (response.data) {
+              userData[userId] = response.data;
+            }
+          } catch (error) {
+            console.error(`Error fetching user ${userId}:`, error);
+          }
+        }
+
+        setCommentUsers(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [comments, accessToken, commentUsers]);
 
   /* 삭제 */
   const handleDelete = async (id) => {
@@ -92,6 +145,15 @@ export default function CommentList({ comments, setComments }) {
     setEditedContent("");
   };
 
+  const getUserNickname = (comment) => {
+    if (comment.writer?.nickname) return comment.writer.nickname;
+    if (comment.userId && commentUsers[comment.userId]?.nickname) {
+      return commentUsers[comment.userId].nickname;
+    }
+
+    return "익명팬더";
+  };
+
   return (
     <ul className="space-y-6">
       {comments.map((c, idx) => (
@@ -144,7 +206,11 @@ export default function CommentList({ comments, setComments }) {
             <div className="flex items-center">
               <div className="relative w-8 h-8 mr-3">
                 <Image
-                  src="/images/products/userProfile.png"
+                  src={
+                    c.writer?.profileImage ||
+                    commentUsers[c.userId]?.profileImage ||
+                    "/images/products/userProfile.png"
+                  }
                   fill
                   alt="프로필"
                   className="rounded-full object-cover"
@@ -152,7 +218,7 @@ export default function CommentList({ comments, setComments }) {
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-semibold text-gray-700">
-                  {c.nickname ?? "익명팬더"}
+                  {getUserNickname(c)}
                 </span>
                 <span className="text-xs text-gray-400">
                   {timeSince(c.createdAt)}
