@@ -11,7 +11,7 @@ import QueryProvider from "@/providers/QueryProvider";
 // ✅ Noto Sans KR 폰트 설정
 const notoSans = Noto_Sans_KR({
   variable: "--font-noto",
-  subsets: ["latin", "korean"],
+  subsets: ["latin"],
   weight: ["400", "500", "700"],
   display: "swap",
 });

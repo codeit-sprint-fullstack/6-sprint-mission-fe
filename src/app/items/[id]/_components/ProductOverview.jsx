@@ -58,12 +58,8 @@ export default function ProductOverview({ product, user }) {
   };
 
   const handleSaveChanges = async (formData) => {
-    console.log("저장할 데이터:", formData);
-    // 여기에 API 호출 로직이 들어갈 예정
-
     try {
-      const response = await productsSevice.updateProduct(product.id, formData);
-      console.log("수정 응답:", response);
+      await productsSevice.updateProduct(product.id, formData);
       router.refresh();
     } catch (error) {
       console.error("수정 실패:", error);
