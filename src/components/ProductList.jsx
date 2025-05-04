@@ -20,7 +20,6 @@ const ProductList = () => {
   const [pageSize, setPageSize] = useState(10);
   const router = useRouter();
 
-  /* 반응형 pageSize */
   useEffect(() => {
     const update = () => {
       if (window.innerWidth <= 768) setPageSize(4);
@@ -32,7 +31,6 @@ const ProductList = () => {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  /* 데이터 fetch */
   const { data, isLoading, isError } = usePaginatedProducts(
     { page, pageSize, orderBy, keyword },
     !!pageSize
@@ -40,7 +38,6 @@ const ProductList = () => {
 
   const { products, totalCount } = data;
 
-  /* 검색 */
   const handleSearch = (e) => {
     e.preventDefault();
     setPage(1);
@@ -50,17 +47,10 @@ const ProductList = () => {
     <div className="w-full max-w-[1200px] mx-auto px-4">
       {/* 베스트 상품 4개 */}
       <div className="mt-8">
-        {" "}
-        {/* ⭐ 베스트상품 위에 여백 추가 */}
         <BestProducts products={products} />
       </div>
-
-      {/* 판매 중인 상품 + 상단 검색/정렬/등록 */}
       <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-2 mb-6">
-        {/* 왼쪽 : 판매 중인 상품 제목 */}
         <h2 className="text-lg font-semibold">판매 중인 상품</h2>
-
-        {/* 오른쪽 : 검색창 + 상품 등록 버튼 + 필터 */}
         <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
           <form onSubmit={handleSearch} className="w-full sm:w-auto">
             <Search
@@ -81,7 +71,6 @@ const ProductList = () => {
         </div>
       </div>
 
-      {/* 에러/로딩 */}
       {isError && (
         <p className="text-red-500">아이템을 불러오는 데 실패했습니다.</p>
       )}
@@ -115,8 +104,6 @@ const ProductList = () => {
 
       {/* 페이지네이션 */}
       <div className="mt-8 mb-12 flex justify-center">
-        {" "}
-        {/* ⭐ 페이지네이션 아래 여백 추가 */}
         <Pagination
           page={page}
           setPage={setPage}

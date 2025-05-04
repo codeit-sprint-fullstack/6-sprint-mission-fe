@@ -16,34 +16,40 @@ POST  https://panda-market-api.vercel.app/auth/signIn
 Content-Type: application/json
 
 {
-  "email": "qwerqwer@email.com",
-  "password": "qwer1234"
+  "email": "sam0228@naver.com",
+  "password": "02280228"
 }
 
 ### 제품 등록
 POST https://panda-market-api.vercel.app/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEyMSwic2NvcGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDYyNTY3MTMsImV4cCI6MTc0NjI1ODUxMywiaXNzIjoic3AtcGFuZGEtbWFya2V0In0.F_6wAINd9GIs8GXARxt5q6guXe3BXl-Go2PzaR0j1Ik
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEyMSwic2NvcGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDYzNjk4MjYsImV4cCI6MTc0NjM3MTYyNiwiaXNzIjoic3AtcGFuZGEtbWFya2V0In0.re-GwziIqYdKQBkhjjCnIzJPwG-nveCAnv11L807gvw
 
 {
-  "name": "단비",
-  "price": 777777,
-  "description": "폭신폭신한 단비입니당",
+  "name": "울보 단비",
+  "price": 5000,
+  "description": "울보 단비",
   "images": [
     "https://i.pinimg.com/474x/5f/1c/92/5f1c9268ed8c4dc83b4534263868cb31.jpg"
   ],
-  "tags": ["단비", "캐릭터", "귀여움"]
+  "tags": ["단비", "캐릭터", "찡찡이", "울보"]
 }
+
+
+### 상품 삭제
+DELETE https://panda-market-api.vercel.app/products/817
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEyMSwic2NvcGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDYzNjk4MjYsImV4cCI6MTc0NjM3MTYyNiwiaXNzIjoic3AtcGFuZGEtbWFya2V0In0.re-GwziIqYdKQBkhjjCnIzJPwG-nveCAnv11L807gvw
+
 
 ### 댓글 작성
 POST https://panda-market-api.vercel.app/comments
 Content-Type: application/json
 
 {
-  "productId": 800,
-  "content": "테스트 댓글입니다!",
+  "productId": 806,
+  "content": "화이팅~!@",
   "nickname": "SJ"
 }
 
 ### 댓글 목록 가져오기
-GET https://panda-market-api.vercel.app/products/800/comments?limit=20
+GET https://panda-market-api.vercel.app/products/809/comments?limit=20

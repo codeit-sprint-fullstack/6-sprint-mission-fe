@@ -1,42 +1,28 @@
 "use client";
 
 import { useState } from "react";
+import { useAuth } from "@/providers/AuthProvider"; 
 
-/**
- * 댓글 입력 영역 + “문의하기” 타이틀
- * --------------------------------
- *  • 회색 배경 textarea (placeholder 안내 문구)
- *  • 오른쪽 하단 “등록” 버튼
- *    └ 내용이 있으면 파란색, 없으면 회색
- */
 export default function CommentForm({
   onSubmit,
   placeholder = "개인정보를 공유 및 요청하거나, 협의 취소, 무단 광고, 불법 정보 유포 시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.",
 }) {
   const [value, setValue] = useState("");
 
-  // ⭐ localStorage에서 nickname 가져오기 (없으면 익명팬더)
-  const nickname =
-    typeof window !== "undefined"
-      ? localStorage.getItem("nickname") || "익명팬더"
-      : "익명팬더";
+  const { nickname } = useAuth(); 
 
   const handleSubmit = () => {
     const text = value.trim();
     if (!text) return;
-    onSubmit(text, nickname); // ⭐ nickname 같이 보냄
+    onSubmit(text, nickname || "익명팬더"); 
     setValue("");
   };
 
-  /* 입력이 있으면 활성 상태 */
   const enabled = value.trim().length > 0;
 
   return (
     <div className="w-full mb-10">
-      {/* ─ 제목 ─ */}
       <h2 className="font-semibold text-base mb-2">문의하기</h2>
-
-      {/* ─ 입력 박스 ─ */}
       <textarea
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -45,7 +31,6 @@ export default function CommentForm({
         className="w-full resize-none bg-secondary-100 rounded-lg p-4 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
-      {/* ─ 등록 버튼 ─ */}
       <div className="flex justify-end mt-3">
         <button
           onClick={handleSubmit}

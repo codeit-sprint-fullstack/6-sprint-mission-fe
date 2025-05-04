@@ -15,7 +15,6 @@ export default function BestProducts({ products = [] }) {
         {products.slice(0, 4).map((p) => (
           <li key={p.id}>
             <Link href={`/products/${p.id}`}>
-              {/* 1) 이미지 */}
               <div className="relative w-full pb-[100%] rounded-2xl overflow-hidden">
                 <ImageWithFallback
                   src={p.images?.[0]}
@@ -24,8 +23,6 @@ export default function BestProducts({ products = [] }) {
                   className="object-cover"
                 />
               </div>
-
-              {/* 2) 상품 정보 */}
               <p className="mt-2 text-sm text-gray-600 truncate">{p.name}</p>
               <p className="font-bold">{formatNumber(p.price)}원</p>
               <p className="text-xs text-gray-400">❤ {p.favoriteCount ?? 0}</p>

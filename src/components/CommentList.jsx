@@ -4,28 +4,54 @@ import Image from "next/image";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import axiosInstance from "@/api/axiosInstance";
 import { useState } from "react";
+import { useAuth } from "@/providers/AuthProvider";
+import { useRouter } from "next/navigation";
+
+/* 상대 시간으로 변환하는 함수 */
+function timeSince(date) {
+  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+
+  let interval = Math.floor(seconds / 31536000);
+  if (interval >= 1) return `${interval}년 전`;
+
+  interval = Math.floor(seconds / 2592000);
+  if (interval >= 1) return `${interval}달 전`;
+
+  interval = Math.floor(seconds / 86400);
+  if (interval >= 1) return `${interval}일 전`;
+
+  interval = Math.floor(seconds / 3600);
+  if (interval >= 1) return `${interval}시간 전`;
+
+  interval = Math.floor(seconds / 60);
+  if (interval >= 1) return `${interval}분 전`;
+
+  return "방금 전";
+}
 
 export default function CommentList({ comments, setComments }) {
   const [editingId, setEditingId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
   const [dropdownOpenId, setDropdownOpenId] = useState(null);
 
+  const { accessToken } = useAuth();
+  const router = useRouter();
+
   /* 삭제 */
   const handleDelete = async (id) => {
-    if (!confirm("댓글을 삭제하시겠습니까?")) return;
-
-    const token = localStorage.getItem("token");
+    if (!accessToken) {
+      alert("로그인이 필요합니다.");
+      router.push("/login");
+      return;
+    }
 
     await axiosInstance.delete(`/comments/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
 
     setComments((cs) => cs.filter((c) => c.id !== id));
   };
 
-  /* 수정 시작 */
   const startEdit = (c) => {
     setEditingId(c.id);
     setEditedContent(c.content);
@@ -40,28 +66,25 @@ export default function CommentList({ comments, setComments }) {
       return;
     }
 
-    const token = localStorage.getItem("token");
-
-    try {
-      await axiosInstance.patch(
-        `/comments/${id}`,
-        { content: trimmed },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setComments((cs) =>
-        cs.map((c) => (c.id === id ? { ...c, content: trimmed } : c))
-      );
-      setEditingId(null);
-      setEditedContent("");
-    } catch (err) {
-      alert("수정에 실패했습니다.");
-      console.error(err);
+    if (!accessToken) {
+      alert("로그인이 필요합니다.");
+      router.push("/login");
+      return;
     }
+
+    await axiosInstance.patch(
+      `/comments/${id}`,
+      { content: trimmed },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+
+    setComments((cs) =>
+      cs.map((c) => (c.id === id ? { ...c, content: trimmed } : c))
+    );
+    setEditingId(null);
+    setEditedContent("");
   };
 
   const cancelEdit = () => {
@@ -73,7 +96,6 @@ export default function CommentList({ comments, setComments }) {
     <ul className="space-y-6">
       {comments.map((c, idx) => (
         <li key={c.id ?? `tmp-${idx}`} className="relative">
-          {/* ─ ⋯ 메뉴 (오른쪽 상단) ─ */}
           {editingId !== c.id && (
             <div className="absolute top-2 right-2">
               <button
@@ -104,7 +126,6 @@ export default function CommentList({ comments, setComments }) {
             </div>
           )}
 
-          {/* ─ 내용 or 편집 박스 ─ */}
           {editingId === c.id ? (
             <textarea
               value={editedContent}
@@ -119,7 +140,6 @@ export default function CommentList({ comments, setComments }) {
             </p>
           )}
 
-          {/* ─ 작성자 · 날짜 / 편집 버튼 ─ */}
           <div className="flex items-center justify-between mt-2">
             <div className="flex items-center">
               <div className="relative w-8 h-8 mr-3">
@@ -135,7 +155,7 @@ export default function CommentList({ comments, setComments }) {
                   {c.nickname ?? "익명팬더"}
                 </span>
                 <span className="text-xs text-gray-400">
-                  {new Date(c.createdAt).toLocaleString("ko-KR")}
+                  {timeSince(c.createdAt)}
                 </span>
               </div>
             </div>

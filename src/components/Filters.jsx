@@ -1,7 +1,5 @@
 "use client";
 
-/** 상품 정렬 드롭다운
- *  ─ 최신순(recent) / 좋아요순(favorite) */
 export default function Filters({ orderBy, setOrderBy }) {
   return (
     <select

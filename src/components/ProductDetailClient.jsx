@@ -1,32 +1,31 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation"; 
 
 import ProductInfo from "@/components/ProductInfo";
 import CommentForm from "@/components/CommentForm";
 import CommentList from "@/components/CommentList";
 import Image from "next/image";
+import { useAuth } from "@/providers/AuthProvider";
 
 const BASE = "https://panda-market-api.vercel.app";
 
 export default function ProductDetailClient({ productId }) {
   const router = useRouter();
 
-  /* 상태 */
   const [item, setItem] = useState(null);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  /* 상품 + 댓글 불러오기 */
+  const { accessToken, nickname } = useAuth();
+
   useEffect(() => {
     const fetchData = async () => {
-      // 1) 상품
       const res = await fetch(`${BASE}/products/${productId}`);
       const product = await res.json();
       setItem(product);
 
-      // 2) 댓글 가져오기
       const cRes = await fetch(
         `${BASE}/products/${productId}/comments?limit=20`,
         {
@@ -47,16 +46,13 @@ export default function ProductDetailClient({ productId }) {
 
   /* 댓글 작성 */
   const addComment = async (content) => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      alert("로그인이 필요합니다. 먼저 로그인하세요!");
-      return;
+    if (!accessToken) {
+      redirect("/login"); 
     }
 
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${accessToken}`,
     };
 
     const res = await fetch(`${BASE}/products/${productId}/comments`, {
@@ -77,7 +73,7 @@ export default function ProductDetailClient({ productId }) {
       id: raw.id ?? Date.now(),
       content,
       createdAt: raw.createdAt ?? new Date().toISOString(),
-      nickname: raw.nickname ?? "익명팬더",
+      nickname: raw.nickname ?? nickname ?? "익명팬더",
     };
 
     setComments((prev) => [newComment, ...prev]);

@@ -32,7 +32,7 @@ export function usePaginatedProducts(params, isReady) {
         });
         if (!res.ok) throw new Error(`API ${res.status}`);
 
-        const json = await res.json(); // { list: [...], totalCount: 272 }
+        const json = await res.json(); 
 
         setData({
           products: json.list,
