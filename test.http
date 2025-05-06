@@ -1,0 +1,36 @@
+POST https://panda-market-api.vercel.app/auth/signUp
+Content-Type: application/json
+
+{
+  "email": "test123@example.com",
+  "password": "testpassword",
+  "passwordConfirmation": "testpassword",
+  "nickname": "테스트판다"
+}
+
+### 로그인 테스트
+POST https://panda-market-api.vercel.app/auth/signIn
+Content-Type: application/json
+
+{
+  "email": "dani@gmail.com",
+  "password": "11111111"
+}
+
+### 직접 브라우저나 REST Client에서 시도
+GET https://panda-market-api.vercel.app/items
+
+###
+POST https://panda-market-api.vercel.app/products
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE5Nywic2NvcGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDYzODEyOTUsImV4cCI6MTc0NjM4MzA5NSwiaXNzIjoic3AtcGFuZGEtbWFya2V0In0.FTMdC2x2Is8-O6h_3V9vVPXDfGjCJHurTmbe-vHVyJw
+
+{
+  "name": "울보 단비",
+  "price": 5000,
+  "description": "울보 단비",
+  "images": [
+    "https://i.pinimg.com/474x/5f/1c/92/5f1c9268ed8c4dc83b4534263868cb31.jpg"
+  ],
+  "tags": ["단비", "캐릭터", "찡찡이", "울보"]
+}

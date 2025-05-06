@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import Image from "next/image";
-import { deleteArticle, postComment } from "@/api/article.api";
+import { deleteArticle, postComment } from "@/api/board.api";
 import { useRouter } from "next/navigation";
 
 export default function PostContent({ post, onCommentPosted }) {

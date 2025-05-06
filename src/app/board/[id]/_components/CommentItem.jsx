@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { updateComment, deleteComment } from "@/api/article.api";
+import { updateComment, deleteComment } from "@/api/board.api";
 
 export default function CommentItem({ comment, onCommentUpdated }) {
   const [showMenu, setShowMenu] = useState(false);
