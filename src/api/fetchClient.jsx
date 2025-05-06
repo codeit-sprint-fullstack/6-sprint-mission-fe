@@ -8,7 +8,7 @@ export const defaultFetch = async (url, options = {}) => {
         : { "Content-Type": "application/json" }),
     },
     cache: "no-store",
-  };
+  }; // 캐시사용안함
 
   const mergedOptions = {
     ...defaultOptions,
