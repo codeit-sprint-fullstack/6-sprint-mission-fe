@@ -5,6 +5,8 @@ import Item from "./_components/item.jsx";
 import { useParams } from "next/navigation";
 import { getItemById } from "@/api/items.js";
 import ProductComments from "@/components/layout/ProductComments.jsx";
+import Button from "@/components/Button.jsx";
+import Link from "next/link.js";
 
 function ItemPage() {
   const [item, setItem] = useState([]);
@@ -28,6 +30,11 @@ function ItemPage() {
       <Item key={item.id} item={item} />
       <hr className="text-gray-200" />
       {item.id && <ProductComments itemId={item.id?.toString()} />}
+      <Link href="/items" className="self-center">
+        <Button size="xl" rounded reset>
+          목록으로 돌아가기
+        </Button>
+      </Link>
     </main>
   );
 }

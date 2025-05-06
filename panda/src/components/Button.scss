@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 4px;
 }
 
 // 크기
@@ -22,6 +23,11 @@
   @media (width >= 744px) {
     width: 640px;
   }
+}
+
+.xl {
+  width: 240px;
+  height: 48px;
 }
 
 .lg {

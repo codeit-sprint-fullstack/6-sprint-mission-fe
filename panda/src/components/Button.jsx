@@ -1,5 +1,7 @@
 import React from "react";
 import "./Button.scss";
+import clsx from "clsx";
+import { RxReset } from "react-icons/rx";
 
 function Button({
   children,
@@ -12,14 +14,21 @@ function Button({
   type = "submit",
   ...props
 }) {
-  const buttonClass = `button ${size} ${rounded ? "rounded" : ""} ${
-    disabled ? "disabled" : ""
-  } ${reset ? "reset" : ""} ${className}`.trim();
+  const buttonClass = clsx(
+    "button",
+    size,
+    rounded ? "rounded" : "",
+    disabled ? "disabled" : "",
+    className
+  ).trim();
 
   return (
-    <button className={buttonClass} onClick={onClick} type={type}>
-      {children}
-    </button>
+    <>
+      <button className={clsx(buttonClass)} onClick={onClick} type={type}>
+        <span>{children}</span>
+        {reset && <RxReset className="rotate-180 -scale-x-90 stroke-1" />}
+      </button>
+    </>
   );
 }
 
