@@ -43,7 +43,7 @@ function Header() {
                   <li>자유게시판</li>
                 </Link>
                 <Link
-                  href="/market"
+                  href="/items"
                   className={`${
                     pathname === "/market" ? "text-primary-100" : ""
                   }`}
@@ -55,7 +55,9 @@ function Header() {
           </div>
           <div>
             {/* 로그인 버튼 */}
-            <Button size="md">로그인</Button>
+            <Link href="/signin">
+              <Button size="md">로그인</Button>
+            </Link>
           </div>
         </div>
       </header>

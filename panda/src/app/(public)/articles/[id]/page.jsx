@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Article from "./_components/Article";
 import { useParams } from "next/navigation";
-import Comments from "@/components/layout/Comments";
+import Comments from "@/components/layout/ArticleComments";
 
 function ArticlePage() {
   const { id } = useParams();

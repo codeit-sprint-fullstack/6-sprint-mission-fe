@@ -1,3 +1,7 @@
+/**
+ * 고치다 말고 새로 만들었음. 나중에 UDDropdownMenu와 통합 필요.
+ */
+
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -5,12 +9,12 @@ import { Text } from "./text/text";
 import { IoMdMore } from "react-icons/io";
 import { useRouter } from "next/navigation";
 
-function UDselectBox({ articleId, commentId }) {
+function UDselectBox({ type, id, commentId }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const UDBoxRef = useRef(null);
   const router = useRouter();
-  const baseURL = "http://localhost:3002";
+  const baseURL = "http://localhost:3002"; // 예전 것
 
   const toggleClick = () => setIsOpen(!isOpen);
 
@@ -29,12 +33,12 @@ function UDselectBox({ articleId, commentId }) {
   // 수정하기
   const handleEdit = async () => {
     if (!commentId) {
-      router.push(`/articles/${articleId}/edit`);
+      router.push(`/articles/${id}/edit`);
       return;
     }
 
     try {
-      const response = await fetch(`${baseURL}/${articleId}/${commentId}`, {
+      const response = await fetch(`${baseURL}/${id}/${commentId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

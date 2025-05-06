@@ -9,6 +9,7 @@ function Button({
   reset = false,
   className,
   onClick,
+  type = "submit",
   ...props
 }) {
   const buttonClass = `button ${size} ${rounded ? "rounded" : ""} ${
@@ -16,7 +17,7 @@ function Button({
   } ${reset ? "reset" : ""} ${className}`.trim();
 
   return (
-    <button className={buttonClass} onClick={onClick}>
+    <button className={buttonClass} onClick={onClick} type={type}>
       {children}
     </button>
   );

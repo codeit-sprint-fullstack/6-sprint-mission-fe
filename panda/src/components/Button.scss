@@ -3,13 +3,40 @@
   border-radius: 8px;
   color: white;
   font-weight: 600;
+  cursor: pointer;
   // text 정렬
   display: flex;
   align-items: center;
-  cursor: pointer;
+  justify-content: center;
 }
 
 // 크기
+.form {
+  height: 56px;
+  padding: 16px 124px;
+
+  @media (744px > width >= 375px) {
+    width: 343px;
+  }
+
+  @media (width >= 744px) {
+    width: 640px;
+  }
+}
+
+.lg {
+  height: 48px;
+  padding: 12px 23px;
+
+  @media (744px > width >= 375px) {
+    width: 120px;
+  }
+
+  @media (width >= 744px) {
+    width: 165px;
+  }
+}
+
 .md {
   width: 88px;
   height: 42px;
@@ -28,5 +55,5 @@
 }
 
 .disabled {
-  background: var(--color-gray-400);
+  background-color: var(--color-gray-400);
 }
