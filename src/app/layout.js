@@ -3,6 +3,8 @@ import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import { ArticleProvider } from "./context/article.context";
+import { AuthProvider } from "./context/auth.context";
+import QueryProvider from "@/providers/QueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,9 +27,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        <ArticleProvider>{children}</ArticleProvider>
-        <Footer />
+        <AuthProvider>
+          <QueryProvider>
+            <Header />
+            <ArticleProvider>{children}</ArticleProvider>
+            <Footer />
+          </QueryProvider>
+        </AuthProvider>
       </body>
     </html>
   );

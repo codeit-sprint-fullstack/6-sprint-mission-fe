@@ -4,12 +4,19 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Images from "../ui/Images";
+import { useAuth } from "@/app/context/auth.context";
 
 export default function Header() {
   const currentPath = usePathname();
+  const { isLogin, user } = useAuth();
 
   return (
-    <header className="w-full h-[70px] leading-[70px] border-b-[1px] border-[#dfdfdf]">
+    <header
+      className={`${
+        (currentPath === "/login" || currentPath === "/register") && "hidden"
+      } w-full h-[70px] leading-[70px] border-b-[1px] border-[#dfdfdf]`}
+    >
       <div className="flex items-center justify-between m-auto px-4 max-w-[500px] tablet:px-[24px] tablet:max-w-[744px] web:max-w-[1200px]">
         <div className="flex items-center gap-[16px] tablet:gap-[35px]">
           <Link href="/">
@@ -38,10 +45,10 @@ export default function Header() {
                 자유게시판
               </li>
             </Link>
-            <Link href="/item">
+            <Link href="/items">
               <li
                 className={`${
-                  currentPath === "/item" && "text-[var(--color-main-blue)]"
+                  currentPath === "/items" && "text-[var(--color-main-blue)]"
                 }`}
               >
                 중고마켓
@@ -49,12 +56,24 @@ export default function Header() {
             </Link>
           </ul>
         </div>
-        <Link
-          className="w-[88px] h-[42px] bg-[var(--color-main-blue)] text-center leading-[44px] rounded-[8px] text-white"
-          href="/login"
-        >
-          로그인
-        </Link>
+        {isLogin ? (
+          <div className="flex items-center gap-[6px]">
+            <Images
+              src={"/profile.png"}
+              w={"w-[40px]"}
+              h={"h-[40px]"}
+              alt={"profile "}
+            />
+            <p className="text-[18px] text-[#4b5563]">{user}</p>
+          </div>
+        ) : (
+          <Link
+            className="w-[88px] h-[42px] bg-[var(--color-main-blue)] text-center leading-[44px] rounded-[8px] text-white"
+            href="/login"
+          >
+            로그인
+          </Link>
+        )}
       </div>
     </header>
   );
