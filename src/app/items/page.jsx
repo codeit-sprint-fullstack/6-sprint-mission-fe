@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 export const ItemsPage = () => {
   const [page, setPage] = useState(1);
-  const [orderBy, setOrderBy] = useState("recent");
+  const [order, setOrder] = useState("recent");
   const [keyword, setKeyword] = useState("");
   const [products, setProducts] = useState([]);
   const [bestProducts, setBestProducts] = useState([]);
@@ -32,7 +32,7 @@ export const ItemsPage = () => {
       const options = {
         page: page,
         pageSize: 10,
-        orderBy: orderBy,
+        orderBy: order,
         keyword: keyword,
       };
 
@@ -59,7 +59,7 @@ export const ItemsPage = () => {
 
     getProductsData();
     getBestProductsData();
-  }, [page, keyword, orderBy]);
+  }, [page, keyword, order]);
 
   const itemsPerPage = 10;
 
@@ -114,7 +114,7 @@ export const ItemsPage = () => {
                 onClick={() => console.log("상품 등록하기 버튼 클릭")}
               />
             </Link>
-            <Dropdown />
+            <Dropdown order={order} setOrder={setOrder} />
           </div>
         </div>
 
