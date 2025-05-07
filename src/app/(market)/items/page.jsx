@@ -1,7 +1,14 @@
 import React from "react";
+import BestItemList from "./_components/BestItemList";
+import ItemList from "./_components/ItemList";
 
-function page() {
-  return <h1>중고마켓 페이지</h1>;
+async function ItemsPage() {
+  return (
+    <div>
+      <BestItemList />
+      <ItemList />
+    </div>
+  );
 }
 
-export default page;
+export default ItemsPage;

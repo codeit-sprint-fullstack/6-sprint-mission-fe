@@ -1,17 +1,18 @@
 import React from "react";
-import BestArticle from "./_components/BestArticle";
-import Article from "./_components/Article";
-import { getArticles } from "@/lib/api/articleApi";
+import BestArticleList from "./_components/BestArticleList";
+import ArticleList from "./_components/ArticleList";
+import { getArticles } from "@/lib/getApi";
 
-async function page() {
-  const articles = await getArticles();
+async function BoardPage() {
+  const data = await getArticles();
+  const articles = data.list;
 
   return (
-    <div className="p-4">
-      <BestArticle articles={articles} />
-      <Article articles={articles} />
+    <div>
+      <BestArticleList articles={articles} />
+      <ArticleList articles={articles} />
     </div>
   );
 }
 
-export default page;
+export default BoardPage;

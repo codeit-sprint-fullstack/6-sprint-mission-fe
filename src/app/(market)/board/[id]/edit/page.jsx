@@ -1,8 +1,8 @@
-import ArticleForm from "@/app/(market)/board/[id]/_components/ArticleForm";
+import ArticleForm from "@/app/(market)/board/_components/ArticleForm";
 import React from "react";
 
-function page() {
+function EditArticlePage() {
   return <ArticleForm />;
 }
 
-export default page;
+export default EditArticlePage;

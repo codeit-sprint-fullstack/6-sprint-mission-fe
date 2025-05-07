@@ -1,7 +1,10 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "@/components/common/Header";
-import Footer from "@/components/common/Footer";
+import Providers from "./providers";
+import { Suspense } from "react";
+import Loading from "./loading";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import Error from "./error";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -18,9 +21,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${pretendard.variable} antialiased`}>
-        <Header />
-        {children}
-        <Footer />
+        <ErrorBoundary fallback={<Error />}>
+          <Suspense fallback={<Loading />}>
+            <Providers>{children}</Providers>
+          </Suspense>
+        </ErrorBoundary>
       </body>
     </html>
   );
