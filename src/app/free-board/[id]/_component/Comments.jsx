@@ -6,9 +6,10 @@ import Image from "next/image";
 import { getRelativeTime } from "./DateCalculator";
 import DropdownMenu from "./DropdownMenu";
 
-export default function Comments({ articleId, boardType }) {
+export default function Comments({ articleId }) {
   const [comments, setComments] = useState([]);
   const [nextCursor, setNextCursor] = useState(null);
+  const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
@@ -24,6 +25,9 @@ export default function Comments({ articleId, boardType }) {
 
   const handleSaveEdit = async (commentId) => {
     try {
+      const body = { commentId, content: editedContent };
+      await patchComment("articles", articleId, body);
+
       setComments((prev) =>
         prev.map((c) =>
           c.id === commentId ? { ...c, content: editedContent } : c
@@ -42,15 +46,13 @@ export default function Comments({ articleId, boardType }) {
   };
 
   // 댓글 조회 함수
-  const loadComments = async (cursor = null) => {
+  const loadComments = async () => {
     setLoading(true);
     try {
-      const data = await getComments(boardType, articleId, { cursor });
-      setComments((prev) =>
-        removeDuplicateComments([...prev, ...data.comments])
-      );
-
+      const data = await getComments(articleId, 5, nextCursor);
+      setComments((prev) => removeDuplicateComments([...prev, ...data.list]));
       setNextCursor(data.nextCursor);
+      setHasMore(data.list.length > 0);
     } catch (error) {
       console.error("댓글 목록 불러오기 실패:", error);
     } finally {
@@ -60,7 +62,7 @@ export default function Comments({ articleId, boardType }) {
 
   useEffect(() => {
     loadComments();
-  }, [articleId, boardType]);
+  }, [articleId]);
 
   return (
     <div>
@@ -87,7 +89,8 @@ export default function Comments({ articleId, boardType }) {
             >
               <div className="flex justify-between mb-3">
                 {editingCommentId === comment.id ? (
-                  <textarea
+                  <input
+                    type="text"
                     value={editedContent}
                     onChange={(e) => setEditedContent(e.target.value)}
                     className="w-full border rounded p-2"
@@ -98,7 +101,6 @@ export default function Comments({ articleId, boardType }) {
                 <DropdownMenu
                   id={comment.id}
                   type="comment"
-                  boardType={boardType}
                   articleId={articleId}
                   onEdit={() => handleEditComment(comment)}
                   onDeleted={() =>
@@ -147,12 +149,12 @@ export default function Comments({ articleId, boardType }) {
         </div>
       )}
 
-      {nextCursor && !loading && (
+      {nextCursor && hasMore && (
         <button
           onClick={() => loadComments(nextCursor)}
           className="text-blue-500 mt-4"
         >
-          더 보기
+          더보기
         </button>
       )}
 

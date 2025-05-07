@@ -5,7 +5,7 @@ import { use, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function EditArticlePage(props) {
-  const { id } = use(props.params); 
+  const { id } = use(props.params);
   const articleId = Number(id);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
