@@ -11,6 +11,19 @@ export async function getProducts({ page, pageSize, orderBy, keyword }) {
   return res.json();
 }
 
+//베스트 상품 목록 가져오기
+export async function getBestProducts() {
+  const res = await fetch(
+    `https://panda-market-api.vercel.app/products?page=1&pageSize=4&orderBy=favorite`
+  );
+
+  if (!res.ok) {
+    throw new Error("상품 목록을 가져올 수 없습니다.");
+  }
+
+  return res.json();
+}
+
 //상품 상세정보 가져오기
 export async function getProduct(productId) {
   const accessToken = localStorage.getItem("accessToken");
