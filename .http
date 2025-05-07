@@ -1,0 +1,37 @@
+POST https://panda-market-api.vercel.app/auth/signUp
+Content-Type: application/json
+Cookie: yourCookieHere
+Cache-Control: no-store
+
+{
+  "email": "tigeer@naver.com",
+  "nickname": "tigeer1",
+  "password": "123456789",
+  "passwordConfirmation": "123456789"
+}
+
+
+###
+POST https://panda-market-api.vercel.app/auth/signIn
+Content-Type: application/json
+Cache-Control: no-store
+
+{
+  "email": "tigeer@naver.com",
+  "password": "123456789"
+}
+
+###
+PATCH  https://panda-market-api.vercel.app/products/3
+Content-Type: application/json
+
+{
+  "tags": [
+    "전자제품","제품"
+  ],
+  "price": 5000,
+  "name": "티셔츠"
+}
+
+###
+GET https://panda-market-api.vercel.app/products
