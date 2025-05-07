@@ -111,7 +111,7 @@ export const ItemsPage = () => {
                 text="상품 등록하기"
                 width="w-[133px]"
                 height="h-[42px]"
-                onClick={() => console.log("상품 등록하기 버튼 클릭")}
+                // onClick={() => console.log("상품 등록하기 버튼 클릭")}
               />
             </Link>
             <Dropdown order={order} setOrder={setOrder} />
