@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { FaCaretDown, FaSortAmountDown } from "react-icons/fa";
-import useDeviceType from "@/hooks/useDeviceType";
+import useDeviceType from "@/hooks/common/useDeviceType";
 
 const ORDER_LIST = ["최신순", "좋아요순"];
 

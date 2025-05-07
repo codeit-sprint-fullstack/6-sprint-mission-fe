@@ -1,32 +1,37 @@
-import { Geist, Geist_Mono } from "next/font/google";
+"use client";
+
+import { usePathname } from "next/navigation";
+import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import Header from "@/layout/Header";
 import Footer from "@/layout/Footer";
+import AuthProvider from "@/providers/AuthProvider";
+import QueryProvider from "@/providers/QueryProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// ✅ Noto Sans KR 폰트 설정
+const notoSans = Noto_Sans_KR({
+  variable: "--font-noto",
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata = {
-  title: "판다마켓",
-  description: "중고 거래 및 커뮤니티 서비스",
-};
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+  const isAuthPage = pathname === "/sign-in" || pathname === "/sign-up";
+
   return (
     <html lang="ko">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
+        className={`${notoSans.variable} flex min-h-screen flex-col antialiased`}
       >
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <AuthProvider>
+          <QueryProvider>
+            {!isAuthPage && <Header />}
+            <main className="flex-grow">{children}</main>
+            {!isAuthPage && <Footer />}
+          </QueryProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -20,13 +20,16 @@ export default function HomeBanner() {
         </div>
 
         <div className="w-full md:w-[850px]">
-          <Image
-            src="/img/Img_home_top.png"
-            alt="배너 이미지"
-            width={850}
-            height={500}
-            className="h-full w-full object-contain"
-          />
+          <figure className="relative h-[500px] w-[850px]">
+            <Image
+              src="/img/Img_home_top.png"
+              alt="배너 이미지"
+              sizes="850px"
+              priority
+              fill
+              className="h-full w-full object-contain"
+            />
+          </figure>
         </div>
       </div>
     </section>
