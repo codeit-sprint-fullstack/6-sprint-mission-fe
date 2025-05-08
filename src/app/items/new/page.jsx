@@ -159,6 +159,59 @@ export default function NewItemPage() {
           </button>
         </div>
 
+        {/* 상품 이미지 등록 */}
+        <div className="mb-8">
+          <label className="block text-[18px] font-[700] mb-4">
+            상품 이미지
+          </label>
+          <div className="flex gap-6">
+            {/* 이미지 추가 버튼 */}
+            <label className="w-[282px] h-[282px] flex flex-col items-center justify-center rounded-[12px] bg-gray-100 text-gray-400 cursor-pointer">
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => {
+                  const files = Array.from(e.target.files);
+                  const urls = files.map((file) => URL.createObjectURL(file));
+                  setForm((prev) => ({
+                    ...prev,
+                    images: [...prev.images, ...urls],
+                  }));
+                }}
+                className="hidden"
+              />
+              <span className="text-[50px] leading-none mb-3">+</span>
+              <span className="text-[16px] text-secondary-400 font-[400]">
+                이미지 등록
+              </span>
+            </label>
+
+            {/* 등록된 이미지 미리보기 */}
+            {form.images.map((url, idx) => (
+              <div key={idx} className="relative w-[282px] h-[282px]">
+                <img
+                  src={url}
+                  alt={`preview-${idx}`}
+                  className="w-full h-full object-cover rounded-md"
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setForm((prev) => ({
+                      ...prev,
+                      images: prev.images.filter((_, i) => i !== idx),
+                    }))
+                  }
+                  className="absolute top-3 right-3 bg-secondary-400 bg-opacity-50 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="space-y-6">
           <Input
             label="상품명"
