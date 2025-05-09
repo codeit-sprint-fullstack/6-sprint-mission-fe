@@ -18,6 +18,12 @@ Content-Type: application/json
   "password": "12345678Aa!"
 }
 
+###사용자 정보
+GET https://panda-market-api.vercel.app/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTkwLCJzY29wZSI6ImFjY2VzcyIsImlhdCI6MTc0NjgwMTI1MSwiZXhwIjoxNzQ2ODAzMDUxLCJpc3MiOiJzcC1wYW5kYS1tYXJrZXQifQ.ZTpDlGXfVlDxC0WMsjsOoWMkrJ8UNzgN9Cu03y6jmJ4
+
+
+
 
 #상품 관련
 #상품 관련

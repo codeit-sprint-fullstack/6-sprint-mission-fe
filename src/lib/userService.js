@@ -1,5 +1,12 @@
 import { tokenFetch } from "./fetchClient";
 
 export const userService = {
-  getMe: () => tokenFetch("/users/me"),
+  getMe: () => {
+    //디버깅
+    console.log("getMe 실행됨");
+
+    return tokenFetch("/users/me", {
+      method: "GET",
+    });
+  },
 };

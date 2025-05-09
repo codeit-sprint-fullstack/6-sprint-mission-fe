@@ -32,20 +32,20 @@ export async function postComment(articleId, postData) {
   return text ? JSON.parse(text) : null;
 }
 
-// //댓글 수정하기
-// export async function patchComment(commentId, accessToken, patchData) {
-//   const res = await fetch(`http://localhost:3000/comments/${commentId}`, {
-//     method: "PATCH",
-//     headers: {
-//       "Content-type": "application/json",
-//       Authorization: `Bearer ${accessToken}`,
-//     },
-//     body: JSON.stringify(patchData),
-//   });
+//댓글 수정하기
+export async function patchComment(commentId, accessToken, patchData) {
+  const res = await fetch(`http://localhost:3000/comments/${commentId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(patchData),
+  });
 
-//   if (!res.ok) throw new Error("댓글 수정 실패");
-//   return res.json();
-// }
+  if (!res.ok) throw new Error("댓글 수정 실패");
+  return res.json();
+}
 
 //댓글 삭제하기
 export async function deleteComment(commentId) {

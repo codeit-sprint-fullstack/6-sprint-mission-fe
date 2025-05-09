@@ -13,7 +13,6 @@ import Button from "@/components/ui/login-signup/Button";
 import CompactLogin from "@/components/ui/login-signup/CompactLogin";
 import CrossSite from "@/components/ui/login-signup/CrossSite";
 import ValidModal from "@/components/ui/login-signup/validModal";
-import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -21,12 +20,6 @@ export default function LoginPage() {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isFormsValid, setIsFormsValid] = useState(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-    watch,
-  } = useForm({ mode: "onBlur" });
 
   const [isVisible, setIsVisible] = useState(false);
   const [validModal, setValidModal] = useState(false);
@@ -68,6 +61,10 @@ export default function LoginPage() {
     try {
       const result = await login(email, password);
 
+      //디버깅
+      console.log("result", result.accessToken);
+      console.log("result", result.id);
+
       if (!result.accessToken) {
         setIsEmailValid(false);
         setIsPasswordValid(false);
@@ -76,7 +73,7 @@ export default function LoginPage() {
 
       //로컬 스토리지에 token, nickname 저장
       localStorage.setItem("accessToken", result.accessToken);
-      localStorage.setItem("userId", result.user.id);
+      localStorage.setItem("userId", result.id);
 
       router.push("/items");
     } catch (e) {

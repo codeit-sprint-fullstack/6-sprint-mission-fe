@@ -1,4 +1,3 @@
-import React from "react";
 import { tokenFetch } from "./fetchClient";
 
 export const authService = {

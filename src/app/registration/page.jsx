@@ -2,36 +2,42 @@
 
 import Button from "@/components/ui/common-UI/Button";
 import InputField from "@/components/ui/common-UI/InputField";
+import { postProduct } from "@/lib/product";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 function page() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [price, setPrice] = useState(undefined);
+  const [price, setPrice] = useState("");
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState([]);
+  const fileInputRef = useRef(null);
+  const [images, setImages] = useState([]);
   const router = useRouter();
 
-  //상품 등록 API 만들기
-  // const handlePost = async () => {
-  //   //디버깅
-  //   console.log("posting is Done");
+  const handlePost = async () => {
+    //디버깅
+    console.log("상품 등록하기 버튼 클릭!");
 
-  //   const postData = {
-  //     title: title,
-  //     content: content,
-  //     price: price,
-  //     tag: tag,
-  //   };
+    const accessToken = localStorage.getItem("accessToken");
 
-  //   try {
-  //     const { id } = await postProducts(postData);
-  //     router.push(`/items`);
-  //   } catch (e) {
-  //     console.error("상품 등록 중 에러 발생", e);
-  //   }
-  // };
+    const postData = new FormData();
+    postData.append("name", title);
+    postData.append("description", content);
+    postData.append("price", Number(price));
+    postData.append("tags", tags);
+    images.forEach((img, i) => {
+      postData.append("images", img);
+    });
+
+    try {
+      await postProduct(postData, accessToken);
+      router.push(`/items`);
+    } catch (e) {
+      console.error("상품 등록 중 에러 발생", e);
+    }
+  };
 
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
@@ -53,9 +59,27 @@ function page() {
     setTags((prevTags) => prevTags.filter((tag) => tag !== tagToRemove));
   };
 
-  const handleImageUpload = () => {
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageUpload = (e) => {
     //디버깅
     console.log("이미지 업로드 버튼 클릭!");
+
+    const files = Array.from(e.target.files);
+    const newImages = [...images, ...files];
+
+    if (newImages.length > 3) {
+      alert("이미지는 최대 3개까지만 업로드할 수 있습니다.");
+      return;
+    }
+    setImages(newImages);
+  };
+
+  const handleRemoveImage = (index) => {
+    const updatedImages = images.filter((_, i) => i !== index);
+    setImages(updatedImages);
   };
 
   return (
@@ -68,21 +92,47 @@ function page() {
 
           <Button
             text={"등록"}
-            // onClick={handlePost}
-            disabled={!title || !content}
+            onClick={handlePost}
+            disabled={!title || !content || !price || !tags}
             width={"w-[74px]"}
             height={"h-[42px]"}
           />
         </div>
 
-        <div className="font-pretendard font-bold text-[18px] mb-[12px]">
-          상품 이미지
-          <img
-            src="/image/ui/addProductImg.png"
-            className="w-[282px] h-[282px]  mt-[16px]"
-            onClick={handleImageUpload}
-          />
+        <div className="font-pretendard font-bold text-[18px]">상품 이미지</div>
+        <div className="flex felx-row items-center gap-[24px] mt-[16px] mb-[12px] ">
+          {images.length < 4 && (
+            <img
+              src="/image/ui/addProductImg.png"
+              alt="이미지 선택하기"
+              className="w-[282px] h-[282px] cursor-pointer"
+              onClick={handleImageClick}
+            />
+          )}
+          {images.map((img, index) => (
+            <div key={index} className="relative w-[282px] h-[282px]">
+              <img
+                src={URL.createObjectURL(img)}
+                alt="선택된 이미지"
+                className="w-full h-full rounded-[12px] object-cover overflow-hidden"
+              />
+              <img
+                src="/image/ui/cancelTag.png"
+                alt="이미지 선택 취소"
+                className="absolute bottom-[240px] left-[240px] cursor-pointer"
+                onClick={() => handleRemoveImage(index)}
+              />
+            </div>
+          ))}
         </div>
+        <input
+          type="file"
+          accept="image/"
+          ref={fileInputRef}
+          onChange={handleImageUpload}
+          style={{ display: "none" }}
+          multiple
+        />
 
         <div className="font-pretendard font-bold text-[18px] mb-[12px]">
           상품명

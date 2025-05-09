@@ -16,7 +16,7 @@ export default function ProductComments({
   const fetchComments = async () => {
     const res = await getProductComment(productId, limit);
 
-    setComments(res.list);
+    setComments(res);
     setLoading(false);
   };
 

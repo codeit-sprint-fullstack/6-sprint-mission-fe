@@ -24,6 +24,10 @@ function DetailProduct({ id, accessToken, currentUser }) {
       const data = await getProduct(id);
 
       setProductData(data);
+
+      //디버깅
+      console.log("data", data.product.price);
+
       setIsLike(data.isFavorite);
     } catch (e) {
       console.error("상품 정보 로딩 실패", e);
@@ -81,11 +85,19 @@ function DetailProduct({ id, accessToken, currentUser }) {
     );
 
   //createdAt prettier
-  const formattedCreatedAt = new Intl.DateTimeFormat("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(new Date(productData.createdAt));
+  const formattedCreatedAt =
+    // new Intl.DateTimeFormat("ko-KR", {
+    //   year: "numeric",
+    //   month: "2-digit",
+    //   day: "2-digit",
+    // }).format(new Date(productData.createdAt));
+    productData.createdAt && !isNaN(new Date(productData.createdAt))
+      ? new Intl.DateTimeFormat("ko-KR", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }).format(new Date(productData.createdAt))
+      : "날짜 없음";
 
   return (
     <div className="flex flex-row pb-[40px] border-b-1 border-seven gap-[24px] font-pretendard">
@@ -106,7 +118,7 @@ function DetailProduct({ id, accessToken, currentUser }) {
             )}
           </div>
           <div className="text-[40px] font-semibold">
-            {productData.price.toLocaleString()}원
+            {productData.product.price.toLocaleString()}원
           </div>
         </div>
 
@@ -118,7 +130,7 @@ function DetailProduct({ id, accessToken, currentUser }) {
             상품 태그
           </div>
           <div className="flex flex-row gap-[8px] h-[36px]">
-            {productData.tags.map((tag, index) => (
+            {productData.product.tags.map((tag, index) => (
               <div
                 key={`${tag}-${index}`}
                 className="flex items-center rounded-[26px] bg-third px-[16px] py-[5px]"

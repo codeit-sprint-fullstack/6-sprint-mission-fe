@@ -39,7 +39,7 @@ export const ItemsPage = () => {
       try {
         const result = await getProducts(options);
 
-        setProducts(result.list);
+        setProducts(result);
         setTotalItems(result.totalCount);
       } catch (e) {
         console.error("상품 불러오기 실패", e);
@@ -51,7 +51,10 @@ export const ItemsPage = () => {
       try {
         const result = await getBestProducts();
 
-        setBestProducts(result.list);
+        //디버깅
+        console.log("result", result);
+
+        setBestProducts(result);
       } catch (e) {
         console.error("상품 불러오기 실패", e);
       }
@@ -62,6 +65,9 @@ export const ItemsPage = () => {
   }, [page, keyword, order]);
 
   const itemsPerPage = 10;
+
+  //디버깅
+  console.log("bestProducts", bestProducts);
 
   return (
     <div className="flex justify-center font-pretendard">
@@ -80,7 +86,7 @@ export const ItemsPage = () => {
               <div className="flex flex-col gap-[16px]">
                 <img
                   className="w-[282px] h-[378px]"
-                  src={bestProduct.images[0]}
+                  src={bestProduct.images?.[0]}
                   alt={bestProduct.name}
                 />
                 <div>
@@ -128,7 +134,7 @@ export const ItemsPage = () => {
               <div className="flex flex-col gap-[16px]">
                 <img
                   className="w-[220px] h-[220px]"
-                  src={product.images[0]}
+                  src={product.images?.[0]}
                   alt={product.name}
                 />
                 <div>

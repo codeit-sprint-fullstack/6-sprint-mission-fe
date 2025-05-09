@@ -1,4 +1,4 @@
-const base_URL = "https://panda-market-api.vercel.app";
+const base_URL = "http://localhost:3000";
 
 //access Token을 포함한 클라이언트
 export const tokenFetch = async (url, options = {}) => {
@@ -20,6 +20,10 @@ export const tokenFetch = async (url, options = {}) => {
       ...options.headers,
     },
   };
+
+  //디버깅
+  console.log("options", options);
+  console.log("mergedOptions", mergedOptions);
 
   const response = await fetch(`${base_URL}${url}`, mergedOptions);
 

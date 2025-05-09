@@ -44,14 +44,12 @@ function SignupPage() {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    // 디버깅
-    console.log("email", email);
-    console.log("nickName", nickName);
-    console.log("password", password);
-    console.log("ckPassword", ckPassword);
-
     try {
       const result = await register(email, nickName, password, ckPassword);
+
+      //디버깅
+      console.log("result", result);
+      console.log("result", result.accessToken);
 
       if (!result.accessToken) {
         alert("회원가입 실패");
