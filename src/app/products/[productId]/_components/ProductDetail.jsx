@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import DropDownToggle from "@/components/ui/DropDownToggle";
 import Tags from "./Tags";
@@ -50,7 +50,7 @@ export default function ProductDetail() {
     router.push("/products");
   };
 
-  // 상품 수정 페이지로 이동
+  // 상품 수정(페이지 이동)
   const handleEdit = () => {
     router.push(`/products/${productId}/edit`);
   };
@@ -89,7 +89,7 @@ export default function ProductDetail() {
         />
       )}
       <div className="flex flex-col justify-center items-center gap-y-[16px] sm:flex-row sm:items-start sm:gap-[16px] md:items-center md:gap-[24px]">
-        <div className="relative min-w-[343px] min-h-[343px] rounded-[12px] sm:min-w-[340px] sm:min-h-[340px] md:min-w-[486px] md:min-h-[486px]">
+        <div className="relative min-w-[343px] min-h-[343px] rounded-[12px] overflow-hidden sm:min-w-[340px] sm:min-h-[340px] md:min-w-[486px] md:min-h-[486px]">
           {/* TODO: 이미지 태그 변경해보기 */}
           <Image
             src={img_default_product}

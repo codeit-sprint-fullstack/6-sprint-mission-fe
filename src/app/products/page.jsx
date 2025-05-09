@@ -1,6 +1,12 @@
 import React from "react";
+import BestProductList from "./_components/BestProducts/BestProductList";
+import ProductList from "./_components/Products/ProductList";
 
 export default function ProductsPage() {
-  // TODO: 로딩 중일 때 로딩 인디케이터 사용
-  return <div>ProductsPage</div>;
+  return (
+    <>
+      <BestProductList />
+      <ProductList />
+    </>
+  );
 }

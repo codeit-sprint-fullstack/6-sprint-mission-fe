@@ -6,7 +6,7 @@ import img_inquiry_empty from "@/assets/images/products/img_inquiry_empty.svg";
 import ic_back from "@/assets/images/community/ic_back.svg";
 import Image from "next/image";
 import Link from "next/link";
-import CommentsLoad from "./CommentsLoad";
+import Comment from "./Comment";
 import { useParams } from "next/navigation";
 import clsx from "clsx";
 
@@ -21,7 +21,7 @@ export default function CommentList({ isPending, comments }) {
           <p className="font-medium">불러오는 중</p>
         </div>
       ) : // {/* TODO: 내가 만든 댓글 API로 변경 시, list는 제거 */}
-      !comments.list.length ? (
+      !comments.length ? (
         <div
           className={clsx(
             articleId ? "gap-[16px]" : "gap-[8px]",
@@ -56,8 +56,8 @@ export default function CommentList({ isPending, comments }) {
       ) : (
         <div className="flex flex-col gap-y-[16px] w-full sm:gap-y-[24px]">
           {/* TODO: 내가 만든 댓글 API로 변경 시, list는 제거 */}
-          {comments.list.map((comment) => {
-            return <CommentsLoad key={comment.id} comment={comment} />;
+          {comments.map((comment) => {
+            return <Comment key={comment.id} comment={comment} />;
           })}
         </div>
       )}

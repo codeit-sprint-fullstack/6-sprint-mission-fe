@@ -40,9 +40,9 @@ export default function ProductForm({ title }) {
     enabled: !!productId,
   });
 
-  // 상품 생성 API
+  // 상품 등록 API
   const { mutate: createPost } = useMutation({
-    mutationFn: ({ type, body }) => postService.createPost(type, body),
+    mutationFn: (body) => postService.createPost("products", body),
     onSuccess: (data) => {
       router.push(`/products/${data.id}`);
     },
@@ -50,7 +50,7 @@ export default function ProductForm({ title }) {
 
   // 상품 수정 API
   const { mutate: updatePost } = useMutation({
-    mutationFn: ({ type, id, body }) => postService.updatePost(type, id, body),
+    mutationFn: ({ id, body }) => postService.updatePost("products", id, body),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["products", productId] });
       router.push(`/products/${data.id}`);
@@ -65,12 +65,13 @@ export default function ProductForm({ title }) {
     setBody((prev) => ({ ...prev, images, name, description, price, tags }));
   }, [isPending]);
 
-  // 상품 생성
+  // 상품 등록
   const handleCreatePost = (e) => {
     e.preventDefault();
 
     setIsLoading(true);
-    createPost({ type: "products", body });
+    // TODO: body에 trim해서 보내기
+    createPost(body);
   };
 
   // 상품 수정
@@ -78,7 +79,8 @@ export default function ProductForm({ title }) {
     e.preventDefault();
 
     setIsLoading(true);
-    updatePost({ type: "products", id: productId, body });
+    // TODO: body에 trim해서 보내기
+    updatePost({ id: productId, body });
   };
 
   // body 변경

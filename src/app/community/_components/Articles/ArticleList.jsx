@@ -1,13 +1,12 @@
 "use client";
 
-import { getArticles } from "@/service/articleService";
-import React, { useEffect, useState } from "react";
-import AriclesLoad from "./ArticlesLoad";
+import React, { useState } from "react";
+import Articles from "./Articles";
 import NavBar from "../NavBar/NavBar";
+import { useQuery } from "@tanstack/react-query";
+import { postService } from "@/service/postService";
 
 export default function ArticleList() {
-  const [articles, setArticles] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [params, setParams] = useState({
     offset: 1,
     limit: 5,
@@ -15,33 +14,22 @@ export default function ArticleList() {
     keyword: "",
   });
 
-  const articlesLoad = async (params) => {
-    try {
-      const { list } = await getArticles(params);
-
-      setArticles(list);
-    } catch (e) {
-      console.error(e.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // 게시글 전체 조회
-  useEffect(() => {
-    articlesLoad(params);
-  }, [params]);
-
-  // 렌더링(정렬 선택)
-  const changeOrderByInParams = (orderBy) => {
-    if (params.orderBy === orderBy) return;
-    setParams((prevParams) => ({ ...prevParams, offset: 1, orderBy }));
-  };
+  // 게시글 목록 조회
+  const { data: articles, isPending } = useQuery({
+    queryKey: ["articles", params],
+    queryFn: () => postService.getPosts("articles", params),
+  });
 
   // 렌더링(검색)
   const changeKeywordInParams = (keyword) => {
     if (params.keyword === keyword) return;
     setParams((prevParams) => ({ ...prevParams, offset: 1, keyword }));
+  };
+
+  // 렌더링(정렬 선택)
+  const changeOrderByInParams = (orderBy) => {
+    if (params.orderBy === orderBy) return;
+    setParams((prevParams) => ({ ...prevParams, offset: 1, orderBy }));
   };
 
   return (
@@ -51,20 +39,20 @@ export default function ArticleList() {
         changeOrderByInParams={changeOrderByInParams}
       />
       <div className="flex flex-col gap-[24px]">
-        {isLoading ? (
+        {isPending ? (
           <div className="flex justify-center items-center gap-[8px]">
             <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-200 border-t-primary-100 rounded-full animate-spin"></div>
             <p className="font-medium">불러오는 중</p>
           </div>
-        ) : !articles.length ? (
+        ) : !articles?.list.length ? (
           <div className="flex justify-center items-center text-center">
             아직 게시글이 없어요,
             <br />
             지금 게시글을 작성해보세요!
           </div>
         ) : (
-          articles.map((article) => (
-            <AriclesLoad key={article.id} article={article} />
+          articles.list.map((article) => (
+            <Articles key={article.id} article={article} />
           ))
         )}
       </div>

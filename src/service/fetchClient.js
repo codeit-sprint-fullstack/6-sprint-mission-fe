@@ -1,7 +1,7 @@
 // TODO: 내가 만든 API 연결하려면 그냥 API 주소만 변경하면 된다.
 // (대신, API 경로 잘 봐서 내가 다르게 만든거 있으면 경로 수정은 필요.)
-// const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const BASE_URL = process.env.NEXT_PUBLIC_CODEIT_API_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+// const BASE_URL = process.env.NEXT_PUBLIC_CODEIT_API_BASE_URL;
 
 export const tokenFetch = async (url, options = {}) => {
   let accessToken;
@@ -62,6 +62,10 @@ export const tokenFetch = async (url, options = {}) => {
   if (!res.ok) {
     const errorData = await res.json();
     throw new Error(errorData.message);
+  }
+
+  if (res.status === 204) {
+    return;
   }
 
   const data = await res.json();

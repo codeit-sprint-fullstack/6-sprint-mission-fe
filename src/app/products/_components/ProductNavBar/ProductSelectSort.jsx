@@ -6,7 +6,7 @@ import ic_sort from "@/assets/images/common/select-sort/ic_sort.svg";
 import Image from "next/image";
 import clsx from "clsx";
 
-export default function SelectSort({ changeOrderByInParams }) {
+export default function ProductSelectSort({ changeOrderByInParams }) {
   const [currentSort, setCurrentSort] = useState("최신순");
   const [isSelectSortBtnVisible, setIsSelectSortBtnVisible] = useState(false);
 
@@ -57,7 +57,7 @@ export default function SelectSort({ changeOrderByInParams }) {
       <div
         className={clsx(
           isSelectSortBtnVisible ? "block" : "hidden",
-          "absolute z-1 right-0 top-[108px] sm:top-[116px]"
+          "absolute z-1 right-0 top-[108px] sm:top-[50px]"
         )}
       >
         <button

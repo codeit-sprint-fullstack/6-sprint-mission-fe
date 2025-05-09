@@ -11,7 +11,7 @@ import dayjs from "dayjs";
 import clsx from "clsx";
 import { useAuth } from "@/providers/AuthProvider";
 
-export default function CommentsLoad({ comment }) {
+export default function Comment({ comment }) {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isActive, setIsActive] = useState(true);
@@ -25,15 +25,16 @@ export default function CommentsLoad({ comment }) {
 
   // 댓글 수정 API
   const { mutate: updateComment } = useMutation({
-    mutationFn: ({ commentId, body }) =>
-      commentService.updateComment(commentId, body),
+    mutationFn: ({ type, id, commentId, body }) =>
+      commentService.updateComment(type, id, commentId, body),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["comments", id] }),
   });
 
   // 댓글 삭제 API
   const { mutate: deleteComment } = useMutation({
-    mutationFn: (commentId) => commentService.deleteComment(commentId),
+    mutationFn: ({ type, id, commentId }) =>
+      commentService.deleteComment(type, id, commentId),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["comments", id] }),
   });
@@ -41,6 +42,8 @@ export default function CommentsLoad({ comment }) {
   // 댓글 수정
   const handleUpdateComment = () => {
     updateComment({
+      type: articleId ? "articles" : "products",
+      id,
       commentId: comment.id,
       body: { content: body.content.trim() },
     });
@@ -51,7 +54,11 @@ export default function CommentsLoad({ comment }) {
 
   // 댓글 삭제
   const handleDeleteComment = () => {
-    deleteComment(comment.id);
+    deleteComment({
+      type: articleId ? "articles" : "products",
+      id,
+      commentId: comment.id,
+    });
   };
 
   // body 변경
@@ -113,16 +120,17 @@ export default function CommentsLoad({ comment }) {
                 {comment.content}
               </p>
             )}
-            {user?.id === comment.writer.id &&
-              (isEditMode ? null : (
-                <DropDownToggle
-                  handleEdit={handleEdit}
-                  handleDelete={handleDeleteComment}
-                  handleDropDownToggle={handleDropDownToggle}
-                  handleDropDownClose={handleDropDownClose}
-                  isDropDownVisible={isDropDownVisible}
-                />
-              ))}
+            {/* TODO: API로직 고민해서 백엔드 필드 추가 되면 작성자만 드롭다운 보이게 하기 */}
+            {/* {user?.id === comment.writer.id && */}
+            {isEditMode ? null : (
+              <DropDownToggle
+                handleEdit={handleEdit}
+                handleDelete={handleDeleteComment}
+                handleDropDownToggle={handleDropDownToggle}
+                handleDropDownClose={handleDropDownClose}
+                isDropDownVisible={isDropDownVisible}
+              />
+            )}
           </div>
           <div
             className={clsx(
@@ -145,7 +153,7 @@ export default function CommentsLoad({ comment }) {
               <div className="flex flex-col gap-y-[4px] ">
                 <p className="text-secondary-gray-500">
                   {/* TODO: 내가 만든 댓글 API로 변경 시, writer 백엔드 API 보고 수정 */}
-                  {comment.writer.nickname}
+                  {/* {comment.writer.nickname} */}
                 </p>
                 <p className="text-secondary-gray-300">
                   {dayjs(comment.createdAt).format("YYYY. MM. DD")}

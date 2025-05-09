@@ -1,81 +1,86 @@
 "use client";
 
-import {
-  getArticle,
-  patchArticle,
-  postArticle,
-} from "@/service/articleService";
+import { postService } from "@/service/postService";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-// 페이지 별 제목 적용
-const TITLE_BY_PAGE = {
-  create: "게시글 작성",
-  edit: "게시글 수정",
-};
-
-export default function ArticleForm({ page }) {
+export default function ArticleForm({ title }) {
   const [isActive, setIsActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [body, setBody] = useState({ title: "", content: "" });
 
   const { articleId } = useParams();
+  const queryClient = useQueryClient();
   const router = useRouter();
 
-  // 페이지 별 함수 적용
-  const FUNC_BY_PAGE = {
-    create: (e) => createArticle(e, body),
-    edit: (e) => updateArticle(e, articleId, body),
-  };
+  // 게시글 상세 조회
+  const {
+    data: article,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ["articles", articleId],
+    queryFn: () => postService.getPost("articles", articleId),
+    enabled: !!articleId,
+  });
+
+  // 게시글 등록 API
+  const { mutate: createArticle } = useMutation({
+    mutationFn: (body) => postService.createPost("articles", body),
+    onSuccess: (data) => {
+      router.push(`/community/${data.id}`);
+    },
+  });
+
+  // 게시글 수정 API
+  const { mutate: updateArticle } = useMutation({
+    mutationFn: ({ id, body }) => postService.updatePost("articles", id, body),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["articles", articleId] });
+      router.push(`/community/${data.id}`);
+    },
+  });
+
+  // 게시글 수정 시 초기 값 세팅
+  useEffect(() => {
+    if (isPending) return;
+    const { title, content } = article;
+
+    setBody((prev) => ({ ...prev, title, content }));
+  }, [isPending]);
 
   // 게시글 등록
-  const createArticle = async (e, body) => {
-    const { title, content } = body;
+  const handleCreateArticle = (e) => {
     e.preventDefault();
 
     setIsLoading(true);
-    const article = await postArticle({
-      title: title.trim(),
-      content: content.trim(),
-    });
-    router.push(`/community/${article.id}`);
+    // TODO: body에 trim해서 보내기
+    // const { title, content } = body;
+    // createArticle({title: title.trim(), content: content.trim()})
+    createArticle(body);
   };
 
   // 게시글 수정
-  const updateArticle = async (e, articleId, body) => {
-    const { title, content } = body;
+  const handleUpdateArticle = async (e) => {
     e.preventDefault();
 
     setIsLoading(true);
-    const article = await patchArticle(articleId, {
-      title: title.trim(),
-      content: content.trim(),
-    });
-    router.push(`/community/${article.id}`);
+    // TODO: body에 trim해서 보내기
+    // const { title, content } = body;
+    // createArticle({title: title.trim(), content: content.trim()})
+    updateArticle({ id: articleId, body });
   };
 
-  // 게시글 세부 조회(수정 시 기존 내용 불러오는 용도)
-  const articleLoad = async (articleId) => {
-    const { title, content } = await getArticle(articleId);
-
-    return setBody({ title, content });
-  };
-
-  useEffect(() => {
-    if (page === "create") return;
-
-    articleLoad(articleId);
-  }, []);
-
-  // body 업데이트
+  // body 변경
   const changeValue = (e) => {
     const { id, value } = e.target;
 
-    setBody((prevBody) => ({ ...prevBody, [id]: value }));
+    setBody((prev) => ({ ...prev, [id]: value }));
   };
 
-  // 등록 버튼 활성화
+  // 게시글 등록버튼 활성화
   useEffect(() => {
     const { title, content } = body;
     const validation = title && content;
@@ -90,12 +95,10 @@ export default function ArticleForm({ page }) {
   }, [body]);
 
   return (
-    <form onSubmit={FUNC_BY_PAGE[page]}>
+    <form onSubmit={articleId ? handleUpdateArticle : handleCreateArticle}>
       <div className="flex justify-center items-center">
         <div className="flex justify-between items-center w-full max-w-[1200px]">
-          <h1 className="h-[32px] font-bold text-[20px]">
-            {TITLE_BY_PAGE[page]}
-          </h1>
+          <h1 className="h-[32px] font-bold text-[20px]">{title}</h1>
           <button
             type="submit"
             disabled={!isActive || isLoading}
@@ -116,34 +119,32 @@ export default function ArticleForm({ page }) {
           </button>
         </div>
       </div>
-      <main className="flex justify-center items-center">
-        <div className="flex justify-center flex-col w-full max-w-[1200px] gap-[16px]">
-          {/* now TODO: 컴포넌트 재활용 가능할 것 같으면 productInput, productTextArea에서 product 빼고 여기에서도 적용 */}
-          <section className="flex flex-col mt-[24px] gap-[12px]">
-            <p className="font-bold text-[14px] sm:text-[18px]">*제목</p>
-            <input
-              onChange={changeValue}
-              value={body.title}
-              type="text"
-              name="title"
-              id="title"
-              placeholder="제목을 입력해주세요"
-              className="h-[56px] bg-secondary-gray-100 border-transparent rounded-[12px] outline-none py-[16px] px-[24px] text-[16px] font-normal placeholder-secondary-gray-300"
-            />
-          </section>
-          <section className="flex flex-col gap-[12px]">
-            <p className="font-bold text-[14px] sm:text-[18px]">*내용</p>
-            <textarea
-              onChange={changeValue}
-              value={body.content}
-              name="content"
-              id="content"
-              placeholder="내용을 입력해주세요"
-              className="h-[282px] bg-secondary-gray-100 border-transparent rounded-[12px] outline-none py-[16px] px-[24px] text-[16px] font-normal placeholder-secondary-gray-300 resize-none"
-            />
-          </section>
-        </div>
-      </main>
+      <div className="flex justify-center flex-col w-full max-w-[1200px] gap-[16px]">
+        {/* now TODO: 컴포넌트 재활용 가능할 것 같으면 productInput, productTextArea에서 product 빼고 여기에서도 적용 */}
+        <section className="flex flex-col mt-[24px] gap-[12px]">
+          <p className="font-bold text-[14px] sm:text-[18px]">*제목</p>
+          <input
+            onChange={changeValue}
+            value={body.title}
+            type="text"
+            name="title"
+            id="title"
+            placeholder="제목을 입력해주세요"
+            className="h-[56px] bg-secondary-gray-100 border-transparent rounded-[12px] outline-none py-[16px] px-[24px] text-[16px] font-normal placeholder-secondary-gray-300"
+          />
+        </section>
+        <section className="flex flex-col gap-[12px]">
+          <p className="font-bold text-[14px] sm:text-[18px]">*내용</p>
+          <textarea
+            onChange={changeValue}
+            value={body.content}
+            name="content"
+            id="content"
+            placeholder="내용을 입력해주세요"
+            className="h-[282px] bg-secondary-gray-100 border-transparent rounded-[12px] outline-none py-[16px] px-[24px] text-[16px] font-normal placeholder-secondary-gray-300 resize-none"
+          />
+        </section>
+      </div>
     </form>
   );
 }
