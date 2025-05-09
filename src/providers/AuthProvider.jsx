@@ -29,9 +29,6 @@ export default function AuthProvider({ children }) {
     try {
       const user = await userService.getMe();
 
-      //디버깅
-      console.log("user 정보", user);
-
       setUser(user);
     } catch (e) {
       console.error("사용자 정보를 가져오는데 실패했습니다", e);
@@ -71,15 +68,9 @@ export default function AuthProvider({ children }) {
     const accessToken = localStorage.getItem("accessToken");
 
     if (accessToken) {
-      //디버깅
-      console.log("accessToken 있음", accessToken);
-
       getUser().then(() => {
         setIsLoading(false);
       });
-
-      //디버깅
-      console.log("accessToken 여전함", accessToken);
     } else {
       setUser(null);
       setIsLoading(false);

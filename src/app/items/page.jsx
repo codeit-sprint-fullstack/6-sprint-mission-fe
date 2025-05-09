@@ -50,10 +50,6 @@ export const ItemsPage = () => {
     const getBestProductsData = async () => {
       try {
         const result = await getBestProducts();
-
-        //디버깅
-        console.log("result", result);
-
         setBestProducts(result);
       } catch (e) {
         console.error("상품 불러오기 실패", e);

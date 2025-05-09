@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "./AuthProvider";
 
@@ -12,7 +12,6 @@ export default function RouteGuard({ children }) {
   const { user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  // const [isLoading, setIsLoading] = useState(true);
   const redirected = useRef(false);
 
   useEffect(() => {
@@ -26,26 +25,29 @@ export default function RouteGuard({ children }) {
     const isPublicRoute = publicPaths.includes(path);
 
     //디버깅
-    console.log("user", user);
+    console.log("라우터 가드 시작 전");
 
     if (user && isPublicRoute) {
       alert("인증된 사용자 입니다.");
+
+      //디버깅
+      console.log("alert가 떴습니다.");
+
       redirected.current = true;
       router.push("/items");
       return;
     }
 
     if (!user && isProtectedRoute) {
+      //디버깅
+      console.log("라우터 가드 중");
+
       alert("인증되지 않은 사용자 입니다.");
       redirected.current = true;
       router.push("/login");
       return;
     }
-
-    // setIsLoading(false);
   }, [user, pathname, router]);
-
-  // if (isLoading) return null;
 
   return children;
 }
