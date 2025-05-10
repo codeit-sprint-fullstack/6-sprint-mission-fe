@@ -4,7 +4,8 @@ import Button from "@/components/ui/common-UI/Button";
 import InputField from "@/components/ui/common-UI/InputField";
 import { postProduct } from "@/lib/product";
 import { useRouter } from "next/navigation";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { checkTokenExp } from "../../../utils/checkTokenExp";
 
 function page() {
   const [title, setTitle] = useState("");
@@ -16,6 +17,13 @@ function page() {
   const [images, setImages] = useState([]);
   const router = useRouter();
 
+  //토큰 유효성 체크
+  useEffect(() => {
+    if (!checkTokenExp()) {
+      router.push("/login");
+    }
+  }, []);
+
   const handlePost = async () => {
     //디버깅
     console.log("상품 등록하기 버튼 클릭!");
@@ -26,8 +34,8 @@ function page() {
     postData.append("name", title);
     postData.append("description", content);
     postData.append("price", Number(price));
-    postData.append("tags", tags);
-    images.forEach((img, i) => {
+    postData.append("tags", JSON.stringify(tags));
+    images.forEach((img) => {
       postData.append("images", img);
     });
 
