@@ -32,15 +32,15 @@ export default function AuthProvider({ children }) {
   };
 
   // 회원가입
-  const signUp = async (email, nickname, password, passwordCheck) => {
-    await authService.signUp(email, nickname, password, passwordCheck);
-    await getUser();
+  const signUp = async (email, nickname, password) => {
+    await authService.signUp(email, nickname, password);
+    // await getUser();
   };
 
   // 로그인
   const login = async (email, password) => {
     await authService.login(email, password);
-    await getUser();
+    // await getUser();
   };
 
   // 로그아웃

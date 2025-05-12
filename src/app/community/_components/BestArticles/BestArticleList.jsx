@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import useGetDeviceType from "@/hooks/useGetDeviceType";
-import BestArticles from "./BestArticles";
+import BestArticle from "./BestArticle";
 import { useQuery } from "@tanstack/react-query";
 import { postService } from "@/service/postService";
 
@@ -41,7 +41,7 @@ export default function BestArticleList() {
       ) : (
         <div className="grid grid-cols-1 gap-[16px] sm:grid-cols-2 md:grid-cols-3 md:gap-[24px]">
           {bestArticles.list.map((bestArticle) => (
-            <BestArticles key={bestArticle.id} bestArticle={bestArticle} />
+            <BestArticle key={bestArticle.id} bestArticle={bestArticle} />
           ))}
         </div>
       )}

@@ -5,14 +5,14 @@ export const authService = {
 
   getUserLikes: () => tokenFetch("/users/me/favorites"),
 
-  signUp: (email, nickname, password, passwordConfirmation) =>
+  signUp: (email, nickname, password) =>
     tokenFetch("/auth/signUp", {
       method: "POST",
-      body: JSON.stringify({ email, nickname, password, passwordConfirmation }),
+      body: JSON.stringify({ email, nickname, password }),
     }),
 
   login: (email, password) =>
-    tokenFetch("/auth/signIn", {
+    tokenFetch("/auth/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
     }),

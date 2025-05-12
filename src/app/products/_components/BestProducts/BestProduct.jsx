@@ -2,10 +2,14 @@ import React from "react";
 import ic_empty_heart from "@/assets/images/common/ic_empty_heart.svg";
 import img_default_product from "@/assets/images/products/img_default_product.svg";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function BestProduct({ bestProduct }) {
   return (
-    <article className="flex flex-col justify-center items-start gap-[10px]">
+    <Link
+      href={`/products/${bestProduct.id}`}
+      className="flex flex-col justify-center items-start gap-[10px]"
+    >
       <div className="relative w-full h-full aspect-[1/1] rounded-[12px] overflow-hidden">
         <Image
           src={bestProduct.images?.[0] || img_default_product}
@@ -33,6 +37,6 @@ export default function BestProduct({ bestProduct }) {
           </p>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

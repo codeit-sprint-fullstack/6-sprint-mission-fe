@@ -6,7 +6,7 @@ import img_notebook from "@/assets/images/community/img_notebook.svg";
 import Link from "next/link";
 import dayjs from "dayjs";
 
-export default function BestArticles({ bestArticle }) {
+export default function BestArticle({ bestArticle }) {
   return (
     <Link
       href={`/community/${bestArticle.id}`}

@@ -6,7 +6,7 @@ import ic_profile from "@/assets/images/common/ic_profile.svg";
 import Link from "next/link";
 import dayjs from "dayjs";
 
-export default function Articles({ article }) {
+export default function Article({ article }) {
   return (
     <>
       <Link

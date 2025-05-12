@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Articles from "./Articles";
+import Article from "./Article";
 import NavBar from "../NavBar/NavBar";
 import { useQuery } from "@tanstack/react-query";
 import { postService } from "@/service/postService";
@@ -52,7 +52,7 @@ export default function ArticleList() {
           </div>
         ) : (
           articles.list.map((article) => (
-            <Articles key={article.id} article={article} />
+            <Article key={article.id} article={article} />
           ))
         )}
       </div>
