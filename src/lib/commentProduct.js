@@ -1,5 +1,8 @@
 //해당 상품의 댓글 등록하기
 export async function postProductComment(productId, accessToken, postData) {
+  //디버깅
+  console.log("postData", postData);
+
   const res = await fetch(
     `http://localhost:3000/products/${productId}/comments`,
     {
@@ -8,7 +11,7 @@ export async function postProductComment(productId, accessToken, postData) {
         "Content-type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify({ postData }),
+      body: JSON.stringify({ content: postData }),
     }
   );
 

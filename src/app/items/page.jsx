@@ -37,7 +37,13 @@ export const ItemsPage = () => {
       };
 
       try {
+        //디버깅
+        console.log("상품 가져오기");
+
         const result = await getProducts(options);
+
+        //디버깅
+        console.log("result", result);
 
         setProducts(result);
         setTotalItems(result.totalCount);
@@ -49,7 +55,12 @@ export const ItemsPage = () => {
     //베스트 상품목록 가져오기
     const getBestProductsData = async () => {
       try {
-        const result = await getBestProducts();
+        const options = {
+          page: 1,
+          pageSize: 4,
+          orderBy: "favorite",
+        };
+        const result = await getBestProducts(options);
         setBestProducts(result);
       } catch (e) {
         console.error("상품 불러오기 실패", e);
@@ -82,7 +93,7 @@ export const ItemsPage = () => {
               <div className="flex flex-col gap-[16px]">
                 <img
                   className="w-[282px] h-[378px]"
-                  src={bestProduct.images?.[0]}
+                  src={bestProduct.imageUrl}
                   alt={bestProduct.name}
                 />
                 <div>
@@ -130,7 +141,7 @@ export const ItemsPage = () => {
               <div className="flex flex-col gap-[16px]">
                 <img
                   className="w-[220px] h-[220px]"
-                  src={product.images?.[0]}
+                  src={product.imageUrl}
                   alt={product.name}
                 />
                 <div>

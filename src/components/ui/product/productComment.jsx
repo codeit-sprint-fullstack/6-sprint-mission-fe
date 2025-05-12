@@ -15,16 +15,23 @@ function ProductComment({
   content: patchData,
   refreshComments,
   accessToken,
+  authorId,
 }) {
   const [isEditing, setIsEditing] = useState(false);
-  // const [deleteConfirmModal, setDelete]
+
+  const currentUserId = Number(localStorage.getItem("userId"));
+  const isAuthor = currentUserId === Number(authorId);
 
   const onPatch = async () => {
     try {
       setIsEditing(true);
       await patchProductComment(commentId, accessToken, patchData);
+
+      //디버깅
+      console.log("댓글이 정상적으로 수정되었습니다.");
     } catch (e) {
       console.error("댓글 수정 실패", e);
+      if (e.message) alert(e.message);
     }
   };
 
@@ -34,9 +41,11 @@ function ProductComment({
       await getProductComment(productId, 4);
       refreshComments();
 
+      //디버깅
       console.log("댓글이 정상적으로 삭제되었습니다.");
     } catch (e) {
       console.error("댓글 삭제 중 오류 발생", e);
+      if (e.message) alert(e.message);
     }
   };
 
@@ -66,7 +75,7 @@ function ProductComment({
         <div className="h-[104px] mt-[24px] pb-[16px] border-b border-seven">
           <div className="flex flex-row w-[1200px] justify-between">
             <div className="text-[20px]">{patchData} </div>
-            <MoreToggle onPatch={onPatch} onDelete={onDelete} />
+            {isAuthor && <MoreToggle onPatch={onPatch} onDelete={onDelete} />}
           </div>
 
           <div className="flex flex-row  items-center gap-[8px] ">

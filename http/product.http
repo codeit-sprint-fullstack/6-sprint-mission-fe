@@ -1,10 +1,10 @@
 ###상품 등록
 POST http://localhost:3000/products
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTc0Njg2NDAxMiwiZXhwIjoxNzQ2ODY3NjEyfQ.z9iprBsqJAtvwO-FrHi5MHzeEvs3xcqX8kaEGGYGHS4
+Content-Type: multipart/form-data
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTc0NzAwODQ3MywiZXhwIjoxNzQ3MDEyMDczfQ.bM37WqSRPsaTMGtS5SDrLBSCgi1no51bM_Aia_Lv3YI
 
 {
-    "name": "rest client" ,
+    "name": "5/12 2번째" ,
     "description": "rest client 상품 입니다" ,
     "price": 10000,
     "tags": ["인증된"]
@@ -38,10 +38,14 @@ Content-Type: application/json
 }
 
 ###상품 목록 조회
-GET http://localhost:3000/products
+GET http://localhost:3000/products?page=1&pageSize=10&orderBy=recent&keyword=2
+
+###베스트 상품 목록 조회
+GET http://localhost:3000/products?page=1&pageSize=4&orderBy=favorite
+
 
 ###상품 상세 조회
-GET http://localhost:3000/products/2
+GET http://localhost:3000/products/11
 
 ###상품 수정
 PATCH http://localhost:3000/products/9
@@ -63,10 +67,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 ### 상품 댓글 등록
 POST http://localhost:3000/products/1/comments
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTkwLCJzY29wZSI6ImFjY2VzcyIsImlhdCI6MTc0Njc4MjUxNSwiZXhwIjoxNzQ2Nzg0MzE1LCJpc3MiOiJzcC1wYW5kYS1tYXJrZXQifQ.KK5GXg34P3296FH4XAa60p8LXoNAQn7_FkQdGoEZ7Yw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0NzAzMDAyNCwiZXhwIjoxNzQ3MDMzNjI0fQ.tjpKBgU__Ql3Qwb7F1m1oRuM6pPa5crBAtNnYdH0PCA
 
 {
-    "content": "hi22"
+    "content": "저 코다마 사고싶어요"
 }
 
 ###상품 댓글 목록 조회

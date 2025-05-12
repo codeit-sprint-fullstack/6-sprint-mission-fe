@@ -24,9 +24,10 @@ export async function getProducts({ page, pageSize, orderBy, keyword }) {
 }
 
 //베스트 상품 목록 가져오기
-export async function getBestProducts() {
-  const res = await fetch(`http://localhost:3000/products`);
-
+export async function getBestProducts({ page, pageSize, orderBy }) {
+  const res = await fetch(
+    `http://localhost:3000/products?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}`
+  );
   if (!res.ok) {
     throw new Error("상품 목록을 가져올 수 없습니다.");
   }

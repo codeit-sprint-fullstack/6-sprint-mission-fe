@@ -35,12 +35,17 @@ function page() {
     postData.append("description", content);
     postData.append("price", Number(price));
     postData.append("tags", JSON.stringify(tags));
-    images.forEach((img) => {
-      postData.append("images", img);
-    });
+    if (images.length > 0) {
+      postData.append("image", images[0]);
+    }
 
     try {
-      await postProduct(postData, accessToken);
+      const product = await postProduct(postData, accessToken);
+
+      //디버깅
+      console.log("product", product);
+
+      //예외처리하기
       router.push(`/items`);
     } catch (e) {
       console.error("상품 등록 중 에러 발생", e);

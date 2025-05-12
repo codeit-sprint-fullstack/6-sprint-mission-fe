@@ -22,11 +22,12 @@ function DetailProduct({ id, accessToken, currentUser }) {
   const fetchData = async () => {
     try {
       const data = await getProduct(id);
+      const productData = data.product;
 
-      setProductData(data);
+      setProductData(productData);
 
       //디버깅
-      console.log("data", data.product.price);
+      console.log("productData", productData);
 
       setIsLike(data.isFavorite);
     } catch (e) {
@@ -102,8 +103,8 @@ function DetailProduct({ id, accessToken, currentUser }) {
   return (
     <div className="flex flex-row pb-[40px] border-b-1 border-seven gap-[24px] font-pretendard">
       <img
-        src={productData.images}
-        className="w-[486px] h-[486px] rounded-[16px] by-[5px]"
+        src={productData.imageUrl}
+        className="w-[486px] h-[486px] object-cover rounded-[16px] by-[5px]"
       />
 
       <div className="w-[690px] h-[496px] flex flex-col justify-between">
@@ -118,7 +119,7 @@ function DetailProduct({ id, accessToken, currentUser }) {
             )}
           </div>
           <div className="text-[40px] font-semibold">
-            {productData.product.price.toLocaleString()}원
+            {productData.price.toLocaleString()}원
           </div>
         </div>
 
@@ -130,7 +131,7 @@ function DetailProduct({ id, accessToken, currentUser }) {
             상품 태그
           </div>
           <div className="flex flex-row gap-[8px] h-[36px]">
-            {productData.product.tags.map((tag, index) => (
+            {productData.tags.map((tag, index) => (
               <div
                 key={`${tag}-${index}`}
                 className="flex items-center rounded-[26px] bg-third px-[16px] py-[5px]"

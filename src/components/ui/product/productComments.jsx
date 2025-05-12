@@ -16,6 +16,9 @@ export default function ProductComments({
   const fetchComments = async () => {
     const res = await getProductComment(productId, limit);
 
+    //디버깅
+    console.log("res", res);
+
     setComments(res);
     setLoading(false);
   };
@@ -44,6 +47,7 @@ export default function ProductComments({
           accessToken={accessToken}
           // patchData={}
           refreshComments={fetchComments}
+          authorId={comment.authorId}
         />
       ))}
     </div>
