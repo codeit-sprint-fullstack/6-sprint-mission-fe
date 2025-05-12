@@ -1,90 +1,78 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import {
   validateEmail,
   validateNickname,
   validatePassword,
   validateConfirmPassword,
 } from "@/utils/validators";
+import useForm from "./useForm";
 
 const useSignUpForm = () => {
-  const [email, setEmail] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  // Create specialized validators with dependencies
+  const validators = {
+    email: (value) => validateEmail(value),
+    nickname: (value) => validateNickname(value),
+    password: (value) => validatePassword(value),
+    passwordConfirm: (value, allFields) =>
+      validateConfirmPassword(allFields.password, value),
+  };
 
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isNicknameValid, setIsNicknameValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [isPasswordConfirmValid, setIsPasswordConfirmValid] = useState(false);
+  // Use the generic form hook
+  const { fields, validation, isFormValid, handleFieldChange } = useForm({
+    initialFields: {
+      email: "",
+      nickname: "",
+      password: "",
+      passwordConfirm: "",
+    },
+    validators,
+  });
 
-  const [isEmailTouched, setIsEmailTouched] = useState(false);
-  const [isNicknameTouched, setIsNicknameTouched] = useState(false);
-  const [isPasswordTouched, setIsPasswordTouched] = useState(false);
-  const [isPasswordConfirmTouched, setIsPasswordConfirmTouched] =
-    useState(false);
-  const [isFormValid, setIsFormValid] = useState(false);
+  // Create field-specific handlers for better developer experience
+  const handleEmailChange = useCallback(
+    (value) => {
+      handleFieldChange("email", value);
+    },
+    [handleFieldChange]
+  );
 
-  useEffect(() => {
-    const isValid =
-      isEmailValid &&
-      isNicknameValid &&
-      isPasswordValid &&
-      isPasswordConfirmValid;
-    setIsFormValid(isValid);
-  }, [
-    isEmailValid,
-    isNicknameValid,
-    isPasswordValid,
-    isPasswordConfirmValid,
-    password,
-    passwordConfirm,
-  ]);
+  const handleNicknameChange = useCallback(
+    (value) => {
+      handleFieldChange("nickname", value);
+    },
+    [handleFieldChange]
+  );
 
-  const handleEmailChange = useCallback((value) => {
-    setEmail(value);
-    setIsEmailTouched(true);
-    setIsEmailValid(validateEmail(value).isValid);
-  }, []);
-
-  const handleNicknameChange = useCallback((value) => {
-    setNickname(value);
-    setIsNicknameTouched(true);
-    setIsNicknameValid(validateNickname(value).isValid);
-  }, []);
-
-  const handlePasswordChange = useCallback((value) => {
-    setPassword(value);
-    setIsPasswordTouched(true);
-    setIsPasswordValid(validatePassword(value).isValid);
-    const { isValid } = validateConfirmPassword(value, passwordConfirm);
-    setIsPasswordConfirmValid(isValid);
-  }, []);
+  const handlePasswordChange = useCallback(
+    (value) => {
+      // Password field changes might affect passwordConfirm validation
+      handleFieldChange("password", value, ["passwordConfirm"]);
+    },
+    [handleFieldChange]
+  );
 
   const handlePasswordConfirmChange = useCallback(
     (value) => {
-      setPasswordConfirm(value);
-      setIsPasswordConfirmTouched(true);
-      const { isValid } = validateConfirmPassword(password, value);
-      setIsPasswordConfirmValid(isValid);
+      handleFieldChange("passwordConfirm", value);
     },
-    [password]
+    [handleFieldChange]
   );
 
   return {
-    email,
-    nickname,
-    password,
-    passwordConfirm,
+    email: fields.email,
+    nickname: fields.nickname,
+    password: fields.password,
+    passwordConfirm: fields.passwordConfirm,
     isFormValid,
-    isEmailValid,
-    isNicknameValid,
-    isPasswordValid,
-    isPasswordConfirmValid,
-    isEmailTouched,
-    isNicknameTouched,
-    isPasswordTouched,
-    isPasswordConfirmTouched,
+    isEmailValid: validation.email.isValid,
+    isNicknameValid: validation.nickname.isValid,
+    isPasswordValid: validation.password.isValid,
+    isPasswordConfirmValid: validation.passwordConfirm.isValid,
+    isEmailTouched: validation.email.isTouched,
+    isNicknameTouched: validation.nickname.isTouched,
+    isPasswordTouched: validation.password.isTouched,
+    isPasswordConfirmTouched: validation.passwordConfirm.isTouched,
     handleEmailChange,
     handleNicknameChange,
     handlePasswordChange,
