@@ -1,5 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import {
+  validateEmail,
+  validateNickname,
+  isRequired,
+} from "@/utils/validators";
 
 export default function FormInput({
   id,
@@ -9,34 +14,42 @@ export default function FormInput({
   className = "",
   onChange,
   value: propValue, // init value "" passed down from its parents - RegistrationForm
-  isValid,
+  isValid: propIsValid,
   isTouched = false,
+  required,
   ...props
 }) {
   const [inputValue, setInputValue] = useState(propValue || "");
+  const [currentIsValid, setCurrentIsValid] = useState(
+    propIsValid === undefined ? true : propIsValid
+  );
 
   useEffect(() => {
     if (propValue !== undefined) {
       setInputValue(propValue);
+      setCurrentIsValid(validateInput(propValue).isValid);
     }
   }, [propValue]);
+
+  const validateInput = (value) => {
+    if (id === "email") {
+      return validateEmail(value);
+    } else if (id === "nickname") {
+      return validateNickname(value);
+    } else if (required) {
+      return isRequired(value);
+    }
+    return { isValid: true };
+  };
 
   const handleChange = (event) => {
     const newValue = event.target.value;
     setInputValue(newValue);
-
-    let currentIsValid = true;
-
-    if (id === "email") {
-      currentIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newValue);
-    } else if (id === "nickname") {
-      currentIsValid = newValue.trim().length >= 2;
-    } else if (props.required && newValue.trim() === "") {
-      currentIsValid = false;
-    }
+    const validationResult = validateInput(newValue);
+    setCurrentIsValid(validationResult.isValid);
 
     if (onChange) {
-      onChange(newValue, currentIsValid);
+      onChange(newValue, validationResult.isValid);
     }
   };
   return (
@@ -53,18 +66,14 @@ export default function FormInput({
         id={id}
         type={type}
         placeholder={placeholder}
-        className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 ${!isValid && isTouched ? "outline-error" : ""} ${className}`}
+        className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 ${!currentIsValid && isTouched ? "outline-error" : ""} ${className}`}
         value={inputValue}
         onChange={handleChange}
         {...props}
       />
-      {!isValid && isTouched && (
+      {!currentIsValid && isTouched && (
         <p className="text-error text-sm font-semibold leading-6">
-          {id === "email"
-            ? "잘못된 이메일입니다."
-            : id === "nickname"
-              ? "닉네임은 최소 2자 이상 이어야 합니다."
-              : "필수 입력 항목입니다."}
+          {validateInput(inputValue).message}
         </p>
       )}
     </div>

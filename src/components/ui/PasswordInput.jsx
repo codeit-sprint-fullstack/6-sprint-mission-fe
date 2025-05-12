@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { validateConfirmPassword, validatePassword } from "@/utils/validators";
 
 export default function PasswordInput({
   id,
@@ -10,34 +11,41 @@ export default function PasswordInput({
   className = "",
   onChange,
   value: propValue,
-  isValid,
+  passwordValue, // use this prop in password confirm input field (to pass current password value for validity check)
+  isValid: propIsValid,
   isTouched = false,
   ...props
 }) {
   const [inputValue, setInputValue] = useState(propValue || "");
   const [visible, setVisible] = useState(false);
+  const [currentIsValid, setCurrentIsValid] = useState(
+    propIsValid === undefined ? true : propIsValid
+  );
 
   useEffect(() => {
     if (propValue !== undefined) {
       setInputValue(propValue);
+      setCurrentIsValid(validateInput(propValue).isValid);
     }
-  }, [propValue]);
+  }, [propValue, passwordValue, id]);
 
+  const validateInput = (value) => {
+    if (id === "password") {
+      return validatePassword(value);
+    } else if (id === "passwordConfirm") {
+      return validateConfirmPassword(passwordValue, value);
+    }
+    return { isValid: true };
+  };
   const handleChange = (event) => {
     const newValue = event.target.value;
     setInputValue(newValue);
-
-    let currentIsValid = true;
-
-    if (newValue.trim().length < 8) {
-      currentIsValid = false;
-    } else if (props.required && newValue.trim() === "") {
-      currentIsValid = false;
-    }
+    const validationResult = validateInput(newValue);
+    setCurrentIsValid(validationResult.isValid);
 
     if (onChange) {
       // call the onChange function passed by the parent
-      onChange(newValue, currentIsValid);
+      onChange(newValue, validationResult.isValid);
     }
   };
   return (
@@ -56,7 +64,7 @@ export default function PasswordInput({
           type={visible ? "text" : "password"}
           placeholder={placeholder}
           onChange={handleChange}
-          className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 w-full ${!isValid && isTouched ? "outline-error" : ""} ${className}`}
+          className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 w-full ${!currentIsValid && isTouched ? "outline-error" : ""} ${className}`}
         />
         <button
           type="button"
@@ -80,11 +88,9 @@ export default function PasswordInput({
           )}
         </button>
       </div>
-      {!isValid && isTouched && (
+      {!currentIsValid && isTouched && (
         <p className="text-error text-sm font-semibold leading-6">
-          {id === "password"
-            ? "비밀번호를 8자 이상 입력해주세요."
-            : "비밀번호가 일치하지 않습니다."}
+          {validateInput(inputValue).message}
         </p>
       )}
     </div>

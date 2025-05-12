@@ -101,10 +101,11 @@ export default function SignUpForm() {
           required
         />
         <PasswordInput
-          id="password-confirm"
+          id="passwordConfirm"
           label="비밀번호 확인"
           placeholder="비밀번호를 다시 한 번 입력해주세요"
           value={passwordConfirm}
+          passwordValue={password}
           onChange={handlePasswordConfirmChange}
           isValid={isPasswordConfirmValid}
           isTouched={isPasswordConfirmTouched}

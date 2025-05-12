@@ -1,6 +1,24 @@
+import {
+  validateEmail,
+  validatePassword,
+  validateNickname,
+  validateConfirmPassword,
+} from "@/utils/validators";
+
 const AUTH_API_BASE_URL =
   process.env.NEXT_PUBLIC_AUTH_API_URL || "http://localhost:3001";
+
 export async function login({ email, password }) {
+  const emailValidationResult = validateEmail(email);
+  if (!emailValidationResult.isValid) {
+    throw new Error(emailValidationResult.message);
+  }
+
+  const passwordValidationResult = validatePassword(password);
+  if (!passwordValidationResult.isValid) {
+    throw new Error(passwordValidationResult.message);
+  }
+
   const response = await fetch(`${AUTH_API_BASE_URL}/auth/signIn`, {
     method: "POST",
     headers: {
@@ -20,6 +38,29 @@ export async function login({ email, password }) {
 }
 
 export async function signUp({ email, nickname, password, passwordConfirm }) {
+  const emailValidationResult = validateEmail(email);
+  if (!emailValidationResult.isValid) {
+    throw new Error(emailValidationResult.message);
+  }
+
+  const nicknameValidationResult = validateNickname(nickname);
+  if (!nicknameValidationResult.isValid) {
+    throw new Error(nicknameValidationResult.message);
+  }
+
+  const passwordValidationResult = validatePassword(password);
+  if (!passwordValidationResult.isValid) {
+    throw new Error(passwordValidationResult.message);
+  }
+
+  const confirmPasswordValidationResult = validateConfirmPassword(
+    password,
+    passwordConfirm
+  );
+  if (!confirmPasswordValidationResult.isValid) {
+    throw new Error(confirmPasswordValidationResult.message);
+  }
+
   const response = await fetch(`${AUTH_API_BASE_URL}/auth/signUp`, {
     method: "POST",
     headers: {

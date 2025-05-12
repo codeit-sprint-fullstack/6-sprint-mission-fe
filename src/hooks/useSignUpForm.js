@@ -1,5 +1,11 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import {
+  validateEmail,
+  validateNickname,
+  validatePassword,
+  validateConfirmPassword,
+} from "@/utils/validators";
 
 const useSignUpForm = () => {
   const [email, setEmail] = useState("");
@@ -35,29 +41,32 @@ const useSignUpForm = () => {
     passwordConfirm,
   ]);
 
-  const handleEmailChange = useCallback((value, isValid) => {
+  const handleEmailChange = useCallback((value) => {
     setEmail(value);
     setIsEmailTouched(true);
-    setIsEmailValid(isValid);
+    setIsEmailValid(validateEmail(value).isValid);
   }, []);
 
-  const handleNicknameChange = useCallback((value, isValid) => {
+  const handleNicknameChange = useCallback((value) => {
     setNickname(value);
     setIsNicknameTouched(true);
-    setIsNicknameValid(isValid);
+    setIsNicknameValid(validateNickname(value).isValid);
   }, []);
 
-  const handlePasswordChange = useCallback((value, isValid) => {
+  const handlePasswordChange = useCallback((value) => {
     setPassword(value);
     setIsPasswordTouched(true);
-    setIsPasswordValid(isValid);
+    setIsPasswordValid(validatePassword(value).isValid);
+    const { isValid } = validateConfirmPassword(value, passwordConfirm);
+    setIsPasswordConfirmValid(isValid);
   }, []);
 
   const handlePasswordConfirmChange = useCallback(
     (value) => {
       setPasswordConfirm(value);
       setIsPasswordConfirmTouched(true);
-      setIsPasswordConfirmValid(value === password);
+      const { isValid } = validateConfirmPassword(password, value);
+      setIsPasswordConfirmValid(isValid);
     },
     [password]
   );
