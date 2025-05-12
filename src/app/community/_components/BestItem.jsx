@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FaRegHeart } from "react-icons/fa6";
+import { FaRegHeart, FaHeart } from "react-icons/fa6";
 import Link from "next/link";
 
 export default function BestItem({ article }) {
@@ -11,7 +11,8 @@ export default function BestItem({ article }) {
   const createdAt = article?.createdAt
     ? new Date(article.createdAt).toLocaleDateString()
     : "날짜 정보 없음";
-  const author = article?.author || "사용자";
+  const author = article?.author || "판다 유저";
+  const isLiked = article?.isLiked || false; // 좋아요 여부
 
   // 썸네일 이미지 경로
   const thumbnailSrc = article?.thumbnailUrl || "/img/community_item.png";
@@ -59,8 +60,12 @@ export default function BestItem({ article }) {
               <span className="text-[14px] font-[500] text-gray-500">
                 {author}
               </span>
-              <div className="flex items-center gap-1">
-                <FaRegHeart size={16} color="gray" />
+              <div className="borderpx-2 flex items-center rounded-full">
+                {isLiked ? (
+                  <FaHeart size={14} className="mr-1 text-red-500" />
+                ) : (
+                  <FaRegHeart size={14} className="mr-1 text-gray-500" />
+                )}
                 <span className="text-[14px] font-[500] text-gray-500">
                   {likeCount > 9999 ? "9999+" : likeCount}
                 </span>

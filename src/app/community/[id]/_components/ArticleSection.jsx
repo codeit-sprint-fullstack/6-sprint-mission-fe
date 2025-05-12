@@ -6,36 +6,34 @@ import { useRouter } from "next/navigation";
 import { FaRegHeart, FaHeart, FaEllipsisV } from "react-icons/fa";
 import { useArticle } from "@/hooks/Article";
 import ConfirmModal from "@/components/common/ConfirmModal";
+import { articlesService } from "@/api/articles";
 
-export default function ArticleSection({
-  article,
-  onToggleLike,
-  isLiked,
-  content,
-  articleId,
-  onArticleUpdate,
-}) {
+export default function ArticleSection({ article, onArticleUpdate }) {
   const router = useRouter();
   const [showOptions, setShowOptions] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(article.data?.title || "");
-  const [editContent, setEditContent] = useState(content || "");
+  const [editContent, setEditContent] = useState(article.data?.content || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [likes, setLikes] = useState(article.data?.likes);
+  const [isLiked, setIsLiked] = useState(article.data?.isLiked);
 
-  const { updateArticle, deleteArticle, refetch } = useArticle(articleId);
+  const { updateArticle, deleteArticle, refetch } = useArticle(
+    article.data?.id,
+  );
 
   // editTitle과 editContent를 article이 변경될 때마다 업데이트
   useEffect(() => {
     setEditTitle(article.data?.title || "");
-    setEditContent(content || "");
-  }, [article, content]);
+    setEditContent(article.data?.content || "");
+  }, [article]);
 
   // 게시글 수정 취소
   const handleCancelEdit = () => {
     setIsEditing(false);
     setEditTitle(article.data?.title || "");
-    setEditContent(content || "");
+    setEditContent(article.data?.content || "");
   };
 
   // 게시글 수정 저장
@@ -87,6 +85,20 @@ export default function ArticleSection({
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // 좋아요 토글
+  // TODO : 리액트 쿼리의 옵티마이제이션 고려해보기
+
+  const handleToggleLike = async () => {
+    if (isLiked) {
+      await articlesService.deleteLiked(article.data?.id);
+      setLikes(likes - 1);
+    } else {
+      await articlesService.createLiked(article.data?.id);
+      setLikes(likes + 1);
+    }
+    setIsLiked(!isLiked);
   };
 
   return (
@@ -171,7 +183,7 @@ export default function ArticleSection({
                   <div className="flex items-center pl-8">
                     <div className="flex items-center rounded-full border-2 border-[#e5e7eb]">
                       <button
-                        onClick={onToggleLike}
+                        onClick={handleToggleLike}
                         className="flex cursor-pointer items-center px-3 py-1 text-[28px] text-gray-500 hover:text-red-500"
                       >
                         {isLiked ? (
@@ -180,7 +192,7 @@ export default function ArticleSection({
                           <FaRegHeart />
                         )}
                         <span className="ml-1 text-[16px] font-medium text-gray-500">
-                          {article.data?.likes || 123}
+                          {likes || 0}
                         </span>
                       </button>
                     </div>
@@ -218,7 +230,7 @@ export default function ArticleSection({
             </div>
 
             <div className="mb-8 text-[16px] whitespace-pre-wrap">
-              {content || "게시글 조회에 실패하였습니다."}
+              {article.data?.content || "게시글 조회에 실패하였습니다."}
             </div>
           </div>
         )}

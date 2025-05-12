@@ -4,33 +4,17 @@ import { defaultFetch } from "@/api/fetchClient";
 
 const baseURL = "https://panda-market-api.vercel.app";
 
-// 쿠키 저장 (JS에서 접근 가능한 일반 쿠키)
-const setCookie = (name, value, days = 1) => {
-  const expires = new Date(Date.now() + days * 864e5).toUTCString();
-  document.cookie = `${name}=${value}; path=/; expires=${expires}; SameSite=Lax`;
-};
-
-// 쿠키 삭제
-const removeCookie = (name) => {
-  document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-};
-
 export const authService = {
   // 로그인
   signIn: async (email, password) => {
     const result = await defaultFetch("/auth/signIn", {
       method: "POST",
       body: JSON.stringify({ email, password }),
+      credentials: "include", // ✅ 서버에서 쿠키 내려받기 허용
     });
 
     if (result.accessToken) {
-      // localStorage 저장
       localStorage.setItem("accessToken", result.accessToken);
-      localStorage.setItem("refreshToken", result.refreshToken);
-
-      // 쿠키 저장
-      setCookie("accessToken", result.accessToken);
-      setCookie("refreshToken", result.refreshToken);
     }
 
     return result;
@@ -41,30 +25,24 @@ export const authService = {
     const result = await defaultFetch("/auth/signUp", {
       method: "POST",
       body: JSON.stringify({ email, nickname, password, passwordConfirmation }),
+      credentials: "include",
     });
 
     if (result.accessToken) {
       localStorage.setItem("accessToken", result.accessToken);
-      setCookie("accessToken", result.accessToken);
     }
 
     return result;
   },
 
-  // 리프레쉬 토큰으로 엑세스토큰 요청
+  // 리프레쉬 토큰으로 엑세스토큰 요청 (쿠키에 저장된 refreshToken 사용)
   getRefreshToken: async () => {
-    const refreshToken = localStorage.getItem("refreshToken");
-
-    if (!refreshToken) {
-      throw new Error("리프레시 토큰이 존재하지 않습니다.");
-    }
-
-    const response = await fetch(`${baseURL}/auth/refresh-token`, {
+    const response = await fetch(`${baseURL}/auth/token/refresh`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ refreshToken }),
+      credentials: "include", // ✅ 쿠키를 자동 포함
       cache: "no-store",
     });
 
@@ -74,16 +52,18 @@ export const authService = {
 
     const data = await response.json();
     localStorage.setItem("accessToken", data.accessToken);
-    setCookie("accessToken", data.accessToken);
 
     return data.accessToken;
   },
 
   // 로그아웃
-  logout: () => {
+  logout: async () => {
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    removeCookie("accessToken");
-    removeCookie("refreshToken");
+
+    // ✅ 서버에 쿠키 삭제 요청 (옵션: 쿠키 삭제 API 따로 만들었으면 호출)
+    await fetch(`${baseURL}/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
   },
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import * as articleApi from "../../api/articles";
+import { articlesService } from "../../api/articles";
 
 /**
  * 단일 게시글 조회 훅
@@ -20,7 +20,7 @@ export function useArticle(articleId) {
     try {
       setLoading(true);
       setError(null);
-      const data = await articleApi.getArticle(articleId);
+      const data = await articlesService.getArticle(articleId);
       setArticle(data);
       return data;
     } catch (error) {
@@ -41,7 +41,10 @@ export function useArticle(articleId) {
         setError(null);
 
         // 게시글 수정 API 호출
-        const response = await articleApi.updateArticle(articleId, articleData);
+        const response = await articlesService.updateArticle(
+          articleId,
+          articleData,
+        );
 
         // 응답 데이터가 있으면 게시글 상태 업데이트
         if (response) {
@@ -75,7 +78,7 @@ export function useArticle(articleId) {
     try {
       setLoading(true);
       setError(null);
-      await articleApi.deleteArticle(articleId);
+      await articlesService.deleteArticle(articleId);
       setArticle(null);
       return true;
     } catch (error) {

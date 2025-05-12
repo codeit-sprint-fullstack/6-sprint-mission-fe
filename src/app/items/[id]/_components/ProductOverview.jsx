@@ -5,7 +5,6 @@ import { useState } from "react";
 import { FaRegHeart, FaHeart, FaEllipsisV } from "react-icons/fa";
 import { formatPrice, formatDate } from "@/utils/format";
 import { productsSevice } from "@/api/products";
-import ProductEditModal from "./ProductEditModal";
 import { useRouter } from "next/navigation";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 
@@ -16,7 +15,6 @@ export default function ProductOverview({ product, user }) {
   const [favoriteCount, setFavoriteCount] = useState(
     product?.favoriteCount || 0,
   );
-  const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // 게시글 삭제 모달 열기
@@ -25,10 +23,8 @@ export default function ProductOverview({ product, user }) {
     setShowDeleteModal(true);
   };
 
-  // 삭제 확인 처리 함수 추가
+  // 삭제 확인 처리 함수
   const handleConfirmDelete = async () => {
-    // 여기에 삭제 로직을 구현할 예정
-    console.log("상품 삭제 확인:", product.id);
     try {
       await productsSevice.deleteProduct(product.id);
       router.push("/items");
@@ -41,6 +37,7 @@ export default function ProductOverview({ product, user }) {
     setShowDeleteModal(false);
   };
 
+  // 좋아요 상태 변경
   const handleToggleLike = () => {
     try {
       if (isLiked) {
@@ -57,15 +54,9 @@ export default function ProductOverview({ product, user }) {
     }
   };
 
-  const handleSaveChanges = async (formData) => {
-    try {
-      await productsSevice.updateProduct(product.id, formData);
-      router.refresh();
-    } catch (error) {
-      console.error("수정 실패:", error);
-    } finally {
-      setShowEditModal(false);
-    }
+  // 수정 페이지로 이동
+  const directToEdit = () => {
+    router.push(`/items/${product.id}/edit`);
   };
 
   if (!product) {
@@ -109,10 +100,7 @@ export default function ProductOverview({ product, user }) {
                 {showOptions && (
                   <div className="absolute right-0 z-10 w-[100px] rounded-md border-2 border-[#e5e7eb] bg-white py-1 md:w-[140px]">
                     <button
-                      onClick={() => {
-                        setShowEditModal(true);
-                        setShowOptions(false);
-                      }}
+                      onClick={directToEdit}
                       className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-blue-500"
                     >
                       수정하기
@@ -196,14 +184,6 @@ export default function ProductOverview({ product, user }) {
           </div>
         </div>
       </div>
-
-      {/* 수정 모달 */}
-      <ProductEditModal
-        product={product}
-        isOpen={showEditModal}
-        onClose={() => setShowEditModal(false)}
-        onSave={handleSaveChanges}
-      />
 
       {/* 삭제 확인 모달 */}
       <DeleteConfirmModal

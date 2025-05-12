@@ -1,7 +1,7 @@
 "use client";
 
-const baseURL = "https://panda-market-api.vercel.app";
-// const baseURL = process.env.NEXT_PUBLIC_API_URL;
+// const baseURL = "https://panda-market-api.vercel.app";
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 /**
  * 기본 fetch 클라이언트 - 토큰 인증이 필요 없는 일반 요청용

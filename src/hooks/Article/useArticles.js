@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { debounce } from "lodash-es";
-import * as articleApi from "../../api/articles";
+import { articlesService } from "../../api/articles";
 import { scrollToTop } from "@/lib/common/scrollTop";
 
 /**
@@ -58,7 +58,7 @@ export function useArticles(initialOptions = {}) {
     try {
       setLoading(true);
       setError(null);
-      const response = await articleApi.getArticles(options);
+      const response = await articlesService.getArticles(options);
       setArticles(response.data);
       setTotal(response.pagination.total);
     } catch (error) {

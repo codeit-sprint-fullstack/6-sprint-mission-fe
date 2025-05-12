@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import * as articleApi from "../../api/articles";
+import { articlesService } from "../../api/articles";
 
 /**
  * 댓글 목록 조회 훅
@@ -28,7 +28,7 @@ export function useComments(articleId) {
     try {
       setLoading(true);
       setError(null);
-      const response = await articleApi.getComments(currentArticleId);
+      const response = await articlesService.getComments(currentArticleId);
       setComments(response.data || []);
     } catch (error) {
       setError(error.message);
@@ -45,7 +45,7 @@ export function useComments(articleId) {
     try {
       setLoading(true);
       setError(null);
-      const response = await articleApi.createComment(
+      const response = await articlesService.createComment(
         currentArticleId,
         commentData,
       );
@@ -72,7 +72,7 @@ export function useComments(articleId) {
     try {
       setLoading(true);
       setError(null);
-      const response = await articleApi.updateComment(
+      const response = await articlesService.updateComment(
         currentArticleId,
         commentId,
         commentData,
@@ -101,7 +101,7 @@ export function useComments(articleId) {
     try {
       setLoading(true);
       setError(null);
-      await articleApi.deleteComment(currentArticleId, commentId);
+      await articlesService.deleteComment(currentArticleId, commentId);
 
       // 삭제된 댓글 제거
       setComments((prev) => prev.filter((comment) => comment.id !== commentId));

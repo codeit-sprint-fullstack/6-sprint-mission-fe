@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createArticle } from "@/api/articles";
+import { articlesService } from "@/api/articles";
 
 export default function WritePage() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function WritePage() {
 
     try {
       setIsSubmitting(true);
-      await createArticle({ title, content });
+      await articlesService.createArticle({ title, content });
       router.push("/community");
     } catch (err) {
       console.error(err);
