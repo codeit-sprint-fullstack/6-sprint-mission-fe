@@ -37,13 +37,7 @@ export const ItemsPage = () => {
       };
 
       try {
-        //디버깅
-        console.log("상품 가져오기");
-
         const result = await getProducts(options);
-
-        //디버깅
-        console.log("result", result);
 
         setProducts(result);
         setTotalItems(result.totalCount);
@@ -72,9 +66,6 @@ export const ItemsPage = () => {
   }, [page, keyword, order]);
 
   const itemsPerPage = 10;
-
-  //디버깅
-  console.log("bestProducts", bestProducts);
 
   return (
     <div className="flex justify-center font-pretendard">

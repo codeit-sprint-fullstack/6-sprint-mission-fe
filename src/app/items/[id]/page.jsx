@@ -20,8 +20,7 @@ function ItemDetail() {
 
   // 미인증은 로그인으로 리다이렉트
   useEffect(() => {
-    const isTokenValid = checkTokenExp();
-    if (isTokenValid) {
+    if (checkTokenExp()) {
       setIsTokenChecked(true);
     } else {
       localStorage.removeItem("accessToken");

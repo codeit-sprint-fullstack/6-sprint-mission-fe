@@ -24,14 +24,8 @@ export default function RouteGuard({ children }) {
     const isProtectedRoute = protectedPaths.includes(path);
     const isPublicRoute = publicPaths.includes(path);
 
-    //디버깅
-    console.log("라우터 가드 시작 전");
-
     if (user && isPublicRoute) {
       alert("인증된 사용자 입니다.");
-
-      //디버깅
-      console.log("alert가 떴습니다.");
 
       redirected.current = true;
       router.push("/items");
@@ -39,9 +33,6 @@ export default function RouteGuard({ children }) {
     }
 
     if (!user && isProtectedRoute) {
-      //디버깅
-      console.log("라우터 가드 중");
-
       alert("인증되지 않은 사용자 입니다.");
       redirected.current = true;
       router.push("/login");

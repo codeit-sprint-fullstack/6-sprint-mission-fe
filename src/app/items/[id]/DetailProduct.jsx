@@ -15,7 +15,8 @@ function DetailProduct({ id, accessToken, currentUser }) {
   const [productData, setProductData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
-  const [isLike, setIsLike] = useState(null); //좋아요 버튼
+  const [isLike, setIsLike] = useState(false); //좋아요 버튼
+  const [favoriteCount, setFavoriteCount] = useState(0);
 
   const router = useRouter();
 
@@ -24,12 +25,13 @@ function DetailProduct({ id, accessToken, currentUser }) {
       const data = await getProduct(id);
       const productData = data.product;
 
-      setProductData(productData);
-
       //디버깅
-      console.log("productData", productData);
+      console.log("data.isLiked", data.product.isLiked);
 
-      setIsLike(data.isFavorite);
+      setProductData(productData);
+      setFavoriteCount(productData.favorites.length);
+
+      setIsLike(data.prodct.isLiked);
     } catch (e) {
       console.error("상품 정보 로딩 실패", e);
     } finally {
@@ -52,20 +54,14 @@ function DetailProduct({ id, accessToken, currentUser }) {
     router.push("/items");
   };
 
-  const handleclickLike = async () => {
+  const handleClickLike = async () => {
     try {
       if (isLike) {
         await cancelLikeProduct(id, accessToken);
-        setProductData((prevData) => ({
-          ...prevData,
-          favoriteCount: prevData.favoriteCount - 1,
-        }));
+        setFavoriteCount((prevCount) => prevCount - 1);
       } else {
         await likeProduct(id, accessToken);
-        setProductData((prevData) => ({
-          ...prevData,
-          favoriteCount: prevData.favoriteCount + 1,
-        }));
+        setFavoriteCount((prevCount) => prevCount + 1);
       }
 
       setIsLike((prev) => !prev);
@@ -87,11 +83,6 @@ function DetailProduct({ id, accessToken, currentUser }) {
 
   //createdAt prettier
   const formattedCreatedAt =
-    // new Intl.DateTimeFormat("ko-KR", {
-    //   year: "numeric",
-    //   month: "2-digit",
-    //   day: "2-digit",
-    // }).format(new Date(productData.createdAt));
     productData.createdAt && !isNaN(new Date(productData.createdAt))
       ? new Intl.DateTimeFormat("ko-KR", {
           year: "numeric",
@@ -160,9 +151,10 @@ function DetailProduct({ id, accessToken, currentUser }) {
                     ? "/image/ui/likedHeart.png"
                     : "/image/ui/likeHeart.png"
                 }
-                onClick={handleclickLike}
+                onClick={handleClickLike}
               />
-              <div>{productData.favoriteCount}</div>
+
+              <div>{favoriteCount}</div>
             </div>
           </div>
         </div>

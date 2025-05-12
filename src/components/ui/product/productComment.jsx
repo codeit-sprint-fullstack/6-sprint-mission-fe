@@ -26,9 +26,6 @@ function ProductComment({
     try {
       setIsEditing(true);
       await patchProductComment(commentId, accessToken, patchData);
-
-      //디버깅
-      console.log("댓글이 정상적으로 수정되었습니다.");
     } catch (e) {
       console.error("댓글 수정 실패", e);
       if (e.message) alert(e.message);
@@ -40,18 +37,11 @@ function ProductComment({
       await deleteProductComment(commentId, accessToken);
       await getProductComment(productId, 4);
       refreshComments();
-
-      //디버깅
-      console.log("댓글이 정상적으로 삭제되었습니다.");
     } catch (e) {
       console.error("댓글 삭제 중 오류 발생", e);
       if (e.message) alert(e.message);
     }
   };
-
-  // 디버깅
-  console.log("commentId", commentId);
-  console.log("accessToken", accessToken);
 
   const handleEditSubmit = async (patchData) => {
     try {

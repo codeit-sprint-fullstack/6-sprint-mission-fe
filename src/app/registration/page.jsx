@@ -25,9 +25,6 @@ function page() {
   }, []);
 
   const handlePost = async () => {
-    //디버깅
-    console.log("상품 등록하기 버튼 클릭!");
-
     const accessToken = localStorage.getItem("accessToken");
 
     const postData = new FormData();
@@ -41,9 +38,6 @@ function page() {
 
     try {
       const product = await postProduct(postData, accessToken);
-
-      //디버깅
-      console.log("product", product);
 
       //예외처리하기
       router.push(`/items`);
@@ -77,9 +71,6 @@ function page() {
   };
 
   const handleImageUpload = (e) => {
-    //디버깅
-    console.log("이미지 업로드 버튼 클릭!");
-
     const files = Array.from(e.target.files);
     const newImages = [...images, ...files];
 

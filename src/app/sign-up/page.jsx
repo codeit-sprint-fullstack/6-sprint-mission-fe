@@ -47,10 +47,6 @@ function SignupPage() {
     try {
       const result = await register(email, nickName, password, ckPassword);
 
-      //디버깅
-      console.log("result", result);
-      console.log("result", result.accessToken);
-
       if (!result.accessToken) {
         alert("회원가입 실패");
         setIsFormsValid(false);

@@ -90,7 +90,7 @@ export async function fetchProduct(productId, accessToken, patchData) {
 //상품 좋아요 누르기
 export async function likeProduct(productId, accessToken) {
   const res = await fetch(
-    `http://localhost:3000/products/${productId}/favorite`,
+    `http://localhost:3000/favorites/product/${productId}`,
     {
       method: "POST",
       headers: {
@@ -107,7 +107,7 @@ export async function likeProduct(productId, accessToken) {
 //상품 좋아요 취소
 export async function cancelLikeProduct(productId, accessToken) {
   const res = await fetch(
-    `http://localhost:3000/products/${productId}/favorite`,
+    `http://localhost:3000/favorites/product/${productId}`,
     {
       method: "DELETE",
       headers: {

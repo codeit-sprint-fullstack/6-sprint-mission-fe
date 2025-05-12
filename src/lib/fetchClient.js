@@ -21,10 +21,6 @@ export const tokenFetch = async (url, options = {}) => {
     },
   };
 
-  //디버깅
-  console.log("options", options);
-  console.log("mergedOptions", mergedOptions);
-
   const response = await fetch(`${base_URL}${url}`, mergedOptions);
 
   if (!response.ok) {

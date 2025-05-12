@@ -61,10 +61,6 @@ export default function LoginPage() {
     try {
       const result = await login(email, password);
 
-      //디버깅
-      console.log("result", result.accessToken);
-      console.log("result", result.id);
-
       if (!result.accessToken) {
         setIsEmailValid(false);
         setIsPasswordValid(false);

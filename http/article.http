@@ -17,6 +17,7 @@ GET http://localhost:3000/articles?take=3
 
 ###게시글 상세 조회
 GET http://localhost:3000/articles/5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0NzA0NDQxMSwiZXhwIjoxNzQ3MDQ4MDExfQ.NZP7XfvV_VrKRNnVJXlb7WN5paBmN8migSSxmTfjKQE
 
 
 ###게시글 수정

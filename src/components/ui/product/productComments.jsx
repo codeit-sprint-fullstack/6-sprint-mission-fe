@@ -16,9 +16,6 @@ export default function ProductComments({
   const fetchComments = async () => {
     const res = await getProductComment(productId, limit);
 
-    //디버깅
-    console.log("res", res);
-
     setComments(res);
     setLoading(false);
   };
