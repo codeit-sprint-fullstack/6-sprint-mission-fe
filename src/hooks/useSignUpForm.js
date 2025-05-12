@@ -9,7 +9,6 @@ import {
 import useForm from "./useForm";
 
 const useSignUpForm = () => {
-  // Create specialized validators with dependencies
   const validators = {
     email: (value) => validateEmail(value),
     nickname: (value) => validateNickname(value),
@@ -29,7 +28,6 @@ const useSignUpForm = () => {
     validators,
   });
 
-  // Create field-specific handlers for better developer experience
   const handleEmailChange = useCallback(
     (value) => {
       handleFieldChange("email", value);
@@ -46,7 +44,6 @@ const useSignUpForm = () => {
 
   const handlePasswordChange = useCallback(
     (value) => {
-      // Password field changes might affect passwordConfirm validation
       handleFieldChange("password", value, ["passwordConfirm"]);
     },
     [handleFieldChange]
