@@ -3,7 +3,7 @@
 import BestItem from "./BestItem";
 import { useArticles } from "@/hooks/Article";
 import useDeviceType from "@/hooks/common/useDeviceType";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import LoadingState from "../../../components/common/LoadingState";
 
 export default function BestList() {
@@ -13,6 +13,7 @@ export default function BestList() {
   const { articles, loading, error } = useArticles({
     limit: 3, // 항상 3개 가져옴
     offset: 0,
+    sort: "popular",
   });
 
   // 디바이스 타입에 따라 표시할 게시글 수 결정

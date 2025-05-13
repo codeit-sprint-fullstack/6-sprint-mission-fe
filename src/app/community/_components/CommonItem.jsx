@@ -14,19 +14,23 @@ export default function CommonItem({ article }) {
     ? new Date(article.createdAt).toLocaleDateString()
     : "날짜 정보 없음";
   const isLiked = article?.isLiked || false; // 좋아요 여부
-  // 썸네일 이미지 경로 - 실제로는 백엔드에서 이미지 URL을 제공하거나 없을 경우 기본 이미지 사용
-  const thumbnailSrc = article?.thumbnailUrl || "/img/community_item.png";
+
+  // article.image 배열에서 첫 번째 이미지를 썸네일로 사용
+  const thumbnailSrc =
+    article?.image && article.image.length > 0
+      ? `${process.env.NEXT_PUBLIC_API_URL}${article.image[0]}`
+      : "/img/community_item.png";
 
   return (
     <li className="w-full">
       <Link href={`/community/${article.id}`}>
         <div className="flex w-full flex-col gap-4">
-          <div className="mb-[16px] flex w-full items-center justify-between gap-2">
+          <div className="mb-[16px] flex w-full justify-between gap-2">
             <span className="max-w-[80%] text-[18px] font-bold text-[#1f2937] md:text-[20px]">
               {title}
             </span>
-            <div className="flex items-center justify-center rounded-xl border-1 border-gray-200 bg-white p-3">
-              <figure className="relative h-[48px] w-[48px] bg-amber-600">
+            <div className="flex items-center justify-center rounded-xl border-1 border-gray-200 bg-white">
+              <figure className="relative h-[48px] w-[48px] overflow-hidden rounded-xl">
                 <Image
                   src={thumbnailSrc}
                   alt={title}

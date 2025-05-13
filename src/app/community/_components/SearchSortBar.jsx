@@ -30,9 +30,11 @@ export default function SearchSortBar({ onSearchChange, onOrderChange }) {
 
   /** 정렬 방식 선택 핸들러 */
   const handleSelectOrder = (order) => {
+    const orderType = order === "최신순" ? "latest" : "popular";
+
     setSelectedOrder(order);
     setIsOpen(false);
-    onOrderChange?.(order);
+    onOrderChange?.(orderType);
   };
 
   return (

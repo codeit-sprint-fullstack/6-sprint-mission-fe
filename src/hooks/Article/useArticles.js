@@ -31,7 +31,7 @@ import { scrollToTop } from "@/lib/common/scrollTop";
  *     handleSearch: (text: string) => void, // 즉시 검색 실행
  *     handleSearchChange: (text: string) => void, // 디바운스 검색 실행
  *   },
- *   handleOrderChange: (type: "좋아요순" | "최신순") => void, // 정렬 방식 변경
+ *   handleOrderChange: (type: "popular" | "latest") => void, // 정렬 방식 변경
  * }}
  */
 export function useArticles(initialOptions = {}) {
@@ -103,7 +103,7 @@ export function useArticles(initialOptions = {}) {
    * 정렬 방식 변경 핸들러 ("좋아요순", "최신순")
    */
   const handleOrderChange = useCallback((sortType) => {
-    const sort = sortType === "좋아요순" ? "popular" : "latest";
+    const sort = sortType === "popular" ? "popular" : "latest";
     setOptions((prev) => ({
       ...prev,
       sort,

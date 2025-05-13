@@ -229,6 +229,26 @@ export default function ArticleSection({ article, onArticleUpdate }) {
               </div>
             </div>
 
+            {/* 이미지 영역 추가 */}
+            {article.data?.image && article.data.image.length > 0 && (
+              <div className="mb-6 flex flex-wrap gap-4">
+                {article.data.image.map((imageUrl, index) => (
+                  <div
+                    key={index}
+                    className="relative h-[300px] w-[300px] overflow-hidden rounded-lg border border-gray-200"
+                  >
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_API_URL}${imageUrl}`}
+                      alt={`게시글 이미지 ${index + 1}`}
+                      fill
+                      sizes="300px"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div className="mb-8 text-[16px] whitespace-pre-wrap">
               {article.data?.content || "게시글 조회에 실패하였습니다."}
             </div>

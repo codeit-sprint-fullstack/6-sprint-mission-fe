@@ -9,8 +9,8 @@ export default function WritePage() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -27,7 +27,7 @@ export default function WritePage() {
       const formData = {
         title,
         content,
-        image: selectedImage,
+        images: selectedImages,
       };
       await articlesService.createArticle(formData);
       router.push("/community");
@@ -38,25 +38,33 @@ export default function WritePage() {
   };
 
   const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // 이전 이미지가 있으면 메모리에서 해제
-      if (imagePreview) {
-        URL.revokeObjectURL(imagePreview);
-      }
+    const files = Array.from(e.target.files);
 
-      setSelectedImage(file);
-      const previewUrl = URL.createObjectURL(file);
-      setImagePreview(previewUrl);
+    // 최대 3장까지만 처리
+    const remainingSlots = 3 - selectedImages.length;
+    if (remainingSlots <= 0) {
+      alert("이미지는 최대 3장까지 업로드할 수 있습니다.");
+      return;
     }
+
+    const newFiles = files.slice(0, remainingSlots);
+
+    // 기존 이미지에 새 이미지 추가
+    setSelectedImages((prev) => [...prev, ...newFiles]);
+
+    // 새 이미지 프리뷰 생성
+    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+    setImagePreviews((prev) => [...prev, ...newPreviews]);
   };
 
-  const removeImage = () => {
-    if (imagePreview) {
-      URL.revokeObjectURL(imagePreview);
+  const removeImage = (index) => {
+    // 특정 인덱스의 이미지 제거
+    if (imagePreviews[index]) {
+      URL.revokeObjectURL(imagePreviews[index]);
     }
-    setSelectedImage(null);
-    setImagePreview(null);
+
+    setSelectedImages((prev) => prev.filter((_, i) => i !== index));
+    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
   };
 
   useEffect(() => {
@@ -70,11 +78,11 @@ export default function WritePage() {
   // 컴포넌트가 언마운트될 때 URL 객체 정리
   useEffect(() => {
     return () => {
-      if (imagePreview) {
-        URL.revokeObjectURL(imagePreview);
-      }
+      imagePreviews.forEach((url) => {
+        if (url) URL.revokeObjectURL(url);
+      });
     };
-  }, [imagePreview]);
+  }, [imagePreviews]);
 
   return (
     <div className="flex min-h-screen justify-center p-4">
@@ -100,31 +108,34 @@ export default function WritePage() {
               htmlFor="image"
               className="mb-2 block text-sm font-bold text-black"
             >
-              게시글 이미지
+              게시글 이미지 (최대 3장)
             </label>
             <div className="flex flex-wrap gap-4">
               {/* 이미지 프리뷰 */}
-              {imagePreview && (
-                <div className="relative h-[200px] w-[200px] overflow-hidden rounded-lg border border-gray-200">
+              {imagePreviews.map((preview, index) => (
+                <div
+                  key={index}
+                  className="relative h-[200px] w-[200px] overflow-hidden rounded-lg border border-gray-200"
+                >
                   <button
                     type="button"
-                    onClick={removeImage}
+                    onClick={() => removeImage(index)}
                     className="absolute top-1 right-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300"
                   >
                     ✕
                   </button>
                   <Image
-                    src={imagePreview}
-                    alt="게시글 이미지"
+                    src={preview}
+                    alt={`게시글 이미지 ${index + 1}`}
                     fill
                     sizes="200px"
                     className="object-cover"
                   />
                 </div>
-              )}
+              ))}
 
-              {/* 이미지 추가 버튼 (이미지가 없을 때만 표시) */}
-              {!imagePreview && (
+              {/* 이미지 추가 버튼 (이미지가 3장 미만인 경우에만 표시) */}
+              {imagePreviews.length < 3 && (
                 <label
                   htmlFor="image-upload"
                   className="flex h-[200px] w-[200px] cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
@@ -144,7 +155,9 @@ export default function WritePage() {
                         d="M12 4v16m8-8H4"
                       />
                     </svg>
-                    <span className="text-sm text-gray-500">이미지 추가</span>
+                    <span className="text-sm text-gray-500">
+                      이미지 추가 ({imagePreviews.length}/3)
+                    </span>
                   </div>
                   <input
                     id="image-upload"

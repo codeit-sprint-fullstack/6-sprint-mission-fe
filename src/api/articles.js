@@ -33,18 +33,50 @@ export const articlesService = {
   getArticle: async (articleId) => await tokenFetch(`/articles/${articleId}`),
 
   // 게시글 작성
-  createArticle: async ({ title, content }) =>
-    await tokenFetch("/articles", {
+  createArticle: async ({ title, content, images }) => {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+
+    // 이미지가 배열인 경우 여러 장 처리
+    if (images && images.length > 0) {
+      images.forEach((image) => {
+        formData.append("images", image);
+      });
+    }
+    // 단일 이미지인 경우
+    else if (images && !Array.isArray(images)) {
+      formData.append("images", images);
+    }
+
+    return await tokenFetch("/articles", {
       method: "POST",
-      body: JSON.stringify({ title, content }),
-    }),
+      body: formData,
+    });
+  },
 
   // 게시글 수정
-  updateArticle: async (articleId, { title, content }) =>
-    await tokenFetch(`/articles/${articleId}`, {
+  updateArticle: async (articleId, { title, content, images }) => {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+
+    // 이미지가 배열인 경우 여러 장 처리
+    if (images && images.length > 0) {
+      images.forEach((image) => {
+        formData.append("images", image);
+      });
+    }
+    // 단일 이미지인 경우
+    else if (images && !Array.isArray(images)) {
+      formData.append("images", images);
+    }
+
+    return await tokenFetch(`/articles/${articleId}`, {
       method: "PATCH",
-      body: JSON.stringify({ title, content }),
-    }),
+      body: formData,
+    });
+  },
 
   // 게시글 삭제
   deleteArticle: async (articleId) =>
