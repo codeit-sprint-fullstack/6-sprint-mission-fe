@@ -23,36 +23,33 @@ export const useAuth = () => {
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-
   const [refreshTimeout, setRefreshTimeout] = useState(null);
 
   const setupRefreshToken = (accessToken) => {
     if (!accessToken) return;
+
     const payload = jwtDecode(accessToken);
-    const now = Date.now() / 1000; // 초 단위
+    const now = Date.now() / 1000;
     const expiresIn = payload.exp - now;
 
-    if (expiresIn <= 0) {
-      logout();
-      return;
-    }
+    // if (expiresIn <= 60) {
+    //   logout();
+    //   return;
+    // }
 
     if (refreshTimeout) clearTimeout(refreshTimeout);
 
-    const timeout = setTimeout(
-      async () => {
-        try {
-          const newAccessToken = await authService.getRefreshToken();
-          setupRefreshToken(newAccessToken);
-        } catch (error) {
-          console.error("토큰 갱신 실패", error);
-          logout();
-        }
-      },
-      // 토큰 만료 1분전에 재발급 신청
-      // 분단위 계산 현재 서버 만료시간은 30분
-      (expiresIn - 60) * 1000,
-    );
+    const timeoutMs = Math.max((expiresIn - 60 * 14) * 1000); // 1분 전 재발급
+    const timeout = setTimeout(async () => {
+      try {
+        const newAccessToken = await authService.getRefreshToken();
+        setupRefreshToken(newAccessToken);
+        console.log("토큰 갱신 성공", newAccessToken);
+      } catch (err) {
+        console.error("토큰 갱신 실패", err);
+        logout();
+      }
+    }, timeoutMs);
 
     setRefreshTimeout(timeout);
   };
@@ -84,8 +81,8 @@ export default function AuthProvider({ children }) {
     await getUser();
   };
 
-  const logout = () => {
-    authService.logout();
+  const logout = async () => {
+    await authService.logout();
     setUser(null);
   };
 

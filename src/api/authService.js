@@ -1,8 +1,10 @@
 "use client";
 
-import { defaultFetch } from "@/api/fetchClient";
+import { defaultFetch, tokenFetch } from "@/api/fetchClient";
 
-const baseURL = "https://panda-market-api.vercel.app";
+const baseURL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://six-sprint-mission-be.onrender.com";
 
 export const authService = {
   // 로그인
@@ -36,6 +38,7 @@ export const authService = {
   },
 
   // 리프레쉬 토큰으로 엑세스토큰 요청 (쿠키에 저장된 refreshToken 사용)
+  // 쿠키 문제로 로컬에서는 테스트가 안됨
   getRefreshToken: async () => {
     const response = await fetch(`${baseURL}/auth/token/refresh`, {
       method: "POST",
@@ -58,12 +61,12 @@ export const authService = {
 
   // 로그아웃
   logout: async () => {
-    localStorage.removeItem("accessToken");
-
     // ✅ 서버에 쿠키 삭제 요청 (옵션: 쿠키 삭제 API 따로 만들었으면 호출)
-    await fetch(`${baseURL}/auth/logout`, {
+    await tokenFetch(`/auth/logout`, {
       method: "POST",
       credentials: "include",
     });
+
+    localStorage.removeItem("accessToken");
   },
 };
