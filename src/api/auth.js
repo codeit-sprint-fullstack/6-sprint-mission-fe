@@ -23,7 +23,7 @@ export async function login({ email, password }) {
   const requestBody = JSON.stringify(requestData);
 
   try {
-    const response = await fetch(`${AUTH_API_BASE_URL}/auth/signIn`, {
+    const response = await fetch(`${AUTH_API_BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +81,7 @@ export async function signUp({ email, nickname, password, passwordConfirm }) {
   const requestBody = JSON.stringify(requestData);
 
   try {
-    const response = await fetch(`${AUTH_API_BASE_URL}/auth/signUp`, {
+    const response = await fetch(`${AUTH_API_BASE_URL}/users`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
