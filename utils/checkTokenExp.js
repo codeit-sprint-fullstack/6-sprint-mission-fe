@@ -16,6 +16,7 @@ export const checkTokenExp = () => {
       return true;
     } else {
       console.error("유효하지 않은 토큰입니다.");
+      localStorage.removeItem("accessToken");
       return false;
     }
   } catch (e) {

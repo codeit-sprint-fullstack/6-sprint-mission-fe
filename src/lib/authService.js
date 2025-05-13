@@ -1,4 +1,4 @@
-import { tokenFetch } from "./fetchClient";
+import { tokenDelete, tokenFetch } from "./fetchClient";
 
 export const authService = {
   login: (email, password) => {
@@ -15,6 +15,7 @@ export const authService = {
     });
   },
 
-  //엔드 포인트???
-  //  logout: () => tokenFetch("/")
+  logout: () => {
+    return tokenDelete("/auth/logout");
+  },
 };

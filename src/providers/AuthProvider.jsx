@@ -8,7 +8,7 @@ const AuthContext = createContext({
   user: null,
   setUser: () => {},
   login: () => {},
-  logiout: () => {},
+  logout: () => {},
   updateUser: () => {},
   register: () => {},
 });
@@ -56,7 +56,11 @@ export default function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    console.log("로그아웃!");
+    const result = await authService.logout();
+
+    //디버깅
+    console.log("result", result);
+    return result;
   };
 
   const updateUser = async (user) => {

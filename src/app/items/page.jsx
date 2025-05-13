@@ -131,7 +131,7 @@ export const ItemsPage = () => {
             >
               <div className="flex flex-col gap-[16px]">
                 <img
-                  className="w-[220px] h-[220px]"
+                  className="w-[220px] h-[220px] object-cover"
                   src={product.imageUrl}
                   alt={product.name}
                 />
