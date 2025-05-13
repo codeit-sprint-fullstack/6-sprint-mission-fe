@@ -3,7 +3,7 @@
 import { useState } from "react";
 import MoreToggle from "../common-UI/MoreToggle";
 import { deleteComment, getComments, patchComment } from "@/lib/comment";
-import CreateComment from "./CreateComment";
+import CreateComment from "../CreateComment";
 
 function Comment({
   articleId,
