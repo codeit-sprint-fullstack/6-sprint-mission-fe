@@ -45,7 +45,7 @@ function TopSection({
             <h1 className="text-xl font-bold whitespace-nowrap">
               판매 중인 상품
             </h1>
-            <Link href="/registratiopn">
+            <Link href={"/items/registration"}>
               <button className="h-full btn-primary">상품 등록하기</button>
             </Link>
           </div>

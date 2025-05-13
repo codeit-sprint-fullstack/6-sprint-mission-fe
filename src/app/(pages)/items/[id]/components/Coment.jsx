@@ -26,14 +26,15 @@ function Coment({ data }) {
     queryClient.invalidateQueries(["itemsComent", data.productId]);
     setModal(false);
   };
-
+  console.log("현재 로그인 유저:", user.user.id);
+  console.log("댓글 작성자:", data.writer.id);
   return (
     <div className="flex flex-col w-full items-start justify-center border-b border-[#E5E7EB] pb-[0.75rem]">
       {/* 댓글 내용 or 수정 textarea */}
       {!isEditing ? (
         <div className="flex flex-row w-full justify-between">
           <p className="titletext">{data.content}</p>
-          {user?.id === data.writer.id && (
+          {user.user.id === +data.writer.id && (
             <div className="relative inline-block">
               <button onClick={() => setModal(true)}>
                 <Image src={modalopenbt} width={24} height={24} alt="열기" />

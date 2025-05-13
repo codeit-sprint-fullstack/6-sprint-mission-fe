@@ -3,9 +3,11 @@ import { deleteProducts } from "@/src/api/Product/Product";
 import { useModal } from "@/src/app/providers/ModalProvider";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 function DeleteModal({ id }) {
   const { closeModal } = useModal();
   const router = useRouter();
+  const queryClient = useQueryClient();
   return (
     <div className="flex flex-col w-[18.5rem] h-[13rem] p-[1.5rem] gap-[2rem] bg-white rounded-3xl items-center justify-center">
       <div className=" flex flex-col items-center justify-center gap-[1rem]">
@@ -26,6 +28,7 @@ function DeleteModal({ id }) {
             onClick={() => {
               deleteProducts(id);
               closeModal();
+              queryClient.invalidateQueries(["items"]); // 캐시 무효화
               router.push("/items");
             }}
           >

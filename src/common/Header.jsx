@@ -4,10 +4,10 @@ import Link from "next/link";
 import pandalogo from "../assets/판다얼굴.png";
 import pandatext from "../assets/판다마켓.png";
 import { userService } from "../app/providers/AuthProvider";
-import defaultProfile from "../assets/face.png"
+import defaultProfile from "../assets/face.png";
 
 export default function Header() {
-  const {user}=userService();
+  const { user } = userService();
   return (
     <header className="w-full h-[4.375rem] flex items-center justify-center border-b border-[#DFDFDF]">
       <div className="max-w-[75rem] w-full h-full flex items-center justify-between px-4 md:px-6">
@@ -35,23 +35,23 @@ export default function Header() {
           </div>
         </div>
         {user ? (
-            <div className="flex items-center gap-3">
-              <Image
-                src={user.image ?? defaultProfile} // 기본 이미지 fallback
-                width={32}
-                height={32}
-                alt="유저 이미지"
-                className="rounded-full"
-              />
-              <span className="font-semibold">{user.nickname}</span>
-            </div>
-          ) : (
-            <Link href="/login">
-              <button className="w-[5.5rem] h-[2.625rem] rounded-lg bg-primary px-5 py-3 gap-2.5 text-white font-semibold text-base leading-none tracking-normal align-middle">
-                로그인
-              </button>
-            </Link>
-          )}
+          <div className="flex items-center gap-3">
+            <Image
+              src={user.user.image ?? defaultProfile} // 기본 이미지 fallback
+              width={32}
+              height={32}
+              alt="유저 이미지"
+              className="rounded-full"
+            />
+            <span className="font-semibold">{user.user.nickname}</span>
+          </div>
+        ) : (
+          <Link href="/login">
+            <button className="w-[5.5rem] h-[2.625rem] rounded-lg bg-primary px-5 py-3 gap-2.5 text-white font-semibold text-base leading-none tracking-normal align-middle">
+              로그인
+            </button>
+          </Link>
+        )}
       </div>
     </header>
   );

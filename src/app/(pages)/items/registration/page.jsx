@@ -2,8 +2,10 @@
 import { createProducts } from "@/src/api/Product/Product";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query"; // 추가
 
 function RegistrationPage() {
+  const queryClient = useQueryClient(); // 추가
   const router = useRouter();
   const [formData, setFormData] = useState({
     images: "",
@@ -35,15 +37,12 @@ function RegistrationPage() {
         .filter((tag) => tag !== ""),
     };
 
-    console.log("제출할 payload:", payload);
-
     try {
       const res = await createProducts(payload);
-      console.log("성공:", res);
+      queryClient.invalidateQueries(["items"]);
+
       router.push("/items"); // ✅ 성공 후 /items로 이동
-    } catch (err) {
-      console.error("에러 발생:", err);
-    }
+    } catch (err) {}
   };
 
   const isFormComplete =

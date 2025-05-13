@@ -1,4 +1,4 @@
-const baseURL = "https://panda-market-api.vercel.app";
+const baseURL = "http://localhost:5000";
 
 export const defaultFetch = async (url, options = {}) => {
   const defaultOptions = {
@@ -35,17 +35,17 @@ export const defaultFetch = async (url, options = {}) => {
 };
 
 export const tokenFetch = async (url, options = {}) => {
-  const token = localStorage.getItem("accessToken"); //
+  const accessToken = localStorage.getItem("accessToken");
+  const refreshToken = localStorage.getItem("refreshToken");
 
   const defaultOptions = {
     headers: {
       ...(options.body instanceof FormData
         ? {}
         : { "Content-Type": "application/json" }),
-      ...(token && { Authorization: `Bearer ${token}` }),
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
     },
-
-    cache: "no-store", // SSR/ISR시 매번 최신화
+    cache: "no-store",
   };
 
   const mergedOptions = {
@@ -59,42 +59,62 @@ export const tokenFetch = async (url, options = {}) => {
 
   let response = await fetch(`${baseURL}${url}`, mergedOptions);
 
-  // 401 에러 시 토큰 갱신 시도
+  //  accessToken 만료된 경우 → refreshToken으로 갱신 시도
   if (response.status === 401 && url !== "/auth/refresh-token") {
     try {
       const refreshResponse = await fetch(`${baseURL}/auth/refresh-token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...(token && { Authorization: `Bearer ${token}` }),
         },
+        body: JSON.stringify({ refreshToken }), // ✅ refreshToken을 body에 포함
         cache: "no-store",
       });
 
       if (refreshResponse.ok) {
-        const { accessToken } = await refreshResponse.json();
-        if (accessToken) {
-          localStorage.setItem("accessToken", accessToken); //
+        const { accessToken: newAccessToken } = await refreshResponse.json();
+        if (newAccessToken) {
+          localStorage.setItem("accessToken", newAccessToken);
+
+          // ✅ 새 accessToken으로 헤더 갱신
+          mergedOptions.headers.Authorization = `Bearer ${newAccessToken}`;
+
+          // ✅ 원래 요청 재시도
+          response = await fetch(`${baseURL}${url}`, mergedOptions);
         }
-        response = await fetch(`${baseURL}${url}`, mergedOptions);
+      } else {
+        // refreshToken이 만료되었거나 유효하지 않음 → 로그아웃 처리
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        window.location.href = "/login";
+        throw new Error("리프레시 토큰 만료: 로그인 다시 하세요");
       }
     } catch (err) {
       console.error("토큰 갱신 실패:", err);
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
       window.location.href = "/login";
       throw new Error("Unauthorized: redirecting to login");
     }
   }
 
+  // 최종 응답 체크
   if (!response.ok) {
     throw new Error(`API error: ${response.status}`);
   }
 
+  // ✅ 응답 바디가 비었을 수 있으니 안전하게 처리
   const contentType = response.headers.get("content-type");
-  return contentType && contentType.includes("application/json")
-    ? response.json()
-    : { status: response.status, ok: response.ok };
+  const isJson = contentType && contentType.includes("application/json");
+
+  if (isJson) {
+    const text = await response.text();
+    return text ? JSON.parse(text) : null;
+  }
+
+  return null;
 };
+
 export const cookieFetch = async (url, options = {}) => {
   const defaultOptions = {
     headers: {

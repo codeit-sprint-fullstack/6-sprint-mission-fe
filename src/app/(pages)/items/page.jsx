@@ -6,6 +6,7 @@ import { fetchProducts } from "@/src/api/Product/Product";
 import { useQuery } from "@tanstack/react-query";
 import Item from "./components/Item";
 import Link from "next/link";
+import HotItem from "./components/HotItem";
 
 export default function Market() {
   const width = useWindowSize();
@@ -25,7 +26,7 @@ export default function Market() {
   if (error) return <p>오류 발생!</p>;
 
   //  검색 + 정렬
-  const filteredAndSortedItems = data.list
+  const filteredAndSortedItems = data.data
     .filter((item) =>
       item.name.toLowerCase().includes(searchKeyword.toLowerCase())
     )
@@ -44,9 +45,27 @@ export default function Market() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const visibleItems = filteredAndSortedItems.slice(startIndex, endIndex);
-
+  const hotItems = [...data.data] // 원본 훼손 방지
+    .sort((a, b) => b.favoriteCount - a.favoriteCount) // 좋아요순 정렬
+    .slice(0, 4);
   return (
     <div className="flex flex-col w-full gap-[1rem] mx-auto p-[1rem] max-w-[75rem] justify-center items-center md:gap-[2rem]">
+      <section className="flex flex-col w-full gap-[1rem]">
+        <h1 className="text-xl font-bold ">베스트 아이템</h1>
+        <div className="flex flex-row w-full justify-center  items-center gap-[1rem]">
+          {hotItems[0] && <HotItem key={hotItems[0].id} data={hotItems[0]} />}
+          {width >= 744 && hotItems[1] && (
+            <HotItem key={hotItems[1].id} data={hotItems[1]} />
+          )}
+          {width >= 1000 && hotItems[2] && (
+            <HotItem key={hotItems[2].id} data={hotItems[2]} />
+          )}
+          {width >= 1200 && hotItems[3] && (
+            <HotItem key={hotItems[3].id} data={hotItems[3]} />
+          )}
+        </div>
+      </section>
+
       {/*  TopSection에 상태 props로 넘기기 */}
       <TopSection
         widthSize={width}

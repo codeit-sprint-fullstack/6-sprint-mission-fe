@@ -48,6 +48,7 @@ export default function ItemsDetailPage() {
   }, []);
 
   const { id } = useParams();
+
   const {
     data: item,
     isPending: itemPending,
@@ -61,12 +62,13 @@ export default function ItemsDetailPage() {
   });
 
   const {
-    data: coments,
+    data: comments,
     isPending: comentPending,
     error: comentError,
   } = useQuery({
     queryKey: ["itemsComent", id],
     queryFn: () => getProductComent(id, { params: { limit: 10 } }),
+    enabled: !!id,
     meta: { name: "상품 댓글 가져오기" },
     refetchOnMount: true, // ✅ 마운트될 때마다 refetch
     refetchOnWindowFocus: true, // ✅ 창 전환시 refetch
@@ -84,8 +86,6 @@ export default function ItemsDetailPage() {
   if (itemPending) return <p>아이템목록 불러오는 중...</p>;
   if (itemError) return <p>아이템목록 오류 발생!</p>;
 
-  deleteProducts();
-
   return (
     <div className="w-full max-w-[75rem] mx-auto pb-[5rem] px-[1rem] md:px-[1.5rem] flex flex-col gap-[2.5rem]">
       <div className="flex flex-col md:flex-row gap-[1rem] items-center justify-center pb-[1.5rem] md:pb-[2rem] lg:pb-[2.5rem] border-b border-gray-200">
@@ -100,7 +100,7 @@ export default function ItemsDetailPage() {
         <section className="w-full flex flex-col items-center gap-[0.5rem]">
           <div className="w-full flex flex-row justify-between items-center">
             <p className="w-full titletext pb-[1rem]">{item.name}</p>
-            {user?.id === item.ownerId ? (
+            {user.user.id === item.ownerId ? (
               <div className="relative inline-block">
                 <button onClick={handleOpenModal}>
                   <Image
@@ -140,9 +140,9 @@ export default function ItemsDetailPage() {
           <div className="w-full flex flex-col gap-[0.5rem] items-start justify-center">
             <p>상품태그</p>
             <div className="flex flex-row items-center justify-start gap-[0.5rem]">
-              {item.tags?.map((tag) => (
+              {item.tags?.map((tag, index) => (
                 <button
-                  key={tag}
+                  key={index}
                   className="btn-primary bg-[#F3F4F6] rounded-3xl text-[#1F2937]"
                 >
                   #{tag}
@@ -196,10 +196,8 @@ export default function ItemsDetailPage() {
         </form>
 
         <div className="flex flex-col gap-[1rem] w-full">
-          {coments.list.length > 0 ? (
-            coments.list.map((coment) => (
-              <Coment key={coment.id} data={coment} />
-            ))
+          {comments.length > 0 ? (
+            comments.map((coment) => <Coment key={coment.id} data={coment} />)
           ) : (
             <div className="flex flex-col items-center justify-center gap-[1rem] py-[2rem]">
               <Image src={noComment} width={140} height={140} alt="댓글없음" />

@@ -1,8 +1,14 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { getMe,updateMe,updateMyPassword,getMyProduct,getMyFavorites } from "@/src/api/user/user";
-import { login,register,refreshToken } from "@/src/api/auth/auth";
+import {
+  getMe,
+  updateMe,
+  updateMyPassword,
+  getMyProduct,
+  getMyFavorites,
+} from "@/src/api/user/user";
+import { login, register, refreshToken } from "@/src/api/auth/auth";
 const AuthContext = createContext({
   Login: () => {},
   Logout: () => {},
@@ -11,7 +17,7 @@ const AuthContext = createContext({
   UpdateUser: () => {},
   UpdatePassword: () => {},
   MyProducts: () => {},
-  MyFavorites: () => {},  
+  MyFavorites: () => {},
 });
 
 export const userService = () => {
@@ -28,11 +34,9 @@ export default function AuthProvider({ children }) {
   const getUser = async () => {
     try {
       const user = await getMe();
+
       setUser(user);
-      if(user!==null){
-      console.log("유저상태:",user)}
     } catch (error) {
-      console.error("사용자 정보를 가져오는데 실패했습니다:", error);
       setUser(null);
     }
   };
@@ -42,12 +46,13 @@ export default function AuthProvider({ children }) {
   };
 
   const Login = async (data) => {
-    const { accessToken } = await login(data);
+    const { accessToken, refreshToken } = await login(data); // ✅ 둘 다 받기
     localStorage.setItem("accessToken", accessToken);
-    await getUser();    
+    localStorage.setItem("refreshToken", refreshToken); // ✅ 추가
+    await getUser();
   };
 
-  const Logout = async () => {    
+  const Logout = async () => {
     localStorage.removeItem("accessToken");
     setUser(null);
   };
@@ -62,17 +67,13 @@ export default function AuthProvider({ children }) {
     setUser(updatedUser);
   };
 
-  const MyProducts = async () => {    
+  const MyProducts = async () => {
     await getMyProduct();
   };
 
   const MyFavorites = async () => {
     await getMyFavorites();
-    
   };
-
-
-
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -82,7 +83,18 @@ export default function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, Login, Logout, Register, UpdateUser,UpdatePassword, MyProducts, MyFavorites}}>
+    <AuthContext.Provider
+      value={{
+        user,
+        Login,
+        Logout,
+        Register,
+        UpdateUser,
+        UpdatePassword,
+        MyProducts,
+        MyFavorites,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

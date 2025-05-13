@@ -20,7 +20,7 @@ export const register = async ({
 
 // 로그인 (쿠키에 토큰 설정됨)
 export const login = async ({ email, password }) => {
-  const baseURL = "https://panda-market-api.vercel.app";
+  const baseURL = "http://localhost:5000";
   const response = await fetch(`${baseURL}/auth/signIn`, {
     method: "POST",
     headers: {
