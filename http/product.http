@@ -1,13 +1,13 @@
 ###상품 등록
 POST http://localhost:3000/products
-Content-Type: multipart/form-data
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTc0NzAwODQ3MywiZXhwIjoxNzQ3MDEyMDczfQ.bM37WqSRPsaTMGtS5SDrLBSCgi1no51bM_Aia_Lv3YI
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc0NzEyNTUxNiwiZXhwIjoxNzQ3MTI5MTE2fQ.BRRMn_GvmgjVbX44r26cB9jxrZfjZn-p-Zmg4TnDqS8
 
 {
-    "name": "5/12 2번째" ,
-    "description": "rest client 상품 입니다" ,
+    "name": "authorId 등록2" ,
+    "description": "authorId 등록" ,
     "price": 10000,
-    "tags": ["인증된"]
+    "tags": "인증된"
 
 }
 

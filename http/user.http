@@ -13,8 +13,8 @@ POST http://localhost:3000/auth/signIn
 Content-Type: application/json
 
 {
-      "email": "start10@test.com",
-    "password": "1010"
+    "email": "test2@test.com",
+    "password": "2222"
 }
 
 ### 로그인 
@@ -22,8 +22,8 @@ POST http://localhost:3000/auth/signIn
 Content-Type: application/json
 
 {
-   "email": "test2@test.com",
-    "password": "2222"
+   "email": "test3@test.com",
+    "password": "3333"
 }
 
 ### 사용자 정보 가져오기

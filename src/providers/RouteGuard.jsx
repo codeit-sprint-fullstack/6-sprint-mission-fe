@@ -25,7 +25,7 @@ export default function RouteGuard({ children }) {
     const isPublicRoute = publicPaths.includes(path);
 
     if (user && isPublicRoute) {
-      alert("인증된 사용자 입니다.");
+      alert("로그인된 상태 입니다.");
 
       redirected.current = true;
       router.push("/items");

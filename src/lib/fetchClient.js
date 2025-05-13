@@ -29,6 +29,10 @@ export const tokenDelete = async (url) => {
   return res
     .status(204)
     .json({ message: "No content, 토큰이 삭제되었습니다." });
+
+  // //디버깅중
+  // const text = await res.text();
+  // console.log("ㄹ그아웃 응답", text);
 };
 
 //access Token을 포함한 클라이언트

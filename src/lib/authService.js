@@ -5,6 +5,7 @@ export const authService = {
     return tokenFetch("/auth/signIn", {
       method: "POST",
       body: JSON.stringify({ email, password }),
+      credentials: "include",
     });
   },
 
@@ -12,6 +13,7 @@ export const authService = {
     return tokenFetch("/auth/signUp", {
       method: "POST",
       body: JSON.stringify({ email, nickname, password, passwordConfirmation }),
+      credentials: "include",
     });
   },
 

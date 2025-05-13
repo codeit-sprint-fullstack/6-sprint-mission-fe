@@ -11,12 +11,13 @@ import {
 import { useRouter } from "next/navigation";
 import PatchProduct from "@/components/ui/product/PatchProduct";
 
-function DetailProduct({ id, accessToken, currentUser }) {
+function DetailProduct({ id, accessToken, currentUser, userId }) {
   const [productData, setProductData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const [isLike, setIsLike] = useState(false); //좋아요 버튼
   const [favoriteCount, setFavoriteCount] = useState(0);
+  const [isAuthor, setIsAuthor] = useState(false);
 
   const router = useRouter();
 
@@ -26,15 +27,10 @@ function DetailProduct({ id, accessToken, currentUser }) {
         const data = await getProduct(id);
         const productData = data.product;
 
-        //디버깅
-        console.log("data.isLiked", data.product.isLiked);
-
+        if (userId === productData.authorId) setIsAuthor(true);
         setProductData(productData);
         setFavoriteCount(productData.favorites.length);
         setIsLike(productData.isLiked);
-
-        //디버깅
-        console.log("isLike", isLike);
       } catch (e) {
         console.error("상품 정보 로딩 실패", e);
       } finally {
@@ -44,9 +40,6 @@ function DetailProduct({ id, accessToken, currentUser }) {
 
     fetchData();
   }, [id]);
-
-  //디버깅
-  console.log("isLike", isLike);
 
   const handleProductPatch = () => {
     setIsEdit(true);
@@ -107,12 +100,12 @@ function DetailProduct({ id, accessToken, currentUser }) {
         <div className="flex flex-col h-[112px] justify-between pb-[16px] border-b-1 border-seven">
           <div className="flex flex-row justify-between">
             <div className="text-[24px] font-semibold">{productData.name}</div>
-            {productData.ownerId === Number(currentUser) && (
+            {isAuthor ? (
               <MoreToggle
                 onPatch={handleProductPatch}
                 onDelete={handleProductDelete}
               />
-            )}
+            ) : null}
           </div>
           <div className="text-[40px] font-semibold">
             {productData.price.toLocaleString()}원
