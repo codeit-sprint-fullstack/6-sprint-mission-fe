@@ -15,7 +15,7 @@ function HotItem({ data }) {
         />
       </div>
 
-      {/* 텍스트 영역을 고정 높이로 맞추기 */}
+      {/* 텍스트 영역을 고정 높이로 맞추기 ㅇㅇ */}
       <div className="w-full flex flex-col justify-start items-start gap-2 h-[5rem]">
         <p className="text-sm font-semibold h-[1.5rem]">{data.name}</p>
         <p className="h-[1.5rem] font-extrabold">
