@@ -6,7 +6,7 @@ import {
 } from "@/utils/validators";
 
 const AUTH_API_BASE_URL =
-  process.env.NEXT_PUBLIC_AUTH_API_URL || "http://localhost:3001";
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
 export async function login({ email, password }) {
   const emailValidationResult = validateEmail(email);
@@ -46,6 +46,7 @@ export async function login({ email, password }) {
     throw error;
   }
 }
+
 export async function signUp({ email, nickname, password, passwordConfirm }) {
   const emailValidationResult = validateEmail(email);
   if (!emailValidationResult.isValid) {
