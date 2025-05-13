@@ -18,9 +18,9 @@ import Link from "next/link";
 import { userService } from "@/src/app/providers/AuthProvider";
 
 import ButtonModal from "./components/ButtonModal";
-import likebt from "../../../../assets/likebt.png";
 import { useModal } from "@/src/app/providers/ModalProvider";
 import DeleteModal from "./components/DeleteModal";
+import LikeButton from "@/src/components/LikeButton";
 
 export default function ItemsDetailPage() {
   const { openModal, closeModal } = useModal();
@@ -54,7 +54,7 @@ export default function ItemsDetailPage() {
     isPending: itemPending,
     error: itemError,
   } = useQuery({
-    queryKey: ["items", id],
+    queryKey: ["product", id],
     queryFn: () => fetchProduct(id),
     meta: { name: "상품 정보 가져오기" },
     refetchOnMount: true, // ✅ 마운트될 때마다 refetch
@@ -113,12 +113,10 @@ export default function ItemsDetailPage() {
                 {modalOpen && (
                   <ButtonModal
                     onDeleteClick={() => {
-                      console.log("삭제 클릭됨");
                       handleCloseModal();
                       openModal(() => <DeleteModal id={id} />);
                     }}
                     onEditClick={() => {
-                      console.log("수정 클릭됨");
                       router.push(`/items/registration/${item.id}`);
                       handleCloseModal();
                     }}
@@ -165,10 +163,12 @@ export default function ItemsDetailPage() {
               </div>
             </div>
             <div className="border-l-[0.2rem] border-gray-200 h-[2.5rem]">
-              <button className="flex flex-row gap-[0.25rem] btn-primary bg-white rounded-3xl border border-gray-200 ml-[1.5rem] w-[5.5rem]">
-                <Image src={likebt} alt="좋아요버튼" />
-                <p className="text-[#6B7280]">{item.favoriteCount}</p>
-              </button>
+              <LikeButton
+                id={item.id}
+                type="product"
+                isFavorite={item.isFavorite}
+                favoriteCount={item.favoriteCount}
+              />
             </div>
           </div>
         </section>

@@ -3,6 +3,7 @@ import React from "react";
 import Notebook from "../../../../assets/Frame.png";
 import face from "../../../../assets/face.png";
 import Image from "next/image";
+import LikeButton from "@/src/components/LikeButton";
 
 function Post({ data }) {
   console.log(data);
@@ -25,7 +26,12 @@ function Post({ data }) {
           <p>{data.authorNickname}</p>
           <p>{data.createdAt.slice(0, 10)}</p>
         </div>
-        <p>{data.likeCount}</p>
+        <LikeButton
+          id={data.id}
+          type="article"
+          isFavorite={data.isFavorite}
+          favoriteCount={data.likeCount}
+        />
       </div>
     </div>
   );

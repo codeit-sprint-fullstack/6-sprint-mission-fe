@@ -43,16 +43,7 @@ export const deleteProducts = async (id) => {
   });
 };
 
-//상품 좋아요 (회원 전용)
-export const likeProducts = async (id) => {
-  return await tokenFetch(`/products/${id}/favorite`, {
-    method: "POST",
-  });
-};
-
-//좋아요 취소 (회원 전용)
-export const unlikeProducts = async (id) => {
-  return await tokenFetch(`/products/${id}/favorite`, {
-    method: "DELETE",
-  });
+//상품 좋아요/좋아요 취소 (회원 전용)
+export const toggleProductLike = async (id) => {
+  return await tokenFetch(`/products/${id}/like`, { method: "POST" });
 };
