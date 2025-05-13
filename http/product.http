@@ -46,7 +46,7 @@ GET http://localhost:3000/products?page=1&pageSize=4&orderBy=favorite
 
 ###상품 상세 조회
 GET http://localhost:3000/products/11
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0NzA0NzExNSwiZXhwIjoxNzQ3MDUwNzE1fQ.xUcxE1W5EHl-gKXQO0FUqUzcY1zgnnsAKKArjkKRcIs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0NzEwMjUxNiwiZXhwIjoxNzQ3MTA2MTE2fQ.tsuULPTa5EPZ79Aw4ltt0MBi--u08zf74ShDpueR26A
 
 
 ###상품 수정

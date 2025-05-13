@@ -83,7 +83,7 @@ export const ItemsPage = () => {
             >
               <div className="flex flex-col gap-[16px]">
                 <img
-                  className="w-[282px] h-[378px]"
+                  className="w-[282px] h-[378px] object-cover"
                   src={bestProduct.imageUrl}
                   alt={bestProduct.name}
                 />
@@ -141,7 +141,7 @@ export const ItemsPage = () => {
                     {" "}
                     {product.price.toLocaleString()} 원
                   </div>
-                  <div className="flex felx-row items-center gap-[4px]">
+                  <div className="flex felx-row items-center gap-[4px]  object-cover">
                     <img
                       className="w-[16px] h-[16px]"
                       src="/image/ui/likeHeart.png"

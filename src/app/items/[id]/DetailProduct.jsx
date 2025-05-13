@@ -20,28 +20,33 @@ function DetailProduct({ id, accessToken, currentUser }) {
 
   const router = useRouter();
 
-  const fetchData = async () => {
-    try {
-      const data = await getProduct(id);
-      const productData = data.product;
-
-      //디버깅
-      console.log("data.isLiked", data.product.isLiked);
-
-      setProductData(productData);
-      setFavoriteCount(productData.favorites.length);
-
-      setIsLike(data.prodct.isLiked);
-    } catch (e) {
-      console.error("상품 정보 로딩 실패", e);
-    } finally {
-      setIsPending(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getProduct(id);
+        const productData = data.product;
+
+        //디버깅
+        console.log("data.isLiked", data.product.isLiked);
+
+        setProductData(productData);
+        setFavoriteCount(productData.favorites.length);
+        setIsLike(productData.isLiked);
+
+        //디버깅
+        console.log("isLike", isLike);
+      } catch (e) {
+        console.error("상품 정보 로딩 실패", e);
+      } finally {
+        setIsPending(false);
+      }
+    };
+
     fetchData();
   }, [id]);
+
+  //디버깅
+  console.log("isLike", isLike);
 
   const handleProductPatch = () => {
     setIsEdit(true);

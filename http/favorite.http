@@ -1,11 +1,11 @@
 ###상품 좋아요
 POST http://localhost:3000/favorites/product/11   
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0NzA0NDQxMSwiZXhwIjoxNzQ3MDQ4MDExfQ.NZP7XfvV_VrKRNnVJXlb7WN5paBmN8migSSxmTfjKQE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc0NzEwMDczNywiZXhwIjoxNzQ3MTA0MzM3fQ.fJwqw0pOsWS6MEfsy_j406MT9KMWrRwt1W3efIZVej4
 
 
 ###상품 좋아요 취소
 DELETE http://localhost:3000/favorites/product/11    
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0NzA0MDgxNiwiZXhwIjoxNzQ3MDQ0NDE2fQ.IZvkmL8WFZ1wFBqX5fMmVtSaxnPOqm4pUEw-ZA7eFxg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTc0NzA5NTE4OSwiZXhwIjoxNzQ3MDk4Nzg5fQ.S0La0g0Trvdne_Ua7nzSm7MKslus1aPEZ7dkqMramoc
 
 ###게시글 좋아요
 POST http://localhost:3000/favorites/article/:id       
