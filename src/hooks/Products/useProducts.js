@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { productsSevice } from "@/api/products";
+import { productsService } from "@/api/products.js";
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -29,12 +29,12 @@ export function useProducts({
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["products", currentPage, orderBy, keyWord, pageSize],
     queryFn: () =>
-      productsSevice.getProducts(currentPage, pageSize, orderBy, keyWord),
+      productsService.getProducts(currentPage, pageSize, orderBy, keyWord),
   });
 
   // 상품 목록 및 페이지네이션 데이터
-  const products = data?.list || [];
-  const totalCount = data?.totalCount || 0;
+  const products = data?.data || [];
+  const totalCount = data?.pagination?.total || 0;
   const totalPages = Math.ceil(totalCount / pageSize);
 
   // 페이지네이션 계산

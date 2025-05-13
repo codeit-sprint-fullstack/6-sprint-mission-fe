@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation"; // ✅ 추가
 import CommentSection from "@/components/comment/CommentSection";
 import ProductOverview from "./_components/ProductOverview";
-import { productsSevice } from "@/api/products";
+import { productsService } from "@/api/products.js";
 import { useAuth } from "@/providers/AuthProvider";
 
 export default function ItemDetailPage() {
@@ -22,8 +22,8 @@ export default function ItemDetailPage() {
 
     const fetchProductDetail = async () => {
       try {
-        const product = await productsSevice.getDetailProdut(id);
-        setProductDetail(product);
+        const response = await productsService.getDetailProduct(id);
+        setProductDetail(response.data);
       } catch (error) {
         console.error("상품 상세 조회 실패:", error);
         setError("상품을 불러오는 데 실패했습니다.");

@@ -25,6 +25,13 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [refreshTimeout, setRefreshTimeout] = useState(null);
 
+  // ✅ 클라이언트에서는 JWT 슬라이딩 세션의 트리거 역할만 수행하면 됨
+  // 서버는 refreshToken의 남은 시간을 판단해 필요시 재발급 처리함
+  // 트리거는 아래와 같이 여러 방식이 가능:
+  // - API 요청 시
+  // - 사용자 이벤트 발생 시 (e.g., click, keydown)
+  // - setTimeout 기반 주기적 호출 등
+
   const setupRefreshToken = (accessToken) => {
     if (!accessToken) return;
 
@@ -32,21 +39,21 @@ export default function AuthProvider({ children }) {
     const now = Date.now() / 1000;
     const expiresIn = payload.exp - now;
 
-    // if (expiresIn <= 60) {
-    //   logout();
-    //   return;
-    // }
-
     if (refreshTimeout) clearTimeout(refreshTimeout);
 
-    const timeoutMs = Math.max((expiresIn - 60 * 14) * 1000); // 1분 전 재발급
+    // accessToken 만료 14분 전에 재발급 시도 (테스트용)
+    // (주로 서버 만료 시간 1~2분전에 재발급 시도, 15분 기준 )
+
+    const timeoutMs = Math.max((expiresIn - 60) * 1000); // 실제 배포용
+    // const timeoutMs = Math.max((expiresIn - 60 * 14) * 1000); // 테스트용
+
     const timeout = setTimeout(async () => {
       try {
         const newAccessToken = await authService.getRefreshToken();
-        setupRefreshToken(newAccessToken);
-        console.log("토큰 갱신 성공", newAccessToken);
+        setupRefreshToken(newAccessToken); // 새 토큰으로 타이머 갱신
+        console.log("🟢 토큰 갱신 성공", newAccessToken);
       } catch (err) {
-        console.error("토큰 갱신 실패", err);
+        console.error("🔴 토큰 갱신 실패", err);
         logout();
       }
     }, timeoutMs);

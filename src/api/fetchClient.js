@@ -50,9 +50,13 @@ export const tokenFetch = async (url, options = {}) => {
   // 🔐 accessToken 가져오기
   const accessToken = localStorage.getItem("accessToken");
 
+  // FormData 객체 여부 확인
+  const isFormData = options.body instanceof FormData;
+
   const defaultOptions = {
     headers: {
-      "Content-Type": "application/json",
+      // FormData일 경우 Content-Type 헤더를 설정하지 않음 (브라우저가 자동으로 설정)
+      ...(!isFormData && { "Content-Type": "application/json" }),
       ...(accessToken && {
         Authorization: `Bearer ${accessToken}`,
       }),
@@ -65,16 +69,31 @@ export const tokenFetch = async (url, options = {}) => {
     ...options,
     headers: {
       ...defaultOptions.headers,
-      ...options.headers,
+      // options.headers에 특별히 Content-Type이 지정되어 있으면 그것을 사용
+      // FormData일 경우 Content-Type을 설정하지 않음
+      ...(!isFormData && options.headers),
     },
   };
 
   let response = await fetch(`${baseURL}${url}`, mergedOptions);
 
   if (!response.ok) {
-    throw new Error(`API error: ${response.status}`);
+    // 응답 본문을 가져오려고 시도
+    try {
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `API 에러: ${response.status}`);
+      } else {
+        const errorText = await response.text();
+        throw new Error(errorText || `API 에러: ${response.status}`);
+      }
+    } catch (error) {
+      throw new Error(`API 에러: ${response.status} - ${error.message}`);
+    }
   }
 
+  // 응답이 JSON인지 확인
   const contentType = response.headers.get("content-type");
   if (contentType && contentType.includes("application/json")) {
     return response.json();

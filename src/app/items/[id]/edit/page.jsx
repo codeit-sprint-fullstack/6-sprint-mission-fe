@@ -1,9 +1,9 @@
 "use client";
 
-import ProductForm from "@/components/product/ProductForm";
+import ProductForm from "@/app/items/registration/_components/ProductForm";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { productsSevice } from "@/api/products";
+import { productsService } from "@/api/products.js";
 
 export default function EditPage() {
   const router = useRouter();
@@ -16,7 +16,8 @@ export default function EditPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const data = await productsSevice.getDetailProdut(id);
+        const response = await productsService.getDetailProduct(id);
+        const data = response.data;
 
         // 원본 데이터 저장
         setOriginalData(data);
@@ -27,7 +28,7 @@ export default function EditPage() {
           description: data.description || "",
           price: data.price || "",
           tags: data.tags || [],
-          images: data.images || [],
+          image: data.image || [], // 이미지는 배열로 처리
         };
 
         setProduct(formattedProduct);
@@ -44,16 +45,28 @@ export default function EditPage() {
   // 수정 저장 함수 - API 요구 형식에 맞게 데이터 변환
   const handleSaveChanges = async (formData) => {
     try {
-      // API 요청에 필요한 형태로 데이터 구성
-      const productEditData = {
-        name: formData.name,
-        description: formData.description,
-        price: formData.price,
-        tags: formData.tags,
-        images: originalData?.images || [], // 원본 이미지 정보 유지
-      };
+      const form = new FormData();
 
-      await productsSevice.updateProduct(id, productEditData);
+      // 👉 상품 텍스트 필드들
+      form.append("name", formData.name);
+      form.append("description", formData.description);
+      form.append("price", String(formData.price));
+      form.append("tags", JSON.stringify(formData.tags)); // 배열은 문자열로
+      form.append(
+        "existingImages",
+        JSON.stringify(formData.existingImages || []),
+      );
+
+      // 👉 새 이미지 파일 추가
+      if (formData.newImages && formData.newImages.length > 0) {
+        formData.newImages.forEach((file) => {
+          form.append("images", file); // 서버에서 multer.array("images")로 받으면 됨
+        });
+      }
+
+      // 👉 통합 FormData로 업데이트 요청
+      await productsService.updateProduct(id, form); // 이 API는 multipart/form-data 지원해야 함
+
       router.push(`/items/${id}`);
     } catch (error) {
       console.error("수정 실패:", error);

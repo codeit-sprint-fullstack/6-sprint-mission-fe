@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { TiDelete } from "react-icons/ti";
+import Image from "next/image";
 
 export default function ProductForm({
   initialData,
@@ -12,6 +13,7 @@ export default function ProductForm({
     initialData || { name: "", description: "", price: "", tags: [] },
   );
   const [inputTag, setInputTag] = useState("");
+  const [images, setImages] = useState([]);
   const [errors, setErrors] = useState({
     name: false,
     description: false,
@@ -28,8 +30,57 @@ export default function ProductForm({
   };
 
   useEffect(() => {
-    if (initialData) setFormData(initialData);
+    if (initialData) {
+      setFormData(initialData);
+
+      // 기존 이미지가 있는 경우 이미지 배열 초기화
+      if (
+        initialData.image &&
+        Array.isArray(initialData.image) &&
+        initialData.image.length > 0
+      ) {
+        const initialImages = initialData.image.map((imgUrl) => ({
+          url: imgUrl,
+          preview: `${process.env.NEXT_PUBLIC_API_URL}${imgUrl}`,
+          isExisting: true, // 기존 이미지 표시
+        }));
+        setImages(initialImages);
+      }
+    }
   }, [initialData]);
+
+  // 이미지 업로드 처리
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImages((prev) => [
+        ...prev,
+        { file, preview: imageUrl, isExisting: false },
+      ]);
+    }
+  };
+
+  // 이미지 삭제 처리
+  const removeImage = (index) => {
+    const newImages = [...images];
+    if (!newImages[index].isExisting) {
+      URL.revokeObjectURL(newImages[index].preview); // 로컬 이미지인 경우 메모리 정리
+    }
+    newImages.splice(index, 1);
+    setImages(newImages);
+  };
+
+  // 컴포넌트 언마운트 시 메모리 정리
+  useEffect(() => {
+    return () => {
+      images.forEach((image) => {
+        if (!image.isExisting && image.preview) {
+          URL.revokeObjectURL(image.preview);
+        }
+      });
+    };
+  }, []);
 
   // 각 필드별 유효성 검사 함수
   const validateName = (name) => {
@@ -91,7 +142,17 @@ export default function ProductForm({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    onSubmit(formData);
+
+    // 폼 데이터와 이미지 파일을 함께 전달
+    onSubmit({
+      ...formData,
+      // 기존 이미지와 새 이미지 파일 구분해서 전달
+      images: images.map((img) => (img.isExisting ? img.url : img.file)),
+      existingImages: images
+        .filter((img) => img.isExisting)
+        .map((img) => img.url),
+      newImages: images.filter((img) => !img.isExisting).map((img) => img.file),
+    });
   };
 
   const handleTagInput = (e) => setInputTag(e.target.value);
@@ -160,6 +221,68 @@ export default function ProductForm({
           >
             {submitText}
           </button>
+        </div>
+
+        {/* 이미지 업로드 섹션 */}
+        <div className="flex flex-col gap-2.5">
+          <span className="mb-2.5 text-lg font-bold">상품 이미지</span>
+          <div className="flex flex-wrap gap-4">
+            {/* 이미지 프리뷰 목록 */}
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className="relative h-[200px] w-[200px] overflow-hidden rounded-lg border border-gray-200"
+              >
+                <button
+                  type="button"
+                  onClick={() => removeImage(index)}
+                  className="absolute top-1 right-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300"
+                >
+                  ✕
+                </button>
+                <Image
+                  src={image.preview}
+                  alt="상품 이미지"
+                  fill
+                  sizes="200px"
+                  className="object-cover"
+                />
+              </div>
+            ))}
+
+            {/* 이미지 추가 버튼 3개까지 등록 가능*/}
+            {images.length < 3 && (
+              <label
+                htmlFor="image-upload"
+                className="flex h-[200px] w-[200px] cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
+              >
+                <div className="flex flex-col items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mb-1 h-8 w-8 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 4v16m8-8H4"
+                    />
+                  </svg>
+                  <span className="text-sm text-gray-500">이미지 추가</span>
+                </div>
+                <input
+                  id="image-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+              </label>
+            )}
+          </div>
         </div>
 
         {/* 상품명 */}

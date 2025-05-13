@@ -1,31 +1,53 @@
 "use client";
 
-import { defaultFetch, tokenFetch } from "./fetchClient";
+import { tokenFetch } from "./fetchClient";
 
-export const productsSevice = {
-  // create는 현재 다른 서버에 연결중
-  createProduct: async () => await defaultFetch(`/products/${productId}`),
+export const productsService = {
+  // 상품 생성
+  createProduct: async (productData) => {
+    const isFormData = productData instanceof FormData;
+
+    try {
+      const result = await tokenFetch("/products", {
+        method: "POST",
+        body: isFormData ? productData : JSON.stringify(productData),
+        headers: isFormData
+          ? undefined // 헤더 없이 전송해서 브라우저가 자동으로 설정하도록 함
+          : { "Content-Type": "application/json" },
+      });
+
+      return result;
+    } catch (err) {
+      console.error("상품 생성 요청 실패:", err);
+      throw err;
+    }
+  },
 
   getProducts: async (page, pageSize, orderBy, keyWord) =>
-    await defaultFetch(
-      `/products?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}&keyWord=${keyWord}`,
+    await tokenFetch(
+      `/products?page=${page - 1}&pageSize=${pageSize}&orderBy=${orderBy}&keyWord=${keyWord}`,
     ),
 
-  getDetailProdut: async (productId) =>
+  getDetailProduct: async (productId) =>
     await tokenFetch(`/products/${productId}`),
 
-  // 에러는 안남 근데 수정이 안됨 왜 그런지 모르겠음 서버쪽 문제?
-
   updateProduct: async (productId, editProductForm) => {
-    const result = await tokenFetch(`/products/${productId}`, {
-      method: "PATCH",
-      body: JSON.stringify(editProductForm),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const isFormData = editProductForm instanceof FormData;
 
-    return result;
+    try {
+      const result = await tokenFetch(`/products/${productId}`, {
+        method: "PATCH",
+        body: isFormData ? editProductForm : JSON.stringify(editProductForm),
+        headers: isFormData
+          ? undefined // ✅ 또는 생략
+          : { "Content-Type": "application/json" },
+      });
+
+      return result;
+    } catch (err) {
+      console.error("상품 수정 요청 실패:", err);
+      throw err;
+    }
   },
 
   deleteProduct: async (productId) =>
@@ -34,12 +56,12 @@ export const productsSevice = {
     }),
 
   likeProduct: async (productId) =>
-    await tokenFetch(`/products/${productId}/favorite`, {
+    await tokenFetch(`/products/${productId}/like`, {
       method: "POST",
     }),
 
   unLikeProduct: async (productId) =>
-    await tokenFetch(`/products/${productId}/favorite`, {
+    await tokenFetch(`/products/${productId}/like`, {
       method: "DELETE",
     }),
 };

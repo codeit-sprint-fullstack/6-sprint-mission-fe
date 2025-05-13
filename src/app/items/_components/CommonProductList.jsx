@@ -54,7 +54,7 @@ const CommonProductList = () => {
             placeholder="검색어를 입력해주세요."
           />
           {!isMobile && (
-            <Link href="/registration">
+            <Link href="/items/registration">
               <button className="flex h-full w-[150px] min-w-[120px] cursor-pointer items-center justify-center rounded-lg border-none bg-[#3692ff] p-[15px] text-[#ffffff] transition-colors duration-200 hover:bg-[#1967d6]">
                 상품 등록하기
               </button>

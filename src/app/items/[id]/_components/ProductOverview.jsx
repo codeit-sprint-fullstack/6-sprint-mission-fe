@@ -1,21 +1,57 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { FaRegHeart, FaHeart, FaEllipsisV } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import {
+  FaRegHeart,
+  FaHeart,
+  FaEllipsisV,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 import { formatPrice, formatDate } from "@/utils/format";
-import { productsSevice } from "@/api/products";
+import { productsService } from "@/api/products.js";
 import { useRouter } from "next/navigation";
 import DeleteConfirmModal from "./DeleteConfirmModal";
+
+const FALLBACK_IMAGE = "/img/product_skeleton_img.png";
 
 export default function ProductOverview({ product, user }) {
   const router = useRouter();
   const [showOptions, setShowOptions] = useState(false);
-  const [isLiked, setIsLiked] = useState(product?.isFavorite || false);
-  const [favoriteCount, setFavoriteCount] = useState(
-    product?.favoriteCount || 0,
-  );
+  const [isLiked, setIsLiked] = useState(product?.isLiked || false);
+  const [likes, setLikes] = useState(product?.likes || 0);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [images, setImages] = useState([]);
+
+  console.log("product", product);
+
+  // 이미지 데이터 처리
+  useEffect(() => {
+    if (
+      product?.image &&
+      Array.isArray(product.image) &&
+      product.image.length > 0
+    ) {
+      setImages(product.image);
+    } else {
+      setImages([]);
+    }
+  }, [product]);
+
+  // 이미지 이동 함수
+  const goToPrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1,
+    );
+  };
+
+  const goToNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1,
+    );
+  };
 
   // 게시글 삭제 모달 열기
   const handleDelete = () => {
@@ -26,7 +62,8 @@ export default function ProductOverview({ product, user }) {
   // 삭제 확인 처리 함수
   const handleConfirmDelete = async () => {
     try {
-      await productsSevice.deleteProduct(product.id);
+      console.log("삭제 처리 중", product.id);
+      await productsService.deleteProduct(product.id);
       router.push("/items");
     } catch (error) {
       console.error("상품 삭제 실패:", error);
@@ -41,13 +78,13 @@ export default function ProductOverview({ product, user }) {
   const handleToggleLike = () => {
     try {
       if (isLiked) {
-        productsSevice.unLikeProduct(product.id);
+        productsService.unLikeProduct(product.id);
         setIsLiked(false);
-        setFavoriteCount(favoriteCount - 1);
+        setLikes(likes - 1);
       } else {
-        productsSevice.likeProduct(product.id);
+        productsService.likeProduct(product.id);
         setIsLiked(true);
-        setFavoriteCount(favoriteCount + 1);
+        setLikes(likes + 1);
       }
     } catch (error) {
       console.error("좋아요 상태 변경 실패:", error);
@@ -70,16 +107,70 @@ export default function ProductOverview({ product, user }) {
   return (
     // 상품 상세 설명
     <div className="mb-6 flex w-full flex-col gap-4 border-b-2 pb-6 md:flex-row">
-      {/* 상품 이미지 */}
+      {/* 상품 이미지 캐러셀 */}
       <figure className="relative mb-4 h-[500px] w-full md:w-[40%]">
-        <Image
-          src={product.images?.[0] || "/img/product_skelenton_img.png"}
-          alt={product.name}
-          priority
-          fill
-          sizes="500px"
-          className="object-cove rounded-xl"
-        />
+        {images.length > 0 ? (
+          <>
+            <Image
+              src={`${process.env.NEXT_PUBLIC_API_URL}${images[currentImageIndex]}`}
+              alt={`${product.name} 이미지 ${currentImageIndex + 1}`}
+              priority
+              fill
+              sizes="500px"
+              className="rounded-xl object-cover"
+            />
+
+            {/* 이미지가 2개 이상인 경우에만 화살표 표시 */}
+            {images.length > 1 && (
+              <>
+                {/* 이전 이미지 버튼 */}
+                <button
+                  onClick={goToPrevImage}
+                  className="absolute top-1/2 left-2 z-10 -translate-y-1/2 rounded-full bg-white/70 p-2 text-gray-800 shadow-md transition-colors hover:bg-white"
+                >
+                  <FaChevronLeft size={20} />
+                </button>
+
+                {/* 다음 이미지 버튼 */}
+                <button
+                  onClick={goToNextImage}
+                  className="absolute top-1/2 right-2 z-10 -translate-y-1/2 rounded-full bg-white/70 p-2 text-gray-800 shadow-md transition-colors hover:bg-white"
+                >
+                  <FaChevronRight size={20} />
+                </button>
+
+                {/* 이미지 인디케이터 */}
+                <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+                  {images.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`h-2 w-2 rounded-full ${
+                        index === currentImageIndex ? "bg-white" : "bg-white/50"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </>
+        ) : (
+          <Image
+            src={FALLBACK_IMAGE}
+            alt={product.name}
+            priority
+            fill
+            sizes="500px"
+            className="rounded-xl object-cover"
+          />
+        )}
+
+        {/* 이미지 카운터 */}
+        {images.length > 1 && (
+          <div className="absolute top-4 right-4 rounded-full bg-black/60 px-3 py-1 text-white">
+            {currentImageIndex + 1} / {images.length}
+          </div>
+        )}
       </figure>
 
       <div className="flex w-full flex-col md:w-[60%]">
@@ -89,7 +180,7 @@ export default function ProductOverview({ product, user }) {
             <span className="text-xl font-bold">{product.name}</span>
 
             {/* 수정 관련 버튼 */}
-            {user?.id === product.ownerId && (
+            {user && user.user.id === product.userId && (
               <div className="relative">
                 <button
                   onClick={() => setShowOptions(!showOptions)}
@@ -156,7 +247,8 @@ export default function ProductOverview({ product, user }) {
             </figure>
             <div className="ml-4 flex flex-col">
               <span className="mr-1 text-[14px] font-bold text-gray-600">
-                {product.ownerNickname}
+                판매자
+                {/* 아직 author 안넣음 */}
               </span>
               <span className="text-[14px] font-medium text-[#9ca3af]">
                 {formatDate(product.createdAt)}
@@ -177,7 +269,7 @@ export default function ProductOverview({ product, user }) {
                   <FaRegHeart />
                 )}
                 <span className="ml-1 text-[16px] font-medium text-gray-500">
-                  {favoriteCount}
+                  {likes}
                 </span>
               </button>
             </div>

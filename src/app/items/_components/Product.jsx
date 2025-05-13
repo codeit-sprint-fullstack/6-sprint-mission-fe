@@ -2,13 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
 
 const FALLBACK_IMAGE = "/img/product_skeleton_img.png";
 
-const Product = ({ id, height, name, price, favoriteCount = 0, images }) => {
-  const [imgSrc, setImgSrc] = useState(images?.[0] || FALLBACK_IMAGE);
+const Product = ({ id, height, name, price, likes = 0, image, isLiked }) => {
+  const [imgSrc, setImgSrc] = useState(
+    image && image.length > 0
+      ? `${process.env.NEXT_PUBLIC_API_URL}${image[0]}`
+      : FALLBACK_IMAGE,
+  );
 
   const formatNumberWithComma = (number) => number.toLocaleString();
 
@@ -39,8 +43,12 @@ const Product = ({ id, height, name, price, favoriteCount = 0, images }) => {
             {formatNumberWithComma(price)} 원
           </span>
           <div className="flex items-center gap-2.5">
-            <FaRegHeart className="text-[1.2rem]" />
-            <span>{favoriteCount}</span>
+            {isLiked ? (
+              <FaHeart className="text-[1.2rem] text-red-500" />
+            ) : (
+              <FaRegHeart />
+            )}
+            <span>{likes}</span>
           </div>
         </div>
       </li>
