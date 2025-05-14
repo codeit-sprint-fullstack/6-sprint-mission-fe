@@ -27,7 +27,7 @@ const CommonProductList = () => {
     toggleDropdown,
   } = useProducts({
     pageSize: 10,
-    orderBy: ORDER_LIST[0] === "최신순" ? "recent" : "favorite",
+    orderBy: ORDER_LIST[0] === "최신순" ? "recent" : "likes",
   });
 
   return (
@@ -85,7 +85,7 @@ const CommonProductList = () => {
                   최신순
                 </li>
                 <li
-                  onClick={() => handleOrderChange("favorite")}
+                  onClick={() => handleOrderChange("likes")}
                   className="flex h-[42px] w-[130px] cursor-pointer items-center justify-center"
                 >
                   좋아요순

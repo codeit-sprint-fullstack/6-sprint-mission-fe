@@ -8,7 +8,10 @@ import { FaRegHeart } from "react-icons/fa6";
 export default function CommonItem({ article }) {
   // 실제 데이터가 없을 경우를 대비한 기본값 처리
   const title = article?.title || "제목 없음";
-  const userName = article?.user?.nickname || "판다 유저"; // 백엔드에서 유저 정보 제공시 수정
+
+  // author 객체에서 nickname 추출
+  const userName = article?.author?.nickname || "판다 유저";
+
   const likeCount = article?.likes || 0;
   const createdAt = article?.createdAt
     ? new Date(article.createdAt).toLocaleDateString()

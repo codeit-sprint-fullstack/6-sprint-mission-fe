@@ -5,15 +5,21 @@ import Image from "next/image";
 import { FaEllipsisV } from "react-icons/fa";
 import { useComments } from "@/hooks/Article";
 import ConfirmModal from "../../../../components/common/ConfirmModal";
+import { useAuth } from "@/providers/AuthProvider";
 
-export default function CommentItem({ comment, articleId, onCommentUpdated }) {
+export default function CommentItem({ comment, parent, onCommentUpdated }) {
   const [showOptions, setShowOptions] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(comment.content);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const { updateComment, deleteComment } = useComments(articleId);
+  // 부모 데이터의 구조에 맞게 ID 추출
+  const parentId = parent?.data?.id || parent?.id;
+
+  const { updateComment, deleteComment } = useComments(parentId);
+
+  const { user } = useAuth();
 
   // 댓글 수정 취소
   const handleCancelEdit = () => {
@@ -56,6 +62,13 @@ export default function CommentItem({ comment, articleId, onCommentUpdated }) {
       setIsSubmitting(false);
     }
   };
+
+  // 부모 게시글 데이터 추출
+  const parentData = parent?.data || parent;
+
+  // 작성자 정보 추출
+  const authorNickname =
+    comment.author?.nickname || comment.author || "독특한판다";
 
   return (
     <>
@@ -103,7 +116,7 @@ export default function CommentItem({ comment, articleId, onCommentUpdated }) {
               </figure>
               <div className="ml-2 flex flex-col gap-2">
                 <span className="mr-2 text-sm font-medium text-gray-600">
-                  {comment.author || "독특한판다"}
+                  {parent.data.author.nickname || "독특한판다"}
                 </span>
                 <span className="text-xs text-gray-400">
                   {comment.createdAt
@@ -117,12 +130,14 @@ export default function CommentItem({ comment, articleId, onCommentUpdated }) {
 
         {!isEditing && (
           <div className="relative">
-            <button
-              onClick={() => setShowOptions(!showOptions)}
-              className="cursor-pointer text-[#9ca3af]"
-            >
-              <FaEllipsisV />
-            </button>
+            {parentData.userId === user?.user.id && (
+              <button
+                onClick={() => setShowOptions(!showOptions)}
+                className="cursor-pointer text-[#9ca3af]"
+              >
+                <FaEllipsisV />
+              </button>
+            )}
             {showOptions && (
               <div className="absolute right-0 z-10 w-[100px] rounded-md border-2 border-[#e5e7eb] bg-white py-1 md:w-[140px]">
                 <button

@@ -37,7 +37,7 @@ export default function PostPage() {
       <ArticleSection article={article} onArticleUpdate={handleArticleUpdate} />
 
       {/* 댓글 영역 */}
-      <CommentSection articleId={id} />
+      <CommentSection parent={article} />
     </ArticleWrapper>
   );
 }

@@ -7,12 +7,24 @@ import { useState } from "react";
 
 const FALLBACK_IMAGE = "/img/product_skeleton_img.png";
 
-const Product = ({ id, height, name, price, likes = 0, image, isLiked }) => {
+const Product = ({
+  id,
+  height,
+  name,
+  price,
+  likes = 0,
+  image,
+  isLiked,
+  author,
+}) => {
   const [imgSrc, setImgSrc] = useState(
     image && image.length > 0
       ? `${process.env.NEXT_PUBLIC_API_URL}${image[0]}`
       : FALLBACK_IMAGE,
   );
+
+  // 작성자 정보 추출
+  const authorNickname = author?.nickname || author || "판다 유저";
 
   const formatNumberWithComma = (number) => number.toLocaleString();
 
@@ -42,13 +54,18 @@ const Product = ({ id, height, name, price, likes = 0, image, isLiked }) => {
           <span className="text-[1.4rem] font-bold">
             {formatNumberWithComma(price)} 원
           </span>
-          <div className="flex items-center gap-2.5">
-            {isLiked ? (
-              <FaHeart className="text-[1.2rem] text-red-500" />
-            ) : (
-              <FaRegHeart />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              {isLiked ? (
+                <FaHeart className="text-[1.2rem] text-red-500" />
+              ) : (
+                <FaRegHeart />
+              )}
+              <span>{likes}</span>
+            </div>
+            {author && (
+              <span className="text-sm text-gray-500">{authorNickname}</span>
             )}
-            <span>{likes}</span>
           </div>
         </div>
       </li>

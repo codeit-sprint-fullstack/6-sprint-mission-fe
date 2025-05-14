@@ -59,8 +59,16 @@ export function useArticles(initialOptions = {}) {
       setLoading(true);
       setError(null);
       const response = await articlesService.getArticles(options);
-      setArticles(response.data);
-      setTotal(response.pagination.total);
+
+      // 변경된 API 응답 구조에 맞게 데이터 추출
+      if (response.data) {
+        setArticles(response.data);
+        setTotal(response.pagination?.total || 0);
+      } else {
+        // 이전 구조를 위한 폴백 처리
+        setArticles(response);
+        setTotal(response.length || 0);
+      }
     } catch (error) {
       setError(error.message);
       console.error("게시글 목록 조회 실패:", error);

@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import { useComments } from "@/hooks/Article";
 
-export default function CommentForm({ articleId, onCommentAdded }) {
+export default function CommentForm({ parentId, onCommentAdded }) {
   const [comment, setComment] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { addComment } = useComments(articleId);
+  const { addComment } = useComments(parentId);
 
   useEffect(() => {
     setIsValid(comment.trim().length > 0);

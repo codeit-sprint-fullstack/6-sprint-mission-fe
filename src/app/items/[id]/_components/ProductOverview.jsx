@@ -25,8 +25,6 @@ export default function ProductOverview({ product, user }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [images, setImages] = useState([]);
 
-  console.log("product", product);
-
   // 이미지 데이터 처리
   useEffect(() => {
     if (
@@ -247,8 +245,7 @@ export default function ProductOverview({ product, user }) {
             </figure>
             <div className="ml-4 flex flex-col">
               <span className="mr-1 text-[14px] font-bold text-gray-600">
-                판매자
-                {/* 아직 author 안넣음 */}
+                {product.author?.nickname || "판매자"}
               </span>
               <span className="text-[14px] font-medium text-[#9ca3af]">
                 {formatDate(product.createdAt)}

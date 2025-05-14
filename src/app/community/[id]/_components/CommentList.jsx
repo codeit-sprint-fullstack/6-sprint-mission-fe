@@ -6,7 +6,8 @@ import EmptyComments from "./EmptyComments";
 import { useCallback } from "react";
 import LoadingState from "@/components/common/LoadingState";
 
-export default function CommentList({ articleId }) {
+export default function CommentList({ parent, articleId }) {
+  // articleId를 직접 사용
   const { comments, loading, error, refetch } = useComments(articleId);
 
   // 댓글 업데이트 후 새로고침
@@ -39,7 +40,7 @@ export default function CommentList({ articleId }) {
         <CommentItem
           key={comment.id}
           comment={comment}
-          articleId={articleId}
+          parent={parent}
           onCommentUpdated={handleCommentUpdated}
         />
       ))}

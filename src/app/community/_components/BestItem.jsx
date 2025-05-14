@@ -11,7 +11,9 @@ export default function BestItem({ article }) {
   const createdAt = article?.createdAt
     ? new Date(article.createdAt).toLocaleDateString()
     : "날짜 정보 없음";
-  const author = article?.author || "판다 유저";
+
+  // author 객체에서 nickname 추출
+  const authorNickname = article?.author?.nickname || "판다 유저";
   const isLiked = article?.isLiked || false; // 좋아요 여부
 
   // article.image 배열에서 첫 번째 이미지를 썸네일로 사용
@@ -61,7 +63,7 @@ export default function BestItem({ article }) {
           <div className="flex justify-between pb-4">
             <div className="flex h-[24px] max-w-[150px] items-center gap-2">
               <span className="text-[14px] font-[500] text-gray-500">
-                {author}
+                {authorNickname}
               </span>
               <div className="borderpx-2 flex items-center rounded-full">
                 {isLiked ? (
