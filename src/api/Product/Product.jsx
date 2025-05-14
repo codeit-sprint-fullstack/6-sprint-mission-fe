@@ -47,3 +47,17 @@ export const deleteProducts = async (id) => {
 export const toggleProductLike = async (id) => {
   return await tokenFetch(`/products/${id}/like`, { method: "POST" });
 };
+
+// 이미지 업로드 (회원 전용)
+export const uploadProductImages = async (imageFiles) => {
+  const formData = new FormData();
+
+  imageFiles.forEach((file) => {
+    formData.append("images", file); // ⚠️ key는 서버에서 기대하는 이름과 일치해야 함
+  });
+
+  return await tokenFetch("/products/images", {
+    method: "POST",
+    body: formData,
+  });
+};

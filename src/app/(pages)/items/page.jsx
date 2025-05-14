@@ -38,7 +38,7 @@ export default function Market() {
       }
       return 0;
     });
-
+  console.log("넘어온 데이터 확인", data);
   //  페이지네이션 계산
   const totalItems = filteredAndSortedItems.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);

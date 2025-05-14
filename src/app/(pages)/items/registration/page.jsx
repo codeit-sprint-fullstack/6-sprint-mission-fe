@@ -1,12 +1,13 @@
 "use client";
-import { createProducts } from "@/src/api/Product/Product";
+import { createProducts, uploadProductImages } from "@/src/api/Product/Product";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query"; // 추가
+import { useQueryClient } from "@tanstack/react-query";
 
 function RegistrationPage() {
-  const queryClient = useQueryClient(); // 추가
+  const queryClient = useQueryClient();
   const router = useRouter();
+
   const [formData, setFormData] = useState({
     images: "",
     name: "",
@@ -14,6 +15,9 @@ function RegistrationPage() {
     price: "",
     tags: "",
   });
+
+  const [imageFiles, setImageFiles] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,26 +27,53 @@ function RegistrationPage() {
     }));
   };
 
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    const newPreviews = files.map((file) => ({
+      file,
+      url: URL.createObjectURL(file),
+    }));
+
+    setImageFiles((prev) => [...prev, ...files]);
+    setImagePreviews((prev) => [...prev, ...newPreviews]);
+  };
+
+  const removeImage = (index) => {
+    setImageFiles((prev) => prev.filter((_, i) => i !== index));
+    setImagePreviews((prev) => {
+      URL.revokeObjectURL(prev[index].url);
+      return prev.filter((_, i) => i !== index);
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = {
-      images: [],
-      name: formData.name.trim(),
-      description: formData.description.trim(),
-      price: Number(formData.price),
-      tags: formData.tags
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter((tag) => tag !== ""),
-    };
-
     try {
+      // 1. 이미지 먼저 업로드
+      const uploadRes = await uploadProductImages(imageFiles); // imageFiles는 useState로 관리 중
+      const imageUrls = uploadRes.imageUrls; // 응답 형태에 따라 조정 필요
+
+      // 2. payload 구성
+      const payload = {
+        name: formData.name.trim(),
+        description: formData.description.trim(),
+        price: Number(formData.price),
+        tags: formData.tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter((tag) => tag !== ""),
+        images: imageUrls, // ✅ 이미지 경로 포함
+      };
+
+      // 3. 상품 등록 API 호출
       const res = await createProducts(payload);
       queryClient.invalidateQueries(["items"]);
-
-      router.push("/items"); // ✅ 성공 후 /items로 이동
-    } catch (err) {}
+      router.push("/items");
+    } catch (err) {
+      console.error("상품 등록 실패", err);
+      alert("상품 등록 중 오류가 발생했습니다.");
+    }
   };
 
   const isFormComplete =
@@ -52,11 +83,12 @@ function RegistrationPage() {
     formData.tags.trim() !== "";
 
   return (
-    <div className="flex flex-col w-full max-w-[40rem] items-center mx-auto mt-[1.5rem] px-4">
+    <div className="flex flex-col w-full max-w-[75rem] items-center mx-auto mt-[1.5rem] px-4">
       <form
         className="w-full flex flex-col justify-center items-center gap-6 md:gap-8 lg:gap-10"
         onSubmit={handleSubmit}
       >
+        {/* 상단 헤더 */}
         <div className="flex flex-row justify-between items-center w-full">
           <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">
             상품 등록하기
@@ -74,6 +106,48 @@ function RegistrationPage() {
           </button>
         </div>
 
+        {/* 이미지 업로드 */}
+        <div className="w-full flex flex-col gap-2">
+          <label className="font-semibold text-base md:text-lg">
+            상품 이미지
+          </label>
+          <div className="flex gap-4 flex-wrap">
+            <label className="w-[10.5rem] h-[10.5rem] lg:w-[17.625rem] lg:h-[17.625rem] bg-gray-100 rounded-lg flex items-center justify-center cursor-pointer">
+              <span className="text-gray-500 text-sm text-center">
+                이미지 등록
+              </span>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                className="hidden"
+                onChange={handleImageChange}
+              />
+            </label>
+
+            {imagePreviews.map((img, index) => (
+              <div
+                key={index}
+                className="relative w-[10.5rem] h-[10.5rem] lg:w-[17.625rem] lg:h-[17.625rem]"
+              >
+                <img
+                  src={img.url}
+                  alt={`상품 이미지 ${index + 1}`}
+                  className="w-full h-full object-cover rounded-lg"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeImage(index)}
+                  className="absolute top-1 right-1 bg-white rounded-full shadow p-1 text-gray-700"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 상품명 */}
         <div className="w-full flex flex-col gap-2">
           <label className="font-semibold text-base md:text-lg">상품명</label>
           <input
@@ -85,6 +159,7 @@ function RegistrationPage() {
           />
         </div>
 
+        {/* 설명 */}
         <div className="w-full flex flex-col gap-2">
           <label className="font-semibold text-base md:text-lg">
             상품 소개
@@ -98,6 +173,7 @@ function RegistrationPage() {
           />
         </div>
 
+        {/* 가격 */}
         <div className="w-full flex flex-col gap-2">
           <label className="font-semibold text-base md:text-lg">판매가격</label>
           <input
@@ -110,6 +186,7 @@ function RegistrationPage() {
           />
         </div>
 
+        {/* 태그 */}
         <div className="w-full flex flex-col gap-2">
           <label className="font-semibold text-base md:text-lg">태그</label>
           <input
@@ -117,7 +194,7 @@ function RegistrationPage() {
             value={formData.tags}
             onChange={handleChange}
             className="w-full rounded p-3 bg-gray-100 focus:outline-none"
-            placeholder="태그를 입력해주세요"
+            placeholder="태그를 입력해주세요 (예: 겨울,니트,데일리)"
           />
           <div className="flex flex-wrap gap-2 mt-2">
             {formData.tags

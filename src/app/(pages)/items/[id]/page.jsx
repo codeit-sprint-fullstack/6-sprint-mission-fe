@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import defaultProfile from "../../../../assets/face.png";
 import defalutItem from "../../../../assets/defalut-item.png";
 import noComment from "../../../../assets/noCommment.png";
@@ -16,7 +16,6 @@ import Coment from "./components/Coment";
 import modalopenbt from "../../../../assets/modalopenbt.png";
 import Link from "next/link";
 import { userService } from "@/src/app/providers/AuthProvider";
-
 import ButtonModal from "./components/ButtonModal";
 import { useModal } from "@/src/app/providers/ModalProvider";
 import DeleteModal from "./components/DeleteModal";
@@ -56,9 +55,8 @@ export default function ItemsDetailPage() {
   } = useQuery({
     queryKey: ["product", id],
     queryFn: () => fetchProduct(id),
-    meta: { name: "상품 정보 가져오기" },
-    refetchOnMount: true, // ✅ 마운트될 때마다 refetch
-    refetchOnWindowFocus: true, // ✅ 창 전환시 refetch
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 
   const {
@@ -69,9 +67,8 @@ export default function ItemsDetailPage() {
     queryKey: ["itemsComent", id],
     queryFn: () => getProductComent(id, { params: { limit: 10 } }),
     enabled: !!id,
-    meta: { name: "상품 댓글 가져오기" },
-    refetchOnMount: true, // ✅ 마운트될 때마다 refetch
-    refetchOnWindowFocus: true, // ✅ 창 전환시 refetch
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   });
 
   const postComent = async (e) => {
@@ -86,12 +83,25 @@ export default function ItemsDetailPage() {
   if (itemPending) return <p>아이템목록 불러오는 중...</p>;
   if (itemError) return <p>아이템목록 오류 발생!</p>;
 
+  // ✅ 이미지 유효성 검사 및 URL 처리
+  const firstImage = item.images?.[0];
+  const isValidImage =
+    typeof firstImage === "string" &&
+    firstImage.trim() !== "" &&
+    !firstImage.includes("example.com");
+  const isAbsoluteUrl = isValidImage && /^https?:\/\//.test(firstImage);
+  const imageUrl = isValidImage
+    ? isAbsoluteUrl
+      ? firstImage
+      : `http://localhost:5000${firstImage}`
+    : defalutItem;
+
   return (
     <div className="w-full max-w-[75rem] mx-auto pb-[5rem] px-[1rem] md:px-[1.5rem] flex flex-col gap-[2.5rem]">
       <div className="flex flex-col md:flex-row gap-[1rem] items-center justify-center pb-[1.5rem] md:pb-[2rem] lg:pb-[2.5rem] border-b border-gray-200">
         <div className="w-[21.5rem] h-[21.5rem] md:w-[30.375rem] md:h-[30.375rem] relative">
           <Image
-            src={item.images?.[0] ?? defalutItem}
+            src={imageUrl}
             alt="상품이미지"
             fill
             className="object-cover rounded-xl"

@@ -10,6 +10,7 @@ export default {
       "cdn.wccftech.com",
       "encrypted-tbn0.gstatic.com",
       "i.pinimg.com",
+      "localhost",
     ],
     remotePatterns: [
       {
