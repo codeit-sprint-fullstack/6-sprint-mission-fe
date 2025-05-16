@@ -17,17 +17,19 @@ export default function ProductForm({ title }) {
   const [tagValue, setTagValue] = useState("");
   // TODO: 내가 만든 API 연동할 때 이미지 초기 값 변경
   const [body, setBody] = useState({
-    images: ["https://example.com/..."],
+    images: [],
     name: "",
     description: "",
     price: "",
     tags: [],
   });
 
-  const [errorMsg, checkValidation] = useValidation();
   const { productId } = useParams();
   const queryClient = useQueryClient();
   const router = useRouter();
+
+  // 에러 메시지
+  const [errorMsg, checkValidation] = useValidation();
 
   // 상품 상세 조회
   const {
@@ -60,7 +62,7 @@ export default function ProductForm({ title }) {
   // 상품 수정 시 초기 값 세팅
   useEffect(() => {
     if (isPending) return;
-    const { images, name, description, price, tags } = product;
+    const { images = [], name, description, price, tags } = product;
 
     setBody((prev) => ({ ...prev, images, name, description, price, tags }));
   }, [isPending]);
@@ -69,23 +71,56 @@ export default function ProductForm({ title }) {
   const handleCreatePost = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
-    // TODO: body에 trim해서 보내기
-    createPost(body);
+    const formData = new FormData();
+    formData.append("name", body.name);
+    formData.append("description", body.description);
+    formData.append("price", body.price);
+    formData.append("tags", JSON.stringify(body.tags));
+    body.images.forEach((image) => {
+      formData.append("imageFiles", image.file);
+    });
+
+    try {
+      setIsLoading(true);
+
+      // TODO: body에 trim해서 보내기
+      createPost(formData);
+    } catch (e) {
+      console.error(e.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // 상품 수정
   const handleUpdatePost = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
-    // TODO: body에 trim해서 보내기
-    updatePost({ id: productId, body });
+    const formData = new FormData();
+    formData.append("name", body.name);
+    formData.append("description", body.description);
+    formData.append("price", body.price);
+    formData.append("tags", JSON.stringify(body.tags));
+    body.images.forEach((image) => {
+      formData.append("imageFiles", image.file);
+    });
+
+    try {
+      setIsLoading(true);
+
+      // TODO: body에 trim해서 보내기
+      updatePost({ id: productId, body: formData });
+    } catch (e) {
+      console.error(e.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // body 변경
   const changeValue = (e) => {
     const { id, value } = e.target;
+    console.log(body);
 
     // 유효성 검사
     checkValidation(e);
@@ -95,7 +130,23 @@ export default function ProductForm({ title }) {
     }
 
     if (id === "price") {
-      return setBody((prev) => ({ ...prev, price: Number(value) }));
+      return setBody((prev) => ({
+        ...prev,
+        price: Number(value) ? Number(value) : value,
+      }));
+    }
+
+    if (id === "image") {
+      if (body.images.length === 3) return;
+
+      const images = Array.from(e.target.files);
+
+      return images.map((file) => {
+        const imageUrl = URL.createObjectURL(file); // 미리보기용 URL 생성
+        const newImage = { file, url: imageUrl };
+
+        setBody((prev) => ({ ...prev, images: [...prev.images, newImage] }));
+      });
     }
 
     setBody((prev) => ({ ...prev, [id]: value }));
@@ -143,9 +194,16 @@ export default function ProductForm({ title }) {
 
   // 태그 삭제
   const deleteTag = (value) => {
-    const newTags = body.tags.filter((tag) => tag !== value);
+    const deletedTag = body.tags.filter((tag) => tag !== value);
 
-    setBody((prev) => ({ ...prev, tags: [...newTags] }));
+    setBody((prev) => ({ ...prev, tags: [...deletedTag] }));
+  };
+
+  // 이미지 삭제
+  const deleteImage = (value) => {
+    const updatedImage = body.images.filter((image) => image !== value);
+
+    setBody((prev) => ({ ...prev, images: [...updatedImage] }));
   };
 
   return (
@@ -174,7 +232,11 @@ export default function ProductForm({ title }) {
             )}
           </button>
         </div>
-        <ProductImageUpload />
+        <ProductImageUpload
+          body={body}
+          changeValue={changeValue}
+          deleteImage={deleteImage}
+        />
         <ProductInput
           type="name"
           title="상품명"

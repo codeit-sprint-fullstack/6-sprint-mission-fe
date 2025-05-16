@@ -72,13 +72,6 @@ export default function ArticleDetail() {
 
   return (
     <>
-      {/* {isPending ? (
-        <div className="flex justify-center items-center gap-[8px]">
-          <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-200 border-t-primary-100 rounded-full animate-spin"></div>
-          <p className="font-medium">불러오는 중</p>
-        </div>
-      ) : ( */}
-      {/* <> */}
       <div className="flex flex-col gap-[16px] w-full">
         <div className="relative flex justify-between gap-[8px]">
           <h2 className="font-bold text-[20px]/[32px]">{article.title}</h2>
@@ -100,8 +93,6 @@ export default function ArticleDetail() {
       <p className="whitespace-pre-line w-full font-normal text-[16px]/[26px] mt-[16px] mb-[32px] sm:mt-[24px] sm:mb-[40px]">
         {article.content}
       </p>
-      {/* </> */}
-      {/* )} */}
     </>
   );
 }

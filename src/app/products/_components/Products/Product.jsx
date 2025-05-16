@@ -10,14 +10,15 @@ export default function Product({ product }) {
       href={`/products/${product.id}`}
       className="flex flex-col justify-center items-start gap-[16px]"
     >
-      <div className="relative w-full h-full aspect-[1/1] rounded-[12px] overflow-hidden">
-        <Image
-          src={product.images?.[0] || img_default_product}
-          alt={product.name}
-          fill
-          className="object-cover"
-        />
-      </div>
+      <img
+        src={
+          product.images.length === 0
+            ? img_default_product.src
+            : product.images[0]
+        }
+        alt={product.name} 
+        className="relative w-full h-full aspect-[1/1] rounded-[12px] overflow-hidden"
+      />
       <div className="flex flex-col justify-center items-start gap-[6px]">
         <p className="font-medium text-[14px]/[24px]">{product.name}</p>
         <p className="font-bold text-[16px]/[26px]">

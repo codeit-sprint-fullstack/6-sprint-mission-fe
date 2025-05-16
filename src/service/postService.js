@@ -1,4 +1,4 @@
-import { tokenFetch } from "./fetchClient";
+import { multipartFetch, tokenFetch } from "./fetchClient";
 
 // TODO: 좋아요는 favorite말고 like로 만들어서 경로도 수정하기.
 // TODO: API에 list 없앨지 고민(백엔드 수정해야 함)
@@ -11,15 +11,15 @@ export const postService = {
   getPost: (type, id) => tokenFetch(`/${type}/${id}`),
 
   createPost: (type, body) =>
-    tokenFetch(`/${type}`, {
+    multipartFetch(`/${type}`, {
       method: "POST",
-      body: JSON.stringify(body),
+      body,
     }),
 
   updatePost: (type, id, body) =>
-    tokenFetch(`/${type}/${id}`, {
+    multipartFetch(`/${type}/${id}`, {
       method: "PATCH",
-      body: JSON.stringify(body),
+      body,
     }),
 
   deletePost: (type, id) =>
