@@ -3,6 +3,8 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image"; //
 import { usePathname } from "next/navigation";
+import googleIcon from "@/app/assets/icons/ic-google.svg";
+import kakaotalkIcon from "@/app/assets/icons/ic-kakaotalk.svg";
 
 export default function SocialAuthOptions() {
   const pathName = usePathname();
@@ -20,7 +22,7 @@ export default function SocialAuthOptions() {
               rel="noopener noreferrer"
             >
               <Image
-                src="/icons/ic_google.svg"
+                src={googleIcon}
                 width={42}
                 height={42}
                 alt="구글 로그인 아이콘"
@@ -32,7 +34,7 @@ export default function SocialAuthOptions() {
               rel="noopener noreferrer"
             >
               <Image
-                src="/icons/ic_kakaotalk.svg"
+                src={kakaotalkIcon}
                 width={42}
                 height={42}
                 alt="카카오톡 로그인 아이콘"

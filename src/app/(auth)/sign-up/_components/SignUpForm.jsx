@@ -4,11 +4,11 @@ import PasswordInput from "@/components/ui/PasswordInput";
 import React, { useState } from "react";
 import useSignUpForm from "@/hooks/useSignUpForm";
 import AuthSubmitButton from "@/components/ui/AuthSubmitButton";
-import SocialAuthOptions from "../../../components/ui/SocialAuthOptions";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/api/auth";
 import AuthModal from "@/components/ui/AuthModal";
 import useRedirectIfAuthenticated from "@/hooks/useRedirectIfAuthenticated";
+import SocialAuthOptions from "@/components/ui/SocialAuthOptions";
 
 export default function SignUpForm() {
   useRedirectIfAuthenticated();
