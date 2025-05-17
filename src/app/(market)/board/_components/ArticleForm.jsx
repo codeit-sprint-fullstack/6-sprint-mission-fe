@@ -37,7 +37,7 @@ function ArticleForm() {
 
   return (
     <form
-      className="p-4 mb-[965px]"
+      className="mb-[186px]"
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit({ title, content });

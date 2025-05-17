@@ -7,10 +7,16 @@ export const BREAKPOINTS = {
   lg: 1200,
 };
 
-export const ARTICLE_COUNT = {
+export const BEST_ARTICLE_COUNT = {
   mobile: 1,
   tablet: 2,
   pc: 3,
+};
+
+export const ARTICLE_COUNT = {
+  mobile: 4,
+  tablet: 5,
+  pc: 6,
 };
 
 export const BEST_ITEM_COUNT = {
