@@ -2,7 +2,8 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { validateConfirmPassword, validatePassword } from "@/utils/validators";
-
+import visibilityOffIcon from "@/app/assets/icons/ic-visibility-off.svg";
+import visibilityOnIcon from "@/app/assets/icons/ic-visibility-on.svg";
 export default function PasswordInput({
   id,
   label,
@@ -73,14 +74,14 @@ export default function PasswordInput({
         >
           {visible ? (
             <Image
-              src="/icons/ic_visibility_on.svg"
+              src={visibilityOnIcon}
               width={24}
               height={24}
               alt="비밀번호 보이기"
             ></Image>
           ) : (
             <Image
-              src="/icons/ic_visibility_off.svg"
+              src={visibilityOffIcon}
               width={24}
               height={24}
               alt="비밀번호 숨김"
