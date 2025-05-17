@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-@theme {
+@theme inline {
+  --breakpoint-md: 744px;
+  --breakpoint-lg: 1200px;
   --color-primary: #3692ff;
   --color-primary-200: #1967d6;
   --color-primary-300: #1251aa;
@@ -14,6 +16,10 @@
   --color-secondary-50: #f9fafb;
   --color-secondary-25: #fcfcfc;
   --color-error: #f74747;
+
+  /* font definition */
+  --font-pretendard: var(--font-pretendard);
+  --font-rokaf: var(--font-rokaf);
 }
 
 .outline-error {

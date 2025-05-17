@@ -13,10 +13,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${pretendard.variable} ${rokaf.variable}`}>
-      <body className={`${pretendard.className}`}>
+    <html lang="en">
+      <body className={`${pretendard.variable} ${rokaf.variable}`}>
         <Header />
-        <main className="flex justify-center mx-auto">{children}</main>
+        <main className="flex justify-center mx-auto font-pretendard">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
