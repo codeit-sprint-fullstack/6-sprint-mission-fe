@@ -46,7 +46,7 @@ export async function updateProduct(productId, params) {
 
     if (!res.ok) return data;
 
-    return { success: true };
+    return { success: true, id: data.id };
   } catch (e) {
     console.error("상품 수정을 실패했습니다.", e);
     throw e;
@@ -118,6 +118,33 @@ export async function deleteLike(productId) {
     return { success: true, ...data };
   } catch (e) {
     console.error("좋아요 취소 요청을 실패했습니다.", e);
+    throw e;
+  }
+}
+
+// 이미지 업로드
+export async function uploadImage(image) {
+  const token = (await cookies()).get("accessToken")?.value;
+
+  const formData = new FormData();
+  formData.append("image", image);
+
+  try {
+    const res = await fetch(`${BASE_URL}/images/upload`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) return data;
+
+    return { success: true, url: data.url };
+  } catch (e) {
+    console.error("이미지 등록을 실패했습니다.", e);
     throw e;
   }
 }

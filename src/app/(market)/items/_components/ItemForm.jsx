@@ -1,21 +1,30 @@
 "use client";
 
-import { createProduct, updateProduct } from "@/lib/actions/product";
+import {
+  createProduct,
+  updateProduct,
+  uploadImage,
+} from "@/lib/actions/product";
 import Modal from "@/components/ui/Modal";
 import Tag from "@/components/ui/Tag";
 import Image from "next/image";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 function ItemForm({ values, setValues }) {
   const [tagInput, setTagInput] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState(null);
+  const [inputError, setInputError] = useState("");
+  const fileInputRef = useRef(null);
 
   const { id } = useParams();
   const router = useRouter();
   const pathname = usePathname();
   const isEditPage = pathname.includes("/edit");
+
+  const queryClient = useQueryClient();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +35,7 @@ function ItemForm({ values, setValues }) {
       const result = await updateProduct(id, {
         name,
         description,
-        price,
+        price: Number(price),
         tags,
         images,
       });
@@ -35,13 +44,14 @@ function ItemForm({ values, setValues }) {
         setError(result.message);
         setIsModalOpen(true);
       } else {
-        router.push(`/items/${id}`);
+        await queryClient.invalidateQueries({ queryKey: ["product", id] });
+        router.replace(`/items/${result.id}`);
       }
     } else {
       const result = await createProduct({
         name,
         description,
-        price,
+        price: Number(price),
         tags,
         images,
       });
@@ -57,11 +67,50 @@ function ItemForm({ values, setValues }) {
 
   // 모달 버튼 핸들러
   const handleClick = () => {
-    if (isEditPage) {
+    if (error) {
+      setIsModalOpen(false);
+    } else if (isEditPage) {
       router.push(`/items/${id}`);
     } else {
       router.push(`/items`);
     }
+  };
+
+  // 이미지 등록 버튼 클릭 시 input 참조
+  const handleFileUpload = async () => {
+    fileInputRef.current?.click();
+  };
+
+  // 이미지 업로드
+  const handleFileChange = async (e) => {
+    const image = e.target.files[0];
+    if (!image) return;
+    if (values.images.length === 3) {
+      setInputError("*이미지 등록은 최대 3개까지 가능합니다.");
+      return;
+    }
+
+    try {
+      const result = await uploadImage(image);
+      if (result.success) {
+        setValues((prev) => ({
+          ...prev,
+          images: [...prev.images, result.url],
+        }));
+      }
+    } catch (e) {
+      console.error("이미지 업로드 실패", e);
+    } finally {
+      e.target.value = "";
+    }
+  };
+
+  // 업로드된 이미지 삭제
+  const handleFileDelete = (index) => {
+    setValues((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
   };
 
   return (
@@ -87,23 +136,60 @@ function ItemForm({ values, setValues }) {
         </nav>
         <section className="space-y-4">
           <div>
-            <h3 className="text-sm font-bold mb-3">*상품 이미지</h3>
-            <button
-              type="button"
-              className="flex flex-col justify-center items-center gap-3 w-[168px] aspect-square bg-gray-100 rounded-xl text-gray-400 hover:bg-gray-200"
-            >
-              <Image
-                src="/assets/icon/ic_plus.svg"
-                alt="이미지 등록"
-                width={48}
-                height={48}
+            <h3 className="text-lg font-bold mb-3">*상품 이미지</h3>
+            <div className="flex gap-[10px] h-[168px] lg:gap-6 lg:h-[282px]">
+              <button
+                type="button"
+                className="flex flex-col justify-center items-center gap-3 w-[168px] lg:w-[282px] aspect-square bg-gray-100 rounded-xl text-gray-400 hover:bg-gray-200"
+                onClick={handleFileUpload}
+              >
+                <Image
+                  src="/assets/icon/ic_plus.svg"
+                  alt="이미지 등록"
+                  width={48}
+                  height={48}
+                />
+                이미지 등록
+              </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                accept="image/*"
+                className="hidden"
+                onChange={handleFileChange}
               />
-              이미지 등록
-            </button>
-            <input type="file" multiple accept="image/*" className="hidden" />
+              <div className="flex w-full overflow-auto gap-[10px] lg:gap-6">
+                {values.images.map((url, index) => (
+                  <div key={url} className="relative shrink-0">
+                    <Image
+                      src={url}
+                      alt={`상품 이미지 ${index}`}
+                      width={168}
+                      height={168}
+                      className="rounded-xl aspect-square lg:w-[282px]"
+                    />
+                    <button
+                      className="absolute top-3 right-3"
+                      onClick={() => handleFileDelete(index)}
+                    >
+                      <Image
+                        src="/assets/icon/ic_X.svg"
+                        alt="이미지 취소"
+                        width={22}
+                        height={24}
+                      />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mt-2 ml-4 text-sm font-semibold text-error-red">
+              {inputError}
+            </div>
           </div>
           <div>
-            <h3 className="text-sm font-bold mb-3">*상품명</h3>
+            <h3 className="text-lg font-bold mb-3">*상품명</h3>
             <input
               className="w-full px-6 py-4 rounded-xl bg-gray-100 font-normal"
               type="text"
@@ -115,7 +201,7 @@ function ItemForm({ values, setValues }) {
             />
           </div>
           <div>
-            <h3 className="text-sm font-bold mb-3">*상품 소개</h3>
+            <h3 className="text-lg font-bold mb-3">*상품 소개</h3>
             <textarea
               className="w-full h-[200px] px-6 py-4 rounded-xl bg-gray-100 font-normal resize-none"
               type="text"
@@ -127,7 +213,7 @@ function ItemForm({ values, setValues }) {
             />
           </div>
           <div>
-            <h3 className="text-sm font-bold mb-3">*판매 가격</h3>
+            <h3 className="text-lg font-bold mb-3">*판매 가격</h3>
             <input
               className="w-full px-6 py-4 rounded-xl bg-gray-100 font-normal"
               type="number"
@@ -139,7 +225,7 @@ function ItemForm({ values, setValues }) {
             />
           </div>
           <div>
-            <h3 className="text-sm font-bold mb-3">*태그</h3>
+            <h3 className="text-lg font-bold mb-3">*태그</h3>
             <Tag
               tags={values.tags}
               setValues={setValues}
@@ -149,7 +235,9 @@ function ItemForm({ values, setValues }) {
           </div>
         </section>
       </form>
-      {isModalOpen && <Modal message={error} handleClick={handleClick} />}
+      {isModalOpen && (
+        <Modal message={error} itemId={id} handleClick={handleClick} />
+      )}
     </>
   );
 }

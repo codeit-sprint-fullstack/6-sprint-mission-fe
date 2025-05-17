@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-function Modal({ message, handleClick, isDelete, handleDelete }) {
+function Modal({ message, handleClick, isDelete, itemId, handleDelete }) {
   return (
     <div className="flex justify-center items-center w-full h-full fixed top-0 left-0 z-100 bg-black/70">
       <div className="flex flex-col justify-center items-center w-[327px] h-[220px] md:w-[540px] md:h-[250px] rounded-lg bg-white gap-[42px]">
@@ -31,7 +31,7 @@ function Modal({ message, handleClick, isDelete, handleDelete }) {
             <button
               type="button"
               className="btn-base h-12 bg-error-red w-22"
-              onClick={handleDelete}
+              onClick={() => handleDelete(itemId)}
             >
               네
             </button>
