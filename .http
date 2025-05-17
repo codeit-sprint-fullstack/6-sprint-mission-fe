@@ -1,0 +1,41 @@
+//서버와의 동작 확인
+### 회원가입 요청
+POST http://localhost:4000/auth/signUp
+Content-Type: application/json
+
+{
+  "email": "jenny1234@nate.com",
+  "nickName": "제니",
+  "password": "11115678"
+}
+
+###
+
+### 로그인 하기
+POST http://localhost:4000/auth/signIn
+Content-Type:application/json
+
+{
+  "email": "Layna@nate.com",
+    "password": "115678910"
+
+}
+
+### 상품가져오기
+GET http://localhost:4000/products
+
+###댓글작성
+POST https://panda-market-api.vercel.app/products/833/comments
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIxMywic2NvcGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDcxMjU5NDcsImV4cCI6MTc0NzEyNzc0NywiaXNzIjoic3AtcGFuZGEtbWFya2V0In0.6xgfQEVCtuOA8DxO7xdO3FTwVMrQdCh1aCo5Ck3fQoE
+
+{
+  "content":"저는 있는거 다 살게요"
+}
+###
+
+###
+GET https://panda-market-api.vercel.app/products/833/comments?limit=3
+
+###
+GET https://panda-market-api.vercel.app/products?page=1&pageSize=20&orderBy=recent
