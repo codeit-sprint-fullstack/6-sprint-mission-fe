@@ -91,7 +91,7 @@ export default function ProductDetail() {
       <div className="flex flex-col justify-center items-center gap-y-[16px] sm:flex-row sm:items-start sm:gap-[16px] md:items-center md:gap-[24px]">
         <img
           src={
-            product.images.length === 0
+            product.images?.length === 0
               ? img_default_product.src
               : product.images[0]
           }

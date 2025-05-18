@@ -12,9 +12,9 @@ export default function BestProduct({ bestProduct }) {
     >
       <img
         src={
-          product.images.length === 0
+          bestProduct.images.length === 0
             ? img_default_product.src
-            : product.images[0]
+            : bestProduct.images[0]
         }
         alt="상품"
         className="relative w-full h-full aspect-[1/1] rounded-[12px] overflow-hidden"
