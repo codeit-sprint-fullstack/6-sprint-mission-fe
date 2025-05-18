@@ -46,7 +46,6 @@ const ProductList = () => {
 
   return (
     <div className="w-full max-w-[1200px] mx-auto px-4">
-      {/* 베스트 상품 4개 */}
       <div className="mt-8">
         <BestProducts products={products} />
       </div>
@@ -77,7 +76,6 @@ const ProductList = () => {
       )}
       {isLoading && <p>로딩 중...</p>}
 
-      {/* 상품 리스트 */}
       {!isLoading &&
         !isError &&
         Array.isArray(products) &&
@@ -110,7 +108,6 @@ const ProductList = () => {
           </ul>
         )}
 
-      {/* 페이지네이션 */}
       <div className="mt-8 mb-12 flex justify-center">
         <Pagination
           page={page}

@@ -107,7 +107,6 @@ export default function ProductRegisterPage() {
       <div className="w-full max-w-[1200px] mx-auto p-4 relative">
         <h1 className="text-xl font-semibold mb-6">상품 등록하기</h1>
 
-        {/* ✅ 등록 버튼 포함된 form 내부 */}
         <form onSubmit={handleSubmit} className="space-y-6 relative">
           <div className="absolute top-0 right-0">
             <SubmitButton />

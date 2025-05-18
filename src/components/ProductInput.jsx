@@ -10,7 +10,6 @@ export default function ProductInput({
 }) {
   return (
     <div className="space-y-6">
-      {/* 상품명 */}
       <div>
         <label className="block text-sm font-semibold text-gray-800 mb-2">
           상품명
@@ -24,7 +23,6 @@ export default function ProductInput({
         />
       </div>
 
-      {/* 상품 소개 */}
       <div>
         <label className="block text-sm font-semibold text-gray-800 mb-2">
           상품 소개
@@ -38,7 +36,6 @@ export default function ProductInput({
         />
       </div>
 
-      {/* 가격 */}
       <div>
         <label className="block text-sm font-semibold text-gray-800 mb-2">
           판매가격

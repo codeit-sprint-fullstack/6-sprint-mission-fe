@@ -43,7 +43,7 @@ export default function ProductDetailClient({ productId }) {
       }
     };
 
-    fetchData(); // ✅ 항상 실행됨
+    fetchData();
   }, [productId, accessToken]);
 
   const addComment = async (content) => {

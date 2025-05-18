@@ -1,5 +1,4 @@
 module.exports = {
-  /* API 프록시 설정 */
   async rewrites() {
     return [
       {

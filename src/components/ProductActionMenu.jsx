@@ -28,15 +28,12 @@ export default function ProductActionMenu({ itemId }) {
       return;
     }
 
-    const res = await fetch(
-      `http://localhost:5000/api/products/${itemId}`, 
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+    const res = await fetch(`http://localhost:5000/api/products/${itemId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     if (!res.ok) {
       const errorData = await res.json();

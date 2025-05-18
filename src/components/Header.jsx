@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useAuth } from "@/providers/AuthProvider"; 
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function Header() {
   const pathname = usePathname();

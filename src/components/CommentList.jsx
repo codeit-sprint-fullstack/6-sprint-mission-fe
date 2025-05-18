@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
 
-/* 상대 시간으로 변환하는 함수 */
 function timeSince(date) {
   const seconds = Math.floor((new Date() - new Date(date)) / 1000);
 

@@ -21,8 +21,6 @@ export default function TagInput({ tags, setTags }) {
       <label className="block text-sm font-semibold text-gray-800 mb-2">
         태그
       </label>
-
-      {/* 태그 입력창 */}
       <input
         type="text"
         placeholder="태그를 입력해주세요"
@@ -30,7 +28,6 @@ export default function TagInput({ tags, setTags }) {
         className="w-full px-4 py-3 bg-gray-100 text-sm text-gray-700 placeholder-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
-      {/* 태그 리스트 */}
       <div className="mt-3 flex flex-wrap gap-2">
         {tags.map((tag) => (
           <span

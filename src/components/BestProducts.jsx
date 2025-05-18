@@ -13,7 +13,6 @@ export default function BestProducts({ products = [] }) {
 
       <ul className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {products.slice(0, 4).map((p) => {
-          // ✅ 이미지 처리 로직 수정
           let imageUrl = "";
 
           if (Array.isArray(p.images)) {

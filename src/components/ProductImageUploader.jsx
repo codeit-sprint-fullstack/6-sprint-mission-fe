@@ -29,7 +29,6 @@ export default function ProductImageUploader({ images, setImages }) {
       </label>
 
       <div className="flex flex-wrap gap-4">
-        {/* + 업로드 버튼 */}
         <div
           onClick={() => fileInputRef.current.click()}
           className="cursor-pointer flex flex-col items-center justify-center w-[282px] h-[282px] bg-gray-100 text-gray-400 rounded-xl hover:bg-gray-200 transition"
@@ -46,7 +45,6 @@ export default function ProductImageUploader({ images, setImages }) {
           />
         </div>
 
-        {/* 이미지 미리보기 */}
         {images.map((img, idx) => (
           <div
             key={idx}
