@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import "../components/css/input.scss";
+import "./css/input.scss";
 import clsx from "clsx";
 
 function NormalInput({

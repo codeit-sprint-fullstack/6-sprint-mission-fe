@@ -1,32 +1,43 @@
 "use client";
 
+import { BASE_URL } from "@/api/apiRequest";
 import React, { useEffect, useState } from "react";
 import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 
-function LikesToArticle({ articleId, initialCount = 0 }) {
-  const [count, setCount] = useState(initialCount || 0);
+function Likes({ type, id }) {
+  const [count, setCount] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
+
+  const likeType = ["article", "product"];
+
+  if (!likeType.includes(type))
+    throw new Error("좋아요 유형은 'article'과 'product' 중 하나입니다.");
 
   // 데이터 소환
   useEffect(() => {
+    if (!type || !id) return;
+
+    let url = type === "article" ? `/articles/${id}` : `/products/${id}`;
+
     const fetchLikeCount = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3002/articles/${articleId}`
-        );
-        if (!response.ok) throw new Error("게시글 좋아요 오류");
+        const response = await fetch(`${BASE_URL}${url}`);
+        if (!response.ok) throw new Error("좋아요 오류");
 
         const data = await response.json();
-        const likesCount = data.article.likesToArticle.length || 0;
-        setCount(likesCount);
-      } catch (error) {
-        console.error("게시글 좋아요 오류:", error);
+
+        const likes =
+          type === "article" ? data.article.likeCount : data.product.likeCount;
+
+        setCount(likes);
+      } catch (err) {
+        console.error("게시글 좋아요 오류:", err);
       }
     };
 
     fetchLikeCount();
-  }, [articleId]);
+  }, [type, id]);
 
   // 좋아요 클릭 시 실행 함수
   const handleLikeClick = async () => {
@@ -43,11 +54,11 @@ function LikesToArticle({ articleId, initialCount = 0 }) {
       ) : (
         <CiHeart className="inline" />
       )}
-      <span className="text-14-400 text-gray-600">
+      <span className="text-400-14 text-gray-600">
         {count.toLocaleString()}
       </span>
     </button>
   );
 }
 
-export default LikesToArticle;
+export default Likes;

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import "./../../../components/css/input.scss";
+import "../../../components/css/input.scss";
 
 function InputForm(props) {
   // props 목록

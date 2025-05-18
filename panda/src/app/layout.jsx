@@ -1,5 +1,6 @@
 import React from "react";
 import "./globals.css";
+import "@/components/css/font.css";
 import Providers from "./providers";
 
 function RootLayout({ children }) {

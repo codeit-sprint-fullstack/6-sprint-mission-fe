@@ -27,22 +27,3 @@
 body {
   font-family: "Pretendard";
 }
-
-@layer utilities {
-  /* 글씨 */
-
-  .text-16-700 {
-    font-size: 1rem;
-    font-weight: 700;
-  }
-
-  .text-16-400 {
-    font-size: 1rem;
-    font-weight: 400;
-  }
-
-  .text-14-400 {
-    font-size: 0.875rem;
-    font-weight: 400;
-  }
-}

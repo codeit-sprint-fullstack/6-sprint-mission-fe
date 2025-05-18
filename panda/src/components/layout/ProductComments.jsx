@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import "./../css/input.scss";
+import "../css/input.scss";
 import Button from "../Button";
 import { getCommentsById } from "@/api/items";
 import CommentBox from "../CommentBox";

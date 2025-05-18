@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
-import InputForm from "./../_components/Input";
+import InputForm from "../_components/Input";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import SocialLogin from "../_components/SocialLogin";
@@ -19,15 +19,11 @@ function SignUpPage() {
   const [emailError, setEmailError] = useState(false);
   const [nicknameError, setNicknameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [confirmedPasswordError, setConfirmedPasswordError] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
   const router = useRouter();
-
-  /**
-   * api 설정
-   */
 
   /**
    * - 전체 Input 상자에 글을 써야 로그인 버튼이 활성화됨
@@ -50,7 +46,7 @@ function SignUpPage() {
     if (email.length > 0) setEmailError(false);
     if (password.length > 0) setPasswordError(false);
     if (nickname.length > 0) setNicknameError(false);
-    if (passwordConfirmation.length > 0) setConfirmPasswordError(false);
+    if (passwordConfirmation.length > 0) setConfirmedPasswordError(false);
   }, [email, password, nickname, passwordConfirmation]);
 
   /**
@@ -77,13 +73,13 @@ function SignUpPage() {
 
     // 비밀번호 확인
     if (passwordConfirmation.length < 8) {
-      setConfirmPasswordError("비밀번호를 8자 이상 입력해주세요.");
+      setConfirmedPasswordError("비밀번호를 8자 이상 입력해주세요.");
       isValid = false;
     } else if (passwordConfirmation !== password) {
-      setConfirmPasswordError("비밀번호가 일치하지 않습니다.");
+      setConfirmedPasswordError("비밀번호가 일치하지 않습니다.");
       isValid = false;
     } else {
-      setConfirmPasswordError("");
+      setConfirmedPasswordError("");
     }
 
     return isValid;
@@ -96,7 +92,7 @@ function SignUpPage() {
     if (!isValid) return;
 
     try {
-      await postSignUp({ email, nickname, password, passwordConfirmation });
+      await postSignUp({ email, nickname, password });
 
       setModalMessage("가입 완료되었습니다.");
       setShowModal(true);
@@ -179,7 +175,7 @@ function SignUpPage() {
           onChange={(e) => setPasswordConfirmation(e.target.value)}
           placeholder="비밀번호를 다시 한 번 입력해주세요"
           isPassword={true}
-          errorMessage={confirmPasswordError}
+          errorMessage={confirmedPasswordError}
         />
 
         {/* 로그인 버튼 */}

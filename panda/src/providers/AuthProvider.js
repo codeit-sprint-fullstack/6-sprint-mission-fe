@@ -4,34 +4,42 @@
 
 "use client";
 
-import { useRouter } from "next/navigation";
+import { postSignIn } from "@/api/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+// 1. 만든다
 const AuthContext = createContext();
 
+// 2. 사용한다
 export const useAuth = () => useContext(AuthContext);
 
 function AuthProvider({ children }) {
   const [accessToken, setAccessToken] = useState(null);
-  const router = useRouter();
+  const [user, setUser] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (token) {
       setAccessToken(token);
-      return;
     }
   }, []);
 
-  const login = ({ accessToken, refreshToken }) => {
-    localStorage.setItem("accessToken", accessToken);
-    localStorage.setItem("refreshToken", refreshToken);
-    setAccessToken({ accessToken, refreshToken });
+  const login = async ({ email, password }) => {
+    try {
+      const { accessToken, nickname, image } = await postSignIn({
+        email,
+        password,
+      });
+      localStorage.setItem("accessToken", accessToken);
+      setAccessToken(accessToken);
+      setUser({ nickname, image });
+    } catch (err) {
+      throw err;
+    }
   };
 
   const logout = () => {
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
     setAccessToken(null);
   };
 
@@ -39,7 +47,7 @@ function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ accessToken, login, logout, isAuthenticated }}
+      value={{ accessToken, login, logout, isAuthenticated, user }}
     >
       {children}
     </AuthContext.Provider>

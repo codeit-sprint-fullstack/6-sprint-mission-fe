@@ -1,6 +1,5 @@
 import React from "react";
 import ReportingDate from "@/components/text/Date.jsx";
-import { UserName } from "@/components/text/text.jsx";
 
 function AuthorInfo({ nickname, createdAt }) {
   return (
@@ -11,7 +10,7 @@ function AuthorInfo({ nickname, createdAt }) {
         className="w-[40px] h-[40px]"
       />
       <div className="flex flex-col gap-[2px] justify-center">
-        <UserName>{nickname}</UserName>
+        <span className="text-gray-600 text-500-14">{nickname}</span>
         <ReportingDate createdAt={createdAt} />
       </div>
     </div>

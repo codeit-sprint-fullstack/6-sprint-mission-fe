@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function Footer() {
@@ -10,26 +11,34 @@ function Footer() {
           <span>FAQ</span>
         </div>
         <div className="flex gap-2.5">
-          <img
-            src="/assets/ic_facebook.svg"
-            alt="facebook logo"
-            className="inline-block w-[18px] h-[18px]"
-          />
-          <img
-            src="/assets/ic_twitter.svg"
-            alt="twitter logo"
-            className="inline-block w-[18px] h-[18px]"
-          />
-          <img
-            src="/assets/ic_youtube.svg"
-            alt="youtube logo"
-            className="inline-block w-[18px] h-[18px]"
-          />
-          <img
-            src="/assets/ic_instagram.svg"
-            alt="instagram logo"
-            className="inline-block w-[18px] h-[18px]"
-          />
+          <Link href="https://ko-kr.facebook.com/">
+            <img
+              src="/assets/ic_facebook.svg"
+              alt="facebook logo"
+              className="inline-block w-[18px] h-[18px]"
+            />
+          </Link>
+          <Link href="https://x.com/">
+            <img
+              src="/assets/ic_twitter.svg"
+              alt="twitter logo"
+              className="inline-block w-[18px] h-[18px]"
+            />
+          </Link>
+          <Link href="https://www.youtube.com/">
+            <img
+              src="/assets/ic_youtube.svg"
+              alt="youtube logo"
+              className="inline-block w-[18px] h-[18px]"
+            />
+          </Link>
+          <Link href="https://www.instagram.com/">
+            <img
+              src="/assets/ic_instagram.svg"
+              alt="instagram logo"
+              className="inline-block w-[18px] h-[18px]"
+            />
+          </Link>
         </div>
       </div>
     </footer>

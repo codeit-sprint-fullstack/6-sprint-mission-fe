@@ -55,8 +55,8 @@ function SelectBox({ onClick }) {
       {/* 폰 크기: 아이콘 + 누르면 정렬 변경 */}
       <div
         className="md:hidden"
-        onClick={(event) => {
-          event.stopPropagation(); // toggle과 겹치지 않도록 클릭 이벤트 중단
+        onClick={(e) => {
+          e.stopPropagation(); // toggle과 겹치지 않도록 클릭 이벤트 중단
           changeOptions();
         }}
       >
@@ -78,8 +78,8 @@ function SelectBox({ onClick }) {
             return (
               <li
                 key={option}
-                onClick={(event) => {
-                  event.stopPropagation();
+                onClick={(e) => {
+                  e.stopPropagation();
                   handleSelect(option);
                 }}
                 className={`text-gray-800 w-full py-[6px] px-[20px] text-center ${

@@ -3,7 +3,6 @@ import AuthorInfo from "./AuthorInfo";
 import UDDropdownMenu from "./UDDropdownMenu";
 
 function CommentBox({ comment }) {
-  console.log("API Response:", comment); // 확인용
   return (
     <section>
       <div className="flex justify-between">

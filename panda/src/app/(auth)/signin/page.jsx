@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import SocialLogin from "../_components/SocialLogin";
 import { useRouter } from "next/navigation";
-import { postSignIn } from "@/api/auth";
 import Modal from "../_components/Modal";
 import { useAuth } from "@/providers/AuthProvider";
 
@@ -20,6 +19,7 @@ function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const router = useRouter();
+  const { login } = useAuth();
 
   /**
    * - 전체 Input 상자에 글을 써야 로그인 버튼이 활성화됨
@@ -68,7 +68,7 @@ function LoginPage() {
     if (!isValid) return;
 
     try {
-      await postSignIn({ email, password });
+      await login({ email, password });
       router.push("/items");
     } catch (err) {
       setErrorMessage(err.message);

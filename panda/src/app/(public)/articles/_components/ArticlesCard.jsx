@@ -4,23 +4,21 @@
 
 "use client";
 
+import Likes from "@/components/Likes";
 import ReportingDate from "@/components/text/Date";
-import { Title20, UserName } from "@/components/text/text";
 import React from "react";
 
 function ArticlesCard({ article }) {
   // 게시글 기본 이미지
-  const thumbnailImg = article.thumbnailImg || "/assets/product.svg";
+  const thumbnailImage = article.thumbnailImage || "/assets/product.svg";
 
   return (
-    <article className="bg-[#fcfcfc] w-full border-b border-gray-200 pb-[24px] px-1.5 pt-1.5">
-      {/* 제목 + 기본 이미지 */}
-      <div className="flex justify-between">
-        <Title20 weight="weight600" color="gray800">
-          {article.title}
-        </Title20>
+    <article className="bg-[#fcfcfc] w-full h-[138px] border-b border-gray-200 pb-[24px] px-1.5 pt-1.5">
+      {/* 제목 + 이미지 */}
+      <div className="flex justify-between mb-[10px]">
+        <span className="text-gray-800 text-600-20">{article.title}</span>
         <img
-          src={thumbnailImg}
+          src={thumbnailImage}
           alt="thumbnail image"
           className="w-[72px] h-[72px] rounded-[8px]"
         />
@@ -34,10 +32,13 @@ function ArticlesCard({ article }) {
             alt="기본 프로필 사진"
             className="w-[24px]"
           />
-          <UserName>{article.user.nickname}</UserName>
+          <span className="text-gray-600 text-400-14">
+            {article.author.nickname}
+          </span>
           <ReportingDate createdAt={article.createdAt} />
         </div>
         {/* 좋아요 아이콘 */}
+        <Likes type="article" id={article.id} initialCount={article.likes} />
       </div>
     </article>
   );

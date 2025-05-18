@@ -7,7 +7,7 @@
 import Button from "@/components/Button";
 import { Title20, Title18 } from "@/components/text/text";
 import React, { useState } from "react";
-import "./../../../components/css/input.scss";
+import "../../../components/css/input.scss";
 import { useRouter } from "next/navigation";
 
 function PostArticle() {

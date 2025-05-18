@@ -13,7 +13,6 @@ function UDDropdownMenu({ type, isComment = false, id }) {
 
   const UDMenuRef = useRef();
   const router = useRouter();
-  const baseUrl = "http://localhost:3000";
 
   const toggleClick = () => setIsOpen(!isOpen);
 
@@ -34,6 +33,11 @@ function UDDropdownMenu({ type, isComment = false, id }) {
     if (!isComment && type === "product") {
       router.push(`/items/${id}/edit`);
     }
+    if (isComment && type === "product") {
+      /**
+       * 수정 중
+       */
+    }
   };
 
   return (
@@ -46,18 +50,18 @@ function UDDropdownMenu({ type, isComment = false, id }) {
 
       {isOpen && (
         <div className="absolute w-[102px] md:w-[140px] bg-white border border-gray-300 rounded-[6px] right-2 lg:right-0 lg:left-6 lg:top-1">
-          <ul>
+          <ul className="text-gray-500">
             <li
               onClick={handleEdit}
               className="text-center pt-[16px] pb-[12px] cursor-pointer"
             >
-              <span className="text-gray-500">수정하기</span>
+              <span>수정하기</span>
             </li>
             <li
               // onClick={handleDelete}
               className="text-center pt-[12px] pb-[16px] cursor-pointer"
             >
-              <span className="text-gray-500">삭제하기</span>
+              <span>삭제하기</span>
             </li>
           </ul>
         </div>

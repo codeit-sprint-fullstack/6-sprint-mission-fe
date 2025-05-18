@@ -25,6 +25,22 @@
   }
 }
 
+.home {
+  @media (744px > width >= 375px) {
+    width: 240px;
+    height: 48px;
+    padding: 12px 71px;
+    font-size: 18px;
+  }
+
+  @media (width >= 744px) {
+    width: 357px;
+    height: 56px;
+    padding: 16px 120px;
+    font-size: 20px;
+  }
+}
+
 .xl {
   width: 240px;
   height: 48px;
@@ -53,6 +69,12 @@
   width: 74px;
   height: 42px;
   padding: 12px 23px;
+}
+
+.product {
+  height: 42px;
+  padding: 12px 23px;
+  width: 133px;
 }
 
 // 기타

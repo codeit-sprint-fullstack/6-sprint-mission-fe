@@ -5,7 +5,6 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Text } from "./text/text";
 import { IoMdMore } from "react-icons/io";
 import { useRouter } from "next/navigation";
 
@@ -95,13 +94,13 @@ function UDselectBox({ type, id, commentId }) {
               onClick={handleEdit}
               className="text-center pt-[16px] pb-[12px] cursor-pointer"
             >
-              <Text color="text-gray-500">수정하기</Text>
+              <span color="text-gray-500">수정하기</span>
             </li>
             <li
               onClick={handleDelete}
               className="text-center pt-[12px] pb-[16px] cursor-pointer"
             >
-              <Text color="text-gray-500">삭제하기</Text>
+              <span color="text-gray-500">삭제하기</span>
             </li>
           </ul>
         </div>

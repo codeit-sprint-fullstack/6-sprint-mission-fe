@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Title20 } from "../text/text";
 import "../css/input.scss";
 import Button from "../Button";
 import CommentBox from "../CommentBox";
@@ -57,7 +56,7 @@ function Comments({ articleId }) {
   return (
     // 댓글 등록
     <section>
-      <Title20 className="mb-2">댓글달기</Title20>
+      <p className="mb-2">댓글달기</p>
       <textarea
         placeholder="댓글을 입력해주세요."
         className="input h-[104px] mb-2 relative"

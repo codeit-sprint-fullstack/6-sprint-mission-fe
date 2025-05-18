@@ -4,9 +4,13 @@ import React from "react";
 import Button from "../Button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/providers/AuthProvider";
+import defaultImage from "@/assets/default_img.svg";
+import Image from "next/image";
 
 function Header() {
   const pathname = usePathname();
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <>
@@ -55,9 +59,19 @@ function Header() {
           </div>
           <div>
             {/* 로그인 버튼 */}
-            <Link href="/signin">
-              <Button size="md">로그인</Button>
-            </Link>
+
+            {isAuthenticated ? (
+              <div className="flex gap-2">
+                <Image src={defaultImage} alt="profile image" />
+                <span className="text-gray-600 text-400-18">
+                  {user?.nickname}
+                </span>
+              </div>
+            ) : (
+              <Link href="/signin">
+                <Button size="md">로그인</Button>
+              </Link>
+            )}
           </div>
         </div>
       </header>
