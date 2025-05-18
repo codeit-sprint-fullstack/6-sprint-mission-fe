@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
+import sortIcon from "@/app/assets/icons/ic-sort.svg";
+import arrowDownIcon from "@/app/assets/icons/ic-arrow-down.svg";
 
-export default function DropdownMenu({orderBy, onSortChange}) {
+export default function DropdownMenu({ orderBy, onSortChange }) {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
-  
+
   const dropdownRef = useRef(null);
 
   // if a user clicks outside of dropdown menu, it is closed
@@ -23,10 +25,9 @@ export default function DropdownMenu({orderBy, onSortChange}) {
     setIsDropDownVisible(!isDropDownVisible);
   };
 
-
   const getDisplayText = () => {
-    return orderBy === "recent" ? "최신순" : "좋아요 순"
-  }
+    return orderBy === "recent" ? "최신순" : "좋아요 순";
+  };
   return (
     <div ref={dropdownRef} className="relative">
       <button
@@ -35,7 +36,7 @@ export default function DropdownMenu({orderBy, onSortChange}) {
         aria-expanded={isDropDownVisible}
       >
         <Image
-          src="/icons/ic_sort.svg"
+          src={sortIcon}
           width={24}
           height={24}
           alt="정렬 모바일 아이콘"
@@ -44,7 +45,12 @@ export default function DropdownMenu({orderBy, onSortChange}) {
 
         <div className="hidden md:flex md:justify-between md:w-[90px]">
           <p className="">{getDisplayText()}</p>
-          <Image src="/icons/arrow_down.svg" width={16} height={8} alt="정렬 화살표"></Image>
+          <Image
+            src={arrowDownIcon}
+            width={16}
+            height={8}
+            alt="정렬 화살표"
+          ></Image>
         </div>
       </button>
       {isDropDownVisible && (

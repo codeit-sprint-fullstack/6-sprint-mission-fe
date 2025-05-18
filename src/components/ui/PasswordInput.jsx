@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { validateConfirmPassword, validatePassword } from "@/utils/validators";
 import visibilityOffIcon from "@/app/assets/icons/ic-visibility-off.svg";
 import visibilityOnIcon from "@/app/assets/icons/ic-visibility-on.svg";
+
 export default function PasswordInput({
   id,
   label,
