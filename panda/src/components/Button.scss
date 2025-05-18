@@ -1,0 +1,87 @@
+.button {
+  background-color: var(--color-primary-100);
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  // text 정렬
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+// 크기
+.form {
+  height: 56px;
+  padding: 16px 124px;
+
+  @media (744px > width >= 375px) {
+    width: 343px;
+  }
+
+  @media (width >= 744px) {
+    width: 640px;
+  }
+}
+
+.home {
+  @media (744px > width >= 375px) {
+    width: 240px;
+    height: 48px;
+    padding: 12px 71px;
+    font-size: 18px;
+  }
+
+  @media (width >= 744px) {
+    width: 357px;
+    height: 56px;
+    padding: 16px 120px;
+    font-size: 20px;
+  }
+}
+
+.xl {
+  width: 240px;
+  height: 48px;
+}
+
+.lg {
+  height: 48px;
+  padding: 12px 23px;
+
+  @media (744px > width >= 375px) {
+    width: 120px;
+  }
+
+  @media (width >= 744px) {
+    width: 165px;
+  }
+}
+
+.md {
+  width: 88px;
+  height: 42px;
+  padding: 12px 23px;
+}
+
+.sm {
+  width: 74px;
+  height: 42px;
+  padding: 12px 23px;
+}
+
+.product {
+  height: 42px;
+  padding: 12px 23px;
+  width: 133px;
+}
+
+// 기타
+.rounded {
+  border-radius: 40px;
+}
+
+.disabled {
+  background-color: var(--color-gray-400);
+}

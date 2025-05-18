@@ -1,0 +1,17 @@
+.input {
+  background: var(--color-gray-100);
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 12px;
+  color: var(--color-gray-800);
+
+  ::placeholder {
+    color: var(--color-gray-400);
+  }
+}
+
+.inputTextOnly18 {
+  color: var(--color-gray-800);
+  font-weight: 700;
+  font-size: 18px;
+}
