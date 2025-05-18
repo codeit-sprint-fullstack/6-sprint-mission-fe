@@ -31,10 +31,11 @@ const ProductList = () => {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const { data, isLoading, isError } = usePaginatedProducts(
-    { page, pageSize, orderBy, keyword },
-    !!pageSize
-  );
+  const {
+    data = { products: [], totalCount: 0 },
+    isLoading,
+    isError,
+  } = usePaginatedProducts({ page, pageSize, orderBy, keyword }, !!pageSize);
 
   const { products, totalCount } = data;
 
@@ -62,7 +63,7 @@ const ProductList = () => {
 
           <button
             className="w-full sm:w-36 h-10 rounded-md bg-blue-500 text-white font-medium hover:bg-blue-700 transition"
-            onClick={() => router.push("/registration")}
+            onClick={() => router.push("/products/registration")}
           >
             상품 등록하기
           </button>
@@ -77,30 +78,37 @@ const ProductList = () => {
       {isLoading && <p>로딩 중...</p>}
 
       {/* 상품 리스트 */}
-      <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        {products.map((p) => (
-          <li key={p.id}>
-            <Link href={`/products/${p.id}`}>
-              <div className="relative w-full pb-[100%] rounded-2xl overflow-hidden">
-                <ImageWithFallback
-                  src={p.images?.[0]}
-                  alt={p.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+      {!isLoading &&
+        !isError &&
+        Array.isArray(products) &&
+        products.length > 0 && (
+          <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            {products.map((p) => (
+              <li key={p.id}>
+                <Link href={`/products/${p.id}`}>
+                  <div className="relative w-full pb-[100%] rounded-2xl overflow-hidden">
+                    <ImageWithFallback
+                      src={p.image}
+                      alt={p.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
 
-              <p className="mt-2 text-sm text-gray-600 truncate">{p.name}</p>
-              <p className="font-bold">{formatNumber(p.price)}원</p>
-              <LikeToProduct
-                productId={p.id}
-                initialCount={p.favoriteCount ?? 0}
-                onFavoriteToggle={() => {}}
-              />
-            </Link>
-          </li>
-        ))}
-      </ul>
+                  <p className="mt-2 text-sm text-gray-600 truncate">
+                    {p.name}
+                  </p>
+                  <p className="font-bold">{formatNumber(p.price)}원</p>
+                  <LikeToProduct
+                    productId={p.id}
+                    initialCount={p.favoriteCount ?? 0}
+                    onFavoriteToggle={() => {}}
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
 
       {/* 페이지네이션 */}
       <div className="mt-8 mb-12 flex justify-center">

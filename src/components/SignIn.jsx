@@ -59,18 +59,13 @@ export default function SignIn() {
     if (!valid) return;
 
     try {
-      const res = await fetch(
-        "https://panda-market-api.vercel.app/auth/signIn",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const res = await fetch("http://localhost:5000/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
       const result = await res.json();
-
-      console.log("서버 응답:", result);
 
       if (!res.ok) {
         if (res.status === 401) {
@@ -81,22 +76,11 @@ export default function SignIn() {
         return;
       }
 
-      if (
-        !result.accessToken ||
-        !result.refreshToken ||
-        !result.user ||
-        !result.user.nickname
-      ) {
-        setModalMessage(
-          "로그인에 실패했어요. 서버에서 올바른 데이터를 받지 못했습니다."
-        );
-        return;
-      }
-
+      // ✅ 로그인 상태 업데이트 및 저장
       login({
-        accessToken: result.accessToken,
-        refreshToken: result.refreshToken,
-        nickname: result.user.nickname,
+        accessToken: result.token,
+        refreshToken: "",
+        nickname: result.nickname,
       });
 
       alert("로그인 성공!");

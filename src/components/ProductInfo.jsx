@@ -1,36 +1,55 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import { formatNumber } from "@/components/utils";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import ProductActionMenu from "./ProductActionMenu";
 import { useAuth } from "@/providers/AuthProvider";
-import { redirect } from "next/navigation"; // ✅ 추가
+import { redirect } from "next/navigation";
 
-const BASE = "https://panda-market-api.vercel.app";
+const BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 function LikePill({ itemId, initLike = false, initCount = 0 }) {
   const [like, setLike] = useState(initLike);
   const [count, setCount] = useState(initCount);
-
   const { accessToken } = useAuth();
+
+  useEffect(() => {
+    setLike(initLike);
+    setCount(initCount);
+  }, [initLike, initCount]);
 
   const toggle = async () => {
     if (!accessToken) {
-      redirect("/login"); // ✅ 로그인 안 했으면 /login으로
+      redirect("/login");
+      return;
     }
 
-    await fetch(`${BASE}/products/${itemId}/favorite`, {
-      method: like ? "DELETE" : "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    });
-    setLike(!like);
-    setCount((c) => (like ? c - 1 : c + 1));
+    try {
+      const method = like ? "DELETE" : "POST";
+
+      const res = await fetch(`${BASE}/products/${itemId}/favorite`, {
+        method,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        alert(result.message || "좋아요 요청 실패");
+        return;
+      }
+
+      setLike(!like);
+      setCount((prev) => (like ? prev - 1 : prev + 1));
+    } catch (error) {
+      console.error("좋아요 요청 에러:", error);
+    }
   };
 
   return (
@@ -57,8 +76,8 @@ export default function ProductInfo({ item }) {
 
       <div className="w-full rounded-xl overflow-hidden">
         <ImageWithFallback
-          src={item.images?.[0]}
-          alt={item.name}
+          src={item.image ?? "/images/products/default.png"}
+          alt={item.name ?? "상품 이미지"}
           width={350}
           height={350}
           className="object-cover w-full h-full"
@@ -102,7 +121,7 @@ export default function ProductInfo({ item }) {
             </div>
             <div className="flex flex-col leading-tight">
               <span className="text-sm font-semibold text-gray-800">
-                {item.sellerNickname ?? "익명판매자"}
+                {item.user?.userName ?? "익명판매자"}
               </span>
               <span className="text-xs text-gray-400">
                 {(item.createdAt ?? "").slice(0, 10)}

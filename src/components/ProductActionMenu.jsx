@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useRouter, redirect } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import { useAuth } from "@/providers/AuthProvider";
 
@@ -23,11 +23,13 @@ export default function ProductActionMenu({ itemId }) {
 
   const handleDelete = async () => {
     if (!accessToken) {
-      redirect("/login"); 
+      alert("로그인이 필요합니다.");
+      router.push("/login");
+      return;
     }
 
     const res = await fetch(
-      `https://panda-market-api.vercel.app/products/${itemId}`,
+      `http://localhost:5000/api/products/${itemId}`, 
       {
         method: "DELETE",
         headers: {

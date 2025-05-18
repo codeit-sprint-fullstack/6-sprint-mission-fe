@@ -23,7 +23,7 @@ Content-Type: application/json
 ### 제품 등록
 POST https://panda-market-api.vercel.app/products
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEyMSwic2NvcGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDYzNjk4MjYsImV4cCI6MTc0NjM3MTYyNiwiaXNzIjoic3AtcGFuZGEtbWFya2V0In0.re-GwziIqYdKQBkhjjCnIzJPwG-nveCAnv11L807gvw
+Authorization: Bearer 
 
 {
   "name": "울보 단비",
@@ -37,9 +37,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEyMSwic2Nvc
 
 
 ### 상품 삭제
-DELETE https://panda-market-api.vercel.app/products/817
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEyMSwic2NvcGUiOiJhY2Nlc3MiLCJpYXQiOjE3NDYzNjk4MjYsImV4cCI6MTc0NjM3MTYyNiwiaXNzIjoic3AtcGFuZGEtbWFya2V0In0.re-GwziIqYdKQBkhjjCnIzJPwG-nveCAnv11L807gvw
-
+DELETE https://panda-market-api.vercel.app/products/
+Authorization: Bearer 
 
 ### 댓글 작성
 POST https://panda-market-api.vercel.app/comments
