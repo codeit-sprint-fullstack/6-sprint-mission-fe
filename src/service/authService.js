@@ -1,9 +1,10 @@
 import { tokenFetch } from "./fetchClient";
 
 export const authService = {
-  getUser: () => tokenFetch("/users/me"),
+  getUser: () => tokenFetch("/auth/me"),
 
-  getUserLikes: () => tokenFetch("/users/me/favorites"),
+  // TODO: 좋아요 fetch 필요 없으면 삭제
+  // getUserLikes: () => tokenFetch("/users/me/favorites"),
 
   signUp: (email, nickname, password) =>
     tokenFetch("/auth/signUp", {

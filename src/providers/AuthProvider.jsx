@@ -38,7 +38,7 @@ export default function AuthProvider({ children }) {
     localStorage.setItem("accessToken", user.accessToken);
     localStorage.setItem("refreshToken", user.refreshToken);
 
-    // await getUser();
+    await getUser();
   };
 
   // 로그인
@@ -48,7 +48,7 @@ export default function AuthProvider({ children }) {
     localStorage.setItem("accessToken", user.accessToken);
     localStorage.setItem("refreshToken", user.refreshToken);
 
-    // await getUser();
+    await getUser();
   };
 
   // 로그아웃
