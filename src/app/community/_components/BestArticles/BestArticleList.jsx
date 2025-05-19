@@ -32,7 +32,7 @@ export default function BestArticleList() {
           <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-200 border-t-primary-100 rounded-full animate-spin"></div>
           <p className="font-medium">불러오는 중</p>
         </div>
-      ) : !bestArticles?.list.length ? (
+      ) : !bestArticles?.list?.length ? (
         <div className="flex justify-center items-center text-center">
           아직 게시글이 없어요,
           <br />
@@ -40,7 +40,7 @@ export default function BestArticleList() {
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-[16px] sm:grid-cols-2 md:grid-cols-3 md:gap-[24px]">
-          {bestArticles.list.map((bestArticle) => (
+          {bestArticles?.list?.map((bestArticle) => (
             <BestArticle key={bestArticle.id} bestArticle={bestArticle} />
           ))}
         </div>

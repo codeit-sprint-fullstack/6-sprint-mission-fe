@@ -55,22 +55,36 @@ export default function ArticleForm({ title }) {
   const handleCreateArticle = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
     // TODO: body에 trim해서 보내기
     // const { title, content } = body;
     // createArticle({title: title.trim(), content: content.trim()})
-    createArticle(body);
+    try {
+      setIsLoading(true);
+
+      createArticle(body);
+    } catch (e) {
+      console.error(e.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // 게시글 수정
   const handleUpdateArticle = async (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
     // TODO: body에 trim해서 보내기
     // const { title, content } = body;
     // createArticle({title: title.trim(), content: content.trim()})
-    updateArticle({ id: articleId, body });
+    try {
+      setIsLoading(true);
+
+      updateArticle({ id: articleId, body });
+    } catch (e) {
+      console.error(e.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // body 변경

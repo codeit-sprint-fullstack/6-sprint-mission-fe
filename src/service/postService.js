@@ -1,7 +1,5 @@
 import { multipartFetch, tokenFetch } from "./fetchClient";
 
-// TODO: 좋아요는 favorite말고 like로 만들어서 경로도 수정하기.
-// TODO: API에 list 없앨지 고민(백엔드 수정해야 함)
 export const postService = {
   getPosts: (type, query) => {
     const queryString = new URLSearchParams(query).toString();
@@ -11,16 +9,26 @@ export const postService = {
   getPost: (type, id) => tokenFetch(`/${type}/${id}`),
 
   createPost: (type, body) =>
-    multipartFetch(`/${type}`, {
-      method: "POST",
-      body,
-    }),
+    type === "articles"
+      ? tokenFetch(`/${type}`, {
+          method: "POST",
+          body: JSON.stringify(body),
+        })
+      : multipartFetch(`/${type}`, {
+          method: "POST",
+          body,
+        }),
 
   updatePost: (type, id, body) =>
-    multipartFetch(`/${type}/${id}`, {
-      method: "PATCH",
-      body,
-    }),
+    type === "articles"
+      ? tokenFetch(`/${type}/${id}`, {
+          method: "PATCH",
+          body: JSON.stringify(body),
+        })
+      : multipartFetch(`/${type}/${id}`, {
+          method: "PATCH",
+          body,
+        }),
 
   deletePost: (type, id) =>
     tokenFetch(`/${type}/${id}`, {
@@ -28,12 +36,12 @@ export const postService = {
     }),
 
   like: (type, id) =>
-    tokenFetch(`/${type}/${id}/favorite`, {
+    tokenFetch(`/${type}/${id}/like`, {
       method: "POST",
     }),
 
   unlike: (type, id) =>
-    tokenFetch(`/${type}/${id}/favorite`, {
+    tokenFetch(`/${type}/${id}/like`, {
       method: "DELETE",
     }),
 };

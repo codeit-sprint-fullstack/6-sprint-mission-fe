@@ -44,14 +44,14 @@ export default function ArticleList() {
             <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-200 border-t-primary-100 rounded-full animate-spin"></div>
             <p className="font-medium">불러오는 중</p>
           </div>
-        ) : !articles?.list.length ? (
+        ) : !articles?.list?.length ? (
           <div className="flex justify-center items-center text-center">
             아직 게시글이 없어요,
             <br />
             지금 게시글을 작성해보세요!
           </div>
         ) : (
-          articles.list.map((article) => (
+          articles?.list?.map((article) => (
             <Article key={article.id} article={article} />
           ))
         )}

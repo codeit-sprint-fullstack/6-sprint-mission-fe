@@ -12,17 +12,17 @@ export default function Product({ product }) {
     >
       <img
         src={
-          product.images.length === 0
+          product?.images?.length === 0
             ? img_default_product.src
-            : product.images[0]
+            : product?.images?.[0]
         }
-        alt={product.name} 
+        alt={product?.name}
         className="relative w-full h-full aspect-[1/1] rounded-[12px] overflow-hidden"
       />
       <div className="flex flex-col justify-center items-start gap-[6px]">
-        <p className="font-medium text-[14px]/[24px]">{product.name}</p>
+        <p className="font-medium text-[14px]/[24px]">{product?.name}</p>
         <p className="font-bold text-[16px]/[26px]">
-          {product.price.toLocaleString()}원
+          {product?.price?.toLocaleString()}원
         </p>
         <div className="flex justify-start items-center gap-[4px]">
           <div className="relative w-[16px] h-[16px]">
@@ -34,7 +34,7 @@ export default function Product({ product }) {
             />
           </div>
           <p className="font-medium text-[12px]/[18px] text-secondary-gray-500">
-            {product.favoriteCount}
+            {product?.likeCount}
           </p>
         </div>
       </div>

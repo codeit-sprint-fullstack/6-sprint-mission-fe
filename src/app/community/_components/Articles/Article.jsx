@@ -38,7 +38,7 @@ export default function Article({ article }) {
                 className="object-cover"
               />
             </div>
-            <p className="text-secondary-gray-500">총명한 판다</p>
+            <p className="text-secondary-gray-500">{article.author.nickname}</p>
             <p className="text-secondary-gray-300">
               {dayjs(article.createdAt).format("YYYY. MM. DD")}
             </p>
@@ -52,7 +52,9 @@ export default function Article({ article }) {
                 className="object-cover"
               />
             </div>
-            <p className="text-secondary-gray-400 text-[16px]">9999+</p>
+            <p className="text-secondary-gray-400 text-[16px]">
+              {article.likeCount}
+            </p>
           </div>
         </div>
       </Link>

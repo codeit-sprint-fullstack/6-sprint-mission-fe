@@ -120,9 +120,7 @@ export default function Comment({ comment }) {
                 {comment.content}
               </p>
             )}
-            {/* TODO: API로직 고민해서 백엔드 필드 추가 되면 작성자만 드롭다운 보이게 하기 */}
-            {/* {user?.id === comment.writer.id && */}
-            {isEditMode ? null : (
+            {user?.id === comment?.author?.id && !isEditMode && (
               <DropDownToggle
                 handleEdit={handleEdit}
                 handleDelete={handleDeleteComment}
@@ -140,9 +138,6 @@ export default function Comment({ comment }) {
           >
             <div className="flex justify-center items-center gap-[8px]">
               <div className="relative w-[32px] h-[32px]">
-                {/* TODO: 내가 만든 댓글 API로 변경 시, writer는 백엔드 어떻게 만들지 보고 수정 
-                ex) {comment.writer.image ? comment.writer.image : ic_profile}*/}
-                {/* TODO: 외부 이미지 관련해서 HTML 태그 사용하는 것 고려해보기. */}
                 <Image
                   src={ic_profile}
                   alt="프로필"
@@ -152,8 +147,7 @@ export default function Comment({ comment }) {
               </div>
               <div className="flex flex-col gap-y-[4px] ">
                 <p className="text-secondary-gray-500">
-                  {/* TODO: 내가 만든 댓글 API로 변경 시, writer 백엔드 API 보고 수정 */}
-                  {/* {comment.writer.nickname} */}
+                  {comment?.author?.nickname}
                 </p>
                 <p className="text-secondary-gray-300">
                   {dayjs(comment.createdAt).format("YYYY. MM. DD")}

@@ -65,7 +65,7 @@ export default function ProductDetail() {
     setIsDropDownVisible(false);
   };
 
-  if (isPending || !product) {
+  if (isPending) {
     return (
       <div className="flex justify-center items-center gap-[8px]">
         <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-200 border-t-primary-100 rounded-full animate-spin"></div>
@@ -91,9 +91,9 @@ export default function ProductDetail() {
       <div className="flex flex-col justify-center items-center gap-y-[16px] sm:flex-row sm:items-start sm:gap-[16px] md:items-center md:gap-[24px]">
         <img
           src={
-            product.images?.length === 0
+            product?.images?.length === 0
               ? img_default_product.src
-              : product.images[0]
+              : product?.images?.[0]
           }
           alt={product.name}
           className="relative min-w-[343px] min-h-[343px] max-w-[343px] max-h-[343px] rounded-[12px] overflow-hidden sm:min-w-[340px] sm:min-h-[340px] sm:max-w-[340px] sm:max-h-[340px] md:min-w-[486px] md:min-h-[486px]"
@@ -105,7 +105,7 @@ export default function ProductDetail() {
                 <h1 className="font-semibold text-[16px]/[26px] text-secondary-gray-700 sm:text-[20px]/[32px] md:text-[24px]">
                   {product.name}
                 </h1>
-                {user?.id === product.ownerId && (
+                {user?.id === product?.author?.id && (
                   <DropDownToggle
                     handleEdit={handleEdit}
                     handleDelete={handleDeleteModalToggle}
@@ -116,7 +116,7 @@ export default function ProductDetail() {
                 )}
               </div>
               <p className="font-semibold text-[24px]/[32px] text-secondary-gray-700 sm:text-[32px]/[42px] md:text-[40px]/[48px]">
-                {product?.price.toLocaleString()}원
+                {product?.price?.toLocaleString()}원
               </p>
             </div>
             <div className="border-t-[1.3px] border-secondary-gray-200"></div>

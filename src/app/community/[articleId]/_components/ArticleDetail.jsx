@@ -75,8 +75,7 @@ export default function ArticleDetail() {
       <div className="flex flex-col gap-[16px] w-full">
         <div className="relative flex justify-between gap-[8px]">
           <h2 className="font-bold text-[20px]/[32px]">{article.title}</h2>
-          {/* TODO: 작성자만 드롭다운 버튼 볼수 있도록 하기 */}
-          {user?.id === article.ownerId && (
+          {user?.id === article?.author?.id && (
             <DropDownToggle
               page="article"
               handleEdit={handleEdit}

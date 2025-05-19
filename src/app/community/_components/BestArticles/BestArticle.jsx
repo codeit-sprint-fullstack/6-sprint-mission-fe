@@ -33,7 +33,9 @@ export default function BestArticle({ bestArticle }) {
         </div>
         <div className="flex justify-between items-center font-normal text-[14px]/[24px]">
           <div className="flex gap-[8px]">
-            <p className="text-secondary-gray-500">총명한 판다</p>
+            <p className="text-secondary-gray-500">
+              {bestArticle.author.nickname}
+            </p>
             <div className="flex justify-center items-center gap-[4px]">
               <div className="relative w-[16px] h-[16px]">
                 <Image
@@ -43,7 +45,7 @@ export default function BestArticle({ bestArticle }) {
                   className="object-cover"
                 />
               </div>
-              <p className="text-secondary-gray-400">9999+</p>
+              <p className="text-secondary-gray-400">{bestArticle.likeCount}</p>
             </div>
           </div>
           <p className="text-secondary-gray-300">

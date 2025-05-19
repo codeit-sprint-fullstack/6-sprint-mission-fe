@@ -15,7 +15,6 @@ export default function ProductForm({ title }) {
   const [isActive, setIsActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [tagValue, setTagValue] = useState("");
-  // TODO: 내가 만든 API 연동할 때 이미지 초기 값 변경
   const [body, setBody] = useState({
     images: [],
     name: "",
@@ -120,7 +119,6 @@ export default function ProductForm({ title }) {
   // body 변경
   const changeValue = (e) => {
     const { id, value } = e.target;
-    console.log(body);
 
     // 유효성 검사
     checkValidation(e);
