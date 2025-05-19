@@ -16,7 +16,7 @@ export default function BestProduct({ bestProduct }) {
             ? img_default_product.src
             : bestProduct?.images?.[0]
         }
-        alt="상품"
+        alt={bestProduct?.name}
         className="relative w-full h-full aspect-[1/1] rounded-[12px] overflow-hidden"
       />
       <div className="flex flex-col justify-center items-start gap-[6px]">
