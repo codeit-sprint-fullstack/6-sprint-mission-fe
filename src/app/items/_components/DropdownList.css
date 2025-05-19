@@ -10,11 +10,12 @@
 }
 
 .dropdownItem {
-  padding: 12px 44px;
+  padding: 12px 37px;
   border-bottom: 1px solid #e5e7eb;
   font-size: 16px;
   color: #1f2937;
   cursor: pointer;
+  text-align: center;
 }
 
 .dropdownItem:last-child {

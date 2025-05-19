@@ -10,7 +10,7 @@ function DropdownList({ onSortSelection }) {
         최신순
       </div>
       <div className="dropdownItem" onClick={() => onSortSelection("favorite")}>
-        인기순
+        좋아요순
       </div>
     </div>
   );

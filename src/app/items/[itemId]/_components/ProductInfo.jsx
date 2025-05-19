@@ -5,10 +5,13 @@ import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaEllipsisV } from "react-icons/fa";
+import { likeProduct, unlikeProduct } from "@/api/item.api.js";
 
 export default function ProductInfo({ product, onEdit, onDelete }) {
   const menuRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLiked, setIsLiked] = useState(product.isFavorite ?? false);
+  const [likedCount, setLikedCount] = useState(product.favoriteCount ?? 0);
 
   const {
     name,
@@ -20,6 +23,24 @@ export default function ProductInfo({ product, onEdit, onDelete }) {
     favoriteCount,
     images,
   } = product;
+
+  const handleLikeToggle = async () => {
+    try {
+      if (isLiked) {
+        await unlikeProduct(product.id);
+        setIsLiked(false);
+        setLikedCount((prev) => prev - 1);
+      } else {
+        await likeProduct(product.id);
+        setIsLiked(true);
+        setLikedCount((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.error("좋아요 실패", error);
+      alert("로그인이 필요합니다.");
+      Router.push("/login");
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -127,10 +148,17 @@ export default function ProductInfo({ product, onEdit, onDelete }) {
           </div>
 
           {/* 오른쪽: 좋아요 버튼 */}
-          <div className="flex items-center gap-1 px-3 py-1 border border-secondary-200 rounded-full text-secondary-500 text-[16px] font-medium">
-            <FaHeart className="text-secondary-500" />
-            <span>{favoriteCount}</span>
-          </div>
+          <button
+            onClick={handleLikeToggle}
+            className="flex items-center gap-1 px-3 py-1 border border-secondary-200 rounded-full text-[16px] font-medium"
+          >
+            <FaHeart
+              className={isLiked ? "text-[#FF68CC]" : "text-secondary-500"}
+            />
+            <span className={isLiked ? "text-[#FF68CC]" : "text-secondary-500"}>
+              {likedCount}
+            </span>
+          </button>
         </div>
       </div>
     </section>

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
-import { getProducts } from "@/api/item.api.js";
+import { getBestProducts } from "@/api/item.api.js";
 
 const getPageSize = () => {
   const width = window.innerWidth;
@@ -20,18 +20,18 @@ const getPageSize = () => {
 
 function BestItemsSection() {
   const [itemList, setItemList] = useState([]);
-  const [pageSize, setPageSize] = useState(getPageSize()); // 페이지 크기 초기값을 getPageSize로 설정
+  const [pageSize, setPageSize] = useState(getPageSize());
 
-  const fetchSortedData = async ({ orderBy, pageSize }) => {
-    const products = await getProducts({ orderBy, page: 1, pageSize });
-    setItemList(products.list);
+  const fetchSortedData = async (limit) => {
+    // getBestProducts API 사용 (백엔드에서 이미 좋아요 순으로 정렬된 상품을 반환)
+    const products = await getBestProducts(limit);
+    setItemList(products);
   };
-  
 
   useEffect(() => {
-    fetchSortedData({ orderBy: "favorite", page: 1, pageSize });
+    fetchSortedData(pageSize);
   }, [pageSize]);
-  
+
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -39,12 +39,11 @@ function BestItemsSection() {
       else if (width < 1280) setPageSize(2);
       else setPageSize(4);
     };
-  
+
     handleResize(); // 초기 한 번 실행
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
 
   return (
     <div className="bestItemsContainer">
