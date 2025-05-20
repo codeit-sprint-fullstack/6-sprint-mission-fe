@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { debounce } from "lodash-es";
-import * as articleApi from "../../api/articles";
+import { articlesService } from "../../api/articles";
 import { scrollToTop } from "@/lib/common/scrollTop";
 
 /**
@@ -31,7 +31,7 @@ import { scrollToTop } from "@/lib/common/scrollTop";
  *     handleSearch: (text: string) => void, // 즉시 검색 실행
  *     handleSearchChange: (text: string) => void, // 디바운스 검색 실행
  *   },
- *   handleOrderChange: (type: "좋아요순" | "최신순") => void, // 정렬 방식 변경
+ *   handleOrderChange: (type: "popular" | "latest") => void, // 정렬 방식 변경
  * }}
  */
 export function useArticles(initialOptions = {}) {
@@ -58,9 +58,17 @@ export function useArticles(initialOptions = {}) {
     try {
       setLoading(true);
       setError(null);
-      const response = await articleApi.getArticles(options);
-      setArticles(response.data);
-      setTotal(response.pagination.total);
+      const response = await articlesService.getArticles(options);
+
+      // 변경된 API 응답 구조에 맞게 데이터 추출
+      if (response.data) {
+        setArticles(response.data);
+        setTotal(response.pagination?.total || 0);
+      } else {
+        // 이전 구조를 위한 폴백 처리
+        setArticles(response);
+        setTotal(response.length || 0);
+      }
     } catch (error) {
       setError(error.message);
       console.error("게시글 목록 조회 실패:", error);
@@ -103,7 +111,7 @@ export function useArticles(initialOptions = {}) {
    * 정렬 방식 변경 핸들러 ("좋아요순", "최신순")
    */
   const handleOrderChange = useCallback((sortType) => {
-    const sort = sortType === "좋아요순" ? "popular" : "latest";
+    const sort = sortType === "popular" ? "popular" : "latest";
     setOptions((prev) => ({
       ...prev,
       sort,

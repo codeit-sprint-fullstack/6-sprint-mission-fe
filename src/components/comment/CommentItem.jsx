@@ -13,6 +13,14 @@ export default function CommentItem({
   onSuccess,
   user,
 }) {
+  // user 객체에서 id 가져오기 (중첩된 구조)
+  const getUserId = () => {
+    if (!user) return null;
+    return user.user?.id;
+  };
+
+  const userId = getUserId();
+
   const [showOptions, setShowOptions] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(comment.content);
@@ -62,6 +70,12 @@ export default function CommentItem({
     }
   };
 
+  // 사용자 닉네임 가져오기
+  const getUserNickname = () => {
+    if (!user || !user.user) return "사용자";
+    return user.user.nickname || "사용자";
+  };
+
   return (
     <>
       <li className="flex w-full border-b border-[#e5e7eb] pb-4">
@@ -103,27 +117,17 @@ export default function CommentItem({
           <div className="mb-2 flex items-center justify-between">
             <div className="flex items-center">
               <figure className="relative mr-2 h-8 w-8 overflow-hidden rounded-full bg-gray-200">
-                {comment.writer?.image ? (
-                  <Image
-                    src={comment.writer.image}
-                    alt="프로필"
-                    fill
-                    sizes="32px"
-                    className="object-cover"
-                  />
-                ) : (
-                  <Image
-                    src="/img/user_icon.png"
-                    alt="프로필"
-                    fill
-                    sizes="32px"
-                    className="object-cover"
-                  />
-                )}
+                <Image
+                  src="/img/user_icon.png"
+                  alt="프로필"
+                  fill
+                  sizes="32px"
+                  className="object-cover"
+                />
               </figure>
               <div className="ml-2 flex flex-col gap-2">
                 <span className="mr-2 text-sm font-medium text-gray-600">
-                  {comment.writer?.nickname || "사용자"}
+                  {userId === comment.userId ? getUserNickname() : "사용자"}
                 </span>
                 <span className="text-xs text-gray-400">
                   {formatDate(comment.createdAt)}
@@ -134,7 +138,7 @@ export default function CommentItem({
         </div>
 
         {/* 옵션 버튼 */}
-        {user?.id === comment.writer.id && !isEditing && (
+        {userId === comment.userId && !isEditing && (
           <div className="relative">
             <button
               onClick={() => setShowOptions(!showOptions)}

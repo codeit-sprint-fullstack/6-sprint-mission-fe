@@ -2,12 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createArticle } from "@/api/articles";
+import Image from "next/image";
+import { articlesService } from "@/api/articles";
 
 export default function WritePage() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -21,12 +24,47 @@ export default function WritePage() {
 
     try {
       setIsSubmitting(true);
-      await createArticle({ title, content });
+      const formData = {
+        title,
+        content,
+        images: selectedImages,
+      };
+      await articlesService.createArticle(formData);
       router.push("/community");
     } catch (err) {
       console.error(err);
       setIsSubmitting(false);
     }
+  };
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+
+    // 최대 3장까지만 처리
+    const remainingSlots = 3 - selectedImages.length;
+    if (remainingSlots <= 0) {
+      alert("이미지는 최대 3장까지 업로드할 수 있습니다.");
+      return;
+    }
+
+    const newFiles = files.slice(0, remainingSlots);
+
+    // 기존 이미지에 새 이미지 추가
+    setSelectedImages((prev) => [...prev, ...newFiles]);
+
+    // 새 이미지 프리뷰 생성
+    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+    setImagePreviews((prev) => [...prev, ...newPreviews]);
+  };
+
+  const removeImage = (index) => {
+    // 특정 인덱스의 이미지 제거
+    if (imagePreviews[index]) {
+      URL.revokeObjectURL(imagePreviews[index]);
+    }
+
+    setSelectedImages((prev) => prev.filter((_, i) => i !== index));
+    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
   };
 
   useEffect(() => {
@@ -36,6 +74,15 @@ export default function WritePage() {
       setIsFormValid(false);
     }
   }, [title, content]);
+
+  // 컴포넌트가 언마운트될 때 URL 객체 정리
+  useEffect(() => {
+    return () => {
+      imagePreviews.forEach((url) => {
+        if (url) URL.revokeObjectURL(url);
+      });
+    };
+  }, [imagePreviews]);
 
   return (
     <div className="flex min-h-screen justify-center p-4">
@@ -56,6 +103,74 @@ export default function WritePage() {
 
         {/* 입력 폼 */}
         <form onSubmit={handleSubmit}>
+          <div className="mb-6">
+            <label
+              htmlFor="image"
+              className="mb-2 block text-sm font-bold text-black"
+            >
+              게시글 이미지 (최대 3장)
+            </label>
+            <div className="flex flex-wrap gap-4">
+              {/* 이미지 프리뷰 */}
+              {imagePreviews.map((preview, index) => (
+                <div
+                  key={index}
+                  className="relative h-[200px] w-[200px] overflow-hidden rounded-lg border border-gray-200"
+                >
+                  <button
+                    type="button"
+                    onClick={() => removeImage(index)}
+                    className="absolute top-1 right-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  >
+                    ✕
+                  </button>
+                  <Image
+                    src={preview}
+                    alt={`게시글 이미지 ${index + 1}`}
+                    fill
+                    sizes="200px"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+
+              {/* 이미지 추가 버튼 (이미지가 3장 미만인 경우에만 표시) */}
+              {imagePreviews.length < 3 && (
+                <label
+                  htmlFor="image-upload"
+                  className="flex h-[200px] w-[200px] cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
+                >
+                  <div className="flex flex-col items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="mb-1 h-8 w-8 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 4v16m8-8H4"
+                      />
+                    </svg>
+                    <span className="text-sm text-gray-500">
+                      이미지 추가 ({imagePreviews.length}/3)
+                    </span>
+                  </div>
+                  <input
+                    id="image-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                  />
+                </label>
+              )}
+            </div>
+          </div>
+
           <div className="mb-6">
             <label
               htmlFor="title"

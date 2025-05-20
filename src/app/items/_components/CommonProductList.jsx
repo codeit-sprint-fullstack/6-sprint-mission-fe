@@ -27,7 +27,7 @@ const CommonProductList = () => {
     toggleDropdown,
   } = useProducts({
     pageSize: 10,
-    orderBy: ORDER_LIST[0] === "최신순" ? "recent" : "favorite",
+    orderBy: ORDER_LIST[0] === "최신순" ? "recent" : "likes",
   });
 
   return (
@@ -54,7 +54,7 @@ const CommonProductList = () => {
             placeholder="검색어를 입력해주세요."
           />
           {!isMobile && (
-            <Link href="/registration">
+            <Link href="/items/registration">
               <button className="flex h-full w-[150px] min-w-[120px] cursor-pointer items-center justify-center rounded-lg border-none bg-[#3692ff] p-[15px] text-[#ffffff] transition-colors duration-200 hover:bg-[#1967d6]">
                 상품 등록하기
               </button>
@@ -85,7 +85,7 @@ const CommonProductList = () => {
                   최신순
                 </li>
                 <li
-                  onClick={() => handleOrderChange("favorite")}
+                  onClick={() => handleOrderChange("likes")}
                   className="flex h-[42px] w-[130px] cursor-pointer items-center justify-center"
                 >
                   좋아요순

@@ -21,7 +21,9 @@ export function useComments(type, parentId, limit = 10) {
           limit,
           currentCursor,
         );
-        const list = result?.list || [];
+
+        // 새로운 API 응답 구조에 맞게 변경
+        const list = result?.data || [];
         const newCursor = result?.nextCursor || null;
 
         if (refresh) {

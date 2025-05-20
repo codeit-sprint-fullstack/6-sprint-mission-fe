@@ -6,36 +6,40 @@ import { useRouter } from "next/navigation";
 import { FaRegHeart, FaHeart, FaEllipsisV } from "react-icons/fa";
 import { useArticle } from "@/hooks/Article";
 import ConfirmModal from "@/components/common/ConfirmModal";
+import { articlesService } from "@/api/articles";
+import { useAuth } from "@/providers/AuthProvider";
 
-export default function ArticleSection({
-  article,
-  onToggleLike,
-  isLiked,
-  content,
-  articleId,
-  onArticleUpdate,
-}) {
+export default function ArticleSection({ article, onArticleUpdate }) {
   const router = useRouter();
   const [showOptions, setShowOptions] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editTitle, setEditTitle] = useState(article.data?.title || "");
-  const [editContent, setEditContent] = useState(content || "");
+
+  // 데이터 구조 변경에 대응하기 위한 접근 방식 수정
+  const articleData = article.data || article;
+
+  const [editTitle, setEditTitle] = useState(articleData?.title || "");
+  const [editContent, setEditContent] = useState(articleData?.content || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [likes, setLikes] = useState(articleData?.likes);
+  const [isLiked, setIsLiked] = useState(articleData?.isLiked);
 
-  const { updateArticle, deleteArticle, refetch } = useArticle(articleId);
+  const { updateArticle, deleteArticle, refetch } = useArticle(articleData?.id);
+
+  const { user } = useAuth();
 
   // editTitle과 editContent를 article이 변경될 때마다 업데이트
   useEffect(() => {
-    setEditTitle(article.data?.title || "");
-    setEditContent(content || "");
-  }, [article, content]);
+    const data = article.data || article;
+    setEditTitle(data?.title || "");
+    setEditContent(data?.content || "");
+  }, [article]);
 
   // 게시글 수정 취소
   const handleCancelEdit = () => {
     setIsEditing(false);
-    setEditTitle(article.data?.title || "");
-    setEditContent(content || "");
+    setEditTitle(articleData?.title || "");
+    setEditContent(articleData?.content || "");
   };
 
   // 게시글 수정 저장
@@ -53,8 +57,9 @@ export default function ArticleSection({
       setShowOptions(false);
 
       // 로컬 상태 업데이트
-      setEditTitle(updatedArticle?.data?.title || editTitle);
-      setEditContent(updatedArticle?.data?.content || editContent);
+      const updatedData = updatedArticle?.data || updatedArticle;
+      setEditTitle(updatedData?.title || editTitle);
+      setEditContent(updatedData?.content || editContent);
 
       // 수정 후 서버에서 최신 데이터 다시 가져오기
       await refetch();
@@ -87,6 +92,20 @@ export default function ArticleSection({
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // 좋아요 토글
+  // TODO : 리액트 쿼리의 옵티마이제이션 고려해보기
+
+  const handleToggleLike = async () => {
+    if (isLiked) {
+      await articlesService.deleteLiked(articleData?.id);
+      setLikes(likes - 1);
+    } else {
+      await articlesService.createLiked(articleData?.id);
+      setLikes(likes + 1);
+    }
+    setIsLiked(!isLiked);
   };
 
   return (
@@ -137,7 +156,7 @@ export default function ArticleSection({
               <div className="flex min-w-[95%] flex-col gap-4">
                 {/* 타이틀 */}
                 <div className="max-w-[90%] text-[20px] font-bold text-[#1f2937]">
-                  {article.data?.title}
+                  {articleData?.title}
                 </div>
 
                 {/* 작성자 정보 */}
@@ -155,13 +174,11 @@ export default function ArticleSection({
                     </figure>
                     <div className="ml-4">
                       <span className="mr-1 text-[14px] font-medium text-gray-600">
-                        판다판다
+                        {articleData?.author?.nickname || "판다판다"}
                       </span>
                       <span className="text-[14px] font-medium text-[#9ca3af]">
-                        {article.data?.createdAt
-                          ? new Date(
-                              article.data.createdAt,
-                            ).toLocaleDateString()
+                        {articleData?.createdAt
+                          ? new Date(articleData.createdAt).toLocaleDateString()
                           : "2024. 01. 02"}
                       </span>
                     </div>
@@ -171,7 +188,7 @@ export default function ArticleSection({
                   <div className="flex items-center pl-8">
                     <div className="flex items-center rounded-full border-2 border-[#e5e7eb]">
                       <button
-                        onClick={onToggleLike}
+                        onClick={handleToggleLike}
                         className="flex cursor-pointer items-center px-3 py-1 text-[28px] text-gray-500 hover:text-red-500"
                       >
                         {isLiked ? (
@@ -180,7 +197,7 @@ export default function ArticleSection({
                           <FaRegHeart />
                         )}
                         <span className="ml-1 text-[16px] font-medium text-gray-500">
-                          {article.data?.likes || 123}
+                          {likes || 0}
                         </span>
                       </button>
                     </div>
@@ -188,37 +205,59 @@ export default function ArticleSection({
                 </div>
               </div>
               {/* 3단 메뉴 버튼 */}
-              <div className="relative">
-                <button
-                  onClick={() => setShowOptions(!showOptions)}
-                  className="cursor-pointer text-[#9ca3af]"
-                >
-                  <FaEllipsisV />
-                </button>
-                {showOptions && (
-                  <div className="absolute right-0 z-10 w-[100px] rounded-md border-2 border-[#e5e7eb] bg-white py-1 md:w-[140px]">
-                    <button
-                      onClick={() => {
-                        setIsEditing(true);
-                        setShowOptions(false);
-                      }}
-                      className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-blue-500"
-                    >
-                      수정하기
-                    </button>
-                    <button
-                      onClick={openDeleteModal}
-                      className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-red-500"
-                    >
-                      삭제하기
-                    </button>
-                  </div>
-                )}
-              </div>
+              {articleData.userId === user?.user.id && (
+                <div className="relative">
+                  <button
+                    onClick={() => setShowOptions(!showOptions)}
+                    className="cursor-pointer text-[#9ca3af]"
+                  >
+                    <FaEllipsisV />
+                  </button>
+                  {showOptions && (
+                    <div className="absolute right-0 z-10 w-[100px] rounded-md border-2 border-[#e5e7eb] bg-white py-1 md:w-[140px]">
+                      <button
+                        onClick={() => {
+                          setIsEditing(true);
+                          setShowOptions(false);
+                        }}
+                        className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-blue-500"
+                      >
+                        수정하기
+                      </button>
+                      <button
+                        onClick={openDeleteModal}
+                        className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-red-500"
+                      >
+                        삭제하기
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
+            {/* 이미지 영역 추가 */}
+            {articleData?.image && articleData.image.length > 0 && (
+              <div className="mb-6 flex flex-wrap gap-4">
+                {articleData.image.map((imageUrl, index) => (
+                  <div
+                    key={index}
+                    className="relative h-[300px] w-[300px] overflow-hidden rounded-lg border border-gray-200"
+                  >
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_API_URL}${imageUrl}`}
+                      alt={`게시글 이미지 ${index + 1}`}
+                      fill
+                      sizes="300px"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div className="mb-8 text-[16px] whitespace-pre-wrap">
-              {content || "게시글 조회에 실패하였습니다."}
+              {articleData?.content || "게시글 조회에 실패하였습니다."}
             </div>
           </div>
         )}

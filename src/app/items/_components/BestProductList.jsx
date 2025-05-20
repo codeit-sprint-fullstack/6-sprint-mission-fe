@@ -6,7 +6,9 @@ import { useBestProducts } from "@/hooks/Products/useBestProducts";
 const BEST_ITEM_HEIGHT = 300;
 
 const BestProductList = () => {
-  const { bestProducts, isLoading, error } = useBestProducts({ pageSize: 4 });
+  const { bestProducts, isLoading, error } = useBestProducts({
+    pageSize: 4,
+  });
 
   return (
     <div>

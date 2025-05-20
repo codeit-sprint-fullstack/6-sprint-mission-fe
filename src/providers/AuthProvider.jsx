@@ -23,36 +23,40 @@ export const useAuth = () => {
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-
   const [refreshTimeout, setRefreshTimeout] = useState(null);
+
+  // ✅ 클라이언트에서는 JWT 슬라이딩 세션의 트리거 역할만 수행하면 됨
+  // 서버는 refreshToken의 남은 시간을 판단해 필요시 재발급 처리함
+  // 트리거는 아래와 같이 여러 방식이 가능:
+  // - API 요청 시
+  // - 사용자 이벤트 발생 시 (e.g., click, keydown)
+  // - setTimeout 기반 주기적 호출 등
 
   const setupRefreshToken = (accessToken) => {
     if (!accessToken) return;
-    const payload = jwtDecode(accessToken);
-    const now = Date.now() / 1000; // 초 단위
-    const expiresIn = payload.exp - now;
 
-    if (expiresIn <= 0) {
-      logout();
-      return;
-    }
+    const payload = jwtDecode(accessToken);
+    const now = Date.now() / 1000;
+    const expiresIn = payload.exp - now;
 
     if (refreshTimeout) clearTimeout(refreshTimeout);
 
-    const timeout = setTimeout(
-      async () => {
-        try {
-          const newAccessToken = await authService.getRefreshToken();
-          setupRefreshToken(newAccessToken);
-        } catch (error) {
-          console.error("토큰 갱신 실패", error);
-          logout();
-        }
-      },
-      // 토큰 만료 1분전에 재발급 신청
-      // 분단위 계산 현재 서버 만료시간은 30분
-      (expiresIn - 60) * 1000,
-    );
+    // accessToken 만료 14분 전에 재발급 시도 (테스트용)
+    // (주로 서버 만료 시간 1~2분전에 재발급 시도, 15분 기준 )
+
+    const timeoutMs = Math.max((expiresIn - 60) * 1000); // 실제 배포용
+    // const timeoutMs = Math.max((expiresIn - 60 * 14) * 1000); // 테스트용
+
+    const timeout = setTimeout(async () => {
+      try {
+        const newAccessToken = await authService.getRefreshToken();
+        setupRefreshToken(newAccessToken); // 새 토큰으로 타이머 갱신
+        console.log("🟢 토큰 갱신 성공", newAccessToken);
+      } catch (err) {
+        console.error("🔴 토큰 갱신 실패", err);
+        logout();
+      }
+    }, timeoutMs);
 
     setRefreshTimeout(timeout);
   };
@@ -84,8 +88,8 @@ export default function AuthProvider({ children }) {
     await getUser();
   };
 
-  const logout = () => {
-    authService.logout();
+  const logout = async () => {
+    await authService.logout();
     setUser(null);
   };
 

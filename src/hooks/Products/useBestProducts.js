@@ -1,6 +1,6 @@
 "use client";
 
-import { productsSevice } from "@/api/products";
+import { productsService } from "@/api/products.js";
 import { useQuery } from "@tanstack/react-query";
 
 /**
@@ -13,11 +13,11 @@ export function useBestProducts({ pageSize = 4 } = {}) {
   // React Query를 사용한 데이터 페칭
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["bestProducts", pageSize],
-    queryFn: () => productsSevice.getProducts(1, pageSize, "favorite", ""),
+    queryFn: () => productsService.getProducts(1, pageSize, "likes", ""),
   });
 
   // 베스트 상품 목록
-  const bestProducts = data?.list || [];
+  const bestProducts = data?.data || [];
 
   return {
     bestProducts,

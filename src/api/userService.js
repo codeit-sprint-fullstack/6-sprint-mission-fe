@@ -30,26 +30,19 @@ const formDataFetch = async (url, options = {}) => {
 
 export const userService = {
   // 사용자 정보 요청
-  getMe: () => tokenFetch("/users/me"),
+  getMe: () => tokenFetch("/user/me"),
 
   // 사용자 정보 업데이트 (multipart/form-data)
   updateMe: (formData) =>
-    formDataFetch("/users/me", {
+    formDataFetch("/user/me", {
       method: "PATCH",
       body: formData,
     }),
 
   // 비밀번호 변경
   updatePassword: (password) =>
-    tokenFetch("/users/me/password", {
+    tokenFetch("/user/me/password", {
       method: "PATCH",
       body: password,
     }),
-
-  // 내 상품 조회
-  getMyProducts: (page, pageSize, keyword) => tokenFetch("/users/me/products"),
-
-  // 찜한 상품 조회
-  getMyfavorites: (page, pageSize, keyword) =>
-    tokenFetch(`/users/me/favorites`),
 };

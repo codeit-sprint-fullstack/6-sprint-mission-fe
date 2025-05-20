@@ -1,7 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import { useArticle } from "@/hooks/Article";
 import ArticleSection from "./_components/ArticleSection";
 import CommentSection from "./_components/CommentSection";
@@ -12,21 +11,9 @@ export default function PostPage() {
   const params = useParams();
   const id = params.id;
   const { article, loading, error, refetch } = useArticle(id);
-  const [isLiked, setIsLiked] = useState(false);
-  const [localArticle, setLocalArticle] = useState(null);
-
-  // article이 변경될 때마다 localArticle 업데이트
-  useEffect(() => {
-    if (article) {
-      setLocalArticle(article);
-    }
-  }, [article]);
-
-  const handleToggleLike = () => {
-    setIsLiked(!isLiked);
-  };
 
   // 게시글이 수정되었을 때 호출될 함수
+  // TODO : 리액트 쿼리의 옵티마이제이션 고려해보기
   const handleArticleUpdate = async () => {
     await refetch();
   };
@@ -47,17 +34,10 @@ export default function PostPage() {
   return (
     <ArticleWrapper>
       {/* 게시글 영역*/}
-      <ArticleSection
-        article={article}
-        onToggleLike={handleToggleLike}
-        isLiked={isLiked}
-        content={article.data?.content}
-        articleId={id}
-        onArticleUpdate={handleArticleUpdate}
-      />
+      <ArticleSection article={article} onArticleUpdate={handleArticleUpdate} />
 
       {/* 댓글 영역 */}
-      <CommentSection articleId={id} />
+      <CommentSection parent={article} />
     </ArticleWrapper>
   );
 }
