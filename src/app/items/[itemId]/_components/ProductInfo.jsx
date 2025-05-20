@@ -24,6 +24,18 @@ export default function ProductInfo({ product, onEdit, onDelete }) {
     images,
   } = product;
 
+  // 이미지 URL 처리 함수
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return "/images/img_default.png"; // 기본 이미지 경로
+
+    // 이미 전체 URL인 경우
+    if (imagePath.startsWith("http")) return imagePath;
+
+    // 상대 경로인 경우 백엔드 URL 추가 (환경 변수 사용)
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+    return `${baseUrl}/${imagePath}`;
+  };
+
   const handleLikeToggle = async () => {
     try {
       if (isLiked) {
@@ -81,7 +93,15 @@ export default function ProductInfo({ product, onEdit, onDelete }) {
 
       {/* 왼쪽 상품 이미지 */}
       <div className="w-full relative max-w-[486px] h-[486px] rounded-[16px] overflow-hidden">
-        <Image src={images?.[0]} alt={name} fill className="object-cover" />
+        <Image 
+          src={getImageUrl(images?.[0])} 
+          alt={name || "상품 이미지"} 
+          fill 
+          className="object-cover" 
+          onError={(e) => {
+            e.target.src = "/images/img_default.png"; // 이미지 로드 실패 시 기본 이미지 표시
+          }}
+        />
       </div>
 
       {/* 오른쪽 상품 정보 */}
@@ -90,7 +110,7 @@ export default function ProductInfo({ product, onEdit, onDelete }) {
           {/* 상품명 & 가격 */}
           <h2 className="text-2xl font-semibold text-secondary-800">{name}</h2>
           <p className="text-[40px] font-semibold mt-4 mb-4 text-secondary-800">
-            {price.toLocaleString()}원
+            {price?.toLocaleString()}원
           </p>
 
           {/* 설명 */}
