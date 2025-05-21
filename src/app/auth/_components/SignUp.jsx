@@ -4,11 +4,10 @@ import AuthInput from "./AuthInput";
 import AuthButton from "./AuthButton";
 import { useEffect, useState } from "react";
 import AuthModal from "./AuthModal";
-import { authService } from "@/service/authService";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
 
-export default function Signup() {
+export default function SignUp() {
   const [isActive, setIsActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -30,7 +29,7 @@ export default function Signup() {
 
     try {
       setIsLoading(true);
-      await signUp(email, nickname, password, passwordCheck);
+      await signUp(email, nickname, password);
 
       setModalMessage("가입 완료되었습니다.");
       setIsModalVisible(true);

@@ -32,14 +32,22 @@ export default function AuthProvider({ children }) {
   };
 
   // 회원가입
-  const signUp = async (email, nickname, password, passwordCheck) => {
-    await authService.signUp(email, nickname, password, passwordCheck);
+  const signUp = async (email, nickname, password) => {
+    const user = await authService.signUp(email, nickname, password);
+
+    localStorage.setItem("accessToken", user.accessToken);
+    localStorage.setItem("refreshToken", user.refreshToken);
+
     await getUser();
   };
 
   // 로그인
   const login = async (email, password) => {
-    await authService.login(email, password);
+    const user = await authService.login(email, password);
+
+    localStorage.setItem("accessToken", user.accessToken);
+    localStorage.setItem("refreshToken", user.refreshToken);
+
     await getUser();
   };
 

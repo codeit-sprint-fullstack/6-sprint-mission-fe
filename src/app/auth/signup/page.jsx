@@ -1,5 +1,5 @@
 import React from "react";
-import Signup from "../_components/Signup";
+import SignUp from "../_components/SignUp";
 import SimpleLogin from "../_components/SimpleLogin";
 import Link from "next/link";
 import Image from "next/image";
@@ -25,7 +25,7 @@ export default function SignupPage() {
           </Link>
         </header>
         <div className="flex flex-col gap-[24px]">
-          <Signup />
+          <SignUp />
           <SimpleLogin />
           <footer className="flex justify-center items-center gap-[4px] font-medium text-[14px]/[24px]">
             <p className="text-secondary-gray-700">이미 회원이신가요?</p>

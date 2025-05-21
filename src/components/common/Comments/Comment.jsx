@@ -11,7 +11,7 @@ import dayjs from "dayjs";
 import clsx from "clsx";
 import { useAuth } from "@/providers/AuthProvider";
 
-export default function CommentsLoad({ comment }) {
+export default function Comment({ comment }) {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isActive, setIsActive] = useState(true);
@@ -25,15 +25,16 @@ export default function CommentsLoad({ comment }) {
 
   // 댓글 수정 API
   const { mutate: updateComment } = useMutation({
-    mutationFn: ({ commentId, body }) =>
-      commentService.updateComment(commentId, body),
+    mutationFn: ({ type, id, commentId, body }) =>
+      commentService.updateComment(type, id, commentId, body),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["comments", id] }),
   });
 
   // 댓글 삭제 API
   const { mutate: deleteComment } = useMutation({
-    mutationFn: (commentId) => commentService.deleteComment(commentId),
+    mutationFn: ({ type, id, commentId }) =>
+      commentService.deleteComment(type, id, commentId),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["comments", id] }),
   });
@@ -41,6 +42,8 @@ export default function CommentsLoad({ comment }) {
   // 댓글 수정
   const handleUpdateComment = () => {
     updateComment({
+      type: articleId ? "articles" : "products",
+      id,
       commentId: comment.id,
       body: { content: body.content.trim() },
     });
@@ -51,7 +54,11 @@ export default function CommentsLoad({ comment }) {
 
   // 댓글 삭제
   const handleDeleteComment = () => {
-    deleteComment(comment.id);
+    deleteComment({
+      type: articleId ? "articles" : "products",
+      id,
+      commentId: comment.id,
+    });
   };
 
   // body 변경
@@ -113,16 +120,15 @@ export default function CommentsLoad({ comment }) {
                 {comment.content}
               </p>
             )}
-            {user?.id === comment.writer.id &&
-              (isEditMode ? null : (
-                <DropDownToggle
-                  handleEdit={handleEdit}
-                  handleDelete={handleDeleteComment}
-                  handleDropDownToggle={handleDropDownToggle}
-                  handleDropDownClose={handleDropDownClose}
-                  isDropDownVisible={isDropDownVisible}
-                />
-              ))}
+            {user?.id === comment?.author?.id && !isEditMode && (
+              <DropDownToggle
+                handleEdit={handleEdit}
+                handleDelete={handleDeleteComment}
+                handleDropDownToggle={handleDropDownToggle}
+                handleDropDownClose={handleDropDownClose}
+                isDropDownVisible={isDropDownVisible}
+              />
+            )}
           </div>
           <div
             className={clsx(
@@ -132,9 +138,6 @@ export default function CommentsLoad({ comment }) {
           >
             <div className="flex justify-center items-center gap-[8px]">
               <div className="relative w-[32px] h-[32px]">
-                {/* TODO: 내가 만든 댓글 API로 변경 시, writer는 백엔드 어떻게 만들지 보고 수정 
-                ex) {comment.writer.image ? comment.writer.image : ic_profile}*/}
-                {/* TODO: 외부 이미지 관련해서 HTML 태그 사용하는 것 고려해보기. */}
                 <Image
                   src={ic_profile}
                   alt="프로필"
@@ -144,8 +147,7 @@ export default function CommentsLoad({ comment }) {
               </div>
               <div className="flex flex-col gap-y-[4px] ">
                 <p className="text-secondary-gray-500">
-                  {/* TODO: 내가 만든 댓글 API로 변경 시, writer 백엔드 API 보고 수정 */}
-                  {comment.writer.nickname}
+                  {comment?.author?.nickname}
                 </p>
                 <p className="text-secondary-gray-300">
                   {dayjs(comment.createdAt).format("YYYY. MM. DD")}

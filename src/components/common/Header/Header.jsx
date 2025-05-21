@@ -65,7 +65,6 @@ export default function Header() {
           >
             <div className="relative w-[40px] h-[40px]">
               <Image
-                // TODO: 외부 이미지 관련해서 HTML 태그 사용하는 것 고려해보기.
                 src={user.image ? user.image : ic_profile}
                 alt="프로필"
                 fill
