@@ -5,14 +5,15 @@ import Image from "next/image";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { updateProductComment, deleteProductComment } from "@/api/item.api";
 
-export default function CommentItem({ comment, onCommentUpdated }) {
+export default function CommentItem({ comment, onCommentUpdated, productId }) {
+
   const [showMenu, setShowMenu] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
 
   const handleUpdate = async () => {
     try {
-      await updateProductComment(comment.id, editedContent);
+      await updateProductComment(productId, comment.id, editedContent);
       setIsEditing(false);
       onCommentUpdated?.(); // 댓글 목록 새로고침
     } catch (e) {
@@ -23,14 +24,13 @@ export default function CommentItem({ comment, onCommentUpdated }) {
   const handleDelete = async () => {
     if (!confirm("댓글을 삭제하시겠습니까?")) return;
     try {
-      await deleteProductComment(comment.id);
+      await deleteProductComment(productId, comment.id);
       onCommentUpdated?.(); // 댓글 목록 새로고침
     } catch (e) {
       console.error("댓글 삭제 실패", e);
     }
   };
 
-  //TODO: 댓글 수정/삭제 스타일 수정하기
   return (
     <div className="relative w-full max-w-[1200px] h-[100px] bg-gray-50 pb-3 border-b border-secondary-200">
       {/* 점 세 개 버튼 */}

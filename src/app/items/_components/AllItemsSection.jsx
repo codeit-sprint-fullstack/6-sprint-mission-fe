@@ -32,9 +32,32 @@ function AllItemsSection() {
   const [keyword, setKeyword] = useState("");
 
   const fetchSortedData = async ({ orderBy, page, pageSize, keyword }) => {
-    const products = await getProducts({ orderBy, page, pageSize, keyword });
-    setItemList(products.list);
-    setTotalPageNum(Math.ceil(products.totalCount / pageSize));
+    // orderBy를 백엔드가 이해하는 sort로 변환
+    const sortMap = {
+      recent: "latest",
+      favorite: "likes",
+    };
+    const sort = sortMap[orderBy] || "latest";
+
+    // API 호출 - 파라미터명 변경
+    const products = await getProducts({ sort, page, pageSize, keyword });
+
+    // API 응답 확인
+    console.log("API 응답:", products);
+    console.log("첫 번째 상품:", products.list?.[0] || products[0]);
+
+    // 백엔드 응답이 배열인지 객체인지 확인하여 처리
+    if (Array.isArray(products)) {
+      setItemList(products);
+      setTotalPageNum(Math.ceil(products.length / pageSize));
+    } else if (products.list) {
+      setItemList(products.list);
+      setTotalPageNum(Math.ceil(products.totalCount / pageSize));
+    } else {
+      // products 자체가 데이터 배열인 경우
+      setItemList(products);
+      setTotalPageNum(1);
+    }
   };
 
   const handleSortSelection = (sortOption) => {
@@ -63,7 +86,7 @@ function AllItemsSection() {
       case "recent":
         return "최신순";
       case "favorite":
-        return "인기순";
+        return "좋아요순";
       default:
         return "최신순";
     }
@@ -74,7 +97,7 @@ function AllItemsSection() {
       setPageSize(getPageSize());
     };
     // 최초 진입 시 페이지 크기 설정
-    setPageSize(getPageSize()); // ← 추가 필요
+    setPageSize(getPageSize());
 
     window.addEventListener("resize", handleResize);
     fetchSortedData({ orderBy, page, pageSize, keyword });
@@ -99,7 +122,7 @@ function AllItemsSection() {
         <h1 className="sectionTitle">판매 중인 상품</h1>
 
         <div className="searchBarWrapper">
-        <FaSearch />
+          <FaSearch />
           <input
             className="searchBarInput"
             placeholder="검색할 상품을 입력해 주세요"
@@ -108,7 +131,10 @@ function AllItemsSection() {
             onKeyPress={handleKeyPress}
           />
         </div>
-        <Link href="/items/new" className="createItemButton button bg-primary-100 text-white font-semibold text-[16px] py-2 px-4 radius-[8px]">
+        <Link
+          href="/items/new"
+          className="createItemButton button bg-primary-100 text-white font-semibold text-[16px] py-2 px-4 radius-[8px]"
+        >
           상품 등록하기
         </Link>
         <div className="sortButtonWrapper">

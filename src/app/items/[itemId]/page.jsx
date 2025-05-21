@@ -5,13 +5,13 @@ import { useEffect, useState } from "react";
 import {
   getProductById,
   getProductComments,
-  deleteProductComment,
+  deleteProduct,
+  postProductComment,
 } from "@/api/item.api";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import ProductInfo from "./_components/ProductInfo";
 import CommentItem from "./_components/CommentItem";
 import Image from "next/image";
-import { postProductComment } from "@/api/item.api";
 
 export default function ProductDetailPage() {
   const { itemId } = useParams();
@@ -26,7 +26,6 @@ export default function ProductDetailPage() {
   const fetchCommentsAgain = async () => {
     try {
       const fetched = await getProductComments(itemId);
-      console.log("댓글 데이터:", fetched); // 데이터 구조 확인용
 
       // API 응답 구조에 따라 아래 둘 중 하나를 선택
       setComments(fetched.list || []);
@@ -51,7 +50,7 @@ export default function ProductDetailPage() {
       try {
         const fetchedProduct = await getProductById(itemId);
         const fetchedComments = await getProductComments(itemId);
-        
+
         setProduct(fetchedProduct);
         // API 응답 구조에 따라 아래 둘 중 하나를 선택 (위와 동일한 방식 사용)
         setComments(fetchedComments.list || []);
@@ -67,16 +66,17 @@ export default function ProductDetailPage() {
     if (itemId) load();
   }, [itemId, router]);
 
-  const handleDelete = async () => {
+  // 상품 삭제 처리 함수
+  const handleProductDelete = async () => {
     const confirm = window.confirm("정말 삭제하시겠습니까?");
     if (!confirm) return;
 
     try {
-      await deleteProductComment(itemId);
+      await deleteProduct(itemId);
       router.push("/items");
     } catch (err) {
-      console.error("삭제 실패", err);
-      alert("삭제에 실패했습니다.");
+      console.error("상품 삭제 실패", err);
+      alert("상품 삭제에 실패했습니다.");
     }
   };
 
@@ -87,7 +87,7 @@ export default function ProductDetailPage() {
       <ProductInfo
         product={product}
         onEdit={() => router.push(`/items/${itemId}/edit`)}
-        onDelete={handleDelete}
+        onDelete={handleProductDelete}
       />
       {/* 댓글 입력창 */}
       <div className="mt-10 font-[600] text-[16px] text-gray-900">
@@ -132,10 +132,11 @@ export default function ProductDetailPage() {
               key={comment.id}
               comment={{
                 ...comment,
-                author: comment.writer.nickname, // ← 실제 작성자 닉네임 사용
-                time: new Date(comment.createdAt).toLocaleDateString(), // ← 실제 생성일 포맷팅
+                author: comment.writer?.nickname || "익명",
+                time: new Date(comment.createdAt).toLocaleDateString(),
               }}
               onCommentUpdated={fetchCommentsAgain}
+              productId={itemId}
             />
           ))
         )}

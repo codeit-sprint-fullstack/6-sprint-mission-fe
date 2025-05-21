@@ -12,7 +12,8 @@ export default function NewItemPage() {
     description: "",
     price: "",
     tags: [],
-    images: [], // 기본적으로 비워둠
+    imageFiles: [], // ← File 객체들을 저장
+    imagePreviewUrls: [], // ← 미리보기 URL들
   });
 
   const [errors, setErrors] = useState({});
@@ -20,16 +21,16 @@ export default function NewItemPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  // 폼 유효성 검사를 관리하는 useEffect
+  // 유효성 검사 수정
   useEffect(() => {
-    const formHasRequiredFields = 
-      form.name && 
-      form.description && 
-      form.price && 
-      form.tags.length > 0;
-    
+    const formHasRequiredFields =
+      form.name &&
+      form.description &&
+      form.price &&
+      form.tags.length > 0 &&
+      form.imageFiles.length > 0; // ← imageFiles로 변경
+
     const formHasNoErrors = Object.keys(errors).length === 0;
-    
     setIsFormValid(formHasRequiredFields && formHasNoErrors);
   }, [form, errors]);
 
@@ -49,6 +50,10 @@ export default function NewItemPage() {
     if (form.tags.length === 0) {
       newErrors.tags = "태그를 1개 이상 입력해주세요.";
     }
+    if (form.imageFiles.length === 0) {
+      // ← imageFiles로 변경
+      newErrors.images = "이미지를 1개 이상 등록해주세요.";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -57,11 +62,11 @@ export default function NewItemPage() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-  
+
     // 실시간 유효성 검사
     setErrors((prev) => {
       const updatedErrors = { ...prev };
-  
+
       if (name === "name") {
         if (value.length < 2 || value.length > 10) {
           updatedErrors.name = "2자 이상 10자 이내로 입력해주세요";
@@ -69,7 +74,7 @@ export default function NewItemPage() {
           delete updatedErrors.name;
         }
       }
-  
+
       if (name === "description") {
         if (value.length < 10) {
           updatedErrors.description = "10자 이상 입력해주세요.";
@@ -77,7 +82,7 @@ export default function NewItemPage() {
           delete updatedErrors.description;
         }
       }
-  
+
       if (name === "price") {
         if (!/^\d+$/.test(value)) {
           updatedErrors.price = "숫자로 입력해주세요.";
@@ -87,16 +92,65 @@ export default function NewItemPage() {
           delete updatedErrors.price;
         }
       }
-  
+
       return updatedErrors;
     });
   };
-  
+
+  // 이미지 처리 함수 수정
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+
+    // 현재 이미지 개수 확인
+    const currentImageCount = form.imageFiles.length;
+    const remainingSlots = 3 - currentImageCount;
+    const filesToAdd = files.slice(0, remainingSlots);
+
+    if (files.length > remainingSlots) {
+      alert(`이미지는 최대 3개까지 등록 가능합니다.`);
+    }
+
+    // 새로운 미리보기 URL 생성
+    const newPreviewUrls = filesToAdd.map((file) => URL.createObjectURL(file));
+
+    setForm((prev) => ({
+      ...prev,
+      imageFiles: [...prev.imageFiles, ...filesToAdd], // ← File 객체들
+      imagePreviewUrls: [...prev.imagePreviewUrls, ...newPreviewUrls], // ← 미리보기 URL들
+    }));
+
+    // 에러 제거
+    setErrors((prev) => {
+      const updatedErrors = { ...prev };
+      if (prev.imageFiles && prev.imageFiles.length > 0) {
+        delete updatedErrors.images;
+      }
+      return updatedErrors;
+    });
+
+    // input을 리셋하여 같은 파일을 다시 선택할 수 있게 함
+    e.target.value = "";
+  };
+
+  // 이미지 제거 함수
+  const handleRemoveImage = (indexToRemove) => {
+    // 미리보기 URL 해제
+    URL.revokeObjectURL(form.imagePreviewUrls[indexToRemove]);
+
+    setForm((prev) => ({
+      ...prev,
+      imageFiles: prev.imageFiles.filter((_, i) => i !== indexToRemove),
+      imagePreviewUrls: prev.imagePreviewUrls.filter(
+        (_, i) => i !== indexToRemove
+      ),
+    }));
+  };
+
   const handleAddTag = (tag) => {
     if (!form.tags.includes(tag)) {
       const updatedTags = [...form.tags, tag];
       setForm((prev) => ({ ...prev, tags: updatedTags }));
-  
+
       setErrors((prev) => {
         const updatedErrors = { ...prev };
         if (updatedTags.length > 0) {
@@ -106,11 +160,11 @@ export default function NewItemPage() {
       });
     }
   };
-  
+
   const handleRemoveTag = (tagToRemove) => {
     const updatedTags = form.tags.filter((tag) => tag !== tagToRemove);
     setForm((prev) => ({ ...prev, tags: updatedTags }));
-  
+
     setErrors((prev) => {
       const updatedErrors = { ...prev };
       if (updatedTags.length === 0) {
@@ -121,29 +175,63 @@ export default function NewItemPage() {
       return updatedErrors;
     });
   };
-
+  // 폼 제출 함수 수정
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    
+
     setIsSubmitting(true);
 
-    const productData = {
-      ...form,
-      price: Number(form.price),
-    };
+    // FormData 생성
+    const formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("description", form.description);
+    formData.append("price", form.price);
+    formData.append("tags", JSON.stringify(form.tags));
+
+    // File 객체들 추가
+    form.imageFiles.forEach((file, index) => {
+      console.log(`이미지 ${index}:`, file); // 디버깅용
+      formData.append("images", file);
+    });
+
+    // 디버깅을 위한 로그
+    console.log("전송할 FormData:");
+    for (let [key, value] of formData.entries()) {
+      if (value instanceof File) {
+        console.log(`${key}:`, value.name, value.size, value.type);
+      } else {
+        console.log(`${key}:`, value);
+      }
+    }
 
     try {
-      await createProduct(productData);
+      await createProduct(formData);
+
+      // 미리보기 URL들 해제
+      form.imagePreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+
       router.push("/items");
     } catch (error) {
-      const errorMessage = error.message || "상품 등록에 실패했습니다.";
+      console.error("상품 등록 에러:", error);
+      console.error("에러 응답:", error.response?.data);
+
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "상품 등록에 실패했습니다.";
       alert(errorMessage);
-      console.error(error);
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  // 컴포넌트 언마운트 시 미리보기 URL 정리
+  useEffect(() => {
+    return () => {
+      form.imagePreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, []);
 
   return (
     <main className="max-w-[1200px] mx-auto px-4 py-8">
@@ -157,6 +245,48 @@ export default function NewItemPage() {
           >
             {isSubmitting ? "등록 중..." : "등록"}
           </button>
+        </div>
+
+        {/* 상품 이미지 등록 */}
+        <div className="mb-8">
+          <label className="block text-[18px] font-[700] mb-4">
+            상품 이미지
+          </label>
+          <div className="flex gap-6">
+            {/* 이미지 추가 버튼 - 3개 미만일 때만 표시 */}
+            {form.imageFiles.length < 3 && (
+              <label className="w-[282px] h-[282px] flex flex-col items-center justify-center rounded-[12px] bg-gray-100 text-gray-400 cursor-pointer">
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleImageChange} // ← 올바른 함수 사용
+                  className="hidden"
+                />
+                <span className="text-[50px] leading-none mb-3">+</span>
+                <span className="text-[16px] text-secondary-400 font-[400]">
+                  이미지 등록
+                </span>
+              </label>
+            )}
+            {/* 등록된 이미지 미리보기 */}
+            {form.imagePreviewUrls.map((url, idx) => (
+              <div key={idx} className="relative w-[282px] h-[282px]">
+                <img
+                  src={url}
+                  alt={`preview-${idx}`}
+                  className="w-full h-full object-cover rounded-md"
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveImage(idx)} // ← 올바른 함수 사용
+                  className="absolute top-3 right-3 bg-secondary-400 bg-opacity-50 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="space-y-6">

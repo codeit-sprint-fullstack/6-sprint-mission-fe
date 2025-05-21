@@ -1,7 +1,7 @@
 "use client";
 
-import { authService } from "@/lib/authService";
-import { userService } from "@/lib/userService";
+import { signUp, signIn, signOut } from "@/api/auth.api";
+import { getMyUserInfo, updateMyUserInfo } from "@/api/user.api"; 
 import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext({
@@ -25,35 +25,54 @@ export default function AuthProvider({ children }) {
 
   const getUser = async () => {
     try {
-      const user = await userService.getMe();
-      setUser(user);
+      const userData = await getMyUserInfo(); // 수정: userService.getMe() → getMyUserInfo()
+      setUser(userData);
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);
       setUser(null);
+      // 토큰이 유효하지 않으면 제거
+      localStorage.removeItem("accessToken");
     }
   };
 
   const register = async (nickname, email, password, passwordConfirmation) => {
-    await authService.register(nickname, email, password, passwordConfirmation);
+    // 수정: authService.register() → signUp() 직접 호출
+    if (password !== passwordConfirmation) {
+      throw new Error("비밀번호가 일치하지 않습니다.");
+    }
+    await signUp({ email, nickname, password });
   };
 
   const login = async (email, password) => {
-    await authService.login(email, password);
+    // 수정: authService.login() → signIn() 직접 호출
+    const response = await signIn({ email, password });
+    
+    // 액세스 토큰 저장
+    if (response.accessToken) {
+      localStorage.setItem("accessToken", response.accessToken);
+    }
+    
     await getUser();
   };
 
   const logout = async () => {
-    await authService.logout();
+    // 수정: authService.logout() → signOut() 직접 호출
+    signOut();
     setUser(null);
   };
 
-  const updateUser = async (user) => {
-    const updatedUser = await userService.updateMe(user);
+  const updateUser = async (userData) => {
+    // 수정: userService.updateMe() → updateMyUserInfo() 직접 호출
+    const updatedUser = await updateMyUserInfo(userData);
     setUser(updatedUser);
   };
 
   useEffect(() => {
-    getUser();
+    // 토큰이 있으면 사용자 정보 가져오기
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      getUser();
+    }
   }, []);
 
   return (
