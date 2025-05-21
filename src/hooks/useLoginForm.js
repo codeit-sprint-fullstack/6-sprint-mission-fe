@@ -8,6 +8,9 @@ const useLoginForm = () => {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
+  const [isEmailTouched, setIsEmailTouched] = useState(false);
+  const [isPasswordTouched, setIsPasswordTouched] = useState(false);
+
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
@@ -17,11 +20,13 @@ const useLoginForm = () => {
 
   const handleEmailChange = useCallback((value, isValid) => {
     setEmail(value);
+    setIsEmailTouched(true);
     setIsEmailValid(isValid);
   }, []);
 
   const handlePasswordChange = useCallback((value, isValid) => {
     setPassword(value);
+    setIsPasswordTouched(true);
     setIsPasswordValid(isValid);
   }, []);
 
@@ -30,6 +35,8 @@ const useLoginForm = () => {
     password,
     isFormValid,
     isEmailValid,
+    isEmailTouched,
+    isPasswordTouched,
     isPasswordValid,
     handleEmailChange,
     handlePasswordChange,

@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 
-const useRegistrationForm = () => {
+const useSignUpForm = () => {
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
@@ -12,6 +12,11 @@ const useRegistrationForm = () => {
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isPasswordConfirmValid, setIsPasswordConfirmValid] = useState(false);
 
+  const [isEmailTouched, setIsEmailTouched] = useState(false);
+  const [isNicknameTouched, setIsNicknameTouched] = useState(false);
+  const [isPasswordTouched, setIsPasswordTouched] = useState(false);
+  const [isPasswordConfirmTouched, setIsPasswordConfirmTouched] =
+    useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
@@ -32,22 +37,26 @@ const useRegistrationForm = () => {
 
   const handleEmailChange = useCallback((value, isValid) => {
     setEmail(value);
+    setIsEmailTouched(true);
     setIsEmailValid(isValid);
   }, []);
 
   const handleNicknameChange = useCallback((value, isValid) => {
     setNickname(value);
+    setIsNicknameTouched(true);
     setIsNicknameValid(isValid);
   }, []);
 
   const handlePasswordChange = useCallback((value, isValid) => {
     setPassword(value);
+    setIsPasswordTouched(true);
     setIsPasswordValid(isValid);
   }, []);
 
   const handlePasswordConfirmChange = useCallback(
     (value) => {
       setPasswordConfirm(value);
+      setIsPasswordConfirmTouched(true);
       setIsPasswordConfirmValid(value === password);
     },
     [password]
@@ -63,6 +72,10 @@ const useRegistrationForm = () => {
     isNicknameValid,
     isPasswordValid,
     isPasswordConfirmValid,
+    isEmailTouched,
+    isNicknameTouched,
+    isPasswordTouched,
+    isPasswordConfirmTouched,
     handleEmailChange,
     handleNicknameChange,
     handlePasswordChange,
@@ -70,4 +83,4 @@ const useRegistrationForm = () => {
   };
 };
 
-export default useRegistrationForm;
+export default useSignUpForm;

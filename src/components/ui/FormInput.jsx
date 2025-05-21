@@ -10,6 +10,7 @@ export default function FormInput({
   onChange,
   value: propValue, // init value "" passed down from its parents - RegistrationForm
   isValid,
+  isTouched = false,
   ...props
 }) {
   const [inputValue, setInputValue] = useState(propValue || "");
@@ -52,12 +53,12 @@ export default function FormInput({
         id={id}
         type={type}
         placeholder={placeholder}
-        className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 ${!isValid ? "outline-error" : ""} ${className}`}
+        className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 ${!isValid && isTouched ? "outline-error" : ""} ${className}`}
         value={inputValue}
         onChange={handleChange}
         {...props}
       />
-      {!isValid && (
+      {!isValid && isTouched && (
         <p className="text-error text-sm font-semibold leading-6">
           {id === "email"
             ? "잘못된 이메일입니다."
