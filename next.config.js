@@ -1,5 +1,4 @@
 module.exports = {
-  /* API 프록시 설정 */
   async rewrites() {
     return [
       {
@@ -23,6 +22,7 @@ module.exports = {
       "sprint-fe-project.s3.ap-northeast-2.amazonaws.com",
       "images.unsplash.com",
       "i.pinimg.com",
+      "localhost",
     ],
   },
 };

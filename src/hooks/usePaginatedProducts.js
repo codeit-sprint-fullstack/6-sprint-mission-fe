@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const BASE_URL = "https://panda-market-api.vercel.app";
+const BASE_URL = "http://localhost:5000/api";
 
 export function usePaginatedProducts(params, isReady) {
   const { page, pageSize, orderBy, keyword } = params;
@@ -27,12 +27,12 @@ export function usePaginatedProducts(params, isReady) {
           search: keyword,
         }).toString();
 
-        const res = await fetch(`${BASE_URL}/Products?${qs}`, {
+        const res = await fetch(`${BASE_URL}/products?${qs}`, {
           signal: controller.signal,
         });
         if (!res.ok) throw new Error(`API ${res.status}`);
 
-        const json = await res.json(); 
+        const json = await res.json();
 
         setData({
           products: json.list,

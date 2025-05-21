@@ -5,12 +5,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import SignUpModal from "@/components/SignUpModal";
-import { useAuth } from "@/providers/AuthProvider";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { signup } from "@/api/auth.api";
 
 export default function SignUp() {
   const router = useRouter();
-  const { login } = useAuth();
 
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
@@ -23,7 +22,6 @@ export default function SignUp() {
   const [passwordConfirmError, setPasswordConfirmError] = useState("");
 
   const [modalMessage, setModalMessage] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
@@ -45,7 +43,6 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 에러 초기화
     setEmailError("");
     setNicknameError("");
     setPasswordError("");
@@ -73,51 +70,17 @@ export default function SignUp() {
     if (!valid) return;
 
     try {
-      const res = await fetch(
-        "https://panda-market-api.vercel.app/auth/signUp",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            password,
-            passwordConfirmation: passwordConfirm,
-            nickname,
-          }),
-        }
-      );
-
-      const result = await res.json();
-
-      console.log("회원가입 응답:", result);
-
-      if (!res.ok) {
-        setModalMessage(result.message || "회원가입에 실패했습니다.");
-        return;
-      }
-
-      if (
-        !result.accessToken ||
-        !result.refreshToken ||
-        !result.user ||
-        !result.user.nickname
-      ) {
-        setModalMessage("회원가입은 성공했지만 로그인 데이터가 누락됐어요.");
-        return;
-      }
-
-      login({
-        accessToken: result.accessToken,
-        refreshToken: result.refreshToken,
-        nickname: result.user.nickname,
+      const result = await signup({
+        userName: nickname,
+        email,
+        password,
       });
 
-      alert("회원가입 성공! 로그인 되었습니다.");
-      router.push("/");
-      router.refresh();
+      alert("회원가입 성공!");
+      router.push("/login");
     } catch (error) {
       console.error("회원가입 에러:", error);
-      setModalMessage("에러가 발생했어요.");
+      setModalMessage(error.message || "회원가입 실패");
     }
   };
 
@@ -140,7 +103,6 @@ export default function SignUp() {
           </Link>
         </div>
 
-        {/* 이메일 */}
         <div>
           <label className="font-bold text-[14px] text-gray-800">이메일</label>
           <input
@@ -155,7 +117,6 @@ export default function SignUp() {
           )}
         </div>
 
-        {/* 닉네임 */}
         <div>
           <label className="font-bold text-[14px] text-gray-800">닉네임</label>
           <input
@@ -170,7 +131,6 @@ export default function SignUp() {
           )}
         </div>
 
-        {/* 비밀번호 */}
         <div>
           <label className="font-bold text-[14px] text-gray-800">
             비밀번호
@@ -195,7 +155,6 @@ export default function SignUp() {
           )}
         </div>
 
-        {/* 비밀번호 확인 */}
         <div>
           <label className="font-bold text-[14px] text-gray-800">
             비밀번호 확인
@@ -224,7 +183,6 @@ export default function SignUp() {
           )}
         </div>
 
-        {/* 가입 버튼 */}
         <button
           type="submit"
           disabled={!isFormValid}

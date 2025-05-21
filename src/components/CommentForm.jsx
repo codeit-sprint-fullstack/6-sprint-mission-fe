@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from "@/providers/AuthProvider"; 
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function CommentForm({
   onSubmit,
@@ -9,12 +9,12 @@ export default function CommentForm({
 }) {
   const [value, setValue] = useState("");
 
-  const { nickname } = useAuth(); 
+  const { nickname } = useAuth();
 
   const handleSubmit = () => {
     const text = value.trim();
     if (!text) return;
-    onSubmit(text, nickname || "익명팬더"); 
+    onSubmit(text, nickname || "익명팬더");
     setValue("");
   };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, redirect } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 
 import ProductInfo from "@/components/ProductInfo";
 import CommentForm from "@/components/CommentForm";
@@ -9,7 +9,7 @@ import CommentList from "@/components/CommentList";
 import Image from "next/image";
 import { useAuth } from "@/providers/AuthProvider";
 
-const BASE = "https://panda-market-api.vercel.app";
+const BASE = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export default function ProductDetailClient({ productId }) {
   const router = useRouter();
@@ -22,32 +22,34 @@ export default function ProductDetailClient({ productId }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${BASE}/products/${productId}`);
-      const product = await res.json();
-      setItem(product);
+      try {
+        const headers = accessToken
+          ? { Authorization: `Bearer ${accessToken}` }
+          : {};
 
-      const cRes = await fetch(
-        `${BASE}/products/${productId}/comments?limit=20`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const cRaw = await cRes.json();
-      const list = cRaw.list ?? [];
-      setComments(Array.isArray(list) ? list : []);
+        const res = await fetch(`${BASE}/products/${productId}`, { headers });
+        const data = await res.json();
+        const product = data.product ?? data;
+        setItem(product);
 
-      setLoading(false);
+        const cRes = await fetch(`${BASE}/products/${productId}/comments`);
+        const cRaw = await cRes.json();
+        const list = cRaw.list ?? [];
+        setComments(Array.isArray(list) ? list : []);
+      } catch (error) {
+        console.error("데이터 로드 실패:", error);
+      } finally {
+        setLoading(false);
+      }
     };
-    fetchData();
-  }, [productId]);
 
-  /* 댓글 작성 */
+    fetchData();
+  }, [productId, accessToken]);
+
   const addComment = async (content) => {
     if (!accessToken) {
-      redirect("/login"); 
+      router.push("/login");
+      return;
     }
 
     const headers = {
@@ -88,7 +90,13 @@ export default function ProductDetailClient({ productId }) {
   return (
     <div className="max-w-[900px] mx-auto px-4 pt-6 pb-16">
       <div className="grid gap-8 mb-12">
-        <ProductInfo item={item} />
+        <ProductInfo
+          item={{
+            ...item,
+            isLiked: item.isLiked ?? false,
+            favoriteCount: item.favoriteCount ?? 0,
+          }}
+        />
       </div>
 
       <CommentForm onSubmit={addComment} placeholder={commentPlaceholder} />

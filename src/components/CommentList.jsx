@@ -2,12 +2,10 @@
 
 import Image from "next/image";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import axiosInstance from "@/api/axiosInstance";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
 
-/* 상대 시간으로 변환하는 함수 */
 function timeSince(date) {
   const seconds = Math.floor((new Date() - new Date(date)) / 1000);
 
@@ -33,62 +31,9 @@ export default function CommentList({ comments, setComments }) {
   const [editingId, setEditingId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
   const [dropdownOpenId, setDropdownOpenId] = useState(null);
-  const [commentUsers, setCommentUsers] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
 
   const { accessToken } = useAuth();
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const commentsWithoutWriter = comments.filter(
-        (c) => !c.writer && c.userId
-      );
-
-      if (commentsWithoutWriter.length === 0) return;
-      if (!accessToken) return;
-
-      setIsLoading(true);
-
-      try {
-        const userIds = [
-          ...new Set(commentsWithoutWriter.map((c) => c.userId)),
-        ];
-
-        if (userIds.length === 0) {
-          setIsLoading(false);
-          return;
-        }
-
-        // 각 사용자 정보 가져오기
-        const userData = { ...commentUsers };
-
-        for (const userId of userIds) {
-          if (userData[userId]) continue;
-
-          try {
-            const response = await axiosInstance.get(
-              `/users/profile/${userId}`
-            );
-
-            if (response.data) {
-              userData[userId] = response.data;
-            }
-          } catch (error) {
-            console.error(`Error fetching user ${userId}:`, error);
-          }
-        }
-
-        setCommentUsers(userData);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [comments, accessToken, commentUsers]);
 
   /* 삭제 */
   const handleDelete = async (id) => {
@@ -98,8 +43,11 @@ export default function CommentList({ comments, setComments }) {
       return;
     }
 
-    await axiosInstance.delete(`/comments/${id}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
+    await fetch(`http://localhost:5000/api/products/comments/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
 
     setComments((cs) => cs.filter((c) => c.id !== id));
@@ -125,13 +73,14 @@ export default function CommentList({ comments, setComments }) {
       return;
     }
 
-    await axiosInstance.patch(
-      `/comments/${id}`,
-      { content: trimmed },
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
+    await fetch(`http://localhost:5000/api/products/comments/${id}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content: trimmed }),
+    });
 
     setComments((cs) =>
       cs.map((c) => (c.id === id ? { ...c, content: trimmed } : c))
@@ -146,12 +95,7 @@ export default function CommentList({ comments, setComments }) {
   };
 
   const getUserNickname = (comment) => {
-    if (comment.writer?.nickname) return comment.writer.nickname;
-    if (comment.userId && commentUsers[comment.userId]?.nickname) {
-      return commentUsers[comment.userId].nickname;
-    }
-
-    return "익명팬더";
+    return comment.writer?.userName || comment.nickname || "익명팬더";
   };
 
   return (
@@ -207,9 +151,7 @@ export default function CommentList({ comments, setComments }) {
               <div className="relative w-8 h-8 mr-3">
                 <Image
                   src={
-                    c.writer?.profileImage ||
-                    commentUsers[c.userId]?.profileImage ||
-                    "/images/products/userProfile.png"
+                    c.writer?.profileImage || "/images/products/userProfile.png"
                   }
                   fill
                   alt="프로필"
