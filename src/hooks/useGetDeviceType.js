@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useGetDeviceType = (setParams) => {
+export default function useGetDeviceType(setParams) {
   const [device, setDevice] = useState("");
 
   // 반응형 리퀘스트 - 1. 화면 크기 구하기
@@ -53,4 +53,4 @@ export const useGetDeviceType = (setParams) => {
     const { limit } = getLimit(device);
     setParams((prevParams) => ({ ...prevParams, limit }));
   }, [device]);
-};
+}

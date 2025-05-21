@@ -1,14 +1,7 @@
+# [🐼 판다마켓](https://) : [https://](https://)
+
 ## 요구사항
 
-### 기본
-
-- [x]
-- []
-- []
-
-### 심화
-
-- [x]
 - []
 
 ## 주요 변경사항
@@ -16,12 +9,70 @@
 -
 -
 
-## 스크린샷
-
-![image](이미지url)
-
 ## 멘토에게
 
 -
 -
-- 셀프 코드 리뷰를 통해 질문 이어가겠습니다.
+-
+
+## 스크린샷
+
+<details>
+<summary>
+
+### 제목
+
+</summary>
+<div markdown="1">
+
+**PC**
+![image](링크)
+**Tablet**
+![image](링크)
+**Mobile**
+![image](링크)
+
+</div>
+</details>
+
+---
+
+<details>
+<summary>
+
+### 제목
+
+</summary>
+<div markdown="1">
+
+**PC**
+![image](링크)
+**Tablet**
+![image](링크)
+**Mobile**
+![image](링크)
+
+</div>
+</details>
+
+---
+
+<details>
+<summary>
+
+### 제목
+
+</summary>
+<div markdown="1">
+
+**PC**
+![image](링크)
+**Tablet**
+![image](링크)
+**Mobile**
+![image](링크)
+
+</div>
+</details>
+
+---

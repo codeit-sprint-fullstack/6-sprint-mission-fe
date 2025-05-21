@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import ic_search from "@/assets/images/common/search-box/ic_search.svg";
 import Image from "next/image";
 
-export default function SearchBox({ searchLoad }) {
+export default function SearchBox({ changeKeywordInParams }) {
   const [keyword, setKeyword] = useState("");
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
 
-    searchLoad(keyword.trim());
+    changeKeywordInParams(keyword.trim());
     setKeyword("");
   };
 

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import ic_heart from "@/assets/images/common/ic_heart.svg";
+import ic_full_heart from "@/assets/images/common/ic_full_heart.svg";
+import ic_empty_heart from "@/assets/images/common/ic_empty_heart.svg";
 import img_badge from "@/assets/images/community/img_badge.svg";
 import img_notebook from "@/assets/images/community/img_notebook.svg";
 import Link from "next/link";
@@ -36,7 +37,7 @@ export default function BestArticlesLoad({ bestArticle }) {
             <div className="flex justify-center items-center gap-[4px]">
               <div className="relative w-[16px] h-[16px]">
                 <Image
-                  src={ic_heart}
+                  src={ic_empty_heart}
                   alt="하트"
                   fill
                   className="object-cover"

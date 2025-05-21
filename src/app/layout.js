@@ -1,8 +1,9 @@
 import React from "react";
 import "./globals.css";
 import localFont from "next/font/local";
-import Header from "@/components/common/Header/Header";
-import Footer from "@/components/common/Footer/Footer";
+import HeaderFooterLayout from "@/components/common/HeaderFooterLayout";
+import GeneralLayout from "@/components/common/GeneralLayout";
+import Providers from "./Providers";
 
 const pretendard = localFont({
   src: "../assets/fonts/Pretendard.woff2",
@@ -27,9 +28,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${pretendard.variable} ${rokafSans.variable} min-h-screen flex flex-col`}
       >
-        <Header className="font-pretendard" />
-        <main className="flex-1 font-pretendard">{children}</main>
-        <Footer className="font-pretendard" />
+        <Providers>
+          <HeaderFooterLayout>
+            <main className="relative flex-1 font-pretendard">
+              <GeneralLayout>{children}</GeneralLayout>
+            </main>
+          </HeaderFooterLayout>
+        </Providers>
       </body>
     </html>
   );

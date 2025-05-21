@@ -6,7 +6,7 @@ import ic_sort from "@/assets/images/common/select-sort/ic_sort.svg";
 import Image from "next/image";
 import clsx from "clsx";
 
-export default function SelectSort({ sortLoad }) {
+export default function SelectSort({ changeOrderByInParams }) {
   const [currentSort, setCurrentSort] = useState("최신순");
   const [isSelectSortBtnVisible, setIsSelectSortBtnVisible] = useState(false);
 
@@ -22,7 +22,7 @@ export default function SelectSort({ sortLoad }) {
 
   // 정렬 선택 시 렌더링
   const sortSelect = (orderBy) => {
-    sortLoad(orderBy);
+    changeOrderByInParams(orderBy);
   };
 
   return (

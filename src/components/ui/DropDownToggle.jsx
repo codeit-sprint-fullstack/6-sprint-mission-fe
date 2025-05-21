@@ -7,16 +7,17 @@ import Image from "next/image";
 
 export default function DropDownToggle({
   page,
-  handleDelete,
   handleEdit,
+  handleDelete,
   handleDropDownToggle,
+  handleDropDownClose,
   isDropDownVisible,
 }) {
   return (
     <>
       <button
         onClick={handleDropDownToggle}
-        onBlur={handleDropDownToggle}
+        onBlur={handleDropDownClose}
         className={`relative min-w-[24px] h-[24px] cursor-pointer ${
           page === "article" && "my-[4px]"
         }`}
