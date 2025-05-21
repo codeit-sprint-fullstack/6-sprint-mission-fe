@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme {
+  /* 브레이크포인트 정의 */
+  --breakpoint-md: 744px;
+  --breakpoint-lg: 1200px;
+
+  /* 색상 정의 */
+  --color-primary: #3692ff;
+  --color-secondary: #f3f4f6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply rounded-lg bg-primary flex items-center justify-center
+           px-4 py-2 text-white font-semibold 
+           text-base leading-[1.6] tracking-normal whitespace-nowrap;
+  }
+
+  .modalOverlay {
+    @apply fixed inset-0 flex justify-center items-center bg-black;
+  }
+
+  .modalContainer {
+    @apply flex flex-col gap-6 max-w-[21rem] w-full p-6 rounded-2xl bg-neutral-50;
+  }
+
+  .headertext {
+    @apply font-bold leading-none text-center align-middle;
+  }
+
+  .footertext {
+    @apply font-normal text-base leading-none text-center;
+  }
+
+  .titletext {
+    @apply font-semibold text-base leading-[1.6125rem];
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: "Pretendard", Arial, Helvetica, sans-serif;
+  }
+}
