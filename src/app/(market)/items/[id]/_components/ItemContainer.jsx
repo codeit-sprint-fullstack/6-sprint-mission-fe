@@ -11,6 +11,7 @@ import { createLike, deleteLike, deleteProduct } from "@/lib/actions/product";
 import { getProduct } from "@/lib/getApi";
 import Modal from "@/components/ui/Modal";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
 
 function ItemContainer({ id }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -110,34 +111,34 @@ function ItemContainer({ id }) {
 
   return (
     <section className="md:grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2fr]">
-      <img
-        src={
-          item?.images?.[0] && item.images[0].length > 0
-            ? item.images[0]
-            : defaultImg.src
-        }
-        alt="상품 이미지"
-        className="rounded-xl mb-4 w-full aspect-square"
-      />
       {item && (
-        <div>
-          <ItemHeader
-            item={item}
-            isDropdownOpen={isDropdownOpen}
-            setIsDropdownOpen={setIsDropdownOpen}
-            handleEditItem={handleEditItem}
+        <>
+          <Image
+            src={item.images[0] || defaultImg}
+            alt="상품 이미지"
+            width={343}
+            height={343}
+            className="rounded-xl mb-4 w-full aspect-square"
           />
-          <LineDivider />
-          <ItemDetail item={item} />
-          <UserInfo
-            nickname={item.ownerNickname}
-            createdAt={item.createdAt}
-            favoriteCount={item.favoriteCount}
-            isItemPage={true}
-            isLiked={item.isFavorite}
-            onToggleLike={handleToggleLike}
-          />
-        </div>
+          <div>
+            <ItemHeader
+              item={item}
+              isDropdownOpen={isDropdownOpen}
+              setIsDropdownOpen={setIsDropdownOpen}
+              handleEditItem={handleEditItem}
+            />
+            <LineDivider />
+            <ItemDetail item={item} />
+            <UserInfo
+              nickname={item.ownerNickname}
+              createdAt={item.createdAt}
+              favoriteCount={item.favoriteCount}
+              isItemPage={true}
+              isLiked={item.isFavorite}
+              onToggleLike={handleToggleLike}
+            />
+          </div>
+        </>
       )}
       {isModalOpen && (
         <Modal

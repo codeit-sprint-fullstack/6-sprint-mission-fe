@@ -1,14 +1,18 @@
+import Image from "next/image";
 import defaultImg from "../../../../../public/assets/img/img_item_default.svg";
 import React from "react";
 
 function ItemCard({ name, price, image, favoriteCount }) {
   return (
     <div className="flex flex-col gap-[10px] mb-8">
-      <img
-        src={image ?? defaultImg.src}
+      <Image
+        src={image || defaultImg}
         alt="상품 이미지"
-        className="rounded-xl aspect-square"
+        width={168}
+        height={168}
+        className="object-cover w-full rounded-xl aspect-square"
       />
+
       <div className="flex flex-col gap-[6px]">
         <h2 className="text-sm">{name}</h2>
         <span className="font-bold">{price}원</span>

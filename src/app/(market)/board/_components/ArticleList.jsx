@@ -2,50 +2,56 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
 import Dropdown from "@/components/ui/Dropdown";
-import { BREAKPOINTS } from "@/const";
+import { ARTICLE_COUNT, BREAKPOINTS } from "@/const";
+import { useViewport } from "@/lib/hooks/useViewport";
+import { useQuery } from "@tanstack/react-query";
+import { getArticles } from "@/lib/getApi";
+import Pagination from "@/components/ui/Pagination";
 
-function ArticleList({ articles }) {
+function ArticleList() {
   const sortOptions = [
-    { label: "최신순", value: "latest" },
-    { label: "오래된순", value: "oldest" },
+    { label: "최신순", value: "recent" },
+    { label: "좋아요순", value: "like" },
   ];
 
-  const [searchInput, setSearchInput] = useState("");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(ARTICLE_COUNT.pc);
+  const [orderBy, setOrderBy] = useState("recent");
+  const [keyword, setKeyword] = useState("");
   const [dropdownOption, setDropdownOption] = useState(sortOptions[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 0
-  );
+  const windowWidth = useViewport();
 
+  // 화면 너비 기준 보여줄 게시글 수
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const filteredArticles = useMemo(() => {
-    const filtered = articles.filter((article) =>
-      article.title.toLowerCase().includes(searchInput.toLowerCase())
-    );
-
-    if (dropdownOption.value == "latest") {
-      return filtered.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
-    } else if (dropdownOption.value == "oldest") {
-      return filtered.sort(
-        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-      );
+    if (windowWidth >= BREAKPOINTS.lg) {
+      setPageSize(ARTICLE_COUNT.pc);
+    } else if (windowWidth >= BREAKPOINTS.md) {
+      setPageSize(ARTICLE_COUNT.tablet);
+    } else {
+      setPageSize(ARTICLE_COUNT.mobile);
     }
-  }, [articles, searchInput, dropdownOption]);
+  }, [windowWidth]);
+
+  // 게시글 목록 가져오기
+  const { data: articles } = useQuery({
+    queryKey: ["articles", { page, pageSize, orderBy, keyword }],
+    queryFn: () => getArticles({ page, pageSize, orderBy, keyword }),
+    suspense: true,
+  });
 
   const handleSort = (value) => {
     const selected = sortOptions.find((item) => item.value === value);
     setDropdownOption(selected);
+
+    if (selected.value === "recent") {
+      setOrderBy("recent");
+    } else {
+      setOrderBy("like");
+    }
     setIsDropdownOpen(false);
   };
 
@@ -61,7 +67,7 @@ function ArticleList({ articles }) {
         <input
           className="w-full mr-[13px] py-[9px] pl-11 rounded-xl bg-gray-100 bg-[url('/assets/icon/ic_search.svg')] bg-no-repeat bg-[center_left_1rem]"
           placeholder="검색할 상품을 입력해주세요"
-          onChange={(e) => setSearchInput(e.target.value)}
+          onChange={(e) => setKeyword(e.target.value)}
         />
         <div>
           <button
@@ -93,7 +99,7 @@ function ArticleList({ articles }) {
         </div>
       </nav>
       <article className="mb-[91px]">
-        {filteredArticles.map((article) => {
+        {articles?.list.map((article) => {
           return (
             <Link key={article.id} href={`/board/${article.id}`}>
               <ArticleCard key={article.id} article={article} />
@@ -102,6 +108,11 @@ function ArticleList({ articles }) {
           );
         })}
       </article>
+      <Pagination
+        totalCount={articles?.totalCount}
+        currentPage={page}
+        onPageChange={(newPage) => setPage(newPage)}
+      />
     </section>
   );
 }

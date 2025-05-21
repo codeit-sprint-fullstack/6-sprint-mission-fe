@@ -43,9 +43,11 @@ export async function getProduct(productId) {
 
 /*********** 자유게시판 ***********/
 // 게시글 전체 조회
-export async function getArticles() {
+export async function getArticles(params = {}) {
+  const query = new URLSearchParams(params).toString();
+
   try {
-    const res = await fetch(`${BASE_URL}/articles`);
+    const res = await fetch(`${BASE_URL}/articles?${query}`);
 
     if (!res.ok) throw new Error("게시글 목록을 불러오는데 실패했습니다.");
 

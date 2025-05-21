@@ -129,6 +129,7 @@ function CommentItem({ comment, setComments, getCommentList }) {
           message={modalMsg}
           handleClick={() => setIsModalOpen(false)}
           isDelete={isDelete}
+          itemId={comment.id}
           handleDelete={handleDeleteComment}
         />
       )}
