@@ -28,7 +28,7 @@ export default function CommunityPage() {
       <section className="p-4">
         <SearchBar
           inputValueState={searchValueState}
-          setInputValueState={setSearchValueState}
+          onChangeInput={setSearchValueState}
         />
         <ArticleLists searchValueState={searchValueState} />
       </section>

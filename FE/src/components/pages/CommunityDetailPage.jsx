@@ -7,30 +7,30 @@ import Link from "next/link";
 import InputBox from "@/components/ui/InputBox";
 import TitleSection from "@/components/ui/TitleSection";
 import { articleService } from "@/lib/services/api/articleService";
-import ConfirmModal from "@/app/(main)/(item)/_components/ConfirmModal";
+import ConfirmModal from "@/components/ui/ConfirmModal";
 import CommentLists from "@/app/(main)/(item)/community/[id]/_components/CommentLists";
 import Dropdown from "@/app/(main)/(item)/_components/Dropdown";
 
 import backImage from "@/assets/images/icons/ic_back.png";
 import kebabImage from "@/assets/images/icons/ic_kebab.png";
 import emptyHeartImage from "@/assets/images/icons/ic_emptyHeart.png";
-import defaultProfileImage from "@/assets/images/logo/defaultProfileImage.png";
 import noCommentImage from "@/assets/images/logo/noCommentImage.png";
+import ProfileImage from "../ui/ProfileImage";
 
 export default function CommunityDetailPage() {
   const { id } = useParams();
   const router = useRouter();
-  const [articleState, setArticleState] = useState(null);
-  const [commentsState, setCommentsState] = useState([]);
-  const [commentInputValueState, setCommentInputValueState] = useState("");
+  const [article, setArticle] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [commentInputValue, setCommentInputValue] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const isActive = commentInputValueState !== "";
+  const isActive = commentInputValue !== "";
 
   const handleDelete = async (id) => {
     const data = await articleService.deleteArticle(id);
-    // data 가지고 확인 처리.
+    // TODO: data 가지고 확인 처리.
     setIsModalOpen(false);
   };
 
@@ -43,7 +43,7 @@ export default function CommunityDetailPage() {
       label: "수정하기",
       onClick: () => {
         router.push(`/community/${id}/edit`);
-        setIsModalOpen(true);
+        setIsModalOpen(false);
         return;
       },
     },
@@ -56,24 +56,24 @@ export default function CommunityDetailPage() {
 
   const handleOnClickCommentRegist = async () => {
     console.log("댓글 등록");
-    const data = await articleService.createArticle(id, commentInputValueState);
+    const data = await articleService.createArticle(id, commentInputValue);
     console.log("data", data);
-    // 성공시 코멘트 리스트 다시 받아오는 로직 필요.
+    // TODO: 성공시 코멘트 리스트 다시 받아오는 로직 필요.
     // data.status === 201
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const articleData = await articleService.getArticle(id);
-      setArticleState(articleData);
-      const commentsData = await articleService.getArticles(id);
-      setCommentsState(commentsData);
+      setArticle(articleData);
+      const commentsData = await articleService.getArticleComments(id);
+      setComments(commentsData);
     };
 
     fetchData();
   }, [id]);
 
-  if (!articleState) {
+  if (!article) {
     return <p>로딩 중...</p>;
   }
 
@@ -81,7 +81,7 @@ export default function CommunityDetailPage() {
     <div className="py-4">
       <section className="px-4">
         <div className="flex justify-between text-xl-bold py-1">
-          <p>{articleState.title}</p>
+          <p>{article.title}</p>
           <div className="relative">
             <Image
               src={kebabImage}
@@ -97,18 +97,14 @@ export default function CommunityDetailPage() {
             )}
           </div>
         </div>
-        <div className="flex py-4 gap-5 border-b border-gray-200">
-          <div className="flex items-center pr-5 gap-2 border-r-1 border-gray-200">
+        <div className="flex py-4 gap-4 border-b border-gray-200">
+          <div className="flex items-center pr-3 gap-2 border-r-1 border-gray-200">
             <div className="flex gap-1 text-gray-600">
-              <Image
-                src={defaultProfileImage}
-                alt="userProfile"
-                className="w-6 h-auto object-cover"
-              />
-              <p className="text-gray-600">{articleState.user.username}</p>
+              <ProfileImage className={"w-6 h-auto object-cover"} />
+              <p className="text-gray-600">{article.writer.nickname}</p>
             </div>
             <p className="text-gray-400">
-              {new Date(articleState.createdAt)
+              {new Date(article.createdAt)
                 .toISOString()
                 .slice(0, 10)
                 .replace(/-/g, ". ")}
@@ -120,11 +116,11 @@ export default function CommunityDetailPage() {
               alt="emptyHeartImage"
               className="w-6 h-auto object-cover "
             />
-            <p>{articleState._count.likes}</p>
+            <p>{article.likeCount}</p>
           </div>
         </div>
         <div className="py-4 text-gray-800">
-          <p>{articleState.content}</p>
+          <p>{article.content}</p>
         </div>
       </section>
 
@@ -133,8 +129,8 @@ export default function CommunityDetailPage() {
         <div>
           <InputBox
             placeHolderText={"댓글을 입력해주세요."}
-            inputValueState={commentInputValueState}
-            setInputValueState={setCommentInputValueState}
+            inputValueState={commentInputValue}
+            onChangeInput={setCommentInputValue}
             inputType={"textarea"}
           />
         </div>
@@ -153,7 +149,7 @@ export default function CommunityDetailPage() {
       </section>
 
       <section>
-        {commentsState.length === 0 ? (
+        {comments.length === 0 ? (
           <div className="flex flex-col items-center text-md-regular text-gray-400">
             <Image
               src={noCommentImage}
@@ -164,7 +160,7 @@ export default function CommunityDetailPage() {
             <p>지금 댓글을 달아보세요!</p>
           </div>
         ) : (
-          <CommentLists commentsState={commentsState} />
+          <CommentLists comments={comments} />
         )}
       </section>
 
@@ -179,7 +175,7 @@ export default function CommunityDetailPage() {
       {isModalOpen && (
         <ConfirmModal
           modalTheme={"red"}
-          modalType={confirmChoice}
+          confirmType={"confirm"}
           confirmText={"정말로 게시글을 삭제하시겠어요?"}
           handleOnClick={handleDelete(id)}
           handleOnCloseModal={hadleModalClose}

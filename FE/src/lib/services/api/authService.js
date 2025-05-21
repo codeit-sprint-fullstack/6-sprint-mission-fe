@@ -1,7 +1,5 @@
 import { defaultFetch, tokenFetch, cookieFetch } from "./fetchClient";
 
-const baseURL = "https://panda-market-api.vercel.app";
-
 export const authService = {
   // 회원가입 (비회원 → public API 이므로 defaultFetch 사용)
   register: async ({ email, nickname, password, passwordConfirmation }) => {
@@ -13,7 +11,7 @@ export const authService = {
 
   // 로그인 (쿠키에 토큰 설정되므로 cookieFetch 사용)
   login: async ({ email, password }) => {
-    return await cookieFetch("/auth/signIn", {
+    return await defaultFetch("/auth/signIn", {
       method: "POST",
       body: JSON.stringify({ email, password }),
     });

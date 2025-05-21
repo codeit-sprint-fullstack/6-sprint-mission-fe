@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { authService } from "@/lib/services/api/authService";
-import useFormInput from "@/hooks/useFormInput";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers/AuthProvider";
 import InputBox from "../ui/InputBox";
 import TitleSection from "../ui/TitleSection";
+import useInputForm from "@/hooks/useInputForm";
 import SocialLogin from "@/app/(auth)/_components/SocialLogin";
-import ConfirmModal from "@/app/(main)/(item)/_components/ConfirmModal";
+import ConfirmModal from "@/components/ui/ConfirmModal";
+import { useMutation } from "@tanstack/react-query";
 
 // 이메일 유효성 검사
 function isValidEmail(email) {
@@ -19,8 +22,10 @@ function isValidPassword(password) {
 }
 
 export default function LoginPage() {
-  const emailInput = useFormInput("", isValidEmail, "잘못된 이메일입니다.");
-  const passwordInput = useFormInput(
+  const router = useRouter();
+  const { login } = useAuth();
+  const emailInput = useInputForm("", isValidEmail, "잘못된 이메일입니다.");
+  const passwordInput = useInputForm(
     "",
     isValidPassword,
     "잘못된 비밀번호입니다.(8~20자, 영문+숫자+특수 포함)"
@@ -28,39 +33,44 @@ export default function LoginPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
+  const { mutate: mutateLogin, isPending } = useMutation({
+    mutationFn: login,
+    onSuccess: () => {
+      router.push("/items");
+    },
+    onError: (error) => {
+      let errorMessage = "로그인에 실패했습니다.";
+      try {
+        const errorObject = JSON.parse(error.message);
+        errorMessage = errorObject?.message || errorMessage;
+      } catch (parseError) {
+        console.error(
+          "Error parsing error message:",
+          parseError,
+          error.message
+        );
+        errorMessage = error.message;
+      }
+      setModalMessage(errorMessage);
+      setIsModalOpen(true);
+    },
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    mutateLogin({
+      email: emailInput.value,
+      password: passwordInput.value,
+    });
+  };
+
+  if (isPending) {
+    return <div>로그인중..</div>;
+  }
+
   const closeModal = () => {
     setIsModalOpen(false);
     setModalMessage("");
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    let response;
-
-    try {
-      response = await authService.login({
-        email: emailInput.value,
-        password: passwordInput.value,
-      });
-
-      if (response.status === 201 && response.data) {
-        const { accessToken, refreshToken } = response;
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-        router.push("/items");
-      } else {
-        console.error(
-          "로그인 실패:",
-          response.data?.message || "알 수 없는 오류 발생"
-        );
-
-        setModalMessage("로그인에 실패했습니다.");
-        setIsModalOpen(true);
-      }
-    } catch (error) {
-      setModalMessage("로그인 요청 중 오류가 발생했습니다.");
-      setIsModalOpen(true);
-    }
   };
 
   const isActiveSubmitButton =
@@ -78,9 +88,10 @@ export default function LoginPage() {
             <InputBox
               placeHolderText={"이메일을 입력해주세요"}
               inputValueState={emailInput.value}
-              setInputValueState={emailInput.onChange}
+              onChangeInput={emailInput.onChange}
               onBlur={emailInput.onBlur}
               error={emailInput.error}
+              isValid={emailInput.isValid}
               inputClassName="h-14"
             />
           </div>
@@ -89,10 +100,11 @@ export default function LoginPage() {
             <InputBox
               placeHolderText={"비밀번호를 입력해주세요"}
               inputValueState={passwordInput.value}
-              setInputValueState={passwordInput.onChange}
+              onChangeInput={passwordInput.onChange}
               inputType={"password"}
               onBlur={passwordInput.onBlur}
               error={passwordInput.error}
+              isValid={passwordInput.isValid}
               inputClassName="h-14"
             />
           </div>
@@ -124,7 +136,7 @@ export default function LoginPage() {
         {isModalOpen && (
           <ConfirmModal
             modalTheme={"blue"}
-            modalType={"confirmOnly"}
+            confirmType={"alert"}
             confirmText={modalMessage}
             handleOnCloseModal={closeModal}
             handleOnClick={closeModal}

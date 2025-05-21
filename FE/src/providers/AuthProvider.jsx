@@ -5,11 +5,11 @@ import { authService } from "@/lib/services/api/authService";
 import { userService } from "@/lib/services/api/userService";
 
 const AuthContext = createContext({
-  login: () => {},
-  logout: () => {},
   user: null,
-  updateUser: () => {},
-  register: () => {},
+  login: async ({ email, password }) => {},
+  logout: () => {},
+  register: async ({ nickname, email, password, passwordConfirmation }) => {},
+  updateUser: async (user) => {},
 });
 
 export const useAuth = () => {
@@ -25,22 +25,50 @@ export default function AuthProvider({ children }) {
 
   const getUser = async () => {
     try {
-      const user = await userService.getMe();
-      console.log("user:", user);
-      setUser(user);
+      const fetchedUser = await userService.getMe();
+      console.log("user:", fetchedUser);
+      setUser(fetchedUser);
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);
       setUser(null);
     }
   };
 
-  const register = async (name, email, password) => {
-    await authService.register(name, email, password);
+  const register = async ({
+    nickname,
+    email,
+    password,
+    passwordConfirmation,
+  }) => {
+    try {
+      const { accessToken, refreshToken } = await authService.register({
+        nickname,
+        email,
+        password,
+        passwordConfirmation,
+      });
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      await getUser();
+    } catch (error) {
+      console.error("회원가입 실패:", error);
+      throw error;
+    }
   };
 
-  const login = async (email, password) => {
-    await authService.login(email, password);
-    await getUser();
+  const login = async ({ email, password }) => {
+    try {
+      const { accessToken, refreshToken } = await authService.login({
+        email,
+        password,
+      });
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+      await getUser();
+    } catch (error) {
+      console.error("로그인 실패:", error);
+      throw error;
+    }
   };
 
   const logout = async () => {
@@ -48,17 +76,28 @@ export default function AuthProvider({ children }) {
     setUser(null);
   };
 
-  const updateUser = async (user) => {
-    const updatedUser = await userService.updateMe(user);
+  const updateUser = async (userData) => {
+    const updatedUser = await userService.updateMe(userData);
     setUser(updatedUser);
   };
 
   useEffect(() => {
-    getUser();
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      getUser();
+    }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, updateUser, register }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        logout,
+        register,
+        updateUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

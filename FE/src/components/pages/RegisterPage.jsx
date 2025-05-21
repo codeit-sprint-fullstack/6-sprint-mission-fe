@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { authService } from "@/lib/services/api/authService";
+import { useAuth } from "@/providers/AuthProvider";
 import TitleSection from "../ui/TitleSection";
 import InputBox from "../ui/InputBox";
+import useInputForm from "@/hooks/useInputForm";
 import SocialLogin from "@/app/(auth)/_components/SocialLogin";
-import useFormInput from "@/hooks/useFormInput";
-import ConfirmModal from "@/app/(main)/(item)/_components/ConfirmModal";
+import ConfirmModal from "@/components/ui/ConfirmModal";
+import { useMutation } from "@tanstack/react-query";
 
 // 이메일 유효성 검사
 function isValidEmail(email) {
@@ -32,18 +33,19 @@ function isPasswordMatch(password, confirmPassword) {
 
 export default function RegisterPage() {
   const router = useRouter();
-  const emailInput = useFormInput("", isValidEmail, "잘못된 이메일입니다.");
-  const nickNameInput = useFormInput(
+  const { register } = useAuth();
+  const emailInput = useInputForm("", isValidEmail, "잘못된 이메일입니다.");
+  const nickNameInput = useInputForm(
     "",
     isValidNickname,
     "닉네임을 확인해주세요.(2~10자, 한글/영문/숫자만)"
   );
-  const passwordInput = useFormInput(
+  const passwordInput = useInputForm(
     "",
     isValidPassword,
     "잘못된 비밀번호입니다.(8~20자, 영문+숫자+특수 포함)"
   );
-  const confirmPasswordInput = useFormInput(
+  const confirmPasswordInput = useInputForm(
     "",
     isPasswordMatch,
     "비밀번호를 확인해주세요.",
@@ -57,40 +59,48 @@ export default function RegisterPage() {
     setModalMessage("");
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    let response;
-
-    try {
-      response = await authService.register({
-        email: emailInput.value,
-        nickname: nickNameInput.value,
-        password: passwordInput.value,
-        passwordConfirmation: confirmPasswordInput.value,
-      });
-
-      if (response.status === 201 && response.data) {
-        const { accessToken, refreshToken } = response;
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-        router.push("/items");
+  const { mutate: mutateRegister, isPending } = useMutation({
+    mutationFn: register,
+    onSuccess: () => {
+      router.push("/items");
+    },
+    onError: (error) => {
+      let errorMessage = "회원가입에 실패했습니다.";
+      errorMessage = error.message;
+      if (error instanceof Error) {
+        errorMessage = JSON.parse(errorMessage).message;
       } else {
-        console.error(
-          "회원가입 실패:",
-          response.data?.message || "알 수 없는 오류 발생"
-        );
-
-        setModalMessage("회원가입에 실패했습니다.");
-        setIsModalOpen(true);
+        try {
+          const errorObject = JSON.parse(error.message);
+          errorMessage = errorObject?.message || errorMessage;
+        } catch (parseError) {
+          console.error(
+            "Error parsing error message:",
+            parseError,
+            error.message
+          );
+          errorMessage = error.message;
+        }
       }
-    } catch (error) {
-      console.error("회원가입 요청 중 오류 발생:", error.message);
-      console.log("회원가입 요청 중 오류 발생:", error.message);
-      console.log("회원가입 요청 중 오류 발생 response:", response);
-      setModalMessage("회원가입 요청 중 오류가 발생했습니다.");
+      setModalMessage(errorMessage);
       setIsModalOpen(true);
-    }
+    },
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    mutateRegister({
+      email: emailInput.value,
+      nickname: nickNameInput.value,
+      password: passwordInput.value,
+      passwordConfirmation: confirmPasswordInput.value,
+    });
   };
+
+  if (isPending) {
+    return <div>회원가입중..</div>;
+  }
 
   const isActiveSubmitButton =
     emailInput.value !== "" &&
@@ -111,9 +121,10 @@ export default function RegisterPage() {
             <InputBox
               placeHolderText={"이메일을 입력해주세요"}
               inputValueState={emailInput.value}
-              setInputValueState={emailInput.onChange}
+              onChangeInput={emailInput.onChange}
               onBlur={emailInput.onBlur}
               error={emailInput.error}
+              isValid={emailInput.isValid}
               inputClassName="h-14"
             />
           </div>
@@ -122,9 +133,10 @@ export default function RegisterPage() {
             <InputBox
               placeHolderText={"닉네임을 입력해주세요"}
               inputValueState={nickNameInput.value}
-              setInputValueState={nickNameInput.onChange}
+              onChangeInput={nickNameInput.onChange}
               onBlur={nickNameInput.onBlur}
               error={nickNameInput.error}
+              isValid={nickNameInput.isValid}
               inputClassName="h-14"
             />
           </div>
@@ -133,10 +145,11 @@ export default function RegisterPage() {
             <InputBox
               placeHolderText={"비밀번호를 입력해주세요"}
               inputValueState={passwordInput.value}
-              setInputValueState={passwordInput.onChange}
+              onChangeInput={passwordInput.onChange}
               inputType={"password"}
               onBlur={passwordInput.onBlur}
               error={passwordInput.error}
+              isValid={passwordInput.isValid}
               inputClassName="h-14"
             />
           </div>
@@ -145,10 +158,11 @@ export default function RegisterPage() {
             <InputBox
               placeHolderText={"비밀번호를 다시 한 번 입력해주세요"}
               inputValueState={confirmPasswordInput.value}
-              setInputValueState={confirmPasswordInput.onChange}
+              onChangeInput={confirmPasswordInput.onChange}
               inputType={"password"}
               onBlur={confirmPasswordInput.onBlur}
               error={confirmPasswordInput.error}
+              isValid={confirmPasswordInput.isValid}
               inputClassName="h-14"
             />
           </div>
@@ -180,7 +194,7 @@ export default function RegisterPage() {
         {isModalOpen && (
           <ConfirmModal
             modalTheme={"blue"}
-            modalType={"confirmOnly"}
+            confirmType={"alert"}
             confirmText={modalMessage}
             handleOnCloseModal={closeModal}
             handleOnClick={closeModal}

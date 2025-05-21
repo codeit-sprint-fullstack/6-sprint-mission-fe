@@ -2,9 +2,14 @@ import { defaultFetch, tokenFetch } from "./fetchClient";
 
 export const productService = {
   // 상품 목록 조회 (비회원 가능)
-  getProducts: async (params) => {
-    const query = params ? `?${new URLSearchParams(params)}` : "";
-    return await defaultFetch(`/products${query}`);
+  getProducts: async (page = 1, pageSize = 5, orderBy = "recent", keyword = "") => {
+    const query = new URLSearchParams({
+      page: page.toString(),
+      pageSize: pageSize.toString(),
+      orderBy,
+      keyword,
+    }).toString();
+    return await defaultFetch(`/products?${query}`);
   },
 
   // 상품 상세 조회 (비회원 가능)
@@ -50,9 +55,12 @@ export const productService = {
   },
 
   // 상품 댓글 목록 조회 (비회원 가능)
-  getProductComments: async (id, params) => {
-    const query = params ? `?${new URLSearchParams(params)}` : "";
-    return await defaultFetch(`/products/${id}/comments${query}`);
+  getProductComments: async (id, limit = 3, cusor = 0) => {
+    const query = new URLSearchParams({
+      limit: limit.toString(),
+      cusor: cusor.toString(),
+    }).toString();
+    return await defaultFetch(`/products/${id}/comments?${query}`);
   },
 
   // 상품 댓글 작성 (회원 전용)
@@ -64,16 +72,16 @@ export const productService = {
   },
 
   // 상품 댓글 수정 (회원 전용)
-  updateProductComment: async (productId, commentId, { content }) => {
-    return await tokenFetch(`/products/${productId}/comments/${commentId}`, {
+  updateProductComment: async (commentId, { content }) => {
+    return await tokenFetch(`/comments/${commentId}`, {
       method: "PATCH",
       body: JSON.stringify({ content }),
     });
   },
 
   // 상품 댓글 삭제 (회원 전용)
-  deleteProductComment: async (productId, commentId) => {
-    return await tokenFetch(`/products/${productId}/comments/${commentId}`, {
+  deleteProductComment: async (commentId) => {
+    return await tokenFetch(`/comments/${commentId}`, {
       method: "DELETE",
     });
   },

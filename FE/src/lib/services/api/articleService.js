@@ -2,7 +2,7 @@ import { defaultFetch, tokenFetch } from "./fetchClient";
 
 export const articleService = {
   // 게시글 목록 조회 (비회원 가능)
-  getArticles: async (page = 1, pageSize = 5, orderBy = "createdAt", keyword = "") => {
+  getArticles: async (page = 1, pageSize = 5, orderBy = "recent", keyword = "") => {
     const query = new URLSearchParams({
       page: page.toString(),
       pageSize: pageSize.toString(),

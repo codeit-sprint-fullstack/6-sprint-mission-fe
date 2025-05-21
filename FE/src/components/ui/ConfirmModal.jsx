@@ -6,7 +6,7 @@ import blueCheckImage from "@/assets/images/icons/ic_blue_check.png";
 
 export default function ConfirmModal({
   modalTheme,
-  modalType,
+  confirmType,
   confirmText,
   handleOnCloseModal,
   handleOnClick,
@@ -27,7 +27,7 @@ export default function ConfirmModal({
         />
 
         <p className="text-gray-800 font-medium ">{confirmText}</p>
-        {modalType === "confirmChoice" ? (
+        {confirmType === "confirm" ? (
           <div className="flex gap-2">
             <button
               onClick={handleOnClickCancelButton}

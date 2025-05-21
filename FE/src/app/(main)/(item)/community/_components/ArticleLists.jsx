@@ -6,17 +6,17 @@ import ArticleCard from "./ArticleCard";
 import { articleService } from "@/lib/services/api/articleService";
 
 export default function ArticleLists({ searchValueState }) {
-  const [articlesState, setArticlesState] = useState([]);
+  const [articles, setArticles] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await articleService.getArticles(
         1,
         3,
-        "likes",
+        "like",
         searchValueState
       );
-      setArticlesState(data);
+      setArticles(data.list);
     };
 
     fetchData();
@@ -24,7 +24,7 @@ export default function ArticleLists({ searchValueState }) {
 
   return (
     <>
-      {articlesState?.map((article) => {
+      {articles?.map((article) => {
         return (
           <Link key={article.id} href={`/community/${article.id}`}>
             <ArticleCard article={article} />

@@ -1,9 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import ProfileImage from "@/components/ui/ProfileImage";
 import defaultImage from "@/assets/images/logo/defaultImage.png";
-import defaultProfileImage from "@/assets/images/logo/defaultProfileImage.png";
 
 export default function ArticleCard({ article }) {
   return (
@@ -19,12 +18,11 @@ export default function ArticleCard({ article }) {
       <div className="flex justify-between">
         <div className="flex gap-5">
           <div className="flex gap-1">
-            <Image
-              src={defaultProfileImage}
-              alt="userProfileImage"
-              className="w-6 h-auto object-cover gap-2"
+            <ProfileImage
+              src={article.Image}
+              className={"w-6 h-auto object-cover gap-2"}
             />
-            <p className="text-gray-600">{article.user.username}</p>
+            <p className="text-gray-600">{article.writer.nickname}</p>
           </div>
           <p className="text-gray-400">
             {new Date(article.createdAt)
@@ -33,7 +31,7 @@ export default function ArticleCard({ article }) {
               .replace(/-/g, ". ")}
           </p>
         </div>
-        <p className="text-gray-500">♡{article._count.likes}</p>
+        <p className="text-gray-500">♡{article.likeCount}</p>
       </div>
     </div>
   );
