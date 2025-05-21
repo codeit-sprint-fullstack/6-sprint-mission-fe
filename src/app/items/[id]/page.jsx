@@ -17,11 +17,11 @@ function ItemDetail() {
   const { id } = useParams();
 
   const accessToken = localStorage.getItem("accessToken");
+  const currentUserId = Number(localStorage.getItem("userId"));
 
   // 미인증은 로그인으로 리다이렉트
   useEffect(() => {
-    const isTokenValid = checkTokenExp();
-    if (isTokenValid) {
+    if (checkTokenExp()) {
       setIsTokenChecked(true);
     } else {
       localStorage.removeItem("accessToken");
@@ -57,8 +57,9 @@ function ItemDetail() {
         <DetailProduct
           id={id}
           accessToken={accessToken}
-          refreshComments={refreshComments}
+          // refreshComments={refreshComments}
           currentUser={currentUser}
+          userId={currentUserId}
         />
 
         <div className="flex flex-col items-end gap-[10px] mt-[40px]">

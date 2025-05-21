@@ -1,0 +1,30 @@
+### 회원가입
+POST http://localhost:3000/auth/signUp
+Content-Type: application/json
+
+{
+    "email": "test4@test.com",
+    "nickname": "tester4",
+    "password": "4444"
+}
+
+### 로그인 
+POST http://localhost:3000/auth/signIn
+Content-Type: application/json
+
+{
+    "email": "test2@test.com",
+    "password": "2222"
+}
+
+### 로그인 
+POST http://localhost:3000/auth/signIn
+Content-Type: application/json
+
+{
+   "email": "test3@test.com",
+    "password": "3333"
+}
+
+### 사용자 정보 가져오기
+GET http://localhost:3000/user/me

@@ -1,5 +1,9 @@
 import { tokenFetch } from "./fetchClient";
 
 export const userService = {
-  getMe: () => tokenFetch("/users/me"),
+  getMe: () => {
+    return tokenFetch("/users/me", {
+      method: "GET",
+    });
+  },
 };

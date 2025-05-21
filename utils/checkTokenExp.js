@@ -15,7 +15,8 @@ export const checkTokenExp = () => {
       console.log("유효한 토큰입니다.");
       return true;
     } else {
-      console.error("토큰의 유효기간이 만료되었습니다.");
+      console.error("유효하지 않은 토큰입니다.");
+      localStorage.removeItem("accessToken");
       return false;
     }
   } catch (e) {

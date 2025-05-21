@@ -12,8 +12,6 @@ function PostingPage() {
   const router = useRouter();
 
   const handlePost = async () => {
-    console.log("posting is Done");
-
     const postData = {
       title: title,
       content: content,

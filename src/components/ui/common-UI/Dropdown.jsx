@@ -3,8 +3,7 @@
 import { useArticles } from "@/providers/ArticlesProvider";
 import React from "react";
 
-function Dropdown() {
-  const { order, setOrder } = useArticles();
+function Dropdown({ order, setOrder }) {
   const handleSelectChange = (e) => {
     setOrder(e.target.value);
   };

@@ -8,7 +8,7 @@ const AuthContext = createContext({
   user: null,
   setUser: () => {},
   login: () => {},
-  logiout: () => {},
+  logout: () => {},
   updateUser: () => {},
   register: () => {},
 });
@@ -22,12 +22,13 @@ export const useAuth = () => {
 };
 
 export default function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
 
   const getUser = async () => {
     try {
       const user = await userService.getMe();
+
       setUser(user);
     } catch (e) {
       console.error("사용자 정보를 가져오는데 실패했습니다", e);
@@ -55,7 +56,11 @@ export default function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    console.log("로그아웃!");
+    const result = await authService.logout();
+
+    //디버깅
+    console.log("result", result);
+    return result;
   };
 
   const updateUser = async (user) => {
@@ -71,6 +76,7 @@ export default function AuthProvider({ children }) {
         setIsLoading(false);
       });
     } else {
+      setUser(null);
       setIsLoading(false);
     }
   }, []);

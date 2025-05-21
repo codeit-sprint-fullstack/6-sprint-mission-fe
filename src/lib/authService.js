@@ -1,11 +1,11 @@
-import React from "react";
-import { tokenFetch } from "./fetchClient";
+import { tokenDelete, tokenFetch } from "./fetchClient";
 
 export const authService = {
   login: (email, password) => {
     return tokenFetch("/auth/signIn", {
       method: "POST",
       body: JSON.stringify({ email, password }),
+      credentials: "include",
     });
   },
 
@@ -13,9 +13,11 @@ export const authService = {
     return tokenFetch("/auth/signUp", {
       method: "POST",
       body: JSON.stringify({ email, nickname, password, passwordConfirmation }),
+      credentials: "include",
     });
   },
 
-  //엔드 포인트???
-  //  logout: () => tokenFetch("/")
+  logout: () => {
+    return tokenDelete("/auth/logout");
+  },
 };

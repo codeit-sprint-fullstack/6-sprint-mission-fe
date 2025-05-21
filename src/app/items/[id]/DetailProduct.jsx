@@ -11,28 +11,33 @@ import {
 import { useRouter } from "next/navigation";
 import PatchProduct from "@/components/ui/product/PatchProduct";
 
-function DetailProduct({ id, accessToken, currentUser }) {
+function DetailProduct({ id, accessToken, currentUser, userId }) {
   const [productData, setProductData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
-  const [isLike, setIsLike] = useState(null); //좋아요 버튼
+  const [isLike, setIsLike] = useState(false); //좋아요 버튼
+  const [favoriteCount, setFavoriteCount] = useState(0);
+  const [isAuthor, setIsAuthor] = useState(false);
 
   const router = useRouter();
 
-  const fetchData = async () => {
-    try {
-      const data = await getProduct(id);
-
-      setProductData(data);
-      setIsLike(data.isFavorite);
-    } catch (e) {
-      console.error("상품 정보 로딩 실패", e);
-    } finally {
-      setIsPending(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getProduct(id);
+        const productData = data.product;
+
+        if (userId === productData.authorId) setIsAuthor(true);
+        setProductData(productData);
+        setFavoriteCount(productData.favorites.length);
+        setIsLike(productData.isLiked);
+      } catch (e) {
+        console.error("상품 정보 로딩 실패", e);
+      } finally {
+        setIsPending(false);
+      }
+    };
+
     fetchData();
   }, [id]);
 
@@ -47,20 +52,14 @@ function DetailProduct({ id, accessToken, currentUser }) {
     router.push("/items");
   };
 
-  const handleclickLike = async () => {
+  const handleClickLike = async () => {
     try {
       if (isLike) {
         await cancelLikeProduct(id, accessToken);
-        setProductData((prevData) => ({
-          ...prevData,
-          favoriteCount: prevData.favoriteCount - 1,
-        }));
+        setFavoriteCount((prevCount) => prevCount - 1);
       } else {
         await likeProduct(id, accessToken);
-        setProductData((prevData) => ({
-          ...prevData,
-          favoriteCount: prevData.favoriteCount + 1,
-        }));
+        setFavoriteCount((prevCount) => prevCount + 1);
       }
 
       setIsLike((prev) => !prev);
@@ -81,29 +80,32 @@ function DetailProduct({ id, accessToken, currentUser }) {
     );
 
   //createdAt prettier
-  const formattedCreatedAt = new Intl.DateTimeFormat("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(new Date(productData.createdAt));
+  const formattedCreatedAt =
+    productData.createdAt && !isNaN(new Date(productData.createdAt))
+      ? new Intl.DateTimeFormat("ko-KR", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }).format(new Date(productData.createdAt))
+      : "날짜 없음";
 
   return (
     <div className="flex flex-row pb-[40px] border-b-1 border-seven gap-[24px] font-pretendard">
       <img
-        src={productData.images}
-        className="w-[486px] h-[486px] rounded-[16px] by-[5px]"
+        src={productData.imageUrl}
+        className="w-[486px] h-[486px] object-cover rounded-[16px] by-[5px]"
       />
 
       <div className="w-[690px] h-[496px] flex flex-col justify-between">
         <div className="flex flex-col h-[112px] justify-between pb-[16px] border-b-1 border-seven">
           <div className="flex flex-row justify-between">
             <div className="text-[24px] font-semibold">{productData.name}</div>
-            {productData.ownerId === Number(currentUser) && (
+            {isAuthor ? (
               <MoreToggle
                 onPatch={handleProductPatch}
                 onDelete={handleProductDelete}
               />
-            )}
+            ) : null}
           </div>
           <div className="text-[40px] font-semibold">
             {productData.price.toLocaleString()}원
@@ -147,9 +149,10 @@ function DetailProduct({ id, accessToken, currentUser }) {
                     ? "/image/ui/likedHeart.png"
                     : "/image/ui/likeHeart.png"
                 }
-                onClick={handleclickLike}
+                onClick={handleClickLike}
               />
-              <div>{productData.favoriteCount}</div>
+
+              <div>{favoriteCount}</div>
             </div>
           </div>
         </div>

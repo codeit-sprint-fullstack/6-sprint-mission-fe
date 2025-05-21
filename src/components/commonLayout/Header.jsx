@@ -5,15 +5,30 @@ import Link from "next/link";
 import Button from "../ui/common-UI/Button";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
+import { authService } from "@/lib/authService";
 
 function Header() {
   const router = useRouter();
   const pathName = usePathname();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const handelLogin = () => {
     router.push("/login");
   };
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+
+    try {
+      await logout();
+      router.push("/");
+    } catch (error) {
+      console.error("로그아웃에 실패했습니다.");
+    }
+  };
+
+  //디버깅
+  console.log("user", user);
 
   return (
     <header className="fixed bg-white z-[1] w-full h-[70px] flex flex-col border-b border-gray-200">
@@ -61,9 +76,16 @@ function Header() {
         {/* <AuthChecker /> */}
 
         {user ? (
-          <div className="flex felx-row items-center gap-[6px]">
+          <div className="flex felx-row items-center justify-between gap-[6px]">
             <img src="/image/login/profile.png" />
-            <div>{user.nickname}</div>
+            <div className="text-[23px]">{user.user.nickname}</div>
+            <Button
+              text="로그아웃"
+              onClick={handleLogout}
+              disabled={false}
+              width={"w-[110px]"}
+              height={"h-[42px]"}
+            />
           </div>
         ) : (
           <Button
