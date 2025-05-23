@@ -3,20 +3,21 @@ import { useCallback } from "react";
 import { validateEmail, validatePassword } from "@/utils/validators";
 import useForm from "./useForm";
 
-const useLoginForm = () => {
+export default function useLoginForm() {
   // use validation logic from utils
   const validators = {
     email: (value) => validateEmail(value),
     password: (value) => validatePassword(value),
   };
 
-  const { fields, validation, isFormValid, handleFieldChange } = useForm({
-    initialFields: {
-      email: "",
-      password: "",
-    },
-    validators,
-  });
+  const { fields, validation, isFormValid, handleFieldChange, resetForm } =
+    useForm({
+      initialFields: {
+        email: "",
+        password: "",
+      },
+      validators,
+    });
 
   const handleEmailChange = useCallback(
     (value) => {
@@ -42,7 +43,6 @@ const useLoginForm = () => {
     isPasswordTouched: validation.password.isTouched,
     handleEmailChange,
     handlePasswordChange,
+    resetForm,
   };
-};
-
-export default useLoginForm;
+}

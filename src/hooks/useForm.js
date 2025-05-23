@@ -9,12 +9,11 @@ import { useCallback, useEffect, useState } from "react";
  * @param {Function} config.onValidationChange - Optional callback when validation state changes
  * @returns {Object} Form state and handlers
  */
-
-const useForm = ({
+export default function useForm({
   initialFields = {},
   validators = {},
   onValidationChange,
-}) => {
+}) {
   const [fields, setFields] = useState(initialFields);
 
   const [validation, setValidation] = useState(() => {
@@ -107,6 +106,4 @@ const useForm = ({
     resetForm,
     getFormState,
   };
-};
-
-export default useForm;
+}

@@ -22,6 +22,7 @@ export default function LoginForm() {
     isPasswordTouched,
     handleEmailChange,
     handlePasswordChange,
+    resetForm,
   } = useLoginForm();
 
   const router = useRouter();
@@ -42,6 +43,7 @@ export default function LoginForm() {
       const refreshToken = data.refreshToken;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
+      resetForm();
       router.push("/items");
     } catch (error) {
       console.error("로그인 실패", error);

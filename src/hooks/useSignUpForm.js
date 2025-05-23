@@ -8,7 +8,7 @@ import {
 } from "@/utils/validators";
 import useForm from "./useForm";
 
-const useSignUpForm = () => {
+export default function useSignUpForm() {
   const validators = {
     email: (value) => validateEmail(value),
     nickname: (value) => validateNickname(value),
@@ -18,15 +18,16 @@ const useSignUpForm = () => {
   };
 
   // Use the generic form hook
-  const { fields, validation, isFormValid, handleFieldChange } = useForm({
-    initialFields: {
-      email: "",
-      nickname: "",
-      password: "",
-      passwordConfirm: "",
-    },
-    validators,
-  });
+  const { fields, validation, isFormValid, handleFieldChange, resetForm } =
+    useForm({
+      initialFields: {
+        email: "",
+        nickname: "",
+        password: "",
+        passwordConfirm: "",
+      },
+      validators,
+    });
 
   const handleEmailChange = useCallback(
     (value) => {
@@ -74,7 +75,6 @@ const useSignUpForm = () => {
     handleNicknameChange,
     handlePasswordChange,
     handlePasswordConfirmChange,
+    resetForm,
   };
-};
-
-export default useSignUpForm;
+}
