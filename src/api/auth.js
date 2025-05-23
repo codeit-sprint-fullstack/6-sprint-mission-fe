@@ -84,15 +84,11 @@ export async function signUp({ email, nickname, password, passwordConfirm }) {
     const response = await fetch(`${AUTH_API_BASE_URL}/users`, {
       method: "POST",
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email,
-        nickname,
-        password,
-        passwordConfirmation: passwordConfirm,
-      }),
+      body: requestBody,
     });
+    
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message);
