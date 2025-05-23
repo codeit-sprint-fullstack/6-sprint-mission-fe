@@ -30,6 +30,7 @@ export default function SignUpForm() {
     handleNicknameChange,
     handlePasswordChange,
     handlePasswordConfirmChange,
+    resetForm,
   } = useSignUpForm();
 
   const router = useRouter();
@@ -53,6 +54,7 @@ export default function SignUpForm() {
       const refreshToken = data.refreshToken;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
+      resetForm();
       router.push("/items");
     } catch (error) {
       console.error("회원가입 실패:", error);
