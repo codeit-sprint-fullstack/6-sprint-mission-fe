@@ -70,8 +70,9 @@ export default function FormInput({
         type={type}
         placeholder={placeholder}
         className={clsx(
-          "bg-secondary-100 border rounded-[12px] h-14 py-4 px-6 placeholder:text-secondary-400 focus:outline-none",
-          isInValid ? "border-error" : "border-primary"
+          "bg-secondary-100 border-2 rounded-[12px] h-14 py-4 px-6 placeholder:text-secondary-400 focus:outline-none",
+          isInValid ? "border-error" : "border-primary",
+          className
         )}
         value={inputValue}
         onChange={handleChange}

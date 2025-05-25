@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { validateConfirmPassword, validatePassword } from "@/utils/validators";
 import visibilityOffIcon from "@/app/assets/icons/ic-visibility-off.svg";
 import visibilityOnIcon from "@/app/assets/icons/ic-visibility-on.svg";
+import clsx from "clsx";
 
 export default function PasswordInput({
   id,
@@ -23,6 +24,7 @@ export default function PasswordInput({
   const [currentIsValid, setCurrentIsValid] = useState(
     propIsValid === undefined ? true : propIsValid
   );
+  const isInvalid = !currentIsValid && isTouched;
 
   useEffect(() => {
     if (propValue !== undefined) {
@@ -66,7 +68,12 @@ export default function PasswordInput({
           type={visible ? "text" : "password"}
           placeholder={placeholder}
           onChange={handleChange}
-          className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 w-full ${!currentIsValid && isTouched ? "outline-error" : ""} ${className}`}
+          className={clsx(
+            "bg-secondary-100 border-2 rounded-[12px] h-14 py-4 px-6 placeholder:text-secondary-400 w-full focus:outline-none",
+            isInvalid ? "border-error" : "border-primary",
+            className
+          )}
+          {...props}
         />
         <button
           type="button"
@@ -90,7 +97,7 @@ export default function PasswordInput({
           )}
         </button>
       </div>
-      {!currentIsValid && isTouched && (
+      {isInvalid && (
         <p className="text-error text-sm font-semibold leading-6">
           {validateInput(inputValue).message}
         </p>
