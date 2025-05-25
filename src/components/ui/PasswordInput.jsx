@@ -47,7 +47,7 @@ export default function PasswordInput({
 
     if (onChange) {
       // call the onChange function passed by the parent
-      onChange(newValue, validationResult.isValid);
+      onChange(newValue);
     }
   };
   return (
