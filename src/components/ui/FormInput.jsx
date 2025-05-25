@@ -5,6 +5,7 @@ import {
   validateNickname,
   isRequired,
 } from "@/utils/validators";
+import clsx from "clsx";
 
 export default function FormInput({
   id,
@@ -52,6 +53,8 @@ export default function FormInput({
       onChange(newValue, validationResult.isValid);
     }
   };
+
+  const isInValid = !currentIsValid && isTouched;
   return (
     <div className="flex flex-col w-full gap-2 md:gap-4">
       {label && (
@@ -66,12 +69,15 @@ export default function FormInput({
         id={id}
         type={type}
         placeholder={placeholder}
-        className={`bg-secondary-100 rounded-[12px] h-14 py-4 px-6 outline-primary placeholder:text-secondary-400 ${!currentIsValid && isTouched ? "outline-error" : ""} ${className}`}
+        className={clsx(
+          "bg-secondary-100 border rounded-[12px] h-14 py-4 px-6 placeholder:text-secondary-400 focus:outline-none",
+          isInValid ? "border-error" : "border-primary"
+        )}
         value={inputValue}
         onChange={handleChange}
         {...props}
       />
-      {!currentIsValid && isTouched && (
+      {isInValid && (
         <p className="text-error text-sm font-semibold leading-6">
           {validateInput(inputValue).message}
         </p>
