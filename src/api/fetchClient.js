@@ -1,6 +1,5 @@
 "use client";
 
-// const baseURL = "https://panda-market-api.vercel.app";
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 /**

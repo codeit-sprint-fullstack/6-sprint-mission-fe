@@ -2,8 +2,11 @@
 
 import { useAuth } from "@/providers/AuthProvider";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function MyPage() {
+  const router = useRouter();
+
   const { logout } = useAuth();
 
   return (

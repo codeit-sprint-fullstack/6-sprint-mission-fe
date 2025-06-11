@@ -22,6 +22,15 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/mypage/page.jsx",
+    "src/app/items/registration/page.jsx",
+    "src/app/items/registration/_components/ProductForm.jsx",
+    "src/middleware.js"
+  ],
   "exclude": ["node_modules"]
 }

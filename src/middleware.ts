@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(request) {
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // ✅ refreshToken 기반 인증 여부 판단 (httpOnly 쿠키는 JS에서는 못 보지만 서버에서는 접근 가능)
@@ -10,7 +10,10 @@ export function middleware(request) {
   //     ? !!request.cookies.get("refreshToken")?.value
   //     : true;
 
+  console.log("request.cookies", request.cookies);
+
   const isAuthenticated = request.cookies.get("refreshToken")?.value;
+  console.log("isAuthenticated", isAuthenticated);
 
   // ✅ 로그인/회원가입 경로 여부 (인증 상태에 따라 접근 차단 목적)
   const isAuthRoute =
@@ -20,7 +23,7 @@ export function middleware(request) {
   const isEditRoute = /^\/blogs\/[0-9]+\/edit$/.test(pathname);
 
   // ✅ 완전 일치 기반 보호 경로들 (추후 prefix 기반 보호가 필요하면 startsWith로 변경 가능)
-  const protectedRoutes = ["/community/write", "/product/write"];
+  const protectedRoutes = ["/community/write", "/items/registration"];
 
   // ✅ 보호되어야 하는 전체 경로 판단
   const isProtectedRoute = protectedRoutes.includes(pathname) || isEditRoute;

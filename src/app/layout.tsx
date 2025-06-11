@@ -16,7 +16,11 @@ const notoSans = Noto_Sans_KR({
   display: "swap",
 });
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const isAuthPage = pathname === "/sign-in" || pathname === "/sign-up";
 

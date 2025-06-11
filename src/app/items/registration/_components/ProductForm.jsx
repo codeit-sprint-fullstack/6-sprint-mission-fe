@@ -10,7 +10,7 @@ export default function ProductForm({
   submitText = "등록",
 }) {
   const [formData, setFormData] = useState(
-    initialData || { name: "", description: "", price: "", tags: [] },
+    initialData || { name: "", description: "", price: "", tags: [] }
   );
   const [inputTag, setInputTag] = useState("");
   const [images, setImages] = useState([]);
