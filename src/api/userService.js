@@ -23,7 +23,8 @@ const formDataFetch = async (url, options = {}) => {
 
   try {
     return await response.json();
-  } catch (e) {
+  } catch (error) {
+    console.error("Error fetching data:", error);
     return { status: response.status, ok: response.ok };
   }
 };
