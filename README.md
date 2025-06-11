@@ -1,36 +1,195 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 스프린트 미션 - 판다마켓
 
-## Getting Started
+### [🐼판다마켓](https://been-panda.vercel.app) : https://been-panda.vercel.app
 
-First, run the development server:
+> ### 판다마켓 대표 이미지
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![판다마켓 대표 이미지](https://raw.githubusercontent.com/De-cal/6-sprint-mission-fe/refs/heads/basic-%EC%9D%B4%ED%83%9C%EB%B9%88-deploy/image/img_preview.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🐼 About
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> **`일상의 모든 물건을 거래해 보세요`**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+누구나 물건을 팔 수 있다! 언제, 어디서나 판다마켓과 함께 하세요!
 
-## Learn More
+판다마켓은 누구나 원하는 물건을 팔 수 있도록 도와주는 플랫폼입니다. 어떤 물건이든 올려만 보세요 다른 누군가에겐 그 물건이 필요할 수 있습니다!
 
-To learn more about Next.js, take a look at the following resources:
+깔끔한 UI로 만들어진 서비스를 경험해보세요. 상품을 등록하고 관리할 수 있고, 내가 원하는 물건을 검색도 할 수 있습니다😄
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔄️ Update
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<details>
+<summary>
 
-## Deploy on Vercel
+### 스프린트 미션 8(자유게시판 구현 - Next.js 사용)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+</summary>
+<div markdown="1">
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### [ 코드리뷰 반영(스프린트 미션 7) ]
+
+- 없음
+
+#### [ 추가 ]
+
+- 자유게시판 페이지 구현
+- 자유게시판, 댓글 CRUD 구현 및 API 연동
+
+#### [ 수정 ]
+
+- [x] 댓글 수정 UI
+- [x] page 컴포넌트 간소화
+- [x] 버튼 애니메이션 추가
+
+#### [ 디버깅 ]
+
+- [x] fetch 경로에 undefined 입력되는 문제
+- [x] input에 공백만 입력해도 등록버튼 활성화되는 문제
+
+</div>
+</details>
+
+---
+
+<details>
+<summary>
+
+### 스프린트 미션 9(로그인 및 회원가입 마이그레이션(인증/인가), 상품 상세페이지 구현 - Tanstack Query 사용)
+
+</summary>
+<div markdown="1">
+
+#### [ 코드리뷰 반영(스프린트 미션 8) ]
+
+- [x] 비동기 통신에서 try/catch문으로 에러 처리하기
+- [] SearchLoad에서 Props Drilling 리팩터링 해보기
+- [x] 변수명 직관적으로 수정하기(searchLoad => changeKeywordInParams)
+- [x] body 변수에 INITIAL\_... 을 사용하는 곳들은 바로 state에 초기 값을 지정해주기
+
+#### [ 추가 ]
+
+- 로그인, 회원가입 Next.js로 마이그레이션
+- 상품 상세페이지 구현(코드잇 백엔드와 연동)
+
+#### [ 수정 ]
+
+- [x] 글로벌 에러 페이지 UI(텍스트) 수정
+- [x] 상품 및 댓글은 작성자만 수정, 삭제할 수 있도록 토글다운 조건 적용
+
+#### [ 디버깅 ]
+
+- [x] 상품 등록 페이지에서는 useQuery 작동하지 못하도록 제한
+- []
+
+</div>
+</details>
+
+---
+
+<details>
+<summary>
+
+### 스프린트 미션 10()
+
+</summary>
+<div markdown="1">
+
+#### [ 코드리뷰 반영(스프린트 미션 9) ]
+
+- []
+- []
+- []
+
+#### [ 추가 ]
+
+-
+-
+
+#### [ 수정 ]
+
+- []
+- []
+- []
+
+#### [ 디버깅 ]
+
+- []
+- []
+- []
+
+</div>
+</details>
+
+---
+
+<details>
+<summary>
+
+### 스프린트 미션 11()
+
+</summary>
+<div markdown="1">
+
+#### [ 코드리뷰 반영(스프린트 미션 10) ]
+
+- []
+- []
+- []
+
+#### [ 추가 ]
+
+-
+-
+
+#### [ 수정 ]
+
+- []
+- []
+- []
+
+#### [ 디버깅 ]
+
+- []
+- []
+- []
+
+</div>
+</details>
+
+---
+
+<details>
+<summary>
+
+### 스프린트 미션 12()
+
+</summary>
+<div markdown="1">
+
+#### [ 코드리뷰 반영(스프린트 미션 11) ]
+
+- []
+- []
+- []
+
+#### [ 추가 ]
+
+-
+-
+
+#### [ 수정 ]
+
+- []
+- []
+- []
+
+#### [ 디버깅 ]
+
+- []
+- []
+- []
+
+</div>
+</details>
+
+---
