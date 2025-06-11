@@ -1,0 +1,165 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { useAuth } from "@/providers/AuthProvider";
+import { checkTokenExp } from "../../../utils/checkTokenExp";
+import { isValidEmail, isValidPassword } from "../../../utils/isValid";
+
+import InputField from "@/components/ui/login-signup/InputField";
+import Button from "@/components/ui/login-signup/Button";
+import CompactLogin from "@/components/ui/login-signup/CompactLogin";
+import CrossSite from "@/components/ui/login-signup/CrossSite";
+import ValidModal from "@/components/ui/login-signup/validModal";
+
+export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isFormsValid, setIsFormsValid] = useState(false);
+
+  const [isVisible, setIsVisible] = useState(false);
+  const [validModal, setValidModal] = useState(false);
+
+  const { login } = useAuth();
+  const router = useRouter();
+
+  //토큰이 유효한 경우 페이지 제한
+  useEffect(() => {
+    if (checkTokenExp()) {
+      router.push("/items");
+    }
+  }, []);
+
+  useEffect(() => {
+    const isEmailValid = isValidEmail(email);
+    const isPwValid = isValidPassword(password);
+
+    setIsFormsValid(isEmailValid && isPwValid);
+  }, [email, password]);
+
+  const handleEmailBlur = () => {
+    setIsEmailValid(isValidEmail(email));
+  };
+
+  const handlePasswordBlur = () => {
+    setIsPasswordValid(isValidPassword(password));
+  };
+
+  const handleVisible = () => {
+    setIsVisible((prev) => !prev);
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!isFormsValid) return;
+
+    try {
+      const result = await login(email, password);
+
+      if (!result.accessToken) {
+        setIsEmailValid(false);
+        setIsPasswordValid(false);
+        return;
+      }
+
+      //로컬 스토리지에 token, nickname 저장
+      localStorage.setItem("accessToken", result.accessToken);
+      localStorage.setItem("userId", result.id);
+
+      router.push("/items");
+    } catch (e) {
+      console.error("로그인에 실패했습니다.");
+      setValidModal(true);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col justify-center">
+      <main className="flex flex-col items-center">
+        <Link
+          href="/"
+          className="flex flex-row items-center justify-center w-[396px] mb-10"
+        >
+          <img
+            className="w-[103.53px] h-[103.88px] mr-[22.24px] mt-[12.98px] mb-[15.14px]"
+            src="/image/login/판다 얼굴.png"
+            alt="판다 얼굴"
+          />
+          <img
+            src="/image/login/판다마켓.png"
+            className="w-[266px] h-[90px]"
+            alt="판다마켓"
+          />
+        </Link>
+
+        <div className="w-full flex flex-col items-center">
+          <div className="flex flex-col items-center">
+            <form className="mb-5" onSubmit={handleLogin}>
+              <InputField
+                label="이메일"
+                type="email"
+                placeholder="이메일을 입력해주세요"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onBlur={handleEmailBlur}
+              />
+
+              {isEmailValid ? undefined : (
+                <div className="text-[#f74747] font-semibold text-[15px] mt-2">
+                  이메일을 확인해주세요
+                </div>
+              )}
+
+              <div className=" relative ">
+                <InputField
+                  label="비밀번호"
+                  type={isVisible ? "text" : "password"}
+                  placeholder="비밀번호를 입력해주세요"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onBlur={handlePasswordBlur}
+                />
+                <img
+                  src={
+                    isVisible
+                      ? "/image/login/btn_visibility_on_24px.png"
+                      : "/image/login/btn_visibility_off_24px.png"
+                  }
+                  alt="비밀번호 보기 아이콘"
+                  className="absolute left-[600px] top-[58px] w-6 h-6"
+                  onClick={handleVisible}
+                />
+              </div>
+              {!isPasswordValid && (
+                <div className="text-[#f74747] font-semibold text-[15px] mt-2">
+                  비밀번호를 확인해주세요.
+                </div>
+              )}
+
+              <Button text="로그인" disabled={isFormsValid} />
+            </form>
+
+            <CompactLogin />
+
+            <CrossSite
+              text="판다마켓은 처음이신가요?"
+              linkTo="/sign-up"
+              textClick="회원가입"
+            />
+          </div>
+        </div>
+      </main>
+      {validModal && (
+        <ValidModal
+          text="비밀번호가 잂치하지 않습니다 "
+          onClose={() => setValidModal(false)}
+        />
+      )}
+    </div>
+  );
+}
