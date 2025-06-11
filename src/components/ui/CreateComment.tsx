@@ -1,10 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { getComments, postComment } from "@/lib/comment";
-import { preconnect } from "react-dom";
+import { postComment } from "@/lib/comment";
 import Button from "./common-UI/Button";
 import InputField from "./common-UI/InputField";
+
+interface CreateCommentProps {
+  articleId?: string;
+  onCommentAdded?: () => void;
+  onSubmit?: (text: string) => void;
+  text?: string;
+  prevComment?: string;
+}
 
 function CreateComment({
   articleId,
@@ -12,13 +19,8 @@ function CreateComment({
   onSubmit,
   text = "댓글달기",
   prevComment = "",
-}) {
+}: CreateCommentProps) {
   const [content, setContent] = useState(prevComment);
-
-  // const fetchComments = async () => {
-  //   const res = await getComments(articleId);
-
-  // };
 
   const handlePost = async () => {
     try {

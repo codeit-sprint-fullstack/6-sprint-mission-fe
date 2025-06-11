@@ -1,6 +1,28 @@
 "use server";
 
-export async function register({ email, nickName, password, ckPassword }) {
+interface RegisterParams {
+  email: string;
+  nickName: string;
+  password: string;
+  ckPassword: string;
+}
+
+interface RegisterResponse {
+  message?: string;
+  token?: string;
+  user?: {
+    id: string;
+    email: string;
+    nickname: string;
+  };
+}
+
+export async function register({
+  email,
+  nickName,
+  password,
+  ckPassword,
+}: RegisterParams): Promise<RegisterResponse> {
   const response = await fetch(
     "https://panda-market-api.vercel.app/auth/signUp",
     {

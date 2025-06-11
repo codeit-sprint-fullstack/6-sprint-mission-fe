@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { isValidEmail, isValidPassword } from "../../../utils/isValid";
 import { useRouter } from "next/navigation";
 import CompactLogin from "@/components/ui/login-signup/CompactLogin";
@@ -13,18 +13,18 @@ import { useAuth } from "@/providers/AuthProvider";
 import ValidModal from "@/components/ui/login-signup/validModal";
 
 function SignupPage() {
-  const [email, setEmail] = useState("");
-  const [nickName, setNickName] = useState("");
-  const [password, setPassword] = useState("");
-  const [ckPassword, setCkPassword] = useState("");
-  const [isVisible, setIsVisible] = useState(false); //눈 모양 아이콘 토글(비밀번호)
-  const [isCkVisible, setIsCkVisible] = useState(false); //눈 모양 아이콘 토글(비밀번호 확인)
-  const [validModal, setValidModal] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [nickName, setNickName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [ckPassword, setCkPassword] = useState<string>("");
+  const [isVisible, setIsVisible] = useState<boolean>(false); //눈 모양 아이콘 토글(비밀번호)
+  const [isCkVisible, setIsCkVisible] = useState<boolean>(false); //눈 모양 아이콘 토글(비밀번호 확인)
+  const [validModal, setValidModal] = useState<boolean>(false);
 
-  const [isEmailErr, setIsEmailErr] = useState(true);
-  const [isPwErr, setIsPwErr] = useState(true);
+  const [isEmailErr, setIsEmailErr] = useState<boolean>(true);
+  const [isPwErr, setIsPwErr] = useState<boolean>(true);
 
-  const [isFormsValid, setIsFormsValid] = useState(false);
+  const [isFormsValid, setIsFormsValid] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -41,7 +41,7 @@ function SignupPage() {
     );
   }, [email, nickName, password, ckPassword]);
 
-  const handleSignup = async (e) => {
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -108,7 +108,9 @@ function SignupPage() {
               type="email"
               placeholder="이메일을 입력해주세요"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
               onBlur={handleEmailBlur}
             />
             {isEmailErr ? undefined : (
@@ -122,7 +124,9 @@ function SignupPage() {
               type="text"
               placeholder="닉네임을 입력해주세요"
               value={nickName}
-              onChange={(e) => setNickName(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setNickName(e.target.value)
+              }
             />
 
             <div className="relative">
@@ -131,7 +135,9 @@ function SignupPage() {
                 type={isVisible ? "text" : "password"}
                 placeholder="비밀번호를 입력해주세요"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPassword(e.target.value)
+                }
                 onBlur={handlePasswordBlur}
               />
               <img
@@ -157,7 +163,9 @@ function SignupPage() {
                 type={isCkVisible ? "text" : "password"}
                 placeholder="비밀번호를 다시 입력해주세요"
                 value={ckPassword}
-                onChange={(e) => setCkPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setCkPassword(e.target.value)
+                }
                 onBlur={handleCkPasswordBlur}
                 isPwMatched={isPwMatched}
               />

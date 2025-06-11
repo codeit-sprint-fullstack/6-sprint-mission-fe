@@ -1,4 +1,4 @@
-const API_URL = "https://panda-market-api.vercel.app";
+// const API_URL = "https://panda-market-api.vercel.app";
 
 //로그인 리퀘스트 라우터
 // export async function POST(req) {

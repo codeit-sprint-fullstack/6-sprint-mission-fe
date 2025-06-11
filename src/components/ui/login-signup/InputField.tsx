@@ -1,5 +1,17 @@
 import React from "react";
 
+interface InputFieldProps {
+  label: string;
+  type?: string;
+  placeholder: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
+  isPwMatched?: boolean;
+  width?: string;
+  height?: string;
+}
+
 //로그인과 회원가입, 제품상세 에서만 사용 + 라벨이 있음
 function InputField({
   label,
@@ -11,7 +23,7 @@ function InputField({
   isPwMatched = true,
   width = "w-[640px]",
   height = "h-[56px]",
-}) {
+}: InputFieldProps) {
   return (
     <div className="flex flex-col justify-between">
       <label

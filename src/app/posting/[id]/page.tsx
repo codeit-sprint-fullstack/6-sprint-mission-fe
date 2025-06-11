@@ -6,12 +6,18 @@ import InputField from "@/components/ui/common-UI/InputField";
 import { useRouter } from "next/navigation";
 import { getArticle, patchArticle } from "@/lib/article";
 
-function page({ params }) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+function page({ params }: PageProps) {
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
   const router = useRouter();
 
-  const { id: articleId } = React.use(params);
+  const articleId = params.id;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,8 +47,10 @@ function page({ params }) {
     }
   };
 
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleContentChange = (e) => setContent(e.target.value);
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTitle(e.target.value);
+  const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setContent(e.target.value);
 
   return (
     <div className="flex items-center justify-center">

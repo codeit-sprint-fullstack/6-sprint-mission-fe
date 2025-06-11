@@ -7,9 +7,23 @@ import { getArticle } from "@/lib/article";
 import React, { useEffect, useState } from "react";
 import CreateComment from "@/components/ui/CreateComment";
 
-export default function SpecifiedArticle({ params }) {
-  const { id: articleId } = React.use(params);
-  const [article, setArticle] = useState(null);
+interface SpecifiedArticleProps {
+  params: {
+    id: string;
+  };
+}
+
+interface Article {
+  id: string;
+  title: string;
+  content: string;
+  author: string;
+  createdAt: string;
+}
+
+export default function SpecifiedArticle({ params }: SpecifiedArticleProps) {
+  const articleId = params.id;
+  const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
 
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -34,11 +48,7 @@ export default function SpecifiedArticle({ params }) {
     <div className="flex items-center justify-center font-pretendard">
       <div className="pt-[94px]">
         <ArticleDetail articleId={articleId} article={article} />
-        <CreateComment
-          articleId={articleId}
-          onCommentAdded={refreshComments}
-          // refreshTrigger={refreshTrigger}
-        />
+        <CreateComment articleId={articleId} onCommentAdded={refreshComments} />
         <Comments articleId={articleId} refreshTrigger={refreshTrigger} />
         <div className="flex justify-center mt-[64px]">
           <Button

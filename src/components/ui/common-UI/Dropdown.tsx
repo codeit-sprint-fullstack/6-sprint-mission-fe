@@ -1,10 +1,14 @@
 "use client";
 
-import { useArticles } from "@/providers/ArticlesProvider";
 import React from "react";
 
-function Dropdown({ order, setOrder }) {
-  const handleSelectChange = (e) => {
+interface DropdownProps {
+  order: string;
+  setOrder: (value: string) => void;
+}
+
+function Dropdown({ order, setOrder }: DropdownProps) {
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOrder(e.target.value);
   };
 

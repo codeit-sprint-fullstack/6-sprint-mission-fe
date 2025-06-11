@@ -1,22 +1,32 @@
 "use client";
 
-import React from "react";
+import React, { JSX } from "react";
 import Link from "next/link";
 import Button from "../ui/common-UI/Button";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/providers/AuthProvider";
-import { authService } from "@/lib/authService";
 
-function Header() {
+interface User {
+  user: {
+    nickname: string;
+  };
+}
+
+function Header(): JSX.Element {
   const router = useRouter();
   const pathName = usePathname();
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuth() as {
+    user: User | null;
+    logout: () => Promise<void>;
+  };
 
-  const handelLogin = () => {
+  const handelLogin = (): void => {
     router.push("/login");
   };
 
-  const handleLogout = async (e) => {
+  const handleLogout = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
     e.preventDefault();
 
     try {
@@ -26,9 +36,6 @@ function Header() {
       console.error("로그아웃에 실패했습니다.");
     }
   };
-
-  //디버깅
-  console.log("user", user);
 
   return (
     <header className="fixed bg-white z-[1] w-full h-[70px] flex flex-col border-b border-gray-200">
@@ -71,9 +78,6 @@ function Header() {
             </Link>
           </div>
         </div>
-
-        {/* 토큰 만료 체크 */}
-        {/* <AuthChecker /> */}
 
         {user ? (
           <div className="flex felx-row items-center justify-between gap-[6px]">

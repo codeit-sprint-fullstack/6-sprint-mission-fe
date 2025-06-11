@@ -14,9 +14,15 @@ function ItemDetail() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [isTokenChecked, setIsTokenChecked] = useState(false);
   const router = useRouter();
-  const { id } = useParams();
+  let { id } = useParams();
 
-  const accessToken = localStorage.getItem("accessToken");
+  //id 타입이 유니온이라서 타입 좁히기 (string | string[])
+  if (Array.isArray(id)) {
+    // 배열일 때
+    id = id[0];
+  }
+
+  const accessToken = localStorage.getItem("accessToken")!;
   const currentUserId = Number(localStorage.getItem("userId"));
 
   // 미인증은 로그인으로 리다이렉트
@@ -57,8 +63,6 @@ function ItemDetail() {
         <DetailProduct
           id={id}
           accessToken={accessToken}
-          // refreshComments={refreshComments}
-          currentUser={currentUser}
           userId={currentUserId}
         />
 

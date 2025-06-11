@@ -7,8 +7,8 @@ import { postArticle } from "@/lib/article";
 import { useRouter } from "next/navigation";
 
 function PostingPage() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
   const router = useRouter();
 
   const handlePost = async () => {
@@ -27,8 +27,10 @@ function PostingPage() {
     }
   };
 
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleContentChange = (e) => setContent(e.target.value);
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTitle(e.target.value);
+  const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setContent(e.target.value);
 
   return (
     <div className="flex items-center justify-center">

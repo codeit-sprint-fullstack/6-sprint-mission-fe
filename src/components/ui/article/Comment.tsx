@@ -1,19 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { JSX, useState } from "react";
 import MoreToggle from "../common-UI/MoreToggle";
 import { deleteComment, getComments, patchComment } from "@/lib/comment";
 import CreateComment from "../CreateComment";
+
+interface CommentProps {
+  articleId: number | string;
+  commentId: number | string;
+  content: string;
+  refreshComments: () => void;
+}
 
 function Comment({
   articleId,
   commentId,
   content: patchData,
   refreshComments,
-}) {
-  const [isEditing, setIsEditing] = useState(false);
+}: CommentProps): JSX.Element {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const onPatch = async () => {
+  const onPatch = async (): Promise<void> => {
     console.log("click patch");
     try {
       setIsEditing(true);
@@ -22,7 +29,7 @@ function Comment({
     }
   };
 
-  const onDelete = async () => {
+  const onDelete = async (): Promise<void> => {
     try {
       await deleteComment(commentId);
       await getComments(articleId);
@@ -34,7 +41,7 @@ function Comment({
     }
   };
 
-  const handleEditSubmit = async (newContent) => {
+  const handleEditSubmit = async (newContent: string): Promise<void> => {
     try {
       await patchComment(commentId, { content: newContent });
       setIsEditing(false);

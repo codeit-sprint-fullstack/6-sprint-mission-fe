@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
->>>>>>> 10619f52f2ebbb8a20b985ee255bdb59c005257e
 @import "tailwindcss";
 
 :root {
@@ -10,18 +7,13 @@
 }
 
 @theme inline {
-<<<<<<< HEAD
-=======
   --font-pretendard: "Pretendard";
->>>>>>> 10619f52f2ebbb8a20b985ee255bdb59c005257e
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-<<<<<<< HEAD
-=======
 @theme {
   --color-primary: #3692ff;
   --color-secondary: #111827;
@@ -42,7 +34,6 @@
   --breakpoint-lg: 1199px;
 }
 
->>>>>>> 10619f52f2ebbb8a20b985ee255bdb59c005257e
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { JSX } from "react";
 
-function Footer() {
+export default function Footer(): JSX.Element {
   return (
     <div>
       <footer className="bg-secondary w-full h-[160px] text-[16px]">
@@ -14,8 +14,8 @@ function Footer() {
               @codeit - 2024
             </p>
             <span className="w-[159px] h-[19px] flex flex-row justify-between cursor-pointer text-[#E5E7EB]">
-              <a to="/privacy"> Privacy Policy </a>
-              <a to="/faq">FAQ </a>
+              <a href="/privacy"> Privacy Policy </a>
+              <a href="/faq">FAQ </a>
             </span>
             <span className="w-[116px] h-[20px] flex flex-row justify-between cursor-pointer">
               <a href="https://ko-kr.facebook.com/">
@@ -34,7 +34,7 @@ function Footer() {
           </div>
 
           <div className="w-full flex flex-row justify-between mb-0 sm:mb-[24px]">
-            <p className="hidden sm:block text-[1em] text-[#9ca3af] sm:hidden">
+            <p className="hidden text-[1em] text-[#9ca3af] sm:hidden">
               @codeit - 2024
             </p>
           </div>
@@ -43,5 +43,3 @@ function Footer() {
     </div>
   );
 }
-
-export default Footer;

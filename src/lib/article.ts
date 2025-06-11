@@ -55,7 +55,10 @@ export async function postArticle(postData) {
 }
 
 //게시글 수정하기
-export async function patchArticle(articleId, patchData) {
+export async function patchArticle(
+  articleId: string,
+  patchData: { title: string; content: string }
+) {
   const res = await fetch(`${BASE_URL}/${articleId}`, {
     method: "PATCH",
     headers: {

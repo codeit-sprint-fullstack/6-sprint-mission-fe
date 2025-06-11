@@ -2,6 +2,16 @@
 
 import React from "react";
 
+interface ButtonProps {
+  text: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
+  width: string;
+  height: string;
+  rounded?: string;
+  image?: string;
+}
+
 function Button({
   text,
   onClick,
@@ -10,7 +20,7 @@ function Button({
   height,
   rounded = "rounded-[8px]",
   image,
-}) {
+}: ButtonProps) {
   return (
     <button
       className={`${width} ${height} ${rounded} py-[11.5px] px-[23px] font-pretendard

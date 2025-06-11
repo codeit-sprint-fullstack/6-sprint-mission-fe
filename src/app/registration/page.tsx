@@ -8,13 +8,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { checkTokenExp } from "../../../utils/checkTokenExp";
 
 function page() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [price, setPrice] = useState("");
-  const [tagInput, setTagInput] = useState("");
-  const [tags, setTags] = useState([]);
-  const fileInputRef = useRef(null);
-  const [images, setImages] = useState([]);
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
+  const [tagInput, setTagInput] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [images, setImages] = useState<File[]>([]);
   const router = useRouter();
 
   //토큰 유효성 체크
@@ -30,14 +30,14 @@ function page() {
     const postData = new FormData();
     postData.append("name", title);
     postData.append("description", content);
-    postData.append("price", Number(price));
+    postData.append("price", String(Number(price)));
     postData.append("tags", JSON.stringify(tags));
     if (images.length > 0) {
       postData.append("image", images[0]);
     }
 
     try {
-      const product = await postProduct(postData, accessToken);
+      await postProduct(postData, accessToken);
 
       //예외처리하기
       router.push(`/items`);
@@ -46,12 +46,16 @@ function page() {
     }
   };
 
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleContentChange = (e) => setContent(e.target.value);
-  const handlePriceChange = (e) => setPrice(e.target.value);
-  const handleTagInputChange = (e) => setTagInput(e.target.value);
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTitle(e.target.value);
+  const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setContent(e.target.value);
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setPrice(e.target.value);
+  const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTagInput(e.target.value);
 
-  const handleTagKeyDown = (e) => {
+  const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && tagInput.trim()) {
       e.preventDefault();
       const newTag = tagInput.trim();
@@ -62,17 +66,20 @@ function page() {
     }
   };
 
-  const handleRemoveTag = (tagToRemove) => {
+  const handleRemoveTag = (tagToRemove: string) => {
     setTags((prevTags) => prevTags.filter((tag) => tag !== tagToRemove));
   };
 
   const handleImageClick = () => {
-    fileInputRef.current.click();
+    fileInputRef.current?.click();
   };
 
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
-    const newImages = [...images, ...files];
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    const newFiles = Array.from(files);
+    const newImages = [...images, ...newFiles];
 
     if (newImages.length > 3) {
       alert("이미지는 최대 3개까지만 업로드할 수 있습니다.");
@@ -81,7 +88,7 @@ function page() {
     setImages(newImages);
   };
 
-  const handleRemoveImage = (index) => {
+  const handleRemoveImage = (index: number) => {
     const updatedImages = images.filter((_, i) => i !== index);
     setImages(updatedImages);
   };

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useAuth } from "@/providers/AuthProvider";
@@ -15,14 +15,14 @@ import CrossSite from "@/components/ui/login-signup/CrossSite";
 import ValidModal from "@/components/ui/login-signup/validModal";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [isFormsValid, setIsFormsValid] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
+  const [isPasswordValid, setIsPasswordValid] = useState<boolean>(true);
+  const [isFormsValid, setIsFormsValid] = useState<boolean>(false);
 
-  const [isVisible, setIsVisible] = useState(false);
-  const [validModal, setValidModal] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [validModal, setValidModal] = useState<boolean>(false);
 
   const { login } = useAuth();
   const router = useRouter();
@@ -53,7 +53,7 @@ export default function LoginPage() {
     setIsVisible((prev) => !prev);
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!isFormsValid) return;

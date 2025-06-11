@@ -5,7 +5,11 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-function EmptyLayout({ children }) {
+interface EmptyLayoutProps {
+  children: React.ReactNode;
+}
+
+function EmptyLayout({ children }: EmptyLayoutProps) {
   const pathname = usePathname();
   const hideLayoutPage = ["/sign-up", "/login"];
 
