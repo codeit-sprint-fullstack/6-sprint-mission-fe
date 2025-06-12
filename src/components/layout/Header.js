@@ -5,6 +5,7 @@ import { rokaf } from "../../app/fonts";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
+import logo from "@/app/assets/images/img-logo.svg";
 
 export default function Header() {
   const pathName = usePathname();
@@ -15,7 +16,7 @@ export default function Header() {
       <div className="flex items-center gap-4 md:gap-12">
         <div className="flex items-center gap-2">
           <Image
-            src="/logo/logo.svg"
+            src={logo}
             alt="판다마켓 로고"
             width={40}
             height={40}

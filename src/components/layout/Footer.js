@@ -1,7 +1,11 @@
-'use client'
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import facebookIcon from "@/app/assets/icons/ic-facebook.svg";
+import twitterIcon from "@/app/assets/icons/ic-twitter.svg";
+import youtubeIcon from "@/app/assets/icons/ic-youtube.svg";
+import instagramIcon from "@/app/assets/icons/ic-instagram.svg";
 
 export default function Footer() {
   const pathName = usePathname();
@@ -24,25 +28,25 @@ export default function Footer() {
         </div>
         <div className="order-2 flex w-[116px] gap-3">
           <Image
-            src="/icons/ic_facebook.svg"
+            src={facebookIcon}
             width={20}
             height={20}
             alt="페이스북 아이콘"
           ></Image>
           <Image
-            src="/icons/ic_twitter.svg"
+            src={twitterIcon}
             width={20}
             height={20}
             alt="트위터 아이콘"
           ></Image>
           <Image
-            src="/icons/ic_youtube.svg"
+            src={youtubeIcon}
             width={20}
             height={20}
             alt="유투브 아이콘"
           ></Image>
           <Image
-            src="/icons/ic_instagram.svg"
+            src={instagramIcon}
             width={20}
             height={20}
             alt="인스타그램 아이콘"

@@ -1,23 +1,13 @@
 import Image from "next/image";
 import React from "react";
+import logo from "@/app/assets/images/img-logo-with-text.svg";
 
 export default function AuthHeader() {
   return (
     <>
-      <Image
-        src="/logo/logo-md.svg"
-        width={198}
-        height={66}
-        alt="판다마켓 로고"
-        className="block md:hidden"
-      ></Image>
-      <Image
-        src="/logo/logo-lg.svg"
-        width={396}
-        height={132}
-        alt="판다마켓 로고"
-        className="hidden md:block"
-      ></Image>
+      <div className="relative w-[198px] h-[66px] md:w-[396px] md:h-[132px]">
+        <Image src={logo} alt="판다마켓 로고" fill className="object-cover" />
+      </div>
     </>
   );
 }

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import React from "react";
+import leftArrowIcon from "@/app/assets/icons/ic-arrow-left.svg";
+import rightArrowIcon from "@/app/assets/icons/ic-arrow-right.svg";
 
 export default function PaginationBar({
   totalPageNum,
@@ -30,12 +32,7 @@ export default function PaginationBar({
         disabled={activePageNum === 1}
         onClick={() => onPageChange(activePageNum - 1)}
       >
-        <Image
-          src="/icons/arrow_left.svg"
-          alt="Previous page"
-          width={20}
-          height={20}
-        />
+        <Image src={leftArrowIcon} alt="Previous page" width={20} height={20} />
       </button>
       {pages.map((page) => (
         <button
@@ -64,12 +61,7 @@ export default function PaginationBar({
         disabled={activePageNum === totalPageNum}
         onClick={() => onPageChange(activePageNum + 1)}
       >
-        <Image
-          src="/icons/arrow_right.svg"
-          alt="Next Page"
-          width={20}
-          height={20}
-        />
+        <Image src={rightArrowIcon} alt="Next Page" width={20} height={20} />
       </button>
     </div>
   );

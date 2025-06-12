@@ -1,46 +1,48 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
+import { validateEmail, validatePassword } from "@/utils/validators";
+import useForm from "./useForm";
 
-const useLoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function useLoginForm() {
+  // use validation logic from utils
+  const validators = {
+    email: (value) => validateEmail(value),
+    password: (value) => validatePassword(value),
+  };
 
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const { fields, validation, isFormValid, handleFieldChange, resetForm } =
+    useForm({
+      initialFields: {
+        email: "",
+        password: "",
+      },
+      validators,
+    });
 
-  const [isEmailTouched, setIsEmailTouched] = useState(false);
-  const [isPasswordTouched, setIsPasswordTouched] = useState(false);
+  const handleEmailChange = useCallback(
+    (value) => {
+      handleFieldChange("email", value);
+    },
+    [handleFieldChange]
+  );
 
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  useEffect(() => {
-    const isValid = isEmailValid && isPasswordValid;
-    setIsFormValid(isValid);
-  }, [isEmailValid, isPasswordValid, password]);
-
-  const handleEmailChange = useCallback((value, isValid) => {
-    setEmail(value);
-    setIsEmailTouched(true);
-    setIsEmailValid(isValid);
-  }, []);
-
-  const handlePasswordChange = useCallback((value, isValid) => {
-    setPassword(value);
-    setIsPasswordTouched(true);
-    setIsPasswordValid(isValid);
-  }, []);
+  const handlePasswordChange = useCallback(
+    (value) => {
+      handleFieldChange("password", value);
+    },
+    [handleFieldChange]
+  );
 
   return {
-    email,
-    password,
+    email: fields.email,
+    password: fields.password,
     isFormValid,
-    isEmailValid,
-    isEmailTouched,
-    isPasswordTouched,
-    isPasswordValid,
+    isEmailValid: validation.email.isValid,
+    isPasswordValid: validation.password.isValid,
+    isEmailTouched: validation.email.isTouched,
+    isPasswordTouched: validation.password.isTouched,
     handleEmailChange,
     handlePasswordChange,
+    resetForm,
   };
-};
-
-export default useLoginForm;
+}
