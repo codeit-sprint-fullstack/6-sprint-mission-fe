@@ -1,8 +1,13 @@
 import React from "react";
 
-function Article({ title, createdAt }) {
+interface ArticleProps {
+  title: string;
+  createdAt: string; // ISO 날짜 문자열 예상
+}
+
+function Article({ title, createdAt }: ArticleProps) {
   // 날짜 prettier
-  const formatDate = (iso) => {
+  const formatDate = (iso: string) => {
     const date = new Date(iso);
     return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(
       2,

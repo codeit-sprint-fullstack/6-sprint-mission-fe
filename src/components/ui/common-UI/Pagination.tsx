@@ -2,15 +2,22 @@
 
 import React, { useState } from "react";
 
+interface PaginationProps {
+  totalProducts: number;
+  itemsPerPage: number;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+}
+
 function Pagination({
   totalProducts,
   itemsPerPage,
   currentPage,
   setCurrentPage,
-}) {
+}: PaginationProps) {
   const totalPage = Math.ceil(totalProducts / itemsPerPage);
   const pagesPerGroup = 5;
-  const [currentGroup, setCurrentGroup] = useState(0);
+  const [currentGroup, setCurrentGroup] = useState<number>(0);
 
   const handleClickPrev = () => {
     if (currentPage > 1) setCurrentPage((prevPage) => prevPage - 1);
@@ -23,7 +30,7 @@ function Pagination({
   const startPage = currentGroup * pagesPerGroup + 1;
   const endPage = Math.min(startPage + pagesPerGroup - 1, totalPage);
 
-  const handleClick = (num) => {
+  const handleClick = (num: number) => {
     setCurrentPage(num);
   };
 

@@ -1,5 +1,17 @@
+interface CommentType {
+  id: number;
+  content: string;
+  authorId: number;
+  createdAt: string;
+  // 필요 시 다른 필드 추가
+}
+
 //해당 상품의 댓글 등록하기
-export async function postProductComment(productId, accessToken, postData) {
+export async function postProductComment(
+  productId: number,
+  accessToken: string,
+  postData: string
+): Promise<void> {
   const res = await fetch(
     `http://localhost:3000/products/${productId}/comments`,
     {
@@ -16,7 +28,7 @@ export async function postProductComment(productId, accessToken, postData) {
 }
 
 //해당 상품의 댓글들 조회하기
-export async function getProductComment(productId, limit) {
+export async function getProductComment(productId: number, limit: number) {
   const res = await fetch(
     `http://localhost:3000/products/${productId}/comments?limit=${limit}`,
     {
@@ -33,7 +45,11 @@ export async function getProductComment(productId, limit) {
 }
 
 //해당 상품의 댓글 수정하기기
-export async function patchProductComment(commentId, accessToken, patchData) {
+export async function patchProductComment(
+  commentId: number,
+  accessToken: string,
+  patchData: string
+) {
   const res = await fetch(`http://localhost:3000/comments/${commentId}`, {
     method: "PATCH",
     headers: {
@@ -48,7 +64,10 @@ export async function patchProductComment(commentId, accessToken, patchData) {
 }
 
 //해당 상품의 댓글 삭제하기
-export async function deleteProductComment(commentId, accessToken) {
+export async function deleteProductComment(
+  commentId: number,
+  accessToken: string
+) {
   const res = await fetch(`http://localhost:3000/comments/${commentId}`, {
     method: "DELETE",
     headers: {

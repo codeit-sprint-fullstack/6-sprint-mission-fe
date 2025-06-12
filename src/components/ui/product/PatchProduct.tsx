@@ -1,24 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { fetchProduct } from "@/lib/product";
 import Button from "../common-UI/Button";
 import InputField from "../login-signup/InputField";
 import { useRouter } from "next/navigation";
 
-function PatchProduct({ data, productId, accessToken }) {
+interface ProductData {
+  images: string;
+  tags: string;
+  price: string;
+  description: string;
+  name: string;
+}
+
+interface PatchProductProps {
+  data: ProductData;
+  productId: string;
+  accessToken: string;
+}
+
+function PatchProduct({ data, productId, accessToken }: PatchProductProps) {
   const router = useRouter();
 
-  const [images, setImages] = useState(data.images);
-  const [tags, setTags] = useState(data.tags);
-  const [price, setPrice] = useState(data.price);
-  const [description, setDescription] = useState(data.description);
-  const [name, setName] = useState(data.name);
+  const [images, setImages] = useState<string>(data.images);
+  const [tags, setTags] = useState<string>(data.tags);
+  const [price, setPrice] = useState<string>(String(data.price));
+  const [description, setDescription] = useState<string>(data.description);
+  const [name, setName] = useState<string>(data.name);
 
-  const handleConfirmProductData = async (e) => {
+  const handleConfirmProductData = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
-    const patchData = {};
+    const patchData: Partial<ProductData> = {};
 
     if (images !== data.images) {
       patchData.images = images;
@@ -53,7 +69,6 @@ function PatchProduct({ data, productId, accessToken }) {
         placeholder="상품의 URL 입력하세요"
         value={images}
         onChange={(e) => setImages(e.target.value)}
-        // onBlur={onBlur}
         width="w-[640px]"
         height="h-[56px]"
       />
@@ -64,7 +79,6 @@ function PatchProduct({ data, productId, accessToken }) {
         placeholder="상품의 태그를 입력하세요"
         value={tags}
         onChange={(e) => setTags(e.target.value)}
-        // onBlur={onBlur}
         width="w-[640px]"
         height="h-[56px]"
       />
@@ -75,7 +89,6 @@ function PatchProduct({ data, productId, accessToken }) {
         placeholder="상품의 제목을 입력하세요"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        // onBlur={onBlur}
         width="w-[640px]"
         height="h-[56px]"
       />
@@ -86,7 +99,6 @@ function PatchProduct({ data, productId, accessToken }) {
         placeholder="상품의 가격을 입력하세요"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
-        // onBlur={onBlur}
         width="w-[640px]"
         height="h-[56px]"
       />
@@ -97,19 +109,11 @@ function PatchProduct({ data, productId, accessToken }) {
         placeholder="상품의 제목을 입력하세요"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        // onBlur={onBlur}
         width="w-[640px]"
         height="h-[56px]"
       />
 
-      <Button
-        text="상품 수정 완료"
-        // onClick={handleConfirmProductData}
-        // disabled={true}
-        // width
-        // height
-        // rounded
-      />
+      <Button text="상품 수정 완료" />
     </form>
   );
 }

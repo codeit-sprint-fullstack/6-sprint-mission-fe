@@ -6,8 +6,8 @@ interface ButtonProps {
   text: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
   rounded?: string;
   image?: string;
 }

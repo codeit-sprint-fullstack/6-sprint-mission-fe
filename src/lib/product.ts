@@ -1,5 +1,36 @@
+export interface ProductType {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProductPostData {
+  name: string;
+  description: string;
+  price: number;
+}
+
+export interface ProductPatchData {
+  name?: string;
+  description?: string;
+  price?: number;
+}
+
+export interface GetProductParams {
+  page: number;
+  pageSize: number;
+  orderBy?: string;
+  keyword?: string;
+}
+
 //상품 등록하기
-export async function postProduct(postData, accessToken) {
+export async function postProduct(
+  postData: FormData,
+  accessToken: string
+): Promise<ProductType> {
   const res = await fetch(`http://localhost:3000/products`, {
     method: "POST",
     headers: {
@@ -11,7 +42,12 @@ export async function postProduct(postData, accessToken) {
 }
 
 //상품 목록 가져오기
-export async function getProducts({ page, pageSize, orderBy, keyword }) {
+export async function getProducts({
+  page,
+  pageSize,
+  orderBy,
+  keyword,
+}: GetProductParams): Promise<ProductType> {
   const res = await fetch(
     `http://localhost:3000/products?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}&keyword=${keyword}`
   );
@@ -24,7 +60,11 @@ export async function getProducts({ page, pageSize, orderBy, keyword }) {
 }
 
 //베스트 상품 목록 가져오기
-export async function getBestProducts({ page, pageSize, orderBy }) {
+export async function getBestProducts({
+  page,
+  pageSize,
+  orderBy,
+}: Omit<GetProductParams, "keyword">): Promise<ProductType> {
   const res = await fetch(
     `http://localhost:3000/products?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}`
   );
@@ -36,7 +76,7 @@ export async function getBestProducts({ page, pageSize, orderBy }) {
 }
 
 //상품 상세정보 가져오기
-export async function getProduct(productId) {
+export async function getProduct(productId: number): Promise<ProductType> {
   const accessToken = localStorage.getItem("accessToken");
 
   const res = await fetch(`http://localhost:3000/products/${productId}`, {
@@ -55,7 +95,10 @@ export async function getProduct(productId) {
 }
 
 //상품 삭제하기
-export async function deleteProduct(productId, accessToken) {
+export async function deleteProduct(
+  productId: number,
+  accessToken: string
+): Promise<void> {
   const res = await fetch(`http://localhost:3000/products/${productId}`, {
     method: "DELETE",
     headers: {
@@ -70,7 +113,11 @@ export async function deleteProduct(productId, accessToken) {
 }
 
 //상품 상세정보 수정하기
-export async function fetchProduct(productId, accessToken, patchData) {
+export async function fetchProduct(
+  productId: number,
+  accessToken: string,
+  patchData: ProductPatchData
+) {
   const res = await fetch(`http://localhost:3000/products/${productId}`, {
     method: "PATCH",
     headers: {
@@ -88,7 +135,7 @@ export async function fetchProduct(productId, accessToken, patchData) {
 }
 
 //상품 좋아요 누르기
-export async function likeProduct(productId, accessToken) {
+export async function likeProduct(productId: number, accessToken: string) {
   const res = await fetch(
     `http://localhost:3000/favorites/product/${productId}`,
     {
@@ -105,7 +152,10 @@ export async function likeProduct(productId, accessToken) {
 }
 
 //상품 좋아요 취소
-export async function cancelLikeProduct(productId, accessToken) {
+export async function cancelLikeProduct(
+  productId: number,
+  accessToken: string
+) {
   const res = await fetch(
     `http://localhost:3000/favorites/product/${productId}`,
     {

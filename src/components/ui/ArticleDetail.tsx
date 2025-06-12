@@ -5,11 +5,22 @@ import MoreToggle from "./common-UI/MoreToggle";
 import { usePathname, useRouter } from "next/navigation";
 import { deleteArticle, getArticles, getBestArticles } from "@/lib/article";
 
-function ArticleDetail({ articleId, article }) {
+interface Article {
+  title: string;
+  content: string;
+  createdAt: string;
+}
+
+interface ArticleDetailProps {
+  articleId: number | string;
+  article: Article;
+}
+
+function ArticleDetail({ articleId, article }: ArticleDetailProps) {
   const router = useRouter();
 
   // 날짜 prettier
-  const formatDate = (iso) => {
+  const formatDate = (iso: string) => {
     const date = new Date(iso);
     return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(
       2,

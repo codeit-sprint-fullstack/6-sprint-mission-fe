@@ -3,13 +3,19 @@
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 
-function AuthChecker() {
+interface DecodedToken {
+  exp?: number;
+  // sub?: string;
+  // name?: string;
+}
+
+function AuthChecker(): null {
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) return;
 
     try {
-      const decoded = jwtDecode(token);
+      const decoded: DecodedToken = jwtDecode<DecodedToken>(token);
       const exp = decoded.exp;
 
       if (!exp) return;

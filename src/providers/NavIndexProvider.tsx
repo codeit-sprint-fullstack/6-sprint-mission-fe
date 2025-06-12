@@ -2,10 +2,19 @@
 
 import { createContext, useContext, useState } from "react";
 
-const NavContext = createContext();
+interface NavContextType {
+  activePage: string;
+  setActivePage: (page: string) => void;
+}
 
-const NavIndexProvider = ({ children }) => {
-  const [activePage, setActivePage] = useState("/post");
+const NavContext = createContext<NavContextType | null>(null);
+
+interface NavIndexProviderProps {
+  children: React.ReactNode;
+}
+
+const NavIndexProvider = ({ children }: NavIndexProviderProps) => {
+  const [activePage, setActivePage] = useState<string>("/post");
 
   return (
     <NavContext.Provider value={{ activePage, setActivePage }}>

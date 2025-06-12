@@ -2,9 +2,15 @@
 
 import React from "react";
 
-function BestArticle({ title, createdAt }) {
+interface BestArticleProps {
+  title: string;
+  createdAt: string;
+  imageUrl?: string;
+}
+
+function BestArticle({ title, createdAt, imageUrl }: BestArticleProps) {
   // 날짜 prettier
-  const formatDate = (iso) => {
+  const formatDate = (iso: string) => {
     const date = new Date(iso);
     return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(
       2,

@@ -1,5 +1,9 @@
+interface JwtPayload {
+  exp: number;
+}
+
 //현 시각과 비교
-export const checkTokenExp = () => {
+export const checkTokenExp = (): boolean => {
   try {
     const accessToken = localStorage.getItem("accessToken");
 

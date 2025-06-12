@@ -1,12 +1,17 @@
 import React from "react";
 import Button from "../common-UI/Button";
 
-function ValidModal({ text, onClose }) {
+interface ValidModalProps {
+  text: string;
+  onClose: () => void;
+}
+
+function ValidModal({ text, onClose }: ValidModalProps) {
   const handleOverlayClick = () => {
     onClose();
   };
 
-  const handleModalClick = (e) => {
+  const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   };
   return (

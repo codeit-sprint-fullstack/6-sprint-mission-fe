@@ -5,10 +5,13 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "./AuthProvider";
 
 const protectedPaths = ["/items", "/registration"];
-
 const publicPaths = ["/", "/auth/login", "/auth/signIn"];
 
-export default function RouteGuard({ children }) {
+interface RouteGuardProps {
+  children: React.ReactNode;
+}
+
+export default function RouteGuard({ children }: RouteGuardProps) {
   const { user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();

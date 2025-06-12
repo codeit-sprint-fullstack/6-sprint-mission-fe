@@ -3,11 +3,16 @@
 import { useArticles } from "@/providers/ArticlesProvider";
 import React from "react";
 
-function Search({ width = "w-[1054px]" }) {
+interface SearchProps {
+  width?: string;
+}
+
+function Search({ width = "w-[1054px]" }: SearchProps) {
   const { searchTerm, setSearchTerm } = useArticles();
 
   //검색어 입력
-  const handleChange = (e) => setSearchTerm(e.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSearchTerm(e.target.value);
 
   return (
     <div className="relative">

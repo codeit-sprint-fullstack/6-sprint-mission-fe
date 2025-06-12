@@ -3,8 +3,8 @@
 import React from "react";
 
 interface DropdownProps {
-  order: string;
-  setOrder: (value: string) => void;
+  order?: string;
+  setOrder?: (value: string) => void;
 }
 
 function Dropdown({ order, setOrder }: DropdownProps) {

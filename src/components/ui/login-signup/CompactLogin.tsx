@@ -9,16 +9,16 @@ function CompactLogin() {
         <div className="flex gap-2">
           <a href="https://www.google.com/">
             <img
-              width="42"
-              height="42"
+              width={42}
+              height={42}
               src="/image/login/Component 2@3x.png"
               alt="google"
             />
           </a>
           <a href="https://www.kakaocorp.com/page/">
             <img
-              width="42"
-              height="42"
+              width={42}
+              height={42}
               src="/image/login/Component 3@3x.png"
               alt="kakao"
             />

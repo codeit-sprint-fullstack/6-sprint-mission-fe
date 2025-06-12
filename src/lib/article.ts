@@ -1,7 +1,15 @@
 const BASE_URL = "http://localhost:3000/articles";
 
+export interface ArticleType {
+  id: number;
+  title: string;
+  content?: string;
+  createdAt: string;
+  imageUrl?: string;
+}
+
 // 게시글 3개 가져옴
-export async function getBestArticles() {
+export async function getBestArticles(): Promise<{ data: ArticleType[] }> {
   const res = await fetch(`${BASE_URL}?take=3`, {
     cache: "no-store",
   });
@@ -11,11 +19,11 @@ export async function getBestArticles() {
   }
 
   const text = await res.text();
-  return text ? JSON.parse(text) : null;
+  return text ? JSON.parse(text) : { data: [] };
 }
 
 //게시글 목록 가져옴
-export async function getArticles() {
+export async function getArticles(): Promise<{ data: ArticleType[] }> {
   const res = await fetch(`${BASE_URL}?take=4`, {
     cache: "no-store",
   });
@@ -28,7 +36,9 @@ export async function getArticles() {
 }
 
 //특정 게시글 조회
-export async function getArticle(articleId) {
+export async function getArticle(
+  articleId: string | number
+): Promise<{ data: ArticleType }> {
   const res = await fetch(`${BASE_URL}/${articleId}`, {
     cache: "no-store",
   });
@@ -39,8 +49,16 @@ export async function getArticle(articleId) {
   return res.json();
 }
 
+export interface PostArticleData {
+  title: string;
+  content: string;
+  imageUrl?: string;
+}
+
 //게시글 등록하기
-export async function postArticle(postData) {
+export async function postArticle(
+  postData: PostArticleData
+): Promise<ArticleType> {
   const res = await fetch("${BASE_URL}", {
     method: "POST",
     headers: {
@@ -56,9 +74,9 @@ export async function postArticle(postData) {
 
 //게시글 수정하기
 export async function patchArticle(
-  articleId: string,
+  articleId: string | number,
   patchData: { title: string; content: string }
-) {
+): Promise<ArticleType> {
   const res = await fetch(`${BASE_URL}/${articleId}`, {
     method: "PATCH",
     headers: {
@@ -73,7 +91,9 @@ export async function patchArticle(
 }
 
 //게시글 삭제하기
-export async function deleteArticle(articleId) {
+export async function deleteArticle(
+  articleId: string | number
+): Promise<null | object> {
   const res = await fetch(`${BASE_URL}/${articleId}`, {
     method: "DELETE",
   });

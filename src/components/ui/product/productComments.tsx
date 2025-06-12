@@ -4,14 +4,27 @@ import { getProductComment } from "@/lib/commentProduct";
 import ProductComment from "./productComment";
 import { useEffect, useState } from "react";
 
+interface Comment {
+  id: number;
+  content: string;
+  authorId: number | string;
+}
+
+interface ProductCommentsProps {
+  productId: number;
+  accessToken: string;
+  refreshTrigger?: any;
+  limit: number;
+}
+
 export default function ProductComments({
   productId,
   accessToken,
   refreshTrigger,
   limit,
-}) {
-  const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
+}: ProductCommentsProps) {
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchComments = async () => {
     const res = await getProductComment(productId, limit);
@@ -29,7 +42,7 @@ export default function ProductComments({
   if (comments.length === 0)
     return (
       <div className="flex flex-row justify-center">
-        <img src="/image/ui/noAsk.png" />
+        <img src="/image/ui/noAsk.png" alt="no comment" />
       </div>
     );
 

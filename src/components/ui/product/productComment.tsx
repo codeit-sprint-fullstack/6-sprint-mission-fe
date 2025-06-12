@@ -9,6 +9,15 @@ import {
   patchProductComment,
 } from "@/lib/commentProduct";
 
+interface ProductCommentProps {
+  productId: number;
+  commentId: number;
+  content: string;
+  refreshComments: () => void;
+  accessToken: string;
+  authorId: number | string;
+}
+
 function ProductComment({
   productId,
   commentId,
@@ -16,34 +25,34 @@ function ProductComment({
   refreshComments,
   accessToken,
   authorId,
-}) {
+}: ProductCommentProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   const currentUserId = Number(localStorage.getItem("userId"));
   const isAuthor = currentUserId === Number(authorId);
 
-  const onPatch = async () => {
+  const onPatch = async (): Promise<void> => {
     try {
       setIsEditing(true);
       await patchProductComment(commentId, accessToken, patchData);
-    } catch (e) {
+    } catch (e: any) {
       console.error("댓글 수정 실패", e);
       if (e.message) alert(e.message);
     }
   };
 
-  const onDelete = async () => {
+  const onDelete = async (): Promise<void> => {
     try {
       await deleteProductComment(commentId, accessToken);
       await getProductComment(productId, 4);
       refreshComments();
-    } catch (e) {
+    } catch (e: any) {
       console.error("댓글 삭제 중 오류 발생", e);
       if (e.message) alert(e.message);
     }
   };
 
-  const handleEditSubmit = async (patchData) => {
+  const handleEditSubmit = async (patchData: string): Promise<void> => {
     try {
       await patchProductComment(commentId, accessToken, patchData);
       setIsEditing(false);

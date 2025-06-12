@@ -6,8 +6,14 @@ import { getArticles } from "@/lib/article";
 import Link from "next/link";
 import { useArticles } from "@/providers/ArticlesProvider";
 
+interface ArticleType {
+  id: number;
+  title: string;
+  createdAt: string;
+}
+
 export default function Articles() {
-  const { order, articles, setArticles, searchTerm } = useArticles();
+  const { order, articles, setArticles, searchTerm } = useArticles()!;
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -25,7 +31,7 @@ export default function Articles() {
 
   const sortedArticles = [...filtered].sort((a, b) => {
     if (order === "recent") {
-      return new Date(b.createdAt) - new Date(a.createdAt);
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     }
     //좋아요 순은 만들지 않음
     return 0;

@@ -2,17 +2,22 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
-function MoreToggle({ onPatch, onDelete }) {
-  const [isToggleOpen, setIsToggleOpen] = useState(false);
-  const menuRef = useRef(null);
+interface MoreToggleProps {
+  onPatch: () => void;
+  onDelete: () => void;
+}
+
+function MoreToggle({ onPatch, onDelete }: MoreToggleProps) {
+  const [isToggleOpen, setIsToggleOpen] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const handleToggleClick = () => {
     setIsToggleOpen(!isToggleOpen);
   };
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setIsToggleOpen(false);
       }
     };
