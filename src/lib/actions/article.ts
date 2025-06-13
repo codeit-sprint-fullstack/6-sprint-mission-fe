@@ -1,10 +1,15 @@
 "use server";
 
-import { BASE_URL } from "@/const";
+import { BASE_URL } from "@/constant";
 import { cookies } from "next/headers";
 
+interface ArticleParams {
+  title: string;
+  content: string;
+}
+
 // 게시글 등록
-export async function createArticle(params) {
+export async function createArticle(params: { params: ArticleParams }) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
@@ -29,7 +34,13 @@ export async function createArticle(params) {
 }
 
 // 게시글 수정
-export async function updateArticle(articleId, params) {
+export async function updateArticle({
+  articleId,
+  params,
+}: {
+  articleId: number;
+  params: ArticleParams;
+}) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
@@ -54,7 +65,7 @@ export async function updateArticle(articleId, params) {
 }
 
 // 게시글 삭제
-export async function deleteArticle(articleId) {
+export async function deleteArticle({ articleId }: { articleId: number }) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {

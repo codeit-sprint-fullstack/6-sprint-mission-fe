@@ -1,10 +1,18 @@
 "use server";
 
-import { BASE_URL } from "@/const";
+import { BASE_URL } from "@/constant";
 import { cookies } from "next/headers";
 
+interface ProductParams {
+  name: string;
+  description: string;
+  price: number;
+  tags: string[];
+  images: string[];
+}
+
 // 상품 등록
-export async function createProduct(params) {
+export async function createProduct({ params }: { params: ProductParams }) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
@@ -29,7 +37,13 @@ export async function createProduct(params) {
 }
 
 // 상품 수정
-export async function updateProduct(productId, params) {
+export async function updateProduct({
+  productId,
+  params,
+}: {
+  productId: number;
+  params: ProductParams;
+}) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
@@ -54,7 +68,7 @@ export async function updateProduct(productId, params) {
 }
 
 // 상품 삭제
-export async function deleteProduct(productId) {
+export async function deleteProduct({ productId }: { productId: number }) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
@@ -77,7 +91,7 @@ export async function deleteProduct(productId) {
 }
 
 // 상품 좋아요
-export async function createLike(productId) {
+export async function createLike({ productId }: { productId: number }) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
@@ -100,7 +114,7 @@ export async function createLike(productId) {
 }
 
 // 상품 좋아요 취소
-export async function deleteLike(productId) {
+export async function deleteLike({ productId }: { productId: number }) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
@@ -123,7 +137,7 @@ export async function deleteLike(productId) {
 }
 
 // 이미지 업로드
-export async function uploadImage(image) {
+export async function uploadImage({ image }: { image: File }) {
   const token = (await cookies()).get("accessToken")?.value;
 
   const formData = new FormData();

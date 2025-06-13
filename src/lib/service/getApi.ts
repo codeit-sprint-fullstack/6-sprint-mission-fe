@@ -1,7 +1,5 @@
 const BASE_URL =
-  typeof window !== "undefined"
-    ? process.env.NEXT_PUBLIC_API_URL
-    : process.env.API_URL;
+  typeof window !== "undefined" ? process.env.NEXT_PUBLIC_API_URL : process.env.API_URL;
 
 /*********** 중고마켓 ***********/
 // 상품 전체 조회
@@ -21,9 +19,8 @@ export async function getProducts(params = {}) {
 }
 
 // 상품 상세 조회
-export async function getProduct(productId) {
-  const token = // 브라우저 환경이면 localStorage에 저장된 accessToken 가져옴
-    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+export async function getProduct(productId: number) {
+  const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null; // 브라우저 환경이면 localStorage에 저장된 accessToken 가져옴
 
   try {
     const res = await fetch(`${BASE_URL}/products/${productId}`, {
@@ -43,7 +40,7 @@ export async function getProduct(productId) {
 
 /*********** 자유게시판 ***********/
 // 게시글 전체 조회
-export async function getArticles(params = {}) {
+export async function getArticles(params = {}): Promise<ArticleListResponse> {
   const query = new URLSearchParams(params).toString();
 
   try {
@@ -59,9 +56,8 @@ export async function getArticles(params = {}) {
 }
 
 // 게시글 상세 조회
-export async function getArticle(articleId) {
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
+export async function getArticle(articleId: number) {
+  const token = typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
 
   try {
     const res = await fetch(`${BASE_URL}/articles/${articleId}`, {
@@ -79,11 +75,9 @@ export async function getArticle(articleId) {
 
 /*********** 댓글 ***********/
 // 상품 댓글 전체 조회
-export async function getProductComments(productId, limit) {
+export async function getProductComments(productId: number, limit: number) {
   try {
-    const res = await fetch(
-      `${BASE_URL}/products/${productId}/comments?limit=${limit}`
-    );
+    const res = await fetch(`${BASE_URL}/products/${productId}/comments?limit=${limit}`);
 
     if (!res.ok) throw new Error("댓글을 불러오는데 실패했습니다.");
 
@@ -95,11 +89,9 @@ export async function getProductComments(productId, limit) {
 }
 
 // 게시글 댓글 전체 조회
-export async function getArticleComments(articleId, limit) {
+export async function getArticleComments(articleId: number, limit: number) {
   try {
-    const res = await fetch(
-      `${BASE_URL}/articles/${articleId}/comments?limit=${limit}`
-    );
+    const res = await fetch(`${BASE_URL}/articles/${articleId}/comments?limit=${limit}`);
 
     if (!res.ok) throw new Error("댓글을 불러오는데 실패했습니다.");
 

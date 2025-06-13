@@ -1,10 +1,10 @@
 "use server";
 
-import { BASE_URL } from "@/const";
+import { BASE_URL } from "@/constant";
 import { cookies } from "next/headers";
 
 // 로그인
-export async function loginAction(_, formData) {
+export async function loginAction({ formData }: { formData: FormData }) {
   const email = formData.get("email");
   const password = formData.get("password");
   const cookieStore = await cookies();
@@ -47,7 +47,7 @@ export async function loginAction(_, formData) {
 }
 
 // 회원가입
-export async function signupAction(_, formData) {
+export async function signupAction({ formData }: { formData: FormData }) {
   const email = formData.get("email");
   const nickname = formData.get("nickname");
   const password = formData.get("password");

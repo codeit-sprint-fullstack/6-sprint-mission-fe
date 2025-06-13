@@ -1,6 +1,6 @@
 "use server";
 
-import { BASE_URL } from "@/const";
+import { BASE_URL } from "@/constant";
 import { cookies } from "next/headers";
 
 // 사용자 정보 조회
@@ -29,7 +29,7 @@ export async function getUserAction() {
 }
 
 // 사용자 정보 수정
-export async function updateUserAction(formData) {
+export async function updateUserAction({ formData }: { formData: FormData }) {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
@@ -55,7 +55,7 @@ export async function updateUserAction(formData) {
 }
 
 // 비밀번호 변경
-export async function updatePasswordAction(formData) {
+export async function updatePasswordAction({ formData }: { formData: FormData }) {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 

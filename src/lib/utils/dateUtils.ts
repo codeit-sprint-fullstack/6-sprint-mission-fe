@@ -1,6 +1,3 @@
-/**
- * 모범답안 사용
- */
 import {
   differenceInDays,
   differenceInHours,
@@ -9,7 +6,7 @@ import {
   format,
 } from "date-fns";
 
-export const formatUpdatedAt = (dateString) => {
+export const formatUpdatedAt = (dateString: string) => {
   const date = new Date(dateString); // 입력된 날짜 문자열을 Date 객체로 변환
   const now = new Date(); // 현재 기준 Date 객체 생성
 

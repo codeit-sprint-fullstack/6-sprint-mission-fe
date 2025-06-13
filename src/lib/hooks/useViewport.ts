@@ -1,6 +1,3 @@
-/**
- * 모범답안 사용
- */
 import { useState, useEffect } from "react";
 
 export const useViewport = () => {

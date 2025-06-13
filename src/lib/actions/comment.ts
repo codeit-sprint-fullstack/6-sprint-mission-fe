@@ -1,10 +1,18 @@
 "use server";
 
-import { BASE_URL } from "@/const";
+import { BASE_URL } from "@/constant";
+import { Comment } from "@/types";
 import { cookies } from "next/headers";
 
+interface CommentParams {
+  commentId?: Comment["id"];
+  articleId?: Comment["articleId"];
+  productId?: Comment["productId"];
+  content?: Comment["content"];
+}
+
 // 게시글 댓글 등록
-export async function createArticleComment(articleId, params) {
+export async function createArticleComment({ articleId, content }: CommentParams) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
@@ -14,7 +22,7 @@ export async function createArticleComment(articleId, params) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(params),
+      body: JSON.stringify(content),
     });
 
     const data = await res.json();
@@ -29,7 +37,7 @@ export async function createArticleComment(articleId, params) {
 }
 
 // 상품 댓글 등록
-export async function createProductComment(productId, params) {
+export async function createProductComment({ productId, content }: CommentParams) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
@@ -39,7 +47,7 @@ export async function createProductComment(productId, params) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(params),
+      body: JSON.stringify(content),
     });
 
     const data = await res.json();
@@ -54,7 +62,7 @@ export async function createProductComment(productId, params) {
 }
 
 // 댓글 수정
-export async function updateComment(commentId, params) {
+export async function updateComment({ commentId, content }: CommentParams) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
@@ -64,7 +72,7 @@ export async function updateComment(commentId, params) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(params),
+      body: JSON.stringify(content),
     });
 
     const data = await res.json();
@@ -79,7 +87,7 @@ export async function updateComment(commentId, params) {
 }
 
 // 댓글 삭제
-export async function deleteComment(commentId) {
+export async function deleteComment({ commentId }: CommentParams) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
