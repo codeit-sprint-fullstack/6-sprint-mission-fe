@@ -1,14 +1,13 @@
 import { AuthProvider } from "@/providers/AuthProvider";
 import QueryProvider from "@/providers/QueryProvider";
-import RouteGuard from "@/providers/RouteGuard";
+import { ChildrenProps } from "@/types";
+
 import React from "react";
 
-function Providers({ children }) {
+function Providers({ children }: ChildrenProps) {
   return (
     <AuthProvider>
-      <QueryProvider>
-        <RouteGuard>{children}</RouteGuard>
-      </QueryProvider>
+      <QueryProvider>{children}</QueryProvider>
     </AuthProvider>
   );
 }

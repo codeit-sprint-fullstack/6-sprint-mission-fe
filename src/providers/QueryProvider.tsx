@@ -1,19 +1,13 @@
 "use client";
 
-import {
-  isServer,
-  QueryCache,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { ChildrenProps } from "@/types";
+import { isServer, QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 function makeQueryClient() {
   const queryCache = new QueryCache({
     onError: (error, query) => {
-      alert(
-        `오류 발생: ${query.meta?.name || "알 수 없는 쿼리"} - ${error.message}`
-      );
+      alert(`오류 발생: ${query.meta?.name || "알 수 없는 쿼리"} - ${error.message}`);
     },
   });
 
@@ -29,7 +23,7 @@ function makeQueryClient() {
   });
 }
 
-let browserQueryClient = undefined;
+let browserQueryClient: any = undefined;
 
 function getQueryClient() {
   if (isServer) {
@@ -42,7 +36,7 @@ function getQueryClient() {
   }
 }
 
-export default function QueryProvider({ children }) {
+export default function QueryProvider({ children }: ChildrenProps) {
   const queryClient = getQueryClient();
 
   return (

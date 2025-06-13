@@ -3,7 +3,13 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function Error({ error, reset }) {
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
   const router = useRouter();
 
   useEffect(() => {
@@ -11,7 +17,7 @@ export default function Error({ error, reset }) {
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center mt-20 gap-4">
+    <div className="mt-20 flex flex-col items-center gap-4">
       <h1 className="text-xl font-semibold">Something went wrong!</h1>
       <div className="flex gap-2">
         <button className="btn-base rounded-4xl" onClick={() => reset()}>

@@ -2,14 +2,36 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: var(--color-gray-800);
 }
 
 @theme inline {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 744px;
+  --breakpoint-lg: 1200px;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* Primary */
+  --color-primary-300: #1251aa;
+  --color-primary-200: #1967d6;
+  --color-primary-100: #3692ff;
+
+  /* Error */
+  --color-error-red: #f74747;
+
+  /* Secondary / Gray Scale */
+  --color-gray-900: #111827;
+  --color-gray-800: #1f2937;
+  --color-gray-700: #374151;
+  --color-gray-600: #4b5563;
+  --color-gray-500: #6b7280;
+  --color-gray-400: #9ca3af;
+  --color-gray-200: #e5e7eb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-50: #f9fafb;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +41,48 @@
   }
 }
 
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/PretendardVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@layer components {
+  /* 버튼 컴포넌트 */
+  .btn-base {
+    @apply bg-primary-100 hover:bg-primary-200 flex h-[42px] cursor-pointer items-center justify-center rounded-lg px-[23px] py-3 font-semibold text-white disabled:bg-gray-400;
+  }
+
+  .page-btn {
+    @apply flex h-10 w-10 items-center justify-center rounded-[40px] border border-gray-200;
+  }
+
+  /* line-height 설정 */
+  .text-lg {
+    --tw-leading: 26px;
+  }
+
+  .text-xl {
+    --tw-leading: 32px;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Pretendard";
+}
+
+input:focus,
+textarea:focus {
+  outline: 1px solid #1f2937;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }

@@ -10,14 +10,23 @@ import {
 } from "@/lib/actions/auth";
 import { getUserAction, updateUserAction } from "@/lib/actions/user";
 import { useRouter } from "next/navigation";
+import { ChildrenProps, User } from "@/types";
 
-const AuthContext = createContext({
-  login: () => {},
-  signup: () => {},
-  logout: () => {},
-  user: null,
-  updateUser: () => {},
-});
+interface AuthContextType {
+  login: (email: string, password: string) => Promise<any>;
+  signup: (
+    email: string,
+    nickname: string,
+    password: string,
+    passwordConfirmation: string
+  ) => Promise<any>;
+  logout: () => Promise<void>;
+  user: User | null;
+  updateUser: (userInfo: Partial<User>) => Promise<void>;
+  loading: boolean;
+}
+
+const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -27,18 +36,18 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loadingUser, setLoadingUser] = useState(true);
+export const AuthProvider = ({ children }: ChildrenProps) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const router = useRouter();
 
-  const login = async (email, password) => {
+  const login = async (email: string, password: string) => {
     const formData = new FormData();
     formData.set("email", email);
     formData.set("password", password);
 
-    const result = await loginAction(null, formData);
+    const result = await loginAction({ formData });
 
     if (result?.accessToken) {
       localStorage.setItem("accessToken", result.accessToken);
@@ -48,14 +57,19 @@ export const AuthProvider = ({ children }) => {
     return result;
   };
 
-  const signup = async (email, nickname, password, passwordConfirmation) => {
+  const signup = async (
+    email: string,
+    nickname: string,
+    password: string,
+    passwordConfirmation: string
+  ) => {
     const formData = new FormData();
     formData.set("email", email);
     formData.set("nickname", nickname);
     formData.set("password", password);
     formData.set("passwordConfirmation", passwordConfirmation);
 
-    const result = await signupAction(null, formData);
+    const result = await signupAction({ formData });
     return result;
   };
 
@@ -89,11 +103,11 @@ export const AuthProvider = ({ children }) => {
         router.push("/login");
       }
     } finally {
-      setLoadingUser(false);
+      setLoading(false);
     }
   };
 
-  const updateUser = async (userInfo) => {
+  const updateUser = async (userInfo: Partial<User>) => {
     const updatedUser = await updateUserAction(userInfo);
     setUser(updatedUser);
   };
@@ -103,9 +117,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ login, signup, logout, user, updateUser, loadingUser }}
-    >
+    <AuthContext.Provider value={{ login, signup, logout, user, updateUser, loading }}>
       {children}
     </AuthContext.Provider>
   );

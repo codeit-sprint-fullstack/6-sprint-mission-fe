@@ -1,6 +1,13 @@
 export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 export const API_URL = process.env.API_URL;
 
+interface InputOption {
+  label: string;
+  name: string;
+  type: string;
+  placeholder: string;
+}
+
 export const BREAKPOINTS = {
   sm: 375,
   md: 744,
@@ -36,7 +43,7 @@ export const EDIT_OPTIONS = [
   { label: "삭제하기", value: "delete" },
 ];
 
-export const FEATURE_OPTIONS = [
+export const FEATURE_IMG_OPTIONS = [
   {
     src: "/assets/img/home_01.svg",
     alt: "인기 상품",
@@ -60,7 +67,7 @@ export const FEATURE_OPTIONS = [
   },
 ];
 
-export const INPUT_OPTIONS = {
+export const INPUT_OPTIONS: { login: InputOption[]; signup: InputOption[] } = {
   login: [
     {
       label: "이메일",
