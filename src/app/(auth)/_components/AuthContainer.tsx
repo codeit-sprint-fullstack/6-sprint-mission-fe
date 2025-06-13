@@ -1,12 +1,13 @@
 "use client";
 
+import { ChildrenProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function AuthContainer({ children }) {
+function AuthContainer({ children }: ChildrenProps) {
   return (
-    <div className="flex flex-col items-center pt-[80px] pb-[179px] px-4 md:px-13">
+    <div className="flex flex-col items-center px-4 pt-[80px] pb-[179px] md:px-13">
       <Link href="/">
         {
           <Image

@@ -1,18 +1,22 @@
 import FormatDate from "@/components/ui/FormatDate";
+import { Article } from "@/types";
 import React from "react";
 
-function ArticleCard({ article, isBest }) {
+interface ArticleCardProps {
+  article: Article;
+  isBest?: boolean;
+}
+
+function ArticleCard({ article, isBest }: ArticleCardProps) {
   return (
     <>
-      <div className="flex justify-between mb-4">
-        <h2 className={`text-lg font-semibold ${isBest ? "mr-10" : "mr-2"}`}>
-          {article.title}
-        </h2>
-        <div className="w-[72px] h-[72px] overflow-hidden bg-white border border-gray-200 rounded-lg">
+      <div className="mb-4 flex justify-between">
+        <h2 className={`text-lg font-semibold ${isBest ? "mr-10" : "mr-2"}`}>{article.title}</h2>
+        <div className="h-[72px] w-[72px] overflow-hidden rounded-lg border border-gray-200 bg-white">
           <img
-            src={article.image}
+            src={article.images[0]}
             alt="게시글 이미지"
-            className="w-full h-full text-sm break-keep"
+            className="h-full w-full text-sm break-keep"
           />
         </div>
       </div>
@@ -34,11 +38,7 @@ function ArticleCard({ article, isBest }) {
             <FormatDate createdAt={article.createdAt} />
           </div>
           <div className="flex gap-1">
-            <img
-              src="/assets/icon/ic_unheart.svg"
-              alt="좋아요 아이콘"
-              className="w-6 h-6"
-            />
+            <img src="/assets/icon/ic_unheart.svg" alt="좋아요 아이콘" className="h-6 w-6" />
             <div className="text-gray-500">{article.likeCount}</div>
           </div>
         </div>

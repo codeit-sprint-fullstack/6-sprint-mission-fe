@@ -1,22 +1,25 @@
 "use client";
 
+import { FieldName } from "@/types";
 import Image from "next/image";
 import React, { useState } from "react";
 
-function InputField({
-  label,
-  name,
-  type,
-  placeholder,
-  value,
-  onChange,
-  error,
-}) {
+interface InputFieldProps {
+  label: string;
+  name: string;
+  type: string;
+  placeholder: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error: string;
+}
+
+function InputField({ label, name, type, placeholder, value, onChange, error }: InputFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
 
   return (
-    <div className="flex flex-col relative mb-4">
+    <div className="relative mb-4 flex flex-col">
       <label className="text-sm font-bold" htmlFor={name}>
         {label}
       </label>
@@ -24,24 +27,18 @@ function InputField({
         name={name}
         type={showPassword ? "text" : type}
         placeholder={placeholder}
-        className={`bg-gray-100 rounded-xl px-6 py-4 mt-2 ${
-          error ? "outline !outline-error-red !focus:outline-none" : ""
+        className={`mt-2 rounded-xl bg-gray-100 px-6 py-4 ${
+          error ? "!outline-error-red !focus:outline-none outline" : ""
         }`}
         value={value}
         onChange={onChange}
       />
-      {error && (
-        <div className="text-error-red text-sm font-semibold mt-2 ml-4">
-          {error}
-        </div>
-      )}
+      {error && <div className="text-error-red mt-2 ml-4 text-sm font-semibold">{error}</div>}
       <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
         {isPassword && (
           <Image
             src={`${
-              showPassword
-                ? "/assets/icon/eye_visible.svg"
-                : "/assets/icon/eye_invisible.svg"
+              showPassword ? "/assets/icon/eye_visible.svg" : "/assets/icon/eye_invisible.svg"
             }`}
             alt="비밀번호 보기"
             width={24}

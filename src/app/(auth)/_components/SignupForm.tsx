@@ -1,25 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { INPUT_OPTIONS } from "@/const";
+import { INPUT_OPTIONS } from "@/constant";
 import InputField from "./InputField";
 import Modal from "@/components/ui/Modal";
 import { useAuth } from "@/providers/AuthProvider";
 import AuthFooter from "./AuthFooter";
+import { User } from "@/types";
 
 function SignupForm() {
   const [isInputValid, setIsInputValid] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSignupSuccess, setIsSignupSuccess] = useState(false);
   const [modalMsg, setModalMsg] = useState("");
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<Record<string, string>>({
     email: "",
     nickname: "",
     password: "",
     passwordConfirmation: "",
   });
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<Record<string, string>>({
     email: "",
     nickname: "",
     password: "",
@@ -30,9 +31,14 @@ function SignupForm() {
   const { signup } = useAuth();
 
   // 유효성 검사 함수
-  const checkValidation = ({ email, password, passwordConfirmation }) => {
+  const checkValidation = (
+    email: User["email"],
+    nickname: User["nickname"],
+    password: User["password"],
+    passwordConfirmation: string
+  ) => {
     const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-za-z0-9\-]+/;
-    const newErrors = {};
+    const newErrors = { email, nickname, password, passwordConfirmation };
 
     if (!pattern.test(email)) {
       newErrors.email = "잘못된 이메일 형식입니다.";
@@ -51,7 +57,7 @@ function SignupForm() {
   };
 
   // 입력 필드 값 변경 시 실행되는 핸들러
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     const newValues = { ...values, [name]: value };
@@ -67,17 +73,13 @@ function SignupForm() {
   };
 
   // 회원가입 폼 제출 핸들러
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { email, nickname, password, passwordConfirmation } = values;
 
-    checkValidation(values);
+    checkValidation(email, nickname, password, passwordConfirmation);
 
-    const result = await signup(
-      values.email,
-      values.nickname,
-      values.password,
-      values.passwordConfirmation
-    );
+    const result = await signup(email, nickname, password, passwordConfirmation);
 
     setIsSignupSuccess(result.success);
     setModalMsg(result.message);
@@ -94,10 +96,7 @@ function SignupForm() {
   };
 
   return (
-    <form
-      className="flex flex-col w-full lg:max-w-[640px]"
-      onSubmit={handleSubmit}
-    >
+    <form className="flex w-full flex-col lg:max-w-[640px]" onSubmit={handleSubmit}>
       {INPUT_OPTIONS.signup.map((option) => (
         <InputField
           key={option.name}
@@ -110,7 +109,7 @@ function SignupForm() {
       {isModalOpen && <Modal message={modalMsg} handleClick={handleClick} />}
       <button
         type="submit"
-        className="btn-base rounded-[40px] h-[56px] text-xl font-semibold"
+        className="btn-base h-[56px] rounded-[40px] text-xl font-semibold"
         disabled={!isInputValid}
       >
         회원가입

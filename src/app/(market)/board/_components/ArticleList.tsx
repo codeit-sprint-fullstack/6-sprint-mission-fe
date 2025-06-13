@@ -5,14 +5,20 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
 import Dropdown from "@/components/ui/Dropdown";
-import { ARTICLE_COUNT, BREAKPOINTS } from "@/const";
+import { ARTICLE_COUNT, BREAKPOINTS } from "@/constant";
 import { useViewport } from "@/lib/hooks/useViewport";
 import { useQuery } from "@tanstack/react-query";
-import { getArticles } from "@/lib/getApi";
+import { getArticles } from "@/lib/service/getApi";
 import Pagination from "@/components/ui/Pagination";
+import { Article, DropdownItem } from "@/types";
+
+type ArticleListResponse = {
+  list: Article[];
+  totalCount: number;
+};
 
 function ArticleList() {
-  const sortOptions = [
+  const sortOptions: DropdownItem[] = [
     { label: "최신순", value: "recent" },
     { label: "좋아요순", value: "like" },
   ];
@@ -37,17 +43,16 @@ function ArticleList() {
   }, [windowWidth]);
 
   // 게시글 목록 가져오기
-  const { data: articles } = useQuery({
+  const { data: articles } = useQuery<ArticleListResponse>({
     queryKey: ["articles", { page, pageSize, orderBy, keyword }],
     queryFn: () => getArticles({ page, pageSize, orderBy, keyword }),
-    suspense: true,
   });
 
-  const handleSort = (value) => {
+  const handleSort = (value: DropdownItem["value"]) => {
     const selected = sortOptions.find((item) => item.value === value);
-    setDropdownOption(selected);
+    setDropdownOption(selected!);
 
-    if (selected.value === "recent") {
+    if (selected?.value === "recent") {
       setOrderBy("recent");
     } else {
       setOrderBy("like");
@@ -57,25 +62,25 @@ function ArticleList() {
 
   return (
     <section>
-      <nav className="flex justify-between items-center">
+      <nav className="flex items-center justify-between">
         <h2 className="text-lg font-bold">게시글</h2>
         <Link href="/board/add">
           <button className="btn-base">글쓰기</button>
         </Link>
       </nav>
-      <nav className="flex justify-between items-center h-[42px] my-4">
+      <nav className="my-4 flex h-[42px] items-center justify-between">
         <input
-          className="w-full mr-[13px] py-[9px] pl-11 rounded-xl bg-gray-100 bg-[url('/assets/icon/ic_search.svg')] bg-no-repeat bg-[center_left_1rem]"
+          className="mr-[13px] w-full rounded-xl bg-gray-100 bg-[url('/assets/icon/ic_search.svg')] bg-[center_left_1rem] bg-no-repeat py-[9px] pl-11"
           placeholder="검색할 상품을 입력해주세요"
           onChange={(e) => setKeyword(e.target.value)}
         />
         <div>
           <button
-            className="flex items-center p-[9px] md:py-3 md:px-5 md:w-[130px] md:h-[42px] border-1 border-gray-200 rounded-xl cursor-pointer bg-white hover:bg-gray-100"
+            className="flex cursor-pointer items-center rounded-xl border-1 border-gray-200 bg-white p-[9px] hover:bg-gray-100 md:h-[42px] md:w-[130px] md:px-5 md:py-3"
             onClick={() => setIsDropdownOpen((prev) => !prev)}
           >
             {windowWidth >= BREAKPOINTS.md ? (
-              <div className="flex justify-between w-[90px]">
+              <div className="flex w-[90px] justify-between">
                 {dropdownOption.label}
                 <Image
                   src="/assets/icon/ic_arrow_down.svg"
@@ -85,17 +90,10 @@ function ArticleList() {
                 />
               </div>
             ) : (
-              <Image
-                src="/assets/icon/ic_sort.svg"
-                alt="정렬 아이콘"
-                width={24}
-                height={24}
-              />
+              <Image src="/assets/icon/ic_sort.svg" alt="정렬 아이콘" width={24} height={24} />
             )}
           </button>
-          {isDropdownOpen && (
-            <Dropdown items={sortOptions} onSelect={handleSort} isSort={true} />
-          )}
+          {isDropdownOpen && <Dropdown items={sortOptions} onSelect={handleSort} isSort={true} />}
         </div>
       </nav>
       <article className="mb-[91px]">
@@ -103,13 +101,13 @@ function ArticleList() {
           return (
             <Link key={article.id} href={`/board/${article.id}`}>
               <ArticleCard key={article.id} article={article} />
-              <span className="flex border-b-1 border-gray-200 my-6"></span>
+              <span className="my-6 flex border-b-1 border-gray-200"></span>
             </Link>
           );
         })}
       </article>
       <Pagination
-        totalCount={articles?.totalCount}
+        totalCount={articles?.totalCount!}
         currentPage={page}
         onPageChange={(newPage) => setPage(newPage)}
       />

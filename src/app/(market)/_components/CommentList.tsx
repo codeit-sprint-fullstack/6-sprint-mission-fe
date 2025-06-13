@@ -1,8 +1,15 @@
 import React from "react";
 import CommentItem from "./CommentItem";
 import Image from "next/image";
+import { Comment } from "@/types";
+import { CommentProps } from "./Comment.types";
 
-function CommentList({ comments, setComments, getCommentList, type }) {
+interface CommentListProps extends CommentProps {
+  comments: Comment[];
+  type?: string;
+}
+
+function CommentList({ comments, setComments, getCommentList, type }: CommentListProps) {
   if (!comments || comments.length === 0) {
     return (
       <div className="flex flex-col items-center text-center text-gray-400">

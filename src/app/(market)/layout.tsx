@@ -1,7 +1,8 @@
 import { UserLayout } from "@/components/common/Layout";
+import { ChildrenProps } from "@/types";
 import React from "react";
 
-function Layout({ children }) {
+function Layout({ children }: ChildrenProps) {
   return <UserLayout>{children}</UserLayout>;
 }
 

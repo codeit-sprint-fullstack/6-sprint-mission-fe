@@ -8,12 +8,13 @@ import LineDivider from "@/components/ui/LineDivider";
 import defaultImg from "../../../../../../public/assets/img/img_item_default.svg";
 import { useRouter } from "next/navigation";
 import { createLike, deleteLike, deleteProduct } from "@/lib/actions/product";
-import { getProduct } from "@/lib/getApi";
+import { getProduct } from "@/lib/service/getApi";
 import Modal from "@/components/ui/Modal";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
+import { Product } from "@/types";
 
-function ItemContainer({ id }) {
+function ItemContainer({ id }: { id: Product["id"] }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMsg, setModalMsg] = useState("");
@@ -25,17 +26,16 @@ function ItemContainer({ id }) {
   const { data: item } = useQuery({
     queryKey: ["product", id],
     queryFn: () => getProduct(id),
-    suspense: true,
   });
 
   const likeMutation = useMutation({
-    mutationFn: () => createLike(id),
+    mutationFn: () => createLike({ productId: id }),
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ["product", id] });
 
       const previousItem = queryClient.getQueryData(["product", id]);
 
-      queryClient.setQueryData(["product", id], (old) => ({
+      queryClient.setQueryData(["product", id], (old: Product) => ({
         ...old,
         isFavorite: true,
         favoriteCount: old.favoriteCount + 1,
@@ -44,7 +44,7 @@ function ItemContainer({ id }) {
       return { previousItem };
     },
     onError: (_, __, context) => {
-      queryClient.setQueryData(["product", id], context.previousItem);
+      queryClient.setQueryData(["product", id], context?.previousItem);
     },
     onSuccess: () => {
       setTimeout(() => {
@@ -54,13 +54,13 @@ function ItemContainer({ id }) {
   });
 
   const unlikeMutation = useMutation({
-    mutationFn: () => deleteLike(id),
+    mutationFn: () => deleteLike({ productId: id }),
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ["product", id] });
 
       const previousItem = queryClient.getQueryData(["product", id]);
 
-      queryClient.setQueryData(["product", id], (old) => ({
+      queryClient.setQueryData(["product", id], (old: Product) => ({
         ...old,
         isFavorite: false,
         favoriteCount: old.favoriteCount - 1,
@@ -69,7 +69,7 @@ function ItemContainer({ id }) {
       return { previousItem };
     },
     onError: (_, __, context) => {
-      queryClient.setQueryData(["product", id], context.previousItem);
+      queryClient.setQueryData(["product", id], context?.previousItem);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["product", id] });
@@ -77,7 +77,7 @@ function ItemContainer({ id }) {
   });
 
   // 상품 편집 핸들러
-  const handleEditItem = (action) => {
+  const handleEditItem = (action: "edit" | "delete") => {
     setIsDropdownOpen(true);
     if (action === "edit") {
       router.push(`/items/${id}/edit`);
@@ -89,7 +89,7 @@ function ItemContainer({ id }) {
 
   // 상품 삭제 핸들러
   const handleDeleteItem = async () => {
-    const result = await deleteProduct(id);
+    const result = await deleteProduct({ productId: id });
 
     if (!result?.success) {
       setIsModalOpen(true);
@@ -110,7 +110,7 @@ function ItemContainer({ id }) {
   };
 
   return (
-    <section className="md:grid grid-cols-2 gap-4 lg:grid-cols-[1fr_2fr]">
+    <section className="grid-cols-2 gap-4 md:grid lg:grid-cols-[1fr_2fr]">
       {item && (
         <>
           <Image
@@ -118,7 +118,7 @@ function ItemContainer({ id }) {
             alt="상품 이미지"
             width={343}
             height={343}
-            className="rounded-xl mb-4 w-full aspect-square"
+            className="mb-4 aspect-square w-full rounded-xl"
           />
           <div>
             <ItemHeader

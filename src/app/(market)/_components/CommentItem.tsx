@@ -3,13 +3,20 @@
 import { deleteComment, updateComment } from "@/lib/actions/comment";
 import Dropdown from "@/components/ui/Dropdown";
 import Modal from "@/components/ui/Modal";
-import { EDIT_OPTIONS } from "@/const";
+
 import { formatUpdatedAt } from "@/lib/utils/dateUtils";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
+import { EDIT_OPTIONS } from "@/constant";
+import { Comment } from "@/types";
+import { CommentProps } from "./Comment.types";
 
-function CommentItem({ comment, setComments, getCommentList }) {
+interface CommentItemProps extends CommentProps {
+  comment: Comment;
+}
+
+function CommentItem({ comment, setComments, getCommentList }: CommentItemProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -21,7 +28,7 @@ function CommentItem({ comment, setComments, getCommentList }) {
   const { user } = useAuth();
 
   // 댓글 편집 핸들러
-  const handleEditComment = (action) => {
+  const handleEditComment = (action: string) => {
     if (action === "edit") {
       setIsEdit(true);
       setIsDropdownOpen(false);
@@ -33,18 +40,18 @@ function CommentItem({ comment, setComments, getCommentList }) {
   };
 
   // 댓글 수정 핸들러
-  const handleUpdateComment = async (commentId, updatedContent) => {
-    const result = await updateComment(commentId, { content: updatedContent });
+  const handleUpdateComment = async (
+    commentId: Comment["id"],
+    updatedContent: Comment["content"]
+  ) => {
+    const result = await updateComment({ commentId, content: updatedContent });
     if (!result?.success) {
-      setError(result.message);
       setIsModalOpen(true);
     } else {
       // 수정된 댓글만 찾아서 업데이트
       setComments((prev) =>
         prev.map((comment) =>
-          comment.id === commentId
-            ? { ...comment, content: updatedContent }
-            : comment
+          comment.id === commentId ? { ...comment, content: updatedContent } : comment
         )
       );
     }
@@ -52,8 +59,8 @@ function CommentItem({ comment, setComments, getCommentList }) {
   };
 
   // 댓글 삭제 핸들러
-  const handleDeleteComment = async (commentId) => {
-    const result = await deleteComment(commentId);
+  const handleDeleteComment = async (commentId: Comment["id"]) => {
+    const result = await deleteComment({ commentId });
     if (!result?.success) {
       setIsModalOpen(true);
       setModalMsg(result.message);
@@ -64,11 +71,11 @@ function CommentItem({ comment, setComments, getCommentList }) {
 
   return (
     <>
-      <div className="border-b-1 border-gray-200 mb-4">
-        <div className="flex justify-between mb-6">
+      <div className="mb-4 border-b-1 border-gray-200">
+        <div className="mb-6 flex justify-between">
           {isEdit ? (
             <textarea
-              className="text-sm w-full px-3 py-2 outline-1 outline-gray-400 rounded-lg resize-none"
+              className="w-full resize-none rounded-lg px-3 py-2 text-sm outline-1 outline-gray-400"
               value={updatedContent}
               onChange={(e) => setUpdatedContent(e.target.value)}
             />
@@ -76,7 +83,7 @@ function CommentItem({ comment, setComments, getCommentList }) {
             <p className="text-sm">{comment.content}</p>
           )}
           <div>
-            {user.id === comment.writer.id && (
+            {user?.id === comment.writer.id && (
               <Image
                 src="/assets/icon/ic_kebab.svg"
                 alt="편집 아이콘"
@@ -86,22 +93,20 @@ function CommentItem({ comment, setComments, getCommentList }) {
                 onClick={() => setIsDropdownOpen((prev) => !prev)}
               />
             )}
-            {isDropdownOpen && (
-              <Dropdown items={EDIT_OPTIONS} onSelect={handleEditComment} />
-            )}
+            {isDropdownOpen && <Dropdown items={EDIT_OPTIONS} onSelect={handleEditComment} />}
           </div>
         </div>
-        <div className="text-right mr-5 -translate-y-3">
+        <div className="mr-5 -translate-y-3 text-right">
           {isEdit && (
             <div className="flex justify-end gap-1">
               <button
-                className="btn-base text-sm rounded-4xl px-4 h-8 bg-gray-200 text-black"
+                className="btn-base h-8 rounded-4xl bg-gray-200 px-4 text-sm text-black"
                 onClick={() => setIsEdit(false)}
               >
                 취소
               </button>
               <button
-                className="btn-base text-sm rounded-4xl px-4 h-8 bg-gray-400"
+                className="btn-base h-8 rounded-4xl bg-gray-400 px-4 text-sm"
                 onClick={() => handleUpdateComment(comment.id, updatedContent)}
               >
                 저장
@@ -109,7 +114,7 @@ function CommentItem({ comment, setComments, getCommentList }) {
             </div>
           )}
         </div>
-        <div className="flex items-start gap-2 h-10 mb-2">
+        <div className="mb-2 flex h-10 items-start gap-2">
           <Image
             src="/assets/icon/ic_profile.svg"
             alt="기본 프로필 아이콘"
@@ -117,9 +122,7 @@ function CommentItem({ comment, setComments, getCommentList }) {
             height={32}
           />
           <div>
-            <div className="text-xs text-gray-600 mb-1">
-              {comment.writer.nickname}
-            </div>
+            <div className="mb-1 text-xs text-gray-600">{comment.writer.nickname}</div>
             <div className="text-xs text-gray-400">{timestamp}</div>
           </div>
         </div>

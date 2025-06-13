@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import ItemForm from "../../_components/ItemForm";
 import { useQuery } from "@tanstack/react-query";
-import { getProduct } from "@/lib/getApi";
+import { getProduct } from "@/lib/service/getApi";
 import { useParams } from "next/navigation";
 
 function EditItemPage() {
@@ -18,8 +18,7 @@ function EditItemPage() {
 
   const { data: item } = useQuery({
     queryKey: ["product", id],
-    queryFn: () => getProduct(id),
-    suspense: true,
+    queryFn: () => getProduct(Number(id)),
   });
 
   useEffect(() => {

@@ -3,17 +3,19 @@
 import React, { useEffect, useState } from "react";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
-import { getArticleComments, getProductComments } from "@/lib/getApi";
-import {
-  createArticleComment,
-  createProductComment,
-} from "@/lib/actions/comment";
+import { createArticleComment, createProductComment } from "@/lib/actions/comment";
+import { getArticleComments, getProductComments } from "@/lib/service/getApi";
+import { Comment } from "@/types";
 
-const limit = 3;
+interface CommentSectionProps {
+  id: number;
+  type: "product" | "article";
+}
 
-function CommentSection({ id, type }) {
-  const [comments, setComments] = useState([]);
+function CommentSection({ id, type }: CommentSectionProps) {
+  const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
+  const limit = 3;
 
   const getCommentList = async () => {
     const data =
@@ -30,13 +32,13 @@ function CommentSection({ id, type }) {
   }, [id]);
 
   // 댓글 등록 핸들러
-  const handleAddComment = async (content) => {
+  const handleAddComment = async (content: Comment["content"]) => {
     if (!content.trim()) return;
 
     if (type === "product") {
-      await createProductComment(id, { content });
+      await createProductComment({ productId: id, content });
     } else {
-      await createArticleComment(id, { content });
+      await createArticleComment({ articleId: id, content });
     }
     getCommentList();
   };
