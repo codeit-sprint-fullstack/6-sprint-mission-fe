@@ -1,18 +1,13 @@
 "use server";
 
 import { BASE_URL } from "@/constant";
+import { Product } from "@/types";
 import { cookies } from "next/headers";
 
-interface ProductParams {
-  name: string;
-  description: string;
-  price: number;
-  tags: string[];
-  images: string[];
-}
+type ProductParams = Pick<Product, "name" | "description" | "price" | "tags" | "images">;
 
 // 상품 등록
-export async function createProduct({ params }: { params: ProductParams }) {
+export async function createProduct(params: ProductParams) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {

@@ -1,23 +1,18 @@
 "use client";
 
-import Image from "next/image";
+import { RemoveIcon } from "@/assets/svgs";
 import React, { useState } from "react";
 
 interface TagProps {
   tags: string[];
-  setValues: React.Dispatch<React.SetStateAction<{ tags: string[] }>>;
+  setTags: React.Dispatch<React.SetStateAction<string[]>>;
   tagInput: string;
-  setTagInput: (value: string) => void;
+  setTagInput: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function Tag({ tags, setValues, tagInput, setTagInput }: TagProps) {
+function Tag({ tags, setTags, tagInput, setTagInput }: TagProps) {
   // 입력 상태 감지(IME 이슈)
   const [isComposing, setIsComposing] = useState(false);
-
-  const removeTag = (tagIndex: number) => {
-    const newTags = tags.filter((_, index) => index !== tagIndex);
-    setValues((prev: { tags: string[] }) => ({ ...prev, tags: newTags }));
-  };
 
   const addTag = () => {
     if (
@@ -25,12 +20,14 @@ function Tag({ tags, setValues, tagInput, setTagInput }: TagProps) {
       !tags.includes(tagInput.trim()) &&
       !tags.includes(`#${tagInput.trim()}`)
     ) {
-      setValues((prev: { tags: string[] }) => ({
-        ...prev,
-        tags: [...prev.tags, `#${tagInput.trim()}`],
-      }));
+      setTags((prev) => [...prev, `#${tagInput.trim()}`]);
       setTagInput("");
     }
+  };
+
+  const removeTag = (index: number) => {
+    const newTags = tags.filter((_, i) => i !== index);
+    setTags(newTags);
   };
 
   const handleKeyPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -62,11 +59,8 @@ function Tag({ tags, setValues, tagInput, setTagInput }: TagProps) {
             className="flex h-9 items-center justify-center gap-2 rounded-[26px] bg-gray-100 py-[6px] pr-3 pl-4"
           >
             <span>{tag}</span>
-            <Image
-              src="/assets/icon/ic_X.svg"
-              alt="태그 삭제"
-              width={22}
-              height={24}
+            <RemoveIcon
+              aria-label="태그 삭제"
               onClick={() => removeTag(index)}
               className="cursor-pointer"
             />

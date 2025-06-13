@@ -1,7 +1,6 @@
 "use client";
 
-import { FieldName } from "@/types";
-import Image from "next/image";
+import { EyeInvisible, EyeVisible } from "@/assets/svgs";
 import React, { useState } from "react";
 
 interface InputFieldProps {
@@ -35,17 +34,12 @@ function InputField({ label, name, type, placeholder, value, onChange, error }: 
       />
       {error && <div className="text-error-red mt-2 ml-4 text-sm font-semibold">{error}</div>}
       <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
-        {isPassword && (
-          <Image
-            src={`${
-              showPassword ? "/assets/icon/eye_visible.svg" : "/assets/icon/eye_invisible.svg"
-            }`}
-            alt="비밀번호 보기"
-            width={24}
-            height={24}
-            className="absolute top-11 right-6"
-          />
-        )}
+        {isPassword &&
+          (showPassword ? (
+            <EyeVisible aria-label="비밀번호 보기" className="absolute top-11 right-6" />
+          ) : (
+            <EyeInvisible aria-label="비밀번호 숨김" className="absolute top-11 right-6" />
+          ))}
       </button>
     </div>
   );

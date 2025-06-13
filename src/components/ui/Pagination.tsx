@@ -1,4 +1,6 @@
-import Image from "next/image";
+"use client";
+
+import { ArrowLeft, ArrowRight } from "@/assets/svgs";
 import { useMemo } from "react";
 
 const itemsPerPage = 10;
@@ -48,7 +50,7 @@ function Pagination({ totalCount, currentPage, onPageChange }: PaginationProps) 
         onClick={handlePrev}
         disabled={!paginationData.hasPrev}
       >
-        <Image src="/assets/icon/arrow_left.svg" alt="왼쪽 화살표" width={16} height={16} />
+        <ArrowLeft aria-label="왼쪽 화살표" />
       </button>
       {paginationData?.pages.map((page) => (
         <button
@@ -68,7 +70,7 @@ function Pagination({ totalCount, currentPage, onPageChange }: PaginationProps) 
         onClick={handleNext}
         disabled={!paginationData.hasNext}
       >
-        <Image src="/assets/icon/arrow_right.svg" alt="오른쪽 화살표" width={16} height={16} />
+        <ArrowRight aria-label="오른쪽 화살표" />
       </button>
     </div>
   );

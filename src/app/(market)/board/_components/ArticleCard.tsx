@@ -1,3 +1,4 @@
+import { UnheartIcon } from "@/assets/svgs";
 import FormatDate from "@/components/ui/FormatDate";
 import { Article } from "@/types";
 import React from "react";
@@ -24,8 +25,8 @@ function ArticleCard({ article, isBest }: ArticleCardProps) {
         <div className="flex justify-between text-sm font-normal">
           <div className="flex gap-2">
             <div className="text-gray-600">{article.writer.nickname}</div>
-            <div className="flex gap-1">
-              <img src="/assets/icon/ic_unheart.svg" alt="좋아요 아이콘" />
+            <div className="flex items-center gap-1">
+              <UnheartIcon aria-label="좋아요 아이콘" className="h-4 w-4" />
               <div className="text-gray-500">{article.likeCount}</div>
             </div>
           </div>
@@ -37,9 +38,9 @@ function ArticleCard({ article, isBest }: ArticleCardProps) {
             <div className="text-gray-600">{article.writer.nickname}</div>
             <FormatDate createdAt={article.createdAt} />
           </div>
-          <div className="flex gap-1">
-            <img src="/assets/icon/ic_unheart.svg" alt="좋아요 아이콘" className="h-6 w-6" />
-            <div className="text-gray-500">{article.likeCount}</div>
+          <div className="flex items-center gap-1">
+            <UnheartIcon aria-label="좋아요 아이콘" className="h-6 w-6" />
+            <span className="text-base">{article.likeCount}</span>
           </div>
         </div>
       )}

@@ -1,7 +1,5 @@
 "use client";
 
-import { BREAKPOINTS, ITEM_COUNT } from "@/const";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
@@ -11,6 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 import Dropdown from "@/components/ui/Dropdown";
 import { getProducts } from "@/lib/service/getApi";
 import { DropdownItem, Product } from "@/types";
+import { BREAKPOINTS, ITEM_COUNT } from "@/constant";
+import { ArrowDown, SearchIcon, SortIcon } from "@/assets/svgs";
 
 type ItemListResponse = {
   list: Product[];
@@ -71,9 +71,10 @@ function ItemList() {
           <button className="btn-base">상품 등록하기</button>
         </Link>
       </nav>
-      <nav className="my-4 flex h-[42px] items-center justify-between">
+      <nav className="relative my-4 flex h-[42px] items-center justify-between">
+        <SearchIcon aria-label="검색 아이콘" className="absolute ml-4" />
         <input
-          className="mr-[13px] w-full rounded-xl bg-gray-100 bg-[url('/assets/icon/ic_search.svg')] bg-[center_left_1rem] bg-no-repeat py-[9px] pl-11"
+          className="mr-[13px] w-full rounded-xl bg-gray-100 py-[9px] pl-11"
           placeholder="검색할 상품을 입력해주세요"
           onChange={(e) => setKeyword(e.target.value)}
         />
@@ -85,15 +86,10 @@ function ItemList() {
             {windowWidth >= BREAKPOINTS.md ? (
               <div className="flex w-[90px] justify-between">
                 {dropdownOption.label}
-                <Image
-                  src="/assets/icon/ic_arrow_down.svg"
-                  alt="아래 화살표 아이콘"
-                  width={24}
-                  height={24}
-                />
+                <ArrowDown aria-label="아래 화살표" />
               </div>
             ) : (
-              <Image src="/assets/icon/ic_sort.svg" alt="정렬 아이콘" width={24} height={24} />
+              <SortIcon aria-label="정렬 아이콘" />
             )}
           </button>
           {isDropdownOpen && <Dropdown items={sortOptions} onSelect={handleSort} isSort={true} />}

@@ -1,30 +1,32 @@
 import Image from "next/image";
-import defaultImg from "../../../../../public/assets/img/img_item_default.svg";
 import React from "react";
+import { Product } from "@/types";
+import { UnheartIcon } from "@/assets/svgs";
 
-function ItemCard({ name, price, image, favoriteCount }) {
+interface ItemCardProps {
+  name: Product["name"];
+  price: Product["price"];
+  image: Product["images"][0];
+  favoriteCount: Product["favoriteCount"];
+}
+
+function ItemCard({ name, price, image, favoriteCount }: ItemCardProps) {
   return (
-    <div className="flex flex-col gap-[10px] mb-8">
+    <div className="mb-8 flex flex-col gap-[10px]">
       <Image
-        src={image || defaultImg}
+        src={image}
         alt="상품 이미지"
         width={168}
         height={168}
-        className="object-cover w-full rounded-xl aspect-square"
+        className="aspect-square w-full rounded-xl object-cover"
       />
 
       <div className="flex flex-col gap-[6px]">
         <h2 className="text-sm">{name}</h2>
         <span className="font-bold">{price}원</span>
         <div className="flex gap-1">
-          <img
-            src="/assets/icon/ic_unheart.svg"
-            alt="좋아요 아이콘"
-            className="w-4 h-4"
-          />
-          <div className="text-xs font-medium text-gray-600">
-            {favoriteCount}
-          </div>
+          <UnheartIcon aria-label="좋아요 아이콘" className="h-4 w-4" />
+          <div className="text-xs font-medium text-gray-600">{favoriteCount}</div>
         </div>
       </div>
     </div>

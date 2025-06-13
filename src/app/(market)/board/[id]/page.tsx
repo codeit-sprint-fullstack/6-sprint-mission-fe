@@ -7,17 +7,19 @@ import Dropdown from "@/components/ui/Dropdown";
 import UserInfo from "@/components/ui/UserInfo";
 import GoBackBtn from "@/components/ui/GoBackBtn";
 import CommentSection from "../../_components/CommentSection";
-import { EDIT_OPTIONS } from "@/const";
-import { getArticle } from "@/lib/getApi";
 import { deleteArticle } from "@/lib/actions/article";
+import { getArticle } from "@/lib/service/getApi";
+import { EDIT_OPTIONS } from "@/constant";
+import { Article } from "@/types";
 
 function ArticlePage() {
-  const [article, setArticle] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [article, setArticle] = useState<Article>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   const router = useRouter();
-  const { id } = useParams();
+  const params = useParams();
+  const articleId = Number(params.id);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,11 +28,11 @@ function ArticlePage() {
     };
 
     fetchData();
-  }, [id]);
+  }, [articleId]);
 
   // 상세 게시글 불러오는 함수
   const getArticleById = async () => {
-    const data = await getArticle(id);
+    const data = await getArticle(articleId);
     setArticle(data);
     console.log(article);
   };
@@ -38,10 +40,10 @@ function ArticlePage() {
   if (isLoading) return null;
 
   // 게시글 편집 핸들러
-  const handleEditArticle = (action) => {
+  const handleEditArticle = (action: string) => {
     setIsDropdownOpen(true);
     if (action === "edit") {
-      router.push(`/board/${id}/edit`);
+      router.push(`/board/${articleId}/edit`);
     } else if (action === "delete") {
       handleDeleteArticle();
       router.push("/board");
@@ -50,14 +52,14 @@ function ArticlePage() {
 
   // 게시글 삭제 핸들러
   const handleDeleteArticle = async () => {
-    await deleteArticle(id);
+    await deleteArticle({ articleId });
   };
 
   return (
     <div className="flex-col">
       <nav className="w-full border-b-1 border-gray-200">
         <div className="flex justify-between gap-2">
-          <h2 className="text-xl font-bold text-gray-800">{article.title}</h2>
+          <h2 className="text-xl font-bold text-gray-800">{article?.title}</h2>
           <div>
             <Image
               src="/assets/icon/ic_kebab.svg"
@@ -67,20 +69,18 @@ function ArticlePage() {
               className="cursor-pointer"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
             />
-            {isDropdownOpen && (
-              <Dropdown items={EDIT_OPTIONS} onSelect={handleEditArticle} />
-            )}
+            {isDropdownOpen && <Dropdown items={EDIT_OPTIONS} onSelect={handleEditArticle} />}
           </div>
         </div>
         <UserInfo
-          nickname={article.writer.nickname}
-          createdAt={article.createdAt}
-          favoriteCount={article.likeCount}
+          nickname={article?.writer.nickname!}
+          createdAt={article?.createdAt!}
+          favoriteCount={article?.likeCount!}
         />
       </nav>
       <section>
-        <p className="mt-4 mb-8">{article.content}</p>
-        <CommentSection id={id} type="article" />
+        <p className="mt-4 mb-8">{article?.content}</p>
+        <CommentSection id={articleId} type="article" />
         <GoBackBtn />
       </section>
     </div>

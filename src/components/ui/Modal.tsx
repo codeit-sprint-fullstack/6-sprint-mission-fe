@@ -1,10 +1,10 @@
 import Image from "next/image";
 
 interface ModalProps {
-  message?: string;
+  message?: string | null;
   handleClick?: () => void;
   isDelete?: boolean;
-  itemId?: number;
+  itemId?: number | null;
   handleDelete?: (itemId: number) => void;
 }
 

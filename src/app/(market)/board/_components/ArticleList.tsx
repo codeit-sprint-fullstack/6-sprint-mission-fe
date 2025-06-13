@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
@@ -11,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getArticles } from "@/lib/service/getApi";
 import Pagination from "@/components/ui/Pagination";
 import { Article, DropdownItem } from "@/types";
+import { ArrowDown, SearchIcon, SortIcon } from "@/assets/svgs";
 
 type ArticleListResponse = {
   list: Article[];
@@ -68,9 +68,10 @@ function ArticleList() {
           <button className="btn-base">글쓰기</button>
         </Link>
       </nav>
-      <nav className="my-4 flex h-[42px] items-center justify-between">
+      <nav className="relative my-4 flex h-[42px] items-center justify-between gap-[13px]">
+        <SearchIcon aria-label="검색 아이콘" className="absolute ml-4" />
         <input
-          className="mr-[13px] w-full rounded-xl bg-gray-100 bg-[url('/assets/icon/ic_search.svg')] bg-[center_left_1rem] bg-no-repeat py-[9px] pl-11"
+          className="w-full rounded-xl bg-gray-100 py-[9px] pl-11"
           placeholder="검색할 상품을 입력해주세요"
           onChange={(e) => setKeyword(e.target.value)}
         />
@@ -82,15 +83,10 @@ function ArticleList() {
             {windowWidth >= BREAKPOINTS.md ? (
               <div className="flex w-[90px] justify-between">
                 {dropdownOption.label}
-                <Image
-                  src="/assets/icon/ic_arrow_down.svg"
-                  alt="아래 화살표 아이콘"
-                  width={24}
-                  height={24}
-                />
+                <ArrowDown aria-label="아래 화살표 아이콘" />
               </div>
             ) : (
-              <Image src="/assets/icon/ic_sort.svg" alt="정렬 아이콘" width={24} height={24} />
+              <SortIcon aria-label="정렬 아이콘" />
             )}
           </button>
           {isDropdownOpen && <Dropdown items={sortOptions} onSelect={handleSort} isSort={true} />}

@@ -1,43 +1,55 @@
 "use client";
 
-import {
-  createProduct,
-  updateProduct,
-  uploadImage,
-} from "@/lib/actions/product";
+import { createProduct, updateProduct, uploadImage } from "@/lib/actions/product";
 import Modal from "@/components/ui/Modal";
 import Tag from "@/components/ui/Tag";
 import Image from "next/image";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { Product } from "@/types";
+import { PlusIcon, RemoveIcon } from "@/assets/svgs";
 
-function ItemForm({ values, setValues }) {
-  const [tagInput, setTagInput] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [error, setError] = useState(null);
-  const [inputError, setInputError] = useState("");
-  const fileInputRef = useRef(null);
+interface ItemFormProps {
+  values: {
+    name: Product["name"];
+    description: Product["description"];
+    price: Product["price"];
+    tags: Product["tags"];
+    images: Product["images"];
+  };
+  setValues: React.Dispatch<React.SetStateAction<ItemFormProps["values"]>>;
+}
 
-  const { id } = useParams();
+function ItemForm({ values, setValues }: ItemFormProps) {
+  const [tagInput, setTagInput] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [inputError, setInputError] = useState<string>("");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const pathname = usePathname();
   const isEditPage = pathname.includes("/edit");
 
   const queryClient = useQueryClient();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const { name, description, price, tags, images } = values;
 
     if (isEditPage) {
-      const result = await updateProduct(id, {
-        name,
-        description,
-        price: Number(price),
-        tags,
-        images,
+      const result = await updateProduct({
+        productId: Number(id),
+        params: {
+          name,
+          description,
+          price: Number(price),
+          tags,
+          images,
+        },
       });
 
       if (!result?.success) {
@@ -82,8 +94,8 @@ function ItemForm({ values, setValues }) {
   };
 
   // 이미지 업로드
-  const handleFileChange = async (e) => {
-    const image = e.target.files[0];
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const image = e.target.files?.[0];
     if (!image) return;
     if (values.images.length === 3) {
       setInputError("*이미지 등록은 최대 3개까지 가능합니다.");
@@ -91,7 +103,7 @@ function ItemForm({ values, setValues }) {
     }
 
     try {
-      const result = await uploadImage(image);
+      const result = await uploadImage({ image });
       if (result.success) {
         setValues((prev) => ({
           ...prev,
@@ -106,7 +118,7 @@ function ItemForm({ values, setValues }) {
   };
 
   // 업로드된 이미지 삭제
-  const handleFileDelete = (index) => {
+  const handleFileDelete = (index: number) => {
     setValues((prev) => ({
       ...prev,
       images: prev.images.filter((_, i) => i !== index),
@@ -116,19 +128,13 @@ function ItemForm({ values, setValues }) {
   return (
     <>
       <form className="mb-[186px]" onSubmit={handleSubmit}>
-        <nav className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold">
-            {isEditPage ? "상품 수정하기" : "상품 등록하기"}
-          </h2>
+        <nav className="mb-6 flex items-center justify-between">
+          <h2 className="text-xl font-bold">{isEditPage ? "상품 수정하기" : "상품 등록하기"}</h2>
           <button
             className="btn-base"
             type="submit"
             disabled={
-              !values.name ||
-              !values.description ||
-              !values.price ||
-              !values.tags ||
-              !values.images
+              !values.name || !values.description || !values.price || !values.tags || !values.images
             }
           >
             {isEditPage ? "수정" : "등록"}
@@ -136,19 +142,14 @@ function ItemForm({ values, setValues }) {
         </nav>
         <section className="space-y-4">
           <div>
-            <h3 className="text-lg font-bold mb-3">*상품 이미지</h3>
-            <div className="flex gap-[10px] h-[168px] lg:gap-6 lg:h-[282px]">
+            <h3 className="mb-3 text-lg font-bold">*상품 이미지</h3>
+            <div className="flex h-[168px] gap-[10px] lg:h-[282px] lg:gap-6">
               <button
                 type="button"
-                className="flex flex-col justify-center items-center gap-3 w-[168px] lg:w-[282px] aspect-square bg-gray-100 rounded-xl text-gray-400 hover:bg-gray-200"
+                className="flex aspect-square w-[168px] flex-col items-center justify-center gap-3 rounded-xl bg-gray-100 text-gray-400 hover:bg-gray-200 lg:w-[282px]"
                 onClick={handleFileUpload}
               >
-                <Image
-                  src="/assets/icon/ic_plus.svg"
-                  alt="이미지 등록"
-                  width={48}
-                  height={48}
-                />
+                <PlusIcon aria-label="이미지 등록" />
                 이미지 등록
               </button>
               <input
@@ -159,7 +160,7 @@ function ItemForm({ values, setValues }) {
                 className="hidden"
                 onChange={handleFileChange}
               />
-              <div className="flex w-full overflow-auto gap-[10px] lg:gap-6">
+              <div className="flex w-full gap-[10px] overflow-auto lg:gap-6">
                 {values.images.map((url, index) => (
                   <div key={url} className="relative shrink-0">
                     <Image
@@ -167,77 +168,69 @@ function ItemForm({ values, setValues }) {
                       alt={`상품 이미지 ${index}`}
                       width={168}
                       height={168}
-                      className="rounded-xl aspect-square lg:w-[282px]"
+                      className="aspect-square rounded-xl lg:w-[282px]"
                     />
                     <button
                       className="absolute top-3 right-3"
                       onClick={() => handleFileDelete(index)}
                     >
-                      <Image
-                        src="/assets/icon/ic_X.svg"
-                        alt="이미지 취소"
-                        width={22}
-                        height={24}
-                      />
+                      <RemoveIcon aria-label="이미지 취소" />
                     </button>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="mt-2 ml-4 text-sm font-semibold text-error-red">
-              {inputError}
-            </div>
+            <div className="text-error-red mt-2 ml-4 text-sm font-semibold">{inputError}</div>
           </div>
           <div>
-            <h3 className="text-lg font-bold mb-3">*상품명</h3>
+            <h3 className="mb-3 text-lg font-bold">*상품명</h3>
             <input
-              className="w-full px-6 py-4 rounded-xl bg-gray-100 font-normal"
+              className="w-full rounded-xl bg-gray-100 px-6 py-4 font-normal"
               type="text"
               placeholder="상품명을 입력해주세요"
               value={values.name}
-              onChange={(e) =>
-                setValues((prev) => ({ ...prev, name: e.target.value }))
-              }
+              onChange={(e) => setValues((prev) => ({ ...prev, name: e.target.value }))}
             />
           </div>
           <div>
-            <h3 className="text-lg font-bold mb-3">*상품 소개</h3>
+            <h3 className="mb-3 text-lg font-bold">*상품 소개</h3>
             <textarea
-              className="w-full h-[200px] px-6 py-4 rounded-xl bg-gray-100 font-normal resize-none"
-              type="text"
+              className="h-[200px] w-full resize-none rounded-xl bg-gray-100 px-6 py-4 font-normal"
               placeholder="상품 소개를 입력해주세요"
               value={values.description}
-              onChange={(e) =>
-                setValues((prev) => ({ ...prev, description: e.target.value }))
-              }
+              onChange={(e) => setValues((prev) => ({ ...prev, description: e.target.value }))}
             />
           </div>
           <div>
-            <h3 className="text-lg font-bold mb-3">*판매 가격</h3>
+            <h3 className="mb-3 text-lg font-bold">*판매 가격</h3>
             <input
-              className="w-full px-6 py-4 rounded-xl bg-gray-100 font-normal"
+              className="w-full rounded-xl bg-gray-100 px-6 py-4 font-normal"
               type="number"
               placeholder="판매 가격을 입력해주세요"
               value={values.price}
-              onChange={(e) =>
-                setValues((prev) => ({ ...prev, price: e.target.value }))
-              }
+              onChange={(e) => setValues((prev) => ({ ...prev, price: Number(e.target.value) }))}
             />
           </div>
           <div>
-            <h3 className="text-lg font-bold mb-3">*태그</h3>
+            <h3 className="mb-3 text-lg font-bold">*태그</h3>
             <Tag
               tags={values.tags}
-              setValues={setValues}
+              setTags={(value) =>
+                setValues((prev) => ({
+                  ...prev,
+                  tags:
+                    typeof value === "function"
+                      ? (value as (prevState: string[]) => string[])(prev.tags)
+                      : value,
+                }))
+              }
               tagInput={tagInput}
               setTagInput={setTagInput}
             />
           </div>
         </section>
       </form>
-      {isModalOpen && (
-        <Modal message={error} itemId={id} handleClick={handleClick} />
-      )}
+      {isModalOpen && <Modal message={error} itemId={Number(id)} handleClick={handleClick} />}
     </>
   );
 }

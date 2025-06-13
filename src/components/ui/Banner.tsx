@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { BottomBanner, TopBanner } from "@/assets/svgs";
 import Link from "next/link";
 import React from "react";
 
@@ -11,7 +11,7 @@ interface BannerProps {
 function Banner({ isTop }: BannerProps) {
   return (
     <div
-      className={`flex h-[540px] flex-col items-center justify-between bg-[#CFE5FF] md:h-[771px] lg:h-[540px] ${
+      className={`flex h-fit max-h-[540px] flex-col items-center justify-between bg-[#CFE5FF] md:h-[771px] lg:h-[540px] ${
         isTop ? "mb-[52px]" : "mt-[83px]"
       } lg:flex-row lg:items-end lg:justify-center`}
     >
@@ -29,12 +29,9 @@ function Banner({ isTop }: BannerProps) {
               </button>
             </Link>
           </div>
-          <Image
-            src="/assets/img/home_top.svg"
-            alt="상단 배너"
-            width={448}
-            height={204}
-            className="md:w-[744px] lg:h-[340px] lg:w-[746px]"
+          <TopBanner
+            aria-label="상단 배너"
+            className="mt-33 md:w-[744px] lg:h-[340px] lg:w-[746px]"
           />
         </>
       ) : (
@@ -42,12 +39,9 @@ function Banner({ isTop }: BannerProps) {
           <h1 className="mt-12 text-center text-[32px] font-bold md:mt-21 lg:mb-[172px] lg:text-left lg:text-[40px]">
             믿을 수 있는 <br /> 판다마켓 중고 거래
           </h1>
-          <Image
-            src="/assets/img/home_bottom.svg"
-            alt="하단 배너"
-            width={448}
-            height={204}
-            className="md:w-[744px] lg:h-[340px] lg:w-[746px]"
+          <BottomBanner
+            aria-label="하단 배너"
+            className="mt-[131px] md:w-[744px] lg:h-[340px] lg:w-[746px]"
           />
         </>
       )}

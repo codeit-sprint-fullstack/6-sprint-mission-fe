@@ -2,11 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
-import { BEST_ITEM_COUNT, BREAKPOINTS } from "@/const";
+import { BEST_ITEM_COUNT, BREAKPOINTS } from "@/constant";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "@/lib/getApi";
 import { useViewport } from "@/lib/hooks/useViewport";
+import { getProducts } from "@/lib/service/getApi";
+import { Product } from "@/types";
+
+type TBestItemList = {
+  list: Product[];
+};
 
 function BestItemList() {
   const [pageSize, setPageSize] = useState(BEST_ITEM_COUNT.pc);
@@ -24,16 +29,15 @@ function BestItemList() {
   }, [windowWidth]);
 
   // 베스트 상품 목록 가져오기
-  const { data: bestItems } = useQuery({
+  const { data: bestItems } = useQuery<TBestItemList, Error>({
     queryKey: ["products", { page: 1, pageSize, orderBy: "favorite" }],
     queryFn: () => getProducts({ page: 1, pageSize, orderBy: "favorite" }),
-    suspense: true,
   });
 
   return (
     <section>
-      <h2 className="text-xl font-bold mb-4">베스트 상품</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-[10px] lg-gap-6">
+      <h2 className="mb-4 text-xl font-bold">베스트 상품</h2>
+      <div className="lg-gap-6 grid grid-cols-1 md:grid-cols-2 md:gap-[10px] lg:grid-cols-4">
         {bestItems?.list.map((item) => (
           <article key={item.id}>
             <Link key={item.id} href={`/items/${item.id}`}>
