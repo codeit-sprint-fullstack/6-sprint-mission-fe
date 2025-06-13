@@ -3,13 +3,20 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-function Tag({ tags, setValues, tagInput, setTagInput }) {
+interface TagProps {
+  tags: string[];
+  setValues: React.Dispatch<React.SetStateAction<{ tags: string[] }>>;
+  tagInput: string;
+  setTagInput: (value: string) => void;
+}
+
+function Tag({ tags, setValues, tagInput, setTagInput }: TagProps) {
   // 입력 상태 감지(IME 이슈)
   const [isComposing, setIsComposing] = useState(false);
 
-  const removeTag = (tagIndex) => {
+  const removeTag = (tagIndex: number) => {
     const newTags = tags.filter((_, index) => index !== tagIndex);
-    setValues((prev) => ({ ...prev, tags: newTags }));
+    setValues((prev: { tags: string[] }) => ({ ...prev, tags: newTags }));
   };
 
   const addTag = () => {
@@ -18,7 +25,7 @@ function Tag({ tags, setValues, tagInput, setTagInput }) {
       !tags.includes(tagInput.trim()) &&
       !tags.includes(`#${tagInput.trim()}`)
     ) {
-      setValues((prev) => ({
+      setValues((prev: { tags: string[] }) => ({
         ...prev,
         tags: [...prev.tags, `#${tagInput.trim()}`],
       }));
@@ -26,7 +33,7 @@ function Tag({ tags, setValues, tagInput, setTagInput }) {
     }
   };
 
-  const handleKeyPressEnter = (e) => {
+  const handleKeyPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isComposing) return; // isComposing 상태면 return하여 함수 종료
     if (e.key === "Enter") {
       e.preventDefault();
@@ -37,7 +44,7 @@ function Tag({ tags, setValues, tagInput, setTagInput }) {
   return (
     <div>
       <input
-        className="w-full px-6 py-4 rounded-xl bg-gray-100 font-normal"
+        className="w-full rounded-xl bg-gray-100 px-6 py-4 font-normal"
         type="text"
         placeholder="태그를 입력해주세요"
         value={tagInput || ""}
@@ -48,11 +55,11 @@ function Tag({ tags, setValues, tagInput, setTagInput }) {
           handleKeyPressEnter(e);
         }}
       />
-      <ul className="flex mt-[14px] gap-3 flex-wrap">
+      <ul className="mt-[14px] flex flex-wrap gap-3">
         {tags.map((tag, index) => (
           <li
             key={index}
-            className="flex justify-center items-center h-9 gap-2 py-[6px] pr-3 pl-4 bg-gray-100 rounded-[26px]"
+            className="flex h-9 items-center justify-center gap-2 rounded-[26px] bg-gray-100 py-[6px] pr-3 pl-4"
           >
             <span>{tag}</span>
             <Image

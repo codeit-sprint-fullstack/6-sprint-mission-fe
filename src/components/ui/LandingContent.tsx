@@ -1,23 +1,32 @@
 "use client";
 
-import { BREAKPOINTS } from "@/const";
+import { BREAKPOINTS } from "@/constant";
 import { useViewport } from "@/lib/hooks/useViewport";
 import React from "react";
 
-function LandingContent({ index, src, alt, tag, title, content }) {
+interface LandingContentProps {
+  index: number;
+  src: string;
+  alt: string;
+  tag: string;
+  title: string[];
+  content: string[];
+}
+
+function LandingContent({ index, src, alt, tag, title, content }: LandingContentProps) {
   const windowWidth = useViewport();
 
   return (
     <section
-      className={`flex flex-col justify-center px-4 md:px-6 lg:items-center lg:flex-row lg:h-[720px] lg:gap-16 break-keep ${
+      className={`flex flex-col justify-center px-4 break-keep md:px-6 lg:h-[720px] lg:flex-row lg:items-center lg:gap-16 ${
         index === 1 ? "text-right" : ""
       }`}
     >
       {index === 1 && windowWidth >= BREAKPOINTS.lg ? (
         <>
           <div>
-            <h2 className="font-bold text-primary-100 mt-6">{tag}</h2>
-            <h1 className="text-2xl font-bold text-gray-700 mt-2 mb-4 md:text-[32px] lg:text-[40px]">
+            <h2 className="text-primary-100 mt-6 font-bold">{tag}</h2>
+            <h1 className="mt-2 mb-4 text-2xl font-bold text-gray-700 md:text-[32px] lg:text-[40px]">
               {windowWidth >= BREAKPOINTS.lg ? (
                 <>
                   {title.map((line, index) => (
@@ -31,7 +40,7 @@ function LandingContent({ index, src, alt, tag, title, content }) {
                 <>{title}</>
               )}
             </h1>
-            <p className="font-semibold text-gray-700 mb-10 md:text-[18px] lg:text-[24px]">
+            <p className="mb-10 font-semibold text-gray-700 md:text-[18px] lg:text-[24px]">
               {content.map((line, index) => (
                 <React.Fragment key={index}>
                   {line}
@@ -46,8 +55,8 @@ function LandingContent({ index, src, alt, tag, title, content }) {
         <>
           <img src={src} alt={alt} className="lg:h-[444px]" />
           <div>
-            <h2 className="font-bold text-primary-100 mt-6">{tag}</h2>
-            <h1 className="text-2xl font-bold text-gray-700 mt-2 mb-4 md:text-[32px] lg:text-[40px]">
+            <h2 className="text-primary-100 mt-6 font-bold">{tag}</h2>
+            <h1 className="mt-2 mb-4 text-2xl font-bold text-gray-700 md:text-[32px] lg:text-[40px]">
               {windowWidth >= BREAKPOINTS.lg ? (
                 <>
                   {title.map((line, index) => (
@@ -61,7 +70,7 @@ function LandingContent({ index, src, alt, tag, title, content }) {
                 <>{title}</>
               )}
             </h1>
-            <p className="font-semibold text-gray-700 mb-10 md:text-[18px] lg:text-[24px]">
+            <p className="mb-10 font-semibold text-gray-700 md:text-[18px] lg:text-[24px]">
               {content.map((line, index) => (
                 <React.Fragment key={index}>
                   {line}
