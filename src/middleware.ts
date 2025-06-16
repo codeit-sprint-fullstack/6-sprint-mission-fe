@@ -3,17 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // ✅ refreshToken 기반 인증 여부 판단 (httpOnly 쿠키는 JS에서는 못 보지만 서버에서는 접근 가능)
-  // 개발환경에서는 항상 인증된 상태로, 프로덕션에서는 실제 쿠키로 확인
-  // const isAuthenticated =
-  //   process.env.NODE_ENV === "production"
-  //     ? !!request.cookies.get("refreshToken")?.value
-  //     : true;
-
-  console.log("request.cookies", request.cookies);
-
   const isAuthenticated = request.cookies.get("refreshToken")?.value;
-  console.log("isAuthenticated", isAuthenticated);
 
   // ✅ 로그인/회원가입 경로 여부 (인증 상태에 따라 접근 차단 목적)
   const isAuthRoute =

@@ -28,8 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/mypage/page.jsx",
-    "src/app/items/registration/page.jsx",
-    "src/app/items/registration/_components/ProductForm.jsx",
+    "src/app/items/registration/page.tsx",
+    "src/app/items/registration/_components/ProductForm.tsx",
     "src/middleware.js"
   ],
   "exclude": ["node_modules"]
