@@ -25,17 +25,12 @@ export default function SelectSort({
     setIsSelectSortBtnVisible(false);
   };
 
-  // 정렬 선택
+  // 정렬 선택 시 렌더링
   const handleSortSelectBtn = (
     e: MouseEvent<HTMLButtonElement>,
     orderBy: string
   ): void => {
     setCurrentSort(e.currentTarget.innerText);
-    sortSelect(orderBy);
-  };
-
-  // 정렬 선택 시 렌더링
-  const sortSelect = (orderBy: string): void => {
     changeOrderByInParams(orderBy);
   };
 
