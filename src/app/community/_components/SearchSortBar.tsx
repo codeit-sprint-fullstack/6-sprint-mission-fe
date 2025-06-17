@@ -7,19 +7,20 @@ import useDeviceType from "@/hooks/common/useDeviceType";
 
 const ORDER_LIST = ["최신순", "좋아요순"];
 
-/**
- * 검색 및 정렬 기능을 제공하는 컴포넌트
- * @param {function} onSearchChange - 디바운싱 적용된 검색어 변경 핸들러
- * @param {function} onOrderChange - 정렬 방식 변경 핸들러
- */
-export default function SearchSortBar({ onSearchChange, onOrderChange }) {
+export default function SearchSortBar({
+  onSearchChange,
+  onOrderChange,
+}: {
+  onSearchChange: (value: string) => void;
+  onOrderChange: (order: string) => void;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(ORDER_LIST[0]);
   const [inputValue, setInputValue] = useState("");
   const { isMobile } = useDeviceType();
 
   /** 검색어 입력 핸들러 (디바운싱은 상위에서 처리) */
-  const handleSearchChange = (e) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
     onSearchChange(value);
@@ -29,7 +30,7 @@ export default function SearchSortBar({ onSearchChange, onOrderChange }) {
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   /** 정렬 방식 선택 핸들러 */
-  const handleSelectOrder = (order) => {
+  const handleSelectOrder = (order: string) => {
     const orderType = order === "최신순" ? "latest" : "popular";
 
     setSelectedOrder(order);

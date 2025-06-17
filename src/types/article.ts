@@ -2,7 +2,7 @@ export type Article = {
   id: string;
   title: string;
   content: string;
-  images: File[];
+  images: string[];
   createdAt: Date;
   updatedAt: Date;
   likes?: number;
@@ -38,9 +38,17 @@ export type ArticleFormData = {
   images: File[];
 };
 
+export type ArticleEditFormData = {
+  title: string;
+  content: string;
+  images: File[];
+  existingImages?: string[];
+  newImages?: File[];
+};
+
 export type ArticleFormProps = {
   initialData?: Partial<ArticleFormData>;
-  onSubmit: (articleData: ArticleFormData) => void;
+  onSubmit: (articleData: ArticleEditFormData) => void;
   submitText: string;
 };
 

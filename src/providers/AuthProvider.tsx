@@ -93,9 +93,9 @@ export default function AuthProvider({
       const user = await userService.getMe();
       setUser(user);
       setupRefreshToken(accessToken);
-      // console.log("🟢 토큰 갱신 등록 성공", accessToken);
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다:", error);
+      logout();
       setUser(null);
     }
   };

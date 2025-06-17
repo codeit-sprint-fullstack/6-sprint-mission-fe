@@ -30,6 +30,8 @@ export function SignInForm() {
     message: "",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const isFormValid =
     form.email &&
     form.password &&
@@ -64,7 +66,7 @@ export function SignInForm() {
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const isEmailValid = validateEmail();
     const isPasswordValid = validatePassword();
 
@@ -86,6 +88,8 @@ export function SignInForm() {
       } else if (errorMessage === "비밀번호가 일치하지 않습니다.") {
         setErrors({ ...errors, password: "비밀번호가 일치하지 않습니다." });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -126,13 +130,22 @@ export function SignInForm() {
         <button
           type="submit"
           className={`h-[56px] rounded-[40px] text-[1.2rem] ${
-            isFormValid
+            isFormValid && !isLoading
               ? "cursor-pointer bg-[#3692FF] text-[#f3f4f6]"
               : "cursor-not-allowed bg-[#9ca3af] text-[#f3f4f6]"
           } transition-colors duration-300`}
-          disabled={!isFormValid}
+          disabled={!isFormValid || isLoading}
         >
-          로그인
+          {isLoading ? (
+            <div className="flex items-center justify-center gap-2">
+              로그인 중...
+              <div className="flex justify-center items-center">
+                <div className="w-6 h-6 border-4 border-gray-300 border-t-transparent rounded-full animate-spin" />
+              </div>
+            </div>
+          ) : (
+            "로그인"
+          )}
         </button>
       </form>
 

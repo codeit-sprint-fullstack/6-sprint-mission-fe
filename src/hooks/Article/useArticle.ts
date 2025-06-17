@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { articlesService } from "../../api/articles";
-import { Article } from "@/types/article";
+import { Article, ArticleFormData } from "@/types/article";
 
 export function useArticle(articleId: Article["id"]) {
   const [article, setArticle] = useState(null);
@@ -35,7 +35,7 @@ export function useArticle(articleId: Article["id"]) {
 
   // 게시글 수정
   const updateArticle = useCallback(
-    async (articleData: Pick<Article, "title" | "content" | "images">) => {
+    async (articleData: ArticleFormData) => {
       if (!articleId) return;
 
       try {

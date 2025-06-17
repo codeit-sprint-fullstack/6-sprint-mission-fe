@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation"; // ✅ 추가
 import CommentSection from "@/components/comment/CommentSection";
 import ProductOverview from "./_components/ProductOverview";
-import { productsService } from "@/api/products.js";
+import { productsService } from "@/api/products";
 import { useAuth } from "@/providers/AuthProvider";
 
 export default function ItemDetailPage() {
@@ -62,7 +62,7 @@ export default function ItemDetailPage() {
   return (
     <section className="flex items-center justify-center">
       <div className="flex w-full max-w-[1200px] flex-col px-6 py-6">
-        <ProductOverview product={productDetail} user={user} />
+        <ProductOverview product={productDetail} user={user!} />
         <CommentSection type="products" parentId={id as string} user={user!} />
       </div>
     </section>

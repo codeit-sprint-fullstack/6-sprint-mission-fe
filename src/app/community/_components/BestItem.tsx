@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Article } from "@/types/article";
 
 export default function BestItem({ article }: { article: Article }) {
+  console.log("article", article);
+
   // 데이터가 없을 경우를 대비한 기본값 처리
   const title = article.title || "제목 없음";
   const likeCount = article.likes || 0;
@@ -19,8 +21,8 @@ export default function BestItem({ article }: { article: Article }) {
 
   // article.image 배열에서 첫 번째 이미지를 썸네일로 사용
   const thumbnailSrc =
-    article?.image && article.image.length > 0
-      ? `${process.env.NEXT_PUBLIC_API_URL}${article.image[0]}`
+    article?.images && article.images.length > 0
+      ? `${process.env.NEXT_PUBLIC_API_URL}${article.images[0]}`
       : "/img/community_item.png";
 
   return (

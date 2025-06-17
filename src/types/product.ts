@@ -3,7 +3,7 @@ export type Product = {
   name: string;
   description: string;
   price: number;
-  image: string[];
+  images: string[];
   likes: number;
   createdAt: string;
   updatedAt: string;
@@ -41,6 +41,8 @@ export type ProductFormData = {
   price: number;
   tags: string[];
   images: File[];
+  existingImages?: string[];
+  newImages?: File[];
 };
 
 export type ProductEditFormData = {
@@ -55,7 +57,7 @@ export type ProductEditFormData = {
 
 export type ProductFormProps = {
   initialData?: Partial<ProductFormData>;
-  onSubmit: (productData: ProductFormData) => void;
+  onSubmit?: (productData: ProductFormData) => void;
   submitText: string;
 };
 

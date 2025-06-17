@@ -14,13 +14,13 @@ const Product = ({
   name,
   price,
   likes = 0,
-  image,
+  images,
   isLiked,
   author,
 }: Omit<Product, "createdAt" | "updatedAt"> & { height: number }) => {
   const [imgSrc, setImgSrc] = useState(
-    image && image.length > 0
-      ? `${process.env.NEXT_PUBLIC_API_URL}${image[0]}`
+    images && images.length > 0
+      ? `${process.env.NEXT_PUBLIC_API_URL}${images[0]}`
       : FALLBACK_IMAGE
   );
 

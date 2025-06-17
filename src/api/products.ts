@@ -39,7 +39,6 @@ export const productsService = {
 
       return result;
     } else {
-      console.log("accessToken 없음");
       const result = await defaultFetch(
         `/products?page=${page - 1}&pageSize=${pageSize}&orderBy=${orderBy}&keyWord=${keyWord}`
       );

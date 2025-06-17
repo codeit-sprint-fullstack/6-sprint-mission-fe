@@ -2,7 +2,23 @@
 
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
-export default function Pagination({ pagination, loading }) {
+type Pagination = {
+  startPage: number;
+  endPage: number;
+  currentPage: number;
+  totalPages: number;
+  goToPrevPage: () => void;
+  goToNextPage: () => void;
+  goToPage: (page: number) => void;
+};
+
+export default function Pagination({
+  pagination,
+  loading,
+}: {
+  pagination: Pagination;
+  loading: boolean;
+}) {
   const getPageNumbers = () => {
     const pages = [];
     for (let i = pagination.startPage; i <= pagination.endPage; i++) {

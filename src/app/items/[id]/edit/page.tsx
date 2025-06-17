@@ -3,7 +3,7 @@
 import ProductForm from "@/app/items/registration/_components/ProductForm";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { productsService } from "@/api/products.js";
+import { productsService } from "@/api/products";
 import { ProductFormData, ProductEditFormData } from "@/types/product";
 
 export default function EditPage() {
@@ -17,15 +17,14 @@ export default function EditPage() {
     const fetchProduct = async () => {
       try {
         const response = await productsService.getDetailProduct(id as string);
-        const data = response.data;
 
         // API에서 반환된 데이터에서 필요한 필드만 추출
         const formattedProduct: ProductFormData = {
-          name: data.name || "",
-          description: data.description || "",
-          price: data.price || "",
-          tags: data.tags || [],
-          images: data.image || [], // image → images로 수정
+          name: response.name || "",
+          description: response.description || "",
+          price: response.price || "",
+          tags: response.tags || [],
+          images: response.images || [], // image → images로 수정
         };
 
         setProduct(formattedProduct);

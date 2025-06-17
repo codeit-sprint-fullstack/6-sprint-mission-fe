@@ -1,6 +1,6 @@
 "use client";
 
-import { Article } from "@/types/article";
+import { Article, ArticleFormData } from "@/types/article";
 import { defaultFetch, tokenFetch } from "./common/fetchClient";
 import { Comment } from "@/types/comment";
 
@@ -36,11 +36,7 @@ export const articlesService = {
     await tokenFetch(`/articles/${articleId}`),
 
   // 게시글 작성
-  createArticle: async ({
-    title,
-    content,
-    images,
-  }: Pick<Article, "title" | "content" | "images">) => {
+  createArticle: async ({ title, content, images }: ArticleFormData) => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
@@ -62,26 +58,8 @@ export const articlesService = {
     });
   },
 
-  // 게시글 수정
-  updateArticle: async (
-    articleId: Article["id"],
-    { title, content, images }: Pick<Article, "title" | "content" | "images">
-  ) => {
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-
-    // 이미지가 배열인 경우 여러 장 처리
-    if (images && images.length > 0) {
-      images.forEach((image) => {
-        formData.append("images", image);
-      });
-    }
-    // 단일 이미지인 경우
-    else if (images && !Array.isArray(images)) {
-      formData.append("images", images);
-    }
-
+  // 게시글 수정 - FormData를 직접 받도록 수정
+  updateArticle: async (articleId: Article["id"], formData: FormData) => {
     return await tokenFetch(`/articles/${articleId}`, {
       method: "PATCH",
       body: formData,

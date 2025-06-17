@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { FaEllipsisV } from "react-icons/fa";
-import ConfirmModal from "@/components/common/ConfirmModal";
+import ConfirmModal from "@/components/modal/ConfirmModal";
 import { formatDate } from "@/utils/format";
 import { User } from "@/types/user";
 import { Comment } from "@/types/comment";

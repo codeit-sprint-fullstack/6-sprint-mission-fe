@@ -1,6 +1,6 @@
 "use client";
 
-import EmptyComments from "@/app/community/[id]/_components/EmptyComments";
+import EmptyComments from "@/components/comment/EmptyComments";
 import CommentItem from "./CommentItem";
 import LoadingState from "@/components/common/LoadingState";
 import { User } from "@/types/user";

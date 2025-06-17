@@ -21,8 +21,8 @@ export default function CommonItem({ article }: { article: Article }) {
 
   // article.image 배열에서 첫 번째 이미지를 썸네일로 사용
   const thumbnailSrc =
-    article.image && article.image.length > 0
-      ? `${process.env.NEXT_PUBLIC_API_URL}${article.image[0]}`
+    article?.images && article.images.length > 0
+      ? `${process.env.NEXT_PUBLIC_API_URL}${article.images[0]}`
       : "/img/community_item.png";
 
   return (

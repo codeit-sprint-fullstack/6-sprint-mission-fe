@@ -6,7 +6,7 @@ const baseURL = process.env.NEXT_PUBLIC_API_URL;
  * 기본 fetch 클라이언트 - 토큰 인증이 필요 없는 일반 요청용
  * 토큰 유무로 수정하기
  */
-export const defaultFetch = async (url, options = {}) => {
+export const defaultFetch = async (url: string, options: RequestInit = {}) => {
   const defaultOptions = {
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export const defaultFetch = async (url, options = {}) => {
       ...defaultOptions.headers,
       ...options.headers,
     },
-  };
+  } as RequestInit;
 
   try {
     const response = await fetch(`${baseURL}${url}`, mergedOptions);
@@ -34,7 +34,10 @@ export const defaultFetch = async (url, options = {}) => {
 
     return data;
   } catch (error) {
-    console.error("fetch 요청 중 에러:", error.message);
+    console.error(
+      "fetch 요청 중 에러:",
+      error instanceof Error ? error.message : "알 수 없는 에러"
+    );
     throw error;
   }
 };
@@ -45,7 +48,7 @@ export const defaultFetch = async (url, options = {}) => {
 
 // 서버 클라이언트에선 로컬에 접속이 불가능함 그런데 클라이언트로 바꾸면
 
-export const tokenFetch = async (url, options = {}) => {
+export const tokenFetch = async (url: string, options: RequestInit = {}) => {
   // 🔐 accessToken 가져오기
   const accessToken = localStorage.getItem("accessToken");
 
@@ -72,9 +75,9 @@ export const tokenFetch = async (url, options = {}) => {
       // FormData일 경우 Content-Type을 설정하지 않음
       ...(!isFormData && options.headers),
     },
-  };
+  } as RequestInit;
 
-  let response = await fetch(`${baseURL}${url}`, mergedOptions);
+  const response = await fetch(`${baseURL}${url}`, mergedOptions);
 
   if (!response.ok) {
     // 응답 본문을 가져오려고 시도
@@ -88,7 +91,11 @@ export const tokenFetch = async (url, options = {}) => {
         throw new Error(errorText || `API 에러: ${response.status}`);
       }
     } catch (error) {
-      throw new Error(`API 에러: ${response.status} - ${error.message}`);
+      throw new Error(
+        `API 에러: ${response.status} - ${
+          error instanceof Error ? error.message : "알 수 없는 에러"
+        }`
+      );
     }
   }
 
