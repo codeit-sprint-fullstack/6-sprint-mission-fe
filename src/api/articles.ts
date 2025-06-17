@@ -1,6 +1,6 @@
 "use client";
 
-import { Article, ArticleFormData } from "@/types/article";
+import { Article, ArticleEditFormData, ArticleFormData } from "@/types/article";
 import { defaultFetch, tokenFetch } from "./common/fetchClient";
 import { Comment } from "@/types/comment";
 
@@ -59,10 +59,13 @@ export const articlesService = {
   },
 
   // 게시글 수정 - FormData를 직접 받도록 수정
-  updateArticle: async (articleId: Article["id"], formData: FormData) => {
+  updateArticle: async (
+    articleId: Article["id"],
+    formData: ArticleEditFormData
+  ) => {
     return await tokenFetch(`/articles/${articleId}`, {
       method: "PATCH",
-      body: formData,
+      body: JSON.stringify(formData),
     });
   },
 

@@ -44,8 +44,7 @@ export default function Pagination({
     };
   };
 
-  const { pageNumbers, startPage, endPage, currentGroup, lastGroup } =
-    getPageNumbers();
+  const { pageNumbers } = getPageNumbers();
 
   const goToPage = (page: number) => {
     if (page < 1 || page > totalPage || page === currentPage) return;
@@ -72,20 +71,6 @@ export default function Pagination({
 
   const goToLastPage = () => {
     setCurrentPage(totalPage);
-  };
-
-  // 이전 페이지 그룹으로 이동
-  const goToPrevGroup = () => {
-    if (startPage > 1) {
-      setCurrentPage(startPage - 1);
-    }
-  };
-
-  // 다음 페이지 그룹으로 이동
-  const goToNextGroup = () => {
-    if (endPage < totalPage) {
-      setCurrentPage(endPage + 1);
-    }
   };
 
   return (

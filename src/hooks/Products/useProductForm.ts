@@ -89,7 +89,7 @@ export function useProductForm({
     );
     setErrors(newErrors);
     setIsFormValid(isValid);
-  }, [formData]);
+  }, [formData, errors]);
 
   // 컴포넌트 언마운트 시 메모리 정리
   useEffect(() => {

@@ -59,7 +59,7 @@ export default function EditPage() {
       }
 
       // FormData를 사용하여 API 호출
-      await articlesService.updateArticle(id as string, form);
+      await articlesService.updateArticle(id as string, formData);
 
       router.push(`/community/${id}`);
     } catch (error) {

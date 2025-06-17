@@ -15,7 +15,6 @@ export default function ArticleSection({ article }: { article: Article }) {
   const router = useRouter();
   const { user } = useAuth();
   const [showOptions, setShowOptions] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [likes, setLikes] = useState(article?.likes || 0);
   const [isLiked, setIsLiked] = useState(article?.isLiked);
@@ -32,13 +31,11 @@ export default function ArticleSection({ article }: { article: Article }) {
   // 게시글 삭제 실행
   const executeDelete = async () => {
     try {
-      setIsDeleting(true);
       await deleteArticle();
       router.push("/community"); // 목록 페이지로 이동
     } catch (err) {
       console.error("게시글 삭제 실패:", err);
     } finally {
-      setIsDeleting(false);
     }
   };
 
