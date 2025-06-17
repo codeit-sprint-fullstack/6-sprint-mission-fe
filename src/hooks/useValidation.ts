@@ -15,7 +15,10 @@ const errMsg = {
   tags: "5글자 이내로 입력해주세요.",
 };
 
-export default function useValidation() {
+export default function useValidation(): [
+  TUseValidation,
+  (e: ChangeEvent<HTMLInputElement>) => void
+] {
   const [errorMsg, setErrorMsg] = useState<TUseValidation>({
     name: "",
     description: "",
