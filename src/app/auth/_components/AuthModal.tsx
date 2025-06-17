@@ -1,11 +1,17 @@
 import clsx from "clsx";
 import React from "react";
 
+interface IAuthModalProps {
+  isModalVisible: boolean;
+  modalMessage: string;
+  handleModal: () => void;
+}
+
 export default function AuthModal({
   isModalVisible,
   modalMessage,
   handleModal,
-}) {
+}: IAuthModalProps) {
   return (
     <div
       className={clsx(

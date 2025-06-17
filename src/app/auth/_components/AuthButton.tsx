@@ -1,7 +1,17 @@
 import React from "react";
 import clsx from "clsx";
 
-export default function AuthButton({ isActive, isLoading, type }) {
+interface IAuthButtonProps {
+  type: string;
+  isActive: boolean;
+  isLoading: boolean;
+}
+
+export default function AuthButton({
+  type,
+  isActive,
+  isLoading,
+}: IAuthButtonProps) {
   return (
     <button
       className={clsx(

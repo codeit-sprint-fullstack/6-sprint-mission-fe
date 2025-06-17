@@ -2,17 +2,24 @@
 
 import AuthInput from "./AuthInput";
 import AuthButton from "./AuthButton";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import AuthModal from "./AuthModal";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/providers/AuthProvider";
+import { useAuth } from "@/contexts/AuthContext";
+
+type TValidatedValues = {
+  email: string;
+  nickname: string;
+  password: string;
+  passwordCheck: string;
+};
 
 export default function SignUp() {
-  const [isActive, setIsActive] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [validatedValues, setValidatedValues] = useState({
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
+  const [validatedValues, setValidatedValues] = useState<TValidatedValues>({
     email: "",
     nickname: "",
     password: "",
@@ -24,7 +31,7 @@ export default function SignUp() {
   const { email, nickname, password, passwordCheck } = validatedValues;
 
   // 회원가입
-  const handleSignUp = async (e) => {
+  const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -34,7 +41,9 @@ export default function SignUp() {
       setModalMessage("가입 완료되었습니다.");
       setIsModalVisible(true);
     } catch (e) {
-      setModalMessage(e.message);
+      if (e instanceof Error) {
+        setModalMessage(e.message);
+      }
       setIsModalVisible(true);
     }
   };
@@ -49,7 +58,7 @@ export default function SignUp() {
   }, [validatedValues]);
 
   // 유효성 검사 통과한 값 저장
-  const saveValidatedValue = (type, value) => {
+  const saveValidatedValue = (type: string, value: string): void => {
     setValidatedValues((prevValue) => ({ ...prevValue, [type]: value }));
   };
 

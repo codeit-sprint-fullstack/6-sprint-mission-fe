@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import EyeToggle from "./EyeToggle";
 import clsx from "clsx";
 
@@ -47,32 +47,48 @@ const PLACEHOLDER_BY_TYPE = {
   passwordCheck: "비밀번호를 다시 한 번 입력해주세요",
 };
 
+type TAuthInputType = "email" | "nickname" | "password" | "passwordCheck";
+
+interface IAuthInputProps {
+  type: TAuthInputType;
+  isLoginFail?: boolean | null;
+  validatedValues: {
+    email: string;
+    password: string;
+  };
+  saveValidatedValue: (type: string, value: string) => void;
+}
+
 export default function AuthInput({
   type,
-  isLoginFail,
+  isLoginFail = null,
   validatedValues,
   saveValidatedValue,
-}) {
-  const [inputValue, setInputValue] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+}: IAuthInputProps) {
+  const [inputValue, setInputValue] = useState<string>("");
+  const [errorMsg, setErrorMsg] = useState<string>("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   // 타입 별 input 타입 지정
   const INPUT_TYPE_BY_TYPE = {
     email: "email",
+    nickname: "text",
     password: isPasswordVisible ? "text" : "password",
     passwordCheck: isPasswordVisible ? "text" : "password",
   };
 
   // 로그인 실패 시 에러 메시지
   useEffect(() => {
-    if (isLoginFail) {
+    if (type !== "nickname" && isLoginFail) {
       setErrorMsg(ERROR_MESSAGE[type].fail);
     }
   }, [isLoginFail]);
 
   // 이메일, 비밀번호 에러 메시지
-  const checkValidate = (e, type) => {
+  const checkValidate = (
+    e: ChangeEvent<HTMLInputElement>,
+    type: TAuthInputType
+  ) => {
     const { value } = e.target;
     setInputValue(value);
 
@@ -98,7 +114,7 @@ export default function AuthInput({
     }
 
     // 유효성 검사 실패
-    if (!REGEX[type].test(value)) {
+    if (type !== "passwordCheck" && !REGEX[type].test(value)) {
       saveValidatedValue(type, "");
       return setErrorMsg(ERROR_MESSAGE[type].invalid);
     }

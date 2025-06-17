@@ -2,19 +2,23 @@
 
 import AuthInput from "./AuthInput";
 import AuthButton from "./AuthButton";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import AuthModal from "./AuthModal";
-import { authService } from "@/service/authService";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/providers/AuthProvider";
+import { useAuth } from "@/contexts/AuthContext";
+
+type TValidatedValues = {
+  email: string;
+  password: string;
+};
 
 export default function Login() {
-  const [isActive, setIsActive] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoginFail, setIsLoginFail] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [validatedValues, setValidatedValues] = useState({
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoginFail, setIsLoginFail] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
+  const [validatedValues, setValidatedValues] = useState<TValidatedValues>({
     email: "",
     password: "",
   });
@@ -24,7 +28,7 @@ export default function Login() {
   const { email, password } = validatedValues;
 
   // 로그인
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -34,7 +38,9 @@ export default function Login() {
 
       router.push("/products");
     } catch (e) {
-      setModalMessage(e.message);
+      if (e instanceof Error) {
+        setModalMessage(e.message);
+      }
       setIsModalVisible(true);
       setIsLoginFail(true);
     }
@@ -50,7 +56,7 @@ export default function Login() {
   }, [validatedValues]);
 
   // 유효성 검사 통과한 값 저장
-  const saveValidatedValue = (type, value) => {
+  const saveValidatedValue = (type: string, value: string): void => {
     setValidatedValues((prevValue) => ({ ...prevValue, [type]: value }));
   };
 
@@ -83,12 +89,7 @@ export default function Login() {
           validatedValues={validatedValues}
           saveValidatedValue={saveValidatedValue}
         />
-        <AuthButton
-          type="로그인"
-          isActive={isActive}
-          isLoading={isLoading}
-          validatedValues={validatedValues}
-        />
+        <AuthButton type="로그인" isActive={isActive} isLoading={isLoading} />
       </form>
     </>
   );

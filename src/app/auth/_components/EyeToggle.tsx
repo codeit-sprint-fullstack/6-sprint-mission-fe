@@ -1,15 +1,18 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import ic_eye_off from "@/assets/images/auth/ic_eye_off.svg";
 import ic_eye_on from "@/assets/images/auth/ic_eye_on.svg";
 import clsx from "clsx";
 
+interface IEyeToggleProps {
+  handlePasswordVisible: () => void;
+  isPasswordVisible: boolean;
+}
+
 export default function EyeToggle({
   handlePasswordVisible,
   isPasswordVisible,
-}) {
+}: IEyeToggleProps) {
   return (
     <>
       <div className="absolute w-[24px] h-[24px] top-[16px] right-[24px]">
