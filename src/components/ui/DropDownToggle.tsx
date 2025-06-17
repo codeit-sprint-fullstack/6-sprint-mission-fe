@@ -1,18 +1,25 @@
-"use client";
-
 import React from "react";
 import ic_setting from "@/assets/images/community/ic_setting.svg";
 import clsx from "clsx";
 import Image from "next/image";
 
+interface IDropDownToggleProps {
+  page?: string;
+  handleEdit: () => void;
+  handleDelete: () => void;
+  handleDropDownToggle: () => void;
+  handleDropDownClose: () => void;
+  isDropDownVisible: boolean;
+}
+
 export default function DropDownToggle({
-  page,
+  page = undefined,
   handleEdit,
   handleDelete,
   handleDropDownToggle,
   handleDropDownClose,
   isDropDownVisible,
-}) {
+}: IDropDownToggleProps) {
   return (
     <>
       <button
