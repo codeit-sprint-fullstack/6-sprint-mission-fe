@@ -1,6 +1,6 @@
 "use client";
 
-import { RemoveIcon } from "@/assets/svgs";
+import RemoveIcon from "@/assets/svgs/ic_X.svg";
 import React, { useState } from "react";
 
 interface TagProps {
@@ -60,7 +60,7 @@ function Tag({ tags, setTags, tagInput, setTagInput }: TagProps) {
           >
             <span>{tag}</span>
             <RemoveIcon
-              aria-label="태그 삭제"
+              alt="태그 삭제"
               onClick={() => removeTag(index)}
               className="cursor-pointer"
             />

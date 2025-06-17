@@ -1,4 +1,4 @@
-import { UserLayout } from "@/components/common/Layout";
+import { UserLayout } from "@/components/layout/Layout";
 import { ChildrenProps } from "@/types";
 import React from "react";
 

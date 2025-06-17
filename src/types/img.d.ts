@@ -1,8 +1,7 @@
 declare module "*.svg" {
   import { FC, SVGProps } from "react";
-  const ReactComponent: FC<SVGProps<SVGSVGElement>>;
-  export { ReactComponent };
-  export default ReactComponent;
+  const SVG: FC<SVGProps<SVGSVGElement>>;
+  export default SVG;
 }
 
 // URL로 사용하는 경우

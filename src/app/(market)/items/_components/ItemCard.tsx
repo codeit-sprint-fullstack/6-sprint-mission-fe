@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
+import UnheartIcon from "@/assets/svgs/ic_unheart.svg";
 import { Product } from "@/types";
-import { UnheartIcon } from "@/assets/svgs";
 
 interface ItemCardProps {
   name: Product["name"];
@@ -25,7 +25,7 @@ function ItemCard({ name, price, image, favoriteCount }: ItemCardProps) {
         <h2 className="text-sm">{name}</h2>
         <span className="font-bold">{price}원</span>
         <div className="flex gap-1">
-          <UnheartIcon aria-label="좋아요 아이콘" className="h-4 w-4" />
+          <UnheartIcon alt="좋아요 아이콘" className="h-4 w-4" />
           <div className="text-xs font-medium text-gray-600">{favoriteCount}</div>
         </div>
       </div>

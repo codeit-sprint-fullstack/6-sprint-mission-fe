@@ -6,15 +6,15 @@ import React from "react";
 interface DropdownProps {
   items: DropdownItem[];
   onSelect: (value: DropdownItem["value"]) => void;
-  isSort?: boolean;
+  type?: "sort" | "edit";
 }
 
-function Dropdown({ items, onSelect, isSort }: DropdownProps) {
+function Dropdown({ items, onSelect, type }: DropdownProps) {
   return (
     <ul
       className={`absolute z-1 cursor-pointer overflow-hidden border-1 border-gray-200 bg-white ${
-        isSort
-          ? "right-4 mt-1 w-[130px] rounded-xl md:right-6 lg:right-[12rem]"
+        type === "sort"
+          ? "right-0 mt-1 w-[130px] rounded-xl"
           : "right-[21px] mt-[10px] w-[102px] rounded-lg md:w-[139px] lg:right-[12rem]"
       }`}
     >

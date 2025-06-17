@@ -1,14 +1,11 @@
 "use client";
 
-import { BottomBanner, TopBanner } from "@/assets/svgs";
+import BottomBanner from "@/assets/svgs/home_bottom.svg";
+import TopBanner from "@/assets/svgs/home_top.svg";
 import Link from "next/link";
 import React from "react";
 
-interface BannerProps {
-  isTop?: boolean;
-}
-
-function Banner({ isTop }: BannerProps) {
+export default function Banner({ isTop }: { isTop?: boolean }) {
   return (
     <div
       className={`flex h-fit max-h-[540px] flex-col items-center justify-between bg-[#CFE5FF] md:h-[771px] lg:h-[540px] ${
@@ -29,10 +26,7 @@ function Banner({ isTop }: BannerProps) {
               </button>
             </Link>
           </div>
-          <TopBanner
-            aria-label="상단 배너"
-            className="mt-33 md:w-[744px] lg:h-[340px] lg:w-[746px]"
-          />
+          <TopBanner alt="상단 배너" className="mt-33 md:w-[744px] lg:h-[340px] lg:w-[746px]" />
         </>
       ) : (
         <>
@@ -40,7 +34,7 @@ function Banner({ isTop }: BannerProps) {
             믿을 수 있는 <br /> 판다마켓 중고 거래
           </h1>
           <BottomBanner
-            aria-label="하단 배너"
+            alt="하단 배너"
             className="mt-[131px] md:w-[744px] lg:h-[340px] lg:w-[746px]"
           />
         </>
@@ -48,5 +42,3 @@ function Banner({ isTop }: BannerProps) {
     </div>
   );
 }
-
-export default Banner;

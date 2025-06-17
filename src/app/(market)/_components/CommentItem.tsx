@@ -3,14 +3,14 @@
 import { deleteComment, updateComment } from "@/lib/actions/comment";
 import Dropdown from "@/components/ui/Dropdown";
 import Modal from "@/components/ui/Modal";
-
 import { formatUpdatedAt } from "@/lib/utils/dateUtils";
-import Image from "next/image";
 import React, { useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import { EDIT_OPTIONS } from "@/constant";
 import { Comment } from "@/types";
 import { CommentProps } from "./Comment.types";
+import EditIcon from "@/assets/svgs/ic_kebab.svg";
+import ProfileIcon from "@/assets/svgs/ic_profile.svg";
 
 interface CommentItemProps extends CommentProps {
   comment: Comment;
@@ -84,14 +84,9 @@ function CommentItem({ comment, setComments, getCommentList }: CommentItemProps)
           )}
           <div>
             {user?.id === comment.writer.id && (
-              <Image
-                src="/assets/icon/ic_kebab.svg"
-                alt="편집 아이콘"
-                width={24}
-                height={24}
-                className="cursor-pointer"
-                onClick={() => setIsDropdownOpen((prev) => !prev)}
-              />
+              <button onClick={() => setIsDropdownOpen((prev) => !prev)}>
+                <EditIcon alt="편집 아이콘" />
+              </button>
             )}
             {isDropdownOpen && <Dropdown items={EDIT_OPTIONS} onSelect={handleEditComment} />}
           </div>
@@ -115,12 +110,7 @@ function CommentItem({ comment, setComments, getCommentList }: CommentItemProps)
           )}
         </div>
         <div className="mb-2 flex h-10 items-start gap-2">
-          <Image
-            src="/assets/icon/ic_profile.svg"
-            alt="기본 프로필 아이콘"
-            width={32}
-            height={32}
-          />
+          <ProfileIcon alt="기본 프로필" />
           <div>
             <div className="mb-1 text-xs text-gray-600">{comment.writer.nickname}</div>
             <div className="text-xs text-gray-400">{timestamp}</div>

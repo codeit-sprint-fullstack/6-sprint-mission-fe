@@ -1,6 +1,9 @@
 "use client";
 
-import { FacebookIcon, InstagramIcon, TwitterIcon, YoutubeIcon } from "@/assets/svgs";
+import FacebookIcon from "@/assets/svgs/facebook.svg";
+import InstagramIcon from "@/assets/svgs/instagram.svg";
+import TwitterIcon from "@/assets/svgs/twitter.svg";
+import YoutubeIcon from "@/assets/svgs/youtube.svg";
 import Link from "next/link";
 
 function Footer() {
@@ -18,16 +21,16 @@ function Footer() {
         </div>
         <div className="flex gap-3">
           <Link href="https://facebook.com" target="_blank">
-            <FacebookIcon aria-label="페이스북 아이콘" />
+            <FacebookIcon alt="페이스북 아이콘" />
           </Link>
           <Link href="https://x.com" target="_blank">
-            <TwitterIcon aria-label="트위터 아이콘" />
+            <TwitterIcon alt="트위터 아이콘" />
           </Link>
           <Link href="https://youtube.com" target="_blank">
-            <YoutubeIcon aria-label="유튜브 아이콘" />
+            <YoutubeIcon alt="유튜브 아이콘" />
           </Link>
           <Link href="https://instagram.com" target="_blank">
-            <InstagramIcon aria-label="인스타그램 아이콘" />
+            <InstagramIcon alt="인스타그램 아이콘" />
           </Link>
         </div>
       </div>

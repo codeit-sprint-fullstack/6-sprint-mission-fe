@@ -1,8 +1,7 @@
-import { HomeLayout } from "@/components/common/Layout";
-import Banner from "@/components/ui/Banner";
-import LandingContent from "@/components/ui/LandingContent";
+import { HomeLayout } from "@/components/layout/Layout";
 import { FEATURE_IMG_OPTIONS } from "@/constant";
-
+import Banner from "@/components/landing/Banner";
+import LandingContent from "@/components/landing/LandingContent";
 import React from "react";
 
 function HomePage() {
@@ -13,7 +12,6 @@ function HomePage() {
         <LandingContent
           key={index}
           index={index}
-          src={feature.src}
           alt={feature.alt}
           tag={feature.tag}
           title={feature.title}

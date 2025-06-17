@@ -8,7 +8,8 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Product } from "@/types";
-import { PlusIcon, RemoveIcon } from "@/assets/svgs";
+import PlusIcon from "@/assets/svgs/ic_plus.svg";
+import RemoveIcon from "@/assets/svgs/ic_X.svg";
 
 interface ItemFormProps {
   values: {
@@ -149,7 +150,7 @@ function ItemForm({ values, setValues }: ItemFormProps) {
                 className="flex aspect-square w-[168px] flex-col items-center justify-center gap-3 rounded-xl bg-gray-100 text-gray-400 hover:bg-gray-200 lg:w-[282px]"
                 onClick={handleFileUpload}
               >
-                <PlusIcon aria-label="이미지 등록" />
+                <PlusIcon alt="이미지 등록" />
                 이미지 등록
               </button>
               <input
@@ -174,7 +175,7 @@ function ItemForm({ values, setValues }: ItemFormProps) {
                       className="absolute top-3 right-3"
                       onClick={() => handleFileDelete(index)}
                     >
-                      <RemoveIcon aria-label="이미지 취소" />
+                      <RemoveIcon alt="이미지 취소" />
                     </button>
                   </div>
                 ))}

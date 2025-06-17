@@ -1,8 +1,10 @@
 "use client";
 
-import { Logo, ProfileIcon, TypoLogo } from "@/assets/svgs";
-import { useAuth } from "@/providers/AuthProvider";
+import Logo from "@/assets/svgs/logo.svg";
+import TypoLogo from "@/assets/svgs/logo_typo.svg";
+import ProfileIcon from "@/assets/svgs/ic_profile.svg";
 import Link from "next/link";
+import { useAuth } from "@/providers/AuthProvider";
 import { usePathname } from "next/navigation";
 
 function Header() {
@@ -14,9 +16,9 @@ function Header() {
       <div className="flex items-center gap-4 md:gap-[35px]">
         <Link href="/">
           {/* 모바일 */}
-          <TypoLogo aria-label="판다마켓 로고" className="blcok md:hidden" />
+          <TypoLogo alt="판다마켓 로고" className="blcok md:hidden" />
           {/* 태블릿 이상 */}
-          <Logo aria-label="판다마켓 로고" className="hidden h-[51px] w-[153px] md:block" />
+          <Logo alt="판다마켓 로고" className="hidden h-[51px] w-[153px] md:block" />
         </Link>
         {!(pathname === "/") && (
           <div className="mr-[23px] flex gap-2 font-bold text-gray-600 md:gap-[30px] md:text-[18px]">
@@ -33,7 +35,7 @@ function Header() {
         <div className="flex items-center">
           <Link href="/me">
             <button>
-              <ProfileIcon aria-label="프로필" />
+              <ProfileIcon alt="프로필" />
             </button>
           </Link>
           <span className="ml-[6px] hidden text-lg lg:block">{user.nickname}</span>

@@ -1,6 +1,7 @@
 import React from "react";
 import CommentItem from "./CommentItem";
-import Image from "next/image";
+import InqueryEmpty from "@/assets/svgs/inquiry_empty.svg";
+import ReplyEmpty from "@/assets/svgs/reply_empty.svg";
 import { Comment } from "@/types";
 import { CommentProps } from "./Comment.types";
 
@@ -14,21 +15,9 @@ function CommentList({ comments, setComments, getCommentList, type }: CommentLis
     return (
       <div className="flex flex-col items-center text-center text-gray-400">
         {type === "product" ? (
-          <Image
-            src="/assets/img/inquiry_empty.svg"
-            alt="문의 없음 이미지"
-            width={140}
-            height={140}
-            className="mb-2"
-          />
+          <InqueryEmpty alt="문의 없음 이미지" className="mb-2" />
         ) : (
-          <Image
-            src="/assets/img/reply_empty.svg"
-            alt="댓글 없음 이미지"
-            width={140}
-            height={140}
-            className="mb-4"
-          />
+          <ReplyEmpty alt="댓글 없음 이미지" className="mb-2" />
         )}
         {type === "product" ? (
           <p>아직 문의가 없어요</p>
