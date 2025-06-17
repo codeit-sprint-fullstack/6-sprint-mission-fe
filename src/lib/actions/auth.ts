@@ -4,42 +4,36 @@ import { BASE_URL } from "@/constant";
 import { cookies } from "next/headers";
 
 // 로그인
-export async function loginAction({ formData }: { formData: FormData }) {
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const cookieStore = await cookies();
-
+export async function loginAction({ email, password }: { email: string; password: string }) {
   try {
     const res = await fetch(`${BASE_URL}/auth/signIn`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
-      credentials: "include",
       cache: "no-store",
     });
 
-    const data = await res.json();
-
     if (!res.ok) {
+      const data = await res.json();
       return data;
     }
+    const setCookieHeader = res.headers.get("set-cookie") ?? "";
+    const cookieParts = setCookieHeader.split(", ").flatMap((part) => part.split(","));
+    const accessTokenValue = cookieParts.find((part) => part.startsWith("accessToken="));
+    const refreshTokenValue = cookieParts.find((part) => part.startsWith("refreshToken="));
 
-    cookieStore.set("accessToken", data.accessToken, {
-      path: "/",
-      httpOnly: true,
-    });
-    cookieStore.set("refreshToken", data.refreshToken, {
-      path: "/",
-      httpOnly: true,
-    });
+    const cookieStore = await cookies();
 
-    console.log("accessToken, refreshToken 발급");
+    if (accessTokenValue) {
+      const accessToken = accessTokenValue.split(";")[0].split("=")[1];
+      cookieStore.set("accessToken", accessToken, { httpOnly: true });
+    }
+    if (refreshTokenValue) {
+      const refreshToken = refreshTokenValue.split(";")[0].split("=")[1];
+      cookieStore.set("refreshToken", refreshToken, { httpOnly: true });
+    }
 
-    return {
-      success: true,
-      accessToken: data.accessToken,
-      refreshToken: data.refreshToken,
-    };
+    return { success: true };
   } catch (e) {
     console.error("로그인 에러:", e);
     return { error: "서버 내부 오류가 발생했습니다." };
@@ -47,12 +41,17 @@ export async function loginAction({ formData }: { formData: FormData }) {
 }
 
 // 회원가입
-export async function signupAction({ formData }: { formData: FormData }) {
-  const email = formData.get("email");
-  const nickname = formData.get("nickname");
-  const password = formData.get("password");
-  const passwordConfirmation = formData.get("passwordConfirmation");
-
+export async function signupAction({
+  email,
+  nickname,
+  password,
+  passwordConfirmation,
+}: {
+  email: string;
+  nickname: string;
+  password: string;
+  passwordConfirmation: string;
+}) {
   try {
     const res = await fetch(`${BASE_URL}/auth/signUp`, {
       method: "POST",
@@ -62,9 +61,8 @@ export async function signupAction({ formData }: { formData: FormData }) {
     });
 
     const data = await res.json();
-
     if (!res.ok) {
-      return data;
+      return { success: false, message: data.message || "회원가입에 실패했습니다." };
     }
 
     return { success: true, message: "가입이 완료되었습니다." };
@@ -77,7 +75,6 @@ export async function signupAction({ formData }: { formData: FormData }) {
 // 로그아웃
 export async function logoutAction() {
   const cookieStore = await cookies();
-
   cookieStore.delete("accessToken");
   cookieStore.delete("refreshToken");
 
@@ -97,42 +94,31 @@ export async function refreshTokenAction() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Cookie: `refreshToken=${refreshToken}`,
     },
     body: JSON.stringify({ refreshToken }),
-    credentials: "include",
     cache: "no-store",
   });
 
-  const data = await res.json();
-
   if (!res.ok) {
+    const data = await res.json();
     return data;
   }
+  const setCookieHeader = res.headers.get("set-cookie") ?? "";
+  const cookieParts = setCookieHeader.split(", ").flatMap((part) => part.split(","));
+  const accessTokenValue = cookieParts.find((part) => part.startsWith("accessToken="));
+  const refreshTokenValue = cookieParts.find((part) => part.startsWith("refreshToken="));
 
-  cookieStore.set("accessToken", data.accessToken, {
-    path: "/",
-    httpOnly: true,
-  });
-  cookieStore.set("refreshToken", data.refreshToken, {
-    path: "/",
-    httpOnly: true,
-  });
+  if (accessTokenValue) {
+    const accessToken = accessTokenValue.split(";")[0].split("=")[1];
+    cookieStore.set("accessToken", accessToken, { httpOnly: true });
+  }
+  if (refreshTokenValue) {
+    const refreshToken = refreshTokenValue.split(";")[0].split("=")[1];
+    cookieStore.set("refreshToken", refreshToken, { httpOnly: true });
+  }
 
   return {
     success: true,
-    accessToken: data.accessToken,
-    refreshToken: data.refreshToken,
   };
-}
-
-// 클라이언트 재발급 요청 처리
-export async function refreshAccessTokenClient() {
-  try {
-    const result = await refreshTokenAction(); // 서버 쿠키로 갱신
-    if (!result?.accessToken) throw new Error("토큰 재발급 실패");
-    return result;
-  } catch (e) {
-    console.error("refreshAccessTokenClient 실패:", e);
-    return null;
-  }
 }

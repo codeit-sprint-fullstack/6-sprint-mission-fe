@@ -2,15 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { createContext, useContext } from "react";
-import {
-  loginAction,
-  signupAction,
-  logoutAction,
-  refreshAccessTokenClient,
-} from "@/lib/actions/auth";
-import { getUserAction, updateUserAction } from "@/lib/actions/user";
-import { useRouter } from "next/navigation";
+import { loginAction, signupAction, logoutAction } from "@/lib/actions/auth";
+import { usePathname, useRouter } from "next/navigation";
 import { ChildrenProps, User } from "@/types";
+import { userService } from "@/lib/service/userService";
 
 interface AuthContextType {
   login: (email: string, password: string) => Promise<any>;
@@ -22,7 +17,6 @@ interface AuthContextType {
   ) => Promise<any>;
   logout: () => Promise<void>;
   user: User | null;
-  updateUser: (userInfo: Partial<User>) => Promise<void>;
   loading: boolean;
 }
 
@@ -41,20 +35,16 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const router = useRouter();
+  const pathname = usePathname();
 
   const login = async (email: string, password: string) => {
-    const formData = new FormData();
-    formData.set("email", email);
-    formData.set("password", password);
-
-    const result = await loginAction({ formData });
-
-    if (result?.accessToken) {
-      localStorage.setItem("accessToken", result.accessToken);
-      await getUser();
+    const result = await loginAction({ email, password });
+    if (!result.success) {
+      console.error("로그인 실패:", result.error);
+      return result;
     }
-
-    return result;
+    getUser();
+    router.push("/items");
   };
 
   const signup = async (
@@ -63,61 +53,47 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
     password: string,
     passwordConfirmation: string
   ) => {
-    const formData = new FormData();
-    formData.set("email", email);
-    formData.set("nickname", nickname);
-    formData.set("password", password);
-    formData.set("passwordConfirmation", passwordConfirmation);
-
-    const result = await signupAction({ formData });
-    return result;
+    const result = await signupAction({
+      email,
+      nickname,
+      password,
+      passwordConfirmation,
+    });
+    if (!result.success) {
+      return result;
+    }
+    router.push("/login");
   };
 
   const logout = async () => {
     await logoutAction();
-    localStorage.removeItem("accessToken");
     setUser(null);
+    router.push("/login");
   };
 
   const getUser = async () => {
     try {
-      const user = await getUserAction();
+      const user = await userService.getMe();
+      console.log(user);
       setUser(user);
     } catch (error) {
-      console.warn("accessToken 만료, refreshToken으로 재발급 시도");
-      const result = await refreshAccessTokenClient();
-
-      if (result?.accessToken) {
-        try {
-          localStorage.setItem("accessToken", result.accessToken);
-          const user = await getUserAction();
-          setUser(user);
-        } catch (error) {
-          console.error("토큰 재발급 후 유저정보 불러오기 실패", error);
-          await logout();
-          router.push("/login");
-        }
-      } else {
-        console.error("accessToken 재발급 실패");
-        await logout();
-        router.push("/login");
-      }
-    } finally {
-      setLoading(false);
+      console.error("사용자 정보를 가져오는데 실패했습니다.", error);
+      throw error;
     }
   };
 
-  const updateUser = async (userInfo: Partial<User>) => {
-    const updatedUser = await updateUserAction(userInfo);
-    setUser(updatedUser);
-  };
-
   useEffect(() => {
-    getUser();
-  }, []);
+    const excludeRoutes = ["/", "/login", "signup"];
+
+    if (!excludeRoutes.includes(pathname)) {
+      getUser();
+    } else {
+      setLoading(false);
+    }
+  }, [pathname]);
 
   return (
-    <AuthContext.Provider value={{ login, signup, logout, user, updateUser, loading }}>
+    <AuthContext.Provider value={{ login, signup, logout, user, loading }}>
       {children}
     </AuthContext.Provider>
   );

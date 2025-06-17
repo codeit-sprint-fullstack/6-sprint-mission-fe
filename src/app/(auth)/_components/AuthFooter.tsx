@@ -1,9 +1,10 @@
 "use client";
 
-import { GoogleIcon, KakaoIcon } from "@/assets/svgs";
-import { usePathname } from "next/navigation";
+import GoogleIcon from "@/assets/svgs/google.svg";
+import KakaoIcon from "@/assets/svgs/kakao.svg";
 import Link from "next/link";
 import React from "react";
+import { usePathname } from "next/navigation";
 
 function AuthFooter() {
   const pathname = usePathname();
@@ -14,10 +15,10 @@ function AuthFooter() {
         <span className="font-medium">간편 로그인하기</span>
         <div className="flex gap-4">
           <Link href="https://panda-market-api.onrender.com/auth/google">
-            <GoogleIcon aria-label="구글 아이콘" />
+            <GoogleIcon alt="구글 아이콘" />
           </Link>
           <Link href="https://panda-market-api.onrender.com/auth/kakao">
-            <KakaoIcon aria-label="카카오 아이콘" />
+            <KakaoIcon alt="카카오 아이콘" />
           </Link>
         </div>
       </div>
