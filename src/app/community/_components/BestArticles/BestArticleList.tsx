@@ -6,7 +6,7 @@ import BestArticle from "./BestArticle";
 import { useQuery } from "@tanstack/react-query";
 import { postService } from "@/service/postService";
 
-type TParams = {
+type TBestArticleListParams = {
   offset: number;
   limit: number;
   orderBy: string;
@@ -28,7 +28,7 @@ type TBestArticles = {
 };
 
 export default function BestArticleList() {
-  const [params, setParams] = useState<TParams>({
+  const [params, setParams] = useState<TBestArticleListParams>({
     offset: 1,
     limit: 0,
     orderBy: "like",
@@ -43,7 +43,7 @@ export default function BestArticleList() {
     TBestArticles,
     Error,
     TBestArticles,
-    [string, TParams]
+    [string, TBestArticleListParams]
   >({
     queryKey: ["bestArticles", params],
     queryFn: () => postService.getPosts("articles", params),

@@ -6,7 +6,7 @@ import NavBar from "../NavBar/NavBar";
 import { useQuery } from "@tanstack/react-query";
 import { postService } from "@/service/postService";
 
-type TParams = {
+type TArticleListParams = {
   offset: number;
   limit: number;
   orderBy: string;
@@ -28,7 +28,7 @@ type TArticles = {
 };
 
 export default function ArticleList() {
-  const [params, setParams] = useState<TParams>({
+  const [params, setParams] = useState<TArticleListParams>({
     offset: 1,
     limit: 5,
     orderBy: "recent",
@@ -40,7 +40,7 @@ export default function ArticleList() {
     TArticles,
     Error,
     TArticles,
-    [string, TParams]
+    [string, TArticleListParams]
   >({
     queryKey: ["articles", params],
     queryFn: () => postService.getPosts("articles", params),
