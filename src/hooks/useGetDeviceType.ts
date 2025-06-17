@@ -1,4 +1,13 @@
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
+
+type TParams = {
+  offset: number;
+  limit: number;
+  orderBy: string;
+  keyword: string;
+};
+
+type TUseGetDeviceType = "bestArticles" | "bestProducts" | "products";
 
 const LIMIT_BY_TYPE = {
   desktop: {
@@ -18,8 +27,11 @@ const LIMIT_BY_TYPE = {
   },
 };
 
-export default function useGetDeviceType(setParams, type) {
-  const [currentDevice, setCurrentDevice] = useState("");
+export default function useGetDeviceType(
+  setParams: Dispatch<React.SetStateAction<TParams>>,
+  type: TUseGetDeviceType
+) {
+  const [currentDevice, setCurrentDevice] = useState<string>("");
 
   // 반응형 리퀘스트 - 1. 화면 크기 구하기
   useEffect(() => {
@@ -55,7 +67,7 @@ export default function useGetDeviceType(setParams, type) {
   }, []);
 
   // 반응형 리퀘스트 - 2. 화면 크기에 따라 limit 구하기
-  const getLimit = (currentDevice) => {
+  const getLimit = (currentDevice: string) => {
     if (currentDevice === "desktop") {
       return { limit: LIMIT_BY_TYPE.desktop[type] };
     } else if (currentDevice === "tablet") {

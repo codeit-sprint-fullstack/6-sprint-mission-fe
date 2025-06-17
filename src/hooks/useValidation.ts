@@ -1,4 +1,11 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+
+type TUseValidation = {
+  name: string;
+  description: string;
+  price: string;
+  tags: string;
+};
 
 // 에러 메시지
 const errMsg = {
@@ -9,15 +16,16 @@ const errMsg = {
 };
 
 export default function useValidation() {
-  const [errorMsg, setErrorMsg] = useState({
+  const [errorMsg, setErrorMsg] = useState<TUseValidation>({
     name: "",
     description: "",
     price: "",
     tags: "",
   });
 
-  const checkValidation = (e) => {
-    const { id, value } = e.target;
+  const checkValidation = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    const id = e.target.id as keyof TUseValidation;
 
     // 유효성 검사 실패 에러 메시지
     const error = setErrorMsg((prev) => ({ ...prev, [id]: errMsg[id] }));
