@@ -1,13 +1,16 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
+
+interface IRouteGuardProps {
+  children: ReactNode;
+}
 
 const onlyUserRoute = ["/products", "/community"];
-
 const publicRoute = ["/auth"];
 
-export default function RouteGuard({ children }) {
+export default function RouteGuard({ children }: IRouteGuardProps) {
   const path = usePathname();
   const router = useRouter();
 

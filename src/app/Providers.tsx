@@ -1,9 +1,13 @@
-import AuthProvider from "@/providers/AuthProvider";
+import AuthProvider from "../contexts/AuthContext";
 import QueryProvider from "@/providers/QueryProvider";
 import RouteGuard from "@/providers/RouteGuard";
-import React from "react";
+import React, { ReactNode } from "react";
 
-export default function Providers({ children }) {
+interface IProviderProps {
+  children: ReactNode;
+}
+
+export default function Providers({ children }: IProviderProps) {
   return (
     <AuthProvider>
       <QueryProvider>

@@ -1,15 +1,32 @@
 "use client";
 
 import { authService } from "@/service/authService";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
-const { createContext, useContext, useState, useEffect } = require("react");
+interface IAuthProviderProps {
+  children: ReactNode;
+}
 
-const AuthContext = createContext({
-  user: null,
-  signUp: () => {},
-  login: () => {},
-  logout: () => {},
-});
+type TAuthContext = {
+  user: TUser | null;
+  signUp: (email: string, nickname: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+};
+
+type TUser = {
+  id: string;
+  nickname: string;
+  image: string | null;
+};
+
+const AuthContext = createContext<TAuthContext | null>(null);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
@@ -21,8 +38,8 @@ export const useAuth = () => {
   return context;
 };
 
-export default function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+export default function AuthProvider({ children }: IAuthProviderProps) {
+  const [user, setUser] = useState<TUser | null>(null);
 
   // 유저 정보
   const getUser = async () => {
@@ -32,7 +49,11 @@ export default function AuthProvider({ children }) {
   };
 
   // 회원가입
-  const signUp = async (email, nickname, password) => {
+  const signUp = async (
+    email: string,
+    nickname: string,
+    password: string
+  ): Promise<void> => {
     const user = await authService.signUp(email, nickname, password);
 
     localStorage.setItem("accessToken", user.accessToken);
@@ -42,7 +63,7 @@ export default function AuthProvider({ children }) {
   };
 
   // 로그인
-  const login = async (email, password) => {
+  const login = async (email: string, password: string): Promise<void> => {
     const user = await authService.login(email, password);
 
     localStorage.setItem("accessToken", user.accessToken);
@@ -52,7 +73,7 @@ export default function AuthProvider({ children }) {
   };
 
   // 로그아웃
-  const logout = async () => {
+  const logout = async (): Promise<void> => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     setUser(null);
