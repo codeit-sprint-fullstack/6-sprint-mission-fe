@@ -1,12 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import ic_arrow_down from "@/assets/images/common/select-sort/ic_arrow_down.svg";
 import ic_sort from "@/assets/images/common/select-sort/ic_sort.svg";
 import Image from "next/image";
 import clsx from "clsx";
 
-export default function SelectSort({ changeOrderByInParams }) {
+interface ISelectSortProps {
+  changeOrderByInParams: (orderBy: string) => void;
+}
+
+export default function SelectSort({
+  changeOrderByInParams,
+}: ISelectSortProps) {
   const [currentSort, setCurrentSort] = useState("최신순");
   const [isSelectSortBtnVisible, setIsSelectSortBtnVisible] = useState(false);
 
@@ -20,13 +26,16 @@ export default function SelectSort({ changeOrderByInParams }) {
   };
 
   // 정렬 선택
-  const handleSortSelectBtn = (e, orderBy) => {
-    setCurrentSort(e.target.innerText);
+  const handleSortSelectBtn = (
+    e: MouseEvent<HTMLButtonElement>,
+    orderBy: string
+  ): void => {
+    setCurrentSort(e.currentTarget.innerText);
     sortSelect(orderBy);
   };
 
   // 정렬 선택 시 렌더링
-  const sortSelect = (orderBy) => {
+  const sortSelect = (orderBy: string): void => {
     changeOrderByInParams(orderBy);
   };
 

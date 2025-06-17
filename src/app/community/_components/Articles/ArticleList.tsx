@@ -6,8 +6,29 @@ import NavBar from "../NavBar/NavBar";
 import { useQuery } from "@tanstack/react-query";
 import { postService } from "@/service/postService";
 
+type TParams = {
+  offset: number;
+  limit: number;
+  orderBy: string;
+  keyword: string;
+};
+
+type TArticles = {
+  list: {
+    likeCount: number;
+    author: {
+      nickname: string;
+    };
+    id: number;
+    createdAt: Date;
+    title: string;
+    content: string;
+  }[];
+  totalCount: number;
+};
+
 export default function ArticleList() {
-  const [params, setParams] = useState({
+  const [params, setParams] = useState<TParams>({
     offset: 1,
     limit: 5,
     orderBy: "recent",
@@ -15,19 +36,24 @@ export default function ArticleList() {
   });
 
   // 게시글 목록 조회
-  const { data: articles, isPending } = useQuery({
+  const { data: articles, isPending } = useQuery<
+    TArticles,
+    Error,
+    TArticles,
+    [string, TParams]
+  >({
     queryKey: ["articles", params],
     queryFn: () => postService.getPosts("articles", params),
   });
 
   // 렌더링(검색)
-  const changeKeywordInParams = (keyword) => {
+  const changeKeywordInParams = (keyword: string) => {
     if (params.keyword === keyword) return;
     setParams((prevParams) => ({ ...prevParams, offset: 1, keyword }));
   };
 
   // 렌더링(정렬 선택)
-  const changeOrderByInParams = (orderBy) => {
+  const changeOrderByInParams = (orderBy: string) => {
     if (params.orderBy === orderBy) return;
     setParams((prevParams) => ({ ...prevParams, offset: 1, orderBy }));
   };

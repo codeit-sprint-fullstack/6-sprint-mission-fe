@@ -6,12 +6,25 @@ import { useParams, useRouter } from "next/navigation";
 import Profile from "@/components/ui/Profile";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { postService } from "@/service/postService";
-import { useAuth } from "@/providers/AuthProvider";
+import { useAuth } from "@/contexts/AuthContext";
+
+type TArticle = {
+  likeCount: number;
+  isLiked: boolean;
+  author: {
+    id: string;
+    nickname: string;
+  };
+  id: number;
+  createdAt: Date;
+  title: string;
+  content: string;
+};
 
 export default function ArticleDetail() {
-  const [isDropDownVisible, setIsDropDownVisible] = useState(false);
+  const [isDropDownVisible, setIsDropDownVisible] = useState<boolean>(false);
 
-  const { articleId } = useParams();
+  const { articleId } = useParams<{ articleId: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
   const { user } = useAuth();
@@ -21,13 +34,13 @@ export default function ArticleDetail() {
     data: article,
     isPending,
     error,
-  } = useQuery({
+  } = useQuery<TArticle, Error, TArticle, [string, string]>({
     queryKey: ["articles", articleId],
     queryFn: () => postService.getPost("articles", articleId),
   });
 
   // 게시글 삭제 API
-  const { mutate: deleteArticle } = useMutation({
+  const { mutate: deleteArticle } = useMutation<void, Error, string>({
     mutationFn: (articleId) => postService.deletePost("articles", articleId),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["articles", articleId] }),

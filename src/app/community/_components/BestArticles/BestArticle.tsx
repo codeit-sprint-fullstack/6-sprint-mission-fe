@@ -1,12 +1,24 @@
 import Image from "next/image";
-import ic_full_heart from "@/assets/images/common/ic_full_heart.svg";
 import ic_empty_heart from "@/assets/images/common/ic_empty_heart.svg";
 import img_badge from "@/assets/images/community/img_badge.svg";
 import img_notebook from "@/assets/images/community/img_notebook.svg";
 import Link from "next/link";
 import dayjs from "dayjs";
 
-export default function BestArticle({ bestArticle }) {
+type TBestArticle = {
+  bestArticle: {
+    likeCount: number;
+    author: {
+      nickname: string;
+    };
+    id: number;
+    createdAt: Date;
+    title: string;
+    content: string;
+  };
+};
+
+export default function BestArticle({ bestArticle }: TBestArticle) {
   return (
     <Link
       href={`/community/${bestArticle.id}`}

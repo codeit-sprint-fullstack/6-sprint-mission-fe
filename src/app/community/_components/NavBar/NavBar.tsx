@@ -5,10 +5,15 @@ import React from "react";
 import SearchBox from "./SearchBox";
 import SelectSort from "./SelectSort";
 
+interface INavBarProps {
+  changeKeywordInParams: (keyword: string) => void;
+  changeOrderByInParams: (orderBy: string) => void;
+}
+
 export default function NavBar({
   changeKeywordInParams,
   changeOrderByInParams,
-}) {
+}: INavBarProps) {
   return (
     <div className="flex justify-center">
       <div className="relative flex flex-col justify-between gap-[16px] items-center w-full mt-[24px] mb-[16px] sm:gap-[24px] sm:mt-[40px] sm:mb-[24px] md:mt-[26px]">

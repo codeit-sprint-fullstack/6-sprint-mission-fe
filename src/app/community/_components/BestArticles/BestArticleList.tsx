@@ -6,10 +6,31 @@ import BestArticle from "./BestArticle";
 import { useQuery } from "@tanstack/react-query";
 import { postService } from "@/service/postService";
 
+type TParams = {
+  offset: number;
+  limit: number;
+  orderBy: string;
+  keyword: string;
+};
+
+type TBestArticles = {
+  list: {
+    likeCount: number;
+    author: {
+      nickname: string;
+    };
+    id: number;
+    createdAt: Date;
+    title: string;
+    content: string;
+  }[];
+  totalCount: number;
+};
+
 export default function BestArticleList() {
-  const [params, setParams] = useState({
+  const [params, setParams] = useState<TParams>({
     offset: 1,
-    limit: null,
+    limit: 0,
     orderBy: "like",
     keyword: "",
   });
@@ -18,7 +39,12 @@ export default function BestArticleList() {
   useGetDeviceType(setParams, "bestArticles");
 
   // 베스트 게시글 조회
-  const { data: bestArticles, isPending } = useQuery({
+  const { data: bestArticles, isPending } = useQuery<
+    TBestArticles,
+    Error,
+    TBestArticles,
+    [string, TParams]
+  >({
     queryKey: ["bestArticles", params],
     queryFn: () => postService.getPosts("articles", params),
     enabled: !!params.limit,

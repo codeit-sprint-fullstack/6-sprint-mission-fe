@@ -11,21 +11,84 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { postService } from "@/service/postService";
 import { useParams } from "next/navigation";
 
-export default function Profile({ article = null, product = null }) {
-  const { articleId, productId } = useParams();
+type TArticle = {
+  likeCount: number;
+  isLiked: boolean;
+  author: {
+    id: string;
+    nickname: string;
+  };
+  id: number;
+  createdAt: Date;
+  title: string;
+  content: string;
+};
+
+type TProduct = {
+  tags: string[];
+  images: string[];
+  likeCount: number;
+  isLiked: boolean;
+  author: {
+    id: string;
+    nickname: string;
+  };
+  name: string;
+  id: number;
+  createdAt: Date;
+  description: string;
+  price: number;
+};
+
+type TProductLike = {
+  productId: number;
+  id: number;
+  createdAt: Date;
+  userId: string;
+};
+
+type TArticleLike = {
+  articleId: number;
+  id: number;
+  createdAt: Date;
+  userId: string;
+};
+
+interface IProfileProps {
+  article?: TArticle;
+  product?: TProduct;
+}
+
+export default function Profile({
+  article = undefined,
+  product = undefined,
+}: IProfileProps) {
+  const { articleId, productId } = useParams<{
+    articleId: string;
+    productId: string;
+  }>();
   const queryClient = useQueryClient();
 
   const type = article ? "articles" : "products";
   const id = articleId || productId;
 
   // 유저 좋아요 리스트
-  const { data, isPending, error } = useQuery({
+  const { data } = useQuery<
+    TArticle | TProduct,
+    Error,
+    TArticle | TProduct,
+    [string, string]
+  >({
     queryKey: [type, id],
     queryFn: () => postService.getPost(type, id),
   });
 
   // 좋아요 API
-  const { mutate: addLike } = useMutation({
+  const { mutate: addLike } = useMutation<
+    TProductLike | TArticleLike,
+    Error,
+    { type: string; id: string }
+  >({
     mutationFn: ({ type, id }) => postService.like(type, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [type, id] });
@@ -33,7 +96,11 @@ export default function Profile({ article = null, product = null }) {
   });
 
   // 좋아요 취소 API
-  const { mutate: removeLike } = useMutation({
+  const { mutate: removeLike } = useMutation<
+    TProductLike | TArticleLike,
+    Error,
+    { type: string; id: string }
+  >({
     mutationFn: ({ type, id }) => postService.unlike(type, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [type, id] });
@@ -70,7 +137,7 @@ export default function Profile({ article = null, product = null }) {
             {article ? article?.author?.nickname : product?.author?.nickname}
           </p>
           <p className="text-[14px]/[24px] font-normal text-secondary-gray-300">
-            {dayjs(article ? article?.createdAt : product.createdAt).format(
+            {dayjs(article ? article?.createdAt : product?.createdAt).format(
               "YYYY. MM. DD"
             )}
           </p>

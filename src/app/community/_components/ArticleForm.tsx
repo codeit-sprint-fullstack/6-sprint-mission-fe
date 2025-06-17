@@ -4,30 +4,67 @@ import { postService } from "@/service/postService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
-export default function ArticleForm({ title }) {
-  const [isActive, setIsActive] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [body, setBody] = useState({ title: "", content: "" });
+interface IArticleFormProps {
+  title: string;
+}
 
-  const { articleId } = useParams();
+type TArticleFormBody = {
+  title: string;
+  content: string;
+};
+
+type TArticle = {
+  likeCount: number;
+  author: {
+    nickname: string;
+  };
+  id: number;
+  createdAt: Date;
+  title: string;
+  content: string;
+};
+
+type TArticleResponse = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  authorId: string;
+  title: string;
+  content: string;
+};
+
+export default function ArticleForm({ title }: IArticleFormProps) {
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [body, setBody] = useState<TArticleFormBody>({
+    title: "",
+    content: "",
+  });
+
+  const { articleId } = useParams<{ articleId: string }>();
   const queryClient = useQueryClient();
   const router = useRouter();
 
   // 게시글 상세 조회
-  const {
-    data: article,
-    isPending,
-    error,
-  } = useQuery({
+  const { data: article, isPending } = useQuery<
+    TArticle,
+    Error,
+    TArticle,
+    [string, string]
+  >({
     queryKey: ["articles", articleId],
     queryFn: () => postService.getPost("articles", articleId),
     enabled: !!articleId,
   });
 
   // 게시글 등록 API
-  const { mutate: createArticle } = useMutation({
+  const { mutate: createArticle } = useMutation<
+    TArticleResponse,
+    Error,
+    TArticleFormBody
+  >({
     mutationFn: (body) => postService.createPost("articles", body),
     onSuccess: (data) => {
       router.push(`/community/${data.id}`);
@@ -35,7 +72,11 @@ export default function ArticleForm({ title }) {
   });
 
   // 게시글 수정 API
-  const { mutate: updateArticle } = useMutation({
+  const { mutate: updateArticle } = useMutation<
+    TArticleResponse,
+    Error,
+    { id: string; body: TArticleFormBody }
+  >({
     mutationFn: ({ id, body }) => postService.updatePost("articles", id, body),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["articles", articleId] });
@@ -45,14 +86,15 @@ export default function ArticleForm({ title }) {
 
   // 게시글 수정 시 초기 값 세팅
   useEffect(() => {
-    if (isPending) return;
+    if (isPending || !article) return;
+
     const { title, content } = article;
 
     setBody((prev) => ({ ...prev, title, content }));
   }, [isPending]);
 
   // 게시글 등록
-  const handleCreateArticle = (e) => {
+  const handleCreateArticle = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // TODO: body에 trim해서 보내기
@@ -63,14 +105,16 @@ export default function ArticleForm({ title }) {
 
       createArticle(body);
     } catch (e) {
-      console.error(e.message);
+      if (e instanceof Error) {
+        console.error(e.message);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   // 게시글 수정
-  const handleUpdateArticle = async (e) => {
+  const handleUpdateArticle = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // TODO: body에 trim해서 보내기
@@ -81,14 +125,18 @@ export default function ArticleForm({ title }) {
 
       updateArticle({ id: articleId, body });
     } catch (e) {
-      console.error(e.message);
+      if (e instanceof Error) {
+        console.error(e.message);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   // body 변경
-  const changeValue = (e) => {
+  const changeValue = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { id, value } = e.target;
 
     setBody((prev) => ({ ...prev, [id]: value }));
