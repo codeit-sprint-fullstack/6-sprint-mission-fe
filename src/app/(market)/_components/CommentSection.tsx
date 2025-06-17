@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import { createArticleComment, createProductComment } from "@/lib/actions/comment";
-import { getArticleComments, getProductComments } from "@/lib/service/getApi";
 import { Comment } from "@/types";
+import { getArticleComments, getProductComments } from "@/lib/service/commentService";
 
 interface CommentSectionProps {
   id: number;

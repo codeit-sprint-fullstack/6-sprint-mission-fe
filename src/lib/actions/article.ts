@@ -8,8 +8,29 @@ interface ArticleParams {
   content: string;
 }
 
+// 게시글 상세 조회
+export async function getArticleAction(articleId: number) {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+  try {
+    const res = await fetch(`${BASE_URL}/articles/${articleId}`, {
+      method: "GET",
+      headers: {
+        Cookie: `accessToken=${accessToken}`,
+      },
+      cache: "no-store",
+    });
+
+    if (!res.ok) throw new Error("게시글을 불러오는데 실패했습니다.");
+
+    return await res.json();
+  } catch (err) {
+    console.error("getArticleAction 에러:", err);
+  }
+}
+
 // 게시글 등록
-export async function createArticle(params: { params: ArticleParams }) {
+export async function createArticleAction(params: { params: ArticleParams }) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
@@ -17,7 +38,7 @@ export async function createArticle(params: { params: ArticleParams }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
       body: JSON.stringify(params),
     });
@@ -34,7 +55,7 @@ export async function createArticle(params: { params: ArticleParams }) {
 }
 
 // 게시글 수정
-export async function updateArticle({
+export async function updateArticleAction({
   articleId,
   params,
 }: {
@@ -48,7 +69,7 @@ export async function updateArticle({
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
       body: JSON.stringify(params),
     });
@@ -65,14 +86,14 @@ export async function updateArticle({
 }
 
 // 게시글 삭제
-export async function deleteArticle({ articleId }: { articleId: number }) {
+export async function deleteArticleAction({ articleId }: { articleId: number }) {
   const token = (await cookies()).get("accessToken")?.value;
 
   try {
     const res = await fetch(`${BASE_URL}/articles/${articleId}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
     });
 

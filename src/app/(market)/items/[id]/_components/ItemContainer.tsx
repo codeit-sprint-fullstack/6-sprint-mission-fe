@@ -5,14 +5,14 @@ import ItemHeader from "./ItemHeader";
 import ItemDetail from "./ItemDetail";
 import UserInfo from "@/components/ui/UserInfo";
 import LineDivider from "@/components/ui/LineDivider";
-import defaultImg from "../../../../../../public/assets/img/img_item_default.svg";
+import Modal from "@/components/ui/Modal";
+import Image from "next/image";
+import ItemDefaultImg from "@/assets/svgs/item_default.svg";
 import { useRouter } from "next/navigation";
 import { createLike, deleteLike, deleteProduct } from "@/lib/actions/product";
-import { getProduct } from "@/lib/service/getApi";
-import Modal from "@/components/ui/Modal";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
 import { Product } from "@/types";
+import { productService } from "@/lib/service/productService";
 
 function ItemContainer({ id }: { id: Product["id"] }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -25,7 +25,7 @@ function ItemContainer({ id }: { id: Product["id"] }) {
 
   const { data: item } = useQuery({
     queryKey: ["product", id],
-    queryFn: () => getProduct(id),
+    queryFn: () => productService.getProduct(id),
   });
 
   const likeMutation = useMutation({
@@ -113,13 +113,17 @@ function ItemContainer({ id }: { id: Product["id"] }) {
     <section className="grid-cols-2 gap-4 md:grid lg:grid-cols-[1fr_2fr]">
       {item && (
         <>
-          <Image
-            src={item.images[0] || defaultImg}
-            alt="상품 이미지"
-            width={343}
-            height={343}
-            className="mb-4 aspect-square w-full rounded-xl"
-          />
+          {item.images?.length > 0 ? (
+            <Image
+              src={item.images[0]}
+              alt="상품 이미지"
+              width={343}
+              height={343}
+              className="mb-4 aspect-square w-full rounded-xl"
+            />
+          ) : (
+            <ItemDefaultImg alt="상품 기본 이미지" />
+          )}
           <div>
             <ItemHeader
               item={item}

@@ -1,16 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Dropdown from "@/components/ui/Dropdown";
 import UserInfo from "@/components/ui/UserInfo";
 import GoBackBtn from "@/components/ui/GoBackBtn";
 import CommentSection from "../../_components/CommentSection";
-import { deleteArticle } from "@/lib/actions/article";
-import { getArticle } from "@/lib/service/getApi";
 import { EDIT_OPTIONS } from "@/constant";
 import { Article } from "@/types";
+import { articleService } from "@/lib/service/articleService";
+import { deleteArticleAction } from "@/lib/actions/article";
+import EditIcon from "@/assets/svgs/ic_kebab.svg";
 
 function ArticlePage() {
   const [article, setArticle] = useState<Article>();
@@ -32,11 +32,11 @@ function ArticlePage() {
 
   // 상세 게시글 불러오는 함수
   const getArticleById = async () => {
-    const data = await getArticle(articleId);
+    const data = await articleService.getArticle(articleId);
     setArticle(data);
-    console.log(article);
   };
 
+  console.log(article);
   if (isLoading) return null;
 
   // 게시글 편집 핸들러
@@ -52,7 +52,7 @@ function ArticlePage() {
 
   // 게시글 삭제 핸들러
   const handleDeleteArticle = async () => {
-    await deleteArticle({ articleId });
+    await deleteArticleAction({ articleId });
   };
 
   return (
@@ -61,14 +61,9 @@ function ArticlePage() {
         <div className="flex justify-between gap-2">
           <h2 className="text-xl font-bold text-gray-800">{article?.title}</h2>
           <div>
-            <Image
-              src="/assets/icon/ic_kebab.svg"
-              alt="편집 아이콘"
-              width={24}
-              height={24}
-              className="cursor-pointer"
-              onClick={() => setIsDropdownOpen((prev) => !prev)}
-            />
+            <button onClick={() => setIsDropdownOpen((prev) => !prev)}>
+              <EditIcon alt="편집 아이콘" />
+            </button>
             {isDropdownOpen && <Dropdown items={EDIT_OPTIONS} onSelect={handleEditArticle} />}
           </div>
         </div>

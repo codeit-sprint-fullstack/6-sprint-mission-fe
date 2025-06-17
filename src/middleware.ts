@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
   const path = pathname.split("?")[0];
 
   const protectedPaths = ["/me", "/items", "/board"];
-  const publicPaths = ["/login", "/register"];
+  const publicPaths = ["/", "/login", "/register"];
 
   const isAuthenticated = !!refreshToken;
   const isProtectedRoute = protectedPaths.some(

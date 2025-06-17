@@ -4,7 +4,7 @@ import GoBackBtn from "@/components/ui/GoBackBtn";
 import LineDivider from "@/components/ui/LineDivider";
 import CommentSection from "../../_components/CommentSection";
 
-async function ItemPage({ params }: { params: { id: string } }) {
+export default async function ItemPage({ params }: { params: { id: string } }) {
   const id = Number(params.id);
 
   return (
@@ -16,5 +16,3 @@ async function ItemPage({ params }: { params: { id: string } }) {
     </>
   );
 }
-
-export default ItemPage;

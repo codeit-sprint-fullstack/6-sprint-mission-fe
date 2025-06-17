@@ -4,22 +4,17 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 import Pagination from "@/components/ui/Pagination";
+import Dropdown from "@/components/ui/Dropdown";
+import ArrowDown from "@/assets/svgs/arrow_down.svg";
+import SearchIcon from "@/assets/svgs/ic_search.svg";
+import SortIcon from "@/assets/svgs/ic_sort.svg";
 import { useViewport } from "@/lib/hooks/useViewport";
 import { useQuery } from "@tanstack/react-query";
-import Dropdown from "@/components/ui/Dropdown";
-import { getProducts } from "@/lib/service/getApi";
-import { DropdownItem, Product } from "@/types";
+import { DropdownItem, ProductListResponse } from "@/types";
 import { BREAKPOINTS, ITEM_COUNT } from "@/constant";
-import { ArrowDown, SearchIcon, SortIcon } from "@/assets/svgs";
-
-type ItemListResponse = {
-  list: Product[];
-  totalCount: number;
-};
+import { productService } from "@/lib/service/productService";
 
 function ItemList() {
-  // TODO: 이거 ArticleList꺼랑 하나로 통일
-  // -> favorite/like 둘 중 하나만 (백엔드 수정 필요)
   const sortOptions: DropdownItem[] = [
     { label: "최신순", value: "recent" },
     { label: "좋아요순", value: "favorite" },
@@ -45,10 +40,12 @@ function ItemList() {
   }, [windowWidth]);
 
   // 상품 목록 가져오기
-  const { data: items } = useQuery<ItemListResponse>({
+  const { data: items } = useQuery<ProductListResponse>({
     queryKey: ["products", { page, pageSize, orderBy, keyword }],
-    queryFn: () => getProducts({ page, pageSize, orderBy, keyword }),
+    queryFn: () => productService.getProducts({ page, pageSize, orderBy: "recent", keyword }),
   });
+
+  console.log("items", items);
 
   const handleSort = (value: DropdownItem["value"]) => {
     const selected = sortOptions.find((option) => option.value === value);
@@ -72,7 +69,7 @@ function ItemList() {
         </Link>
       </nav>
       <nav className="relative my-4 flex h-[42px] items-center justify-between">
-        <SearchIcon aria-label="검색 아이콘" className="absolute ml-4" />
+        <SearchIcon alt="검색 아이콘" className="absolute ml-4" />
         <input
           className="mr-[13px] w-full rounded-xl bg-gray-100 py-[9px] pl-11"
           placeholder="검색할 상품을 입력해주세요"
@@ -86,13 +83,13 @@ function ItemList() {
             {windowWidth >= BREAKPOINTS.md ? (
               <div className="flex w-[90px] justify-between">
                 {dropdownOption.label}
-                <ArrowDown aria-label="아래 화살표" />
+                <ArrowDown alt="아래 화살표" />
               </div>
             ) : (
-              <SortIcon aria-label="정렬 아이콘" />
+              <SortIcon alt="정렬 아이콘" />
             )}
           </button>
-          {isDropdownOpen && <Dropdown items={sortOptions} onSelect={handleSort} isSort={true} />}
+          {isDropdownOpen && <Dropdown items={sortOptions} onSelect={handleSort} type="sort" />}
         </div>
       </nav>
       <article className="mb-[91px] grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-5 lg:gap-6">

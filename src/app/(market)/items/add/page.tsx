@@ -2,12 +2,15 @@
 
 import React, { useState } from "react";
 import ItemForm from "../_components/ItemForm";
+import { Product } from "@/types";
 
 function AddItemPage() {
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<
+    Pick<Product, "name" | "description" | "price" | "tags" | "images">
+  >({
     name: "",
     description: "",
-    price: "",
+    price: 0,
     tags: [],
     images: [],
   });

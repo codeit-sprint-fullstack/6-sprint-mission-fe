@@ -2,13 +2,13 @@
 
 import ArticleCard from "./ArticleCard";
 import Link from "next/link";
+import Badge from "@/assets/svgs/badge.svg";
 import { useEffect, useState } from "react";
 import { useViewport } from "@/lib/hooks/useViewport";
 import { useQuery } from "@tanstack/react-query";
 import { BEST_ARTICLE_COUNT, BREAKPOINTS } from "@/constant";
-import { getArticles } from "@/lib/service/getApi";
 import { Article } from "@/types";
-import { Badge } from "@/assets/svgs";
+import { articleService } from "@/lib/service/articleService";
 
 type TBestArticleList = {
   list: Article[];
@@ -32,7 +32,7 @@ function BestArticleList() {
   // 베스트 게시글 목록 가져오기
   const { data: bestArticles } = useQuery<TBestArticleList, Error>({
     queryKey: ["articles", { page: 1, pageSize, orderBy: "like" }],
-    queryFn: () => getArticles({ page: 1, pageSize, orderBy: "like" }),
+    queryFn: () => articleService.getArticles({ page: 1, pageSize, orderBy: "like" }),
   });
 
   return (
@@ -44,7 +44,7 @@ function BestArticleList() {
             key={article.id}
             className="mt-4 mb-6 w-[343px] rounded-lg bg-gray-50 px-6 pb-4 md:w-[340px] lg:w-[384px]"
           >
-            <Badge aria-label="베스트 뱃지" className="mb-4" />
+            <Badge alt="베스트 뱃지" className="mb-4" />
             <Link key={article.id} href={`/board/${article.id}`}>
               <ArticleCard key={article.id} article={article} isBest={true} />
             </Link>

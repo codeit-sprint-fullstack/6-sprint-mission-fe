@@ -1,7 +1,7 @@
 "use client";
 
-import { createArticle, updateArticle } from "@/lib/actions/article";
-import { getArticle } from "@/lib/service/getApi";
+import { createArticleAction, updateArticleAction } from "@/lib/actions/article";
+import { articleService } from "@/lib/service/articleService";
 import { Article } from "@/types";
 import { Params } from "next/dist/server/request/params";
 import { useParams, usePathname, useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ function ArticleForm() {
     if (!isEditPage || !params?.id) return;
 
     const fetchArticle = async () => {
-      const data = await getArticle(Number(params.id));
+      const data = await articleService.getArticle(Number(params.id));
       setTitle(data.title);
       setContent(data.content);
     };
@@ -34,13 +34,13 @@ function ArticleForm() {
     content: Article["content"];
   }) => {
     if (isEditPage) {
-      const updatedArticle = await updateArticle({
+      const updatedArticle = await updateArticleAction({
         articleId: Number(params.id),
         params: { title, content },
       });
       router.push(`/board/${updatedArticle.id}`);
     } else {
-      const newArticle = await createArticle({ params: { title, content } });
+      const newArticle = await createArticleAction({ params: { title, content } });
       router.push(`/board/${newArticle.id}`);
     }
   };

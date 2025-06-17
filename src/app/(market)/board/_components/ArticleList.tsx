@@ -7,15 +7,12 @@ import Dropdown from "@/components/ui/Dropdown";
 import { ARTICLE_COUNT, BREAKPOINTS } from "@/constant";
 import { useViewport } from "@/lib/hooks/useViewport";
 import { useQuery } from "@tanstack/react-query";
-import { getArticles } from "@/lib/service/getApi";
 import Pagination from "@/components/ui/Pagination";
-import { Article, DropdownItem } from "@/types";
-import { ArrowDown, SearchIcon, SortIcon } from "@/assets/svgs";
-
-type ArticleListResponse = {
-  list: Article[];
-  totalCount: number;
-};
+import { ArticleListResponse, DropdownItem } from "@/types";
+import SearchIcon from "@/assets/svgs/ic_search.svg";
+import SortIcon from "@/assets/svgs/ic_sort.svg";
+import ArrowDown from "@/assets/svgs/arrow_down.svg";
+import { articleService } from "@/lib/service/articleService";
 
 function ArticleList() {
   const sortOptions: DropdownItem[] = [
@@ -45,7 +42,7 @@ function ArticleList() {
   // 게시글 목록 가져오기
   const { data: articles } = useQuery<ArticleListResponse>({
     queryKey: ["articles", { page, pageSize, orderBy, keyword }],
-    queryFn: () => getArticles({ page, pageSize, orderBy, keyword }),
+    queryFn: () => articleService.getArticles({ page, pageSize, orderBy: "recent", keyword }),
   });
 
   const handleSort = (value: DropdownItem["value"]) => {
@@ -63,13 +60,13 @@ function ArticleList() {
   return (
     <section>
       <nav className="flex items-center justify-between">
-        <h2 className="text-lg font-bold">게시글</h2>
+        <h2 className="text-xl font-bold">게시글</h2>
         <Link href="/board/add">
           <button className="btn-base">글쓰기</button>
         </Link>
       </nav>
       <nav className="relative my-4 flex h-[42px] items-center justify-between gap-[13px]">
-        <SearchIcon aria-label="검색 아이콘" className="absolute ml-4" />
+        <SearchIcon alt="검색 아이콘" className="absolute ml-4" />
         <input
           className="w-full rounded-xl bg-gray-100 py-[9px] pl-11"
           placeholder="검색할 상품을 입력해주세요"
@@ -83,13 +80,13 @@ function ArticleList() {
             {windowWidth >= BREAKPOINTS.md ? (
               <div className="flex w-[90px] justify-between">
                 {dropdownOption.label}
-                <ArrowDown aria-label="아래 화살표 아이콘" />
+                <ArrowDown alt="아래 화살표" />
               </div>
             ) : (
-              <SortIcon aria-label="정렬 아이콘" />
+              <SortIcon alt="정렬 아이콘" />
             )}
           </button>
-          {isDropdownOpen && <Dropdown items={sortOptions} onSelect={handleSort} isSort={true} />}
+          {isDropdownOpen && <Dropdown items={sortOptions} onSelect={handleSort} type="sort" />}
         </div>
       </nav>
       <article className="mb-[91px]">

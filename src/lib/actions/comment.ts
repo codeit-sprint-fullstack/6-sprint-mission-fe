@@ -20,7 +20,7 @@ export async function createArticleComment({ articleId, content }: CommentParams
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
       body: JSON.stringify(content),
     });
@@ -45,7 +45,7 @@ export async function createProductComment({ productId, content }: CommentParams
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
       body: JSON.stringify(content),
     });
@@ -70,7 +70,7 @@ export async function updateComment({ commentId, content }: CommentParams) {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
       body: JSON.stringify(content),
     });
@@ -94,7 +94,7 @@ export async function deleteComment({ commentId }: CommentParams) {
     const res = await fetch(`${BASE_URL}/comments/${commentId}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
     });
 

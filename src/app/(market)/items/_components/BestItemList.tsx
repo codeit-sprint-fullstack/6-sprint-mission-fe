@@ -6,8 +6,8 @@ import { BEST_ITEM_COUNT, BREAKPOINTS } from "@/constant";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { useViewport } from "@/lib/hooks/useViewport";
-import { getProducts } from "@/lib/service/getApi";
 import { Product } from "@/types";
+import { productService } from "@/lib/service/productService";
 
 type TBestItemList = {
   list: Product[];
@@ -31,7 +31,7 @@ function BestItemList() {
   // 베스트 상품 목록 가져오기
   const { data: bestItems } = useQuery<TBestItemList, Error>({
     queryKey: ["products", { page: 1, pageSize, orderBy: "favorite" }],
-    queryFn: () => getProducts({ page: 1, pageSize, orderBy: "favorite" }),
+    queryFn: () => productService.getProducts({ page: 1, pageSize, orderBy: "favorite" }),
   });
 
   return (

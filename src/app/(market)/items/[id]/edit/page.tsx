@@ -3,22 +3,26 @@
 import React, { useEffect, useState } from "react";
 import ItemForm from "../../_components/ItemForm";
 import { useQuery } from "@tanstack/react-query";
-import { getProduct } from "@/lib/service/getApi";
+
 import { useParams } from "next/navigation";
+import { productService } from "@/lib/service/productService";
+import { Product } from "@/types";
 
 function EditItemPage() {
   const { id } = useParams();
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<
+    Pick<Product, "name" | "description" | "price" | "tags" | "images">
+  >({
     name: "",
     description: "",
-    price: "",
+    price: 0,
     tags: [],
     images: [],
   });
 
   const { data: item } = useQuery({
     queryKey: ["product", id],
-    queryFn: () => getProduct(Number(id)),
+    queryFn: () => productService.getProduct(Number(id)),
   });
 
   useEffect(() => {

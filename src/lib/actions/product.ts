@@ -6,6 +6,29 @@ import { cookies } from "next/headers";
 
 type ProductParams = Pick<Product, "name" | "description" | "price" | "tags" | "images">;
 
+// 상품 상세 조회
+export async function getProductAction(productId: number) {
+  const token = (await cookies()).get("accessToken")?.value;
+
+  try {
+    const res = await fetch(`${BASE_URL}/products/${productId}`, {
+      method: "GET",
+      headers: {
+        Cookie: `accessToken=${token}`,
+      },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) return data;
+
+    return data;
+  } catch (e) {
+    console.error("상품을 불러오는데 실패했습니다.", e);
+    throw e;
+  }
+}
+
 // 상품 등록
 export async function createProduct(params: ProductParams) {
   const token = (await cookies()).get("accessToken")?.value;
@@ -15,7 +38,7 @@ export async function createProduct(params: ProductParams) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
       body: JSON.stringify(params),
     });
@@ -46,7 +69,7 @@ export async function updateProduct({
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
       body: JSON.stringify(params),
     });
@@ -70,7 +93,7 @@ export async function deleteProduct({ productId }: { productId: number }) {
     const res = await fetch(`${BASE_URL}/products/${productId}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
     });
 
@@ -93,7 +116,7 @@ export async function createLike({ productId }: { productId: number }) {
     const res = await fetch(`${BASE_URL}/products/${productId}/favorite`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
     });
 
@@ -116,7 +139,7 @@ export async function deleteLike({ productId }: { productId: number }) {
     const res = await fetch(`${BASE_URL}/products/${productId}/favorite`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
     });
 
@@ -142,7 +165,7 @@ export async function uploadImage({ image }: { image: File }) {
     const res = await fetch(`${BASE_URL}/images/upload`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Cookie: `accessToken=${token}`,
       },
       body: formData,
     });
