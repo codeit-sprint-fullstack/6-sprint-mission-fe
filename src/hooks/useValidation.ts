@@ -17,7 +17,7 @@ const errMsg = {
 
 export default function useValidation(): [
   TUseValidation,
-  (e: ChangeEvent<HTMLInputElement>) => void
+  (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 ] {
   const [errorMsg, setErrorMsg] = useState<TUseValidation>({
     name: "",
@@ -26,7 +26,9 @@ export default function useValidation(): [
     tags: "",
   });
 
-  const checkValidation = (e: ChangeEvent<HTMLInputElement>) => {
+  const checkValidation = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
     const { value } = e.target;
     const id = e.target.id as keyof TUseValidation;
 
