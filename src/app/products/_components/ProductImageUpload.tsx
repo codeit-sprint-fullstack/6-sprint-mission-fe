@@ -1,9 +1,28 @@
 import Image from "next/image";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import ic_plus from "@/assets/images/products/ic_plus.svg";
 import ic_cancel from "@/assets/images/products/ic_cancel.svg";
+import img_default_product from "@/assets/images/products/img_default_product.svg";
 
-export default function ProductImageUpload({ body, changeValue, deleteImage }) {
+type TProductImageUploadBody = {
+  images: { file: File; url: string }[];
+  name: string;
+  description: string;
+  price: string | number;
+  tags: string[];
+};
+
+interface IProductImageUploadProps {
+  body: TProductImageUploadBody;
+  changeValue: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  deleteImage: (value: { file: File; url: string }) => void;
+}
+
+export default function ProductImageUpload({
+  body,
+  changeValue,
+  deleteImage,
+}: IProductImageUploadProps) {
   return (
     <div className="flex flex-col gap-[16px]">
       <p className="font-bold text-[18px]/[26px]">상품 이미지</p>
@@ -33,8 +52,8 @@ export default function ProductImageUpload({ body, changeValue, deleteImage }) {
         {body.images.length !== 0 &&
           body.images.map((image, i) => (
             <div className="relative" key={`${i}_${image}`}>
-              <img
-                src={!!image.url ? image.url : image}
+              <Image
+                src={!!image.url ? image.url : img_default_product}
                 alt="이미지 미리보기"
                 className="object-cover rounded-[12px] min-w-[168px] min-h-[168px] max-w-[168px] max-h-[168px] md:min-w-[282px] md:min-h-[282px]"
               />

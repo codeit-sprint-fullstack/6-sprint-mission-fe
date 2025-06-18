@@ -1,19 +1,33 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
 import ic_arrow_left from "@/assets/images/products/ic_arrow_left.svg";
 import ic_arrow_right from "@/assets/images/products/ic_arrow_right.svg";
 import Image from "next/image";
 import clsx from "clsx";
+
+type TProductListParams = {
+  offset: number;
+  limit: number;
+  orderBy: string;
+  keyword: string;
+};
+
+interface IPaginationProps {
+  currentDevice: string;
+  params: TProductListParams;
+  totalCount: number;
+  changeOffsetInParams: (offset: number) => void;
+}
 
 export default function Pagination({
   currentDevice,
   params,
   totalCount,
   changeOffsetInParams,
-}) {
-  const [pages, setPages] = useState([1, 2, 3, 4, 5]);
-  const [currentPage, setCurrentPage] = useState(1);
+}: IPaginationProps) {
+  const [pages, setPages] = useState<number[]>([1, 2, 3, 4, 5]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   // 현재 페이지, 페이지 번호 초기화(정렬 선택 or 검색 시)
   useEffect(() => {
@@ -27,8 +41,8 @@ export default function Pagination({
   }, [currentPage]);
 
   // 페이지 이동
-  const handlePageBtn = (e) => {
-    setCurrentPage(Number(e.target.innerText));
+  const handlePageBtn = (e: MouseEvent<HTMLButtonElement>) => {
+    setCurrentPage(Number(e.currentTarget.innerText));
   };
 
   // 이전 페이지

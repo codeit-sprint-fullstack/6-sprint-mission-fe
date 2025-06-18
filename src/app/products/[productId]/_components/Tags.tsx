@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function Tags({ tags }) {
+interface ITagsProps {
+  tags: string[];
+}
+
+export default function Tags({ tags }: ITagsProps) {
   return (
     <section className="flex justify-start items-center flex-wrap gap-[8px]">
       {tags.map((tag, i) => {

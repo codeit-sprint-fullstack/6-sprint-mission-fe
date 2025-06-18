@@ -1,16 +1,35 @@
 import clsx from "clsx";
-import React from "react";
+import React, { ChangeEvent, KeyboardEvent } from "react";
+
+type TProductInputBody = {
+  images: { file: File; url: string }[];
+  name: string;
+  description: string;
+  price: string | number;
+  tags: string[];
+};
+
+interface IProductInputProps {
+  type: keyof TProductInputBody;
+  title: string;
+  placeholder: string;
+  body?: TProductInputBody;
+  tagValue?: string;
+  errorMsg: string;
+  changeValue: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  addTag?: (e: KeyboardEvent<HTMLInputElement>) => void;
+}
 
 export default function ProductInput({
   type,
   title,
   placeholder,
-  body,
-  tagValue,
+  body = undefined,
+  tagValue = undefined,
   errorMsg,
   changeValue,
-  addTag,
-}) {
+  addTag = undefined,
+}: IProductInputProps) {
   return (
     <div className="flex flex-col gap-[8px]">
       <div className="flex flex-col gap-[16px]">
@@ -32,7 +51,7 @@ export default function ProductInput({
         ) : (
           <input
             onChange={changeValue}
-            value={body[type]}
+            value={type !== "images" ? body![type] : undefined}
             type="text"
             name={type}
             id={type}

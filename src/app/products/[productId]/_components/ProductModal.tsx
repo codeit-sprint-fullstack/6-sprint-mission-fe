@@ -2,10 +2,15 @@ import React from "react";
 import Image from "next/image";
 import ic_check from "@/assets/images/common/ic_check.svg";
 
+interface IProductModalProps {
+  handleDeleteModalToggle: () => void;
+  handleDeleteConfirm: () => void;
+}
+
 export default function ProductModal({
   handleDeleteModalToggle,
   handleDeleteConfirm,
-}) {
+}: IProductModalProps) {
   return (
     <div className="fixed z-3 top-0 right-0 bottom-0 left-0 min-w-screen min-h-screen">
       <div className="absolute top-[50%] left-[50%] translate-[-50%] flex flex-col justify-center items-center w-[298px] h-[202px] rounded-[12px] gap-[32px] bg-white shadow-2xl">

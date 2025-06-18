@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import DropDownToggle from "@/components/ui/DropDownToggle";
 import Tags from "./Tags";
 import img_default_product from "@/assets/images/products/img_default_product.svg";
@@ -10,13 +9,31 @@ import ProductModal from "./ProductModal";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { postService } from "@/service/postService";
-import { useAuth } from "@/providers/AuthProvider";
+import { useAuth } from "@/contexts/AuthContext";
+import Image from "next/image";
+
+type TProduct = {
+  tags: string[];
+  images: string[];
+  likeCount: number;
+  isLiked: boolean;
+  author: {
+    id: string;
+    nickname: string;
+  };
+  name: string;
+  id: number;
+  createdAt: Date;
+  description: string;
+  price: number;
+};
 
 export default function ProductDetail() {
-  const [isDropDownVisible, setIsDropDownVisible] = useState(false);
-  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isDropDownVisible, setIsDropDownVisible] = useState<boolean>(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] =
+    useState<boolean>(false);
 
-  const { productId } = useParams();
+  const { productId } = useParams<{ productId: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
   const { user } = useAuth();
@@ -26,13 +43,13 @@ export default function ProductDetail() {
     data: product,
     isPending,
     error,
-  } = useQuery({
+  } = useQuery<TProduct, Error, TProduct, [string, string]>({
     queryKey: ["products", productId],
     queryFn: () => postService.getPost("products", productId),
   });
 
   // 상품 삭제 API
-  const { mutate: deletePost } = useMutation({
+  const { mutate: deletePost } = useMutation<void, Error, string>({
     mutationFn: (productId) => postService.deletePost("products", productId),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["products", productId] }),
@@ -89,7 +106,7 @@ export default function ProductDetail() {
         />
       )}
       <div className="flex flex-col justify-center items-center gap-y-[16px] sm:flex-row sm:items-start sm:gap-[16px] md:items-center md:gap-[24px]">
-        <img
+        <Image
           src={
             product?.images?.length === 0
               ? img_default_product.src

@@ -1,7 +1,13 @@
 "use client";
 
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  KeyboardEvent,
+  useEffect,
+  useState,
+} from "react";
 import ProductInput from "./ProductInput";
 import ProductCreateTags from "./ProductCreateTags";
 import ProductTextArea from "./ProductTextArea";
@@ -11,11 +17,51 @@ import { postService } from "@/service/postService";
 import useValidation from "@/hooks/useValidation";
 import { useParams, useRouter } from "next/navigation";
 
-export default function ProductForm({ title }) {
-  const [isActive, setIsActive] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [tagValue, setTagValue] = useState("");
-  const [body, setBody] = useState({
+interface IProductFormProps {
+  title: string;
+}
+
+type TProductFormBody = {
+  images: { file: File; url: string }[];
+  name: string;
+  description: string;
+  price: string | number;
+  tags: string[];
+};
+
+type TProduct = {
+  tags: string[];
+  images: string[];
+  likeCount: number;
+  isLiked: boolean;
+  author: {
+    id: string;
+    nickname: string;
+  };
+  name: string;
+  id: number;
+  createdAt: Date;
+  description: string;
+  price: number;
+};
+
+type TProductResponse = {
+  tags: string[];
+  images: string[];
+  name: string;
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  description: string;
+  price: number;
+  authorId: string;
+};
+
+export default function ProductForm({ title }: IProductFormProps) {
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [tagValue, setTagValue] = useState<string>("");
+  const [body, setBody] = useState<TProductFormBody>({
     images: [],
     name: "",
     description: "",
@@ -23,7 +69,7 @@ export default function ProductForm({ title }) {
     tags: [],
   });
 
-  const { productId } = useParams();
+  const { productId } = useParams<{ productId: string }>();
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -31,26 +77,33 @@ export default function ProductForm({ title }) {
   const [errorMsg, checkValidation] = useValidation();
 
   // 상품 상세 조회
-  const {
-    data: product,
-    isPending,
-    error,
-  } = useQuery({
+  const { data: product, isPending } = useQuery<
+    TProduct,
+    Error,
+    TProduct,
+    [string, string]
+  >({
     queryKey: ["products", productId],
     queryFn: () => postService.getPost("products", productId),
     enabled: !!productId,
   });
 
   // 상품 등록 API
-  const { mutate: createPost } = useMutation({
-    mutationFn: (body) => postService.createPost("products", body),
-    onSuccess: (data) => {
-      router.push(`/products/${data.id}`);
-    },
-  });
+  const { mutate: createPost } = useMutation<TProductResponse, Error, FormData>(
+    {
+      mutationFn: (body) => postService.createPost("products", body),
+      onSuccess: (data) => {
+        router.push(`/products/${data.id}`);
+      },
+    }
+  );
 
   // 상품 수정 API
-  const { mutate: updatePost } = useMutation({
+  const { mutate: updatePost } = useMutation<
+    TProductResponse,
+    Error,
+    { id: string; body: FormData }
+  >({
     mutationFn: ({ id, body }) => postService.updatePost("products", id, body),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["products", productId] });
@@ -60,20 +113,32 @@ export default function ProductForm({ title }) {
 
   // 상품 수정 시 초기 값 세팅
   useEffect(() => {
-    if (isPending) return;
+    if (isPending || !product) return;
     const { images = [], name, description, price, tags } = product;
 
-    setBody((prev) => ({ ...prev, images, name, description, price, tags }));
+    const formmatedImages = images.map((url) => ({
+      file: new File([], ""),
+      url,
+    }));
+
+    setBody((prev) => ({
+      ...prev,
+      images: formmatedImages,
+      name,
+      description,
+      price,
+      tags,
+    }));
   }, [isPending]);
 
   // 상품 등록
-  const handleCreatePost = (e) => {
+  const handleCreatePost = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData();
     formData.append("name", body.name);
     formData.append("description", body.description);
-    formData.append("price", body.price);
+    formData.append("price", body.price as string);
     formData.append("tags", JSON.stringify(body.tags));
     body.images.forEach((image) => {
       formData.append("imageFiles", image.file);
@@ -85,20 +150,22 @@ export default function ProductForm({ title }) {
       // TODO: body에 trim해서 보내기
       createPost(formData);
     } catch (e) {
-      console.error(e.message);
+      if (e instanceof Error) {
+        console.error(e.message);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   // 상품 수정
-  const handleUpdatePost = (e) => {
+  const handleUpdatePost = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData();
     formData.append("name", body.name);
     formData.append("description", body.description);
-    formData.append("price", body.price);
+    formData.append("price", body.price as string);
     formData.append("tags", JSON.stringify(body.tags));
     body.images.forEach((image) => {
       formData.append("imageFiles", image.file);
@@ -110,14 +177,18 @@ export default function ProductForm({ title }) {
       // TODO: body에 trim해서 보내기
       updatePost({ id: productId, body: formData });
     } catch (e) {
-      console.error(e.message);
+      if (e instanceof Error) {
+        console.error(e.message);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   // body 변경
-  const changeValue = (e) => {
+  const changeValue = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
     const { id, value } = e.target;
 
     // 유효성 검사
@@ -136,15 +207,21 @@ export default function ProductForm({ title }) {
 
     if (id === "image") {
       if (body.images.length === 3) return;
+      const target = e.target as HTMLInputElement;
+      const fileList = target.files;
 
-      const images = Array.from(e.target.files);
+      if (!fileList) return;
 
-      return images.map((file) => {
+      const files = Array.from(fileList);
+
+      files.map((file) => {
         const imageUrl = URL.createObjectURL(file); // 미리보기용 URL 생성
         const newImage = { file, url: imageUrl };
 
         setBody((prev) => ({ ...prev, images: [...prev.images, newImage] }));
       });
+
+      return;
     }
 
     setBody((prev) => ({ ...prev, [id]: value }));
@@ -178,8 +255,8 @@ export default function ProductForm({ title }) {
   }, [body, errorMsg]);
 
   // 태그 추가
-  const addTag = (e) => {
-    const { value } = e.target;
+  const addTag = (e: KeyboardEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
 
     if (e.key === "Enter") {
       e.preventDefault();
@@ -191,14 +268,14 @@ export default function ProductForm({ title }) {
   };
 
   // 태그 삭제
-  const deleteTag = (value) => {
+  const deleteTag = (value: string) => {
     const deletedTag = body.tags.filter((tag) => tag !== value);
 
     setBody((prev) => ({ ...prev, tags: [...deletedTag] }));
   };
 
   // 이미지 삭제
-  const deleteImage = (value) => {
+  const deleteImage = (value: { file: File; url: string }) => {
     const updatedImage = body.images.filter((image) => image !== value);
 
     setBody((prev) => ({ ...prev, images: [...updatedImage] }));

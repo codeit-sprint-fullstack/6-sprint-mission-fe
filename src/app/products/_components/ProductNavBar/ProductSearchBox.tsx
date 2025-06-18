@@ -1,20 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import ic_search from "@/assets/images/common/search-box/ic_search.svg";
 import Image from "next/image";
 
-export default function ProductSearchBox({ changeKeywordInParams }) {
-  const [keyword, setKeyword] = useState("");
+interface IProductSearchBoxProps {
+  changeKeywordInParams: (keyword: string) => void;
+}
 
-  const handleSearchSubmit = (e) => {
+export default function ProductSearchBox({
+  changeKeywordInParams,
+}: IProductSearchBoxProps) {
+  const [keyword, setKeyword] = useState<string>("");
+
+  const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     changeKeywordInParams(keyword.trim());
     setKeyword("");
   };
 
-  const changeKeyword = (e) => {
+  const changeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 

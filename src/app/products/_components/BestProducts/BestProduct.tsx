@@ -1,28 +1,39 @@
 import React from "react";
-import Image from "next/image";
 import ic_empty_heart from "@/assets/images/common/ic_empty_heart.svg";
 import img_default_product from "@/assets/images/products/img_default_product.svg";
+import Image from "next/image";
 import Link from "next/link";
 
-export default function Product({ product }) {
+interface IBestProductProps {
+  bestProduct: {
+    images: string[];
+    likeCount: number;
+    name: string;
+    id: number;
+    createdAt: Date;
+    price: number;
+  };
+}
+
+export default function BestProduct({ bestProduct }: IBestProductProps) {
   return (
     <Link
-      href={`/products/${product.id}`}
-      className="flex flex-col justify-center items-start gap-[16px]"
+      href={`/products/${bestProduct.id}`}
+      className="flex flex-col justify-center items-start gap-[10px]"
     >
-      <img
+      <Image
         src={
-          product?.images?.length === 0
+          bestProduct?.images?.length === 0
             ? img_default_product.src
-            : product?.images?.[0]
+            : bestProduct?.images?.[0]
         }
-        alt={product?.name}
+        alt={bestProduct?.name}
         className="relative w-full h-full aspect-[1/1] rounded-[12px] overflow-hidden"
       />
       <div className="flex flex-col justify-center items-start gap-[6px]">
-        <p className="font-medium text-[14px]/[24px]">{product?.name}</p>
+        <p className="font-medium text-[14px]/[24px]">{bestProduct?.name}</p>
         <p className="font-bold text-[16px]/[26px]">
-          {product?.price?.toLocaleString()}원
+          {bestProduct?.price?.toLocaleString()}원
         </p>
         <div className="flex justify-start items-center gap-[4px]">
           <div className="relative w-[16px] h-[16px]">
@@ -34,7 +45,7 @@ export default function Product({ product }) {
             />
           </div>
           <p className="font-medium text-[12px]/[18px] text-secondary-gray-500">
-            {product?.likeCount}
+            {bestProduct?.likeCount}
           </p>
         </div>
       </div>

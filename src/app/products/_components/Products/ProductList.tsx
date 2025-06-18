@@ -8,10 +8,29 @@ import { postService } from "@/service/postService";
 import useGetDeviceType from "@/hooks/useGetDeviceType";
 import Pagination from "../Pagination";
 
+type TProductListParams = {
+  offset: number;
+  limit: number;
+  orderBy: string;
+  keyword: string;
+};
+
+type TProducts = {
+  list: {
+    images: string[];
+    likeCount: number;
+    name: string;
+    id: number;
+    createdAt: Date;
+    price: number;
+  }[];
+  totalCount: number;
+};
+
 export default function ProductList() {
-  const [params, setParams] = useState({
+  const [params, setParams] = useState<TProductListParams>({
     offset: 1,
-    limit: null,
+    limit: 0,
     orderBy: "recent",
     keyword: "",
   });
@@ -20,26 +39,31 @@ export default function ProductList() {
   const [currentDevice] = useGetDeviceType(setParams, "products");
 
   // 상품 목록 조회
-  const { data: products, isPending } = useQuery({
+  const { data: products, isPending } = useQuery<
+    TProducts,
+    Error,
+    TProducts,
+    [string, TProductListParams]
+  >({
     queryKey: ["products", params],
     queryFn: () => postService.getPosts("products", params),
     enabled: !!params.limit,
   });
 
   // 렌더링(검색)
-  const changeKeywordInParams = (keyword) => {
+  const changeKeywordInParams = (keyword: string) => {
     if (params.keyword === keyword) return;
     setParams((prevParams) => ({ ...prevParams, offset: 1, keyword }));
   };
 
   // 렌더링(정렬 선택)
-  const changeOrderByInParams = (orderBy) => {
+  const changeOrderByInParams = (orderBy: string) => {
     if (params.orderBy === orderBy) return;
     setParams((prevParams) => ({ ...prevParams, offset: 1, orderBy }));
   };
 
   // 렌더링(현재 페이지 변경)
-  const changeOffsetInParams = (offset) => {
+  const changeOffsetInParams = (offset: number) => {
     if (params.offset === offset) return;
     setParams((prevParams) => ({ ...prevParams, offset }));
   };

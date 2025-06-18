@@ -6,10 +6,29 @@ import { useQuery } from "@tanstack/react-query";
 import { postService } from "@/service/postService";
 import useGetDeviceType from "@/hooks/useGetDeviceType";
 
+type TBestProductListParams = {
+  offset: number;
+  limit: number;
+  orderBy: string;
+  keyword: string;
+};
+
+type TBestProducts = {
+  list: {
+    images: string[];
+    likeCount: number;
+    name: string;
+    id: number;
+    createdAt: Date;
+    price: number;
+  }[];
+  totalCount: number;
+};
+
 export default function BestProductList() {
-  const [params, setParams] = useState({
+  const [params, setParams] = useState<TBestProductListParams>({
     offset: 1,
-    limit: null,
+    limit: 0,
     orderBy: "like",
     keyword: "",
   });
@@ -18,7 +37,12 @@ export default function BestProductList() {
   useGetDeviceType(setParams, "bestProducts");
 
   // 베스트 상품 조회
-  const { data: bestProducts, isPending } = useQuery({
+  const { data: bestProducts, isPending } = useQuery<
+    TBestProducts,
+    Error,
+    TBestProducts,
+    [string, TBestProductListParams]
+  >({
     queryKey: ["bestProducts", params],
     queryFn: () => postService.getPosts("products", params),
     enabled: !!params.limit,

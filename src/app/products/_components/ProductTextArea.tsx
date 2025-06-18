@@ -1,5 +1,22 @@
 import clsx from "clsx";
-import React from "react";
+import React, { ChangeEvent } from "react";
+
+type TProductTextAreaBody = {
+  images: { file: File; url: string }[];
+  name: string;
+  description: string;
+  price: string | number;
+  tags: string[];
+};
+
+interface IProductTextAreaProps {
+  type: keyof TProductTextAreaBody;
+  title: string;
+  placeholder: string;
+  body: TProductTextAreaBody;
+  errorMsg: string;
+  changeValue: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+}
 
 export default function ProductTextArea({
   type,
@@ -8,14 +25,14 @@ export default function ProductTextArea({
   body,
   errorMsg,
   changeValue,
-}) {
+}: IProductTextAreaProps) {
   return (
     <div className="flex flex-col gap-[8px]">
       <div className="flex flex-col gap-[16px]">
         <p className="font-bold text-[18px]/[26px]">{title}</p>
         <textarea
           onChange={changeValue}
-          value={body[type]}
+          value={type !== "images" ? body[type] : undefined}
           name={type}
           id={type}
           placeholder={placeholder}

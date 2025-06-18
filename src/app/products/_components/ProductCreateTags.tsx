@@ -4,7 +4,15 @@ import React from "react";
 import Image from "next/image";
 import ic_cancel from "@/assets/images/products/ic_cancel.svg";
 
-export default function ProductCreateTags({ tags, deleteTag }) {
+interface IProductCreateTagsProps {
+  tags: string[];
+  deleteTag: (value: string) => void;
+}
+
+export default function ProductCreateTags({
+  tags,
+  deleteTag,
+}: IProductCreateTagsProps) {
   return (
     <section className="flex flex-wrap gap-[12px]">
       {tags?.map((tag, i) => {
