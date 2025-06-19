@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import Image from "next/image";
@@ -9,22 +9,64 @@ import DropDownToggle from "@/components/ui/DropDownToggle";
 import ic_profile from "@/assets/images/common/ic_profile.svg";
 import dayjs from "dayjs";
 import clsx from "clsx";
-import { useAuth } from "@/providers/AuthProvider";
+import { useAuth } from "@/contexts/AuthContext";
 
-export default function Comment({ comment }) {
-  const [isDropDownVisible, setIsDropDownVisible] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [isActive, setIsActive] = useState(true);
-  const [body, setBody] = useState({ content: comment.content });
+interface ICommentProps {
+  comment: {
+    author: {
+      id: string;
+      nickname: string;
+    };
+  } & {
+    id: number;
+    createdAt: Date;
+    content: string;
+  };
+}
 
-  const { articleId, productId } = useParams();
+type TUpdateArticleComment = {
+  id: number;
+  createdAt: Date;
+  authorId: string;
+  articleId: number;
+  content: string;
+};
+
+type TUpdateProductComment = {
+  id: number;
+  createdAt: Date;
+  authorId: string;
+  productId: number;
+  content: string;
+};
+
+type TCreateCommentBody = {
+  content: string;
+};
+
+export default function Comment({ comment }: ICommentProps) {
+  const [isDropDownVisible, setIsDropDownVisible] = useState<boolean>(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isActive, setIsActive] = useState<boolean>(true);
+  const [body, setBody] = useState<{ content: string }>({
+    content: comment.content,
+  });
+
+  const { articleId, productId } = useParams<{
+    articleId: string;
+    productId: string;
+  }>();
   const queryClient = useQueryClient();
   const { user } = useAuth();
 
   const id = articleId || productId;
 
   // 댓글 수정 API
-  const { mutate: updateComment } = useMutation({
+  const { mutate: updateComment } = useMutation<
+    TUpdateArticleComment | TUpdateProductComment,
+    Error,
+    { type: string; id: string; commentId: number; body: TCreateCommentBody }
+  >({
     mutationFn: ({ type, id, commentId, body }) =>
       commentService.updateComment(type, id, commentId, body),
     onSuccess: () =>
@@ -32,7 +74,11 @@ export default function Comment({ comment }) {
   });
 
   // 댓글 삭제 API
-  const { mutate: deleteComment } = useMutation({
+  const { mutate: deleteComment } = useMutation<
+    void,
+    Error,
+    { type: string; id: string; commentId: number }
+  >({
     mutationFn: ({ type, id, commentId }) =>
       commentService.deleteComment(type, id, commentId),
     onSuccess: () =>
@@ -62,7 +108,7 @@ export default function Comment({ comment }) {
   };
 
   // body 변경
-  const changeValue = (e) => {
+  const changeValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const content = e.target.value;
 
     setBody({ content });

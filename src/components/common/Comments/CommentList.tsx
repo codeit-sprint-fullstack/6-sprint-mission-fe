@@ -10,17 +10,25 @@ import Comment from "./Comment";
 import { useParams } from "next/navigation";
 import clsx from "clsx";
 
-export default function CommentList({ isPending, comments }) {
-  const { articleId, productId } = useParams();
+interface ICommentListProps {
+  comments: ({
+    author: {
+      id: string;
+      nickname: string;
+    };
+  } & {
+    id: number;
+    createdAt: Date;
+    content: string;
+  })[];
+}
+
+export default function CommentList({ comments }: ICommentListProps) {
+  const { articleId } = useParams<{ articleId: string }>();
 
   return (
-    <div className="flex flex-col justify-center items-center w-full gap-[40px] sm:gap-[48px]">
-      {isPending ? (
-        <div className="flex justify-center items-center gap-[8px]">
-          <div className="size-[20px] border-[3px] border-t-[3px] border-secondary-gray-200 border-t-primary-100 rounded-full animate-spin"></div>
-          <p className="font-medium">불러오는 중</p>
-        </div>
-      ) : comments.length === 0 ? (
+    <>
+      {comments.length === 0 ? (
         <div
           className={clsx(
             articleId ? "gap-[16px]" : "gap-[8px]",
@@ -69,6 +77,6 @@ export default function CommentList({ isPending, comments }) {
           <Image src={ic_back} alt="뒤로 가기" fill className="object-cover" />
         </div>
       </Link>
-    </div>
+    </>
   );
 }

@@ -6,7 +6,7 @@ import ic_small_panda_logo from "@/assets/images/common/header/ic_small_panda_lo
 import ic_profile from "@/assets/images/common/ic_profile.svg";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { useAuth } from "@/providers/AuthProvider";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Header() {
   const path = usePathname();

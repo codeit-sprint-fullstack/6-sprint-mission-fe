@@ -1,23 +1,48 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import clsx from "clsx";
 import { useParams } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { commentService } from "@/service/commentService";
 
-export default function CommentCreate() {
-  const [body, setBody] = useState({ content: "" });
-  const [isActive, setIsActive] = useState(false);
+type TCreateArticleComment = {
+  id: number;
+  createdAt: Date;
+  authorId: string;
+  articleId: number;
+  content: string;
+};
 
-  const { articleId, productId } = useParams();
+type TCreateProductComment = {
+  id: number;
+  createdAt: Date;
+  authorId: string;
+  productId: number;
+  content: string;
+};
+
+type TCreateCommentBody = { content: string };
+
+export default function CommentCreate() {
+  const [body, setBody] = useState<{ content: string }>({ content: "" });
+  const [isActive, setIsActive] = useState<boolean>(false);
+
+  const { articleId, productId } = useParams<{
+    articleId: string;
+    productId: string;
+  }>();
   const queryClient = useQueryClient();
 
   const type = articleId ? "articles" : "products";
   const id = articleId || productId;
 
   // 댓글 작성 API
-  const { mutate: createComment } = useMutation({
+  const { mutate: createComment } = useMutation<
+    TCreateArticleComment | TCreateProductComment,
+    Error,
+    { type: string; id: string; body: TCreateCommentBody }
+  >({
     mutationFn: ({ type, id, body }) =>
       commentService.createComment(type, id, body),
     onSuccess: () => {
@@ -26,7 +51,7 @@ export default function CommentCreate() {
   });
 
   // 댓글 작성
-  const handleCreateComment = async (e) => {
+  const handleCreateComment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { content } = body;
 
@@ -35,7 +60,7 @@ export default function CommentCreate() {
   };
 
   // body 변경
-  const changeValue = (e) => {
+  const changeValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { id, value } = e.target;
 
     setBody((prevBody) => ({ ...prevBody, [id]: value }));
