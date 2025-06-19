@@ -8,7 +8,7 @@ export default function HomeBanner() {
     <section className="flex w-full items-center justify-center bg-[#cfe5ff] pt-[70px] md:h-[500px] md:items-end">
       <div className="flex w-full flex-col items-center md:w-[1200px] md:flex-row md:items-end">
         <div className="mb-[150px] flex w-[350px] flex-col items-center gap-5 text-center md:text-left">
-          <span className="w-[90%] font-['Pretendard'] text-[2.4rem] leading-[1.4] font-bold text-gray-800">
+          <span className="w-[350px] font-['Pretendard'] text-[2.4rem] leading-[1.4] font-bold text-gray-800">
             일상의 모든 물건을 거래해 보세요
           </span>
           <Link
@@ -19,17 +19,15 @@ export default function HomeBanner() {
           </Link>
         </div>
 
-        <div className="w-full md:w-[850px]">
-          <figure className="relative h-[500px] w-[850px]">
-            <Image
-              src="/img/Img_home_top.png"
-              alt="배너 이미지"
-              sizes="850px"
-              priority
-              fill
-              className="h-full w-full object-contain"
-            />
-          </figure>
+        <div className="w-full">
+          <Image
+            src="/img/Img_home_top.png"
+            alt="배너 이미지"
+            width={700}
+            height={500}
+            priority
+            className="h-full w-full"
+          />
         </div>
       </div>
     </section>
