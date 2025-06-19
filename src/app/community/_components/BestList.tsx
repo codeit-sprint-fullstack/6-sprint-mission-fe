@@ -5,6 +5,7 @@ import { useArticles } from "@/hooks/Article";
 import useDeviceType from "@/hooks/common/useDeviceType";
 import { useMemo } from "react";
 import LoadingState from "../../../components/common/LoadingState";
+import { Article } from "@/types/article";
 
 export default function BestList() {
   const { isMobile, isTablet } = useDeviceType();
@@ -47,7 +48,7 @@ export default function BestList() {
       {/* 베스트 게시글 목록 */}
       {!loading && !error && displayedArticles.length > 0 && (
         <ul className={`flex w-full gap-5 ${isMobile ? "justify-center" : ""}`}>
-          {displayedArticles.map((article) => (
+          {displayedArticles.map((article: Article) => (
             <BestItem key={article.id} article={article} />
           ))}
         </ul>
