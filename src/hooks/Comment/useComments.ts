@@ -1,131 +1,116 @@
 import { commentService } from "@/api/commentService";
 import { Comment } from "@/types/comment";
-import { useState, useEffect, useCallback } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useComments(type: string, parentId: string, limit = 10) {
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [cursor, setCursor] = useState<number | null>(null);
-  const [hasMore, setHasMore] = useState(true);
+  const queryClient = useQueryClient();
 
-  const fetchComments = useCallback(
-    async (refresh = false) => {
-      try {
-        setLoading(true);
-        setError(null);
+  // React Query를 사용한 댓글 목록 조회
+  const {
+    data: comments = [],
+    isLoading: loading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["comments", type, parentId, limit],
+    queryFn: () => commentService.getComments(type, parentId, limit, null),
+    staleTime: 5 * 60 * 1000, // 5분간 fresh 상태 유지
+    gcTime: 10 * 60 * 1000, // 10분간 캐시 유지
+    refetchOnWindowFocus: false,
+    retry: 1,
+  });
 
-        const currentCursor = refresh ? null : cursor;
-        const result = await commentService.getComments(
-          type,
-          parentId,
-          limit,
-          currentCursor
-        );
-
-        // 새로운 API 응답 구조에 맞게 변경
-        const list = result || [];
-        const newCursor = result?.nextCursor || null;
-
-        if (refresh) {
-          setComments(list);
-        } else {
-          setComments((prev) => [...prev, ...list]);
-        }
-        setCursor(newCursor);
-        setHasMore(!!newCursor && list.length > 0);
-      } catch (error) {
-        setError(
-          error instanceof Error
-            ? error.message
-            : "댓글을 불러오는데 실패했습니다."
-        );
-        console.error("댓글 목록 조회 실패:", error);
-      } finally {
-        setLoading(false);
-      }
+  // 댓글 작성 mutation
+  const addCommentMutation = useMutation({
+    mutationFn: (content: Comment["content"]) =>
+      commentService.createComment(type, parentId, content),
+    onSuccess: () => {
+      // 댓글 목록 캐시 무효화
+      queryClient.invalidateQueries({
+        queryKey: ["comments", type, parentId],
+        exact: false,
+      });
     },
-    [type, parentId, cursor, limit]
-  );
-
-  const refetch = useCallback(() => {
-    setCursor(null);
-    setHasMore(true);
-    fetchComments(true);
-  }, [fetchComments]);
-
-  const addComment = async (content: Comment["content"]) => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      await commentService.createComment(type, parentId, content);
-      refetch(); // 🔥 바로 refetch
-    } catch (error) {
-      setError(
-        error instanceof Error ? error.message : "댓글 작성에 실패했습니다."
-      );
+    onError: (error) => {
       console.error("댓글 작성 실패:", error);
-    } finally {
-      setLoading(false);
-    }
+    },
+  });
+
+  // 댓글 수정 mutation
+  const updateCommentMutation = useMutation({
+    mutationFn: ({
+      commentId,
+      content,
+    }: {
+      commentId: string;
+      content: string;
+    }) => commentService.updateComment(commentId, content),
+    onSuccess: () => {
+      // 댓글 목록 캐시 무효화
+      queryClient.invalidateQueries({
+        queryKey: ["comments", type, parentId],
+        exact: false,
+      });
+    },
+    onError: (error) => {
+      console.error("댓글 수정 실패:", error);
+    },
+  });
+
+  // 댓글 삭제 mutation
+  const deleteCommentMutation = useMutation({
+    mutationFn: (commentId: string) => commentService.deleteComment(commentId),
+    onSuccess: () => {
+      // 댓글 목록 캐시 무효화
+      queryClient.invalidateQueries({
+        queryKey: ["comments", type, parentId],
+        exact: false,
+      });
+    },
+    onError: (error) => {
+      console.error("댓글 삭제 실패:", error);
+    },
+  });
+
+  // 댓글 작성 함수
+  const addComment = async (content: Comment["content"]) => {
+    return addCommentMutation.mutateAsync(content);
   };
 
+  // 댓글 수정 함수
   const updateComment = async (
     targetCommentId: Comment["id"],
     editContent: Comment["content"]
   ) => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      await commentService.updateComment(targetCommentId, editContent);
-      refetch(); // 🔥 바로 refetch
-    } catch (error) {
-      setError(
-        error instanceof Error ? error.message : "댓글 수정에 실패했습니다."
-      );
-      console.error("댓글 수정 실패:", error);
-    } finally {
-      setLoading(false);
-    }
+    return updateCommentMutation.mutateAsync({
+      commentId: targetCommentId,
+      content: editContent,
+    });
   };
 
+  // 댓글 삭제 함수
   const deleteComment = async (targetCommentId: Comment["id"]) => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      await commentService.deleteComment(targetCommentId);
-      refetch(); // 🔥 바로 refetch
-    } catch (error) {
-      setError(
-        error instanceof Error ? error.message : "댓글 삭제에 실패했습니다."
-      );
-      console.error("댓글 삭제 실패:", error);
-    } finally {
-      setLoading(false);
-    }
+    return deleteCommentMutation.mutateAsync(targetCommentId);
   };
-
-  // 아직 적용 전
-  const loadMore = () => {
-    if (!loading && hasMore) fetchComments(false);
-  };
-
-  useEffect(() => {
-    fetchComments(true);
-  }, [fetchComments]);
 
   return {
     comments,
     loading,
-    error,
-    hasMore,
+    error: error
+      ? error instanceof Error
+        ? error.message
+        : "댓글을 불러오는데 실패했습니다."
+      : null,
+    hasMore: false, // 페이지네이션은 일단 제거
     addComment,
     updateComment,
     deleteComment,
-    loadMore,
+    loadMore: () => {}, // 페이지네이션은 일단 제거
     refetch,
+
+    // 로딩 상태
+    isAddingComment: addCommentMutation.isPending,
+    isUpdatingComment: updateCommentMutation.isPending,
+    isDeletingComment: deleteCommentMutation.isPending,
   };
 }

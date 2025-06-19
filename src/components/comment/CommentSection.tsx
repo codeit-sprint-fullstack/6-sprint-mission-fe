@@ -15,26 +15,18 @@ export default function CommentSection({
   parentId: string;
   user: User;
 }) {
-  const {
-    comments,
-    loading,
-    error,
-    addComment,
-    updateComment,
-    deleteComment,
-    refetch,
-  } = useComments(type, parentId);
+  const { comments, loading, error, addComment, updateComment, deleteComment } =
+    useComments(type, parentId);
 
   return (
     <div>
-      <CommentForm addComment={addComment} onSuccess={refetch} />
+      <CommentForm addComment={addComment} />
       <CommentList
         comments={comments}
         loading={loading}
         error={error}
         onUpdateComment={updateComment}
         onDeleteComment={deleteComment}
-        onSuccess={refetch}
         user={user}
       />
       <BackToList />

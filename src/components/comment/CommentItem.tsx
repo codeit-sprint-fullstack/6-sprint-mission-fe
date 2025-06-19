@@ -12,13 +12,11 @@ export default function CommentItem({
   comment,
   onUpdateComment,
   onDeleteComment,
-  onSuccess,
   user,
 }: {
   comment: Comment;
-  onUpdateComment: (commentId: string, content: string) => void;
-  onDeleteComment: (commentId: string) => void;
-  onSuccess: () => void;
+  onUpdateComment: (commentId: string, content: string) => Promise<void>;
+  onDeleteComment: (commentId: string) => Promise<void>;
   user: User | null;
 }) {
   // user 객체에서 id 가져오기 (중첩된 구조)
@@ -47,12 +45,12 @@ export default function CommentItem({
     try {
       setIsSubmitting(true);
 
-      onUpdateComment(comment.id, editContent); // 🔥 부모 함수 호출
+      await onUpdateComment(comment.id, editContent);
       setIsEditing(false);
       setShowOptions(false);
-      if (onSuccess) onSuccess(); // 🔥 변경 알림
     } catch (err) {
       console.error("댓글 수정 실패:", err);
+      alert("댓글 수정에 실패했습니다.");
     } finally {
       setIsSubmitting(false);
     }
@@ -68,10 +66,10 @@ export default function CommentItem({
   const executeDelete = async () => {
     try {
       setIsSubmitting(true);
-      await onDeleteComment(comment.id); // 🔥 부모 함수 호출
-      if (onSuccess) onSuccess(); // 🔥 변경 알림
+      await onDeleteComment(comment.id);
     } catch (err) {
       console.error("댓글 삭제 실패:", err);
+      alert("댓글 삭제에 실패했습니다.");
     } finally {
       setIsSubmitting(false);
       setShowDeleteModal(false);
@@ -146,7 +144,7 @@ export default function CommentItem({
         </div>
 
         {/* 옵션 버튼 */}
-        {userId === comment.author.id && !isEditing && (
+        {userId === comment.author.id && (
           <div className="relative">
             <button
               onClick={() => setShowOptions(!showOptions)}

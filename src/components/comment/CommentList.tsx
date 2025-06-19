@@ -12,15 +12,13 @@ export default function CommentList({
   error,
   onUpdateComment,
   onDeleteComment,
-  onSuccess,
   user,
 }: {
   comments: Comment[];
   loading: boolean;
   error: string | null;
-  onUpdateComment: (commentId: string, content: string) => void;
-  onDeleteComment: (commentId: string) => void;
-  onSuccess: () => void;
+  onUpdateComment: (commentId: string, content: string) => Promise<void>;
+  onDeleteComment: (commentId: string) => Promise<void>;
   user: User | null;
 }) {
   if (loading && comments.length === 0) return <LoadingState loading={true} />;
@@ -35,7 +33,6 @@ export default function CommentList({
           comment={comment}
           onUpdateComment={onUpdateComment}
           onDeleteComment={onDeleteComment}
-          onSuccess={onSuccess}
           user={user}
         />
       ))}

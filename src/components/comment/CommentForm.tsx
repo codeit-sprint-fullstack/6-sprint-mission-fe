@@ -6,10 +6,8 @@ import AuthRequiredModal from "@/components/modal/AuthRequiredModal";
 
 export default function CommentForm({
   addComment,
-  onSuccess,
 }: {
-  addComment: (content: string) => void;
-  onSuccess: () => void;
+  addComment: (content: string) => Promise<void>;
 }) {
   const { user } = useAuth();
   const [content, setContent] = useState("");
@@ -34,10 +32,7 @@ export default function CommentForm({
       setError("");
 
       await addComment(content);
-
       setContent("");
-
-      if (onSuccess) onSuccess(); // ✅ 등록 후 성공 콜백 실행
     } catch (err) {
       console.error("댓글 작성 실패:", err);
       setError("댓글 작성에 실패했습니다. 다시 시도해주세요.");
