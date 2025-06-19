@@ -1,7 +1,7 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 // application/json 용도
-export const tokenFetch = async (url, options = {}) => {
+export const tokenFetch = async (url: string, options: RequestInit = {}) => {
   let accessToken;
 
   if (typeof window !== "undefined") {
@@ -24,7 +24,7 @@ export const tokenFetch = async (url, options = {}) => {
     },
   };
 
-  let res = await fetch(`${BASE_URL}${url}`, mergedOptions);
+  const res = await fetch(`${BASE_URL}${url}`, mergedOptions);
 
   // 토큰 만료 시(새 토큰 요청)
   if (res.status === 401 && typeof window !== "undefined") {
@@ -53,7 +53,9 @@ export const tokenFetch = async (url, options = {}) => {
         throw new Error("토큰 갱신에 실패하였습니다.");
       }
     } catch (e) {
-      console.error(e.message);
+      if (e instanceof Error) {
+        console.error(e.message);
+      }
     }
   }
 
@@ -72,7 +74,10 @@ export const tokenFetch = async (url, options = {}) => {
 };
 
 // multipart/form-data 용도
-export const multipartFetch = async (url, options = {}) => {
+export const multipartFetch = async (
+  url: string,
+  options: RequestInit = {}
+) => {
   let accessToken;
 
   if (typeof window !== "undefined") {
@@ -94,7 +99,7 @@ export const multipartFetch = async (url, options = {}) => {
     },
   };
 
-  let res = await fetch(`${BASE_URL}${url}`, mergedOptions);
+  const res = await fetch(`${BASE_URL}${url}`, mergedOptions);
 
   // 토큰 만료 시(새 토큰 요청)
   if (res.status === 401 && typeof window !== "undefined") {
@@ -123,7 +128,9 @@ export const multipartFetch = async (url, options = {}) => {
         throw new Error("토큰 갱신에 실패하였습니다.");
       }
     } catch (e) {
-      console.error(e.message);
+      if (e instanceof Error) {
+        console.error(e.message);
+      }
     }
   }
 

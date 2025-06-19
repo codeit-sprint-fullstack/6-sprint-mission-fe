@@ -1,14 +1,29 @@
 import { multipartFetch, tokenFetch } from "./fetchClient";
 
+type TGetPostsQuery = {
+  offset: number;
+  limit: number;
+  orderBy: string;
+  keyword: string;
+};
+
+type TPostServiceBody = FormData | { title: string; content: string };
+
 export const postService = {
-  getPosts: (type, query) => {
-    const queryString = new URLSearchParams(query).toString();
+  getPosts: (type: string, query: TGetPostsQuery) => {
+    const params = {
+      ...query,
+      offset: String(query.offset),
+      limit: String(query.limit),
+    };
+
+    const queryString = new URLSearchParams(params).toString();
     return tokenFetch(`/${type}?${queryString}`);
   },
 
-  getPost: (type, id) => tokenFetch(`/${type}/${id}`),
+  getPost: (type: string, id: string) => tokenFetch(`/${type}/${id}`),
 
-  createPost: (type, body) =>
+  createPost: (type: string, body: TPostServiceBody) =>
     type === "articles"
       ? tokenFetch(`/${type}`, {
           method: "POST",
@@ -19,7 +34,7 @@ export const postService = {
           body,
         }),
 
-  updatePost: (type, id, body) =>
+  updatePost: (type: string, id: string, body: TPostServiceBody) =>
     type === "articles"
       ? tokenFetch(`/${type}/${id}`, {
           method: "PATCH",
@@ -30,17 +45,17 @@ export const postService = {
           body,
         }),
 
-  deletePost: (type, id) =>
+  deletePost: (type: string, id: string) =>
     tokenFetch(`/${type}/${id}`, {
       method: "DELETE",
     }),
 
-  like: (type, id) =>
+  like: (type: string, id: string) =>
     tokenFetch(`/${type}/${id}/like`, {
       method: "POST",
     }),
 
-  unlike: (type, id) =>
+  unlike: (type: string, id: string) =>
     tokenFetch(`/${type}/${id}/like`, {
       method: "DELETE",
     }),
