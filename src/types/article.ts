@@ -48,8 +48,8 @@ export type ArticleEditFormData = {
 
 export type ArticleFormProps = {
   initialData?: Partial<ArticleFormData>;
-  onSubmit: (articleData: ArticleEditFormData) => void;
-  submitText: string;
+  onSubmit?: (articleData: ArticleEditFormData) => void;
+  submitText?: string;
 };
 
 // 다른 모델 참조를 위한 임시 타입 (순환 참조 방지)

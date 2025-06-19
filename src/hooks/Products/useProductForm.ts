@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   ImageObject,
   InternalFormData,
@@ -28,6 +29,7 @@ export function useProductForm({
   submitText = "등록",
 }: UseProductFormProps = {}) {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   // 폼 상태 관리
   const [formData, setFormData] = useState<InternalFormData>(
@@ -47,7 +49,6 @@ export function useProductForm({
     tags: false,
     tagLength: false,
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
   // 입력 참조
@@ -57,6 +58,29 @@ export function useProductForm({
     priceRef: useRef<HTMLInputElement>(null),
     tagRef: useRef<HTMLInputElement>(null),
   };
+
+  // 상품 등록 mutation
+  const createProductMutation = useMutation({
+    mutationFn: (formData: FormData) => productsService.createProduct(formData),
+    onSuccess: (result) => {
+      // 상품 목록 캐시 무효화
+      queryClient.invalidateQueries({
+        queryKey: ["products"],
+        exact: false,
+      });
+
+      // 상품 등록 성공 후 상세 페이지로 이동
+      if (result && result.product && result.product.id) {
+        router.push(`/items/${result.product.id}`);
+      } else {
+        throw new Error("상품 등록 후 ID를 받지 못했습니다.");
+      }
+    },
+    onError: (error) => {
+      console.error("상품 등록 실패:", error);
+      alert(`상품 ${submitText}에 실패했습니다.`);
+    },
+  });
 
   // 초기 데이터 설정
   useEffect(() => {
@@ -89,7 +113,7 @@ export function useProductForm({
     );
     setErrors(newErrors);
     setIsFormValid(isValid);
-  }, [formData, errors]);
+  }, [formData]);
 
   // 컴포넌트 언마운트 시 메모리 정리
   useEffect(() => {
@@ -210,10 +234,8 @@ export function useProductForm({
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-      setIsLoading(true);
 
       if (!validateForm()) {
-        setIsLoading(false);
         return;
       }
 
@@ -234,9 +256,9 @@ export function useProductForm({
       try {
         if (onSubmit) {
           // 수정 모드 - 외부에서 제공된 onSubmit 함수 사용
-          onSubmit(formDataToSubmit);
+          await onSubmit(formDataToSubmit);
         } else {
-          // 등록 모드 - 내부에서 API 호출 처리
+          // 등록 모드 - mutation을 사용한 등록 처리
           const form = new FormData();
 
           form.append("name", formDataToSubmit.name);
@@ -250,22 +272,25 @@ export function useProductForm({
             });
           }
 
-          const result = await productsService.createProduct(form);
-
-          if (result && result.product && result.product.id) {
-            router.push(`/items/${result.product.id}`);
-          } else {
-            throw new Error("상품 등록 후 ID를 받지 못했습니다.");
-          }
+          await createProductMutation.mutateAsync(form);
         }
       } catch (error) {
         console.error("상품 처리 실패:", error);
+        if (!onSubmit) {
+          // 등록 모드에서는 mutation에서 에러 처리하므로 여기서는 무시
+          return;
+        }
         alert(`상품 ${submitText}에 실패했습니다.`);
-      } finally {
-        setIsLoading(false);
       }
     },
-    [formData, images, onSubmit, submitText, router, validateForm]
+    [
+      formData,
+      images,
+      onSubmit,
+      submitText,
+      validateForm,
+      createProductMutation,
+    ]
   );
 
   return {
@@ -274,7 +299,7 @@ export function useProductForm({
     inputTag,
     images,
     errors,
-    isLoading,
+    isLoading: createProductMutation.isPending,
     isFormValid,
     inputRef,
 

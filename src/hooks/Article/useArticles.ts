@@ -1,70 +1,76 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { articlesService } from "../../api/articles";
 import { scrollToTop } from "@/lib/common/scrollTop";
 import { debounce } from "lodash-es";
-import { Article } from "@/types/article";
 
-export function useArticles(initialOptions = {}) {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+const DEFAULT_PAGE_SIZE = 10;
 
-  const [options, setOptions] = useState({
-    offset: 0,
-    limit: 10,
-    search: "",
-    sort: "latest",
-    ...initialOptions,
+export function useArticles({
+  pageSize = DEFAULT_PAGE_SIZE,
+  orderBy: initialOrderBy = "latest",
+  initialKeyword = "",
+} = {}) {
+  // 상태 관리
+  const [currentPage, setCurrentPage] = useState(1);
+  const [orderBy, setOrderBy] = useState(initialOrderBy);
+  const [keyWord, setKeyWord] = useState(initialKeyword);
+  const [searchKeyword, setSearchKeyword] = useState(initialKeyword);
+
+  // offset 계산
+  const offset = (currentPage - 1) * pageSize;
+
+  // React Query를 사용한 데이터 페칭
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: [
+      "articles",
+      "list",
+      currentPage,
+      orderBy,
+      searchKeyword,
+      pageSize,
+    ],
+    queryFn: () =>
+      articlesService.getArticles({
+        offset,
+        limit: pageSize,
+        search: searchKeyword,
+        sort: orderBy,
+      }),
+    staleTime: 5 * 60 * 1000, // 5분간 fresh 상태 유지
+    gcTime: 10 * 60 * 1000, // 10분간 캐시 유지
+    refetchOnWindowFocus: false,
+    placeholderData: (previousData) => previousData, // keepPreviousData 대신 사용
+    retry: 1,
   });
 
-  const currentPage = Math.floor(options.offset / options.limit) + 1;
-  const totalPages = Math.ceil(total / options.limit);
+  // 게시글 목록 및 페이지네이션 데이터
+  const articles = data?.articles || (Array.isArray(data) ? data : []);
+  const totalCount =
+    data?.pagination?.total || (Array.isArray(data) ? data.length : 0);
+  const totalPages = Math.ceil(totalCount / pageSize);
 
-  /**
-   * 게시글 데이터를 서버에서 조회하는 함수
-   */
-  const fetchArticles = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await articlesService.getArticles(options);
-
-      // 변경된 API 응답 구조에 맞게 데이터 추출
-      if (response.articles) {
-        setArticles(response.articles);
-        setTotal(response.pagination?.total || 0);
-      } else {
-        // 이전 구조를 위한 폴백 처리
-        setArticles(response);
-        setTotal(response.length || 0);
-      }
-    } catch (error) {
-      setError(error instanceof Error ? error.message : "알 수 없는 오류");
-      console.error("게시글 목록 조회 실패:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [options]);
+  // 페이지네이션 계산
+  const pageGroupSize = 5;
+  const currentGroup = Math.floor((currentPage - 1) / pageGroupSize);
+  const startPage = currentGroup * pageGroupSize + 1;
+  const endPage = Math.min(totalPages, startPage + pageGroupSize - 1);
 
   /**
    * 검색어를 즉시 적용하는 함수
    */
   const applySearch = useCallback((search: string) => {
-    setOptions((prev) => ({
-      ...prev,
-      search,
-      offset: 0,
-    }));
+    setSearchKeyword(search);
+    setCurrentPage(1); // 검색 시 첫 페이지로 이동
   }, []);
 
   /**
    * 디바운스된 검색어 적용을 위한 핸들러 (300ms)
    */
   const debouncedSearchRef = useRef(
-    debounce((search) => {
+    debounce((search: string) => {
       applySearch(search);
     }, 300)
   ).current;
@@ -72,106 +78,74 @@ export function useArticles(initialOptions = {}) {
   /**
    * 검색어 입력 변경 시 호출되는 디바운스 핸들러
    */
-  const debouncedSearchChange = useCallback(
+  const handleSearch = useCallback(
     (search: string) => {
-      debouncedSearchRef(search);
+      setKeyWord(search); // 입력값 즉시 반영 (UI용)
+      debouncedSearchRef(search); // 디바운스된 실제 검색
     },
     [debouncedSearchRef]
   );
 
   /**
-   * 정렬 방식 변경 핸들러 ("좋아요순", "최신순")
+   * 정렬 방식 변경 핸들러 ("popular", "latest")
    */
   const handleOrderChange = useCallback((sortType: string) => {
     const sort = sortType === "popular" ? "popular" : "latest";
-    setOptions((prev) => ({
-      ...prev,
-      sort,
-      offset: 0,
-    }));
+    setOrderBy(sort);
+    setCurrentPage(1); // 정렬 변경 시 첫 페이지로 이동
   }, []);
 
-  /**
-   * 지정한 페이지 번호로 이동
-   */
-  const goToPage = useCallback(
-    (pageNumber: number) => {
-      if (!loading) {
-        const newOffset = (pageNumber - 1) * options.limit;
-        setOptions((prev) => ({
-          ...prev,
-          offset: newOffset,
-        }));
-        scrollToTop();
-      }
-    },
-    [loading, options.limit]
-  );
+  // 페이지 변경 핸들러
+  const goToPage = useCallback((page: number) => {
+    setCurrentPage(page);
+    scrollToTop();
+  }, []);
 
-  /**
-   * 다음 페이지로 이동
-   */
-  const goToNextPage = useCallback(() => {
-    if (currentPage < totalPages && !loading) {
-      goToPage(currentPage + 1);
-      scrollToTop();
-    }
-  }, [currentPage, totalPages, loading, goToPage]);
-
-  /**
-   * 이전 페이지로 이동
-   */
+  // 이전 페이지로 이동
   const goToPrevPage = useCallback(() => {
-    if (currentPage > 1 && !loading) {
-      goToPage(currentPage - 1);
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
       scrollToTop();
     }
-  }, [currentPage, loading, goToPage]);
+  }, [currentPage]);
 
-  /**
-   * 화면에 표시할 페이지 범위를 계산하는 함수
-   */
-  const getPageRange = useCallback(() => {
-    const pageCount = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(pageCount / 2));
-    let endPage = startPage + pageCount - 1;
-
-    if (endPage > totalPages) {
-      endPage = totalPages;
-      startPage = Math.max(1, endPage - pageCount + 1);
+  // 다음 페이지로 이동
+  const goToNextPage = useCallback(() => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+      scrollToTop();
     }
-
-    return { startPage, endPage };
   }, [currentPage, totalPages]);
 
-  const { startPage, endPage } = getPageRange();
-
-  // 초기 렌더링 및 옵션 변경 시 데이터 조회
-  useEffect(() => {
-    fetchArticles();
-  }, [fetchArticles]);
-
-  // 컴포넌트 언마운트 시 디바운스 핸들러 정리
-  useEffect(() => {
-    return () => {
-      debouncedSearchRef.cancel();
-    };
-  }, [debouncedSearchRef]);
-
   return {
+    // 게시글 데이터
     articles,
-    loading,
-    error,
+    loading: isLoading,
+    error: error
+      ? error instanceof Error
+        ? error.message
+        : "알 수 없는 오류"
+      : null,
+
+    // 상태값
+    orderBy,
+    keyWord, // 현재 입력된 검색어 (UI용)
+    searchKeyword, // 실제 검색에 사용되는 검색어
+
+    // 페이지네이션
     pagination: {
       totalPages,
       currentPage,
       startPage,
       endPage,
       goToPage,
-      goToNextPage,
       goToPrevPage,
+      goToNextPage,
     },
-    handleSearch: debouncedSearchChange,
+
+    // 액션
+    handleSearch,
     handleOrderChange,
+    refetch,
   };
 }

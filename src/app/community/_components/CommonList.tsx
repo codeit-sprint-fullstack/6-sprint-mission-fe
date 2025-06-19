@@ -5,7 +5,8 @@ import { useArticles } from "@/hooks/Article";
 import Link from "next/link";
 import LoadingState from "../../../components/common/LoadingState";
 import SearchSortBar from "./SearchSortBar";
-import Pagination from "./pagination";
+import Pagination from "@/components/common/Pagination";
+import { Article } from "@/types/article";
 
 export default function CommonList() {
   const {
@@ -48,7 +49,7 @@ export default function CommonList() {
       {/* 게시글 목록 */}
       {articles.length > 0 && (
         <ul className="flex w-full flex-col gap-6 pb-24">
-          {articles.map((article) => (
+          {articles.map((article: Article) => (
             <div key={article.id}>
               <CommonItem article={article} />
             </div>
@@ -58,7 +59,12 @@ export default function CommonList() {
 
       {/* 페이지네이션 버튼 */}
       {articles.length > 0 && (
-        <Pagination pagination={pagination} loading={loading} />
+        <Pagination
+          totalPage={pagination.totalPages}
+          currentPage={pagination.currentPage}
+          setCurrentPage={pagination.goToPage}
+          loading={loading}
+        />
       )}
     </div>
   );

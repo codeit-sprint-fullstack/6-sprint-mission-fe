@@ -7,7 +7,6 @@ import { FaRegHeart, FaHeart, FaEllipsisV } from "react-icons/fa";
 import { useArticle } from "@/hooks/Article";
 import ConfirmModal from "@/components/modal/ConfirmModal";
 import AuthRequiredModal from "@/components/modal/AuthRequiredModal";
-import { articlesService } from "@/api/articles";
 import { useAuth } from "@/providers/AuthProvider";
 import { Article } from "@/types/article";
 
@@ -16,11 +15,11 @@ export default function ArticleSection({ article }: { article: Article }) {
   const { user } = useAuth();
   const [showOptions, setShowOptions] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [likes, setLikes] = useState(article?.likes || 0);
-  const [isLiked, setIsLiked] = useState(article?.isLiked);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  const { deleteArticle } = useArticle(article?.id);
+  const { deleteArticle, toggleLike, isDeleting, isTogglingLike } = useArticle(
+    article?.id
+  );
 
   // 게시글 삭제 모달 열기
   const openDeleteModal = () => {
@@ -35,7 +34,6 @@ export default function ArticleSection({ article }: { article: Article }) {
       router.push("/community"); // 목록 페이지로 이동
     } catch (err) {
       console.error("게시글 삭제 실패:", err);
-    } finally {
     }
   };
 
@@ -47,17 +45,10 @@ export default function ArticleSection({ article }: { article: Article }) {
     }
 
     try {
-      if (isLiked) {
-        await articlesService.deleteLiked(article?.id);
-        setLikes(likes - 1);
-      } else {
-        await articlesService.createLiked(article?.id);
-        setLikes(likes + 1);
-      }
-      setIsLiked(!isLiked);
+      await toggleLike(article?.isLiked);
     } catch (error) {
-      console.log("error", error);
-      alert("좋아요 토글 실패" + error);
+      console.error("좋아요 토글 실패:", error);
+      alert("좋아요 처리 중 오류가 발생했습니다.");
     }
   };
 
@@ -103,15 +94,16 @@ export default function ArticleSection({ article }: { article: Article }) {
                   <div className="flex items-center rounded-full border-2 border-[#e5e7eb]">
                     <button
                       onClick={handleToggleLike}
-                      className="flex cursor-pointer items-center px-3 py-1 text-[28px] text-gray-500 hover:text-red-500"
+                      disabled={isTogglingLike}
+                      className="flex cursor-pointer items-center px-3 py-1 text-[28px] text-gray-500 hover:text-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {isLiked ? (
+                      {article?.isLiked ? (
                         <FaHeart className="text-red-500" />
                       ) : (
                         <FaRegHeart />
                       )}
                       <span className="ml-1 text-[16px] font-medium text-gray-500">
-                        {likes || 0}
+                        {article?.likes || 0}
                       </span>
                     </button>
                   </div>
@@ -140,7 +132,8 @@ export default function ArticleSection({ article }: { article: Article }) {
                     </button>
                     <button
                       onClick={openDeleteModal}
-                      className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-red-500"
+                      disabled={isDeleting}
+                      className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-red-500 disabled:opacity-50"
                     >
                       삭제하기
                     </button>

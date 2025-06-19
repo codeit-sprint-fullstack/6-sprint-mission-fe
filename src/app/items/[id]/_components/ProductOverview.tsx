@@ -10,7 +10,7 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 import { formatPrice, formatDate } from "@/utils/format";
-import { productsService } from "@/api/products";
+import { useProduct } from "@/hooks/Products/useProduct";
 import { useRouter } from "next/navigation";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import AuthRequiredModal from "@/components/modal/AuthRequiredModal";
@@ -28,12 +28,14 @@ export default function ProductOverview({
 }) {
   const router = useRouter();
   const [showOptions, setShowOptions] = useState(false);
-  const [isLiked, setIsLiked] = useState(product?.isLiked || false);
-  const [likes, setLikes] = useState(product?.likes || 0);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [images, setImages] = useState<string[]>([]);
   const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const { deleteProduct, toggleLike, isDeleting, isTogglingLike } = useProduct(
+    product?.id
+  );
 
   // 이미지 데이터 처리
   useEffect(() => {
@@ -71,36 +73,27 @@ export default function ProductOverview({
   const handleConfirmDelete = async () => {
     try {
       console.log("삭제 처리 중", product.id);
-      await productsService.deleteProduct(product.id);
+      await deleteProduct();
       router.push("/items");
     } catch (error) {
       console.error("상품 삭제 실패:", error);
     } finally {
       setShowDeleteModal(false);
     }
-
-    setShowDeleteModal(false);
   };
 
-  // 좋아요 상태 변경
-  const handleToggleLike = () => {
+  // 찜하기 상태 변경
+  const handleToggleLike = async () => {
     if (!user) {
       setShowAuthModal(true);
       return;
     }
 
     try {
-      if (isLiked) {
-        productsService.unLikeProduct(product.id);
-        setIsLiked(false);
-        setLikes(likes - 1);
-      } else {
-        productsService.likeProduct(product.id);
-        setIsLiked(true);
-        setLikes(likes + 1);
-      }
+      await toggleLike(product?.isLiked);
     } catch (error) {
-      console.error("좋아요 상태 변경 실패:", error);
+      console.error("찜하기 상태 변경 실패:", error);
+      alert("찜하기 처리 중 오류가 발생했습니다.");
     }
   };
 
@@ -154,7 +147,7 @@ export default function ProductOverview({
                   </button>
 
                   {/* 이미지 인디케이터 */}
-                  <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+                  <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
                     {images.map((_, index) => (
                       <button
                         key={index}
@@ -214,7 +207,8 @@ export default function ProductOverview({
                       </button>
                       <button
                         onClick={handleDelete}
-                        className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-red-500"
+                        disabled={isDeleting}
+                        className="flex w-full cursor-pointer items-center justify-center px-4 py-2 text-left text-sm text-[#6b7280] transition-colors hover:text-red-500 disabled:opacity-50"
                       >
                         삭제하기
                       </button>
@@ -274,20 +268,21 @@ export default function ProductOverview({
               </div>
             </div>
 
-            {/* 좋아요 */}
+            {/* 찜하기 */}
             <div className="flex items-center border-l border-[#e5e7eb] pl-8">
               <div className="flex items-center rounded-full border-2 border-[#e5e7eb]">
                 <button
                   onClick={handleToggleLike}
-                  className="flex cursor-pointer items-center px-3 py-1 text-[28px] text-gray-500 hover:text-red-500"
+                  disabled={isTogglingLike}
+                  className="flex cursor-pointer items-center px-3 py-1 text-[28px] text-gray-500 hover:text-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLiked ? (
+                  {product?.isLiked ? (
                     <FaHeart className="text-red-500" />
                   ) : (
                     <FaRegHeart />
                   )}
                   <span className="ml-1 text-[16px] font-medium text-gray-500">
-                    {likes}
+                    {product?.likes || 0}
                   </span>
                 </button>
               </div>

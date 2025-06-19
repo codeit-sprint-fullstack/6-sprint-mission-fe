@@ -1,3 +1,4 @@
-export * from "./useProducts";
-export * from "./useBestProducts";
-export * from "./useProductForm";
+export { useProducts } from "./useProducts";
+export { useBestProducts } from "./useBestProducts";
+export { useProductForm } from "./useProductForm";
+export { useProduct } from "./useProduct";

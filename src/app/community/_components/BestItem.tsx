@@ -6,8 +6,6 @@ import Link from "next/link";
 import { Article } from "@/types/article";
 
 export default function BestItem({ article }: { article: Article }) {
-  console.log("article", article);
-
   // 데이터가 없을 경우를 대비한 기본값 처리
   const title = article.title || "제목 없음";
   const likeCount = article.likes || 0;

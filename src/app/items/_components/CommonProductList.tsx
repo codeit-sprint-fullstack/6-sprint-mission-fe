@@ -113,12 +113,14 @@ const CommonProductList = () => {
         </ul>
       )}
 
-      <Pagination
-        totalPage={pagination.totalPages}
-        currentPage={pagination.currentPage}
-        setCurrentPage={pagination.setCurrentPage}
-        loading={isLoading}
-      />
+      {products.length > 0 && (
+        <Pagination
+          totalPage={pagination.totalPages}
+          currentPage={pagination.currentPage}
+          setCurrentPage={pagination.setCurrentPage}
+          loading={isLoading}
+        />
+      )}
     </div>
   );
 };

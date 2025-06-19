@@ -2,84 +2,71 @@
 
 import ProductForm from "@/app/items/registration/_components/ProductForm";
 import { useRouter, useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { productsService } from "@/api/products";
-import { ProductFormData, ProductEditFormData } from "@/types/product";
+import { useProduct } from "@/hooks/Products/useProduct";
+import { ProductEditFormData } from "@/types/product";
+import LoadingState from "@/components/common/LoadingState";
 
 export default function EditPage() {
   const router = useRouter();
   const params = useParams();
   const { id } = params;
-  const [product, setProduct] = useState<ProductFormData | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await productsService.getDetailProduct(id as string);
+  const { product, loading, error, updateProduct } = useProduct(id as string);
 
-        // API에서 반환된 데이터에서 필요한 필드만 추출
-        const formattedProduct: ProductFormData = {
-          name: response.name || "",
-          description: response.description || "",
-          price: response.price || "",
-          tags: response.tags || [],
-          images: response.images || [], // image → images로 수정
-        };
-
-        setProduct(formattedProduct);
-      } catch (error) {
-        console.error("상품 조회 실패:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProduct();
-  }, [id]);
-
-  // 수정 저장 함수 - API 요구 형식에 맞게 데이터 변환
+  // 상품 수정 핸들러
   const handleSaveChanges = async (formData: ProductEditFormData) => {
     try {
       const form = new FormData();
 
-      // 👉 상품 텍스트 필드들
       form.append("name", formData.name);
       form.append("description", formData.description);
       form.append("price", String(formData.price));
-      form.append("tags", JSON.stringify(formData.tags)); // 배열은 문자열로
-      form.append(
-        "existingImages",
-        JSON.stringify(formData.existingImages || [])
-      );
+      form.append("tags", JSON.stringify(formData.tags));
 
-      // 👉 새 이미지 파일 추가
+      // 기존 이미지 유지
+      if (formData.existingImages && formData.existingImages.length > 0) {
+        form.append("existingImages", JSON.stringify(formData.existingImages));
+      }
+
+      // 새 이미지 추가
       if (formData.newImages && formData.newImages.length > 0) {
         formData.newImages.forEach((file: File) => {
-          form.append("images", file); // 서버에서 multer.array("images")로 받으면 됨
+          form.append("images", file);
         });
       }
 
-      // 👉 통합 FormData로 업데이트 요청
-      await productsService.updateProduct(id as string, form); // 이 API는 multipart/form-data 지원해야 함
-
+      await updateProduct(form);
       router.push(`/items/${id}`);
     } catch (error) {
-      console.error("수정 실패:", error);
+      console.error("상품 수정 실패:", error);
+      alert("상품 수정에 실패했습니다.");
     }
   };
 
-  if (loading) {
-    return <div>로딩 중...</div>;
-  }
-
   return (
-    <div className="flex w-full justify-center">
-      <ProductForm
-        initialData={product || undefined}
-        onSubmit={handleSaveChanges}
-        submitText="수정"
+    <main className="flex w-full justify-center px-5 py-7">
+      <LoadingState
+        loading={loading}
+        error={error}
+        isEmpty={!loading && !error && !product}
+        loadingMessage="상품 정보를 불러오는 중..."
+        errorMessage="상품을 불러오는데 실패했습니다."
+        emptyMessage="상품 정보를 찾을 수 없습니다."
       />
-    </div>
+
+      {product && (
+        <ProductForm
+          initialData={{
+            name: product.name || "",
+            description: product.description || "",
+            price: product.price || "",
+            tags: product.tags || [],
+            images: product.images || [],
+          }}
+          onSubmit={handleSaveChanges}
+          submitText="수정"
+        />
+      )}
+    </main>
   );
 }

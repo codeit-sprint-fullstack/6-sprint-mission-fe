@@ -11,9 +11,8 @@ export default function BestList() {
 
   // useArticles 훅을 사용하여 항상 3개의 게시글 데이터 가져오기
   const { articles, loading, error } = useArticles({
-    limit: 3, // 항상 3개 가져옴
-    offset: 0,
-    sort: "popular",
+    pageSize: 3,
+    orderBy: "popular",
   });
 
   // 디바이스 타입에 따라 표시할 게시글 수 결정

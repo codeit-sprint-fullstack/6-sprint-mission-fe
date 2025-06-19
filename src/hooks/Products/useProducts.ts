@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { productsService } from "@/api/products";
 
@@ -15,13 +15,44 @@ export function useProducts({
   const [currentPage, setCurrentPage] = useState(1);
   const [orderBy, setOrderBy] = useState(initialOrderBy);
   const [keyWord, setKeyWord] = useState(initialKeyword);
+  const [debouncedKeyword, setDebouncedKeyword] = useState(initialKeyword);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // React Query를 사용한 데이터 페칭
+  // 검색어 디바운싱 (300ms)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedKeyword(keyWord);
+      // 검색어가 변경되면 첫 페이지로 이동
+      if (keyWord !== debouncedKeyword) {
+        setCurrentPage(1);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [keyWord, debouncedKeyword]);
+
+  // React Query를 사용한 데이터 페칭 (debouncedKeyword 사용)
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["products", currentPage, orderBy, keyWord, pageSize],
+    queryKey: [
+      "products",
+      "list",
+      currentPage,
+      orderBy,
+      debouncedKeyword,
+      pageSize,
+    ],
     queryFn: () =>
-      productsService.getProducts(currentPage, pageSize, orderBy, keyWord),
+      productsService.getProducts(
+        currentPage,
+        pageSize,
+        orderBy,
+        debouncedKeyword
+      ),
+    staleTime: 5 * 60 * 1000, // 5분간 fresh 상태 유지
+    gcTime: 10 * 60 * 1000, // 10분간 캐시 유지
+    refetchOnWindowFocus: false,
+    placeholderData: (previousData) => previousData, // 페이지 전환 시 이전 데이터 유지
+    retry: 1,
   });
 
   // 상품 목록 및 페이지네이션 데이터
@@ -35,7 +66,7 @@ export function useProducts({
   const startPage = currentGroup * pageGroupSize + 1;
   const endPage = Math.min(totalPages, startPage + pageGroupSize - 1);
 
-  // 검색어 변경 핸들러
+  // 검색어 변경 핸들러 (즉시 UI 반영, 디바운싱된 API 호출)
   const handleKeywordChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setKeyWord(e.target.value);
@@ -46,6 +77,7 @@ export function useProducts({
   // 검색어 직접 설정 함수
   const setSearchKeyword = useCallback((keyword: string) => {
     setKeyWord(keyword);
+    setDebouncedKeyword(keyword); // 즉시 검색 실행
     setCurrentPage(1); // 검색어 변경 시 첫 페이지로 이동
   }, []);
 
@@ -88,7 +120,8 @@ export function useProducts({
 
     // 상태값
     orderBy,
-    keyWord,
+    keyWord, // UI에 표시되는 즉시 반영되는 검색어
+    debouncedKeyword, // 실제 API 호출에 사용되는 디바운싱된 검색어
     isDropdownOpen,
 
     // 페이지네이션
