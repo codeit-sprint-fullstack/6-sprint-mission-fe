@@ -3,9 +3,15 @@
 import Footer from "@/components/common/Footer/Footer";
 import Header from "@/components/common/Header/Header";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { ReactNode } from "react";
 
-export default function HeaderFooterLayout({ children }) {
+interface IHeaderFooterLayoutProps {
+  children: ReactNode;
+}
+
+export default function HeaderFooterLayout({
+  children,
+}: IHeaderFooterLayoutProps) {
   const path = usePathname();
 
   return (
@@ -14,9 +20,9 @@ export default function HeaderFooterLayout({ children }) {
         children
       ) : (
         <>
-          <Header className="font-pretendard" />
+          <Header />
           {children}
-          <Footer className="font-pretendard" />
+          <Footer />
         </>
       )}
     </>

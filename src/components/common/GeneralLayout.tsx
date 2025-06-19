@@ -1,9 +1,13 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import React from "react";
+import { ReactNode } from "react";
 
-export default function GeneralLayout({ children }) {
+interface IGeneralLayoutProps {
+  children: ReactNode;
+}
+
+export default function GeneralLayout({ children }: IGeneralLayoutProps) {
   const path = usePathname();
 
   return (
