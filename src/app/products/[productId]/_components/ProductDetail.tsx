@@ -106,15 +106,18 @@ export default function ProductDetail() {
         />
       )}
       <div className="flex flex-col justify-center items-center gap-y-[16px] sm:flex-row sm:items-start sm:gap-[16px] md:items-center md:gap-[24px]">
-        <Image
-          src={
-            product?.images?.length === 0
-              ? img_default_product.src
-              : product?.images?.[0]
-          }
-          alt={product.name}
-          className="relative min-w-[343px] min-h-[343px] max-w-[343px] max-h-[343px] rounded-[12px] overflow-hidden sm:min-w-[340px] sm:min-h-[340px] sm:max-w-[340px] sm:max-h-[340px] md:min-w-[486px] md:min-h-[486px]"
-        />
+        <div className="relative min-w-[343px] min-h-[343px] max-w-[343px] max-h-[343px] rounded-[12px] overflow-hidden sm:min-w-[340px] sm:min-h-[340px] sm:max-w-[340px] sm:max-h-[340px] md:min-w-[486px] md:min-h-[486px]">
+          <Image
+            src={
+              product?.images?.length === 0
+                ? img_default_product
+                : product?.images?.[0]
+            }
+            alt={product.name}
+            fill
+            className="object-cover"
+          />
+        </div>
         <div className="flex flex-col w-full gap-[40px] sm:min-w-[340px] sm:max-w-[690px] md:gap-[62px]">
           <div className="flex flex-col gap-[16px]">
             <div className="flex flex-col gap-[8px] md:gap-[16px]">
