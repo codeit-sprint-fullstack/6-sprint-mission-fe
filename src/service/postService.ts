@@ -31,7 +31,7 @@ export const postService = {
         })
       : multipartFetch(`/${type}`, {
           method: "POST",
-          body,
+          body: body instanceof FormData ? body : null,
         }),
 
   updatePost: (type: string, id: string, body: TPostServiceBody) =>
@@ -42,7 +42,7 @@ export const postService = {
         })
       : multipartFetch(`/${type}/${id}`, {
           method: "PATCH",
-          body,
+          body: body instanceof FormData ? body : null,
         }),
 
   deletePost: (type: string, id: string) =>
