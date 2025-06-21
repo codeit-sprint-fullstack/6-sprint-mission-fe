@@ -3,6 +3,8 @@
 # ------------------------
 .DS_Store
 *.pem
+.vscode
+.github
 
 # 환경 변수
 .env*
@@ -39,17 +41,17 @@ yarn-error.log*
 
 # ------------------------
 # ✅ Next.js (FE)
-/FE/.next/
-/FE/out/
-/FE/.vercel
-/FE/.turbo
-/FE/next-env.d.ts
+.next/
+out/
+.vercel
+.turbo
+next-env.d.ts
 
 # ------------------------
 # ✅ BE 관련
-/BE/prisma/dev.db
-/BE/prisma/dev.db-journal
-/BE/.env
-/BE/node_modules
-/BE/dist/*
+prisma/dev.db
+prisma/dev.db-journal
+.env
+node_modules
+dist/*
 !BE/dist/index.js
