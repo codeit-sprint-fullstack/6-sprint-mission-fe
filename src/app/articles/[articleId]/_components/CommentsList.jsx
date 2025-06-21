@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Comment from "./Comment";
+import Image from "next/image";
 
 function CommentsList({ comments, articleId }) {
   const [isEmpty, setIsEmpty] = useState(false);
@@ -26,7 +27,11 @@ function CommentsList({ comments, articleId }) {
     </div>
   ) : (
     <div className="mt-6 flex flex-col justify-center items-center">
-      <img src="/assets/img/img_reply_empty.png" className="h-35 w-35" />
+      <Image
+        alt="reply empty"
+        src="/assets/img/img_reply_empty.png"
+        className="h-35 w-35"
+      />
       <p className="text-center text-gray-400">
         아직 댓글이 없어요,
         <br />
