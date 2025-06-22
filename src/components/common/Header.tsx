@@ -7,6 +7,13 @@ import clsx from "clsx";
 import pandaLogoImage from "@/assets/images/logo/panda_logo.png";
 import { useAuth } from "@/providers/AuthProvider";
 import ProfileImage from "../ui/ProfileImage";
+import React from "react";
+
+interface AuthContextType {
+  isLoggedIn: boolean;
+  login: () => void;
+  logout: () => void;
+}
 
 export function AuthHeader() {
   return (
@@ -25,7 +32,7 @@ export default function Header() {
   const isMarket = pathname.startsWith("/items");
   const linkBaseStyle = "text-sm sm:text-base font-bold px-2 cursor-pointer";
 
-  const { user } = useAuth();
+  const auth = (useAuth() ?? { isLoggedIn: false, login: () => {}, logout: () => {} }) as AuthContextType;
 
   return (
     <>
@@ -66,13 +73,13 @@ export default function Header() {
             </Link>
           </nav>
         </div>
-        {user ? (
+        {auth?.isLoggedIn ? (
           <Link
             href="/me"
             className="flex items-center text-lg text-gray-600 gap-1"
           >
             <ProfileImage className={"w-10 h-10"} />
-            {/* {user.nickname} */}
+            {/* 유저 정보 필요시 추가 */}
           </Link>
         ) : (
           <Link href="/login" className="btn-sm-48 bg-primary-100">

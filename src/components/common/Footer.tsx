@@ -3,8 +3,9 @@ import ic_twitter from "../../assets/images/icons/ic_twitter.png";
 import ic_youtube from "../../assets/images/icons/ic_youtube.png";
 import ic_instagram from "../../assets/images/icons/ic_instagram.png";
 import Image from "next/image";
+import React from "react";
 
-export default function Footer() {
+const Footer: React.FC = () => {
   return (
     <div className="bg-gray-900 text-gray-200 w-full">
       <footer className="flex items-center px-4 py-8 mb-10">
@@ -54,4 +55,6 @@ export default function Footer() {
       </footer>
     </div>
   );
-}
+};
+
+export default Footer;

@@ -1,12 +1,19 @@
 import InputBox from "./InputBox";
 import SortButton from "./SortButton";
 
+interface SearchBarProps {
+  inputValueState: string;
+  onChangeInput: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  sortButtonState: boolean;
+  setSortButtonState: (value: boolean) => void;
+}
+
 export default function SearchBar({
   inputValueState,
   onChangeInput,
   sortButtonState,
   setSortButtonState,
-}) {
+}: SearchBarProps) {
   return (
     <div className="flex justify-between gap-2">
       <div className="w-full">
