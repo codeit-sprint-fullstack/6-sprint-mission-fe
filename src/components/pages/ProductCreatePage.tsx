@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, ChangeEvent, KeyboardEvent } from "react";
 import { productService } from "@/lib/services/api/productService";
 import { useRouter } from "next/navigation";
 import useInputForm from "@/hooks/useInputForm";
@@ -12,40 +12,48 @@ import TagCard from "../ui/TagCard";
 import ImageCard from "../ui/ImageCard";
 
 // 상품명 유효성 검사
-function isValidCreateName(name) {
+function isValidCreateName(name: string): boolean {
   return name.length <= 10;
 }
 
 // 상품 소개 유효성 검사
-function isValidCreateDescription(description) {
+function isValidCreateDescription(description: string): boolean {
   return description.length >= 10;
 }
 
 // 판매가격 유효성 검사
-function isValidCreatePrice(price) {
+function isValidCreatePrice(price: string | number): boolean {
   return !isNaN(Number(price));
 }
 
 // 각 태그에 대한 유효성 검사
-function isValidCreateTag(tag) {
+function isValidCreateTag(tag: string): boolean {
   return tag.length <= 5;
 }
 
 // 이미지 유효성 검사
-function isValidCreateImages(images) {
+function isValidCreateImages(images: File[]): boolean {
   return images.length <= 3;
+}
+
+interface NewProduct {
+  name: string;
+  description: string;
+  price: number;
+  tags: string[];
+  images: File[];
 }
 
 export default function ProductCreatePage() {
   const router = useRouter();
-  const [createTags, setCreateTags] = useState([]);
+  const [createTags, setCreateTags] = useState<string[]>([]);
   const newTagInput = useInputForm(
     "",
     isValidCreateTag,
     "태그는 5글자 이내로 입력해주세요"
   );
-  const [createImages, setCreateImages] = useState([]);
-  const [imagesError, setImagesError] = useState("");
+  const [createImages, setCreateImages] = useState<File[]>([]);
+  const [imagesError, setImagesError] = useState<string>("");
 
   const createNameInput = useInputForm(
     "",
@@ -58,12 +66,12 @@ export default function ProductCreatePage() {
     "10자 이상 입력해주세요"
   );
   const createPriceInput = useInputForm(
-    0,
+    "",
     isValidCreatePrice,
     "숫자로 입력해주세요"
   );
 
-  const handleKeyDownTagInput = (e) => {
+  const handleKeyDownTagInput = (e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleAddTag();
@@ -84,12 +92,12 @@ export default function ProductCreatePage() {
     }
   };
 
-  const handleRemoveTag = (tagToRemove) => {
+  const handleRemoveTag = (tagToRemove: string) => {
     setCreateTags(createTags.filter((tag) => tag !== tagToRemove));
   };
 
-  const handleImageChange = (e) => {
-    const files = e.target.files;
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const files = (e.target as HTMLInputElement).files;
     if (files && files.length > 0 && createImages.length + files.length <= 3) {
       setCreateImages([...createImages, ...Array.from(files)]);
       setImagesError("");
@@ -98,16 +106,16 @@ export default function ProductCreatePage() {
     }
   };
 
-  const handleRemoveImage = (indexToRemove) => {
+  const handleRemoveImage = (indexToRemove: number) => {
     setCreateImages(createImages.filter((_, index) => index !== indexToRemove));
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (newProduct) => productService.createProduct(newProduct),
-    onSuccess: (data) => {
+    mutationFn: (newProduct: NewProduct) => productService.createProduct(newProduct),
+    onSuccess: (data: { id: number }) => {
       router.push(`/items/${data.id}`);
     },
-    onError: (error) => {
+    onError: (error: unknown) => {
       console.error("상품 등록 실패:", error);
     },
   });
@@ -118,12 +126,11 @@ export default function ProductCreatePage() {
       return;
     }
 
-    // TODO: 이미지 업로드 안됨. 폼데이터 로직 필요.
     try {
       mutate({
         name: createNameInput.value,
         description: createDescriptionInput.value,
-        price: createPriceInput.value,
+        price: Number(createPriceInput.value),
         tags: createTags,
         images: createImages,
       });
@@ -165,11 +172,11 @@ export default function ProductCreatePage() {
             <InputBox
               placeHolderText={"이미지 등록 (최대 3개)"}
               inputType={"file"}
+              inputValueState={""}
               onChangeInput={handleImageChange}
               onBlur={() => {}}
               isValid={!imagesError}
               inputClassName={"w-42 h-42 bg-gray-200 rounded-xl"}
-              multiple
             />
 
             {createImages.map((image, index) => (

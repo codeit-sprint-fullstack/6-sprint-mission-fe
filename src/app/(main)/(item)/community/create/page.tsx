@@ -1,5 +1,8 @@
+import React from "react";
 import CommunityCreatePage from "@/components/pages/CommunityCreatePage";
 
-export default function CommunityCreate() {
+const CommunityCreate: React.FC = () => {
   return <CommunityCreatePage />;
-}
+};
+
+export default CommunityCreate;

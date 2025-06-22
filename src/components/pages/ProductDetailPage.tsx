@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import InputBox from "@/components/ui/InputBox";
@@ -21,21 +21,42 @@ import noCommentImage from "@/assets/images/logo/noCommentImage2.png";
 import defaultImage from "@/assets/images/logo/defaultImage.png";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  tags: string[];
+  images: string[];
+  createdAt: string;
+  updatedAt: string;
+  ownerNickname: string;
+  isFavorite: boolean;
+  favoriteCount: number;
+}
+
+interface Comment {
+  id: number;
+  content: string;
+  writer: { nickname: string };
+  createdAt: string;
+}
+
 export default function ProductDetailPage() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const [commentInputValue, setCommentInputValue] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [commentInputValue, setCommentInputValue] = useState<string>("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const { data: product, isPending: isProductLoading } = useQuery({
+  const { data: product, isPending: isProductLoading } = useQuery<Product>({
     queryKey: ["product", id],
     queryFn: () => productService.getProduct(id),
   });
 
-  const { data: commentData, isPending: isCommentsLoading } = useQuery({
+  const { data: commentData, isPending: isCommentsLoading } = useQuery<{ list: Comment[] }>({
     queryKey: ["productComments", id],
     queryFn: () => productService.getProductComments(id, 3, 0),
   });
@@ -49,7 +70,7 @@ export default function ProductDetailPage() {
         router.push("/items");
         queryClient.invalidateQueries({ queryKey: ["products", id] });
       },
-      onError: (error) => {
+      onError: (error: unknown) => {
         console.error("상품 삭제 중 오류 발생:", error);
       },
     });
@@ -64,7 +85,7 @@ export default function ProductDetailPage() {
         setCommentInputValue("");
         queryClient.invalidateQueries({ queryKey: ["productComments", id] });
       },
-      onError: (error) => {
+      onError: (error: unknown) => {
         console.error("댓글 생성 중 오류 발생:", error);
       },
     });
@@ -91,7 +112,7 @@ export default function ProductDetailPage() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleOnChangeCommentInput = (e) => {
+  const handleOnChangeCommentInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setCommentInputValue(e.target.value);
   };
 
@@ -100,6 +121,7 @@ export default function ProductDetailPage() {
   };
 
   const handleOnClickLike = () => {
+    if (!product) return;
     product.isFavorite ? unlikeMutation.mutate() : likeMutation.mutate();
   };
 

@@ -1,5 +1,8 @@
+import React from "react";
 import ProductCreatePage from "@/components/pages/ProductCreatePage";
 
-export default function ProductCreate() {
+const ProductCreate: React.FC = () => {
   return <ProductCreatePage />;
-}
+};
+
+export default ProductCreate;

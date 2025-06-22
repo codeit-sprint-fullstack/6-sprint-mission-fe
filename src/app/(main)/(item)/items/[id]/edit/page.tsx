@@ -1,5 +1,8 @@
+import React from "react";
 import ProductEditPage from "@/components/pages/ProductEditPage";
 
-export default function ProductEdit() {
+const ProductEdit: React.FC = () => {
   return <ProductEditPage />;
-}
+};
+
+export default ProductEdit;

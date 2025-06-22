@@ -2,15 +2,20 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import BestArticleCard from "./BestArticleCard";
+import ArticleCard from "./ArticleCard";
 import { articleService } from "@/lib/services/api/articleService";
 
-export default function BestArticleLists() {
+export default function ArticleLists({ searchValueState }: { searchValueState: string }) {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await articleService.getArticles(1, 1, "like", "");
+      const data = await articleService.getArticles(
+        1,
+        3,
+        "like",
+        searchValueState
+      );
       setArticles(data.list);
     };
 
@@ -18,14 +23,14 @@ export default function BestArticleLists() {
   }, []);
 
   return (
-    <div className="flex justify-center gap-5">
-      {articles?.map((article) => {
+    <>
+      {articles?.map((article: any) => {
         return (
           <Link key={article.id} href={`/community/${article.id}`}>
-            <BestArticleCard key={article.id} article={article} />
+            <ArticleCard article={article} />
           </Link>
         );
       })}
-    </div>
+    </>
   );
 }

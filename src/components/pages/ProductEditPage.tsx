@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent, KeyboardEvent } from "react";
 import { productService } from "@/lib/services/api/productService";
 import { useParams, useRouter } from "next/navigation";
 import useInputForm from "@/hooks/useInputForm";
@@ -12,32 +12,40 @@ import ImageCard from "../ui/ImageCard";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 // 상품명 유효성 검사
-function isValidEditName(name) {
+function isValidEditName(name: string): boolean {
   return name.length <= 10;
 }
 
 // 상품 소개 유효성 검사
-function isValidEditDescription(description) {
+function isValidEditDescription(description: string): boolean {
   return description.length <= 100;
 }
 
 // 판매가격 유효성 검사
-function isValidEditPrice(price) {
+function isValidEditPrice(price: string | number): boolean {
   return !isNaN(Number(price));
 }
 
 // 각 태그에 대한 유효성 검사
-function isValidEditTag(tag) {
+function isValidEditTag(tag: string): boolean {
   return tag.length <= 5;
 }
 
 // 이미지 유효성 검사
-function isValidEditImages(images) {
+function isValidEditImages(images: (string | File)[]): boolean {
   return images.length <= 3;
 }
 
+interface EditProduct {
+  name: string;
+  description: string;
+  price: number;
+  tags: string[];
+  images: (string | File)[];
+}
+
 export default function ProductEditPage() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -51,14 +59,14 @@ export default function ProductEditPage() {
     enabled: !!id,
   });
 
-  const [editTags, setEditTags] = useState([]);
+  const [editTags, setEditTags] = useState<string[]>([]);
   const newTagInput = useInputForm(
     "",
     isValidEditTag,
     "태그는 5글자 이내로 입력해주세요"
   );
-  const [editImages, setEditImages] = useState([]);
-  const [imagesError, setImagesError] = useState("");
+  const [editImages, setEditImages] = useState<(string | File)[]>([]);
+  const [imagesError, setImagesError] = useState<string>("");
 
   const editNameInput = useInputForm(
     "",
@@ -71,23 +79,23 @@ export default function ProductEditPage() {
     "10자 이상 입력해주세요"
   );
   const editPriceInput = useInputForm(
-    0,
+    "",
     isValidEditPrice,
     "숫자로 입력해주세요"
   );
 
   const updateProductMutation = useMutation({
-    mutationFn: (productData) => productService.updateProduct(id, productData),
+    mutationFn: (productData: EditProduct) => productService.updateProduct(id, productData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["product", id] });
       router.push(`/items/${id}`);
     },
-    onError: (error) => {
+    onError: (error: unknown) => {
       console.error("수정 실패:", error);
     },
   });
 
-  const handleKeyDownTagInput = (e) => {
+  const handleKeyDownTagInput = (e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleAddTag();
@@ -108,12 +116,12 @@ export default function ProductEditPage() {
     }
   };
 
-  const handleRemoveTag = (tagToRemove) => {
+  const handleRemoveTag = (tagToRemove: string) => {
     setEditTags(editTags.filter((tag) => tag !== tagToRemove));
   };
 
-  const handleImageChange = (e) => {
-    const files = e.target.files;
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const files = (e.target as HTMLInputElement).files;
     if (files && files.length > 0 && editImages.length + files.length <= 3) {
       setEditImages([...editImages, ...Array.from(files)]);
       setImagesError("");
@@ -122,7 +130,7 @@ export default function ProductEditPage() {
     }
   };
 
-  const handleRemoveImage = (indexToRemove) => {
+  const handleRemoveImage = (indexToRemove: number) => {
     setEditImages(editImages.filter((_, index) => index !== indexToRemove));
   };
 
@@ -130,7 +138,7 @@ export default function ProductEditPage() {
     updateProductMutation.mutate({
       name: editNameInput.value,
       description: editDescriptionInput.value,
-      price: editPriceInput.value,
+      price: Number(editPriceInput.value),
       tags: editTags,
       images: editImages,
     });
@@ -188,11 +196,11 @@ export default function ProductEditPage() {
             <InputBox
               placeHolderText={"이미지 등록"}
               inputType={"file"}
+              inputValueState={""}
               onChangeInput={handleImageChange}
               onBlur={() => {}}
               isValid={!imagesError}
               inputClassName={"w-42 h-42 bg-gray-200 rounded-xl"}
-              multiple
             />
 
             {editImages.map((image, index) => {
