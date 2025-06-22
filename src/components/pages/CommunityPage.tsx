@@ -8,7 +8,8 @@ import BestArticleLists from "@/app/(main)/(item)/community/_components/BestArti
 import ArticleLists from "@/app/(main)/(item)/community/_components/ArticleLists";
 
 export default function CommunityPage() {
-  const [searchValueState, setSearchValueState] = useState("");
+  const [searchValueState, setSearchValueState] = useState<string>("");
+  const [sortButtonState, setSortButtonState] = useState<boolean>(false);
   return (
     <>
       <section className="p-4">
@@ -28,7 +29,9 @@ export default function CommunityPage() {
       <section className="p-4">
         <SearchBar
           inputValueState={searchValueState}
-          onChangeInput={setSearchValueState}
+          onChangeInput={(e) => setSearchValueState(e.target.value)}
+          sortButtonState={sortButtonState}
+          setSortButtonState={setSortButtonState}
         />
         <ArticleLists searchValueState={searchValueState} />
       </section>

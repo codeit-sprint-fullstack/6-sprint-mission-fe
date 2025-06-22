@@ -1,5 +1,8 @@
+import React from "react";
 import CommunityDetailPage from "@/components/pages/CommunityDetailPage";
 
-export default function CommunityDetail() {
+const CommunityDetail: React.FC = () => {
   return <CommunityDetailPage />;
-}
+};
+
+export default CommunityDetail;

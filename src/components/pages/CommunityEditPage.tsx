@@ -4,22 +4,21 @@ import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import InputBox from "@/components/ui/InputBox";
 import TitleSection from "@/components/ui/TitleSection";
-import { articleService } from "@/lib/services/api/articleService";
+import { articleService, EditArticle } from "@/lib/services/api/articleService";
 
 export default function CommunityEditPage() {
   const router = useRouter();
-  const [titleValueState, setTitleValueState] = useState("");
-  const [contentValueState, setContentValueState] = useState("");
+  const [titleValueState, setTitleValueState] = useState<string>("");
+  const [contentValueState, setContentValueState] = useState<string>("");
   const isActive = titleValueState !== "" && contentValueState !== "";
-  const { articleId } = useParams();
+  const { articleId } = useParams<{ articleId: string }>();
 
   const handleCreateArticle = async () => {
-    const submitData = { title: titleValueState, content: contentValueState };
-
+    if (!articleId) return;
+    const submitData: EditArticle = { title: titleValueState, content: contentValueState, images: [] };
     const response = await articleService.updateArticle(articleId, submitData);
-    if (response.status === 200) {
-      const result = await response.json();
-      router.push(`/articles/${result.id}`);
+    if (response && response.id) {
+      router.push(`/articles/${response.id}`);
     }
   };
 
@@ -46,7 +45,7 @@ export default function CommunityEditPage() {
         <InputBox
           placeHolderText={"제목을 입력해주세요"}
           inputValueState={titleValueState}
-          onChangeInput={setTitleValueState}
+          onChangeInput={(e) => setTitleValueState(e.target.value)}
         />
       </div>
 
@@ -55,7 +54,7 @@ export default function CommunityEditPage() {
         <InputBox
           placeHolderText={"내용을 입력해주세요"}
           inputValueState={contentValueState}
-          onChangeInput={setContentValueState}
+          onChangeInput={(e) => setContentValueState(e.target.value)}
           inputType={"textarea"}
         />
       </div>

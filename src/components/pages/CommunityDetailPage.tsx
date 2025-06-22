@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import InputBox from "@/components/ui/InputBox";
 import TitleSection from "@/components/ui/TitleSection";
-import { articleService } from "@/lib/services/api/articleService";
+import { articleService, Article, ArticleComment, ArticleCommentListResponse } from "@/lib/services/api/articleService";
 import ConfirmModal from "@/components/ui/ConfirmModal";
 import CommentLists from "@/app/(main)/(item)/community/[id]/_components/CommentLists";
 import Dropdown from "@/app/(main)/(item)/_components/Dropdown";
@@ -18,17 +18,17 @@ import noCommentImage from "@/assets/images/logo/noCommentImage.png";
 import ProfileImage from "../ui/ProfileImage";
 
 export default function CommunityDetailPage() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const [article, setArticle] = useState(null);
-  const [comments, setComments] = useState([]);
-  const [commentInputValue, setCommentInputValue] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [article, setArticle] = useState<Article | null>(null);
+  const [comments, setComments] = useState<ArticleComment[]>([]);
+  const [commentInputValue, setCommentInputValue] = useState<string>("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const isActive = commentInputValue !== "";
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     const data = await articleService.deleteArticle(id);
     // TODO: data 가지고 확인 처리.
     setIsModalOpen(false);
@@ -51,23 +51,24 @@ export default function CommunityDetailPage() {
   ];
 
   const hadleDropdownOpen = () => {
-    setIsDropdownOpen(!isToggleDropdown);
+    setIsDropdownOpen((prev) => !prev);
   };
 
   const handleOnClickCommentRegist = async () => {
-    console.log("댓글 등록");
-    const data = await articleService.createArticle(id, commentInputValue);
-    console.log("data", data);
+    // 댓글 등록 API 호출 예시 (실제 구현에 맞게 수정 필요)
+    // const data = await articleService.createArticleComment(id, { content: commentInputValue });
+    // setComments((prev) => [...prev, data]);
+    // setCommentInputValue("");
     // TODO: 성공시 코멘트 리스트 다시 받아오는 로직 필요.
-    // data.status === 201
   };
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!id) return;
       const articleData = await articleService.getArticle(id);
       setArticle(articleData);
-      const commentsData = await articleService.getArticleComments(id);
-      setComments(commentsData);
+      const commentsData: ArticleCommentListResponse = await articleService.getArticleComments(id);
+      setComments(commentsData.list);
     };
 
     fetchData();
@@ -101,7 +102,7 @@ export default function CommunityDetailPage() {
           <div className="flex items-center pr-3 gap-2 border-r-1 border-gray-200">
             <div className="flex gap-1 text-gray-600">
               <ProfileImage className={"w-6 h-auto object-cover"} />
-              <p className="text-gray-600">{article.writer.nickname}</p>
+              <p className="text-gray-600">{article.writer?.nickname}</p>
             </div>
             <p className="text-gray-400">
               {new Date(article.createdAt)
@@ -130,7 +131,7 @@ export default function CommunityDetailPage() {
           <InputBox
             placeHolderText={"댓글을 입력해주세요."}
             inputValueState={commentInputValue}
-            onChangeInput={setCommentInputValue}
+            onChangeInput={(e) => setCommentInputValue(e.target.value)}
             inputType={"textarea"}
           />
         </div>
@@ -177,7 +178,7 @@ export default function CommunityDetailPage() {
           modalTheme={"red"}
           confirmType={"confirm"}
           confirmText={"정말로 게시글을 삭제하시겠어요?"}
-          handleOnClick={handleDelete(id)}
+          handleOnClick={() => handleDelete(id as string)}
           handleOnCloseModal={hadleModalClose}
         />
       )}
