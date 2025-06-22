@@ -7,19 +7,40 @@ import { getTitle } from "@/app/lib/api/product";
 import Link from "next/link";
 import { addComment, getComments } from "@/app/lib/api/comments";
 
+interface CommentWriter {
+  nickname: string;
+}
+
+interface CommentItem {
+  id: string;
+  content: string;
+  writer: CommentWriter;
+}
+
+interface ProductData {
+  name: string;
+  price: number;
+  description: string;
+  tags: string;
+  createdAt: string;
+  ownerNickname: string;
+  favoriteCount: number;
+  images?: string[];
+}
+
 export default function Detail() {
-  const { id } = useParams();
-  const [comment, setComment] = useState("");
+  const { id } = useParams() as { id: string };
+  const [comment, setComment] = useState<string>("");
   const [nickName, setNickName] = useState(null);
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState(0);
-  const [detail, setDetail] = useState("");
-  const [tags, setTags] = useState("");
-  const [date, setDate] = useState("");
-  const [owner, setOwner] = useState("");
-  const [like, setLike] = useState(0);
-  const [imageUrl, setImageUrl] = useState("");
-  const [comments, setComments] = useState([]);
+  const [title, setTitle] = useState<string>("");
+  const [price, setPrice] = useState<number>(0);
+  const [detail, setDetail] = useState<string>("");
+  const [tags, setTags] = useState<string>("");
+  const [date, setDate] = useState<string>("");
+  const [owner, setOwner] = useState<string>("");
+  const [like, setLike] = useState<number>(0);
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [comments, setComments] = useState<CommentItem[]>([]);
 
   const fetchComments = async () => {
     const commentData = await getComments(id);
