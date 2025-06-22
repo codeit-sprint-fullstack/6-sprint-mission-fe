@@ -1,7 +1,12 @@
 import Image from "next/image";
 import defaultProfileImage from "@/assets/images/logo/defaultProfileImage.png";
 
-export default function ProfileImage({ src, className }) {
+interface ProfileImageProps {
+  src?: string;
+  className?: string;
+}
+
+export default function ProfileImage({ src, className }: ProfileImageProps) {
   return (
     <Image
       src={src || defaultProfileImage}
