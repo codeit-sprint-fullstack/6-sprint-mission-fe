@@ -3,42 +3,43 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/providers/AuthProvider";
 import InputBox from "../ui/InputBox";
 import TitleSection from "../ui/TitleSection";
 import useInputForm from "@/hooks/useInputForm";
-import SocialLogin from "@/app/(auth)/_components/SocialLogin";
+import SocialLogin from "@/components/auth/SocialLogin";
 import ConfirmModal from "@/components/ui/ConfirmModal";
 import { useMutation } from "@tanstack/react-query";
+import React from "react";
+import { authService } from "@/lib/services/api/authService";
+
 
 // 이메일 유효성 검사
-function isValidEmail(email) {
+function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 // 비밀번호 유효성 검사 (8~20자, 영문+숫자+특수문자 포함)
-function isValidPassword(password) {
+function isValidPassword(password: string): boolean {
   return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,20}$/.test(password);
 }
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login } = useAuth();
   const emailInput = useInputForm("", isValidEmail, "잘못된 이메일입니다.");
   const passwordInput = useInputForm(
     "",
     isValidPassword,
     "잘못된 비밀번호입니다.(8~20자, 영문+숫자+특수 포함)"
   );
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
 
   const { mutate: mutateLogin, isPending } = useMutation({
-    mutationFn: login,
+    mutationFn: authService.login,
     onSuccess: () => {
       router.push("/items");
     },
-    onError: (error) => {
+    onError: (error: any) => {
       let errorMessage = "로그인에 실패했습니다.";
       try {
         const errorObject = JSON.parse(error.message);
@@ -56,7 +57,7 @@ export default function LoginPage() {
     },
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutateLogin({
       email: emailInput.value,
