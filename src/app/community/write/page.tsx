@@ -1,6 +1,6 @@
 "use client";
 
-import ArticleForm from "@/components/editForm/ArticleForm";
+import ArticleForm from "@/app/community/_components/ArticleForm";
 
 export default function WritePage() {
   return (

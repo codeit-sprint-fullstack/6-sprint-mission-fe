@@ -1,6 +1,6 @@
 "use client";
 
-import ArticleForm from "@/components/editForm/ArticleForm";
+import ArticleForm from "@/app/community/_components/ArticleForm";
 import { useRouter, useParams } from "next/navigation";
 import { useArticle } from "@/hooks/Article";
 import { ArticleEditFormData } from "@/types/article";
@@ -29,7 +29,7 @@ export default function EditPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[200px]">
+      <div className="flex min-h-[200px] items-center justify-center">
         로딩 중...
       </div>
     );
@@ -37,7 +37,7 @@ export default function EditPage() {
 
   if (!article) {
     return (
-      <div className="flex justify-center items-center min-h-[200px]">
+      <div className="flex min-h-[200px] items-center justify-center">
         게시글을 찾을 수 없습니다.
       </div>
     );
