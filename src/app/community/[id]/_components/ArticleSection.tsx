@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { FaRegHeart, FaHeart, FaEllipsisV } from "react-icons/fa";
 import { useArticle } from "@/hooks/Article";
 import ConfirmModal from "@/components/modal/ConfirmModal";
@@ -11,14 +10,13 @@ import { useAuth } from "@/providers/AuthProvider";
 import { Article } from "@/types/article";
 
 export default function ArticleSection({ article }: { article: Article }) {
-  const router = useRouter();
   const { user } = useAuth();
   const [showOptions, setShowOptions] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   const { deleteArticle, toggleLike, isDeleting, isTogglingLike } = useArticle(
-    article?.id
+    article?.id,
   );
 
   // 게시글 삭제 모달 열기
@@ -31,7 +29,7 @@ export default function ArticleSection({ article }: { article: Article }) {
   const executeDelete = async () => {
     try {
       await deleteArticle();
-      router.push("/community"); // 목록 페이지로 이동
+      window.location.href = "/community"; // router.push 대신 사용
     } catch (err) {
       console.error("게시글 삭제 실패:", err);
     }
@@ -95,7 +93,7 @@ export default function ArticleSection({ article }: { article: Article }) {
                     <button
                       onClick={handleToggleLike}
                       disabled={isTogglingLike}
-                      className="flex cursor-pointer items-center px-3 py-1 text-[28px] text-gray-500 hover:text-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex cursor-pointer items-center px-3 py-1 text-[28px] text-gray-500 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {article?.isLiked ? (
                         <FaHeart className="text-red-500" />

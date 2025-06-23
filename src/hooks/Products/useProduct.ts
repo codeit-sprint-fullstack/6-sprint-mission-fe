@@ -32,7 +32,7 @@ export function useProduct(productId: Product["id"]) {
       // 수정된 상품으로 캐시 업데이트
       queryClient.setQueryData(
         ["products", "detail", productId],
-        updatedProduct
+        updatedProduct,
       );
 
       // 관련 쿼리들 무효화 (상품 목록에도 반영)
@@ -108,7 +108,7 @@ export function useProduct(productId: Product["id"]) {
       if (!productId) return;
       return updateMutation.mutateAsync(productData);
     },
-    [productId, updateMutation]
+    [productId, updateMutation],
   );
 
   // 상품 삭제 함수
@@ -128,7 +128,7 @@ export function useProduct(productId: Product["id"]) {
         return likeMutation.mutateAsync();
       }
     },
-    [productId, likeMutation, unlikeMutation]
+    [productId, likeMutation, unlikeMutation],
   );
 
   return {

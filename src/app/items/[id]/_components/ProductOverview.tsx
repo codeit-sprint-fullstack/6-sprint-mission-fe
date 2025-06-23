@@ -34,7 +34,7 @@ export default function ProductOverview({
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   const { deleteProduct, toggleLike, isDeleting, isTogglingLike } = useProduct(
-    product?.id
+    product?.id,
   );
 
   // 이미지 데이터 처리
@@ -53,13 +53,13 @@ export default function ProductOverview({
   // 이미지 이동 함수
   const goToPrevImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1,
     );
   };
 
   const goToNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
@@ -74,7 +74,7 @@ export default function ProductOverview({
     try {
       console.log("삭제 처리 중", product.id);
       await deleteProduct();
-      router.push("/items");
+      window.location.href = "/items"; // router.push 대신 사용
     } catch (error) {
       console.error("상품 삭제 실패:", error);
     } finally {
@@ -274,7 +274,7 @@ export default function ProductOverview({
                 <button
                   onClick={handleToggleLike}
                   disabled={isTogglingLike}
-                  className="flex cursor-pointer items-center px-3 py-1 text-[28px] text-gray-500 hover:text-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex cursor-pointer items-center px-3 py-1 text-[28px] text-gray-500 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {product?.isLiked ? (
                     <FaHeart className="text-red-500" />
