@@ -5,7 +5,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: "six-sprint-mission-be.onrender.com",
+        hostname: "43.201.25.48",
+        port: "7777",
+        pathname: "/uploads/**",
       },
     ],
   },
