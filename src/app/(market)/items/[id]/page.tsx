@@ -4,14 +4,15 @@ import GoBackBtn from "@/components/ui/GoBackBtn";
 import LineDivider from "@/components/ui/LineDivider";
 import CommentSection from "../../_components/CommentSection";
 
-export default async function ItemPage({ params }: { params: { id: string } }) {
-  const id = Number(params.id);
+export default async function ItemPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const itemId = Number(id);
 
   return (
     <>
-      <ItemContainer id={id} />
+      <ItemContainer id={itemId} />
       <LineDivider my={6} />
-      <CommentSection id={id} type="product" />
+      <CommentSection id={itemId} type="product" />
       <GoBackBtn isItemPage={true} />
     </>
   );

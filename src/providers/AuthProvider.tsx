@@ -8,14 +8,17 @@ import { ChildrenProps, User } from "@/types";
 import { userService } from "@/lib/service/userService";
 import { EXCLUDED_ROUTES } from "@/constant";
 
+type LoginResult = Awaited<ReturnType<typeof loginAction>>;
+type SignupResult = Awaited<ReturnType<typeof signupAction>>;
+
 interface AuthContextType {
-  login: (email: string, password: string) => Promise<any>;
+  login: (email: string, password: string) => Promise<LoginResult>;
   signup: (
     email: string,
     nickname: string,
     password: string,
     passwordConfirmation: string
-  ) => Promise<any>;
+  ) => Promise<SignupResult>;
   logout: () => Promise<void>;
   user: User | null;
   loading: boolean;

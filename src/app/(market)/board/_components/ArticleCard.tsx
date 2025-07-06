@@ -1,6 +1,7 @@
 import UnheartIcon from "@/assets/svgs/ic_unheart.svg";
 import FormatDate from "@/components/ui/FormatDate";
 import { Article } from "@/types";
+import Image from "next/image";
 import React from "react";
 
 interface ArticleCardProps {
@@ -14,7 +15,7 @@ function ArticleCard({ article, isBest }: ArticleCardProps) {
       <div className="mb-4 flex justify-between">
         <h2 className={`text-lg font-semibold ${isBest ? "mr-10" : "mr-2"}`}>{article.title}</h2>
         <div className="h-[72px] w-[72px] overflow-hidden rounded-lg border border-gray-200 bg-white">
-          <img
+          <Image
             src={article.image}
             alt="게시글 이미지"
             className="h-full w-full text-sm break-keep"

@@ -87,26 +87,29 @@ function ItemList() {
         </div>
       </nav>
       <article className="mb-[91px] grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-5 lg:gap-6">
-        {items?.list.map((item) => {
-          return (
-            <Link key={item.id} href={`/items/${item.id}`}>
-              <ItemCard
-                key={item.id}
-                name={item.name}
-                price={item.price}
-                image={item.images[0]}
-                likeCount={item.likeCount}
-              />
-            </Link>
-          );
-        })}
+        {items &&
+          items.list.map((item) => {
+            return (
+              <Link key={item.id} href={`/items/${item.id}`}>
+                <ItemCard
+                  key={item.id}
+                  name={item.name}
+                  price={item.price}
+                  image={item.images[0]}
+                  likeCount={item.likeCount}
+                />
+              </Link>
+            );
+          })}
       </article>
-      <Pagination
-        totalCount={items?.totalCount!}
-        currentPage={page}
-        pageSize={pageSize}
-        onPageChange={(newPage) => setPage(newPage)}
-      />
+      {items && (
+        <Pagination
+          totalCount={items.totalCount}
+          currentPage={page}
+          pageSize={pageSize}
+          onPageChange={(newPage) => setPage(newPage)}
+        />
+      )}
     </section>
   );
 }

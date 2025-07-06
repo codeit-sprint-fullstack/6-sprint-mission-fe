@@ -85,21 +85,24 @@ function ArticleList() {
         </div>
       </nav>
       <article className="mb-[91px]">
-        {articles?.list.map((article) => {
-          return (
-            <Link key={article.id} href={`/board/${article.id}`}>
-              <ArticleCard key={article.id} article={article} />
-              <span className="my-6 flex border-b-1 border-gray-200"></span>
-            </Link>
-          );
-        })}
+        {articles &&
+          articles.list.map((article) => {
+            return (
+              <Link key={article.id} href={`/board/${article.id}`}>
+                <ArticleCard key={article.id} article={article} />
+                <span className="my-6 flex border-b-1 border-gray-200"></span>
+              </Link>
+            );
+          })}
       </article>
-      <Pagination
-        totalCount={articles?.totalCount!}
-        currentPage={page}
-        pageSize={pageSize}
-        onPageChange={(newPage) => setPage(newPage)}
-      />
+      {articles && (
+        <Pagination
+          totalCount={articles.totalCount}
+          currentPage={page}
+          pageSize={pageSize}
+          onPageChange={(newPage) => setPage(newPage)}
+        />
+      )}
     </section>
   );
 }

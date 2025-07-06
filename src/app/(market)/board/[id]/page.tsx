@@ -66,11 +66,13 @@ function ArticlePage() {
             {isDropdownOpen && <Dropdown items={EDIT_OPTIONS} onSelect={handleEditArticle} />}
           </div>
         </div>
-        <UserInfo
-          nickname={article?.writer.nickname!}
-          createdAt={article?.createdAt!}
-          likeCount={article?.likeCount!}
-        />
+        {article && (
+          <UserInfo
+            nickname={article.writer.nickname}
+            createdAt={article.createdAt}
+            likeCount={article.likeCount}
+          />
+        )}
       </nav>
       <section>
         <p className="mt-4 mb-8">{article?.content}</p>
