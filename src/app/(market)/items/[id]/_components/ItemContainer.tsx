@@ -77,11 +77,11 @@ function ItemContainer({ id }: { id: Product["id"] }) {
   });
 
   // 상품 편집 핸들러
-  const handleEditItem = (action: "edit" | "delete") => {
+  const handleEditItem = (value: string) => {
     setIsDropdownOpen(true);
-    if (action === "edit") {
+    if (value === "edit") {
       router.push(`/items/${id}/edit`);
-    } else if (action === "delete") {
+    } else if (value === "delete") {
       setIsModalOpen(true);
       setModalMsg("정말로 상품을 삭제하시겠어요?");
     }
