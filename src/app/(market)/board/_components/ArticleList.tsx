@@ -4,8 +4,8 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ArticleCard from "./ArticleCard";
 import Dropdown from "@/components/ui/Dropdown";
-import { ARTICLE_COUNT, BREAKPOINTS } from "@/constant";
-import { useViewport } from "@/lib/hooks/useViewport";
+import { ARTICLE_COUNT, BREAKPOINTS, SORT_OPTIONS } from "@/constant";
+import { useViewport } from "@/hooks/useViewport";
 import { useQuery } from "@tanstack/react-query";
 import Pagination from "@/components/ui/Pagination";
 import { ArticleListResponse, DropdownItem } from "@/types";
@@ -15,16 +15,11 @@ import ArrowDown from "@/assets/svgs/arrow_down.svg";
 import { articleService } from "@/lib/service/articleService";
 
 function ArticleList() {
-  const sortOptions: DropdownItem[] = [
-    { label: "최신순", value: "recent" },
-    { label: "좋아요순", value: "like" },
-  ];
-
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(ARTICLE_COUNT.pc);
   const [orderBy, setOrderBy] = useState("recent");
   const [keyword, setKeyword] = useState("");
-  const [dropdownOption, setDropdownOption] = useState(sortOptions[0]);
+  const [dropdownOption, setDropdownOption] = useState(SORT_OPTIONS[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const windowWidth = useViewport();
 
@@ -46,7 +41,7 @@ function ArticleList() {
   });
 
   const handleSort = (value: DropdownItem["value"]) => {
-    const selected = sortOptions.find((item) => item.value === value);
+    const selected = SORT_OPTIONS.find((item) => item.value === value);
     setDropdownOption(selected!);
 
     if (selected?.value === "recent") {
@@ -86,24 +81,28 @@ function ArticleList() {
               <SortIcon alt="정렬 아이콘" />
             )}
           </button>
-          {isDropdownOpen && <Dropdown items={sortOptions} onSelect={handleSort} type="sort" />}
+          {isDropdownOpen && <Dropdown items={SORT_OPTIONS} onSelect={handleSort} type="sort" />}
         </div>
       </nav>
       <article className="mb-[91px]">
-        {articles?.list.map((article) => {
-          return (
-            <Link key={article.id} href={`/board/${article.id}`}>
-              <ArticleCard key={article.id} article={article} />
-              <span className="my-6 flex border-b-1 border-gray-200"></span>
-            </Link>
-          );
-        })}
+        {articles &&
+          articles.list.map((article) => {
+            return (
+              <Link key={article.id} href={`/board/${article.id}`}>
+                <ArticleCard key={article.id} article={article} />
+                <span className="my-6 flex border-b-1 border-gray-200"></span>
+              </Link>
+            );
+          })}
       </article>
-      <Pagination
-        totalCount={articles?.totalCount!}
-        currentPage={page}
-        onPageChange={(newPage) => setPage(newPage)}
-      />
+      {articles && (
+        <Pagination
+          totalCount={articles.totalCount}
+          currentPage={page}
+          pageSize={pageSize}
+          onPageChange={(newPage) => setPage(newPage)}
+        />
+      )}
     </section>
   );
 }

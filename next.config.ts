@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // image host 설정
   images: {
-    domains: ["panda-market-api.onrender.com", "example.com", "localhost"],
+    domains: ["panda-market-bucket.s3.ap-northeast-2.amazonaws.com"],
   },
   // svg 파일 React 컴포넌트로 변환
   webpack: (config) => {
@@ -35,6 +35,7 @@ const nextConfig: NextConfig = {
     return config;
   },
 
+  // TODO: 소셜 로그인용
   // async rewrites() {
   //   return [
   //     {

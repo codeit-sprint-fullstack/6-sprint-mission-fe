@@ -11,7 +11,7 @@ interface ItemHeaderProps {
   item: Product;
   isDropdownOpen: boolean;
   setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  handleEditItem: (action: "edit" | "delete") => void;
+  handleEditItem: (value: string) => void;
 }
 
 function ItemHeader({ item, isDropdownOpen, setIsDropdownOpen, handleEditItem }: ItemHeaderProps) {

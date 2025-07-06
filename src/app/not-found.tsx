@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function NotFound() {
@@ -8,14 +9,14 @@ export default function NotFound() {
           <h1 className="text-7xl font-extrabold">404</h1>
           <p className="mt-6 text-2xl font-medium">Oops! Page not found</p>
           <p className="mt-4 mb-8 text-base">
-            The page you're looking for doesn't exist or has been moved.
+            The page you&rsquo;re looking for doesn&rsquo;t exist or has been moved.
           </p>
-          <a
+          <Link
             href="/"
             className="inline-block rounded-full bg-black px-6 py-2 font-semibold text-white transition hover:bg-gray-700"
           >
             Go Home
-          </a>
+          </Link>
         </div>
       </div>
     </div>

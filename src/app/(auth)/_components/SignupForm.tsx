@@ -37,13 +37,17 @@ export default function SignupForm() {
       data.password,
       data.passwordConfirmation
     );
-    setIsSignupSuccess(result.success);
+    setIsSignupSuccess(result.success!);
     setModalMsg(result.message);
     setIsModalOpen(true);
   };
 
   const handleModalClick = () => {
-    isSignupSuccess ? router.push("/login") : setIsModalOpen(false);
+    if (isSignupSuccess) {
+      router.push("/login");
+    } else {
+      setIsModalOpen(false);
+    }
   };
 
   return (

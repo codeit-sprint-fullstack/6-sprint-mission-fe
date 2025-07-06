@@ -1,7 +1,7 @@
 interface ArticleParams {
   page: number;
   pageSize: number;
-  orderBy?: "recent" | "like" | "favorite";
+  orderBy?: "recent" | "like";
   keyword?: string;
 }
 

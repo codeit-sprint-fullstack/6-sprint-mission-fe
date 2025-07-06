@@ -1,5 +1,9 @@
+import { DropdownItem } from "./types";
+
 export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 export const API_URL = process.env.API_URL;
+
+export const EXCLUDED_ROUTES = ["/", "/login", "signup"];
 
 export const BREAKPOINTS = {
   sm: 375,
@@ -30,6 +34,11 @@ export const ITEM_COUNT = {
   tablet: 6,
   pc: 10,
 };
+
+export const SORT_OPTIONS: DropdownItem[] = [
+  { label: "최신순", value: "recent" },
+  { label: "좋아요순", value: "like" },
+];
 
 export const EDIT_OPTIONS = [
   { label: "수정하기", value: "edit" },

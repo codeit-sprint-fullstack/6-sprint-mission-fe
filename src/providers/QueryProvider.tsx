@@ -23,7 +23,7 @@ function makeQueryClient() {
   });
 }
 
-let browserQueryClient: any = undefined;
+let browserQueryClient: QueryClient | undefined = undefined;
 
 function getQueryClient() {
   if (isServer) {

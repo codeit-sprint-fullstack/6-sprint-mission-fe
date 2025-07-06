@@ -10,7 +10,7 @@ import { Product, User } from "@/types";
 interface UserInfoProps {
   nickname: User["nickname"];
   createdAt: Product["createdAt"];
-  favoriteCount: Product["favoriteCount"];
+  likeCount: Product["likeCount"];
   isItemPage?: boolean;
   isLiked?: boolean;
   onToggleLike?: () => void;
@@ -19,7 +19,7 @@ interface UserInfoProps {
 function UserInfo({
   nickname,
   createdAt,
-  favoriteCount,
+  likeCount,
   isItemPage,
   isLiked,
   onToggleLike,
@@ -44,7 +44,7 @@ function UserInfo({
           onClick={onToggleLike}
         >
           {isLiked ? <HeartIcon alt="하트" /> : <UnheartIcon alt="빈 하트" />}
-          <span className="font-medium text-gray-500">{favoriteCount}</span>
+          <span className="font-medium text-gray-500">{likeCount}</span>
         </button>
       </span>
     </div>

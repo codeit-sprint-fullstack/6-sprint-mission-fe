@@ -4,16 +4,18 @@ import ArrowLeft from "@/assets/svgs/arrow_left.svg";
 import ArrowRight from "@/assets/svgs/arrow_right.svg";
 import { useMemo } from "react";
 
-const itemsPerPage = 10;
 const pagesPerGroup = 5;
 
 interface PaginationProps {
   totalCount: number;
   currentPage: number;
+  pageSize: number;
   onPageChange: (newPage: number) => void;
 }
 
-function Pagination({ totalCount, currentPage, onPageChange }: PaginationProps) {
+function Pagination({ totalCount, currentPage, pageSize, onPageChange }: PaginationProps) {
+  const itemsPerPage = pageSize;
+
   const paginationData = useMemo(() => {
     const totalPages = Math.ceil(totalCount / itemsPerPage);
     const currentGroup = Math.ceil(currentPage / pagesPerGroup);

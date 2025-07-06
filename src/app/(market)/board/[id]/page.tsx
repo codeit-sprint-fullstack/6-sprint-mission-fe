@@ -36,7 +36,6 @@ function ArticlePage() {
     setArticle(data);
   };
 
-  console.log(article);
   if (isLoading) return null;
 
   // 게시글 편집 핸들러
@@ -67,11 +66,13 @@ function ArticlePage() {
             {isDropdownOpen && <Dropdown items={EDIT_OPTIONS} onSelect={handleEditArticle} />}
           </div>
         </div>
-        <UserInfo
-          nickname={article?.writer.nickname!}
-          createdAt={article?.createdAt!}
-          favoriteCount={article?.likeCount!}
-        />
+        {article && (
+          <UserInfo
+            nickname={article.writer.nickname}
+            createdAt={article.createdAt}
+            likeCount={article.likeCount}
+          />
+        )}
       </nav>
       <section>
         <p className="mt-4 mb-8">{article?.content}</p>

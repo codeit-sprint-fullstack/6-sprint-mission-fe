@@ -38,7 +38,7 @@ function ItemContainer({ id }: { id: Product["id"] }) {
       queryClient.setQueryData(["product", id], (old: Product) => ({
         ...old,
         isFavorite: true,
-        favoriteCount: old.favoriteCount + 1,
+        likeCount: old.likeCount + 1,
       }));
 
       return { previousItem };
@@ -63,7 +63,7 @@ function ItemContainer({ id }: { id: Product["id"] }) {
       queryClient.setQueryData(["product", id], (old: Product) => ({
         ...old,
         isFavorite: false,
-        favoriteCount: old.favoriteCount - 1,
+        likeCount: old.likeCount - 1,
       }));
 
       return { previousItem };
@@ -77,11 +77,11 @@ function ItemContainer({ id }: { id: Product["id"] }) {
   });
 
   // 상품 편집 핸들러
-  const handleEditItem = (action: "edit" | "delete") => {
+  const handleEditItem = (value: string) => {
     setIsDropdownOpen(true);
-    if (action === "edit") {
+    if (value === "edit") {
       router.push(`/items/${id}/edit`);
-    } else if (action === "delete") {
+    } else if (value === "delete") {
       setIsModalOpen(true);
       setModalMsg("정말로 상품을 삭제하시겠어요?");
     }
@@ -136,7 +136,7 @@ function ItemContainer({ id }: { id: Product["id"] }) {
             <UserInfo
               nickname={item.ownerNickname}
               createdAt={item.createdAt}
-              favoriteCount={item.favoriteCount}
+              likeCount={item.likeCount}
               isItemPage={true}
               isLiked={item.isFavorite}
               onToggleLike={handleToggleLike}

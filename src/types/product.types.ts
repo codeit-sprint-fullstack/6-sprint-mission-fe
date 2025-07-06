@@ -6,7 +6,7 @@ export type Product = {
   tags: string[];
   images: string[];
   ownerId: string;
-  favoriteCount: number;
+  likeCount: number;
   createdAt: Date;
   updatedAt: Date;
   ownerNickname: string;
@@ -21,6 +21,6 @@ export type ProductListResponse = {
 export type ProductParams = {
   page: number;
   pageSize: number;
-  orderBy?: "recent" | "favorite";
+  orderBy?: "recent" | "like";
   keyword?: string;
 };

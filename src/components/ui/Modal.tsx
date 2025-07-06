@@ -34,7 +34,7 @@ function Modal({ message, handleClick, isDelete, itemId, handleDelete }: ModalPr
             <button
               type="button"
               className="btn-base bg-error-red h-12 w-22"
-              onClick={() => handleDelete(itemId)}
+              onClick={() => handleDelete?.(itemId!)}
             >
               네
             </button>
