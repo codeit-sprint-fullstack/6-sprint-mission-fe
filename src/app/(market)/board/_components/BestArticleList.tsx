@@ -4,7 +4,7 @@ import ArticleCard from "./ArticleCard";
 import Link from "next/link";
 import Badge from "@/assets/svgs/badge.svg";
 import { useEffect, useState } from "react";
-import { useViewport } from "@/lib/hooks/useViewport";
+import { useViewport } from "@/hooks/useViewport";
 import { useQuery } from "@tanstack/react-query";
 import { BEST_ARTICLE_COUNT, BREAKPOINTS } from "@/constant";
 import { Article } from "@/types";

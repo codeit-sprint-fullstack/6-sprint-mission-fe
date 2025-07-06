@@ -36,7 +36,6 @@ function ArticlePage() {
     setArticle(data);
   };
 
-  console.log(article);
   if (isLoading) return null;
 
   // 게시글 편집 핸들러
@@ -70,7 +69,7 @@ function ArticlePage() {
         <UserInfo
           nickname={article?.writer.nickname!}
           createdAt={article?.createdAt!}
-          favoriteCount={article?.likeCount!}
+          likeCount={article?.likeCount!}
         />
       </nav>
       <section>

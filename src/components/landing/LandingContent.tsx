@@ -5,7 +5,7 @@ import HotItemImg from "@/assets/svgs/home_01.svg";
 import RegisterImg from "@/assets/svgs/home_02.svg";
 import SearchImg from "@/assets/svgs/home_03.svg";
 import { BREAKPOINTS } from "@/constant";
-import { useViewport } from "@/lib/hooks/useViewport";
+import { useViewport } from "@/hooks/useViewport";
 
 interface LandingContentProps {
   index: number;

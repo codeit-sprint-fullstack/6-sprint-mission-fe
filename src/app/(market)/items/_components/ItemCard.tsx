@@ -7,10 +7,10 @@ interface ItemCardProps {
   name: Product["name"];
   price: Product["price"];
   image: Product["images"][0];
-  favoriteCount: Product["favoriteCount"];
+  likeCount: Product["likeCount"];
 }
 
-function ItemCard({ name, price, image, favoriteCount }: ItemCardProps) {
+function ItemCard({ name, price, image, likeCount }: ItemCardProps) {
   return (
     <div className="mb-8 flex flex-col gap-[10px]">
       <Image
@@ -26,7 +26,7 @@ function ItemCard({ name, price, image, favoriteCount }: ItemCardProps) {
         <span className="font-bold">{price}원</span>
         <div className="flex gap-1">
           <UnheartIcon alt="좋아요 아이콘" className="h-4 w-4" />
-          <div className="text-xs font-medium text-gray-600">{favoriteCount}</div>
+          <div className="text-xs font-medium text-gray-600">{likeCount}</div>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ export type Article = {
   id: number;
   title: string;
   content: string;
-  images: string[];
+  image: string;
   likeCount: number;
   createdAt: Date;
   updatedAt: Date;

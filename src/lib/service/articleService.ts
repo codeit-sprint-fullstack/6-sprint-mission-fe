@@ -1,7 +1,7 @@
 import { BASE_URL } from "@/constant";
 import { getArticleAction } from "../actions/article";
 import { Article, ArticleParams } from "@/types";
-import { toQueryString } from "../utils/query";
+import { toQueryString } from "../utils/toQueryString";
 
 export const articleService = {
   getArticles: async (params: ArticleParams) => {

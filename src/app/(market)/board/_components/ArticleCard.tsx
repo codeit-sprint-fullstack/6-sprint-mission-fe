@@ -15,7 +15,7 @@ function ArticleCard({ article, isBest }: ArticleCardProps) {
         <h2 className={`text-lg font-semibold ${isBest ? "mr-10" : "mr-2"}`}>{article.title}</h2>
         <div className="h-[72px] w-[72px] overflow-hidden rounded-lg border border-gray-200 bg-white">
           <img
-            src={article.images[0]}
+            src={article.image}
             alt="게시글 이미지"
             className="h-full w-full text-sm break-keep"
           />

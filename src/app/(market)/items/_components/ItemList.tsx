@@ -8,23 +8,18 @@ import Dropdown from "@/components/ui/Dropdown";
 import ArrowDown from "@/assets/svgs/arrow_down.svg";
 import SearchIcon from "@/assets/svgs/ic_search.svg";
 import SortIcon from "@/assets/svgs/ic_sort.svg";
-import { useViewport } from "@/lib/hooks/useViewport";
+import { useViewport } from "@/hooks/useViewport";
 import { useQuery } from "@tanstack/react-query";
 import { DropdownItem, ProductListResponse } from "@/types";
-import { BREAKPOINTS, ITEM_COUNT } from "@/constant";
+import { BREAKPOINTS, ITEM_COUNT, SORT_OPTIONS } from "@/constant";
 import { productService } from "@/lib/service/productService";
 
 function ItemList() {
-  const sortOptions: DropdownItem[] = [
-    { label: "최신순", value: "recent" },
-    { label: "좋아요순", value: "favorite" },
-  ];
-
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(ITEM_COUNT.pc);
   const [orderBy, setOrderBy] = useState("recent");
   const [keyword, setKeyword] = useState("");
-  const [dropdownOption, setDropdownOption] = useState(sortOptions[0]);
+  const [dropdownOption, setDropdownOption] = useState(SORT_OPTIONS[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const windowWidth = useViewport();
 
@@ -44,17 +39,16 @@ function ItemList() {
     queryKey: ["products", { page, pageSize, orderBy, keyword }],
     queryFn: () => productService.getProducts({ page, pageSize, orderBy: "recent", keyword }),
   });
-
-  console.log("items", items);
+  console.log(items);
 
   const handleSort = (value: DropdownItem["value"]) => {
-    const selected = sortOptions.find((option) => option.value === value);
+    const selected = SORT_OPTIONS.find((option) => option.value === value);
     setDropdownOption(selected!);
 
     if (selected?.value === "recent") {
       setOrderBy("recent");
     } else {
-      setOrderBy("favorite");
+      setOrderBy("like");
     }
 
     setIsDropdownOpen(false);
@@ -89,7 +83,7 @@ function ItemList() {
               <SortIcon alt="정렬 아이콘" />
             )}
           </button>
-          {isDropdownOpen && <Dropdown items={sortOptions} onSelect={handleSort} type="sort" />}
+          {isDropdownOpen && <Dropdown items={SORT_OPTIONS} onSelect={handleSort} type="sort" />}
         </div>
       </nav>
       <article className="mb-[91px] grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-5 lg:gap-6">
@@ -101,7 +95,7 @@ function ItemList() {
                 name={item.name}
                 price={item.price}
                 image={item.images[0]}
-                favoriteCount={item.favoriteCount}
+                likeCount={item.likeCount}
               />
             </Link>
           );
@@ -110,6 +104,7 @@ function ItemList() {
       <Pagination
         totalCount={items?.totalCount!}
         currentPage={page}
+        pageSize={pageSize}
         onPageChange={(newPage) => setPage(newPage)}
       />
     </section>

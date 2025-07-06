@@ -6,6 +6,7 @@ import { loginAction, signupAction, logoutAction } from "@/lib/actions/auth";
 import { usePathname, useRouter } from "next/navigation";
 import { ChildrenProps, User } from "@/types";
 import { userService } from "@/lib/service/userService";
+import { EXCLUDED_ROUTES } from "@/constant";
 
 interface AuthContextType {
   login: (email: string, password: string) => Promise<any>;
@@ -44,7 +45,7 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
       return result;
     }
     getUser();
-    router.push("/items");
+    return result;
   };
 
   const signup = async (
@@ -53,16 +54,12 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
     password: string,
     passwordConfirmation: string
   ) => {
-    const result = await signupAction({
+    return await signupAction({
       email,
       nickname,
       password,
       passwordConfirmation,
     });
-    if (!result.success) {
-      return result;
-    }
-    router.push("/login");
   };
 
   const logout = async () => {
@@ -74,7 +71,6 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
   const getUser = async () => {
     try {
       const user = await userService.getMe();
-      console.log(user);
       setUser(user);
     } catch (error) {
       console.error("사용자 정보를 가져오는데 실패했습니다.", error);
@@ -83,9 +79,7 @@ export const AuthProvider = ({ children }: ChildrenProps) => {
   };
 
   useEffect(() => {
-    const excludeRoutes = ["/", "/login", "signup"];
-
-    if (!excludeRoutes.includes(pathname)) {
+    if (!EXCLUDED_ROUTES.includes(pathname)) {
       getUser();
     } else {
       setLoading(false);

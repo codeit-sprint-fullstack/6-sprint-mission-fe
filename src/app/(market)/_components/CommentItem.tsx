@@ -3,7 +3,7 @@
 import { deleteComment, updateComment } from "@/lib/actions/comment";
 import Dropdown from "@/components/ui/Dropdown";
 import Modal from "@/components/ui/Modal";
-import { formatUpdatedAt } from "@/lib/utils/dateUtils";
+import { formatUpdatedAt } from "@/lib/utils/formatDate";
 import React, { useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 import { EDIT_OPTIONS } from "@/constant";

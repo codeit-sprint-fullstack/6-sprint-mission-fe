@@ -38,7 +38,7 @@ function ItemContainer({ id }: { id: Product["id"] }) {
       queryClient.setQueryData(["product", id], (old: Product) => ({
         ...old,
         isFavorite: true,
-        favoriteCount: old.favoriteCount + 1,
+        likeCount: old.likeCount + 1,
       }));
 
       return { previousItem };
@@ -63,7 +63,7 @@ function ItemContainer({ id }: { id: Product["id"] }) {
       queryClient.setQueryData(["product", id], (old: Product) => ({
         ...old,
         isFavorite: false,
-        favoriteCount: old.favoriteCount - 1,
+        likeCount: old.likeCount - 1,
       }));
 
       return { previousItem };
@@ -136,7 +136,7 @@ function ItemContainer({ id }: { id: Product["id"] }) {
             <UserInfo
               nickname={item.ownerNickname}
               createdAt={item.createdAt}
-              favoriteCount={item.favoriteCount}
+              likeCount={item.likeCount}
               isItemPage={true}
               isLiked={item.isFavorite}
               onToggleLike={handleToggleLike}

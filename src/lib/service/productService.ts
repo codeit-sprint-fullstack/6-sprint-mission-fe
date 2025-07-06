@@ -1,6 +1,6 @@
 import { BASE_URL } from "@/constant";
 import { Product, ProductParams } from "@/types";
-import { toQueryString } from "../utils/query";
+import { toQueryString } from "../utils/toQueryString";
 import { getProductAction } from "../actions/product";
 
 export const productService = {
