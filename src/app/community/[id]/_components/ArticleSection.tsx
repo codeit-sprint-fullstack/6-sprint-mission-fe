@@ -8,8 +8,10 @@ import ConfirmModal from "@/components/modal/ConfirmModal";
 import AuthRequiredModal from "@/components/modal/AuthRequiredModal";
 import { useAuth } from "@/providers/AuthProvider";
 import { Article } from "@/types/article";
+import { useRouter } from "next/navigation";
 
 export default function ArticleSection({ article }: { article: Article }) {
+  const router = useRouter();
   const { user } = useAuth();
   const [showOptions, setShowOptions] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
