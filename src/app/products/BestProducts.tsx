@@ -1,16 +1,17 @@
-import React, { useEffect, useState, useCallback } from "react";
+"use client";
+
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getProducts } from "@/lib/api/products/productsApi";
 import LikeToProduct from "@/components/LikeToProduct";
 import { formatNumber } from "@/utils/formatNumber";
 import { getImageUrl } from "@/utils/getImageUrl";
-import { Product } from "@/types/product";
-
-interface BestProduct extends Product {}
+import { IProduct } from "@/types/product";
+import { logger } from "@/utils/logger";
 
 function BestProducts() {
-  const [bestProducts, setBestProducts] = useState<BestProduct[]>([]);
+  const [bestProducts, setBestProducts] = useState<IProduct[]>([]);
   const [visibleCount, setVisibleCount] = useState(4);
 
   const handleResize = useCallback(() => {
@@ -53,7 +54,7 @@ function BestProducts() {
           setBestProducts(topLiked);
         }
       } catch (error) {
-        console.error("베스트 상품을 불러오는 데 실패했습니다.", error);
+        logger.error("베스트 상품을 불러오는 데 실패했습니다.", error);
       }
     };
     fetchBestProducts();

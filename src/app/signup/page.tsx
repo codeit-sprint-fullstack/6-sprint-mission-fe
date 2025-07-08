@@ -1,11 +1,7 @@
 "use client";
 
-import {
-  useForm,
-  FieldValues,
-  UseFormRegister,
-  FieldErrors,
-} from "react-hook-form";
+import React, { useState } from "react";
+import { useForm, FieldValues } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { signup } from "@/lib/api/auth/auth.api";
 import { login as loginApi } from "@/lib/api/auth/auth.api";
@@ -15,39 +11,20 @@ import {
   validatePassword,
   validatePasswordMatch,
 } from "@/utils/authValidation";
-import Image from "next/image";
 import Link from "next/link";
-import FormField from "@/components/Auth/AuthField";
+import FormField from "@/components/Auth/AuthFormField";
 import SnsSign from "@/components/SnsSign";
 import Modal from "@/components/Auth/AuthModal";
-import { useState } from "react";
-import { ServerError } from "@/types/error";
+import { logger } from "@/utils/logger";
 import { AxiosError } from "axios";
-
-interface SignupFormData extends FieldValues {
-  email: string;
-  nickname: string;
-  password: string;
-  passwordConfirmation: string;
-}
-
-interface ShowState {
-  password: boolean;
-  passwordConfirmation: boolean;
-}
-
-interface ApiErrorResponse {
-  success: boolean;
-  error: string;
-  message?: string;
-}
+import { AuthError, ShowPasswordState, SignupFormData } from "@/types/auth";
 
 export default function Signup() {
   const { login } = useAuth();
   const router = useRouter();
   const [errorModal, setErrorModal] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [show, setShow] = useState<ShowState>({
+  const [show, setShow] = useState<ShowPasswordState>({
     password: false,
     passwordConfirmation: false,
   });
@@ -68,7 +45,7 @@ export default function Signup() {
     },
   });
 
-  const toggleShow = (field: keyof ShowState): void => {
+  const toggleShow = (field: keyof ShowPasswordState): void => {
     setShow((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
@@ -82,13 +59,13 @@ export default function Signup() {
       login(loginResponse.user);
       router.replace("/products");
     } catch (err) {
-      console.error("Signup error:", err);
+      logger.error("Signup error:", err);
       let errorMessage: string;
 
       if (err instanceof Error) {
         errorMessage = err.message;
       } else {
-        const error = err as AxiosError<ApiErrorResponse>;
+        const error = err as AxiosError<AuthError>;
         errorMessage =
           error.response?.data?.error ||
           error.response?.data?.message ||

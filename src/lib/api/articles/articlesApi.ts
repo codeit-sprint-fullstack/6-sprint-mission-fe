@@ -1,6 +1,7 @@
-import { Article } from "@/types/article";
+import { IArticle, ICreateArticleInput, TUpdateArticleInput } from "@/types";
+import { logger } from "@/utils/logger";
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL + "/api";
 
 export const fetchArticlesFromAPI = async ({
   page = 1,
@@ -31,7 +32,7 @@ export const fetchArticlesFromAPI = async ({
       totalCount: data.totalCount,
     };
   } catch (error) {
-    console.error("API 호출 실패:", error);
+    logger.error("API 호출 실패:", error);
     throw error;
   }
 };
@@ -56,7 +57,7 @@ export const getArticleWithLikes = async (articleId: number) => {
       isLiked: data.isLiked || false,
     };
   } catch (error) {
-    console.error("게시글 정보 조회 실패:", error);
+    logger.error("게시글 정보 조회 실패:", error);
     throw error;
   }
 };
@@ -81,16 +82,15 @@ export const toggleArticleLike = async (articleId: number) => {
       liked: data.liked,
     };
   } catch (error) {
-    console.error("좋아요 토글 실패:", error);
+    logger.error("좋아요 토글 실패:", error);
     throw error;
   }
 };
 
 export async function updateArticle(
   articleId: number,
-  title: string,
-  content: string
-): Promise<Article> {
+  updateData: TUpdateArticleInput
+): Promise<IArticle> {
   const response = await fetch(`${BASE_URL}/articles/${articleId}`, {
     method: "PATCH",
     headers: {
@@ -98,7 +98,7 @@ export async function updateArticle(
       Accept: "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ title, content }),
+    body: JSON.stringify(updateData),
   });
 
   if (!response.ok) {
@@ -125,7 +125,7 @@ export async function deleteArticle(articleId: number): Promise<void> {
   }
 }
 
-export async function getArticle(articleId: number): Promise<Article> {
+export async function getArticle(articleId: number): Promise<IArticle> {
   const response = await fetch(`${BASE_URL}/articles/${articleId}`, {
     credentials: "include",
     headers: {
@@ -142,7 +142,7 @@ export async function getArticle(articleId: number): Promise<Article> {
   return response.json();
 }
 
-export async function getArticles(): Promise<Article[]> {
+export async function getArticles(): Promise<IArticle[]> {
   const response = await fetch(`${BASE_URL}/articles`, {
     credentials: "include",
     headers: {
@@ -162,9 +162,8 @@ export async function getArticles(): Promise<Article[]> {
 }
 
 export async function createArticle(
-  title: string,
-  content: string
-): Promise<Article> {
+  articleData: ICreateArticleInput
+): Promise<IArticle> {
   const response = await fetch(`${BASE_URL}/articles`, {
     method: "POST",
     headers: {
@@ -172,7 +171,7 @@ export async function createArticle(
       Accept: "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ title, content }),
+    body: JSON.stringify(articleData),
   });
 
   if (!response.ok) {

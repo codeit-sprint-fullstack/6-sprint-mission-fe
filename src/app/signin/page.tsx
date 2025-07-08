@@ -1,28 +1,18 @@
 "use client";
 
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { login as loginApi } from "@/lib/api/auth/auth.api";
 import { getValidationError } from "@/utils/authValidation";
-import Image from "next/image";
 import Link from "next/link";
 import SnsSign from "@/components/SnsSign";
-import { useState } from "react";
-import FormField from "@/components/Auth/AuthField";
+import AuthFormField from "@/components/Auth/AuthFormField";
 import Modal from "@/components/Auth/AuthModal";
 import { AxiosError } from "axios";
-
-interface SigninFormData {
-  email: string;
-  password: string;
-}
-
-interface ApiErrorResponse {
-  success: boolean;
-  error: string;
-  message?: string;
-}
+import { AuthError, SigninFormData } from "@/types/auth";
+import { logger } from "@/utils/logger";
 
 export default function Signin() {
   const { login } = useAuth();
@@ -57,13 +47,13 @@ export default function Signin() {
         setErrorModal(true);
       }
     } catch (err) {
-      console.error("Login Error:", err);
+      logger.error("Login Error:", err);
       let errorMessage: string;
 
       if (err instanceof Error) {
         errorMessage = err.message;
       } else {
-        const error = err as AxiosError<ApiErrorResponse>;
+        const error = err as AxiosError<AuthError>;
         errorMessage =
           error.response?.data?.error ||
           error.response?.data?.message ||
@@ -102,7 +92,7 @@ export default function Signin() {
         </Link>
 
         {/* 이메일 입력 */}
-        <FormField
+        <AuthFormField
           id="email"
           label="이메일"
           type="email"
@@ -114,7 +104,7 @@ export default function Signin() {
         />
 
         {/* 비밀번호 입력 */}
-        <FormField
+        <AuthFormField
           id="password"
           label="비밀번호"
           placeholder="비밀번호를 입력해주세요"

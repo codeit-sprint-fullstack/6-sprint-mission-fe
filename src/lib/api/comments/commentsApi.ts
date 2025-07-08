@@ -1,30 +1,12 @@
-import { ArticleComment } from "@/types/article";
+import {
+  IArticleComment,
+  IProductComment,
+  CommentResponse,
+  GetCommentsParams,
+  GetProductCommentsResponse,
+} from "@/types";
 
-interface Comment {
-  id: number;
-  content: string;
-  userId: number;
-  productId: number;
-  createdAt: string;
-  updatedAt: string;
-  user: {
-    id: number;
-    nickname: string;
-    image?: string | null;
-  };
-}
-
-interface CommentResponse {
-  success: boolean;
-  data: Comment;
-}
-
-interface CommentsListResponse {
-  list: Comment[];
-  nextCursor: number | null;
-}
-
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL + "/api";
 
 export async function postProductComment(
   productId: number,
@@ -45,7 +27,6 @@ export async function postProductComment(
   });
 
   if (!res.ok) {
-    console.log("accessToken:", localStorage.getItem("accessToken"));
     const errorData = await res.json();
     throw new Error(errorData.message || "댓글 작성에 실패했습니다.");
   }
@@ -53,23 +34,12 @@ export async function postProductComment(
   return res.json();
 }
 
-interface GetCommentsParams {
-  productId: number;
-  limit?: number;
-  cursor?: number | null;
-}
-
-export interface GetCommentsResponse {
-  comments: Comment[];
-  nextCursor: number | null;
-}
-
 // 상품에 대한 댓글 조회 API
 export async function getCommentsByProductId({
   productId,
   limit = 4,
   cursor = null,
-}: GetCommentsParams): Promise<GetCommentsResponse> {
+}: GetCommentsParams): Promise<GetProductCommentsResponse> {
   if (!productId) {
     throw new Error("상품 ID가 없습니다.");
   }
@@ -143,7 +113,7 @@ export async function deleteComment(
 // 게시글 댓글 조회 API
 export async function getArticleComments(
   articleId: number
-): Promise<ArticleComment[]> {
+): Promise<IArticleComment[]> {
   const response = await fetch(`${BASE_URL}/articles/${articleId}/comments`, {
     method: "GET",
     credentials: "include",
@@ -165,7 +135,7 @@ export async function getArticleComments(
 export async function createArticleComment(
   articleId: number,
   content: string
-): Promise<ArticleComment> {
+): Promise<IArticleComment> {
   const response = await fetch(`${BASE_URL}/articles/${articleId}/comments`, {
     method: "POST",
     headers: {
@@ -189,7 +159,7 @@ export async function createArticleComment(
 export async function updateArticleComment(
   commentId: number,
   content: string
-): Promise<ArticleComment> {
+): Promise<IArticleComment> {
   const response = await fetch(`${BASE_URL}/articles/comments/${commentId}`, {
     method: "PATCH",
     headers: {

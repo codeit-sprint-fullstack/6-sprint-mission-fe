@@ -24,7 +24,6 @@
     // "moduleDetection": "auto",                        /* Control what method is used to detect module-format JS files. */
     /* Modules */
     "module": "esnext",
-    "rootDir": "./src",
     "moduleResolution": "bundler",
     // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
     "paths": {
@@ -113,8 +112,9 @@
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "src/app/articles/page.jsx"
-, "src/app/articles/createArticle/page.jsx"  ],
-  "exclude": ["node_modules"]
+    "src/app/articles/createArticle/page.jsx",
+    "src/app/articles/page.jsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules", ".next"]
 }

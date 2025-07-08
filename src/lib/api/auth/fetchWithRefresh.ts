@@ -1,9 +1,11 @@
-import { getAccessToken, setAccessToken } from "./auth.api";
-
 interface RequestInit extends globalThis.RequestInit {
   credentials?: RequestCredentials;
   headers?: HeadersInit;
 }
+
+import { logger } from "@/utils/logger";
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const fetchWithRefresh = async (
   input: RequestInfo | URL,
@@ -24,7 +26,7 @@ export const fetchWithRefresh = async (
   if (res.status === 401) {
     try {
       // 액세스 토큰 만료로 판단하고 리프레시 시도
-      const refreshRes = await fetch("http://localhost:5000/users/refresh", {
+      const refreshRes = await fetch(`${BASE_URL}/users/refresh`, {
         method: "POST",
         credentials: "include",
       });
@@ -44,7 +46,7 @@ export const fetchWithRefresh = async (
         throw new Error("요청 실패");
       }
     } catch (error) {
-      console.error("Token refresh failed:", error);
+      logger.error("토큰 갱신 실패", error);
       throw new Error("토큰 갱신에 실패했습니다.");
     }
   }

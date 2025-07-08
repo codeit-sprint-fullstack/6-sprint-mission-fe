@@ -2,50 +2,106 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { TfiBackLeft } from "react-icons/tfi";
+import { logger } from "@/utils/logger";
 
 import PostDetail from "@/components/articles/ArticleDetail";
 import CommentSection from "@/components/comments/_article/commentsection";
-import { Article as ArticleType, ArticleComment } from "@/types/article";
+import { IArticle as ArticleType, IArticleComment } from "@/types/article";
 import { getArticle } from "@/lib/api/articles/articlesApi";
 import { getArticleComments } from "@/lib/api/comments/commentsApi";
+import Modal from "@/components/Auth/AuthModal";
+import { useAuth } from "@/context/AuthContext";
+
+// 상태를 더 명시적으로 관리하는 타입
+type ArticleState =
+  | { status: "loading" }
+  | { status: "error"; message: string }
+  | { status: "success"; data: ArticleType };
 
 const Article = () => {
-  const [post, setPost] = useState<ArticleType | null>(null);
-  const [comments, setComments] = useState<ArticleComment[]>([]);
+  const [articleState, setArticleState] = useState<ArticleState>({
+    status: "loading",
+  });
+  const [comments, setComments] = useState<IArticleComment[]>([]);
   const [newComment, setNewComment] = useState<string>("");
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const { id } = useParams();
+  const router = useRouter();
+  const { user, isInitialized } = useAuth();
+
+  // 로그인이 안 된 상태에서 모달 표시
+  useEffect(() => {
+    if (isInitialized && !user) {
+      setShowAuthModal(true);
+    }
+  }, [isInitialized, user]);
 
   useEffect(() => {
-    if (id) {
+    if (id && user) {
       const fetchData = async () => {
         try {
+          setArticleState({ status: "loading" });
+
           const articleData = await getArticle(Number(id));
-          setPost(articleData);
+          setArticleState({ status: "success", data: articleData });
 
           const commentData = await getArticleComments(Number(id));
-          console.log("Fetched comments:", commentData);
+
           setComments(commentData);
         } catch (err) {
-          console.error("데이터 로딩 실패:", err);
+          logger.error("데이터 로딩 실패:", err);
+          setArticleState({
+            status: "error",
+            message: "게시글을 불러오는데 실패했습니다.",
+          });
         }
       };
 
       fetchData();
     }
-  }, [id]);
+  }, [id, user]);
 
-  if (!post) return <p>게시글을 로딩 중입니다...</p>;
+  // 로그인이 안 된 상태에서는 모달만 표시
+  if (!isInitialized) return <p className="text-center mt-8">로딩 중...</p>;
+
+  if (!user) {
+    return (
+      <>
+        {showAuthModal && (
+          <Modal
+            message="로그인이 필요합니다."
+            onClose={() => router.push("/signin")}
+          />
+        )}
+      </>
+    );
+  }
+
+  // 상태별 렌더링
+  if (articleState.status === "loading") {
+    return <p className="text-center mt-8">게시글을 로딩 중입니다...</p>;
+  }
+
+  if (articleState.status === "error") {
+    return (
+      <p className="text-center mt-8 text-red-500">{articleState.message}</p>
+    );
+  }
+
+  // 이제 articleState.status === 'success'이므로 data가 보장됨
+  const post = articleState.data;
 
   return (
     <div className="container mx-auto mt-8 px-4">
       <PostDetail
         post={post}
-        onLikeToggle={(id: number, newCount: number) =>
-          setPost((prev) =>
-            prev ? { ...prev, likes: { length: newCount } } : null
-          )
+        onLikeToggle={(_: number, newCount: number) =>
+          setArticleState({
+            status: "success",
+            data: { ...post, likeCount: newCount },
+          })
         }
       />
 

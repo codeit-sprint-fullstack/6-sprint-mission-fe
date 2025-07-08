@@ -7,7 +7,6 @@ import {
   validateProductName,
   validateDescription,
   validatePrice,
-  validateTags,
 } from "@/utils/formValidation";
 import FormInput from "@/components/FormInput";
 import FormTextarea from "@/components/FormTextarea";
@@ -16,18 +15,8 @@ import TagInput from "@/components/TagInput";
 import { uploadImage } from "@/lib/api/images/imageUpload";
 import { createProduct } from "@/lib/api/products/productsApi";
 import { useAuth } from "@/context/AuthContext";
-
-interface CreateProductFormData {
-  name: string;
-  description: string;
-  price: string;
-  tags: string[];
-}
-
-interface ImageData {
-  file: File;
-  url: string;
-}
+import type { CreateProductFormData, ImageData } from "@/types/product";
+import { logger } from "@/utils/logger";
 
 export default function CreateProduct() {
   const router = useRouter();
@@ -46,7 +35,7 @@ export default function CreateProduct() {
     defaultValues: {
       name: "",
       description: "",
-      price: "",
+      price: 0,
       tags: [],
     },
   });
@@ -94,12 +83,11 @@ export default function CreateProduct() {
       const productData = {
         name: data.name,
         description: data.description,
-        price: Number(data.price),
+        price: data.price,
         tags: data.tags,
         imageUrls,
       };
 
-      console.log("등록 시 보낼 데이터:", productData);
       const result = await createProduct(productData);
 
       if (result.success) {
@@ -108,7 +96,7 @@ export default function CreateProduct() {
         alert(`상품 등록 실패: ${result.error}`);
       }
     } catch (error) {
-      console.error("상품 등록 에러:", error);
+      logger.error("상품 등록 에러:", error);
       alert("상품 등록 중 오류가 발생했습니다.");
     } finally {
       setIsSubmitting(false);
@@ -170,6 +158,7 @@ export default function CreateProduct() {
           placeholder="가격을 입력하세요"
           error={errors.price?.message}
           {...register("price", {
+            valueAsNumber: true,
             required: "가격을 입력해주세요.",
             validate: (value) =>
               validatePrice(value) || "가격은 0보다 큰 숫자여야 합니다.",

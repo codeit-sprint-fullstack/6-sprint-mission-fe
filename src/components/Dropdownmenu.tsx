@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MdMoreVert } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { logger } from "@/utils/logger";
 
 import DeleteModal from "@/components/DeleteModal";
 
@@ -70,7 +71,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
             alert("제목이 비어있습니다!");
             return;
           }
-          await updateArticle(itemId, title, content);
+          await updateArticle(itemId, { title, content });
           alert("글 수정 성공!");
         }
         setIsOpen(false);
@@ -85,22 +86,31 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   // 삭제 확인 처리
   const handleConfirmDelete = async () => {
     try {
-      if (type === "product") {
-        await deleteProduct(itemId.toString());
-        alert("상품이 삭제되었습니다.");
-        router.push("/products");
-      } else if (type === "comment") {
-        await deleteComment(itemId);
-        alert("댓글 삭제 완료");
-        if (onDelete) onDelete();
-      } else if (type === "article") {
-        await deleteArticle(itemId);
-        alert("글 삭제 완료");
-        if (onDelete) onDelete();
-        router.push("/articles");
+      switch (type) {
+        case "product": {
+          await deleteProduct(itemId.toString());
+          alert("상품이 삭제되었습니다.");
+          router.push("/products");
+          break;
+        }
+        case "comment": {
+          await deleteComment(itemId);
+          alert("댓글 삭제 완료");
+          if (onDelete) onDelete();
+          break;
+        }
+        case "article": {
+          await deleteArticle(itemId);
+          alert("글 삭제 완료");
+          if (onDelete) onDelete();
+          router.push("/articles");
+          break;
+        }
+        default:
+          break;
       }
     } catch (error) {
-      console.error("삭제 실패:", error);
+      logger.error("삭제 실패:", error);
       const errorMessage =
         error instanceof Error ? error.message : "삭제에 실패했습니다.";
       alert(errorMessage);

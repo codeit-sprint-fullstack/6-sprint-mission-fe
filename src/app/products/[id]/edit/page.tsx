@@ -8,35 +8,17 @@ import FormInput from "@/components/FormInput";
 import FormTextarea from "@/components/FormTextarea";
 import TagInput from "@/components/TagInput";
 import ImageUploader from "@/components/ImageUploader";
-import { Product, UpdateProductInput } from "@/types/product";
+import {
+  TUpdateProductInput,
+  EditableProductFields,
+  UploadedImage,
+  EditProductFormState,
+} from "@/types/product";
 import { useAuth } from "@/context/AuthContext";
-
-type ProductId = string;
-type ImageUrl = string;
-type Tag = string;
-type Price = number;
-
-interface EditableProductFields {
-  name: string;
-  description: string;
-  price: Price;
-  tags: Tag[];
-  images: ImageUrl[];
-}
-
-interface UploadedImage {
-  file: File;
-  url: ImageUrl;
-}
-
-interface EditProductFormState extends EditableProductFields {
-  isValid: boolean;
-  isDirty: boolean;
-  sellerId?: number;
-}
+import { logger } from "@/utils/logger";
 
 export default function EditProductPage() {
-  const { id } = useParams<{ id: ProductId }>();
+  const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const { user } = useAuth();
 
@@ -81,7 +63,7 @@ export default function EditProductPage() {
 
         if (data.images && data.images.length > 0) {
           const existingImages = await Promise.all(
-            data.images.map(async (url: ImageUrl) => {
+            data.images.map(async (url: string) => {
               try {
                 const response = await fetch(url);
                 const blob = await response.blob();
@@ -91,7 +73,7 @@ export default function EditProductPage() {
                 });
                 return { file, url };
               } catch (error) {
-                console.error("이미지 변환 실패:", error);
+                logger.error("이미지 변환 실패", error);
                 const placeholderFile = new File([], "placeholder.jpg", {
                   type: "image/jpeg",
                 });
@@ -102,7 +84,7 @@ export default function EditProductPage() {
           setDisplayImages(existingImages);
         }
       } catch (err) {
-        console.error("상품 불러오기 실패:", err);
+        logger.error("상품 불러오기 실패", err);
         setError("상품을 불러오는데 실패했습니다.");
       } finally {
         setLoading(false);
@@ -165,7 +147,7 @@ export default function EditProductPage() {
         })),
       ]);
     } catch (error) {
-      console.error("이미지 업로드 실패:", error);
+      logger.error("이미지 업로드 실패", error);
       setError("이미지 업로드에 실패했습니다.");
     }
   };
@@ -191,7 +173,7 @@ export default function EditProductPage() {
     e.preventDefault();
     if (!id || !product.isValid) return;
 
-    const updateData: UpdateProductInput = {
+    const updateData: TUpdateProductInput = {
       name: product.name,
       description: product.description,
       price: product.price,
@@ -204,7 +186,7 @@ export default function EditProductPage() {
       alert("상품이 수정되었습니다!");
       router.push(`/products/${id}`);
     } catch (err) {
-      console.error("상품 수정 에러:", err);
+      logger.error("상품 수정 에러", err);
       setError("상품 수정에 실패했습니다.");
     }
   };
@@ -261,7 +243,7 @@ export default function EditProductPage() {
         <TagInput
           label="*태그"
           tags={product.tags}
-          setTags={(newTags: Tag[]) =>
+          setTags={(newTags: string[]) =>
             setProduct((prev) => ({
               ...prev,
               tags: newTags,

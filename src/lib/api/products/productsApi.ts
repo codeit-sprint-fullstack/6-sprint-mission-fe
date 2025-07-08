@@ -1,16 +1,18 @@
 // api/product.ts
 import {
-  Product,
-  CreateProductInput,
-  UpdateProductInput,
-  ProductsResponse,
-} from "@/types/product";
+  IProduct,
+  ICreateProductInput,
+  TUpdateProductInput,
+  IProductsResponse,
+  ApiResponse,
+} from "@/types";
 import { fetchWithRefresh } from "@/lib/api/auth/fetchWithRefresh";
+import { logger } from "@/utils/logger";
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL + "/api";
 
 // 유효성 검사 함수
-const validateProductData = (productData: CreateProductInput): boolean => {
+const validateProductData = (productData: ICreateProductInput): boolean => {
   if (
     !productData.name ||
     !productData.price ||
@@ -18,19 +20,28 @@ const validateProductData = (productData: CreateProductInput): boolean => {
     !productData.imageUrls ||
     productData.imageUrls.length === 0
   ) {
-    console.error(
-      "Missing required fields: name, price, tags, and at least one imageUrl are required."
+    logger.error(
+      "Missing required fields",
+      new Error(
+        "Missing required fields: name, price, tags, and at least one imageUrl are required."
+      )
     );
     return false;
   }
 
   if (isNaN(productData.price)) {
-    console.error("Price must be a valid number.");
+    logger.error(
+      "Price must be a valid number",
+      new Error("Price must be a valid number.")
+    );
     return false;
   }
 
   if (productData.imageUrls.length > 3) {
-    console.error("A maximum of 3 images can be uploaded.");
+    logger.error(
+      "A maximum of 3 images can be uploaded",
+      new Error("A maximum of 3 images can be uploaded.")
+    );
     return false;
   }
 
@@ -39,8 +50,8 @@ const validateProductData = (productData: CreateProductInput): boolean => {
 
 // 상품 생성
 export const createProduct = async (
-  productData: CreateProductInput
-): Promise<{ success: boolean; data?: Product; error?: string }> => {
+  productData: ICreateProductInput
+): Promise<ApiResponse<IProduct>> => {
   try {
     if (!validateProductData(productData)) {
       return { success: false, error: "Invalid product data." };
@@ -89,7 +100,7 @@ export const getProducts = async ({
   pageSize?: number;
   orderBy?: string;
   keyword?: string;
-}): Promise<ProductsResponse> => {
+}): Promise<IProductsResponse> => {
   try {
     const params = new URLSearchParams({
       page: page.toString(),
@@ -113,13 +124,13 @@ export const getProducts = async ({
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching products", error);
+    logger.error("Error fetching products", error);
     throw error;
   }
 };
 
 // 상품 상세 가져오기
-export const getProductById = async (id: number): Promise<Product> => {
+export const getProductById = async (id: number): Promise<IProduct> => {
   try {
     const response = await fetch(`${BASE_URL}/products/${id}`, {
       method: "GET",
@@ -133,10 +144,10 @@ export const getProductById = async (id: number): Promise<Product> => {
       throw new Error("Failed to fetch product details.");
     }
 
-    const data: Product = await response.json();
+    const data: IProduct = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching product details", error);
+    logger.error("Error fetching product details", error);
     throw error;
   }
 };
@@ -178,8 +189,8 @@ export const deleteProduct = async (
 // 상품 수정
 export const updateProduct = async (
   productId: string,
-  updatedData: UpdateProductInput
-): Promise<Product> => {
+  updatedData: TUpdateProductInput
+): Promise<IProduct> => {
   try {
     const response = await fetchWithRefresh(
       `${BASE_URL}/products/${productId}`,
@@ -200,7 +211,7 @@ export const updateProduct = async (
 
     return data;
   } catch (error) {
-    console.error("Error updating product", error);
+    logger.error("Error updating product", error);
     throw error;
   }
 };

@@ -1,75 +1,42 @@
-import { fetchWithRefresh } from "@/lib/api/auth/fetchWithRefresh";
+import {
+  IUser,
+  AuthResponse,
+  LoginInput,
+  SignupInput,
+  RefreshTokenResponse,
+} from "@/types";
+import { logger } from "@/utils/logger";
 
-interface User {
-  id: number;
-  email: string;
-  nickname: string;
-  image?: string | null;
-}
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-interface AuthResponse {
-  user: User;
-}
-
-interface LoginInput {
-  email: string;
-  password: string;
-}
-
-interface SignupInput extends LoginInput {
-  nickname: string;
-}
-
-const BASE_URL = "http://localhost:5000";
-
-// 토큰을 저장할 변수 - 초기값을 localStorage에서 가져옴
-let accessToken: string | null =
-  typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
-
+// localStorage 의존성 제거 - httpOnly 쿠키만 사용
 export const setAccessToken = (token: string | null) => {
-  try {
-    accessToken = token;
-
-    if (typeof window !== "undefined") {
-      if (token) {
-        localStorage.setItem("accessToken", token);
-        // 저장 확인
-        const stored = localStorage.getItem("accessToken");
-        if (stored !== token) {
-          console.error("Token storage verification failed");
-        }
-      } else {
-        localStorage.removeItem("accessToken");
-        console.log("Access token removed from storage");
-      }
-    }
-  } catch (error) {
-    console.error("Error setting access token:", error);
-    // 에러 발생 시 다시 한번 시도
-    if (typeof window !== "undefined" && token) {
-      try {
-        localStorage.setItem("accessToken", token);
-      } catch (retryError) {
-        console.error("Retry failed:", retryError);
-      }
-    }
-  }
+  // httpOnly 쿠키를 사용하므로 클라이언트에서는 토큰을 직접 관리하지 않음
 };
 
 export const getAccessToken = () => {
-  // 항상 최신 값을 보장하기 위해 localStorage에서 직접 가져옴
-  if (typeof window !== "undefined") {
-    return localStorage.getItem("accessToken");
-  }
+  // httpOnly 쿠키를 사용하므로 클라이언트에서는 토큰에 접근할 수 없음
   return null;
 };
 
 // 초기 토큰 확인
-export const checkInitialToken = async (): Promise<User | null> => {
+export const checkInitialToken = async (): Promise<IUser | null> => {
   try {
-    console.log("Checking initial token...");
+    // 먼저 현재 액세스 토큰으로 사용자 정보 확인 시도
+    const meResponse = await fetch(`${BASE_URL}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include",
+    });
 
-    // 항상 먼저 리프레시 토큰으로 새 액세스 토큰 발급 시도
+    if (meResponse.ok) {
+      const userData = await meResponse.json();
+      return userData.user || userData;
+    }
+
+    // 현재 토큰이 만료된 경우 리프레시 시도
     const refreshResponse = await fetch(`${BASE_URL}/users/refresh`, {
       method: "POST",
       credentials: "include",
@@ -80,38 +47,25 @@ export const checkInitialToken = async (): Promise<User | null> => {
     });
 
     if (refreshResponse.ok) {
-      const refreshResult = await refreshResponse.json();
-      console.log("Got new access token from refresh");
-      setAccessToken(refreshResult.accessToken);
-
       // 새로 받은 액세스 토큰으로 사용자 정보 확인
-      const meResponse = await fetch(`${BASE_URL}/users/me`, {
+      const meResponseAfterRefresh = await fetch(`${BASE_URL}/users/me`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${refreshResult.accessToken}`,
         },
         credentials: "include",
       });
 
-      if (meResponse.ok) {
-        console.log("User validation successful");
-        const userData = await meResponse.json();
-        return userData.user;
+      if (meResponseAfterRefresh.ok) {
+        const userData = await meResponseAfterRefresh.json();
+        return userData.user || userData;
       }
-    } else {
-      console.error("Refresh failed with status:", refreshResponse.status);
-      const errorData = await refreshResponse.json().catch(() => ({}));
-      console.error("Error details:", errorData);
     }
 
     // 리프레시 토큰이 없거나 만료된 경우
-    console.log("Token refresh failed");
-    setAccessToken(null);
     return null;
   } catch (error) {
-    console.error("Initial token check failed:", error);
-    setAccessToken(null);
+    logger.error("토큰 확인 중 오류", error);
     return null;
   }
 };
@@ -144,7 +98,7 @@ export const login = async (credentials: LoginInput): Promise<AuthResponse> => {
 
     return result;
   } catch (error) {
-    console.error("Login error:", error);
+    logger.error("로그인 오류", error);
     throw error;
   }
 };
@@ -174,7 +128,7 @@ export const signup = async (userData: SignupInput): Promise<AuthResponse> => {
 
     return result;
   } catch (error) {
-    console.error("Signup error:", error);
+    logger.error("회원가입 오류", error);
     throw error;
   }
 };
@@ -190,20 +144,14 @@ export const logout = async (): Promise<void> => {
     });
 
     if (!response.ok) {
-      console.error("Logout failed with status:", response.status);
+      logger.error("로그아웃 실패", new Error(`Status: ${response.status}`));
     }
-
-    // 로컬 스토리지의 액세스 토큰 제거
-    setAccessToken(null);
   } catch (error) {
-    console.error("Logout error:", error);
-  } finally {
-    // 에러가 발생하더라도 로컬의 토큰은 항상 제거
-    setAccessToken(null);
+    logger.error("로그아웃 오류", error);
   }
 };
 
-export const getCurrentUser = async (): Promise<User | null> => {
+export const getCurrentUser = async (): Promise<IUser | null> => {
   try {
     const response = await fetch(`${BASE_URL}/users/me`, {
       headers: {
@@ -214,22 +162,16 @@ export const getCurrentUser = async (): Promise<User | null> => {
 
     if (!response.ok) {
       if (response.status === 401) {
-        console.log("[getCurrentUser] Token expired, attempting to refresh...");
         try {
           const refreshResponse = await fetch(`${BASE_URL}/users/refresh`, {
             method: "POST",
             credentials: "include",
           });
 
-          console.log(
-            "[getCurrentUser] Refresh response status:",
-            refreshResponse.status
-          );
-
           if (!refreshResponse.ok) {
-            console.error(
-              "[getCurrentUser] Token refresh failed:",
-              refreshResponse.status
+            logger.error(
+              "토큰 갱신 실패",
+              new Error(`Status: ${refreshResponse.status}`)
             );
             return null;
           }
@@ -242,42 +184,37 @@ export const getCurrentUser = async (): Promise<User | null> => {
             credentials: "include",
           });
 
-          console.log(
-            "[getCurrentUser] Retry response status:",
-            retryResponse.status
-          );
-
           if (!retryResponse.ok) {
-            console.error(
-              "[getCurrentUser] Failed to get user info after refresh:",
-              retryResponse.status
+            logger.error(
+              "갱신 후 사용자 정보 조회 실패",
+              new Error(`Status: ${retryResponse.status}`)
             );
             return null;
           }
 
           const retryData = await retryResponse.json();
-          return retryData;
+          return retryData.user || retryData;
         } catch (refreshError) {
-          console.error("[getCurrentUser] Refresh failed:", refreshError);
+          logger.error("토큰 갱신 중 오류", refreshError);
           return null;
         }
       }
-      console.error(
-        "[getCurrentUser] Failed to get user info:",
-        response.status
+      logger.error(
+        "사용자 정보 조회 실패",
+        new Error(`Status: ${response.status}`)
       );
       return null;
     }
 
     const result = await response.json();
-    return result;
+    return result.user || result;
   } catch (error) {
-    console.error("[getCurrentUser] Error:", error);
+    logger.error("사용자 정보 조회 중 오류", error);
     return null;
   }
 };
 
-export const refreshToken = async (): Promise<{ accessToken: string }> => {
+export const refreshToken = async (): Promise<RefreshTokenResponse> => {
   const response = await fetch(`${BASE_URL}/users/refresh`, {
     method: "POST",
     credentials: "include",
@@ -288,15 +225,18 @@ export const refreshToken = async (): Promise<{ accessToken: string }> => {
   });
 
   if (!response.ok) {
-    console.error("Refresh failed with status:", response.status);
     const errorData = await response.json().catch(() => ({}));
-    console.error("Error details:", errorData);
+    logger.error(
+      "토큰 갱신 실패",
+      new Error(
+        `Status: ${response.status}, Details: ${JSON.stringify(errorData)}`
+      )
+    );
     throw new Error("Token refresh failed");
   }
 
   const result = await response.json();
 
-  // 새로운 토큰 저장
-  setAccessToken(result.accessToken);
-  return { accessToken: result.accessToken };
+  // httpOnly 쿠키로 관리되므로 클라이언트에서 토큰 저장하지 않음
+  return { accessToken: "managed-by-httponly-cookies" };
 };
