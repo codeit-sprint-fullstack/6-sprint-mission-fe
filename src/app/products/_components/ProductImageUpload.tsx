@@ -52,11 +52,14 @@ export default function ProductImageUpload({
         {body.images.length !== 0 &&
           body.images.map((image, i) => (
             <div className="relative" key={`${i}_${image}`}>
-              <Image
-                src={!!image.url ? image.url : img_default_product}
-                alt="이미지 미리보기"
-                className="object-cover rounded-[12px] min-w-[168px] min-h-[168px] max-w-[168px] max-h-[168px] md:min-w-[282px] md:min-h-[282px]"
-              />
+              <div className="relative min-w-[168px] min-h-[168px] max-w-[168px] max-h-[168px] md:min-w-[282px] md:min-h-[282px]">
+                <Image
+                  src={!!image.url ? image.url : img_default_product}
+                  alt="이미지 미리보기"
+                  fill
+                  className="object-cover rounded-[12px]"
+                />
+              </div>
               <button
                 onClick={(e) => {
                   e.preventDefault();
